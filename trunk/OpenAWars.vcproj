@@ -64,6 +64,7 @@
 				AdditionalDependencies="SDLmain.lib SDL.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
+				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -117,11 +118,12 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -135,7 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="SDLmain.lib SDL.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -192,6 +196,22 @@
 					Name="ResourcesManager"
 					>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Utils"
+				>
+				<File
+					RelativePath=".\Sources\Utils\Logger.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Logger.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Logger_template.hpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

@@ -1,5 +1,5 @@
-#ifndef __WINDOW_H__
-#define __WINDOW_H__
+#ifndef __LOGGER_H__
+#define __LOGGER_H__
 
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -23,43 +23,44 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <SDL/SDL.h>
+#include <iostream>
 
-#include <vector>
-
-typedef struct ResolutionInfo
+typedef enum LMessageType
 {
-	int w;
-	int h;
-	int bpp;
+	LMT_Debug,
+	LMT_Warning,
+	LMT_Error
+}LMessageType;
 
-	ResolutionInfo():w(0),h(0),bpp(0) {}
-	ResolutionInfo(const int w, const int h, const int bpp):w(w),h(h),bpp(bpp) {}
-}ResolutionInfo;
-
-class Window
+// This class is a Singleton
+class Logger
 {
 private:
-	const SDL_VideoInfo* pVideoInfo;
-	SDL_Surface* pWindowSurface;
+	static Logger* pInstance;
+	// Keep the type of the message when the user wants to log something
+	static LMessageType m_messageType;
 
-	bool isFullscreen;
-	bool isOpenGL;
+	// The developper can't create the class himself
+	Logger(void) {};
+	~Logger(void) {};
 
-	Uint32 getFlags(const bool isFullscreen, const bool isOpenGL)const;
+	// Avoid the copy
+	Logger(const Logger&);
+	void operator= (const Logger&);
 
 public:
-	Window();
-	~Window();
 
-	bool openWindow(const unsigned int width, const unsigned int height, const unsigned short int bpp, const bool isFullscreen, const bool isOpenGL);
-	bool changeResolution(const unsigned int width, const unsigned int height, const unsigned short int bpp, const bool isFullscreen, const bool isOpenGL);
+	static Logger* getLogger(const LMessageType messageType);
+	static void deleteLogger(void);
 
-	void getResolutionsAvailable(const bool isOpenGL, std::vector<ResolutionInfo>& riList)const;
-
-	int getHeight(void)const;
-	int getWidth(void)const;
-	int getBitsPerPixel(void)const;
+	template <class T>
+	Logger& operator<< (const T& message);
 };
+
+#include "Logger_template.hpp"
+
+#define LDebug (*Logger::getLogger(LMT_Debug))
+#define LWarning (*Logger::getLogger(LMT_Warning))
+#define LError (*Logger::getLogger(LMT_Error))
 
 #endif

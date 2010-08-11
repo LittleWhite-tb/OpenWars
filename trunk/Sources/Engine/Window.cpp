@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-website: 
+website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
@@ -24,8 +24,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-#include <iostream>
 #include <cassert>
+
+#include "../Utils/Logger.h"
 
 Window :: Window()
 	:pWindowSurface(NULL),isFullscreen(false),isOpenGL(false)
@@ -33,9 +34,9 @@ Window :: Window()
 	pVideoInfo = SDL_GetVideoInfo();
 	// The documentation does not descrive a case of this function returning NULL pointer
 
-	std::cout << "Hardware surface: " << pVideoInfo->hw_available << std::endl;
-	std::cout << "Window manager: " << pVideoInfo->wm_available << std::endl;
-	std::cout << "Window created" << std::endl;
+	LDebug << "Hardware surface: " << pVideoInfo->hw_available;
+	LDebug << "Window manager: " << pVideoInfo->wm_available;
+	LDebug << "Window created";
 }
 
 Window :: ~Window()
@@ -44,14 +45,14 @@ Window :: ~Window()
 
 	// pVideoInfo doesn't have to be deleted because it's a read only pointer.
 
-	std::cout << "Window deleted";
+	LDebug << "Window deleted";
 }
 
 Uint32 Window :: getFlags(const bool isFullscreen, const bool isOpenGL)const
 {
 	Uint32 sdlVideoFlags = SDL_DOUBLEBUF | SDL_ANYFORMAT;
 
-	std::cout << "Window :: getFlags (" << isFullscreen << ";" << isOpenGL << ")" << std::endl;
+	LDebug << "Window :: getFlags (" << isFullscreen << ";" << isOpenGL << ")";
 
 	if ( pVideoInfo->hw_available ) // is Hardware surface possible?
 	{
@@ -88,7 +89,7 @@ bool Window :: openWindow(const unsigned int width, const unsigned int height, c
 {
 	Uint32 sdlVideoFlags = this->getFlags(isFullscreen,isOpenGL);
 
-	std::cout << "Window :: openWindow (" << width << ";" << height << "x" << bpp << "|" << isFullscreen << "|" << isOpenGL << ")" << std::endl;
+	LDebug << "Window :: openWindow (" << width << ";" << height << "x" << bpp << "|" << isFullscreen << "|" << isOpenGL << ")";
 
 	pWindowSurface = SDL_SetVideoMode(width,height,bpp,sdlVideoFlags);
 
@@ -104,13 +105,13 @@ bool Window :: openWindow(const unsigned int width, const unsigned int height, c
 		}
 		this->isOpenGL = isOpenGL;
 
-		std::cout << "Obtained: " << this->getWidth() << "x" << this->getHeight() << "x" << this->getBitsPerPixel() << " (Fullscreen: " << this->isFullscreen << ")" << std::endl;
+		LDebug << "Obtained: " << this->getWidth() << "x" << this->getHeight() << "x" << this->getBitsPerPixel() << " (Fullscreen: " << this->isFullscreen << ")";
 
 		return true;
 	}
 	else
 	{
-		std::cerr << "Error while opening the window" << std::endl;
+		LError << "Error while opening the window";
 		return false;
 	}
 }
@@ -119,7 +120,7 @@ bool Window :: changeResolution(const unsigned int width, const unsigned int hei
 {
 	bool error = true;
 
-	std::cout << "Window :: changeResolution (" << width << ";" << height << "x" << bpp << "|" << isFullscreen << "|" << isOpenGL << ")" << std::endl;
+	LDebug << "Window :: changeResolution (" << width << ";" << height << "x" << bpp << "|" << isFullscreen << "|" << isOpenGL << ")";
 
 	// From the SDL documentation for the SDL_SetVideoMode():
 	/*
@@ -129,7 +130,7 @@ bool Window :: changeResolution(const unsigned int width, const unsigned int hei
 	SDL_Quit();
 	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
 	{
-		std::cerr << "Error while reopening SDL" << std::endl;
+		LError << "Error while reopening SDL";
 		return false;
 	}
 
@@ -143,7 +144,7 @@ void Window :: getResolutionsAvailable(const bool isOpenGL, std::vector<Resoluti
 	Uint32 flags = this->getFlags(true,isOpenGL);
 	int bpp = 0;
 
-	std::cout << "Window :: getResolutionsAvailable (" << isOpenGL << ")" << std::endl;
+	LDebug << "Window :: getResolutionsAvailable (" << isOpenGL << ")";
 
 	for ( unsigned int w = 2 ; w <= 1280 ; w+=2 )
 		for ( unsigned int h = 2 ; h <= 768 ; h+=2 )
@@ -152,7 +153,7 @@ void Window :: getResolutionsAvailable(const bool isOpenGL, std::vector<Resoluti
 			{
 				ResolutionInfo ri(w,h,bpp);
 
-				std::cout << "Test (" << w << "x" << h << "x" << bpp << ") Passed" << std::endl;
+				LDebug << "\t\tTest (" << w << "x" << h << "x" << bpp << ") Passed";
 
 				riList.push_back(ri);
 			}
@@ -165,7 +166,7 @@ int Window :: getHeight(void)const
 
 	int height = pWindowSurface->h;
 
-	std::cout << "Window :: getHeight (" << height << ")" << std::endl;
+	LDebug << "Window :: getHeight (" << height << ")";
 
 	return height;
 }
@@ -176,7 +177,7 @@ int Window :: getWidth(void)const
 
 	int width = pWindowSurface->w;
 
-	std::cout << "Window :: getWidth (" << width << ")" << std::endl;
+	LDebug << "Window :: getWidth (" << width << ")";
 
 	return width;
 }
@@ -187,7 +188,7 @@ int Window :: getBitsPerPixel(void)const
 
 	int bpp = pWindowSurface->format->BitsPerPixel;
 
-	std::cout << "Window :: getBitsPerPixel (" << bpp << ")" << std::endl;
+	LDebug << "Window :: getBitsPerPixel (" << bpp << ")";
 
 	return bpp;
 }

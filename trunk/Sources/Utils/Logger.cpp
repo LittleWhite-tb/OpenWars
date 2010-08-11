@@ -20,49 +20,51 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+#include "Logger.h"
 
-#include <SDL/SDL.h>
+#define NULL	0
 
-#include "Engine/Window.h"
+Logger* Logger::pInstance = NULL;
+LMessageType Logger::m_messageType = LMT_Debug;
 
-#include "Utils/Logger.h"
-
-int main(int argc, char** argv)
+Logger* Logger :: getLogger(const LMessageType messageType)
 {
-	(void)argc;
-	(void)argv;
-
-	// Starting SDL
-	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
+	// Check if we exist
+	if ( pInstance == NULL )
 	{
-		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
-		return 1;
+		// Birthday!
+		pInstance = new Logger();
 	}
 
+#if defined(_DEBUG)
+	m_messageType = messageType;
+
+	// To have some newline in the logs
+
+	switch (messageType)
 	{
-		Window win;
-		std::vector<ResolutionInfo> riList;
-
-		win.getResolutionsAvailable(false,riList);
-
-		// Window test
-		win.openWindow(640,480,32,false,false);
-		SDL_Delay(1000);
-		win.changeResolution(800,600,32,false,true);
-		SDL_Delay(1000);
-		win.changeResolution(640,480,32,true,false);
-		SDL_Delay(1000);
-		win.changeResolution(800,600,32,true,true);
-		SDL_Delay(1000);
-		win.changeResolution(812,200,32,true,false);
-		SDL_Delay(1000);
+		case LMT_Debug:
+			std::cout << std::endl;
+			break;
+		case LMT_Warning:
+			std::cout << std::endl;
+			break;
+		case LMT_Error:
+			std::cerr << std::endl;
+			break;
 	}
+#else
+	// Remove some warnings for unused parameter
+	(void)messageType;
+#endif
 
-	// Bye bye SDL
-	SDL_Quit();
+	return pInstance;
+}
 
-	Logger::deleteLogger();
-
-	return 0;
+void Logger :: deleteLogger(void)
+{
+	// Kill itself
+	delete pInstance;
+	// Very important, otherwise we will crash after reusing the class
+	pInstance = NULL;
 }
