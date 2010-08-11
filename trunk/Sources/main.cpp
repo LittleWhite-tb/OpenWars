@@ -1,5 +1,5 @@
 /**
-OpenWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
+OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
@@ -28,8 +28,6 @@ e-mail: lw.demoscene@gmail.com
 
 int main(int argc, char** argv)
 {
-	Window win;
-
 	(void)argc;
 	(void)argv;
 
@@ -40,11 +38,24 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	// Window test
-	win.openWindow(640,480,32,false);
-	SDL_Delay(3000);
-	win.changeResolution(800,600,32,false);
-	SDL_Delay(3000);
+	{
+		Window win;
+		std::vector<ResolutionInfo> riList;
+
+		win.getResolutionsAvailable(false,riList);
+
+		// Window test
+		win.openWindow(640,480,32,false,false);
+		SDL_Delay(1000);
+		win.changeResolution(800,600,32,false,true);
+		SDL_Delay(1000);
+		win.changeResolution(640,480,32,true,false);
+		SDL_Delay(1000);
+		win.changeResolution(800,600,32,true,true);
+		SDL_Delay(1000);
+		win.changeResolution(812,200,32,true,false);
+		SDL_Delay(1000);
+	}
 
 	// Bye bye SDL
 	SDL_Quit();
