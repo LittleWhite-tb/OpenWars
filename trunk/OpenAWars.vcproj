@@ -185,6 +185,22 @@
 				Name="Engine"
 				>
 				<File
+					RelativePath=".\Sources\Engine\Renderer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Engine\Renderer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Engine\Sprite.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Engine\Sprite.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Engine\Window.cpp"
 					>
 				</File>
@@ -195,6 +211,26 @@
 				<Filter
 					Name="ResourcesManager"
 					>
+				</Filter>
+				<Filter
+					Name="Renderers"
+					>
+					<File
+						RelativePath=".\Sources\Engine\Renderers\Renderer_opengl.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Engine\Renderers\Renderer_opengl.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Engine\Renderers\Renderer_sdl.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Engine\Renderers\Renderer_sdl.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter

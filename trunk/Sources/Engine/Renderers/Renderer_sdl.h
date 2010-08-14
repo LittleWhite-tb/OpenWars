@@ -1,3 +1,6 @@
+#ifndef __RENDERER_SDL_H__
+#define __RENDERER_SDL_H__
+
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -20,54 +23,26 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+#include "../Renderer.h"
 
-#include <SDL/SDL.h>
+struct SDL_Surface;
+struct SDL_Colour;
+struct SDL_Rect;
+class Window;
+class Sprite;
 
-#include "Engine/Window.h"
-#include "Engine/Renderer.h"
-
-#include "Utils/Logger.h"
-
-int main(int argc, char** argv)
+class RSDL : public Renderer
 {
-	(void)argc;
-	(void)argv;
+private:
 
-	// Starting SDL
-	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
-	{
-		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
-		return 1;
-	}
+public:
+	RSDL(void);
+	~RSDL(void);
 
-	{
-		Window win;
-		Renderer* r = RendererFactory(RAPI_SDL);
+	bool clearScreen(Window& window);
+	bool drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour);
+	bool drawTile(Window& window, Sprite& sprite, const SDL_Rect& pos);
+	bool drawBackground(Window& window, SDL_Surface* const pImage);
+};
 
-		SDL_Rect rect = { 64, 64, 128, 128 };
-		SDL_Color col = { 255, 0, 0, 128 };
-
-		std::vector<ResolutionInfo> riList;
-
-		win.getResolutionsAvailable(false,riList);
-		win.setCaption("Hello SDL","");
-		win.showCursor(false);
-
-		// Window test
-		win.openWindow(640,480,32,false,false);
-		r->clearScreen(win);
-		r->drawTile(win,rect,col);
-		SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-		SDL_Delay(5000);
-
-		delete r;
-	}
-
-	// Bye bye SDL
-	SDL_Quit();
-
-	Logger::deleteLogger();
-
-	return 0;
-}
+#endif

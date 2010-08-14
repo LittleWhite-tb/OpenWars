@@ -20,54 +20,24 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+#include "Renderer.h"
 
-#include <SDL/SDL.h>
+#include "Renderers/Renderer_opengl.h"
+#include "Renderers/Renderer_sdl.h"
 
-#include "Engine/Window.h"
-#include "Engine/Renderer.h"
+#define NULL 0
 
-#include "Utils/Logger.h"
-
-int main(int argc, char** argv)
+Renderer* RendererFactory(const RenderingAPI renderingAPI)
 {
-	(void)argc;
-	(void)argv;
-
-	// Starting SDL
-	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
+	switch (renderingAPI)
 	{
-		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
-		return 1;
+		case RAPI_SDL:
+			return new RSDL();
+			break;
+		case RAPI_OpenGL:
+			return new ROpenGL();
+			break;
 	}
 
-	{
-		Window win;
-		Renderer* r = RendererFactory(RAPI_SDL);
-
-		SDL_Rect rect = { 64, 64, 128, 128 };
-		SDL_Color col = { 255, 0, 0, 128 };
-
-		std::vector<ResolutionInfo> riList;
-
-		win.getResolutionsAvailable(false,riList);
-		win.setCaption("Hello SDL","");
-		win.showCursor(false);
-
-		// Window test
-		win.openWindow(640,480,32,false,false);
-		r->clearScreen(win);
-		r->drawTile(win,rect,col);
-		SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-		SDL_Delay(5000);
-
-		delete r;
-	}
-
-	// Bye bye SDL
-	SDL_Quit();
-
-	Logger::deleteLogger();
-
-	return 0;
+	return NULL;
 }

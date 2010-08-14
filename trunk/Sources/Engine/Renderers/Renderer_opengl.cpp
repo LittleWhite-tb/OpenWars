@@ -1,0 +1,78 @@
+/**
+OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
+Copyright (C) 2010  Alexandre LAURENT
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+website: http://code.google.com/p/openawars/
+e-mail: lw.demoscene@gmail.com
+**/
+
+#include "Renderer_opengl.h"
+
+//#include <GL/gl.h>
+#include <SDL/sdl.h>
+
+#include <cassert>
+
+#include "../Window.h"
+#include "../Sprite.h"
+
+#include "../../Utils/Logger.h"
+
+ROpenGL :: ROpenGL(void)
+	:Renderer(RAPI_OpenGL)
+{
+	LDebug << "ROpenGL created";
+
+	// Need some init
+}
+
+ROpenGL :: ~ROpenGL(void)
+{
+	LDebug << "ROpenGL deleted";
+}
+
+bool ROpenGL :: clearScreen(Window& window)
+{
+	LDebug << "ROpenGL :: clearScreen";
+
+	return true;
+}
+
+bool ROpenGL :: drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour)
+{
+	LDebug << "RSDL :: drawTile from colour (pos: " << tile.x << "x" << tile.y << " size: " << tile.w << "x" << tile.h << " colour: " << static_cast<int>(colour.r) << "," <<  static_cast<int>(colour.g) << "," << static_cast<int>(colour.b) << "," << static_cast<int>(colour.unused);
+
+	return true;
+}
+
+bool ROpenGL :: drawTile(Window& window, Sprite& sprite, const SDL_Rect& pos)
+{
+	LDebug << "ROpenGL :: drawTile from Sprite @ " << pos.x << ";" << pos.y;
+
+	return true;
+}
+
+bool ROpenGL :: drawBackground(Window& window, SDL_Surface* const pImage)
+{
+	assert(pImage);
+
+	(void)window;
+
+	LDebug << "ROpenGL :: drawBackground";
+
+	return true;
+}

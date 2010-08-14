@@ -20,54 +20,34 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+#include "Sprite.h"
 
 #include <SDL/SDL.h>
 
-#include "Engine/Window.h"
-#include "Engine/Renderer.h"
+#include <string>
 
-#include "Utils/Logger.h"
+#include "../Utils/Logger.h"
 
-int main(int argc, char** argv)
+Sprite :: Sprite(const std::string fileName)
 {
-	(void)argc;
-	(void)argv;
+	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
+}
 
-	// Starting SDL
-	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
-	{
-		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
-		return 1;
-	}
+Sprite :: ~Sprite(void)
+{
+	LDebug << "Sprite deleted";
+}
 
-	{
-		Window win;
-		Renderer* r = RendererFactory(RAPI_SDL);
+const int Sprite :: getWidth(void)
+{
+	LDebug << "Sprite :: getWidth (" << this->sprite->w << ")";
 
-		SDL_Rect rect = { 64, 64, 128, 128 };
-		SDL_Color col = { 255, 0, 0, 128 };
+	return this->sprite->w;
+}
 
-		std::vector<ResolutionInfo> riList;
+const int Sprite :: getHeight(void)
+{
+	LDebug << "Sprite :: getHeight (" << this->sprite->h << ")";
 
-		win.getResolutionsAvailable(false,riList);
-		win.setCaption("Hello SDL","");
-		win.showCursor(false);
-
-		// Window test
-		win.openWindow(640,480,32,false,false);
-		r->clearScreen(win);
-		r->drawTile(win,rect,col);
-		SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-		SDL_Delay(5000);
-
-		delete r;
-	}
-
-	// Bye bye SDL
-	SDL_Quit();
-
-	Logger::deleteLogger();
-
-	return 0;
+	return this->sprite->h;
 }

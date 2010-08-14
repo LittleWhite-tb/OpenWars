@@ -192,3 +192,45 @@ int Window :: getBitsPerPixel(void)const
 
 	return bpp;
 }
+
+bool Window :: isCursorVisible(void)const
+{
+	bool cursorState = false;
+
+	if ( SDL_ShowCursor(SDL_QUERY) == SDL_ENABLE )
+	{
+		cursorState = true;
+	}
+	else
+	{
+		cursorState = false;
+	}
+
+	LDebug << "Window :: isCursorVisible (" << cursorState << ")";
+
+	return cursorState;
+}
+
+void Window :: showCursor(bool isShowed)const
+{
+	LDebug << "Window :: showCursor (" << isShowed << ")";
+
+	if ( isShowed )
+	{
+		SDL_ShowCursor(SDL_ENABLE);
+	}
+	else
+	{
+		SDL_ShowCursor(SDL_DISABLE);
+	}
+}
+
+void Window :: setCaption(const std::string& windowName, const std::string& iconName)
+{
+	LDebug << "Window :: setName (" << windowName.c_str() << " ; " << iconName.c_str() << ")";
+
+	if ( this->pVideoInfo->wm_available )
+	{
+		SDL_WM_SetCaption(windowName.c_str(), iconName.c_str());
+	}
+}

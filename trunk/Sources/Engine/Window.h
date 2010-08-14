@@ -57,9 +57,15 @@ public:
 
 	void getResolutionsAvailable(const bool isOpenGL, std::vector<ResolutionInfo>& riList)const;
 
+	SDL_Surface* const getWindowSurface(void) { return pWindowSurface; }
 	int getHeight(void)const;
 	int getWidth(void)const;
 	int getBitsPerPixel(void)const;
+
+	bool isCursorVisible(void)const;
+	void showCursor(bool isShowed)const;
+
+	void setCaption(const std::string& windowName, const std::string& iconName);
 };
 
 #endif

@@ -33,7 +33,7 @@ Logger& Logger :: operator<< (const T& message)
 	switch(this->m_messageType)
 	{
 		case LMT_Debug:
-			std::cout  << message;
+			std::cout << message;
 			break;
 		case LMT_Warning:
 #if defined(linux) || defined(__linux) || defined(__linux__)
@@ -64,5 +64,4 @@ Logger& Logger :: operator<< (const T& message)
 	(void)message;
 #endif
 	return *pInstance;
-
 }
