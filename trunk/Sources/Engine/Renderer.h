@@ -31,6 +31,9 @@ struct SDL_Colour;
 
 class Window;
 class Sprite;
+class AnimatedSprite;
+
+#include "../Types/Vec2.h"
 
 typedef enum RenderingAPI
 {
@@ -51,7 +54,9 @@ public:
 
 	virtual bool clearScreen(Window& window)=0;
 	virtual bool drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour)=0;
-	virtual bool drawTile(Window& window, Sprite& sprite, const SDL_Rect& pos)=0;
+	virtual bool drawTile(Window& window, Sprite& sprite, const IVec2& pos)=0;
+	virtual bool drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)=0;
+	virtual bool drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)=0;
 	virtual bool drawBackground(Window& window, SDL_Surface* const pImage)=0;
 	
 	const RenderingAPI getAPI(void)const { return rAPI; }

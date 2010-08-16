@@ -28,19 +28,24 @@ e-mail: lw.demoscene@gmail.com
 struct SDL_Surface;
 struct SDL_Color;
 
+class SpriteManager;
+
 class Sprite
 {
 private:
 
 protected:
-	SDL_Surface* sprite;
+	
+	SDL_Surface* surface;
 
 public:
-	Sprite(const std::string fileName);
-	~Sprite(void);
+	Sprite(SpriteManager& sm, const std::string& fileName);
+	virtual ~Sprite(void);
 
-	const int getWidth(void);
-	const int getHeight(void);
+	virtual const int getWidth(void)const;
+	virtual const int getHeight(void)const;
+
+	SDL_Surface* getSurface(void) { return surface; }
 };
 
 #endif

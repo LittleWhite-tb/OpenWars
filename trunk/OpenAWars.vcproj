@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDLmain.lib SDL.lib"
+				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				IgnoreAllDefaultLibraries="false"
@@ -185,6 +185,14 @@
 				Name="Engine"
 				>
 				<File
+					RelativePath=".\Sources\Engine\AnimatedSprite.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Engine\AnimatedSprite.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Engine\Renderer.cpp"
 					>
 				</File>
@@ -211,6 +219,14 @@
 				<Filter
 					Name="ResourcesManager"
 					>
+					<File
+						RelativePath=".\Sources\Engine\ResourcesManager\SpriteManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Engine\ResourcesManager\SpriteManager.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Renderers"
@@ -246,6 +262,14 @@
 				</File>
 				<File
 					RelativePath=".\Sources\Utils\Logger_template.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Types"
+				>
+				<File
+					RelativePath=".\Sources\Types\Vec2.h"
 					>
 				</File>
 			</Filter>

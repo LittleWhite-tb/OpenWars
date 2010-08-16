@@ -28,8 +28,10 @@ e-mail: lw.demoscene@gmail.com
 struct SDL_Surface;
 struct SDL_Colour;
 struct SDL_Rect;
+
 class Window;
 class Sprite;
+class AnimatedSprite;
 
 class RSDL : public Renderer
 {
@@ -41,7 +43,9 @@ public:
 
 	bool clearScreen(Window& window);
 	bool drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour);
-	bool drawTile(Window& window, Sprite& sprite, const SDL_Rect& pos);
+	bool drawTile(Window& window, Sprite& sprite, const IVec2& pos);
+	bool drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos);
+	bool drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time);
 	bool drawBackground(Window& window, SDL_Surface* const pImage);
 };
 

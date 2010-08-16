@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Window.h"
 #include "../Sprite.h"
+#include "../AnimatedSprite.h"
 
 #include "../../Utils/Logger.h"
 
@@ -59,9 +60,23 @@ bool ROpenGL :: drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour
 	return true;
 }
 
-bool ROpenGL :: drawTile(Window& window, Sprite& sprite, const SDL_Rect& pos)
+bool ROpenGL :: drawTile(Window& window, Sprite& sprite, const IVec2& pos)
 {
-	LDebug << "ROpenGL :: drawTile from Sprite @ " << pos.x << ";" << pos.y;
+	LDebug << "ROpenGL :: drawTile from Sprite @ " << pos;
+
+	return true;
+}
+
+bool ROpenGL :: drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)
+{
+	LDebug << "ROpenGL :: drawTile from Sprite (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ") @ " << pos;
+
+	return true;
+}
+
+bool ROpenGL :: drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)
+{
+	LDebug << "ROpenGL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
 
 	return true;
 }

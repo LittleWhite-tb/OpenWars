@@ -23,14 +23,27 @@ e-mail: lw.demoscene@gmail.com
 #include "Sprite.h"
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 #include <string>
 
+#include <cassert>
+
+#include "ResourcesManager/SpriteManager.h"
+
 #include "../Utils/Logger.h"
 
-Sprite :: Sprite(const std::string fileName)
+Sprite :: Sprite(SpriteManager& sm, const std::string& fileName)
 {
+	surface = sm.getSurface(fileName);
+
 	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
+	
+	// Enable some RLE acceleration
+	if ( SDL_SetColorKey(surface, SDL_RLEACCEL, surface->format->colorkey) == -1 )
+	{
+		LWarning << "Fail to activate the RLE acceleration for '" << fileName.c_str() << "'";
+	}
 }
 
 Sprite :: ~Sprite(void)
@@ -38,16 +51,20 @@ Sprite :: ~Sprite(void)
 	LDebug << "Sprite deleted";
 }
 
-const int Sprite :: getWidth(void)
+const int Sprite :: getWidth(void)const
 {
-	LDebug << "Sprite :: getWidth (" << this->sprite->w << ")";
+	assert(surface);
 
-	return this->sprite->w;
+	LDebug << "Sprite :: getWidth (" << this->surface->w << ")";
+
+	return this->surface->w;
 }
 
-const int Sprite :: getHeight(void)
+const int Sprite :: getHeight(void)const
 {
-	LDebug << "Sprite :: getHeight (" << this->sprite->h << ")";
+	assert(surface);
 
-	return this->sprite->h;
+	LDebug << "Sprite :: getHeight (" << this->surface->h << ")";
+
+	return this->surface->h;
 }
