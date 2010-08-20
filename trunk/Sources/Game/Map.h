@@ -1,5 +1,5 @@
-#ifndef __VEC2_H__
-#define __VEC2_H__
+#ifndef __MAP_H__
+#define __MAP_H__
 
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -23,26 +23,33 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+#include <string>
 
-template <typename T>
-struct Vec2
+#include "Tile.h"
+
+class Window;
+class Renderer;
+
+class Map
 {
-	T x;
-	T y;
+private:
 
-	Vec2(void):x(0),y(0) {}
-	Vec2(const T& x, const T& y):x(x),y(y) {}
+	unsigned int width;
+	unsigned int height;
+
+	Tile*** map;
+
+	bool valid;
+
+	bool parser(SpriteManager& sm, const std::string& fileName);
+
+public:
+	Map(SpriteManager& sm, const std::string& fileName);
+	~Map(void);
+
+	bool draw(Window& win, Renderer& r, const unsigned int time);
+
+	bool isValidMap(void) { return valid; }
 };
-
-template <typename T>
-std::ostream& operator<< (std::ostream& o, const Vec2<T> v)
-{
-	o << "Vec2(" << v.x << ";" << v.y << ")";
-
-	return o;
-}
-
-typedef Vec2<int> IVec2;
 
 #endif

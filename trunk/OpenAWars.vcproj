@@ -178,6 +178,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Sources\globals.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Sources\main.cpp"
 				>
 			</File>
@@ -270,6 +274,26 @@
 				>
 				<File
 					RelativePath=".\Sources\Types\Vec2.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Game"
+				>
+				<File
+					RelativePath=".\Sources\Game\Map.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Tile.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Tile.h"
 					>
 				</File>
 			</Filter>

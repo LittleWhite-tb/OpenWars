@@ -111,8 +111,6 @@ bool RSDL :: drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos,
 		LWarning << "Fail to blit the surface";
 		return false;
 	}
-
-	return true;
 }
 
 bool RSDL :: drawBackground(Window& window, SDL_Surface* const pImage)

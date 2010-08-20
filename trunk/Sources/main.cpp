@@ -20,7 +20,7 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+#include <string>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -28,16 +28,23 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Window.h"
 #include "Engine/Renderer.h"
 #include "Engine/ResourcesManager/SpriteManager.h"
+#include "Engine/AnimatedSprite.h"
 #include "Engine/Sprite.h"
+
+#include "Game/Map.h"
 
 #include "Types/Vec2.h"
 
 #include "Utils/Logger.h"
 
+#include "globals.h"
+
 int main(int argc, char** argv)
 {
 	(void)argc;
 	(void)argv;
+
+	Uint32 startTime = 0;
 
 	// Starting SDL
 	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
@@ -60,12 +67,8 @@ int main(int argc, char** argv)
 		else
 		{
 			SpriteManager sm;
-
-			SDL_Rect rect = { 64, 64, 128, 128 };
-			IVec2 iv2(256,256);
-			SDL_Color col = { 255, 0, 0, 128 };
-			Sprite s(sm,"./data/sprite.png");
-			Sprite s2(sm,"./data/sprite.png");
+			AnimatedSprite as(sm,"./data/asprite.png",32,32,1500);
+			Map m(sm,MAP_PATH + std::string("m1.txt"));
 
 			std::vector<ResolutionInfo> riList;
 
@@ -75,9 +78,21 @@ int main(int argc, char** argv)
 
 			// Window test
 			win.openWindow(640,480,32,false,false);
+
 			r->clearScreen(win);
-			r->drawTile(win,rect,col);
-			r->drawTile(win,s,iv2);
+			
+			startTime = SDL_GetTicks();
+			while ( SDL_GetTicks() - startTime < 15000 )
+			{
+				r->drawTile(win,as,IVec2(400,400),SDL_GetTicks());
+				SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
+			}
+
+			r->clearScreen(win);
+			if ( m.isValidMap() )
+			{
+				m.draw(win,*r,0);
+			}
 			SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
 			SDL_Delay(5000);
 

@@ -1,5 +1,5 @@
-#ifndef __VEC2_H__
-#define __VEC2_H__
+#ifndef __GLOBALS_H__
+#define __GLOBALS_H__
 
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -23,26 +23,14 @@ website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
 
-#include <iostream>
+// Folders path
+#define MAP_PATH	"./data/maps/"
+#define GFX_TILES_PATH	"./data/gfx/tiles/"
+#define GFX_UNITS_PATH	"./data/gfx/units/"
+#define SFX_PATH	"./data/sfx/"
 
-template <typename T>
-struct Vec2
-{
-	T x;
-	T y;
-
-	Vec2(void):x(0),y(0) {}
-	Vec2(const T& x, const T& y):x(x),y(y) {}
-};
-
-template <typename T>
-std::ostream& operator<< (std::ostream& o, const Vec2<T> v)
-{
-	o << "Vec2(" << v.x << ";" << v.y << ")";
-
-	return o;
-}
-
-typedef Vec2<int> IVec2;
-
+// Animations speed
+#define NORMAL_SPEED	200
+#define SEE_SPEED		300
+#define BUILDING_SPEED	150
 #endif
