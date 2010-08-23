@@ -24,13 +24,14 @@ e-mail: lw.demoscene@gmail.com
 **/
 
 // Folders path
-#define MAP_PATH	"./data/maps/"
-#define GFX_TILES_PATH	"./data/gfx/tiles/"
-#define GFX_UNITS_PATH	"./data/gfx/units/"
-#define SFX_PATH	"./data/sfx/"
+#define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */
+#define GFX_TILES_PATH	"./data/gfx/tiles/"		/*!< Path to the default tiles graphics files folder */
+#define GFX_UNITS_PATH	"./data/gfx/units/"		/*!< Path to the default units graphics files folder */
+#define SFX_PATH	"./data/sfx/"				/*!< Path to the default sounds folder */
 
 // Animations speed
-#define NORMAL_SPEED	200
-#define SEE_SPEED		300
-#define BUILDING_SPEED	150
+#define NORMAL_SPEED	200						/*!< Default speed for normal animation */
+#define SEE_SPEED		300						/*!< Default speed for the see animations */
+#define BUILDING_SPEED	150						/*!< Default speed for animation of buildings */
+
 #endif

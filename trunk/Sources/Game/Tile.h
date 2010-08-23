@@ -1,6 +1,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -22,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 struct SDL_Surface;
 
@@ -139,23 +141,57 @@ enum TileType
 
 typedef struct Tile
 {
-	TileType tileType;
+	TileType tileType;				/*!< The actual tile type */
 
-	AnimatedSprite* pAnimation;
+	AnimatedSprite* pAnimation;		/*!< the animation sprite to use */
 
-	unsigned char defence;
-	bool isSee;	// Reminder: See, only boat can be on it, can't be walkable
-	bool isBuilding;
+	unsigned char defence;			/*!< The defence of the tile */
+	bool isSee;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
+	bool isBuilding;				/*!< If it is a building */
 
-	unsigned char cityLife; // For capturing
+	unsigned char cityLife;			/*!< The actual remaining life of the builing */ // For capturing
 
 	Tile(void):tileType(TT_Plain),pAnimation(0),defence(0),isSee(false),isBuilding(false),cityLife(0) {}
+
+	//! Basic constructor
+	/*!
+		\param tileType the type of the tile
+		\param pAnimation the animation to use to draw the tile
+		\param defence the defence level of the tile
+		\param isSee if the tile is see tile
+		\param isBuilding if the tile is a building
+		\param cityLife the life of the building
+	*/
 	Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife)
 		:tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),cityLife(cityLife) {}
 
 	~Tile(void);
 }Tile;
 
+//! Tile factory
+/*!
+ * Return the tile corresponding to the type
+ * \param sm the sprite manager to load the animation
+ * \param themeName the name of the theme to know where to load the sprite
+ * \param tileType the tile to created
+ * \return a pointer of the newly tile created
+*/
 Tile* TileFactory(SpriteManager& sm, const std::string& themeName, const TileType tileType);
+
+/*! \struct Tile Tile.h "Game/Tile.h"
+ *  \brief Tile struct
+ *
+ * Keeps the follwing:
+ *		- The enum to characterise the tile (id)
+ *		- The AnimatedSprite to draw
+ *		- The defence of the tile (gameplay)
+ *		- If the tile is a see tile (gameplay)
+ *		- If the tile is a building (gameplay)
+ *		- The life of the building (gameplay)
+ */
+
+/*! \enum TileType
+ * Identifiers to know which Tile it is
+ */
 
 #endif

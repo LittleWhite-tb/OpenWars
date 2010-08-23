@@ -1,6 +1,7 @@
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -22,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 #include <string>
 
@@ -36,16 +38,53 @@ private:
 
 protected:
 	
-	SDL_Surface* surface;
+	SDL_Surface* surface;		/*!< the internal surface */
 
 public:
+
+	//! Basic constructor
+	/*!
+      Load the image, using the SpriteManager
+	  To check the loading failure, you have to use getSurface() to check if the pointer returns is NULL
+	  \param sm the sprite manager to use to load the image
+	  \param fileName the file to load
+    */
 	Sprite(SpriteManager& sm, const std::string& fileName);
+
+	//! Basic destructor
+	/*!
+      Free the internal surface
+    */
 	virtual ~Sprite(void);
 
+	//! Get the width
+	/*!
+		\return returns the width of the surface
+	*/
 	virtual const int getWidth(void)const;
+
+	//! Get the height
+	/*!
+		\return returns the height of the surface
+	*/
 	virtual const int getHeight(void)const;
 
+	//! Get the surface
+	/*!
+		\return returns the surface
+	*/
 	SDL_Surface* getSurface(void) { return surface; }
 };
+
+/*! \class Sprite Sprite.h "Engine/Sprite.h"
+ *  \brief Sprite management class
+ *
+ * Simple sprite class, over SDL Surface design.
+ * Can do the following:
+ *		- Load from file (directly in the constructor)
+ *		- Get the width
+ *		- Get the height
+ *		- Get surface
+ */
 
 #endif

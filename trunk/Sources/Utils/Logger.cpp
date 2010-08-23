@@ -1,3 +1,4 @@
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -19,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 #include "Logger.h"
 

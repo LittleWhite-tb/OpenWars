@@ -1,6 +1,7 @@
 #ifndef __RENDERER_SDL_H__
 #define __RENDERER_SDL_H__
 
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -22,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 #include "../Renderer.h"
 
@@ -48,5 +50,11 @@ public:
 	bool drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time);
 	bool drawBackground(Window& window, SDL_Surface* const pImage);
 };
+
+/*! \class RSDL Renderer_sdl.h "Engine/Renderers/Renderer_sdl.h"
+ *  \brief SDL implementation for the Renderer
+ *
+ * Inherits the Renderer interface
+ */
 
 #endif

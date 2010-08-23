@@ -1,6 +1,7 @@
 #ifndef __ANIMATEDSPRITE_H__
 #define __ANIMATEDSPRITE_H__
 
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -22,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 #include <SDL/SDL.h>
 
@@ -36,30 +38,83 @@ class SpriteManager;
 class AnimatedSprite : public Sprite
 {
 private:
-	unsigned int widthSprite;
-	unsigned int heightSprite;
+	unsigned int widthSprite;				/*!< width of the animation */
+	unsigned int heightSprite;				/*!< height of the animation */
 
-	unsigned int numberAnimation;
-	unsigned int animationCounter;
+	unsigned int numberAnimation;			/*!< number of animation in the sprite */
+	unsigned int animationCounter;			/*!< number of the current animation */
 
-	unsigned int lastUpdate;
+	unsigned int lastUpdate;				/*!< last time that the animated sprite has been updated */
 
-	unsigned int msInterval;
+	unsigned int msInterval;				/*!< interval between two sprites of the animation */
 
-
+	/** Updates the instance to change the sprite to show if needed
+     *  \param time the actual time
+     */
 	void update(const unsigned int time);
 
 public:
+	//! Basic constructor
+	/*!
+      Load the sprite set, using the SpriteManager
+	  To check the loading failure, you have to use getSurface() to check if the pointer returns is NULL
+	  \param sm the sprite manager to use to load the image
+	  \param fileName the file to load
+	  \param width of the sprite
+	  \param height of the sprite
+	  \param msInterval interval between two sprite in milliseconds
+    */
 	AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval);
+
+	//! Basic destructor
+	/*!
+      Free the internal surface
+    */
 	~AnimatedSprite(void);
 
+	//! Get the source rectangle for the internal surface, to draw
+	/*!
+	  Following the current frame, the rectangle to draw will be returned
+      \param time the actual time
+    */
 	SDL_Rect getSrcRect(const unsigned int time);
 
+	//! Get the width
+	/*!
+		\return returns the width of the sprite
+	*/
 	const int getWidth(void)const { return widthSprite; }
+
+	//! Get the height
+	/*!
+		\return returns the height of the sprite
+	*/
 	const int getHeight(void)const { return heightSprite; }
 
+	//! Get the interval between two frames
+	/*!
+		\return returns the interval in millisecond
+	*/
 	const unsigned int getInterval(void)const { return msInterval; }
+
+	//! Set the interval between two frames
+	/*!
+		\param newInterval the new interval in millisecond
+	*/
 	const void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
 };
+
+/*! \class AnimatedSprite AnimatedSprite.h "Engine/AnimatedSprite.h"
+ *  \brief AnimatedSprite management class
+ *
+ * Inherits from the Sprite class to handle the case of set of sprites to do animation
+ * Can do the following:
+ *		- Load from file (directly in the constructor)
+ *		- Get the width
+ *		- Get the height
+ *		- Get the rectangle to use to draw the correct animation
+ *		- Get interval between two sprites of the animation, in milliseconds
+ *		- Set interval between two sprites of the animation, in milliseconds
+ */
 
 #endif
