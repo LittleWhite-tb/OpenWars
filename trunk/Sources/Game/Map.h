@@ -29,7 +29,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Tile.h"
 
-class Window;
 class Renderer;
 
 class Map
@@ -70,12 +69,11 @@ public:
 
 	//! Draw the map
 	/*!
-      \param win the window where to draw
 	  \param r the renderer to use to draw the map
 	  \param time the actual time (for animation)
 	  \return true if all goes right
     */
-	bool draw(Window& win, Renderer& r, const unsigned int time);
+	bool draw(const Renderer& r, const unsigned int time);
 
 	//! Return if the map is valid
 	/*!

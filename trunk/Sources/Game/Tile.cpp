@@ -29,11 +29,28 @@ e-mail: lw.demoscene@gmail.com
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/ResourcesManager/SpriteManager.h"
 
+#include "../Utils/Logger.h"
 #include "../globals.h"
+
+#ifdef _DEBUG
+	extern unsigned int nbTAllocation;
+	extern unsigned int nbTDestruction;
+#endif
+
+Tile :: Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife)
+		:tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),cityLife(cityLife) 
+{ 
+#ifdef _DEBUG
+	nbTAllocation++; 
+#endif
+}
 
 Tile :: ~Tile(void)
 {
 	delete pAnimation;
+#ifdef _DEBUG
+	nbTDestruction++; 
+#endif
 }
 
 AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, const TileType tileType)
@@ -44,229 +61,229 @@ AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, 
 	switch(tileType)
 	{
 		case TT_Plain:
-			pAS = new AnimatedSprite(sm,folderName + std::string("plain.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("plain.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Tree:
-			pAS = new AnimatedSprite(sm,folderName + std::string("tree.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("tree.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Mountain_1:
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Mountain_2:
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain2.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("mountain2.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_TL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tl.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tl.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_TR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tr.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tr.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_BL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_bl.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_bl.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_BR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_br.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_br.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_h.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_h.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_v.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_v.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_l.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_l.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_r.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_r.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_t.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_t.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_b.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_b.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Bridge_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("bridge_h.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("bridge_h.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Bridge_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("bridge_v.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("bridge_v.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_h.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_h.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_v.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_v.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_l.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_l.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_r.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_r.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_t.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_t.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_b.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_b.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_TL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_tl.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_tl.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_TR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_tr.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_tr.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_BL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_bl.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_bl.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_BR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_br.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_br.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_h.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_h.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_v.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_v.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_l.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_l.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_b.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_b.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_r.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_r.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_t.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_t.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Road_X:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_x.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("road_x.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_hq.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("red_hq.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_factory.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("red_factory.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_port.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("red_port.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_airport.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("red_airport.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_city.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("red_city.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Blue_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_hq.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("blue_hq.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Blue_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_factory.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("blue_factory.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Blue_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_port.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("blue_port.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Blue_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_airport.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("blue_airport.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Blue_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_city.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("blue_city.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Green_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_hq.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("green_hq.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Green_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_factory.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("green_factory.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Green_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_port.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("green_port.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Green_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_airport.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("green_airport.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Green_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_city.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("green_city.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Yellow_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_hq.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_hq.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Yellow_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_factory.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_factory.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Yellow_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_port.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_port.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Yellow_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_airport.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_airport.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Yellow_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_city.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_city.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Neutral_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_factory.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_factory.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Neutral_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_port.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_port.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Neutral_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_airport.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_airport.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Neutral_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_city.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_city.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_River_See:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_see.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("river_see.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_See:
-			pAS = new AnimatedSprite(sm,folderName + std::string("see.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("see.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Reef:
-			pAS = new AnimatedSprite(sm,folderName + std::string("reef.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("reef.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_TL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_tl.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_tl.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_TR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_tr.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_tr.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_BL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_bl.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_bl.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_BR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_br.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_br.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_l.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_l.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_r.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_r.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_b.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_b.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_h.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_h.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_v.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_v.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_l.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_l.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_b.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_b.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_r.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_r.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_t.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_t.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Coast_X:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_x.png"),32,32,NORMAL_SPEED);
+			pAS = new AnimatedSprite(sm,folderName + std::string("coast_x.png"),32,32,NORMAL_SPEED,true);
 			break;
 	}
 
@@ -548,6 +565,11 @@ bool parseIsBuilding(const TileType tileType)
 Tile* TileFactory(SpriteManager& sm, const std::string& themeName, const TileType tileType)
 {
 	Tile* pT = new Tile(tileType,getTileSurface(sm,themeName,tileType),parseDefence(tileType),parseIsSee(tileType),parseIsBuilding(tileType),20);
+
+	if ( pT == NULL )
+	{
+		LError << "Fail to allocate memory for the Tile";
+	}
 
 	return pT;
 }

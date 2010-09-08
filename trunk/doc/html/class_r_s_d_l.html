@@ -72,72 +72,86 @@ Inheritance diagram for RSDL:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a77c70c4924da7f48e85018856eb20564">clearScreen</a> (<a class="el" href="class_window.html">Window</a> &amp;window)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Clear the screen (black).  <a href="#a77c70c4924da7f48e85018856eb20564"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a77d40bc2c79f9839f95c6974a1ba1499">drawTile</a> (<a class="el" href="class_window.html">Window</a> &amp;window, SDL_Rect &amp;tile, const SDL_Color &amp;colour)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a rectangle with a unified colour.  <a href="#a77d40bc2c79f9839f95c6974a1ba1499"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#accaba4536d973a39477f8f19266a3130">drawTile</a> (<a class="el" href="class_window.html">Window</a> &amp;window, <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#accaba4536d973a39477f8f19266a3130"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a1477ce9510eb63220d97f72a5b62e8a9">drawTile</a> (<a class="el" href="class_window.html">Window</a> &amp;window, <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, SDL_Rect &amp;srcRect, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a part of a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a1477ce9510eb63220d97f72a5b62e8a9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a2e2369d3717c48cded65c388823cd592">drawTile</a> (<a class="el" href="class_window.html">Window</a> &amp;window, <a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;aSprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const unsigned int time)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>.  <a href="#a2e2369d3717c48cded65c388823cd592"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#ada81694a3d12c44e7f140351dfb7652f">drawBackground</a> (<a class="el" href="class_window.html">Window</a> &amp;window, SDL_Surface *const pImage)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a background.  <a href="#ada81694a3d12c44e7f140351dfb7652f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a0a4baa1a0bafa562d48ecba3b4a24233">RSDL</a> (const <a class="el" href="class_window.html">Window</a> *const <a class="el" href="class_renderer.html#aeca255032e9749475998c9af86a1f006">pWin</a>)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a0a4baa1a0bafa562d48ecba3b4a24233"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a175cdd6482c092c12bed5696f48f11ab">clearScreen</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Clear the screen (black).  <a href="#a175cdd6482c092c12bed5696f48f11ab"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#ab6393c2805c9a0a7ddb8af21708fd6ff">drawTile</a> (SDL_Rect &amp;tile, const SDL_Color &amp;colour) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a rectangle with a unified colour.  <a href="#ab6393c2805c9a0a7ddb8af21708fd6ff"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a009bd701ce6218073d5dace7de16546a">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a009bd701ce6218073d5dace7de16546a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a1e34c58d6734ba38c2e44f06e7a01ccc">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, SDL_Rect &amp;srcRect, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a part of a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a1e34c58d6734ba38c2e44f06e7a01ccc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a0552625492278d06105b316716c971e8">drawTile</a> (<a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;aSprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const unsigned int time) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>.  <a href="#a0552625492278d06105b316716c971e8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a993ed075aeaa8df4e6ab6787e3b632ca">drawBackground</a> (SDL_Surface *const pImage) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a background.  <a href="#a993ed075aeaa8df4e6ab6787e3b632ca"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>SDL implementation for the <a class="el" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>. </p>
 <p>Inherits the <a class="el" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a> interface </p>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a0a4baa1a0bafa562d48ecba3b4a24233"></a><!-- doxytag: member="RSDL::RSDL" ref="a0a4baa1a0bafa562d48ecba3b4a24233" args="(const Window *const pWin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RSDL::RSDL </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_window.html">Window</a> *const &nbsp;</td>
+          <td class="paramname"> <em>pWin</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Basic constructor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pWin</em>&nbsp;</td><td>the <a class="el" href="class_window.html" title="Window management class.">Window</a> where the <a class="el" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a> will draw </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a77c70c4924da7f48e85018856eb20564"></a><!-- doxytag: member="RSDL::clearScreen" ref="a77c70c4924da7f48e85018856eb20564" args="(Window &amp;window)" -->
+<a class="anchor" id="a175cdd6482c092c12bed5696f48f11ab"></a><!-- doxytag: member="RSDL::clearScreen" ref="a175cdd6482c092c12bed5696f48f11ab" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool RSDL::clearScreen </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>window</em></td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Clear the screen (black). </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>window</em>&nbsp;</td><td>the window to clear </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a0537f3ad0f3f531706b8abb596bf258d">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#aa9f50b15c87553779609d865a1ccd843">Renderer</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ada81694a3d12c44e7f140351dfb7652f"></a><!-- doxytag: member="RSDL::drawBackground" ref="ada81694a3d12c44e7f140351dfb7652f" args="(Window &amp;window, SDL_Surface *const pImage)" -->
+<a class="anchor" id="a993ed075aeaa8df4e6ab6787e3b632ca"></a><!-- doxytag: member="RSDL::drawBackground" ref="a993ed075aeaa8df4e6ab6787e3b632ca" args="(SDL_Surface *const pImage) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool RSDL::drawBackground </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">SDL_Surface *const &nbsp;</td>
-          <td class="paramname"> <em>pImage</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td class="paramname"> <em>pImage</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -146,30 +160,23 @@ Public Member Functions</h2></td></tr>
 <p>Draw a background. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>window</em>&nbsp;</td><td>the window where to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>pImage</em>&nbsp;</td><td>the imageto copy in background </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#ae87911d8edbeab5d4f4b1e5531aa3279">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a18b20da9f4c7b9abbaae61c42ab2fa12">Renderer</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2e2369d3717c48cded65c388823cd592"></a><!-- doxytag: member="RSDL::drawTile" ref="a2e2369d3717c48cded65c388823cd592" args="(Window &amp;window, AnimatedSprite &amp;aSprite, const IVec2 &amp;pos, const unsigned int time)" -->
+<a class="anchor" id="a0552625492278d06105b316716c971e8"></a><!-- doxytag: member="RSDL::drawTile" ref="a0552625492278d06105b316716c971e8" args="(AnimatedSprite &amp;aSprite, const IVec2 &amp;pos, const unsigned int time) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool RSDL::drawTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aSprite</em>, </td>
         </tr>
@@ -188,7 +195,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -197,7 +204,6 @@ Public Member Functions</h2></td></tr>
 <p>Draw an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>window</em>&nbsp;</td><td>the window where to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aSprite</em>&nbsp;</td><td>the animation to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where to draw the animation </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>time</em>&nbsp;</td><td>the actual time (to know which frame to draw) </td></tr>
@@ -206,24 +212,18 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a4b5d1609aff4253cf1e8b0f21fa51f25">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a11f9c557151fffcc8dcb30a5cdf4da47">Renderer</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1477ce9510eb63220d97f72a5b62e8a9"></a><!-- doxytag: member="RSDL::drawTile" ref="a1477ce9510eb63220d97f72a5b62e8a9" args="(Window &amp;window, Sprite &amp;sprite, SDL_Rect &amp;srcRect, const IVec2 &amp;pos)" -->
+<a class="anchor" id="a1e34c58d6734ba38c2e44f06e7a01ccc"></a><!-- doxytag: member="RSDL::drawTile" ref="a1e34c58d6734ba38c2e44f06e7a01ccc" args="(const Sprite &amp;sprite, SDL_Rect &amp;srcRect, const IVec2 &amp;pos) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool RSDL::drawTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_sprite.html">Sprite</a> &amp;&nbsp;</td>
+          <td class="paramtype">const <a class="el" href="class_sprite.html">Sprite</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>sprite</em>, </td>
         </tr>
         <tr>
@@ -241,7 +241,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -250,7 +250,6 @@ Public Member Functions</h2></td></tr>
 <p>Draw a part of a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>window</em>&nbsp;</td><td>the window where to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>sprite</em>&nbsp;</td><td>the sprite to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>srcRect</em>&nbsp;</td><td>the rectangle on the source <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a> to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>the position where to draw the part of the sprite </td></tr>
@@ -259,24 +258,18 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a467189cbb781ac9f7beb0f63a44c386d">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a1bc535b35a25ccad2156a2ff4e21cdd9">Renderer</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="accaba4536d973a39477f8f19266a3130"></a><!-- doxytag: member="RSDL::drawTile" ref="accaba4536d973a39477f8f19266a3130" args="(Window &amp;window, Sprite &amp;sprite, const IVec2 &amp;pos)" -->
+<a class="anchor" id="a009bd701ce6218073d5dace7de16546a"></a><!-- doxytag: member="RSDL::drawTile" ref="a009bd701ce6218073d5dace7de16546a" args="(const Sprite &amp;sprite, const IVec2 &amp;pos) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool RSDL::drawTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_sprite.html">Sprite</a> &amp;&nbsp;</td>
+          <td class="paramtype">const <a class="el" href="class_sprite.html">Sprite</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>sprite</em>, </td>
         </tr>
         <tr>
@@ -288,7 +281,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -297,7 +290,6 @@ Public Member Functions</h2></td></tr>
 <p>Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>window</em>&nbsp;</td><td>the window where to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>sprite</em>&nbsp;</td><td>the sprite to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where the sprite is drawn </td></tr>
   </table>
@@ -305,23 +297,17 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#aa1164a23c6e292f3f3426353e97b778b">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a70db9b4ea0c9dd7bfb77781d088410b2">Renderer</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a77d40bc2c79f9839f95c6974a1ba1499"></a><!-- doxytag: member="RSDL::drawTile" ref="a77d40bc2c79f9839f95c6974a1ba1499" args="(Window &amp;window, SDL_Rect &amp;tile, const SDL_Color &amp;colour)" -->
+<a class="anchor" id="ab6393c2805c9a0a7ddb8af21708fd6ff"></a><!-- doxytag: member="RSDL::drawTile" ref="ab6393c2805c9a0a7ddb8af21708fd6ff" args="(SDL_Rect &amp;tile, const SDL_Color &amp;colour) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool RSDL::drawTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">SDL_Rect &amp;&nbsp;</td>
           <td class="paramname"> <em>tile</em>, </td>
         </tr>
@@ -334,7 +320,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -343,7 +329,6 @@ Public Member Functions</h2></td></tr>
 <p>Draw a rectangle with a unified colour. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>window</em>&nbsp;</td><td>the window where to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>tile</em>&nbsp;</td><td>the rectangle to fill </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>colour</em>&nbsp;</td><td>the colour to use to fill the rectangle </td></tr>
   </table>
@@ -351,7 +336,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#adb10d511327c3840f44677620306f549">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9">Renderer</a>.</p>
 
 </div>
 </div>
@@ -374,7 +359,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 22 2010 16:51:39 for OpenAWars by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Sep 7 2010 15:34:58 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

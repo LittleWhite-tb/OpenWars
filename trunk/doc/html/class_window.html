@@ -73,20 +73,24 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reopen a window with a different resolution. If a window is not open yet, it doesn't matter, it will open a window if possible.  <a href="#a9c0c54932dca42dbd0a87f85f47442a9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#aa85c37c5b07e955a4377dc79cb75abc0">getResolutionsAvailable</a> (const bool isOpenGL, std::vector&lt; <a class="el" href="struct_resolution_info.html">ResolutionInfo</a> &gt; &amp;riList) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get a list of resolution available on the current machine. To do this, the function will check the resolution with SDL_VideoModeOK(). The test is always done in fullscreen mode to have the best results.  <a href="#aa85c37c5b07e955a4377dc79cb75abc0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ad3b292fb67b5c89b870c83faefde7ff8">getWindowSurface</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the window surface  <a href="#ad3b292fb67b5c89b870c83faefde7ff8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a779c3aef5dabfb195d8f8c7021846001">getWindowSurface</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the window surface  <a href="#a779c3aef5dabfb195d8f8c7021846001"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#aba82f61d38d2a9e6d268e7d117009bde">getHeight</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the height of the window surface  <a href="#aba82f61d38d2a9e6d268e7d117009bde"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a24f3fdb50f00fcfea4d4ee173058887a">getWidth</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the width of the window surface  <a href="#a24f3fdb50f00fcfea4d4ee173058887a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a9b4ff2f98a77cfcfa61809ecab0ca92a">getBitsPerPixel</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the bits per pixel of the window surface  <a href="#a9b4ff2f98a77cfcfa61809ecab0ca92a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a19aa68d2aeb5c9889fbc73cf06e86c44">isOpenGLWindow</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get if the window is OpenGL compatible  <a href="#a19aa68d2aeb5c9889fbc73cf06e86c44"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ac3a4f549f533434ea19c0bae21f8eb5e">isFullscreenWindow</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get if the window is in fullscreen mode  <a href="#ac3a4f549f533434ea19c0bae21f8eb5e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ad7b2e6de1216ed4b0aa6f32eea3a87f1">isCursorVisible</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get if the cursor is actually visible  <a href="#ad7b2e6de1216ed4b0aa6f32eea3a87f1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#af7b9faf8a694548c3956bec781cdd977">showCursor</a> (bool isShowed) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the visibility of the cursor.  <a href="#af7b9faf8a694548c3956bec781cdd977"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a2cb68914021cf497c05fa90d2e259e87">setCaption</a> (const std::string &amp;windowName, const std::string &amp;iconName)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the window name and the icon assigned to it.  <a href="#a2cb68914021cf497c05fa90d2e259e87"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a51f0b468484448ca086efd9910a54652">showCursor</a> (const bool isShowed) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the visibility of the cursor.  <a href="#a51f0b468484448ca086efd9910a54652"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ae093551d569a6a631bf64e346ca049fe">setCaption</a> (const std::string &amp;windowName, const std::string &amp;iconName) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the window name and the icon assigned to it.  <a href="#ae093551d569a6a631bf64e346ca049fe"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p><a class="el" href="class_window.html" title="Window management class.">Window</a> management class. </p>
@@ -298,7 +302,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad3b292fb67b5c89b870c83faefde7ff8"></a><!-- doxytag: member="Window::getWindowSurface" ref="ad3b292fb67b5c89b870c83faefde7ff8" args="(void)" -->
+<a class="anchor" id="a779c3aef5dabfb195d8f8c7021846001"></a><!-- doxytag: member="Window::getWindowSurface" ref="a779c3aef5dabfb195d8f8c7021846001" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -308,7 +312,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -337,6 +341,48 @@ Public Member Functions</h2></td></tr>
 
 <p>get if the cursor is actually visible </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the cursor is visible </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac3a4f549f533434ea19c0bae21f8eb5e"></a><!-- doxytag: member="Window::isFullscreenWindow" ref="ac3a4f549f533434ea19c0bae21f8eb5e" args="(void) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Window::isFullscreenWindow </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get if the window is in fullscreen mode </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the window is in fullscreen mode </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a19aa68d2aeb5c9889fbc73cf06e86c44"></a><!-- doxytag: member="Window::isOpenGLWindow" ref="a19aa68d2aeb5c9889fbc73cf06e86c44" args="(void) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Window::isOpenGLWindow </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get if the window is OpenGL compatible </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the window is OpenGL compatible </dd></dl>
 
 </div>
 </div>
@@ -398,7 +444,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2cb68914021cf497c05fa90d2e259e87"></a><!-- doxytag: member="Window::setCaption" ref="a2cb68914021cf497c05fa90d2e259e87" args="(const std::string &amp;windowName, const std::string &amp;iconName)" -->
+<a class="anchor" id="ae093551d569a6a631bf64e346ca049fe"></a><!-- doxytag: member="Window::setCaption" ref="ae093551d569a6a631bf64e346ca049fe" args="(const std::string &amp;windowName, const std::string &amp;iconName) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -417,7 +463,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td></td>
+          <td></td><td></td><td> const</td>
         </tr>
       </table>
 </div>
@@ -434,14 +480,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af7b9faf8a694548c3956bec781cdd977"></a><!-- doxytag: member="Window::showCursor" ref="af7b9faf8a694548c3956bec781cdd977" args="(bool isShowed) const " -->
+<a class="anchor" id="a51f0b468484448ca086efd9910a54652"></a><!-- doxytag: member="Window::showCursor" ref="a51f0b468484448ca086efd9910a54652" args="(const bool isShowed) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Window::showCursor </td>
           <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramtype">const bool&nbsp;</td>
           <td class="paramname"> <em>isShowed</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td> const</td>
@@ -479,7 +525,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 22 2010 16:51:39 for OpenAWars by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Sep 7 2010 15:34:58 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -48,6 +48,10 @@ private:
 
 	unsigned int msInterval;				/*!< interval between two sprites of the animation */
 
+	// Disallow the copy
+	AnimatedSprite(const AnimatedSprite& as);
+	void operator= (const AnimatedSprite& as);
+
 	/** Updates the instance to change the sprite to show if needed
      *  \param time the actual time
      */
@@ -63,8 +67,9 @@ public:
 	  \param width of the sprite
 	  \param height of the sprite
 	  \param msInterval interval between two sprite in milliseconds
+	  \param needScaling if some scaling operation has to be done on this sprite
     */
-	AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval);
+	AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling);
 
 	//! Basic destructor
 	/*!

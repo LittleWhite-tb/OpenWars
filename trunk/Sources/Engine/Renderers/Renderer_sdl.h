@@ -40,15 +40,19 @@ class RSDL : public Renderer
 private:
 
 public:
-	RSDL(void);
+	//! Basic constructor
+	/*!
+	  \param pWin the Window where the Renderer will draw
+    */
+	RSDL(const Window* const pWin);
 	~RSDL(void);
 
-	bool clearScreen(Window& window);
-	bool drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour);
-	bool drawTile(Window& window, Sprite& sprite, const IVec2& pos);
-	bool drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos);
-	bool drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time);
-	bool drawBackground(Window& window, SDL_Surface* const pImage);
+	bool clearScreen(void)const;
+	bool drawTile(SDL_Rect& tile, const SDL_Color& colour)const;
+	bool drawTile(const Sprite& sprite, const IVec2& pos)const;
+	bool drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const;
+	bool drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const;
+	bool drawBackground(SDL_Surface* const pImage)const;
 };
 
 /*! \class RSDL Renderer_sdl.h "Engine/Renderers/Renderer_sdl.h"

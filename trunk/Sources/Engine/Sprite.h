@@ -36,6 +36,10 @@ class Sprite
 {
 private:
 
+	// Disallow the copy
+	Sprite(const Sprite& s);
+	void operator= (const Sprite& s);
+
 protected:
 	
 	SDL_Surface* surface;		/*!< the internal surface */
@@ -48,8 +52,9 @@ public:
 	  To check the loading failure, you have to use getSurface() to check if the pointer returns is NULL
 	  \param sm the sprite manager to use to load the image
 	  \param fileName the file to load
+	  \param needScaling if some scaling operation has to be done on this sprite
     */
-	Sprite(SpriteManager& sm, const std::string& fileName);
+	Sprite(SpriteManager& sm, const std::string& fileName,const bool needScaling);
 
 	//! Basic destructor
 	/*!
@@ -73,7 +78,7 @@ public:
 	/*!
 		\return returns the surface
 	*/
-	SDL_Surface* getSurface(void) { return surface; }
+	SDL_Surface* const getSurface(void)const { return surface; }
 };
 
 /*! \class Sprite Sprite.h "Engine/Sprite.h"

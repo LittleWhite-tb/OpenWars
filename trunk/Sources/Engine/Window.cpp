@@ -213,7 +213,7 @@ bool Window :: isCursorVisible(void)const
 	return cursorState;
 }
 
-void Window :: showCursor(bool isShowed)const
+void Window :: showCursor(const bool isShowed)const
 {
 	LDebug << "Window :: showCursor (" << isShowed << ")";
 
@@ -227,7 +227,7 @@ void Window :: showCursor(bool isShowed)const
 	}
 }
 
-void Window :: setCaption(const std::string& windowName, const std::string& iconName)
+void Window :: setCaption(const std::string& windowName, const std::string& iconName)const
 {
 	LDebug << "Window :: setName (" << windowName.c_str() << " ; " << iconName.c_str() << ")";
 

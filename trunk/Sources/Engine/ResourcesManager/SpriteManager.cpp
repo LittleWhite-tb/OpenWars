@@ -31,6 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 
 #include "../../Utils/Logger.h"
+#include "../../Utils/Scaler.h"
 
 SpriteManager :: SpriteManager(void)
 {
@@ -39,31 +40,55 @@ SpriteManager :: SpriteManager(void)
 
 SpriteManager :: ~SpriteManager(void)
 {
-	for( std::map<std::string, SDL_Surface*>::const_iterator itSprite = spriteBank.begin() ; itSprite != spriteBank.end() ; ++itSprite )
+	for( std::map<std::string, SurfacePair>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
 	{
-		SDL_FreeSurface(itSprite->second);
+		if ( itSprite->second.pSprite != itSprite->second.pScaledSprite ) // To avoid some double free corruption, when scaling fails
+		{
+			SDL_FreeSurface(itSprite->second.pScaledSprite);
+		}
+		SDL_FreeSurface(itSprite->second.pSprite);
 	}
-	spriteBank.clear();
+	spritesBank.clear();
 
 	LDebug << "SpriteManager deleted";
 }
 
-SDL_Surface* SpriteManager :: getSurface(const std::string& fileName)
+SDL_Surface* SpriteManager :: getSurface(const std::string& fileName,const bool needScaling)
 {
-	LDebug << "SpriteManager :: getSurface (" << fileName << ")";
+	LDebug << "SpriteManager :: getSurface (" << fileName << ") need scaling:" << needScaling;
 
-	if ( spriteBank.find(fileName) == spriteBank.end() )
+	if ( spritesBank.find(fileName) == spritesBank.end() )
 	{
-		spriteBank[fileName] = IMG_Load(fileName.c_str());
-		if ( spriteBank[fileName] == NULL )
+		SDL_Surface* pTmpSurface = IMG_Load(fileName.c_str());
+		if ( pTmpSurface == NULL )
 		{
 			LError << "Fail to load image '" << fileName.c_str() << "' (" << IMG_GetError() << ")";
 		}
-	}
-	else // Here the case when the sprite is already constructed
-	{
-		return spriteBank[fileName];
+		else
+		{
+			// We save the normal version of the picture
+			spritesBank[fileName].pSprite = pTmpSurface;
+
+			SDL_Surface* pTmpScaledSurface = Scaler::scale(pTmpSurface);
+			if ( pTmpScaledSurface != NULL )
+			{
+				spritesBank[fileName].pScaledSprite = pTmpScaledSurface;
+			}
+			else
+			{
+				// In this case, the scaled version is the same than the normal version
+				LWarning << "Failed to scale the surface";
+				spritesBank[fileName].pScaledSprite = pTmpSurface;
+			}
+		}
 	}
 
-	return spriteBank[fileName];
+	if ( needScaling )
+	{
+		return spritesBank[fileName].pScaledSprite;
+	}
+	else
+	{
+		return spritesBank[fileName].pSprite;
+	}
 }

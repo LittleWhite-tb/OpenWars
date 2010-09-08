@@ -32,7 +32,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Tile.h"
 
-#include "../Engine/Window.h"
 #include "../Engine/Renderer.h"
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/AnimatedSprite.h"
@@ -170,18 +169,20 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: draw(Window& win, Renderer& r, const unsigned int time)
+bool Map :: draw(const Renderer& r, const unsigned int time)
 {
 	IVec2 tilePos(0,0);
 
 	LDebug << "Map :: draw";
 
+	// For each lines
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
 	{
 		tilePos.x = 0;
+		// For each columns
 		for ( unsigned int x = 0 ; x < this->width ; x++ )
 		{
-			r.drawTile(win,*(map[y][x]->pAnimation),tilePos,time);
+			r.drawTile(*(map[y][x]->pAnimation),tilePos,time);
 			tilePos.x += map[y][x]->pAnimation->getWidth();
 		}
 

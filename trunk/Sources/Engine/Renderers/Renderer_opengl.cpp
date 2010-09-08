@@ -35,9 +35,14 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../Utils/Logger.h"
 
-ROpenGL :: ROpenGL(void)
-	:Renderer(RAPI_OpenGL)
+ROpenGL :: ROpenGL(const Window* const pWin)
+	:Renderer(pWin,RAPI_OpenGL)
 {
+	if ( !pWin->isOpenGLWindow() )
+	{
+		LWarning << "The window passed to the OpenGL renderer is not compatible with OpenGL";
+	}
+
 	LDebug << "ROpenGL created";
 
 	// Need some init
@@ -48,46 +53,51 @@ ROpenGL :: ~ROpenGL(void)
 	LDebug << "ROpenGL deleted";
 }
 
-bool ROpenGL :: clearScreen(Window& window)
+bool ROpenGL :: clearScreen(void)const
 {
 	LDebug << "ROpenGL :: clearScreen";
 
 	return true;
 }
 
-bool ROpenGL :: drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour)
+bool ROpenGL :: drawTile(SDL_Rect& tile, const SDL_Color& colour)const
 {
 	LDebug << "RSDL :: drawTile from colour (pos: " << tile.x << "x" << tile.y << " size: " << tile.w << "x" << tile.h << " colour: " << static_cast<int>(colour.r) << "," <<  static_cast<int>(colour.g) << "," << static_cast<int>(colour.b) << "," << static_cast<int>(colour.unused);
 
 	return true;
 }
 
-bool ROpenGL :: drawTile(Window& window, Sprite& sprite, const IVec2& pos)
+bool ROpenGL :: drawTile(const Sprite& sprite, const IVec2& pos)const
 {
 	LDebug << "ROpenGL :: drawTile from Sprite @ " << pos;
 
+	(void)sprite;
+
 	return true;
 }
 
-bool ROpenGL :: drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)
+bool ROpenGL :: drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const
 {
 	LDebug << "ROpenGL :: drawTile from Sprite (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ") @ " << pos;
 
+	(void)sprite;
+
 	return true;
 }
 
-bool ROpenGL :: drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)
+bool ROpenGL :: drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const
 {
 	LDebug << "ROpenGL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
 
+	(void)aSprite;
+	(void)time;
+
 	return true;
 }
 
-bool ROpenGL :: drawBackground(Window& window, SDL_Surface* const pImage)
+bool ROpenGL :: drawBackground(SDL_Surface* const pImage)const
 {
 	assert(pImage);
-
-	(void)window;
 
 	LDebug << "ROpenGL :: drawBackground";
 

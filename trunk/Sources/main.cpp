@@ -36,8 +36,20 @@ e-mail: lw.demoscene@gmail.com
 #include "Types/Vec2.h"
 
 #include "Utils/Logger.h"
+#include "Utils/Scaler.h"
 
 #include "globals.h"
+
+#ifdef _DEBUG
+	// Some specials globals to check if all memory cleaning is properly done
+	unsigned int nbASAllocation = 0;
+	unsigned int nbASDestruction = 0;
+	unsigned int nbSAllocation = 0;
+	unsigned int nbSDestruction = 0;
+
+	unsigned int nbTAllocation = 0;
+	unsigned int nbTDestruction = 0;
+#endif
 
 int main(int argc, char** argv)
 {
@@ -55,7 +67,7 @@ int main(int argc, char** argv)
 
 	{
 		Window win;
-		Renderer* r = RendererFactory(RAPI_SDL);
+		Renderer* r = RendererFactory(&win, RAPI_SDL);
 		int flags = IMG_INIT_PNG;
 		int initIMG = IMG_Init(flags);
 
@@ -66,10 +78,6 @@ int main(int argc, char** argv)
 		}
 		else
 		{
-			SpriteManager sm;
-			AnimatedSprite as(sm,"./data/asprite.png",32,32,1500);
-			Map m(sm,MAP_PATH + std::string("m1.txt"));
-
 			std::vector<ResolutionInfo> riList;
 
 			win.getResolutionsAvailable(false,riList);
@@ -77,24 +85,33 @@ int main(int argc, char** argv)
 			win.showCursor(false);
 
 			// Window test
-			win.openWindow(640,480,32,false,false);
-
-			r->clearScreen(win);
-			
-			startTime = SDL_GetTicks();
-			while ( SDL_GetTicks() - startTime < 15000 )
+			if ( win.openWindow(640,480,32,false,false) )
 			{
-				r->drawTile(win,as,IVec2(400,400),SDL_GetTicks());
+				Scaler::setScaleFactor(win);
+
+				SpriteManager sm;
+				Sprite s(sm,"./data/asprite.png",false);
+				AnimatedSprite as(sm,"./data/asprite.png",32,32,1500,true);
+				Map m(sm,MAP_PATH + std::string("m1.txt"));
+
+				r->clearScreen();
+				
+				startTime = SDL_GetTicks();
+				while ( SDL_GetTicks() - startTime < 15000 )
+				{
+					r->drawTile(as,IVec2(100,100),SDL_GetTicks());
+					r->drawTile(s,IVec2(100,150));
+					SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
+				}
+
+				r->clearScreen();
+				if ( m.isValidMap() )
+				{
+					m.draw(*r,0);
+				}
 				SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
+				SDL_Delay(5000);
 			}
-
-			r->clearScreen(win);
-			if ( m.isValidMap() )
-			{
-				m.draw(win,*r,0);
-			}
-			SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-			SDL_Delay(5000);
 
 			// Bye bye SDL_image
 			IMG_Quit();
@@ -105,6 +122,13 @@ int main(int argc, char** argv)
 
 	// Bye bye SDL
 	SDL_Quit();
+
+#ifdef _DEBUG
+	// Final check
+	LDebug << "Number of Sprite Alloc/Destruction: " << nbSAllocation << " / " << nbSDestruction;
+	LDebug << "Number of Animated Sprite Alloc/Destruction: " << nbASAllocation << " / " << nbASDestruction;
+	LDebug << "Number of Tile Alloc/Destruction: " << nbTAllocation << " / " << nbTDestruction;
+#endif
 
 	Logger::deleteLogger();
 

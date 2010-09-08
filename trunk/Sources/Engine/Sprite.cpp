@@ -35,9 +35,14 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-Sprite :: Sprite(SpriteManager& sm, const std::string& fileName)
+#ifdef _DEBUG
+	extern unsigned int nbSAllocation;
+	extern unsigned int nbSDestruction;
+#endif
+
+Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool needScaling)
 {
-	surface = sm.getSurface(fileName);
+	surface = sm.getSurface(fileName,needScaling);
 
 	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
 	
@@ -46,11 +51,18 @@ Sprite :: Sprite(SpriteManager& sm, const std::string& fileName)
 	{
 		LWarning << "Fail to activate the RLE acceleration for '" << fileName.c_str() << "'";
 	}
+
+#ifdef _DEBUG
+	nbSAllocation++;
+#endif
 }
 
 Sprite :: ~Sprite(void)
 {
 	LDebug << "Sprite deleted";
+#ifdef _DEBUG
+	nbSDestruction++;
+#endif
 }
 
 const int Sprite :: getWidth(void)const

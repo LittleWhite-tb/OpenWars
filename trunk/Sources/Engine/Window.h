@@ -52,8 +52,12 @@ private:
 	const SDL_VideoInfo* pVideoInfo;	/*!< Info from SDL on the machine's abilities */
 	SDL_Surface* pWindowSurface;		/*!< Surface of the window */
 
-	bool isFullscreen;					/*!< Remember if the window is in fillscreen mode */
+	bool isFullscreen;					/*!< Remember if the window is in fullscreen mode */
 	bool isOpenGL;						/*!< Remember if the window is built for OpenGL */
+
+	// Disallow the copy
+	Window(const Window& w);
+	void operator= (const Window& w);
 
 	/** Gets the flags needed to build a window (or other SDL functions), following the parameters and the SDL_VideoInfo
      *  \param isFillscreen Says if we wants flags for fullscreen mode 
@@ -109,7 +113,7 @@ public:
     /*!
 	  \return the window surface, where to draw final image
 	*/
-	SDL_Surface* const getWindowSurface(void) { return pWindowSurface; }
+	SDL_Surface* const getWindowSurface(void)const { return pWindowSurface; }
 
 	//! get the height of the window surface
     /*!
@@ -129,6 +133,18 @@ public:
 	*/
 	int getBitsPerPixel(void)const;
 
+	//! get if the window is OpenGL compatible
+    /*!
+	  \return true if the window is OpenGL compatible
+	*/
+	bool isOpenGLWindow(void)const { return isOpenGL; }
+
+	//! get if the window is in fullscreen mode
+    /*!
+	  \return true if the window is in fullscreen mode
+	*/
+	bool isFullscreenWindow(void)const { return isFullscreen; }
+
 	//! get if the cursor is actually visible
     /*!
 	  \return true if the cursor is visible
@@ -139,14 +155,14 @@ public:
     /*!
 	  \param isShowed true if the cursor needs to be visible (default).
 	*/
-	void showCursor(bool isShowed)const;
+	void showCursor(const bool isShowed)const;
 
 	//! Set the window name and the icon assigned to it
     /*!
 	  \param windowName the name of the window
 	  \param iconName the name of the file to load for the window (should be .ico file)
 	*/
-	void setCaption(const std::string& windowName, const std::string& iconName);
+	void setCaption(const std::string& windowName, const std::string& iconName)const;
 };
 
 /*! \struct ResolutionInfo Window.h "Engine/Window.h"

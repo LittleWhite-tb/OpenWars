@@ -268,6 +268,14 @@
 					RelativePath=".\Sources\Utils\Logger_template.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\Sources\Utils\Scaler.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Scaler.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Types"

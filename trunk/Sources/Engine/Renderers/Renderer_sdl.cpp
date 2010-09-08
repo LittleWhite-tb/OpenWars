@@ -34,8 +34,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../Utils/Logger.h"
 
-RSDL :: RSDL(void)
-	:Renderer(RAPI_SDL)
+RSDL :: RSDL(const Window* const pWin)
+	:Renderer(pWin,RAPI_SDL)
 {
 	LDebug << "RSDL created";
 }
@@ -45,9 +45,9 @@ RSDL :: ~RSDL(void)
 	LDebug << "RSDL deleted";
 }
 
-bool RSDL :: clearScreen(Window& window)
+bool RSDL :: clearScreen(void)const
 {
-	SDL_Surface* pWindowSurface = window.getWindowSurface();
+	SDL_Surface* pWindowSurface = pWin->getWindowSurface();
 
 	LDebug << "RSDL :: clearScreen";
 
@@ -56,9 +56,9 @@ bool RSDL :: clearScreen(Window& window)
 	return true;
 }
 
-bool RSDL :: drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour)
+bool RSDL :: drawTile(SDL_Rect& tile, const SDL_Color& colour)const
 {
-	SDL_Surface* pWindowSurface = window.getWindowSurface();
+	SDL_Surface* pWindowSurface = pWin->getWindowSurface();
 
 	LDebug << "RSDL :: drawTile from colour (pos: " << tile.x << "x" << tile.y << " size: " << tile.w << "x" << tile.h << " colour: " << static_cast<int>(colour.r) << "," <<  static_cast<int>(colour.g) << "," << static_cast<int>(colour.b) << "," << static_cast<int>(colour.unused) << ")";
 
@@ -71,13 +71,13 @@ bool RSDL :: drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour)
 	return true;
 }
 
-bool RSDL :: drawTile(Window& window, Sprite& sprite, const IVec2& pos)
+bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos)const
 {
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , static_cast<Uint16>(sprite.getWidth()) , static_cast<Uint16>(sprite.getHeight()) };
 
 	LDebug << "RSDL :: drawTile from Sprite @ " << pos;
 
-	if ( SDL_BlitSurface(sprite.getSurface(), NULL, window.getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(sprite.getSurface(), NULL, pWin->getWindowSurface(), &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;
@@ -86,13 +86,13 @@ bool RSDL :: drawTile(Window& window, Sprite& sprite, const IVec2& pos)
 	return true;
 }
 
-bool RSDL :: drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)
+bool RSDL :: drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const
 {
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , srcRect.w , srcRect.h };
 
 	LDebug << "RSDL :: drawTile from Sprite (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ") @ " << pos;
 
-	if ( SDL_BlitSurface(sprite.getSurface(), &srcRect, window.getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(sprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;
@@ -101,29 +101,31 @@ bool RSDL :: drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const I
 	return true;
 }
 
-bool RSDL :: drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)
+bool RSDL :: drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const
 {
 	SDL_Rect srcRect = aSprite.getSrcRect(time);
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , static_cast<Uint16>(aSprite.getWidth()) , static_cast<Uint16>(aSprite.getHeight()) };
 
 	LDebug << "RSDL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
 
-	if ( SDL_BlitSurface(aSprite.getSurface(), &srcRect, window.getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(aSprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;
 	}
+
+	return true;
 }
 
-bool RSDL :: drawBackground(Window& window, SDL_Surface* const pImage)
+bool RSDL :: drawBackground(SDL_Surface* const pImage)const
 {
-	SDL_Rect r = { 0, 0, static_cast<Uint16>(window.getWidth()), static_cast<Uint16>(window.getHeight()) };
+	SDL_Rect r = { 0, 0, static_cast<Uint16>(pWin->getWidth()), static_cast<Uint16>(pWin->getHeight()) };
 
 	assert(pImage);
 
 	LDebug << "RSDL :: drawBackground";
 
-	if ( SDL_BlitSurface(window.getWindowSurface(), NULL, pImage, &r) != 0 )
+	if ( SDL_BlitSurface(pWin->getWindowSurface(), NULL, pImage, &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;

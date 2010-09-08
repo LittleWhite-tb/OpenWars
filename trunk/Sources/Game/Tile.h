@@ -151,7 +151,7 @@ typedef struct Tile
 
 	unsigned char cityLife;			/*!< The actual remaining life of the builing */ // For capturing
 
-	Tile(void):tileType(TT_Plain),pAnimation(0),defence(0),isSee(false),isBuilding(false),cityLife(0) {}
+	// Tile(void):tileType(TT_Plain),pAnimation(0),defence(0),isSee(false),isBuilding(false),cityLife(0) {}
 
 	//! Basic constructor
 	/*!
@@ -162,8 +162,7 @@ typedef struct Tile
 		\param isBuilding if the tile is a building
 		\param cityLife the life of the building
 	*/
-	Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife)
-		:tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),cityLife(cityLife) {}
+	Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife);
 
 	~Tile(void);
 }Tile;

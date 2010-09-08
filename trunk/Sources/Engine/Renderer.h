@@ -25,7 +25,11 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include <cassert>
+
 #include "Window.h"
+
+#include "../Types/Vec2.h"
 
 struct SDL_Surface;
 struct SDL_Rect;
@@ -34,8 +38,6 @@ struct SDL_Colour;
 class Window;
 class Sprite;
 class AnimatedSprite;
-
-#include "../Types/Vec2.h"
 
 typedef enum RenderingAPI
 {
@@ -48,14 +50,17 @@ class Renderer
 private:
 
 protected:
+	const Window* pWin;				/*!< Keep the window where to draw */
 	RenderingAPI rAPI;			/*!< Remember which API is actually implemented */
 	
 public:
 	//! Basic constructor
 	/*!
       Do nothing, just copying the enum of the API used
+	  \param pWin the Window where the Renderer will draw
+	  \param rAPI the API of the current instance of the Renderer
     */
-	Renderer(const RenderingAPI rAPI):rAPI(rAPI) {};
+	Renderer(const Window* const pWin, const RenderingAPI rAPI):pWin(pWin),rAPI(rAPI) { assert(pWin); };
 
 	//! Basic destructor
 	/*!
@@ -65,56 +70,50 @@ public:
 
 	//! Clear the screen (black)
 	/*!
-      \param window the window to clear
 	  \return true if all goes right
     */
-	virtual bool clearScreen(Window& window)=0;
+	virtual bool clearScreen(void)const=0;
 
 	//! Draw a rectangle with a unified colour
 	/*!
-      \param window the window where to draw
 	  \param tile the rectangle to fill
 	  \param colour the colour to use to fill the rectangle
 	  \return true if all goes right
     */
-	virtual bool drawTile(Window& window, SDL_Rect& tile, const SDL_Color& colour)=0;
+	virtual bool drawTile(SDL_Rect& tile, const SDL_Color& colour)const=0;
 
 	//! Draw a complete Sprite
 	/*!
-      \param window the window where to draw
 	  \param sprite the sprite to draw
 	  \param pos where the sprite is drawn
 	  \return true if all goes right
     */
-	virtual bool drawTile(Window& window, Sprite& sprite, const IVec2& pos)=0;
+	virtual bool drawTile(const Sprite& sprite, const IVec2& pos)const=0;
 
 	//! Draw a part of a Sprite
 	/*!
-      \param window the window where to draw
 	  \param sprite the sprite to draw
 	  \param srcRect the rectangle on the source Sprite to draw
 	  \param pos the position where to draw the part of the sprite
 	  \return true if all goes right
     */
-	virtual bool drawTile(Window& window, Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)=0;
+	virtual bool drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const=0;
 
 	//! Draw an AnimatedSprite
 	/*!
-      \param window the window where to draw
 	  \param aSprite the animation to draw
 	  \param pos where to draw the animation
 	  \param time the actual time (to know which frame to draw)
 	  \return true if all goes right
     */
-	virtual bool drawTile(Window& window, AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)=0;
+	virtual bool drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const=0;
 
 	//! Draw a background
 	/*!
-      \param window the window where to draw
 	  \param pImage the imageto copy in background
 	  \return true if all goes right
     */
-	virtual bool drawBackground(Window& window, SDL_Surface* const pImage)=0;
+	virtual bool drawBackground(SDL_Surface* const pImage)const=0;
 	
 	//! Get the current API used
 	/*!
@@ -126,16 +125,18 @@ public:
 //! Renderer factory
 /*!
  * Return the renderer corresponding to the parameter
+ * \param pWin the Window where the Renderer will draw
  * \param renderingAPI the specific API renderer to return
  * \return the wanted renderer
 */
-Renderer* RendererFactory(const RenderingAPI renderingAPI);
+Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI);
 
 /*! \class Renderer Renderer.h "Engine/Renderer.h"
  *  \brief Base for the API specific renderer.
  *
  * Give an unified interface usable by the application, to draw on the screen
  * This interface has to be inherited to implement a new API specific renderer (SDL / OpenGL / ...)
+ * A Window instance is stored in this class to know on which window it has to draw
  * The following functionnalities needs to be implemented:
  *		- Clear the screen
  *		- Draw a rectangle with a unified colour

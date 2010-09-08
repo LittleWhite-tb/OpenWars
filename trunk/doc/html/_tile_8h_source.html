@@ -177,19 +177,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00150"></a><a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">00150</a>         <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>;                                
 <a name="l00152"></a><a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">00152</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>;                  <span class="comment">// For capturing</span>
 <a name="l00153"></a>00153 
-<a name="l00154"></a>00154         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>(<span class="keywordtype">void</span>):<a class="code" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>(TT_Plain),<a class="code" href="struct_tile.html#ab42baeef200cc56d7f492cb0b95cefbf">pAnimation</a>(0),<a class="code" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>(0),<a class="code" href="struct_tile.html#adbe8c3cfe36ceb01b2dddff5101d8f7f">isSee</a>(false),<a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>(false),<a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>(0) {}
+<a name="l00154"></a>00154         <span class="comment">// Tile(void):tileType(TT_Plain),pAnimation(0),defence(0),isSee(false),isBuilding(false),cityLife(0) {}</span>
 <a name="l00155"></a>00155 
 <a name="l00157"></a>00157 
-<a name="l00165"></a><a class="code" href="struct_tile.html#aeb30b80a2cca213367896c30347586c9">00165</a>         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>(<span class="keyword">const</span> TileType <a class="code" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>, <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <span class="keyword">const</span> <a class="code" href="struct_tile.html#ab42baeef200cc56d7f492cb0b95cefbf">pAnimation</a>, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#adbe8c3cfe36ceb01b2dddff5101d8f7f">isSee</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>)
-<a name="l00166"></a>00166                 :tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),cityLife(cityLife) {}
-<a name="l00167"></a>00167 
-<a name="l00168"></a>00168         ~<a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>(<span class="keywordtype">void</span>);
-<a name="l00169"></a>00169 }<a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>;
-<a name="l00170"></a>00170 
-<a name="l00172"></a>00172 
-<a name="l00179"></a>00179 <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>* TileFactory(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; themeName, <span class="keyword">const</span> TileType tileType);
-<a name="l00180"></a>00180 
-<a name="l00197"></a>00197 <span class="preprocessor">#endif</span>
+<a name="l00165"></a>00165         <a class="code" href="struct_tile.html#aeb30b80a2cca213367896c30347586c9" title="Basic constructor.">Tile</a>(<span class="keyword">const</span> TileType <a class="code" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>, <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <span class="keyword">const</span> <a class="code" href="struct_tile.html#ab42baeef200cc56d7f492cb0b95cefbf">pAnimation</a>, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#adbe8c3cfe36ceb01b2dddff5101d8f7f">isSee</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>);
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167         ~<a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>(<span class="keywordtype">void</span>);
+<a name="l00168"></a>00168 }<a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>;
+<a name="l00169"></a>00169 
+<a name="l00171"></a>00171 
+<a name="l00178"></a>00178 <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>* TileFactory(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; themeName, <span class="keyword">const</span> TileType tileType);
+<a name="l00179"></a>00179 
+<a name="l00196"></a>00196 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -206,7 +205,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 22 2010 16:51:38 for OpenAWars by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Sep 7 2010 15:34:58 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

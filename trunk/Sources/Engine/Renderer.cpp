@@ -29,15 +29,15 @@ e-mail: lw.demoscene@gmail.com
 
 #define NULL 0
 
-Renderer* RendererFactory(const RenderingAPI renderingAPI)
+Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI)
 {
 	switch (renderingAPI)
 	{
 		case RAPI_SDL:
-			return new RSDL();
+			return new RSDL(pWin);
 			break;
 		case RAPI_OpenGL:
-			return new ROpenGL();
+			return new ROpenGL(pWin);
 			break;
 	}
 

@@ -31,10 +31,23 @@ e-mail: lw.demoscene@gmail.com
 #include "ResourcesManager/SpriteManager.h"
 
 #include "../Utils/Logger.h"
+#include "../Utils/Scaler.h"
 
-AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval)
-	:Sprite(sm,fileName),widthSprite(width),heightSprite(height),animationCounter(0),lastUpdate(0),msInterval(msInterval)
+#ifdef _DEBUG
+	extern unsigned int nbASAllocation;
+	extern unsigned int nbASDestruction;
+#endif
+
+AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
+	:Sprite(sm,fileName,needScaling),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
+	// We scale the size of the sprite surface (since we always apply the scaler on the surface, from the SpriteManager)
+	if ( needScaling )
+	{
+		this->widthSprite = static_cast<unsigned int>(width * Scaler::getXScaleFactor());
+		this->heightSprite = static_cast<unsigned int>(height * Scaler::getYScaleFactor());
+	}
+
 	// Special cas where the size given by the user is not completely right, or there is only one sprite (no animation)
 	if ( this->surface->w < static_cast<int>(widthSprite) )
 	{
@@ -48,13 +61,18 @@ AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName,
 
 	numberAnimation = (this->surface->w / this->widthSprite) * (this->surface->h / this->heightSprite );
 	
-	LDebug << "AnimatedSprite created from '" << fileName.c_str() << "' (" << width << "x" << height << ") Nb Animation: " << numberAnimation;
-	
+	LDebug << "AnimatedSprite created from '" << fileName.c_str() << "' (" << this->widthSprite << "x" << this->heightSprite << ") Nb Animation: " << numberAnimation;
+#ifdef _DEBUG
+	nbASAllocation++;
+#endif
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)
 {
 	LDebug << "AnimatedSprite deleted";
+#ifdef _DEBUG
+	nbASDestruction++;
+#endif
 }
 
 void AnimatedSprite :: update(const unsigned int time)
