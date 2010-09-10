@@ -32,6 +32,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Sprite.h"
 
 #include "Game/Map.h"
+#include "Game/Camera.h"
+#include "Game/Cursor.h"
 
 #include "Types/Vec2.h"
 
@@ -92,10 +94,13 @@ int main(int argc, char** argv)
 				SpriteManager sm;
 				Sprite s(sm,"./data/asprite.png",false);
 				AnimatedSprite as(sm,"./data/asprite.png",32,32,1500,true);
-				Map m(sm,MAP_PATH + std::string("m1.txt"));
-
+				Map m(sm,MAP_PATH + std::string("m2.txt"));
+				Cursor c(sm,"./data/gfx/cursor_alpha.png",&m,UVec2(2,2));
+				Camera cam;
+				Keyboard kb;
+/*
 				r->clearScreen();
-				
+			
 				startTime = SDL_GetTicks();
 				while ( SDL_GetTicks() - startTime < 15000 )
 				{
@@ -103,14 +108,24 @@ int main(int argc, char** argv)
 					r->drawTile(s,IVec2(100,150));
 					SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
 				}
-
-				r->clearScreen();
+*/
 				if ( m.isValidMap() )
 				{
-					m.draw(*r,0);
+					while ( kb.isEscapePressed() == 0 )
+					{
+						r->clearScreen();
+
+						m.draw(*r,cam,0);
+						c.draw(*r,cam,0);
+						
+						SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
+
+						c.move(kb.getDirectionPressed());
+						cam.update(c,m);
+						kb.update();
+						SDL_Delay(15);
+					}
 				}
-				SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-				SDL_Delay(5000);
 			}
 
 			// Bye bye SDL_image

@@ -28,8 +28,10 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "Tile.h"
+#include "../Types/Vec2.h"
 
 class Renderer;
+class Camera;
 
 class Map
 {
@@ -70,16 +72,36 @@ public:
 	//! Draw the map
 	/*!
 	  \param r the renderer to use to draw the map
+	  \param c The Camera (used to draw the correct part of the Map)
 	  \param time the actual time (for animation)
 	  \return true if all goes right
     */
-	bool draw(const Renderer& r, const unsigned int time);
+	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
 
 	//! Return if the map is valid
 	/*!
 		\return true if the map is valid
 	*/
-	bool isValidMap(void) { return valid; }
+	bool isValidMap(void)const { return valid; }
+
+	//! Return the width of the map
+	/*!
+		\return width of the map
+	*/
+	unsigned int getWidth(void)const { return width; }
+
+	//! Return the height of the map
+	/*!
+		\return height of the map
+	*/
+	unsigned int getHeight(void)const { return height; }
+
+	//! Return the tile corresponding to the position
+	/*!
+		\param position the position of the Tile to get
+		\return the Tile corresponding to the input position
+	*/
+	Tile* getTile(const UVec2& position)const { return map[position.y][position.x]; }
 };
 
 /*! \class Map Map.h "Game/Map.h"
@@ -89,6 +111,7 @@ public:
  * Can do the following:
  *		- Load from file (directly in the constructor, the parsing is done manualy)
  *		- Draw the map
+ *		- Get a Tile
  */
 
 #endif

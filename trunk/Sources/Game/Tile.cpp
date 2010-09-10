@@ -67,7 +67,7 @@ AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, 
 			pAS = new AnimatedSprite(sm,folderName + std::string("tree.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Mountain_1:
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,32,NORMAL_SPEED,true);
+			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,42,NORMAL_SPEED,true);
 			break;
 		case TT_Mountain_2:
 			pAS = new AnimatedSprite(sm,folderName + std::string("mountain2.png"),32,32,NORMAL_SPEED,true);

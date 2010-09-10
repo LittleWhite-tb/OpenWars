@@ -106,7 +106,7 @@ bool RSDL :: drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned 
 	SDL_Rect srcRect = aSprite.getSrcRect(time);
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , static_cast<Uint16>(aSprite.getWidth()) , static_cast<Uint16>(aSprite.getHeight()) };
 
-	LDebug << "RSDL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
+	// LDebug << "RSDL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
 
 	if ( SDL_BlitSurface(aSprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
 	{

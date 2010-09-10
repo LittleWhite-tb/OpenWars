@@ -45,12 +45,6 @@ Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool need
 	surface = sm.getSurface(fileName,needScaling);
 
 	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
-	
-	// Enable some RLE acceleration
-	if ( SDL_SetColorKey(surface, SDL_RLEACCEL, surface->format->colorkey) == -1 )
-	{
-		LWarning << "Fail to activate the RLE acceleration for '" << fileName.c_str() << "'";
-	}
 
 #ifdef _DEBUG
 	nbSAllocation++;

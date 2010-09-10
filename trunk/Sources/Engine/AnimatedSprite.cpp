@@ -77,12 +77,10 @@ AnimatedSprite :: ~AnimatedSprite(void)
 
 void AnimatedSprite :: update(const unsigned int time)
 {
-	LDebug << "AnimatedSprite :: update (" << time << ")";
+	// LDebug << "AnimatedSprite :: update (" << time << ")";
 
 	if ( time - lastUpdate > msInterval )
 	{
-		LDebug << "\tNext animation";
-
 		animationCounter++;
 
 		if ( animationCounter >= numberAnimation )
@@ -103,7 +101,7 @@ SDL_Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 
 	SDL_Rect srcRect = { static_cast<Sint16>(x) , static_cast<Sint16>(y) , static_cast<Uint16>(widthSprite), static_cast<Uint16>(heightSprite)};
 
-	LDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
+	//LDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
 
 	this->update(time);
 

@@ -33,11 +33,15 @@ e-mail: lw.demoscene@gmail.com
 #define NORMAL_SPEED	200						/*!< Default speed for normal animation */
 #define SEE_SPEED		300						/*!< Default speed for the see animations */
 #define BUILDING_SPEED	150						/*!< Default speed for animation of buildings */
+#define CURSOR_SPEED	400						/*!< Default speed for animation of the cursor */
 
 // Sprite default size (will be used to determine the scaling factor)
 #define TILE_DEFAULT_WIDTH	32					/*!< Default width of the tiles */
 #define TILE_DEFAULT_HEIGHT	32					/*!< Default height of the tiles */
 #define MAP_MIN_WIDTH			15				/*!< Minimum number of tiles on the map for x axis */
 #define MAP_MIN_HEIGHT			10				/*!< Minimum number of tiles on the map for y axis */
+
+// For the Camera
+#define BOUND_CAMERA_DISPLACEMENT	2			/*!< The distance with the bound where the camera starts to move */
 
 #endif

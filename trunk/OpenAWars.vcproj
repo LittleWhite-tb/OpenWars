@@ -252,6 +252,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Controls"
+					>
+					<File
+						RelativePath=".\Sources\Engine\Controls\Keyboard.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Engine\Controls\Keyboard.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utils"
@@ -288,6 +300,22 @@
 			<Filter
 				Name="Game"
 				>
+				<File
+					RelativePath=".\Sources\Game\Camera.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Camera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Cursor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Cursor.h"
+					>
+				</File>
 				<File
 					RelativePath=".\Sources\Game\Map.cpp"
 					>

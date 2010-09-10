@@ -58,6 +58,7 @@ std::ostream& operator<< (std::ostream& o, const Vec2<T> v)
 }
 
 typedef Vec2<int> IVec2;
+typedef Vec2<unsigned int> UVec2;
 
 /*! \struct Vec2 Vec2.h "Types/Vec2.h"
  *  \brief 2D Vector structure

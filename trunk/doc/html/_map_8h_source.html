@@ -57,36 +57,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00028"></a>00028 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00029"></a>00029 
 <a name="l00030"></a>00030 <span class="preprocessor">#include &quot;Tile.h&quot;</span>
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">class </span><a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>;
-<a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="class_map.html">00034</a> <span class="keyword">class </span><a class="code" href="class_map.html" title="Map management class.">Map</a>
-<a name="l00035"></a>00035 {
-<a name="l00036"></a>00036 <span class="keyword">private</span>:
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width;                     
-<a name="l00039"></a>00039         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height;            
-<a name="l00041"></a>00041         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>*** map;                            
-<a name="l00043"></a>00043         <span class="keywordtype">bool</span> valid;                                     
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046 
-<a name="l00052"></a>00052         <span class="keywordtype">bool</span> parser(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileName);
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="keyword">public</span>:
-<a name="l00056"></a>00056 
-<a name="l00062"></a>00062         <a class="code" href="class_map.html#a990b3978d94289f3e7ca0ea1bfa97979" title="Basic constructor.">Map</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileName);
-<a name="l00063"></a>00063 
+<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;../Types/Vec2.h&quot;</span>
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="keyword">class </span><a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>;
+<a name="l00034"></a>00034 <span class="keyword">class </span><a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>;
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="class_map.html">00036</a> <span class="keyword">class </span><a class="code" href="class_map.html" title="Map management class.">Map</a>
+<a name="l00037"></a>00037 {
+<a name="l00038"></a>00038 <span class="keyword">private</span>:
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width;                     
+<a name="l00041"></a>00041         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height;            
+<a name="l00043"></a>00043         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>*** map;                            
+<a name="l00045"></a>00045         <span class="keywordtype">bool</span> valid;                                     
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 
+<a name="l00054"></a>00054         <span class="keywordtype">bool</span> parser(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileName);
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keyword">public</span>:
+<a name="l00058"></a>00058 
+<a name="l00064"></a>00064         <a class="code" href="class_map.html#a990b3978d94289f3e7ca0ea1bfa97979" title="Basic constructor.">Map</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileName);
 <a name="l00065"></a>00065 
-<a name="l00068"></a>00068         <a class="code" href="class_map.html#a55d7061de63bc1211c2f52592104d090" title="Basic destructor.">~Map</a>(<span class="keywordtype">void</span>);
-<a name="l00069"></a>00069 
+<a name="l00067"></a>00067 
+<a name="l00070"></a>00070         <a class="code" href="class_map.html#a55d7061de63bc1211c2f52592104d090" title="Basic destructor.">~Map</a>(<span class="keywordtype">void</span>);
 <a name="l00071"></a>00071 
-<a name="l00076"></a>00076         <span class="keywordtype">bool</span> <a class="code" href="class_map.html#afb10aa6bf276c825e7d860c3fb41eda3" title="Draw the map.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time);
-<a name="l00077"></a>00077 
-<a name="l00079"></a>00079 
-<a name="l00082"></a><a class="code" href="class_map.html#a4f500c0b43adc0b04b9bd36876a9033b">00082</a>         <span class="keywordtype">bool</span> <a class="code" href="class_map.html#a4f500c0b43adc0b04b9bd36876a9033b" title="Return if the map is valid.">isValidMap</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> valid; }
-<a name="l00083"></a>00083 };
-<a name="l00084"></a>00084 
-<a name="l00094"></a>00094 <span class="preprocessor">#endif</span>
+<a name="l00073"></a>00073 
+<a name="l00079"></a>00079         <span class="keywordtype">bool</span> <a class="code" href="class_map.html#a077e065aa7752428aeaad75bd13daf98" title="Draw the map.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>&amp; c, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time);
+<a name="l00080"></a>00080 
+<a name="l00082"></a>00082 
+<a name="l00085"></a><a class="code" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678">00085</a>         <span class="keywordtype">bool</span> <a class="code" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678" title="Return if the map is valid.">isValidMap</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> valid; }
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088 
+<a name="l00091"></a><a class="code" href="class_map.html#a0454b453ed0141eccb916435f242f35a">00091</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_map.html#a0454b453ed0141eccb916435f242f35a" title="Return the width of the map.">getWidth</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> width; }
+<a name="l00092"></a>00092 
+<a name="l00094"></a>00094 
+<a name="l00097"></a><a class="code" href="class_map.html#ad038150a2b86ba56221d91009d7b7d19">00097</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_map.html#ad038150a2b86ba56221d91009d7b7d19" title="Return the height of the map.">getHeight</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> height; }
+<a name="l00098"></a>00098 
+<a name="l00100"></a>00100 
+<a name="l00104"></a><a class="code" href="class_map.html#a0bc623382eee742df5bff1c28c08d4a0">00104</a>         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>* <a class="code" href="class_map.html#a0bc623382eee742df5bff1c28c08d4a0" title="Return the tile corresponding to the position.">getTile</a>(<span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; position)<span class="keyword">const </span>{ <span class="keywordflow">return</span> map[position.<a class="code" href="struct_vec2.html#a7ea262a941af6b3abd284ab97658806c">y</a>][position.<a class="code" href="struct_vec2.html#a8ef8f719932c920ac4ce11399c983d53">x</a>]; }
+<a name="l00105"></a>00105 };
+<a name="l00106"></a>00106 
+<a name="l00117"></a>00117 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -103,7 +114,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue Sep 7 2010 15:34:58 for OpenAWars by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 9 2010 18:36:33 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

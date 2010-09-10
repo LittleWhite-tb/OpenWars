@@ -285,7 +285,10 @@ SDL_Surface* Scaler :: scale(SDL_Surface* const pSrcSurface)
 		}
 
 		// Silly copy
-		SDL_BlitSurface(pSrcSurface, NULL, pDstSurface, NULL);
+		// HACK ... for unknown reason the SDL_BlitSurface doesn't copy the alpha channel of the source ...
+		// Moreover ... the memcpy is maybe quicker
+		// SDL_BlitSurface(pSrcSurface, NULL, pDstSurface, NULL);
+		memcpy(pDstSurface->pixels,pSrcSurface->pixels,pSrcSurface->format->BitsPerPixel/8 * pSrcSurface->w * pSrcSurface->h);
 
 		return pDstSurface;
 	}

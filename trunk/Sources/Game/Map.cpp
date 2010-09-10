@@ -36,9 +36,13 @@ e-mail: lw.demoscene@gmail.com
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/AnimatedSprite.h"
 
+#include "Camera.h"
+
 #include "../Types/Vec2.h"
 
 #include "../Utils/Logger.h"
+#include "../Utils/Scaler.h"
+#include "../globals.h"
 
 Map :: Map(SpriteManager& sm, const std::string& fileName)
 	:width(0),height(0),map(NULL),valid(false)
@@ -169,25 +173,36 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: draw(const Renderer& r, const unsigned int time)
+bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 {
+	UVec2 cameraPosition = c.getPosition();
 	IVec2 tilePos(0,0);
 
 	LDebug << "Map :: draw";
 
+	// The camera is an offset of the Map drawing
 	// For each lines
-	for ( unsigned int y = 0 ; y < this->height ; y++ )
+	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
 	{
 		tilePos.x = 0;
 		// For each columns
-		for ( unsigned int x = 0 ; x < this->width ; x++ )
+		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
+			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
+			unsigned int yOffset = map[y][x]->pAnimation->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+
+			// Apply offset
+			tilePos.y -= yOffset;
+
 			r.drawTile(*(map[y][x]->pAnimation),tilePos,time);
 			tilePos.x += map[y][x]->pAnimation->getWidth();
+
+			// Remove offset ( to not affect other sprite )
+			tilePos.y += yOffset;
 		}
 
 		// To put 0 here, can be a bit dangerous
-		tilePos.y += map[y][0]->pAnimation->getWidth();
+		tilePos.y += map[y][0]->pAnimation->getHeight();
 	}
 
 	return true;

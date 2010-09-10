@@ -80,6 +80,16 @@ SDL_Surface* SpriteManager :: getSurface(const std::string& fileName,const bool 
 				LWarning << "Failed to scale the surface";
 				spritesBank[fileName].pScaledSprite = pTmpSurface;
 			}
+
+			// Enable RLE acceleration
+			if ( SDL_SetColorKey(pTmpSurface, SDL_RLEACCEL, pTmpSurface->format->colorkey) != 0 )
+			{
+				LWarning << "Fail to apply the RLE acceleration";
+			}
+			if ( SDL_SetColorKey(pTmpScaledSurface, SDL_RLEACCEL, pTmpScaledSurface->format->colorkey) != 0 )
+			{
+				LWarning << "Fail to apply the RLE acceleration for the scaled surface";
+			}
 		}
 	}
 
