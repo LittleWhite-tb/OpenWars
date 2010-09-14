@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;GAME"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -119,7 +119,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;GAME"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -183,6 +183,10 @@
 			</File>
 			<File
 				RelativePath=".\Sources\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\main.h"
 				>
 			</File>
 			<Filter
@@ -266,30 +270,6 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Utils"
-				>
-				<File
-					RelativePath=".\Sources\Utils\Logger.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Logger.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Logger_template.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Scaler.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Scaler.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Types"
 				>
 				<File
@@ -333,12 +313,34 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
+			<Filter
+				Name="UI"
+				>
+			</Filter>
+			<Filter
+				Name="Utils"
+				>
+				<File
+					RelativePath=".\Sources\Utils\Logger.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Logger.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Logger_template.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Scaler.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Scaler.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

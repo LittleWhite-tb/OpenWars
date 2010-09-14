@@ -41,6 +41,7 @@ enum ArrowsDirection
 class Keyboard
 {
 private:
+	int nbKeys;					/*!< The number of keys repertoried in the array */
 	unsigned char* keys;		/*!< Array of keys state */
 
 public:
@@ -68,6 +69,13 @@ public:
 	  \return the direction
     */
 	ArrowsDirection getDirectionPressed(void)const;
+
+	//! Check the specified key
+	/*!
+	  \param key the key to check
+	  \return 0 if the key is not pressed
+	*/
+	unsigned char isKey(unsigned int key);
 
 	//! Update the keys array
 	/*!

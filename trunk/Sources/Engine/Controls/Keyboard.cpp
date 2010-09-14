@@ -26,6 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
+#include <cassert>
+
 #include "../../Utils/Logger.h"
 
 Keyboard :: Keyboard(void)
@@ -94,10 +96,21 @@ ArrowsDirection Keyboard :: getDirectionPressed(void)const
 	return AD_NONE;
 }
 
+unsigned char Keyboard :: isKey(unsigned int key)
+{
+	assert(static_cast<int>(key) < nbKeys);
+
+	return keys[key];
+}
+
 void Keyboard :: update(void)
 {
+	int nbKeys = 0;
+
 	LDebug << "Keyboard :: update";
 
 	SDL_PumpEvents();
-	keys = SDL_GetKeyState(NULL);
+	keys = SDL_GetKeyState(&nbKeys);
+
+	this->nbKeys = nbKeys;
 }

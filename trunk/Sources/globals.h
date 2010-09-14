@@ -1,6 +1,7 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -22,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 // Folders path
 #define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */
@@ -43,5 +45,13 @@ e-mail: lw.demoscene@gmail.com
 
 // For the Camera
 #define BOUND_CAMERA_DISPLACEMENT	2			/*!< The distance with the bound where the camera starts to move */
+
+#ifdef EDITOR
+	// For the TileBar
+	#define TILE_BAR_HEIGHT			64			/*!< The height of the tile bar */
+	#define TILE_BAR_XMARGIN		10			/*!< Margin around the tiles on the x axis */
+	#define TILE_BAR_YMARGIN		8			/*!< Margin around the tiles on the y axis */
+	#define TILE_NB_DRAWN			9			/*!< Number of tiles drawn in the bar */
+#endif
 
 #endif

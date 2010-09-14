@@ -56,6 +56,14 @@ public:
     */
 	Sprite(SpriteManager& sm, const std::string& fileName,const bool needScaling);
 
+	//! Constructor by using SDL_Surface pointer
+	/*!
+		The SDL_Surface should be ready to use.
+		Warning: The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using getSurface().
+		\param pSurface pointer on the surface to use
+	*/
+	Sprite(SDL_Surface* pSurface);
+
 	//! Basic destructor
 	/*!
       Free the internal surface

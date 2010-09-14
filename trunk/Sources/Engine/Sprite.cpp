@@ -51,6 +51,16 @@ Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool need
 #endif
 }
 
+Sprite :: Sprite(SDL_Surface* pSurface)
+	:surface(pSurface)
+{
+	LDebug << "Sprite created from SDL_Surface*";
+
+#ifdef _DEBUG
+	nbSAllocation++;
+#endif
+}
+
 Sprite :: ~Sprite(void)
 {
 	LDebug << "Sprite deleted";

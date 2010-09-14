@@ -75,6 +75,8 @@ Inheritance diagram for Sprite:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a37ffabec6e46df22039eecf891b7f671">Sprite</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;fileName, const bool needScaling)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a37ffabec6e46df22039eecf891b7f671"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#acb530e7c60874c50675a2c0f0e388022">Sprite</a> (SDL_Surface *pSurface)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor by using SDL_Surface pointer.  <a href="#acb530e7c60874c50675a2c0f0e388022"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#ae2cc659dea1ee5802b336d5c9b4f8f41">~Sprite</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#ae2cc659dea1ee5802b336d5c9b4f8f41"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a746288e2fbb3b6fc8b1d51bdbec7c678">getWidth</a> (void) const </td></tr>
@@ -135,6 +137,33 @@ Protected Attributes</h2></td></tr>
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the sprite manager to use to load the image </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>the file to load </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>needScaling</em>&nbsp;</td><td>if some scaling operation has to be done on this sprite </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="acb530e7c60874c50675a2c0f0e388022"></a><!-- doxytag: member="Sprite::Sprite" ref="acb530e7c60874c50675a2c0f0e388022" args="(SDL_Surface *pSurface)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Sprite::Sprite </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Surface *&nbsp;</td>
+          <td class="paramname"> <em>pSurface</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Constructor by using SDL_Surface pointer. </p>
+<p>The SDL_Surface should be ready to use. Warning: The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using <a class="el" href="class_sprite.html#a367d03ad1f45e71383dc424ac329fdc0" title="Get the surface.">getSurface()</a>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pSurface</em>&nbsp;</td><td>pointer on the surface to use </td></tr>
   </table>
   </dd>
 </dl>
@@ -264,7 +293,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 9 2010 18:36:34 for OpenAWars by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 13 2010 18:36:25 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

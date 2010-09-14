@@ -52,6 +52,52 @@ Map :: Map(SpriteManager& sm, const std::string& fileName)
 	LDebug << "Map '" << fileName.c_str() << "' created";
 }
 
+#ifdef EDITOR
+Map :: Map(SpriteManager& sm, const UVec2& size)
+:width(size.x),height(size.y),map(NULL)
+{
+	valid = true;	// By default the map is valid, but maybe just after, we will fail, so invalidate it
+	theme = "classic"; // By default the theme is the classical one
+
+	map = new Tile**[this->height];
+	if ( map == NULL )
+	{
+		LError << "Error to allocate memory for the map! (at height)";
+		valid = false;
+	}
+	else
+	{
+		for ( unsigned int y = 0 ; y < this->height ; y++ )
+		{
+			map[y] = new Tile*[this->width];
+			if ( map[y] == NULL )
+			{
+				LError << "Error to allocate memory for the map! (at width (" << y << "))";
+				valid = false;
+			}
+		}
+	}
+
+	for ( unsigned int y = 0 ; y < this->height ; y++ )
+	{
+		for ( unsigned int x = 0 ; x < this->width ; x++ )
+		{
+			Tile* pTile = NULL;
+
+			pTile = TileFactory(sm,theme,TT_Plain);
+			if ( pTile != NULL )
+			{
+				map[y][x] = pTile;
+			}
+			else
+			{
+				this->valid = false;
+			}
+		}
+	}
+}
+#endif
+
 Map :: ~Map(void)
 {
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
@@ -142,7 +188,18 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 					{
 						if ( tileType < TT_END_LIST )
 						{
-							map[lineCounter-2][x] = TileFactory(sm,theme,static_cast<TileType>(tileType));
+							Tile* pTile = NULL;
+
+							pTile = TileFactory(sm,theme,static_cast<TileType>(tileType));
+							if ( pTile != NULL )
+							{
+								map[lineCounter-2][x] = pTile;
+							}
+							else
+							{
+								this->valid = false;
+								return false;
+							}
 						}
 						else
 						{
@@ -207,3 +264,81 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 
 	return true;
 }
+
+#ifdef EDITOR
+bool Map :: setTile(SpriteManager& sm, const UVec2& position, const TileType tileType)
+{
+	Tile* pTile = NULL;
+
+	// Extra protections
+	assert(position.x < this->width);
+	assert(position.y < this->height);
+
+	LDebug << "Map :: setTile " << position << " Tile: " << tileType;
+
+	// Deletion of the old Tile
+	delete map[position.y][position.x];
+
+	// Creation ( and replacement ) with the new Tile
+	pTile = TileFactory(sm,theme,tileType);
+	if ( pTile != NULL )
+	{
+		map[position.y][position.x] = pTile;
+	}
+	else
+	{
+		this->valid = false;
+		return false;
+	}
+
+	return true;
+}
+
+bool Map :: save(const std::string& fileName)
+{
+	std::ofstream file;
+
+	LDebug << "Map :: save -> '" << fileName.c_str() << "'";
+
+	file.open(fileName.c_str(),std::ios::out);
+    if ( file.is_open() == false )
+    {
+		LWarning << "Failed to open: '" << fileName.c_str() << "'";
+		return false;
+	}
+
+	// Adding some comments for all curious opening the map with text editor
+	file << "# Map created with the OpenAWars Editor" << std::endl;
+	file << "# DO NOT EDIT !!!" << std::endl;
+
+	// Now we can start to save the data
+
+	// Name of the theme
+	file << theme << std::endl;
+
+	// The size 'width height'
+	file << this->width << " " << this->height << std::endl;
+
+	// The tiles data
+
+	// For each lines
+	for ( unsigned int y = 0 ; y < this->height ; y++ )
+	{
+		// For each columns
+		for ( unsigned int x = 0 ; x < this->width ; x++ )
+		{
+			if ( x!=0 )
+			{
+				file << " ";
+			}
+			file << map[y][x]->tileType;
+		}
+
+		file << std::endl;
+	}
+
+	file.close();
+
+	return true;
+}
+#endif

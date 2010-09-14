@@ -180,7 +180,7 @@ Tile* TileFactory(SpriteManager& sm, const std::string& themeName, const TileTyp
 /*! \struct Tile Tile.h "Game/Tile.h"
  *  \brief Tile struct
  *
- * Keeps the follwing:
+ * Keeps the following:
  *		- The enum to characterise the tile (id)
  *		- The AnimatedSprite to draw
  *		- The defence of the tile (gameplay)

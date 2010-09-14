@@ -71,6 +71,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check if the escape key is pressed.  <a href="#a616ac50fcb9f67b89603dd30c2df7895"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ArrowsDirection&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#a27e9d1ce4606f0e9b4c823b27dacb801">getDirectionPressed</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check which direction the user wants to go.  <a href="#a27e9d1ce4606f0e9b4c823b27dacb801"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#abf6b029565b607977acb4835adc81859">isKey</a> (unsigned int key)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check the specified key.  <a href="#abf6b029565b607977acb4835adc81859"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c3472f6f5dbb5210d22d87880133c2b"></a><!-- doxytag: member="Keyboard::update" ref="a9c3472f6f5dbb5210d22d87880133c2b" args="(void)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#a9c3472f6f5dbb5210d22d87880133c2b">update</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the keys array. <br/></td></tr>
@@ -169,6 +171,33 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a class="anchor" id="abf6b029565b607977acb4835adc81859"></a><!-- doxytag: member="Keyboard::isKey" ref="abf6b029565b607977acb4835adc81859" args="(unsigned int key)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char Keyboard::isKey </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&nbsp;</td>
+          <td class="paramname"> <em>key</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Check the specified key. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>key</em>&nbsp;</td><td>the key to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>0 if the key is not pressed </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Sources/Engine/Controls/<a class="el" href="_keyboard_8h_source.html">Keyboard.h</a></li>
 <li>Sources/Engine/Controls/Keyboard.cpp</li>
@@ -188,7 +217,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 9 2010 18:36:33 for OpenAWars by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 13 2010 18:36:25 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

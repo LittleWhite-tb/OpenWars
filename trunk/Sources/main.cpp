@@ -1,3 +1,4 @@
+#ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
@@ -19,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 website: http://code.google.com/p/openawars/
 e-mail: lw.demoscene@gmail.com
 **/
+#endif
 
 #include <string>
 
@@ -94,7 +96,7 @@ int main(int argc, char** argv)
 				SpriteManager sm;
 				Sprite s(sm,"./data/asprite.png",false);
 				AnimatedSprite as(sm,"./data/asprite.png",32,32,1500,true);
-				Map m(sm,MAP_PATH + std::string("m2.txt"));
+				Map m(sm,MAP_PATH + std::string("m3.txt"));
 				Cursor c(sm,"./data/gfx/cursor_alpha.png",&m,UVec2(2,2));
 				Camera cam;
 				Keyboard kb;

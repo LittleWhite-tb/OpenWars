@@ -44,6 +44,10 @@ private:
 
 	bool valid;					/*!< if the map is loaded properly */
 
+#ifdef EDITOR
+	std::string theme;			/*!< Graphical theme for the map */
+#endif
+
 	//! Map file parser
 	/*!
       Will parse the information contained in the map. When possible, will check if the information are correct
@@ -58,10 +62,19 @@ public:
 	/*!
       Will call the parser
 	  If you need to check if the map is correct (and you should), please use isValidMap()
-		\param sm the sprite manager to load the sprites used by the map
+	  \param sm the sprite manager to load the sprites used by the map
 	  \param fileName the name of the file to load
     */
 	Map(SpriteManager& sm, const std::string& fileName);
+#ifdef EDITOR
+	//! Basic constructor
+	/*!
+      Create an empty map, with only T_Plain
+	  \param sm the sprite manager to load the sprites used by the map
+	  \param size the size of the map wanted
+    */
+	Map(SpriteManager& sm, const UVec2& size);
+#endif
 
 	//! Basic destructor
 	/*!
@@ -102,6 +115,25 @@ public:
 		\return the Tile corresponding to the input position
 	*/
 	Tile* getTile(const UVec2& position)const { return map[position.y][position.x]; }
+
+#ifdef EDITOR
+	//! Set the Tile at the position
+	/*!
+		Will delete the Tile previously at this position and create a new one that will take place.
+		\param sm the SpriteManager to use when creating the sprite
+		\param position the position where to change the tile
+		\param tileType the type of the new tile
+		\return true if all goes right
+	*/
+	bool setTile(SpriteManager& sm, const UVec2& position, const TileType tileType);
+
+	//! Save the Map in a file
+	/*!
+		\param fileName the file name where to save the file
+		\return true if all goes right
+	*/
+	bool save(const std::string& fileName);
+#endif
 };
 
 /*! \class Map Map.h "Game/Map.h"

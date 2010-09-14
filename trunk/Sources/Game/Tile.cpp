@@ -67,10 +67,10 @@ AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, 
 			pAS = new AnimatedSprite(sm,folderName + std::string("tree.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Mountain_1:
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,42,NORMAL_SPEED,true);
+			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,32,NORMAL_SPEED,true);
 			break;
-		case TT_Mountain_2:
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain2.png"),32,32,NORMAL_SPEED,true);
+		case TT_Mountain_2:	// The sprite of this one has a non regular size !!!
+			pAS = new AnimatedSprite(sm,folderName + std::string("mountain2.png"),32,42,NORMAL_SPEED,true);
 			break;
 		case TT_Beach_TL:
 			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tl.png"),32,32,NORMAL_SPEED,true);
@@ -160,10 +160,10 @@ AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, 
 			pAS = new AnimatedSprite(sm,folderName + std::string("road_x.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_hq.png"),32,32,NORMAL_SPEED,true);
+			pAS = new AnimatedSprite(sm,folderName + std::string("r_hq.png"),32,62,NORMAL_SPEED,true);
 			break;
 		case TT_Red_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_factory.png"),32,32,NORMAL_SPEED,true);
+			pAS = new AnimatedSprite(sm,folderName + std::string("r_factory.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_Port:
 			pAS = new AnimatedSprite(sm,folderName + std::string("red_port.png"),32,32,NORMAL_SPEED,true);
@@ -172,7 +172,7 @@ AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, 
 			pAS = new AnimatedSprite(sm,folderName + std::string("red_airport.png"),32,32,NORMAL_SPEED,true);
 			break;
 		case TT_Red_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_city.png"),32,32,NORMAL_SPEED,true);
+			pAS = new AnimatedSprite(sm,folderName + std::string("r_city.png"),32,40,NORMAL_SPEED,true);
 			break;
 		case TT_Blue_HQ:
 			pAS = new AnimatedSprite(sm,folderName + std::string("blue_hq.png"),32,32,NORMAL_SPEED,true);
