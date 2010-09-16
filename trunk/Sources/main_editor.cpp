@@ -33,7 +33,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Sprite.h"
 
-#include "Game/Map.h"
+#include "Game/MapEditor.h"
 #include "Game/Camera.h"
 #include "Game/Cursor.h"
 
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 				Scaler::setScaleFactor(win);
 
 				SpriteManager sm;
-				Map m(sm,UVec2(15,10));
+				MapEditor m(sm,UVec2(15,10));
 				Cursor c(sm,"./data/gfx/cursor_alpha.png",&m,UVec2(5,5));
 				Camera cam;
 				Keyboard kb;

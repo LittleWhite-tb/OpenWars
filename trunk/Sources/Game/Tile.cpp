@@ -37,8 +37,8 @@ e-mail: lw.demoscene@gmail.com
 	extern unsigned int nbTDestruction;
 #endif
 
-Tile :: Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife)
-		:tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),cityLife(cityLife) 
+Tile :: Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife)
+		:tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),needBackground(needBackground),cityLife(cityLife) 
 { 
 #ifdef _DEBUG
 	nbTAllocation++; 
@@ -562,9 +562,97 @@ bool parseIsBuilding(const TileType tileType)
 	return false;
 }
 
+bool parseNeedBackground(const TileType tileType)
+{
+	switch(tileType)
+	{
+		case TT_Tree:
+		case TT_Mountain_2:
+		case TT_Road_X:
+		case TT_Red_HQ:
+		case TT_Red_Factory:
+		case TT_Red_Port:
+		case TT_Red_Airport:
+		case TT_Red_City:
+		case TT_Blue_HQ:
+		case TT_Blue_Factory:
+		case TT_Blue_Port:
+		case TT_Blue_Airport:
+		case TT_Blue_City:
+		case TT_Green_HQ:
+		case TT_Green_Factory:
+		case TT_Green_Port:
+		case TT_Green_Airport:
+		case TT_Green_City:
+		case TT_Yellow_HQ:
+		case TT_Yellow_Factory:
+		case TT_Yellow_Port:
+		case TT_Yellow_Airport:
+		case TT_Yellow_City:
+		case TT_Neutral_Factory:
+		case TT_Neutral_Port:
+		case TT_Neutral_Airport:
+		case TT_Neutral_City:
+			return true;
+			break;
+		case TT_Plain:
+		case TT_Mountain_1:
+		case TT_Beach_TL:
+		case TT_Beach_TR:
+		case TT_Beach_BL:
+		case TT_Beach_BR:
+		case TT_Beach_H:
+		case TT_Beach_V:
+		case TT_Beach_T_L:
+		case TT_Beach_T_R:
+		case TT_Beach_T_T:
+		case TT_Beach_T_B:
+		case TT_Bridge_H:
+		case TT_Bridge_V:
+		case TT_River_H:
+		case TT_River_V:
+		case TT_River_T_L:
+		case TT_River_T_R:
+		case TT_River_T_T:
+		case TT_River_T_B:
+		case TT_River_TL:
+		case TT_River_TR:
+		case TT_River_BL:
+		case TT_River_BR:
+		case TT_Road_H:
+		case TT_Road_V:
+		case TT_Road_T_L:
+		case TT_Road_T_B:
+		case TT_Road_T_R:
+		case TT_Road_T_T:
+		case TT_River_See:
+		case TT_See:
+		case TT_Reef:
+		case TT_Coast_TL:
+		case TT_Coast_TR:
+		case TT_Coast_BL:
+		case TT_Coast_BR:
+		case TT_Coast_L:
+		case TT_Coast_R:
+		case TT_Coast_B:
+		case TT_Coast_T:
+		case TT_Coast_H:
+		case TT_Coast_V:
+		case TT_Coast_T_L:
+		case TT_Coast_T_B:
+		case TT_Coast_T_R:
+		case TT_Coast_T_T:
+		case TT_Coast_X:
+			return false;
+	}
+
+	assert(0);
+	return false;
+}
+
 Tile* TileFactory(SpriteManager& sm, const std::string& themeName, const TileType tileType)
 {
-	Tile* pT = new Tile(tileType,getTileSurface(sm,themeName,tileType),parseDefence(tileType),parseIsSee(tileType),parseIsBuilding(tileType),20);
+	Tile* pT = new Tile(tileType,getTileSurface(sm,themeName,tileType),parseDefence(tileType),parseIsSee(tileType),parseNeedBackground(tileType),parseIsBuilding(tileType),20);
 
 	if ( pT == NULL )
 	{

@@ -320,6 +320,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Game\MapEditor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\MapEditor.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Game\Tile.cpp"
 					>
 				</File>

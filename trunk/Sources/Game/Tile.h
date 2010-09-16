@@ -148,6 +148,7 @@ typedef struct Tile
 	unsigned char defence;			/*!< The defence of the tile */
 	bool isSee;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
 	bool isBuilding;				/*!< If it is a building */
+	bool needBackground;			/*!< If the Tile need to have a plain has background drawn before */
 
 	unsigned char cityLife;			/*!< The actual remaining life of the builing */ // For capturing
 
@@ -160,9 +161,10 @@ typedef struct Tile
 		\param defence the defence level of the tile
 		\param isSee if the tile is see tile
 		\param isBuilding if the tile is a building
+		\param needBackground if some prerendering is needed
 		\param cityLife the life of the building
 	*/
-	Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife);
+	Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
 
 	~Tile(void);
 }Tile;
