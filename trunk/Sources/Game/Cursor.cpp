@@ -62,7 +62,7 @@ Cursor :: ~Cursor(void)
 	LDebug << "Cursor deleted";
 }
 
-Tile* Cursor :: getTileUnderCursor(void)const
+Tile Cursor :: getTileUnderCursor(void)const
 {
 	return pMap->getTile(this->position);
 }

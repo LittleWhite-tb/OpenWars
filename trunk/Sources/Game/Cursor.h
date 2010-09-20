@@ -69,9 +69,9 @@ public:
 
 	//! Get the tile under the cursor
 	/*!
-      \return A pointer to the Tile of the Map located under the cursor
+      \return the Tile of the Map located under the cursor
     */
-	Tile* getTileUnderCursor(void)const;
+	Tile getTileUnderCursor(void)const;
 
 	//! Get the actual position of the cursor
 	/*!

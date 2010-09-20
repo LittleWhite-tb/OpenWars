@@ -64,15 +64,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#aeb30b80a2cca213367896c30347586c9">Tile</a> (const TileType <a class="el" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>, <a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *const <a class="el" href="struct_tile.html#ab42baeef200cc56d7f492cb0b95cefbf">pAnimation</a>, const unsigned char <a class="el" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>, const bool <a class="el" href="struct_tile.html#adbe8c3cfe36ceb01b2dddff5101d8f7f">isSee</a>, const bool <a class="el" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>, const unsigned char <a class="el" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#aeb30b80a2cca213367896c30347586c9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93fdcc8c693044a3bb3590bdb6daed2a"></a><!-- doxytag: member="Tile::Tile" ref="a93fdcc8c693044a3bb3590bdb6daed2a" args="(void)" -->
+&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a93fdcc8c693044a3bb3590bdb6daed2a">Tile</a> (void)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a60aa41d42f03dcf0df0a3696ac37689d">Tile</a> (const TileType <a class="el" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>, const unsigned char <a class="el" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>, const bool <a class="el" href="struct_tile.html#a259babce587617a17cc1b1deb2365d45">isRoad</a>, const bool <a class="el" href="struct_tile.html#adbe8c3cfe36ceb01b2dddff5101d8f7f">isSee</a>, const bool <a class="el" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>, const bool <a class="el" href="struct_tile.html#a9f0e072636609fd79cf2892d41609055">needBackground</a>, const unsigned char <a class="el" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a60aa41d42f03dcf0df0a3696ac37689d"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TileType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#ab42baeef200cc56d7f492cb0b95cefbf">pAnimation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a259babce587617a17cc1b1deb2365d45">isRoad</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#adbe8c3cfe36ceb01b2dddff5101d8f7f">isSee</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a9f0e072636609fd79cf2892d41609055">needBackground</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
@@ -80,14 +84,13 @@ Public Attributes</h2></td></tr>
 <p>Keeps the following:</p>
 <ul>
 <li>The enum to characterise the tile (id)</li>
-<li>The <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> to draw</li>
 <li>The defence of the tile (gameplay)</li>
 <li>If the tile is a see tile (gameplay)</li>
 <li>If the tile is a building (gameplay)</li>
 <li>The life of the building (gameplay) </li>
 </ul>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aeb30b80a2cca213367896c30347586c9"></a><!-- doxytag: member="Tile::Tile" ref="aeb30b80a2cca213367896c30347586c9" args="(const TileType tileType, AnimatedSprite *const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const unsigned char cityLife)" -->
+<a class="anchor" id="a60aa41d42f03dcf0df0a3696ac37689d"></a><!-- doxytag: member="Tile::Tile" ref="a60aa41d42f03dcf0df0a3696ac37689d" args="(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -100,14 +103,14 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *const &nbsp;</td>
-          <td class="paramname"> <em>pAnimation</em>, </td>
+          <td class="paramtype">const unsigned char&nbsp;</td>
+          <td class="paramname"> <em>defence</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const unsigned char&nbsp;</td>
-          <td class="paramname"> <em>defence</em>, </td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>isRoad</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -120,6 +123,12 @@ Public Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">const bool&nbsp;</td>
           <td class="paramname"> <em>isBuilding</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>needBackground</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -140,10 +149,11 @@ Public Attributes</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>tileType</em>&nbsp;</td><td>the type of the tile </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>pAnimation</em>&nbsp;</td><td>the animation to use to draw the tile </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>defence</em>&nbsp;</td><td>the defence level of the tile </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>isRoad</em>&nbsp;</td><td>if the tile is a road tile </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>isSee</em>&nbsp;</td><td>if the tile is see tile </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>isBuilding</em>&nbsp;</td><td>if the tile is a building </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>needBackground</em>&nbsp;</td><td>if some prerendering is needed </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>cityLife</em>&nbsp;</td><td>the life of the building </td></tr>
   </table>
   </dd>
@@ -194,6 +204,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a259babce587617a17cc1b1deb2365d45"></a><!-- doxytag: member="Tile::isRoad" ref="a259babce587617a17cc1b1deb2365d45" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="struct_tile.html#a259babce587617a17cc1b1deb2365d45">Tile::isRoad</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If the tile is a road tile </p>
+
+</div>
+</div>
 <a class="anchor" id="adbe8c3cfe36ceb01b2dddff5101d8f7f"></a><!-- doxytag: member="Tile::isSee" ref="adbe8c3cfe36ceb01b2dddff5101d8f7f" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -208,17 +232,17 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab42baeef200cc56d7f492cb0b95cefbf"></a><!-- doxytag: member="Tile::pAnimation" ref="ab42baeef200cc56d7f492cb0b95cefbf" args="" -->
+<a class="anchor" id="a9f0e072636609fd79cf2892d41609055"></a><!-- doxytag: member="Tile::needBackground" ref="a9f0e072636609fd79cf2892d41609055" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a>* <a class="el" href="struct_tile.html#ab42baeef200cc56d7f492cb0b95cefbf">Tile::pAnimation</a></td>
+          <td class="memname">bool <a class="el" href="struct_tile.html#a9f0e072636609fd79cf2892d41609055">Tile::needBackground</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>the animation sprite to use </p>
+<p>If the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> need to have a plain has background drawn before </p>
 
 </div>
 </div>
@@ -255,7 +279,7 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue Sep 14 2010 18:36:29 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Sep 19 2010 18:45:41 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

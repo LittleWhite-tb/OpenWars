@@ -80,7 +80,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 	
 	pBarSprite = new Sprite(pSurface);
 
-	// Load all the animation needed by the TileBar ( all are loading in classical theme )
+	// Load all the animation needed by the TileBar ( all are loaded in classical theme )
 	tilesList.push_back(
 		std::pair<TileView, TileType>(
 			TileView(
@@ -132,16 +132,24 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 	tilesList.push_back(
 		std::pair<TileView, TileType>(
 			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/beach_t_t.png",32,32,NORMAL_SPEED,true),
+				new AnimatedSprite(sm,"./data/gfx/tiles/classic/beach_t.png",32,32,NORMAL_SPEED,true),
 				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 13 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 6),
-			TT_Beach_T_T)
+			TT_Beach_T)
+		);
+
+	tilesList.push_back(
+		std::pair<TileView, TileType>(
+			TileView(
+				new AnimatedSprite(sm,"./data/gfx/tiles/classic/see.png",32,32,NORMAL_SPEED,true),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 15 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 7),
+			TT_See)
 		);
 
 	tilesList.push_back(
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/reef.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 15 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 7),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 17 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 8),
 			TT_Reef)
 		);
 
@@ -149,7 +157,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/bridge_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 17 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 8),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 19 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 9),
 			TT_Bridge_H)
 		);
 
@@ -157,7 +165,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/road_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 19 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 9),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 21 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 10),
 			TT_Road_H)
 		);
 
@@ -274,7 +282,7 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 		IVec2 cursorPosition(windowSize.x / 2 - pBarCursor->getWidth()/2, positionY + static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_BAR_HEIGHT) / 2 - pBarCursor->getHeight()/2);
 
 		// Display the Tiles
-		for ( unsigned int i = 0 ; i < TILE_NB_DRAWN + 1 ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
+		for ( unsigned int i = 0 ; i < tilesList.size() ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
 			unsigned int yOffset = tilesList[i%tilesList.size()].first.pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));

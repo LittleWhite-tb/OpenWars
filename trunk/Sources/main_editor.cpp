@@ -144,7 +144,7 @@ int main(int argc, char** argv)
 							c.move(kb.getDirectionPressed());
 							if ( kb.isKey(SDLK_SPACE) )
 							{
-								m.setTile(sm,c.getPosition(),tb.getSelected());
+								m.setTile(c.getPosition(),tb.getSelected());
 							}
 						}
 

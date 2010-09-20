@@ -33,6 +33,65 @@ class MapEditor : public Map
 private:
 
 	std::string m_theme;			/*!< Graphical theme for the map */
+
+	
+	//! Check the cohenrency of the tile around the position
+	/*!
+	  \param position the position of the tile where to look around ( 8 direction around )
+    */
+	void checkCoherencyAround(const UVec2& position);
+
+	//! Check the cohenrency of the tile at this position
+	/*!
+	  The function is looking at the type of the tile to know the correct function to call
+	  \param position the position of the tile to check
+    */
+	void checkCoherency(const UVec2& position);
+
+	//! Check the cohenrency of the tile at position (the tile is a road)
+	/*!
+	  Check the four tiles around the actual one, to put the correct road for the best graphical cohenrency.
+	  \param position the position of the tile where to check
+    */
+	void checkCoherencyForRoad(const UVec2& position);
+
+	//! Check the cohenrency of the tile at position (the tile is a see)
+	/*!
+	  Check the height tiles around the actual one, to put the correct see for the best graphical cohenrency.
+	  \param position the position of the tile where to check
+    */
+	void checkCoherencyForSee(const UVec2& position);
+
+	//! Set a plain at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a plain one
+    */
+	bool setPlain(const UVec2& position);
+
+	//! Set a tree at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a tree one
+    */
+	bool setTree(const UVec2& position);
+
+	//! Set a mountain at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a mountain one
+    */
+	bool setMountain(const UVec2& position);
+
+	//! Set a road at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a road one
+    */
+	bool setRoad(const UVec2& position);
+
+	//! Set a see at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a see one
+    */
+	bool setSee(const UVec2& position);
+
 public:
 	//! Basic constructor
 	/*!
@@ -44,13 +103,13 @@ public:
 
 	//! Set the Tile at the position
 	/*!
-		Will delete the Tile previously at this position and create a new one that will take place.
-		\param sm the SpriteManager to use when creating the sprite
+		Will overwrite the Tile previously contained on the map by the new one.
+		The new Tile is selected following the internal logic of the editor, to set the best tile type for this case, by checking around.
 		\param position the position where to change the tile
 		\param tileType the type of the new tile
 		\return true if all goes right
 	*/
-	bool setTile(SpriteManager& sm, const UVec2& position, const TileType tileType);
+	bool setTile(const UVec2& position, const TileType tileType);
 
 	//! Save the Map in a file
 	/*!

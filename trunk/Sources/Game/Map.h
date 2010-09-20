@@ -26,28 +26,38 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include <string>
+#include <map>
 
 #include "Tile.h"
 #include "../Types/Vec2.h"
 
 class Renderer;
 class Camera;
-class Sprite;
+class SpriteManager;
+class AnimatedSprite;
 
 class Map
 {
 protected:
 
+	std::map<TileType, AnimatedSprite*> tilesASprite;		/*!< The collection to associate type of the tile to a sprite */
+
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
-	Tile*** map;				/*!< 2D Array representating the map */
+	Tile** map;					/*!< 2D Array representating the map */
 
 	bool valid;					/*!< if the map is loaded properly */
 
-	Sprite* backgroundTile;		/*!< Plain tile always used as background */
-
 	Map(void) {};
+
+	//! Load the tiles that the map will use
+	/*!
+		Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an AnimatedSprite pointer.
+		\param sm the SpriteManager to load the sprites.
+		\param theme the theme to use to know which sprites to load
+	*/
+	void loadGraphics(SpriteManager& sm, const std::string& theme);
 
 	//! Map file parser
 	/*!
@@ -103,10 +113,11 @@ public:
 
 	//! Return the tile corresponding to the position
 	/*!
+		The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
 		\param position the position of the Tile to get
 		\return the Tile corresponding to the input position
 	*/
-	Tile* getTile(const UVec2& position)const { return map[position.y][position.x]; }
+	Tile getTile(const UVec2& position)const;
 };
 
 /*! \class Map Map.h "Game/Map.h"

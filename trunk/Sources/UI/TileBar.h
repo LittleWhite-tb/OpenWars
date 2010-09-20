@@ -72,7 +72,7 @@ private:
 	UVec2 windowSize;						/*<! The size of the window where the bar is */
 	TileBarState state;						/*<! The actual animation state of the bar */
 
-	int current;							/*<! index of the actual Tile selected */
+	int current;					/*<! index of the actual Tile selected */
 
 	bool valid;								/*<! flag to know if all initialisation goes right */
 

@@ -26,9 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Engine/AnimatedSprite.h"
-#include "../Engine/ResourcesManager/SpriteManager.h"
-
 #include "../Utils/Logger.h"
 #include "../globals.h"
 
@@ -37,8 +34,8 @@ e-mail: lw.demoscene@gmail.com
 	extern unsigned int nbTDestruction;
 #endif
 
-Tile :: Tile(const TileType tileType, AnimatedSprite* const pAnimation, const unsigned char defence, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife)
-		:tileType(tileType),pAnimation(pAnimation),defence(defence),isSee(isSee),isBuilding(isBuilding),needBackground(needBackground),cityLife(cityLife) 
+Tile :: Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife)
+		:tileType(tileType),defence(defence),isRoad(isRoad),isSee(isSee),isBuilding(isBuilding),needBackground(needBackground),cityLife(cityLife) 
 { 
 #ifdef _DEBUG
 	nbTAllocation++; 
@@ -47,247 +44,9 @@ Tile :: Tile(const TileType tileType, AnimatedSprite* const pAnimation, const un
 
 Tile :: ~Tile(void)
 {
-	delete pAnimation;
 #ifdef _DEBUG
 	nbTDestruction++; 
 #endif
-}
-
-AnimatedSprite* getTileSurface(SpriteManager& sm, const std::string& themeName, const TileType tileType)
-{
-	std::string folderName = std::string(GFX_TILES_PATH) + themeName + std::string("/");
-	AnimatedSprite* pAS = NULL;
-
-	switch(tileType)
-	{
-		case TT_Plain:
-			pAS = new AnimatedSprite(sm,folderName + std::string("plain.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Tree:
-			pAS = new AnimatedSprite(sm,folderName + std::string("tree.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Mountain_1:
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain1.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Mountain_2:	// The sprite of this one has a non regular size !!!
-			pAS = new AnimatedSprite(sm,folderName + std::string("mountain2.png"),32,42,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_TL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tl.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_TR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_tr.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_BL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_bl.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_BR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_br.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_h.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_v.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_l.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_r.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_t.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Beach_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("beach_t_b.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Bridge_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("bridge_h.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Bridge_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("bridge_v.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_h.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_v.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_l.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_r.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_t.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_t_b.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_TL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_tl.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_TR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_tr.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_BL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_bl.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_BR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_br.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_h.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_v.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_l.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_b.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_r.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_t_t.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Road_X:
-			pAS = new AnimatedSprite(sm,folderName + std::string("road_x.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Red_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("r_hq.png"),32,62,NORMAL_SPEED,true);
-			break;
-		case TT_Red_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("r_factory.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Red_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_port.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Red_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("red_airport.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Red_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("r_city.png"),32,40,NORMAL_SPEED,true);
-			break;
-		case TT_Blue_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_hq.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Blue_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_factory.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Blue_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_port.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Blue_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_airport.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Blue_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("blue_city.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Green_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_hq.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Green_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_factory.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Green_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_port.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Green_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_airport.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Green_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("green_city.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Yellow_HQ:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_hq.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Yellow_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_factory.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Yellow_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_port.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Yellow_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_airport.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Yellow_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("yellow_city.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Neutral_Factory:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_factory.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Neutral_Port:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_port.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Neutral_Airport:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_airport.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Neutral_City:
-			pAS = new AnimatedSprite(sm,folderName + std::string("neutral_city.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_River_See:
-			pAS = new AnimatedSprite(sm,folderName + std::string("river_see.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_See:
-			pAS = new AnimatedSprite(sm,folderName + std::string("see.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Reef:
-			pAS = new AnimatedSprite(sm,folderName + std::string("reef.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_TL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_tl.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_TR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_tr.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_BL:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_bl.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_BR:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_br.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_l.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_r.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_b.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_H:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_h.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_V:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_v.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_T_L:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_l.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_T_B:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_b.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_T_R:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_r.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_T_T:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_t_t.png"),32,32,NORMAL_SPEED,true);
-			break;
-		case TT_Coast_X:
-			pAS = new AnimatedSprite(sm,folderName + std::string("coast_x.png"),32,32,NORMAL_SPEED,true);
-			break;
-	}
-
-	return pAS;
 }
 
 unsigned char parseDefence(const TileType tileType)
@@ -298,18 +57,29 @@ unsigned char parseDefence(const TileType tileType)
 		case TT_Beach_TR:
 		case TT_Beach_BL:
 		case TT_Beach_BR:
-		case TT_Beach_H:
-		case TT_Beach_V:
-		case TT_Beach_T_L:
-		case TT_Beach_T_R:
-		case TT_Beach_T_T:
-		case TT_Beach_T_B:
+		case TT_Beach_EL:
+		case TT_Beach_ER:
+		case TT_Beach_ET:
+		case TT_Beach_EB:
+		case TT_Beach_T:
+		case TT_Beach_B:
+		case TT_Beach_L:
+		case TT_Beach_R:
 		case TT_Bridge_H:
 		case TT_Bridge_V:
+		case TT_Coast:
+		case TT_Coast_ET:
+		case TT_Coast_EB:
+		case TT_Coast_EL:
+		case TT_Coast_ER:
 		case TT_Coast_TL:
 		case TT_Coast_TR:
 		case TT_Coast_BL:
 		case TT_Coast_BR:
+		case TT_Coast_RTL:
+		case TT_Coast_RTR:
+		case TT_Coast_RBL:
+		case TT_Coast_RBR:
 		case TT_Coast_L:
 		case TT_Coast_R:
 		case TT_Coast_B:
@@ -320,10 +90,36 @@ unsigned char parseDefence(const TileType tileType)
 		case TT_Coast_T_B:
 		case TT_Coast_T_R:
 		case TT_Coast_T_T:
+		case TT_Coast_T_TL:
+		case TT_Coast_T_TR:
+		case TT_Coast_T_BL:
+		case TT_Coast_T_BR:
+		case TT_Coast_T_LT:
+		case TT_Coast_T_RT:
+		case TT_Coast_T_LB:
+		case TT_Coast_T_RB:
 		case TT_Coast_X:
+		case TT_Coast_XL:
+		case TT_Coast_XR:
+		case TT_Coast_XB:
+		case TT_Coast_XT:
+		case TT_Coast_XTL:
+		case TT_Coast_XTR:
+		case TT_Coast_XBL:
+		case TT_Coast_XBR:
+		case TT_Coast_XTLBR:
+		case TT_Coast_XBLTR:
 		case TT_See:
+		case TT_See_TL:
+		case TT_See_TR:
+		case TT_See_BL:
+		case TT_See_BR:
 		case TT_Road_H:
 		case TT_Road_V:
+		case TT_Road_TL:
+		case TT_Road_TR:
+		case TT_Road_BL:
+		case TT_Road_BR:
 		case TT_Road_T_L:
 		case TT_Road_T_B:
 		case TT_Road_T_R:
@@ -339,7 +135,10 @@ unsigned char parseDefence(const TileType tileType)
 		case TT_River_TR:
 		case TT_River_BL:
 		case TT_River_BR:
-		case TT_River_See:
+		case TT_River_See_T:
+		case TT_River_See_B:
+		case TT_River_See_L:
+		case TT_River_See_R:
 			return 0;
 			break;
 		case TT_Plain:
@@ -385,6 +184,135 @@ unsigned char parseDefence(const TileType tileType)
 	return 0;
 }
 
+bool parseIsRoad(const TileType tileType)
+{
+	switch(tileType)
+	{
+		case TT_Plain:
+		case TT_Tree:
+		case TT_Mountain_1:
+		case TT_Mountain_2:
+		case TT_Beach_TL:
+		case TT_Beach_TR:
+		case TT_Beach_BL:
+		case TT_Beach_BR:
+		case TT_Beach_EL:
+		case TT_Beach_ER:
+		case TT_Beach_ET:
+		case TT_Beach_EB:
+		case TT_Beach_T:
+		case TT_Beach_B:
+		case TT_Beach_L:
+		case TT_Beach_R:
+		case TT_River_H:
+		case TT_River_V:
+		case TT_River_T_L:
+		case TT_River_T_R:
+		case TT_River_T_T:
+		case TT_River_T_B:
+		case TT_River_TL:
+		case TT_River_TR:
+		case TT_River_BL:
+		case TT_River_BR:
+		case TT_Red_HQ:
+		case TT_Red_Factory:
+		case TT_Red_Port:
+		case TT_Red_Airport:
+		case TT_Red_City:
+		case TT_Blue_HQ:
+		case TT_Blue_Factory:
+		case TT_Blue_Port:
+		case TT_Blue_Airport:
+		case TT_Blue_City:
+		case TT_Green_HQ:
+		case TT_Green_Factory:
+		case TT_Green_Port:
+		case TT_Green_Airport:
+		case TT_Green_City:
+		case TT_Yellow_HQ:
+		case TT_Yellow_Factory:
+		case TT_Yellow_Port:
+		case TT_Yellow_Airport:
+		case TT_Yellow_City:
+		case TT_Neutral_Factory:
+		case TT_Neutral_Port:
+		case TT_Neutral_Airport:
+		case TT_Neutral_City:
+		case TT_River_See_T:
+		case TT_River_See_B:
+		case TT_River_See_L:
+		case TT_River_See_R:
+		case TT_See:
+		case TT_See_TL:
+		case TT_See_TR:
+		case TT_See_BL:
+		case TT_See_BR:
+		case TT_Reef:
+		case TT_Coast:
+		case TT_Coast_ET:
+		case TT_Coast_EB:
+		case TT_Coast_EL:
+		case TT_Coast_ER:
+		case TT_Coast_TL:
+		case TT_Coast_TR:
+		case TT_Coast_BL:
+		case TT_Coast_BR:
+		case TT_Coast_RTL:
+		case TT_Coast_RTR:
+		case TT_Coast_RBL:
+		case TT_Coast_RBR:
+		case TT_Coast_L:
+		case TT_Coast_R:
+		case TT_Coast_B:
+		case TT_Coast_T:
+		case TT_Coast_H:
+		case TT_Coast_V:
+		case TT_Coast_T_L:
+		case TT_Coast_T_B:
+		case TT_Coast_T_R:
+		case TT_Coast_T_T:
+		case TT_Coast_T_TL:
+		case TT_Coast_T_TR:
+		case TT_Coast_T_BL:
+		case TT_Coast_T_BR:
+		case TT_Coast_T_LT:
+		case TT_Coast_T_RT:
+		case TT_Coast_T_LB:
+		case TT_Coast_T_RB:
+		case TT_Coast_X:
+		case TT_Coast_XL:
+		case TT_Coast_XR:
+		case TT_Coast_XB:
+		case TT_Coast_XT:
+		case TT_Coast_XTL:
+		case TT_Coast_XTR:
+		case TT_Coast_XBL:
+		case TT_Coast_XBR:
+		case TT_Coast_XTLBR:
+		case TT_Coast_XBLTR:
+			return false;
+			break;
+		case TT_Road_H:
+		case TT_Road_V:
+		case TT_Road_TL:
+		case TT_Road_TR:
+		case TT_Road_BL:
+		case TT_Road_BR:
+		case TT_Road_T_L:
+		case TT_Road_T_B:
+		case TT_Road_T_R:
+		case TT_Road_T_T:
+		case TT_Road_X:
+		case TT_Bridge_H:
+		case TT_Bridge_V:
+			return true;
+			break; 
+	}
+
+	assert(0);
+	return false;
+}
+
 bool parseIsSee(const TileType tileType)
 {
 	switch(tileType)
@@ -397,12 +325,14 @@ bool parseIsSee(const TileType tileType)
 		case TT_Beach_TR:
 		case TT_Beach_BL:
 		case TT_Beach_BR:
-		case TT_Beach_H:
-		case TT_Beach_V:
-		case TT_Beach_T_L:
-		case TT_Beach_T_R:
-		case TT_Beach_T_T:
-		case TT_Beach_T_B:
+		case TT_Beach_EL:
+		case TT_Beach_ER:
+		case TT_Beach_ET:
+		case TT_Beach_EB:
+		case TT_Beach_T:
+		case TT_Beach_B:
+		case TT_Beach_L:
+		case TT_Beach_R:
 		case TT_Bridge_H:
 		case TT_Bridge_V:
 		case TT_River_H:
@@ -417,6 +347,10 @@ bool parseIsSee(const TileType tileType)
 		case TT_River_BR:
 		case TT_Road_H:
 		case TT_Road_V:
+		case TT_Road_TL:
+		case TT_Road_TR:
+		case TT_Road_BL:
+		case TT_Road_BR:
 		case TT_Road_T_L:
 		case TT_Road_T_B:
 		case TT_Road_T_R:
@@ -448,13 +382,29 @@ bool parseIsSee(const TileType tileType)
 		case TT_Neutral_City:
 			return false;
 			break;
-		case TT_River_See:
+		case TT_River_See_T:
+		case TT_River_See_B:
+		case TT_River_See_L:
+		case TT_River_See_R:
 		case TT_See:
+		case TT_See_TL:
+		case TT_See_TR:
+		case TT_See_BL:
+		case TT_See_BR:
 		case TT_Reef:
+		case TT_Coast:
+		case TT_Coast_ET:
+		case TT_Coast_EB:
+		case TT_Coast_EL:
+		case TT_Coast_ER:
 		case TT_Coast_TL:
 		case TT_Coast_TR:
 		case TT_Coast_BL:
 		case TT_Coast_BR:
+		case TT_Coast_RTL:
+		case TT_Coast_RTR:
+		case TT_Coast_RBL:
+		case TT_Coast_RBR:
 		case TT_Coast_L:
 		case TT_Coast_R:
 		case TT_Coast_B:
@@ -465,7 +415,25 @@ bool parseIsSee(const TileType tileType)
 		case TT_Coast_T_B:
 		case TT_Coast_T_R:
 		case TT_Coast_T_T:
+		case TT_Coast_T_TL:
+		case TT_Coast_T_TR:
+		case TT_Coast_T_BL:
+		case TT_Coast_T_BR:
+		case TT_Coast_T_LT:
+		case TT_Coast_T_RT:
+		case TT_Coast_T_LB:
+		case TT_Coast_T_RB:
 		case TT_Coast_X:
+		case TT_Coast_XL:
+		case TT_Coast_XR:
+		case TT_Coast_XB:
+		case TT_Coast_XT:
+		case TT_Coast_XTL:
+		case TT_Coast_XTR:
+		case TT_Coast_XBL:
+		case TT_Coast_XBR:
+		case TT_Coast_XTLBR:
+		case TT_Coast_XBLTR:
 			return true;
 	}
 
@@ -485,12 +453,14 @@ bool parseIsBuilding(const TileType tileType)
 		case TT_Beach_TR:
 		case TT_Beach_BL:
 		case TT_Beach_BR:
-		case TT_Beach_H:
-		case TT_Beach_V:
-		case TT_Beach_T_L:
-		case TT_Beach_T_R:
-		case TT_Beach_T_T:
-		case TT_Beach_T_B:
+		case TT_Beach_EL:
+		case TT_Beach_ER:
+		case TT_Beach_ET:
+		case TT_Beach_EB:
+		case TT_Beach_T:
+		case TT_Beach_B:
+		case TT_Beach_L:
+		case TT_Beach_R:
 		case TT_Bridge_H:
 		case TT_Bridge_V:
 		case TT_River_H:
@@ -503,20 +473,48 @@ bool parseIsBuilding(const TileType tileType)
 		case TT_River_TR:
 		case TT_River_BL:
 		case TT_River_BR:
+		case TT_River_See_T:
+		case TT_River_See_B:
+		case TT_River_See_L:
+		case TT_River_See_R:
 		case TT_Road_H:
 		case TT_Road_V:
+		case TT_Road_TL:
+		case TT_Road_TR:
+		case TT_Road_BL:
+		case TT_Road_BR:
 		case TT_Road_T_L:
 		case TT_Road_T_B:
 		case TT_Road_T_R:
 		case TT_Road_T_T:
+		case TT_Coast_T_TL:
+		case TT_Coast_T_TR:
+		case TT_Coast_T_BL:
+		case TT_Coast_T_BR:
+		case TT_Coast_T_LT:
+		case TT_Coast_T_RT:
+		case TT_Coast_T_LB:
+		case TT_Coast_T_RB:
 		case TT_Road_X:
-		case TT_River_See:
 		case TT_See:
+		case TT_See_TL:
+		case TT_See_TR:
+		case TT_See_BL:
+		case TT_See_BR:
 		case TT_Reef:
+		case TT_Coast:
+		case TT_Coast_ET:
+		case TT_Coast_EB:
+		case TT_Coast_EL:
+		case TT_Coast_ER:
 		case TT_Coast_TL:
 		case TT_Coast_TR:
 		case TT_Coast_BL:
 		case TT_Coast_BR:
+		case TT_Coast_RTL:
+		case TT_Coast_RTR:
+		case TT_Coast_RBL:
+		case TT_Coast_RBR:
 		case TT_Coast_L:
 		case TT_Coast_R:
 		case TT_Coast_B:
@@ -528,6 +526,16 @@ bool parseIsBuilding(const TileType tileType)
 		case TT_Coast_T_R:
 		case TT_Coast_T_T:
 		case TT_Coast_X:
+		case TT_Coast_XL:
+		case TT_Coast_XR:
+		case TT_Coast_XB:
+		case TT_Coast_XT:
+		case TT_Coast_XTL:
+		case TT_Coast_XTR:
+		case TT_Coast_XBL:
+		case TT_Coast_XBR:
+		case TT_Coast_XTLBR:
+		case TT_Coast_XBLTR:
 			return false;
 			break;
 		case TT_Red_HQ:
@@ -568,7 +576,11 @@ bool parseNeedBackground(const TileType tileType)
 	{
 		case TT_Tree:
 		case TT_Mountain_2:
-		case TT_Road_X:
+		case TT_Coast:
+		case TT_Road_TL:
+		case TT_Road_TR:
+		case TT_Road_BL:
+		case TT_Road_BR:
 		case TT_Red_HQ:
 		case TT_Red_Factory:
 		case TT_Red_Port:
@@ -601,12 +613,14 @@ bool parseNeedBackground(const TileType tileType)
 		case TT_Beach_TR:
 		case TT_Beach_BL:
 		case TT_Beach_BR:
-		case TT_Beach_H:
-		case TT_Beach_V:
-		case TT_Beach_T_L:
-		case TT_Beach_T_R:
-		case TT_Beach_T_T:
-		case TT_Beach_T_B:
+		case TT_Beach_EL:
+		case TT_Beach_ER:
+		case TT_Beach_ET:
+		case TT_Beach_EB:
+		case TT_Beach_T:
+		case TT_Beach_B:
+		case TT_Beach_L:
+		case TT_Beach_R:
 		case TT_Bridge_H:
 		case TT_Bridge_V:
 		case TT_River_H:
@@ -619,19 +633,35 @@ bool parseNeedBackground(const TileType tileType)
 		case TT_River_TR:
 		case TT_River_BL:
 		case TT_River_BR:
+		case TT_River_See_T:
+		case TT_River_See_B:
+		case TT_River_See_L:
+		case TT_River_See_R:
 		case TT_Road_H:
 		case TT_Road_V:
 		case TT_Road_T_L:
 		case TT_Road_T_B:
 		case TT_Road_T_R:
 		case TT_Road_T_T:
-		case TT_River_See:
+		case TT_Road_X:
 		case TT_See:
+		case TT_See_TL:
+		case TT_See_TR:
+		case TT_See_BL:
+		case TT_See_BR:
 		case TT_Reef:
+		case TT_Coast_ET:
+		case TT_Coast_EB:
+		case TT_Coast_EL:
+		case TT_Coast_ER:
 		case TT_Coast_TL:
 		case TT_Coast_TR:
 		case TT_Coast_BL:
 		case TT_Coast_BR:
+		case TT_Coast_RTL:
+		case TT_Coast_RTR:
+		case TT_Coast_RBL:
+		case TT_Coast_RBR:
 		case TT_Coast_L:
 		case TT_Coast_R:
 		case TT_Coast_B:
@@ -642,7 +672,25 @@ bool parseNeedBackground(const TileType tileType)
 		case TT_Coast_T_B:
 		case TT_Coast_T_R:
 		case TT_Coast_T_T:
+		case TT_Coast_T_TL:
+		case TT_Coast_T_TR:
+		case TT_Coast_T_BL:
+		case TT_Coast_T_BR:
+		case TT_Coast_T_LT:
+		case TT_Coast_T_RT:
+		case TT_Coast_T_LB:
+		case TT_Coast_T_RB:
 		case TT_Coast_X:
+		case TT_Coast_XL:
+		case TT_Coast_XR:
+		case TT_Coast_XB:
+		case TT_Coast_XT:
+		case TT_Coast_XTL:
+		case TT_Coast_XTR:
+		case TT_Coast_XBL:
+		case TT_Coast_XBR:
+		case TT_Coast_XTLBR:
+		case TT_Coast_XBLTR:
 			return false;
 	}
 
@@ -650,14 +698,13 @@ bool parseNeedBackground(const TileType tileType)
 	return false;
 }
 
-Tile* TileFactory(SpriteManager& sm, const std::string& themeName, const TileType tileType)
+Tile TileFactory(const TileType tileType)
 {
-	Tile* pT = new Tile(tileType,getTileSurface(sm,themeName,tileType),parseDefence(tileType),parseIsSee(tileType),parseNeedBackground(tileType),parseIsBuilding(tileType),20);
-
-	if ( pT == NULL )
-	{
-		LError << "Fail to allocate memory for the Tile";
-	}
-
-	return pT;
+	return Tile(tileType,
+				parseDefence(tileType),
+				parseIsRoad(tileType),
+				parseIsSee(tileType),
+				parseNeedBackground(tileType),
+				parseIsBuilding(tileType),
+				20);
 }
