@@ -169,6 +169,14 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 			TT_Road_H)
 		);
 
+	tilesList.push_back(
+		std::pair<TileView, TileType>(
+			TileView(
+				new AnimatedSprite(sm,"./data/gfx/tiles/classic/river_h.png",32,32,NORMAL_SPEED,true),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 23 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 11),
+			TT_River_H)
+		);
+
 	// Load the cursor
 	pBarCursor = new Sprite(sm,"./data/gfx/tilebar_cursor.png",true);
 

@@ -72,6 +72,7 @@ enum TileType
 	TT_River_See_B,	// River to See Bottom
 	TT_River_See_L,	// River to See left
 	TT_River_See_R,	// River to See Right
+	TT_River_X,		
 
 	TT_See,
 	TT_See_TL,		// For see with some coast on it (but just a few)
@@ -183,6 +184,7 @@ typedef struct Tile
 
 	unsigned char defence;			/*!< The defence of the tile */
 	bool isRoad;					/*!< If the tile is a road tile */
+	bool isRiver;					/*!< If the tile is a river tile */
 	bool isSee;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
 	bool isBuilding;				/*!< If it is a building */
 	bool needBackground;			/*!< If the Tile need to have a plain has background drawn before */
@@ -192,19 +194,20 @@ typedef struct Tile
 	//! Default constructor
 	/*!
 	*/
-	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isSee(false),isBuilding(false),needBackground(false),cityLife(0) {}
+	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isRiver(false),isSee(false),isBuilding(false),needBackground(false),cityLife(0) {}
 
 	//! Basic constructor
 	/*!
 		\param tileType the type of the tile
 		\param defence the defence level of the tile
 		\param isRoad if the tile is a road tile
+		\param isRiver if the tile is a river tile
 		\param isSee if the tile is see tile
 		\param isBuilding if the tile is a building
 		\param needBackground if some prerendering is needed
 		\param cityLife the life of the building
 	*/
-	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
+	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isRiver, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
 
 	~Tile(void);
 }Tile;

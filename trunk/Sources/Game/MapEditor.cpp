@@ -99,9 +99,15 @@ void MapEditor :: checkCoherency(const UVec2& position)
 	{
 		checkCoherencyForRoad(position);
 	}
-	else if ( this->getTile(position).isSee )
+	
+	if ( this->getTile(position).isSee )
 	{
 		checkCoherencyForSee(position);
+	}
+	
+	if ( this->getTile(position).isRiver )
+	{
+		checkCoherencyForRiver(position);
 	}
 }
 
@@ -400,6 +406,11 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 					if ( onUpLeft && onUpRight )
 					{
 						this->map[position.y][position.x] = TileFactory(TT_Coast_B);
+
+						if ( this->getTile(UVec2(position.x,position.y+1)).tileType == TT_River_V && this->getTile(UVec2(position.x,position.y+2)).tileType == TT_River_V )
+						{
+							this->map[position.y][position.x] = TileFactory(TT_River_See_B);
+						}
 					}
 				}
 			}
@@ -423,6 +434,11 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 					if ( onDownLeft && onDownRight )
 					{
 						this->map[position.y][position.x] = TileFactory(TT_Coast_T);
+
+						if ( this->getTile(UVec2(position.x,position.y-1)).tileType == TT_River_V && this->getTile(UVec2(position.x,position.y-2)).tileType == TT_River_V )
+						{
+							this->map[position.y][position.x] = TileFactory(TT_River_See_T);
+						}
 					}
 				}
 			}
@@ -446,6 +462,11 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 					if ( onUpLeft && onDownLeft )
 					{
 						this->map[position.y][position.x] = TileFactory(TT_Coast_R);
+
+						if ( this->getTile(UVec2(position.x+1,position.y)).tileType == TT_River_H && this->getTile(UVec2(position.x+2,position.y)).tileType == TT_River_H )
+						{
+							this->map[position.y][position.x] = TileFactory(TT_River_See_R);
+						}
 					}
 				}
 			}
@@ -469,6 +490,11 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 					if ( onDownRight && onUpRight )
 					{
 						this->map[position.y][position.x] = TileFactory(TT_Coast_L);
+
+						if ( this->getTile(UVec2(position.x-1,position.y)).tileType == TT_River_H && this->getTile(UVec2(position.x-2,position.y)).tileType == TT_River_H )
+						{
+							this->map[position.y][position.x] = TileFactory(TT_River_See_L);
+						}
 					}
 				}
 			}
@@ -559,6 +585,140 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 	}
 }
 
+void MapEditor :: checkCoherencyForRiver(const UVec2& position)
+{
+	unsigned char nbRiverAround = 0;
+	bool isVerticalRiver = false;
+	bool isHorizontalRiver = false;
+	bool onLeft = false;
+	bool onRight = false;
+	bool onUp = false;
+	bool onDown = false;
+		
+	if ( this->getTile(UVec2(position.x-1,position.y)).isRiver )	// Left
+	{
+		nbRiverAround++;
+		isHorizontalRiver = true;
+		onLeft = true;
+	}
+	
+	if ( this->getTile(UVec2(position.x+1,position.y)).isRiver ) // Right
+	{
+		nbRiverAround++;
+		isHorizontalRiver = true;
+		onRight = true;
+	}
+
+	if ( this->getTile(UVec2(position.x,position.y-1)).isRiver ) // Up
+	{
+		nbRiverAround++;
+		isVerticalRiver = true;
+		onUp = true;
+	}
+
+	if ( this->getTile(UVec2(position.x,position.y+1)).isRiver ) // Down
+	{
+		nbRiverAround++;
+		isVerticalRiver = true;
+		onDown = true;
+	}
+
+	switch(nbRiverAround)
+	{
+		case 0:
+			this->map[position.y][position.x] = TileFactory(TT_River_H);	// The default one
+			break;
+		case 1:
+			if ( isVerticalRiver )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_V);	// The default one
+			}
+			else if ( isHorizontalRiver )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_H);
+			}
+
+			// Test for the river to see tiles
+			if ( onLeft && this->getTile(UVec2(position.x,position.y-1)).isSee && this->getTile(UVec2(position.x,position.y+1)).isSee && this->getTile(UVec2(position.x+1,position.y)).isSee && this->getTile(UVec2(position.x+1,position.y+1)).isSee && this->getTile(UVec2(position.x+1,position.y-1)).isSee )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_See_L);
+			}
+
+			if ( onRight && this->getTile(UVec2(position.x,position.y-1)).isSee && this->getTile(UVec2(position.x,position.y+1)).isSee && this->getTile(UVec2(position.x-1,position.y)).isSee && this->getTile(UVec2(position.x-1,position.y+1)).isSee && this->getTile(UVec2(position.x-1,position.y-1)).isSee )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_See_R);
+			}
+
+			if ( onDown && this->getTile(UVec2(position.x-1,position.y)).isSee && this->getTile(UVec2(position.x+1,position.y)).isSee && this->getTile(UVec2(position.x,position.y-1)).isSee && this->getTile(UVec2(position.x+1,position.y-1)).isSee && this->getTile(UVec2(position.x-1,position.y-1)).isSee )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_See_B);
+			}
+
+			if ( onUp && this->getTile(UVec2(position.x-1,position.y)).isSee && this->getTile(UVec2(position.x+1,position.y)).isSee && this->getTile(UVec2(position.x,position.y+1)).isSee && this->getTile(UVec2(position.x+1,position.y+1)).isSee && this->getTile(UVec2(position.x-1,position.y+1)).isSee )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_See_T);
+			}
+			break;
+		case 2: // Can be a line or a corner
+			// Line case
+			if ( isVerticalRiver && !isHorizontalRiver )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_V);
+			}
+
+			if ( isHorizontalRiver && !isVerticalRiver )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_H);
+			}
+
+			if ( onLeft && onUp )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_BR);
+			}
+
+			if ( onRight && onUp )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_BL);
+			}
+
+			if ( onLeft && onDown )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_TR);
+			}
+
+			if ( onRight && onDown )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_TL);
+			}
+			break;
+
+		case 3: // Will be a T
+			if ( onLeft && onRight && onUp )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_T_B);
+			}
+
+			if ( onLeft && onRight && onDown )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_T_T);
+			}
+
+			if ( onUp && onDown && onLeft )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_T_R);
+			}
+
+			if ( onUp && onDown && onRight )
+			{
+				this->map[position.y][position.x] = TileFactory(TT_River_T_L);
+			}
+			break;
+		case 4:
+			this->map[position.y][position.x] = TileFactory(TT_River_X);
+			break;
+	}
+}
+
 bool MapEditor :: setPlain(const UVec2& position)
 {
 	// The plain will be set on the actual tile, in any case
@@ -609,15 +769,28 @@ bool MapEditor :: setSee(const UVec2& position)
 	return true;
 }
 
+bool MapEditor :: setRiver(const UVec2& position)
+{
+	map[position.y][position.x] = TileFactory(TT_River_H);
+
+	checkCoherencyForRiver(position);
+	checkCoherencyAround(position);
+
+	return true;
+}
+
 bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 {
-	Tile* pTile = NULL;
-
 	// Extra protections
 	assert(position.x < this->width);
 	assert(position.y < this->height);
 
 	LDebug << "Map :: setTile " << position << " Tile: " << tileType;
+
+	if ( this->testTile(position,tileType) == false )
+	{
+		return false;
+	}
 
 	switch ( tileType )
 	{
@@ -637,11 +810,76 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 	case TT_See:
 		return setSee(position);
 		break;
+	case TT_River_H:
+		return setRiver(position);
+		break;
 	}
 
 	assert(0);	// All cases have to be handled
 
 	return false;
+}
+
+bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
+{
+	switch ( tileType )
+	{
+	case TT_Plain:
+		return true;
+		break;
+	case TT_Tree:
+		return true;
+		break;
+	case TT_Mountain_1:
+	case TT_Mountain_2:
+		return true;
+		break;
+	case TT_Road_H:
+		return true;
+		break;
+	case TT_See:
+		return true;
+		break;
+	case TT_River_H:
+		{
+			// Check if it's a see tile
+			if ( this->getTile(position).isSee )
+			{
+				return false;
+			}
+
+			// Check Top Left corner
+			if ( this->getTile(UVec2(position.x-1,position.y)).isRiver && // Left
+				 this->getTile(UVec2(position.x,position.y-1)).isRiver && // Top
+				 this->getTile(UVec2(position.x-1,position.y-1)).isRiver ) // TopLeft
+				 return false;
+
+			// Check Top Right corner
+			if ( this->getTile(UVec2(position.x+1,position.y)).isRiver && // Right
+				 this->getTile(UVec2(position.x,position.y-1)).isRiver && // Top
+				 this->getTile(UVec2(position.x+1,position.y-1)).isRiver ) // TopRight
+				 return false;
+
+			// Check Bottom Left corner
+			if ( this->getTile(UVec2(position.x-1,position.y)).isRiver && // Left
+				 this->getTile(UVec2(position.x,position.y+1)).isRiver && // Bottom
+				 this->getTile(UVec2(position.x-1,position.y+1)).isRiver ) // BottomLeft
+				 return false;
+
+			// Check Bottom Right corner
+			if ( this->getTile(UVec2(position.x+1,position.y)).isRiver && // Right
+				 this->getTile(UVec2(position.x,position.y+1)).isRiver && // Bottom
+				 this->getTile(UVec2(position.x+1,position.y+1)).isRiver ) // BottomRight
+				 return false;
+		}
+		return true;
+		break;
+	default:
+		assert(0);	// If we are here, something goes hardly wrong, or I have forgotten to code something
+		break;
+	}
+
+	return true;
 }
 
 bool MapEditor :: save(const std::string& fileName)

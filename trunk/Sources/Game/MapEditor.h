@@ -62,6 +62,13 @@ private:
     */
 	void checkCoherencyForSee(const UVec2& position);
 
+	//! Check the cohenrency of the tile at position (the tile is a river)
+	/*!
+	  Check the height tiles around the actual one, to put the correct see for the best graphical cohenrency.
+	  \param position the position of the tile where to check
+    */
+	void checkCoherencyForRiver(const UVec2& position);
+
 	//! Set a plain at position and call the cohenrency check
 	/*!
 	  \param position the position of the tile to change for a plain one
@@ -92,6 +99,12 @@ private:
     */
 	bool setSee(const UVec2& position);
 
+	//! Set a river at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a river one
+    */
+	bool setRiver(const UVec2& position);
+
 public:
 	//! Basic constructor
 	/*!
@@ -111,6 +124,13 @@ public:
 	*/
 	bool setTile(const UVec2& position, const TileType tileType);
 
+	//! Test if this type tile can be put at the position
+	/*!
+	  \param position the position where the tile would be put
+	  \param tileType the type of the tile that the user wants to put
+	*/
+	bool testTile(const UVec2& position, const TileType tileType)const;
+
 	//! Save the Map in a file
 	/*!
 		\param fileName the file name where to save the file
@@ -125,6 +145,7 @@ public:
  * The following are added:
  *		- Creating an empty map with a specified size
  *		- Changing the Tile at runtime
+ *		- Test if the tile can be set here (without changing anything at the map)
  *		- Saving in a file
  */
 

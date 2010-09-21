@@ -101,6 +101,7 @@ void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
 	tilesASprite[TT_River_See_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_b.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_River_See_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_l.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_River_See_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_r.png",32,32,NORMAL_SPEED,true);
+	tilesASprite[TT_River_X] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_x.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Road_H] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_h.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Road_V] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_v.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Road_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_tl.png",32,32,NORMAL_SPEED,true);
