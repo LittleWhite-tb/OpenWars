@@ -124,8 +124,24 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 	tilesList.push_back(
 		std::pair<TileView, TileType>(
 			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_hq.png",32,62,NORMAL_SPEED,true),
+				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_port.png",32,32,NORMAL_SPEED,true),
 				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 11 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 5),
+			TT_Red_Port)
+		);
+
+	tilesList.push_back(
+		std::pair<TileView, TileType>(
+			TileView(
+				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_airport.png",32,32,NORMAL_SPEED,true),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 13 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 6),
+			TT_Red_Airport)
+		);
+
+	tilesList.push_back(
+		std::pair<TileView, TileType>(
+			TileView(
+				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_hq.png",32,62,NORMAL_SPEED,true),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 15 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 7),
 			TT_Red_HQ)
 		);
 
@@ -133,7 +149,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/beach_t.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 13 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 6),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 17 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 8),
 			TT_Beach_T)
 		);
 
@@ -141,7 +157,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/see.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 15 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 7),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 19 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 9),
 			TT_See)
 		);
 
@@ -149,7 +165,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/reef.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 17 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 8),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 21 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 10),
 			TT_Reef)
 		);
 
@@ -157,7 +173,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/bridge_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 19 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 9),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 23 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 11),
 			TT_Bridge_H)
 		);
 
@@ -165,7 +181,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/road_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 21 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 10),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 25 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 12),
 			TT_Road_H)
 		);
 
@@ -173,7 +189,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 		std::pair<TileView, TileType>(
 			TileView(
 				new AnimatedSprite(sm,"./data/gfx/tiles/classic/river_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 23 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 11),
+				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 27 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 13),
 			TT_River_H)
 		);
 

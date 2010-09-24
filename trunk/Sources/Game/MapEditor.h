@@ -57,7 +57,7 @@ private:
 
 	//! Check the cohenrency of the tile at position (the tile is a see)
 	/*!
-	  Check the height tiles around the actual one, to put the correct see for the best graphical cohenrency.
+	  Check the height tiles around the actual one, to put the correct see for the best graphical cohenrency. If the tile under the actual one is a beach, will update as a beach.
 	  \param position the position of the tile where to check
     */
 	void checkCoherencyForSee(const UVec2& position);
@@ -99,11 +99,43 @@ private:
     */
 	bool setSee(const UVec2& position);
 
+	//! Set a reef at position
+	/*!
+	  \param position the position of the tile to change for a reef one
+    */
+	bool setReef(const UVec2& position);
+
+	//! Set a beach at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a beach one
+    */
+	bool setBeach(const UVec2& position);
+
 	//! Set a river at position and call the cohenrency check
 	/*!
 	  \param position the position of the tile to change for a river one
     */
 	bool setRiver(const UVec2& position);
+
+	//! Set a bridge at position and call the cohenrency check (but not needed for the actual position)
+	/*!
+	  \param position the position of the tile to change for a bridge one
+    */
+	bool setBridge(const UVec2& position);
+
+	//! Set a HQ at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a HQ one
+	  \param type the type of building (should be an HQ)
+    */
+	bool setHQ(const UVec2& position, const TileType type);
+
+	//! Set a building at position and call the cohenrency check
+	/*!
+	  \param position the position of the tile to change for a building one
+	  \param type the type of building (if HQ, setHQ is called)
+    */
+	bool setBuilding(const UVec2& position, const TileType type);
 
 public:
 	//! Basic constructor

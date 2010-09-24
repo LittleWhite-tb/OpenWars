@@ -41,17 +41,41 @@ enum TileType
 
 	// Beach
 	TT_Beach_TL,	// Top Left
+	TT_Beach_TL_R,	// Top Left with Right
+	TT_Beach_TL_B,	// Top Left with Bottom
+	TT_Beach_TL_2,	// Top Left
 	TT_Beach_TR,	// Top Right
+	TT_Beach_TR_B,	// Top Right with Bottom 
+	TT_Beach_TR_L,	// Top Right with Left
+	TT_Beach_TR_2,	// Top Right
 	TT_Beach_BL,	// Bottom Left
+	TT_Beach_BL_T,	// Bottom Left with Top
+	TT_Beach_BL_R,	// Bottom Left with Right
+	TT_Beach_BL_2,	// Bottom Left
 	TT_Beach_BR,	// Bottom Right
+	TT_Beach_BR_L,	// Bottom Right with Left
+	TT_Beach_BR_T,	// Bottom Right with Top
+	TT_Beach_BR_2,	// Bottom Right
 	TT_Beach_EL,	// T Left
 	TT_Beach_ER,	// T Right
 	TT_Beach_ET,	// T Top
 	TT_Beach_EB,	// T Bottom
 	TT_Beach_L,	// Left
+	TT_Beach_L_T,	// Left with Top
+	TT_Beach_L_B,	// Left with Bottom
+	TT_Beach_L_2,	// Left
 	TT_Beach_R,	// Right
+	TT_Beach_R_T,	// Right with Top
+	TT_Beach_R_B,	// Right with Bottom
+	TT_Beach_R_2,	// Right
 	TT_Beach_T,	// Top
+	TT_Beach_T_L,	// Top with Left
+	TT_Beach_T_R,	// Top with Right
+	TT_Beach_T_2,	// Top
 	TT_Beach_B,	// Bottom
+	TT_Beach_B_R,	// Bottom with Right
+	TT_Beach_B_L,	// Bottom with Left
+	TT_Beach_B_2,	// Bottom
 
 	// Bridge
 	TT_Bridge_H,	// Horizontal
@@ -184,8 +208,10 @@ typedef struct Tile
 
 	unsigned char defence;			/*!< The defence of the tile */
 	bool isRoad;					/*!< If the tile is a road tile */
+	bool isBridge;					/*!< If the tile is a bridge tile */
 	bool isRiver;					/*!< If the tile is a river tile */
 	bool isSee;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
+	bool isBeach;					/*!< If it is beach */
 	bool isBuilding;				/*!< If it is a building */
 	bool needBackground;			/*!< If the Tile need to have a plain has background drawn before */
 
@@ -194,20 +220,22 @@ typedef struct Tile
 	//! Default constructor
 	/*!
 	*/
-	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isRiver(false),isSee(false),isBuilding(false),needBackground(false),cityLife(0) {}
+	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isBridge(false),isRiver(false),isSee(true),isBeach(false),isBuilding(false),needBackground(false),cityLife(0) {}
 
 	//! Basic constructor
 	/*!
 		\param tileType the type of the tile
 		\param defence the defence level of the tile
 		\param isRoad if the tile is a road tile
+		\param isBridge if the tile is a bridge tile
 		\param isRiver if the tile is a river tile
 		\param isSee if the tile is see tile
+		\param isBeach if the tile is beach tile
 		\param isBuilding if the tile is a building
 		\param needBackground if some prerendering is needed
 		\param cityLife the life of the building
 	*/
-	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isRiver, const bool isSee, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
+	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isBridge, const bool isRiver, const bool isSee, const bool isBeach, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
 
 	~Tile(void);
 }Tile;
@@ -219,6 +247,13 @@ typedef struct Tile
  * \return the newly created Tile
 */
 Tile TileFactory(const TileType tileType);
+
+//! Check if the type correspond to a building
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a build
+*/
+bool parseIsBuilding(const TileType tileType);
 
 /*! \struct Tile Tile.h "Game/Tile.h"
  *  \brief Tile struct
