@@ -147,7 +147,7 @@ void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
 	tilesASprite[TT_Blue_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_port.png",32,42,NORMAL_SPEED,true);
 	tilesASprite[TT_Blue_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_airport.png",32,36,NORMAL_SPEED,true);
 	tilesASprite[TT_Blue_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Green_HQ] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_hq.png",32,52,NORMAL_SPEED,true);
+	tilesASprite[TT_Green_HQ] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_hq.png",32,54,NORMAL_SPEED,true);
 	tilesASprite[TT_Green_Factory] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_factory.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Green_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_port.png",32,42,NORMAL_SPEED,true);
 	tilesASprite[TT_Green_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_airport.png",32,36,NORMAL_SPEED,true);
@@ -372,4 +372,14 @@ Tile Map :: getTile(const UVec2& position)const
 	{
 		return Tile();
 	}
+}
+
+AnimatedSprite* Map :: getAssociatedSprite(const TileType type)
+{
+	if ( tilesASprite.find(type) == tilesASprite.end() )
+	{
+		return NULL;
+	}
+
+	return tilesASprite[type];
 }

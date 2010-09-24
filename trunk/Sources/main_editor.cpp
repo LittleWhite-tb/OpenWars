@@ -101,10 +101,49 @@ int main(int argc, char** argv)
 				Camera cam;
 				Keyboard kb;
 
-				TileBar tb(sm,win);
-
 				if ( m.isValidMap() )
 				{
+					// Prepare the data to put in the TileBar for building
+					std::vector<TileView> buildingTiles;
+					{
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Plain),TT_Plain,0));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Tree),TT_Tree,1));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Mountain_1),TT_Mountain_1,2));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_See),TT_See,3));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_River_H),TT_River_H,4));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Beach_T),TT_Beach_T,5));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Reef),TT_Reef,6));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Road_H),TT_Road_H,7));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Bridge_H),TT_Bridge_H,8));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Red_HQ),TT_Red_HQ,9));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Blue_HQ),TT_Blue_HQ,9));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Green_HQ),TT_Green_HQ,9));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Yellow_HQ),TT_Yellow_HQ,9));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Red_HQ),TT_Red_HQ,9));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Red_City),TT_Red_City,10));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Blue_City),TT_Blue_City,10));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Green_City),TT_Green_City,10));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Yellow_City),TT_Yellow_City,10));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Neutral_City),TT_Neutral_City,10));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Red_Factory),TT_Red_Factory,11));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Blue_Factory),TT_Blue_Factory,11));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Green_Factory),TT_Green_Factory,11));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Yellow_Factory),TT_Yellow_Factory,11));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Neutral_Factory),TT_Neutral_Factory,11));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Red_Port),TT_Red_Port,12));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Blue_Port),TT_Blue_Port,12));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Green_Port),TT_Green_Port,12));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Yellow_Port),TT_Yellow_Port,12));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Neutral_Port),TT_Neutral_Port,12));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Red_Airport),TT_Red_Airport,13));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Blue_Airport),TT_Blue_Airport,13));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Green_Airport),TT_Green_Airport,13));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Yellow_Airport),TT_Yellow_Airport,13));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Neutral_Airport),TT_Neutral_Airport,13));
+					}
+
+					TileBar buildingTB(sm,win,buildingTiles);
+				
 					while ( kb.isEscapePressed() == 0 )
 					{
 						r->clearScreen();
@@ -112,7 +151,7 @@ int main(int argc, char** argv)
 						m.draw(*r,cam,0);
 						c.draw(*r,cam,0);
 
-						tb.draw(*r,0);
+						buildingTB.draw(*r,0);
 						
 						
 						SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
@@ -121,22 +160,32 @@ int main(int argc, char** argv)
 
 						if ( kb.isKey('a') || kb.isKey('A')  )
 						{
-							tb.open();
+							buildingTB.open();
 						}
 						if ( kb.isKey('c') || kb.isKey('C')  )
 						{
-							tb.close();
+							buildingTB.close();
 						}
-						if ( tb.isOpened() )
+						if ( buildingTB.isOpened() )
 						{
 							if ( kb.isKey(SDLK_LEFT) )
 							{
-								tb.moveLeft();
+								buildingTB.moveLeft();
 							}
 
 							if ( kb.isKey(SDLK_RIGHT) )
 							{
-								tb.moveRight();
+								buildingTB.moveRight();
+							}
+
+							if ( kb.isKey(SDLK_UP) )
+							{
+								buildingTB.moveUp();
+							}
+
+							if ( kb.isKey(SDLK_DOWN) )
+							{
+								buildingTB.moveDown();
 							}
 						}
 						else 
@@ -144,12 +193,12 @@ int main(int argc, char** argv)
 							c.move(kb.getDirectionPressed());
 							if ( kb.isKey(SDLK_SPACE) )
 							{
-								m.setTile(c.getPosition(),tb.getSelected());
+								m.setTile(c.getPosition(),buildingTB.getSelected());
 							}
 						}
 
 						kb.update();
-						tb.update(0);
+						buildingTB.update(0);
 						SDL_Delay(15);
 					}
 				}

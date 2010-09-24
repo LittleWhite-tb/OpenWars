@@ -41,16 +41,17 @@ class Window;
 class Sprite;
 class AnimatedSprite;
 
+struct TileView
+{
+	AnimatedSprite* pASprite;
+	TileType type;
+	int positionX;
+
+	TileView(AnimatedSprite* pASprite, const TileType type, const int positionX):pASprite(pASprite),type(type),positionX(positionX) {}
+};
+
 class TileBar
 {
-	struct TileView
-	{
-		AnimatedSprite* pASprite;
-		int positionX;
-
-		TileView(AnimatedSprite* pASprite, const int positionX):pASprite(pASprite),positionX(positionX) {}
-	};
-
 	enum TileBarState
 	{
 		TBS_Opening,
@@ -64,7 +65,7 @@ class TileBar
 private:
 	Sprite* pBarSprite;						/*<! The surface for the bar */
 	Sprite* pBarCursor;						/*<! The surface for the cursor */
-	std::vector<std::pair<TileView, TileType> > tilesList;		/*<! The tiles with their TileType */
+	std::vector<std::vector<TileView> > tilesList;		/*<! The tiles to be displayed in the TileBar */
 
 	int counterMovementAnim;				/*<! counter to know how much to move on the left or right */
 	unsigned int positionY;					/*<! position of the bar on the y axis */
@@ -72,7 +73,8 @@ private:
 	UVec2 windowSize;						/*<! The size of the window where the bar is */
 	TileBarState state;						/*<! The actual animation state of the bar */
 
-	int current;					/*<! index of the actual Tile selected */
+	int currentX;						/*<! index of the actual Tile selected on the X axis*/
+	int currentY;						/*<! index of the actual Tile selected on the Y axis*/
 
 	bool valid;								/*<! flag to know if all initialisation goes right */
 
@@ -83,7 +85,7 @@ public:
 	  \param sm The SpriteManager to use to load the images
 	  \param win The window where the bar will be
 	*/
-	TileBar(SpriteManager& sm, const Window& win);
+	TileBar(SpriteManager& sm, const Window& win, const std::vector<TileView> listTiles);
 
 	//! Basic destructor
 	/*!
@@ -104,6 +106,16 @@ public:
 	/*!
 	*/
 	void moveRight(void);
+
+	//! Change the Y dimension of the TileBar 
+	/*!
+	*/
+	void moveUp(void);
+
+	//! Change the Y dimension of the TileBar 
+	/*!
+	*/
+	void moveDown(void);
 
 	//! Start closing animation
 	/*!
@@ -139,7 +151,7 @@ public:
 	/*!
 	  \return the TileType selected in the Bar
 	*/
-	TileType getSelected(void)const { return tilesList[current].second; }
+	TileType getSelected(void)const;
 };
 
 /*! \class TileBar TileBar.h "UI/TileBar.h"

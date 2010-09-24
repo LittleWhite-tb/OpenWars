@@ -41,11 +41,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-TileBar :: TileBar(SpriteManager& sm, const Window& win)
+TileBar :: TileBar(SpriteManager& sm, const Window& win, const std::vector<TileView> listTiles)
 {
 	unsigned int barHeight = static_cast<unsigned int>(64 * Scaler::getYScaleFactor());
+	unsigned int maximumX = 0;
 	SDL_Surface* pSurface = NULL;
-
 	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,win.getWidth(),barHeight,32,
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
 												0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000
@@ -80,118 +80,27 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 	
 	pBarSprite = new Sprite(pSurface);
 
-	// Load all the animation needed by the TileBar ( all are loaded in classical theme )
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/plain.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)), 
-			TT_Plain)
-		);
+	// Search the maximum positionX to know the size of the vector
+	for ( std::vector<TileView>::const_iterator itTile = listTiles.begin() ; itTile != listTiles.end() ; ++itTile )
+	{
+		if ( maximumX < itTile->positionX )
+			maximumX = itTile->positionX;
+	}
+	assert(maximumX+1<=listTiles.size());
+	// Resize the vectore to contain the good number of elements
+	for ( unsigned int i = 0 ; i < maximumX+1 ; i++ )
+	{
+		tilesList.push_back(std::vector<TileView>());
+	}
 
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/tree.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 3 + static_cast<int>(Scaler::getXScaleFactor() * 32)),
-			TT_Tree)
-		);
-	
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/mountain1.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 5 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 2),
-			TT_Mountain_1)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_city.png",32,40,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 7 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 3),
-			TT_Red_City)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_factory.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 9 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 4),
-			TT_Red_Factory)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_port.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 11 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 5),
-			TT_Red_Port)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_airport.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 13 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 6),
-			TT_Red_Airport)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/r_hq.png",32,62,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 15 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 7),
-			TT_Red_HQ)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/beach_t.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 17 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 8),
-			TT_Beach_T)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/see.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 19 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 9),
-			TT_See)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/reef.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 21 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 10),
-			TT_Reef)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/bridge_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 23 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 11),
-			TT_Bridge_H)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/road_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 25 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 12),
-			TT_Road_H)
-		);
-
-	tilesList.push_back(
-		std::pair<TileView, TileType>(
-			TileView(
-				new AnimatedSprite(sm,"./data/gfx/tiles/classic/river_h.png",32,32,NORMAL_SPEED,true),
-				static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * 27 + static_cast<int>(Scaler::getXScaleFactor() * 32) * 13),
-			TT_River_H)
-		);
+	// Load all the animation needed by the TileBar
+	for ( std::vector<TileView>::const_iterator itTile = listTiles.begin() ; itTile != listTiles.end() ; ++itTile )
+	{
+		tilesList[itTile->positionX].push_back(TileView(
+												itTile->pASprite,
+												itTile->type,
+												static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) * (1 + itTile->positionX * 2) + static_cast<int>(Scaler::getXScaleFactor() * 32 * itTile->positionX)));
+	}
 
 	// Load the cursor
 	pBarCursor = new Sprite(sm,"./data/gfx/tilebar_cursor.png",true);
@@ -200,21 +109,17 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win)
 	valid = true;
 	counterMovementAnim = 0;
 	windowSize = UVec2(win.getWidth(),win.getHeight());
-	limit =  (tilesList[0].first.pASprite->getWidth() + (static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)*2)) * tilesList.size();
+	limit =  (tilesList[0][0].pASprite->getWidth() + (static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)*2)) * tilesList.size();
 	positionY = win.getHeight();
 	state = TBS_Closed;
-	current = 5;
+	currentX = 5;
+	currentY = 0;
 
 	LDebug << "TileBar created";
 }
 
 TileBar :: ~TileBar(void)
 {
-	for ( std::vector<std::pair<TileView, TileType> >::const_iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
-	{
-		delete itASprites->first.pASprite;
-	}
-
 	delete pBarCursor;
 
 	SDL_FreeSurface(pBarSprite->getSurface());
@@ -242,10 +147,10 @@ void TileBar ::  moveLeft(void)
 
 		state = TBS_MoveLeft;
 	
-		current--;
-		if ( current < 0 )
+		currentX--;
+		if ( currentX < 0 )
 		{
-			current = tilesList.size() - 1;
+			currentX = tilesList.size() - 1;
 		}
 	}
 }
@@ -260,11 +165,31 @@ void TileBar ::  moveRight(void)
 
 		state = TBS_MoveRight;
 	
-		current++;
-		if ( current >= static_cast<int>(tilesList.size()) )
+		currentX++;
+		if ( currentX >= static_cast<int>(tilesList.size()) )
 		{
-			current = 0;
+			currentX = 0;
 		}
+	}
+}
+
+void TileBar :: moveUp(void)
+{
+	if ( state == TBS_Opened )
+	{
+		LDebug << "TileBar :: moveUp()";
+
+		currentY++;
+	}
+}
+
+void TileBar :: moveDown(void)
+{
+	if ( state == TBS_Opened )
+	{
+		LDebug << "TileBar :: moveDown()";
+
+		currentY--;
 	}
 }
 
@@ -293,34 +218,35 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 	
 	if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
 	{
-		unsigned int selectedTileXPosition = windowSize.x / 2 - tilesList[current].first.pASprite->getWidth() / 2;
+		unsigned int selectedTileXPosition = windowSize.x / 2 - tilesList[currentX][0].pASprite->getWidth() / 2;
 		unsigned int xOffset = 0;
-		if ( current-1 >= 0 )
+		if ( currentX-1 >= 0 )
 		{
-			xOffset = (windowSize.x / 2 - tilesList[current].first.pASprite->getWidth() / 2) - tilesList[current-1].first.positionX;
+			xOffset = (windowSize.x / 2 - tilesList[currentX][0].pASprite->getWidth() / 2) - tilesList[currentX-1][0].positionX;
 		}
 		else
 		{
-			xOffset = (windowSize.x / 2 - tilesList[current].first.pASprite->getWidth() / 2) - tilesList[tilesList.size()-1].first.positionX;
+			xOffset = (windowSize.x / 2 - tilesList[currentX][0].pASprite->getWidth() / 2) - tilesList[tilesList.size()-1][0].positionX;
 		}
 		IVec2 cursorPosition(windowSize.x / 2 - pBarCursor->getWidth()/2, positionY + static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_BAR_HEIGHT) / 2 - pBarCursor->getHeight()/2);
 
 		// Display the Tiles
 		for ( unsigned int i = 0 ; i < tilesList.size() ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
 		{
+			unsigned tmpVar = tilesList.size();
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesList[i%tilesList.size()].first.pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesList[i%tilesList.size()][currentY%tilesList[i%tilesList.size()].size()].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 
-			IVec2 tilePosition(tilesList[i%tilesList.size()].first.positionX, positionY + static_cast<int>(Scaler::getYScaleFactor() * TILE_BAR_YMARGIN *2));
+			IVec2 tilePosition(tilesList[i%tilesList.size()][0].positionX, positionY + static_cast<int>(Scaler::getYScaleFactor() * TILE_BAR_YMARGIN *2));
 			// Offset, because we are drawing one before the first visible
-			tilePosition.x -= static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN *2) + tilesList[i%tilesList.size()].first.pASprite->getWidth();
+			tilePosition.x -= static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN *2) + tilesList[i%tilesList.size()][0].pASprite->getWidth();
 
 			if ( state == TBS_Opened )
 			{
 				// The currently selected sprite will be centered in the cursor
-				if ( i == current )
+				if ( i == currentX )
 				{
-					tilePosition.x = windowSize.x / 2 - tilesList[i%tilesList.size()].first.pASprite->getWidth() / 2;
+					tilePosition.x = windowSize.x / 2 - tilesList[i%tilesList.size()][0].pASprite->getWidth() / 2;
 				}
 
 				// The following sprite after the selected one have to be offseted to continue the TileBar correctly
@@ -336,7 +262,7 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 			// Remove little bug that one sprite is visible on the bound left
 			if ( state != TBS_Opened || tilePosition.x > 0 )
 			{
-				isOk &= r.drawTile(*tilesList[i%tilesList.size()].first.pASprite, tilePosition, time);
+				isOk &= r.drawTile(*tilesList[i%tilesList.size()][currentY%tilesList[i%tilesList.size()].size()].pASprite, tilePosition, time);
 			}
 		}
 
@@ -370,17 +296,23 @@ void TileBar :: update(const unsigned int time)
 		case TBS_MoveRight:
 			if ( counterMovementAnim > 8 )
 			{
-				for ( std::vector<std::pair<TileView, TileType> >::iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
+				for ( std::vector<std::vector<TileView> >::iterator itVectorASprites = tilesList.begin() ; itVectorASprites != tilesList.end() ; ++itVectorASprites )
 				{
-					itASprites->first.positionX-=8;
+					for ( std::vector<TileView>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
+					{
+						itASprites->positionX-=8;
+					}
 				}
 				counterMovementAnim-=8;
 			}
 			else
 			{
-				for ( std::vector<std::pair<TileView, TileType> >::iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
+				for ( std::vector<std::vector<TileView> >::iterator itVectorASprites = tilesList.begin() ; itVectorASprites != tilesList.end() ; ++itVectorASprites )
 				{
-					itASprites->first.positionX-=counterMovementAnim;
+					for ( std::vector<TileView>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
+					{
+						itASprites->positionX-=counterMovementAnim;
+					}
 				}
 				counterMovementAnim-=counterMovementAnim;
 			}
@@ -388,11 +320,14 @@ void TileBar :: update(const unsigned int time)
 			if ( counterMovementAnim <= 0 )
 			{
 				// Final check to move the sprites from back to front
-				for ( std::vector<std::pair<TileView, TileType> >::iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
+				for ( std::vector<std::vector<TileView> >::iterator itVectorASprites = tilesList.begin() ; itVectorASprites != tilesList.end() ; ++itVectorASprites )
 				{
-					if ( itASprites->first.positionX < 0 )
+					for ( std::vector<TileView>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
 					{
-						itASprites->first.positionX = (limit - ((static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) + itASprites->first.pASprite->getWidth())));
+						if ( itASprites->positionX < 0 )
+						{
+							itASprites->positionX = (limit - ((static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) + itASprites->pASprite->getWidth())));
+						}
 					}
 				}
 				state = TBS_Opened;
@@ -401,29 +336,38 @@ void TileBar :: update(const unsigned int time)
 		case TBS_MoveLeft:
 			if ( counterMovementAnim > 8 )
 			{
-				for ( std::vector<std::pair<TileView, TileType> >::iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
+				for ( std::vector<std::vector<TileView> >::iterator itVectorASprites = tilesList.begin() ; itVectorASprites != tilesList.end() ; ++itVectorASprites )
 				{
-					itASprites->first.positionX+=8;
+					for ( std::vector<TileView>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
+					{
+						itASprites->positionX+=8;
+					}
 				}
 
 				counterMovementAnim-=8;
 			}
 			else
 			{
-				for ( std::vector<std::pair<TileView, TileType> >::iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
+				for ( std::vector<std::vector<TileView> >::iterator itVectorASprites = tilesList.begin() ; itVectorASprites != tilesList.end() ; ++itVectorASprites )
 				{
-					itASprites->first.positionX+=counterMovementAnim;
+					for ( std::vector<TileView>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
+					{
+						itASprites->positionX+=counterMovementAnim;
+					}
 				}
 				counterMovementAnim-=counterMovementAnim;
 			}
 
 			if ( counterMovementAnim <= 0 )
 			{
-				for ( std::vector<std::pair<TileView, TileType> >::iterator itASprites = tilesList.begin() ; itASprites != tilesList.end() ; ++itASprites )
+				for ( std::vector<std::vector<TileView> >::iterator itVectorASprites = tilesList.begin() ; itVectorASprites != tilesList.end() ; ++itVectorASprites )
 				{
-					if ( itASprites->first.positionX > limit )
+					for ( std::vector<TileView>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
 					{
-						itASprites->first.positionX -= limit;
+						if ( itASprites->positionX > limit )
+						{
+							itASprites->positionX -= limit;
+						}
 					}
 				}
 
@@ -436,4 +380,17 @@ void TileBar :: update(const unsigned int time)
 #endif
 	}
 }
+
+TileType TileBar :: getSelected(void)const
+{
+	if ( tilesList[currentX].size() == 1 )
+	{
+		return tilesList[currentX][0].type;
+	}
+	else
+	{
+		return tilesList[currentX][currentY%tilesList[currentX].size()].type;
+	}
+}
+
 #endif // EDITOR

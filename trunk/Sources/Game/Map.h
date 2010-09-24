@@ -118,6 +118,14 @@ public:
 		\return the Tile corresponding to the input position
 	*/
 	Tile getTile(const UVec2& position)const;
+
+	//! Return the sprite corresponding to the type
+	/*!
+		If the type is not found in the map library, return NULL
+		\param type the type associated to the sprite to return
+		\return the AnimatedSprite pointer associated to the type
+	*/
+	AnimatedSprite* getAssociatedSprite(const TileType type);
 };
 
 /*! \class Map Map.h "Game/Map.h"
