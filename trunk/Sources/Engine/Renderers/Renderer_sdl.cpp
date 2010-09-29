@@ -60,7 +60,9 @@ bool RSDL :: drawTile(SDL_Rect& tile, const SDL_Color& colour)const
 {
 	SDL_Surface* pWindowSurface = pWin->getWindowSurface();
 
+#ifdef VERBOSE
 	LDebug << "RSDL :: drawTile from colour (pos: " << tile.x << "x" << tile.y << " size: " << tile.w << "x" << tile.h << " colour: " << static_cast<int>(colour.r) << "," <<  static_cast<int>(colour.g) << "," << static_cast<int>(colour.b) << "," << static_cast<int>(colour.unused) << ")";
+#endif
 
 	if ( SDL_FillRect(pWindowSurface, &tile, SDL_MapRGBA(pWindowSurface->format, colour.r, colour.g, colour.b, colour.unused)) == -1 )
 	{
@@ -75,7 +77,9 @@ bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos)const
 {
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , static_cast<Uint16>(sprite.getWidth()) , static_cast<Uint16>(sprite.getHeight()) };
 
+#ifdef VERBOSE
 	LDebug << "RSDL :: drawTile from Sprite @ " << pos;
+#endif
 
 	if ( SDL_BlitSurface(sprite.getSurface(), NULL, pWin->getWindowSurface(), &r) != 0 )
 	{
@@ -90,7 +94,9 @@ bool RSDL :: drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)
 {
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , srcRect.w , srcRect.h };
 
+#ifdef VERBOSE
 	LDebug << "RSDL :: drawTile from Sprite (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ") @ " << pos;
+#endif
 
 	if ( SDL_BlitSurface(sprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
 	{
@@ -106,7 +112,9 @@ bool RSDL :: drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned 
 	SDL_Rect srcRect = aSprite.getSrcRect(time);
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , static_cast<Uint16>(aSprite.getWidth()) , static_cast<Uint16>(aSprite.getHeight()) };
 
-	// LDebug << "RSDL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
+#ifdef VERBOSE
+	LDebug << "RSDL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
+#endif
 
 	if ( SDL_BlitSurface(aSprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
 	{
@@ -123,7 +131,9 @@ bool RSDL :: drawBackground(SDL_Surface* const pImage)const
 
 	assert(pImage);
 
+#ifdef VERBOSE
 	LDebug << "RSDL :: drawBackground";
+#endif
 
 	if ( SDL_BlitSurface(pWin->getWindowSurface(), NULL, pImage, &r) != 0 )
 	{

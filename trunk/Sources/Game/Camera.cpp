@@ -69,7 +69,9 @@ void Camera :: moveDown(const Map& map)
 
 void Camera :: update(const Cursor& c, const Map& map)
 {
+#ifdef VERBOSE
 	LDebug << "Camera :: update (Was: " << position << ")";
+#endif
 
 	UVec2 cursorPosition = c.getPosition();
 
@@ -94,5 +96,7 @@ void Camera :: update(const Cursor& c, const Map& map)
 		moveDown(map);
 	}
 
+#ifdef VERBOSE
 	LDebug << "Camera :: update (New position: " << position << ")";
+#endif
 }

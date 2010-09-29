@@ -98,11 +98,11 @@ enum TileType
 	TT_River_See_R,	// River to See Right
 	TT_River_X,		
 
-	TT_See,
-	TT_See_TL,		// For see with some coast on it (but just a few)
-	TT_See_TR,
-	TT_See_BL,
-	TT_See_BR,
+	TT_Sea,
+	TT_Sea_TL,		// For see with some coast on it (but just a few)
+	TT_Sea_TR,
+	TT_Sea_BL,
+	TT_Sea_BR,
 
 	TT_Reef,
 
@@ -220,7 +220,7 @@ typedef struct Tile
 	//! Default constructor
 	/*!
 	*/
-	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isBridge(false),isRiver(false),isSee(true),isBeach(false),isBuilding(false),needBackground(false),cityLife(0) {}
+	Tile(void);
 
 	//! Basic constructor
 	/*!
@@ -237,6 +237,18 @@ typedef struct Tile
 	*/
 	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isBridge, const bool isRiver, const bool isSee, const bool isBeach, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
 
+	//! Constructor by copy
+	/*!
+		\param t the Tile to copy
+	*/
+	Tile(const Tile& t);
+
+	//! operator=
+	/*!
+		\param t the Tile to copy
+	*/
+	Tile& operator=(const Tile& t);
+
 	~Tile(void);
 }Tile;
 
@@ -251,9 +263,51 @@ Tile TileFactory(const TileType tileType);
 //! Check if the type correspond to a building
 /*!
  * \param tileType the type
- * \return true if the type corresponds to a build
+ * \return true if the type corresponds to a building
 */
 bool parseIsBuilding(const TileType tileType);
+
+//! Check if the type correspond to a road
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a road
+*/
+bool parseIsRoad(const TileType tileType);
+
+//! Check if the type correspond to a sea
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a sea
+*/
+bool parseIsSea(const TileType tileType);
+
+//! Check if the type correspond to a river
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a river
+*/
+bool parseIsRiver(const TileType tileType);
+
+//! Check if the type correspond to a beach
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a beach
+*/
+bool parseIsBeach(const TileType tileType);
+
+//! Check if the type correspond to a bridge
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a bridge
+*/
+bool parseIsBridge(const TileType tileType);
+
+//! Check if the type correspond to a HQ
+/*!
+ * \param tileType the type
+ * \return true if the type corresponds to a HQ
+*/
+bool parseIsHQ(const TileType tileType);
 
 /*! \struct Tile Tile.h "Game/Tile.h"
  *  \brief Tile struct

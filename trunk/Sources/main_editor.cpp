@@ -97,7 +97,7 @@ int main(int argc, char** argv)
 
 				SpriteManager sm;
 				MapEditor m(sm,UVec2(15,10));
-				Cursor c(sm,"./data/gfx/cursor_alpha.png",&m,UVec2(5,5));
+				Cursor c(sm,"./data/gfx/cursor.png",&m,UVec2(5,5));
 				Camera cam;
 				Keyboard kb;
 
@@ -109,7 +109,7 @@ int main(int argc, char** argv)
 						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Plain),TT_Plain,0));
 						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Tree),TT_Tree,1));
 						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Mountain_1),TT_Mountain_1,2));
-						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_See),TT_See,3));
+						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Sea),TT_Sea,3));
 						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_River_H),TT_River_H,4));
 						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Beach_T),TT_Beach_T,5));
 						buildingTiles.push_back(TileView(m.getAssociatedSprite(TT_Reef),TT_Reef,6));

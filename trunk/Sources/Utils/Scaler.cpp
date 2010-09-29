@@ -57,7 +57,9 @@ bool Scaler :: shrinkSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const 
 	assert(pSrcSurface);
 	assert(pDstSurface);
 
+#ifdef VERBOSE
 	LDebug << "Scaler :: shrinkSurface";
+#endif
 
 	// Averaging integer shrink (code from the SDL_gfx _shrinkSurfaceRGBA function)
 
@@ -132,7 +134,9 @@ bool Scaler :: zoomSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pD
 	assert(pSrcSurface);
 	assert(pDstSurface);
 
+#ifdef VERBOSE
 	LDebug << "Scaler :: zoomSurface";
+#endif
 
 	// Variable setup 
 
@@ -269,7 +273,9 @@ SDL_Surface* Scaler :: scale(SDL_Surface* const pSrcSurface)
 	bool isTransformed = false;
 	bool hasTmpSrcSurface = false;
 
+#ifdef VERBOSE
 	LDebug << "Scaler :: scale (Dst:" << dstWidth << "x" << dstHeight << ")";
+#endif
 
 	assert(pSrcSurface);
 	assert(pSrcSurface->format->BitsPerPixel != 8);	// I am not handling 8 bit surface

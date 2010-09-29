@@ -65,6 +65,7 @@ class TileBar
 private:
 	Sprite* pBarSprite;						/*<! The surface for the bar */
 	Sprite* pBarCursor;						/*<! The surface for the cursor */
+	AnimatedSprite* pBarArrows;				/*<! Up / Down arrows */
 	std::vector<std::vector<TileView> > tilesList;		/*<! The tiles to be displayed in the TileBar */
 
 	int counterMovementAnim;				/*<! counter to know how much to move on the left or right */

@@ -123,28 +123,28 @@ void MapEditor :: checkCoherencyForRoad(const UVec2& position)
 	bool onUp = false;
 	bool onDown = false;
 		
-	if ( this->getTile(UVec2(position.x-1,position.y)).isRoad || this->getTile(UVec2(position.x-1,position.y)).isBridge )	// Left
+	if ( this->getTile(UVec2(position.x-1,position.y)).isRoad || this->getTile(UVec2(position.x-1,position.y)).isBridge || parseIsHQ(this->getTile(UVec2(position.x-1,position.y)).tileType) )	// Left
 	{
 		nbRoadAround++;
 		isHorizontalRoad = true;
 		onLeft = true;
 	}
 	
-	if ( this->getTile(UVec2(position.x+1,position.y)).isRoad || this->getTile(UVec2(position.x+1,position.y)).isBridge  ) // Right
+	if ( this->getTile(UVec2(position.x+1,position.y)).isRoad || this->getTile(UVec2(position.x+1,position.y)).isBridge || parseIsHQ(this->getTile(UVec2(position.x+1,position.y)).tileType) ) // Right
 	{
 		nbRoadAround++;
 		isHorizontalRoad = true;
 		onRight = true;
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y-1)).isRoad || this->getTile(UVec2(position.x,position.y-1)).isBridge ) // Up
+	if ( this->getTile(UVec2(position.x,position.y-1)).isRoad || this->getTile(UVec2(position.x,position.y-1)).isBridge || parseIsHQ(this->getTile(UVec2(position.x,position.y-1)).tileType) ) // Up
 	{
 		nbRoadAround++;
 		isVerticalRoad = true;
 		onUp = true;
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y+1)).isRoad || this->getTile(UVec2(position.x,position.y+1)).isBridge ) // Down
+	if ( this->getTile(UVec2(position.x,position.y+1)).isRoad || this->getTile(UVec2(position.x,position.y+1)).isBridge || parseIsHQ(this->getTile(UVec2(position.x,position.y+1)).tileType) ) // Down
 	{
 		nbRoadAround++;
 		isVerticalRoad = true;
@@ -760,23 +760,23 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 				case 3:
 					if ( onDownRight && onUpRight && onUpLeft )
 					{
-						this->map[position.y][position.x] = TileFactory(TT_See_BL);
+						this->map[position.y][position.x] = TileFactory(TT_Sea_BL);
 					}
 					if ( onUpRight && onUpLeft && onDownLeft )
 					{
-						this->map[position.y][position.x] = TileFactory(TT_See_BR);
+						this->map[position.y][position.x] = TileFactory(TT_Sea_BR);
 					}
 					if ( onUpLeft && onDownLeft && onDownRight )
 					{
-						this->map[position.y][position.x] = TileFactory(TT_See_TR);
+						this->map[position.y][position.x] = TileFactory(TT_Sea_TR);
 					}
 					if ( onDownLeft && onDownRight && onUpRight )
 					{
-						this->map[position.y][position.x] = TileFactory(TT_See_TL);
+						this->map[position.y][position.x] = TileFactory(TT_Sea_TL);
 					}
 					break;
 				case 4:
-					this->map[position.y][position.x] = TileFactory(TT_See);
+					this->map[position.y][position.x] = TileFactory(TT_Sea);
 					break;
 
 				default:
@@ -973,7 +973,7 @@ bool MapEditor :: setRoad(const UVec2& position)
 
 bool MapEditor :: setSee(const UVec2& position)
 {
-	map[position.y][position.x] = TileFactory(TT_See);
+	map[position.y][position.x] = TileFactory(TT_Sea);
 
 	checkCoherencyForSee(position);
 	checkCoherencyAround(position);
@@ -1033,7 +1033,7 @@ bool MapEditor :: setBridge(const UVec2& position)
 		case TT_Coast_T:
 			map[position.y][position.x] = TileFactory(TT_Bridge_V);
 			break;
-		case TT_See:
+		case TT_Sea:
 			if ( this->getTile(UVec2(position.x-1,position.y)).isBridge || this->getTile(UVec2(position.x+1,position.y)).isBridge )
 			{
 				map[position.y][position.x] = TileFactory(TT_Bridge_H);
@@ -1114,6 +1114,31 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 		return false;
 	}
 
+	// Check if the tile below is the same // or one equivalent
+	Tile tmpT = this->getTile(position);
+	if ( tileType == tmpT.tileType )
+		return true;
+	
+	if ( parseIsRoad(tileType) == true )
+		if ( tmpT.isRoad == true )
+			return true;
+	
+	if ( parseIsSea(tileType) == true )
+		if ( tmpT.isSee == true )
+			return true;
+	
+	if ( parseIsBeach(tileType) ==  true )
+		if ( tmpT.isBeach == true )
+			return true;
+	
+	if ( parseIsRiver(tileType) == true )
+		if ( tmpT.isRiver == true )
+			return true;
+	
+	if ( parseIsBridge(tileType) == true )
+		if ( tmpT.isBridge == true )
+			return true;
+
 	switch ( tileType )
 	{
 	case TT_Plain:
@@ -1129,7 +1154,7 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 	case TT_Road_H:
 		return setRoad(position);
 		break;
-	case TT_See:
+	case TT_Sea:
 		return setSee(position);
 		break;
 	case TT_Reef:
@@ -1174,11 +1199,11 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 	case TT_Road_H:
 		return true;
 		break;
-	case TT_See:
+	case TT_Sea:
 		return true;
 		break;
 	case TT_Reef:
-		if ( this->getTile(position).tileType == TT_See )
+		if ( this->getTile(position).tileType == TT_Sea )
 		{
 			return true;
 		}
@@ -1255,7 +1280,7 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 		case TT_Coast_L:
 			return true;
 			break;
-		case TT_See:
+		case TT_Sea:
 			if ( this->getTile(UVec2(position.x-1,position.y)).isBridge ||	// Left
 				 this->getTile(UVec2(position.x+1,position.y)).isBridge ||	// Right
 				 this->getTile(UVec2(position.x,position.y-1)).isBridge ||	// Top

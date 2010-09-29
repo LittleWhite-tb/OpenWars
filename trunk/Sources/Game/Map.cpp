@@ -54,6 +54,14 @@ Map :: Map(SpriteManager& sm, const std::string& fileName)
 
 Map :: ~Map(void)
 {
+	// Delete the Tiles used my the map
+	for ( std::map<TileType, AnimatedSprite*>::const_iterator itTiles = tilesASprite.begin() ; itTiles != tilesASprite.end() ; ++itTiles )
+	{
+		delete itTiles->second;
+	}
+	tilesASprite.clear();
+
+	// Delete the map
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
 	{
 		delete[] map[y];
@@ -161,11 +169,11 @@ void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
 	tilesASprite[TT_Neutral_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_port.png",32,42,NORMAL_SPEED,true);
 	tilesASprite[TT_Neutral_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_airport.png",32,36,NORMAL_SPEED,true);
 	tilesASprite[TT_Neutral_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_See] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_See_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_See_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_See_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_See_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_br.png",32,32,NORMAL_SPEED,true);
+	tilesASprite[TT_Sea] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see.png",32,32,NORMAL_SPEED,true);
+	tilesASprite[TT_Sea_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_tl.png",32,32,NORMAL_SPEED,true);
+	tilesASprite[TT_Sea_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_tr.png",32,32,NORMAL_SPEED,true);
+	tilesASprite[TT_Sea_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_bl.png",32,32,NORMAL_SPEED,true);
+	tilesASprite[TT_Sea_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_br.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Reef] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/reef.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Coast] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Coast_ET] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_et.png",32,32,NORMAL_SPEED,true);
@@ -362,7 +370,9 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 
 Tile Map :: getTile(const UVec2& position)const
 {
+#ifdef VERBOSE
 	LDebug << "Map :: getTile " << position;
+#endif
 
 	if ( position.x < this->width && position.y < this->height )
 	{

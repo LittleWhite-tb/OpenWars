@@ -107,7 +107,9 @@ void Keyboard :: update(void)
 {
 	int nbKeys = 0;
 
+#ifdef VERBOSE
 	LDebug << "Keyboard :: update";
+#endif
 
 	SDL_PumpEvents();
 	keys = SDL_GetKeyState(&nbKeys);

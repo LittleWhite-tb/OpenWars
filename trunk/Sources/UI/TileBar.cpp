@@ -105,6 +105,9 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, const std::vector<TileV
 	// Load the cursor
 	pBarCursor = new Sprite(sm,"./data/gfx/tilebar_cursor.png",true);
 
+	// Load the arrows
+	pBarArrows = new AnimatedSprite(sm,"./data/gfx/tilebar_arrows.png",45,45,300,true);
+
 	// Final settings
 	valid = true;
 	counterMovementAnim = 0;
@@ -120,6 +123,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, const std::vector<TileV
 
 TileBar :: ~TileBar(void)
 {
+	delete pBarArrows;
 	delete pBarCursor;
 
 	SDL_FreeSurface(pBarSprite->getSurface());
@@ -268,6 +272,11 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 
 		// Draw the cursor
 		r.drawTile(*pBarCursor,cursorPosition);
+		// Draw the arrow if needed
+		if ( tilesList[currentX].size() > 1 && state == TBS_Opened )
+		{
+			r.drawTile(*pBarArrows,cursorPosition);
+		}
 	}
 
 	return isOk;
@@ -275,7 +284,9 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 
 void TileBar :: update(const unsigned int time)
 {
+#ifdef VERBOSE
 	LDebug << "TileBar :: update()";
+#endif
 
 	switch (state)
 	{
