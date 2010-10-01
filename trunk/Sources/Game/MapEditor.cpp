@@ -101,7 +101,7 @@ void MapEditor :: checkCoherency(const UVec2& position)
 			checkCoherencyForRoad(position);
 		}
 		
-		if ( this->getTile(position).isSee )
+		if ( this->getTile(position).isSea )
 		{
 			checkCoherencyForSee(position);
 		}
@@ -247,7 +247,7 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 	unsigned char nbSeeDiagonal = 0;
 		
 	// Check the 8 tiles around and set the flags
-	if ( this->getTile(UVec2(position.x-1,position.y)).isSee || this->getTile(UVec2(position.x-1,position.y)).isBridge )	// Left
+	if ( this->getTile(UVec2(position.x-1,position.y)).isSea || this->getTile(UVec2(position.x-1,position.y)).isBridge )	// Left
 	{
 		nbSeeAround++;
 		isHorizontalSee = true;
@@ -259,7 +259,7 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 		}
 	}
 	
-	if ( this->getTile(UVec2(position.x+1,position.y)).isSee || this->getTile(UVec2(position.x+1,position.y)).isBridge ) // Right
+	if ( this->getTile(UVec2(position.x+1,position.y)).isSea || this->getTile(UVec2(position.x+1,position.y)).isBridge ) // Right
 	{
 		nbSeeAround++;
 		isHorizontalSee = true;
@@ -271,7 +271,7 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 		}
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y-1)).isSee || this->getTile(UVec2(position.x,position.y-1)).isBridge ) // Up
+	if ( this->getTile(UVec2(position.x,position.y-1)).isSea || this->getTile(UVec2(position.x,position.y-1)).isBridge ) // Up
 	{
 		nbSeeAround++;
 		isVerticalSee = true;
@@ -283,7 +283,7 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 		}
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y+1)).isSee || this->getTile(UVec2(position.x,position.y+1)).isBridge ) // Down
+	if ( this->getTile(UVec2(position.x,position.y+1)).isSea || this->getTile(UVec2(position.x,position.y+1)).isBridge ) // Down
 	{
 		nbSeeAround++;
 		isVerticalSee = true;
@@ -295,28 +295,28 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 		}
 	}
 
-	if ( this->getTile(UVec2(position.x-1,position.y-1)).isSee || this->getTile(UVec2(position.x-1,position.y-1)).isBridge ) // Up Left
+	if ( this->getTile(UVec2(position.x-1,position.y-1)).isSea || this->getTile(UVec2(position.x-1,position.y-1)).isBridge ) // Up Left
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
 		onUpLeft = true;
 	}
 
-	if ( this->getTile(UVec2(position.x+1,position.y-1)).isSee || this->getTile(UVec2(position.x+1,position.y-1)).isBridge ) // Up Right
+	if ( this->getTile(UVec2(position.x+1,position.y-1)).isSea || this->getTile(UVec2(position.x+1,position.y-1)).isBridge ) // Up Right
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
 		onUpRight = true;
 	}
 
-	if ( this->getTile(UVec2(position.x-1,position.y+1)).isSee || this->getTile(UVec2(position.x-1,position.y+1)).isBridge ) // Down Left
+	if ( this->getTile(UVec2(position.x-1,position.y+1)).isSea || this->getTile(UVec2(position.x-1,position.y+1)).isBridge ) // Down Left
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
 		onDownLeft = true;
 	}
 
-	if ( this->getTile(UVec2(position.x+1,position.y+1)).isSee || this->getTile(UVec2(position.x+1,position.y+1)).isBridge ) // Down Right
+	if ( this->getTile(UVec2(position.x+1,position.y+1)).isSea || this->getTile(UVec2(position.x+1,position.y+1)).isBridge ) // Down Right
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
@@ -845,22 +845,22 @@ void MapEditor :: checkCoherencyForRiver(const UVec2& position)
 			}
 
 			// Test for the river to see tiles
-			if ( onLeft && this->getTile(UVec2(position.x,position.y-1)).isSee && this->getTile(UVec2(position.x,position.y+1)).isSee && this->getTile(UVec2(position.x+1,position.y)).isSee && this->getTile(UVec2(position.x+1,position.y+1)).isSee && this->getTile(UVec2(position.x+1,position.y-1)).isSee )
+			if ( onLeft && this->getTile(UVec2(position.x,position.y-1)).isSea && this->getTile(UVec2(position.x,position.y+1)).isSea && this->getTile(UVec2(position.x+1,position.y)).isSea && this->getTile(UVec2(position.x+1,position.y+1)).isSea && this->getTile(UVec2(position.x+1,position.y-1)).isSea )
 			{
 				this->map[position.y][position.x] = TileFactory(TT_River_See_L);
 			}
 
-			if ( onRight && this->getTile(UVec2(position.x,position.y-1)).isSee && this->getTile(UVec2(position.x,position.y+1)).isSee && this->getTile(UVec2(position.x-1,position.y)).isSee && this->getTile(UVec2(position.x-1,position.y+1)).isSee && this->getTile(UVec2(position.x-1,position.y-1)).isSee )
+			if ( onRight && this->getTile(UVec2(position.x,position.y-1)).isSea && this->getTile(UVec2(position.x,position.y+1)).isSea && this->getTile(UVec2(position.x-1,position.y)).isSea && this->getTile(UVec2(position.x-1,position.y+1)).isSea && this->getTile(UVec2(position.x-1,position.y-1)).isSea )
 			{
 				this->map[position.y][position.x] = TileFactory(TT_River_See_R);
 			}
 
-			if ( onDown && this->getTile(UVec2(position.x-1,position.y)).isSee && this->getTile(UVec2(position.x+1,position.y)).isSee && this->getTile(UVec2(position.x,position.y-1)).isSee && this->getTile(UVec2(position.x+1,position.y-1)).isSee && this->getTile(UVec2(position.x-1,position.y-1)).isSee )
+			if ( onDown && this->getTile(UVec2(position.x-1,position.y)).isSea && this->getTile(UVec2(position.x+1,position.y)).isSea && this->getTile(UVec2(position.x,position.y-1)).isSea && this->getTile(UVec2(position.x+1,position.y-1)).isSea && this->getTile(UVec2(position.x-1,position.y-1)).isSea )
 			{
 				this->map[position.y][position.x] = TileFactory(TT_River_See_B);
 			}
 
-			if ( onUp && this->getTile(UVec2(position.x-1,position.y)).isSee && this->getTile(UVec2(position.x+1,position.y)).isSee && this->getTile(UVec2(position.x,position.y+1)).isSee && this->getTile(UVec2(position.x+1,position.y+1)).isSee && this->getTile(UVec2(position.x-1,position.y+1)).isSee )
+			if ( onUp && this->getTile(UVec2(position.x-1,position.y)).isSea && this->getTile(UVec2(position.x+1,position.y)).isSea && this->getTile(UVec2(position.x,position.y+1)).isSea && this->getTile(UVec2(position.x+1,position.y+1)).isSea && this->getTile(UVec2(position.x-1,position.y+1)).isSea )
 			{
 				this->map[position.y][position.x] = TileFactory(TT_River_See_T);
 			}
@@ -1124,7 +1124,7 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 			return true;
 	
 	if ( parseIsSea(tileType) == true )
-		if ( tmpT.isSee == true )
+		if ( tmpT.isSea == true )
 			return true;
 	
 	if ( parseIsBeach(tileType) ==  true )
@@ -1236,7 +1236,7 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 	case TT_River_H:
 		{
 			// Check if it's a see tile
-			if ( this->getTile(position).isSee )
+			if ( this->getTile(position).isSea )
 			{
 				return false;
 			}

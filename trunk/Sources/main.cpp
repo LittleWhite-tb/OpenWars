@@ -26,6 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
 
 #include "Engine/Window.h"
 #include "Engine/Renderer.h"
@@ -50,6 +51,8 @@ e-mail: lw.demoscene@gmail.com
 	unsigned int nbASDestruction = 0;
 	unsigned int nbSAllocation = 0;
 	unsigned int nbSDestruction = 0;
+	unsigned int nbFAllocation = 0;
+	unsigned int nbFDestruction = 0;
 
 	unsigned int nbTAllocation = 0;
 	unsigned int nbTDestruction = 0;
@@ -75,8 +78,8 @@ int main(int argc, char** argv)
 		int flags = IMG_INIT_PNG;
 		int initIMG = IMG_Init(flags);
 
-		// Starting SDL_image
-		if ( (initIMG & flags) != flags )
+		// Starting SDL_image and SDL_ttf
+		if ( (initIMG & flags) != flags && TTF_Init() != -1 )
 		{
 			LError << "Fail to init the SDL_image with PNG support (" << IMG_GetError() << ")";
 		}
@@ -130,6 +133,8 @@ int main(int argc, char** argv)
 				}
 			}
 
+			// Stopping SDL_ttf
+			TTF_Quit();
 			// Bye bye SDL_image
 			IMG_Quit();
 		}
@@ -144,6 +149,7 @@ int main(int argc, char** argv)
 	// Final check
 	LDebug << "Number of Sprite Alloc/Destruction: " << nbSAllocation << " / " << nbSDestruction;
 	LDebug << "Number of Animated Sprite Alloc/Destruction: " << nbASAllocation << " / " << nbASDestruction;
+	LDebug << "Number of Font Alloc/Destruction: " << nbFAllocation << " / " << nbFDestruction;
 	LDebug << "Number of Tile Alloc/Destruction: " << nbTAllocation << " / " << nbTDestruction;
 #endif
 

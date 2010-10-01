@@ -1,0 +1,97 @@
+#ifndef DOXYGEN_IGNORE_TAG
+/**
+OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
+Copyright (C) 2010  Alexandre LAURENT
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+website: http://code.google.com/p/openawars/
+e-mail: lw.demoscene@gmail.com
+**/
+#endif
+
+#include "Font.h"
+
+#include <SDL/SDL_ttf.h>
+
+#include <string>
+
+#include "ResourcesManager/FontManager.h"
+#include "Renderer.h"
+#include "Sprite.h"
+
+#include "../Utils/Logger.h"
+
+#ifdef _DEBUG
+	extern unsigned int nbFAllocation;
+	extern unsigned int nbFDestruction;
+#endif
+
+Font :: Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour)
+	:colour(colour)
+{
+	pFont = fm.getFont(fileName,size);
+
+	LDebug << "Font created from file (" << fileName.c_str() << ")";
+
+#ifdef _DEBUG
+	nbFAllocation++;
+#endif
+
+}
+
+Font :: ~Font(void)
+{
+#ifdef _DEBUG
+	nbFDestruction++;
+#endif
+
+	LDebug << "Font deleted";
+}
+
+IVec2 Font :: getSize(const std::string& text)
+{
+	IVec2 size;
+
+	LDebug << "Font :: getSize( " << text.c_str() << ")";
+
+	if ( TTF_SizeText(pFont,text.c_str(),&size.x,&size.y) != 0 )
+	{
+		LWarning << "getSize failed -> " << TTF_GetError();
+	}
+
+	return size;
+}
+
+bool Font :: draw(const Renderer& r, const std::string& text, const IVec2& position)
+{
+	bool error = false;
+
+	LDebug << "Font :: draw @" << position;
+
+	SDL_Surface* pTmpSurface = TTF_RenderText_Solid(pFont, text.c_str(), colour); 
+
+	if ( pTmpSurface == NULL )
+	{
+		LWarning << "Fail to generate texture for the font -> " << TTF_GetError();
+		return false;
+	}
+
+	error = r.drawTile(Sprite(pTmpSurface),position);
+
+	SDL_FreeSurface(pTmpSurface);
+
+	return error;
+}

@@ -48,7 +48,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
 <h1>TileBar Class Reference</h1>  </div>
@@ -62,13 +61,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><a href="class_tile_bar-members.html">List of all members.</a></p>
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><b>TileView</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#acb6ef6f0995eb8e625169837bd31cc2a">TileBar</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const <a class="el" href="class_window.html">Window</a> &amp;win)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#acb6ef6f0995eb8e625169837bd31cc2a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#abf9fa2f5e98f21dee3da327e0fc9751d">TileBar</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const <a class="el" href="class_window.html">Window</a> &amp;win, const std::vector&lt; <a class="el" href="struct_tile_view.html">TileView</a> &gt; listTiles)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#abf9fa2f5e98f21dee3da327e0fc9751d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe884f0febd0ada1053ff4b38de42fae"></a><!-- doxytag: member="TileBar::~TileBar" ref="afe884f0febd0ada1053ff4b38de42fae" args="(void)" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#afe884f0febd0ada1053ff4b38de42fae">~TileBar</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor. <br/></td></tr>
@@ -81,6 +77,12 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeef0574564143447bde7521daa09b78d"></a><!-- doxytag: member="TileBar::moveRight" ref="aeef0574564143447bde7521daa09b78d" args="(void)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#aeef0574564143447bde7521daa09b78d">moveRight</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start to move the tile on the left (cursor move on the right). <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a281fc3c2ab12ceb7095f8ecc582c609a"></a><!-- doxytag: member="TileBar::moveUp" ref="a281fc3c2ab12ceb7095f8ecc582c609a" args="(void)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a281fc3c2ab12ceb7095f8ecc582c609a">moveUp</a> (void)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Change the Y dimension of the <a class="el" href="class_tile_bar.html" title="Display a bar with a list of Tile.">TileBar</a>. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0b35a0707b9d3aca591ff3ed76edcf3"></a><!-- doxytag: member="TileBar::moveDown" ref="ab0b35a0707b9d3aca591ff3ed76edcf3" args="(void)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#ab0b35a0707b9d3aca591ff3ed76edcf3">moveDown</a> (void)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Change the Y dimension of the <a class="el" href="class_tile_bar.html" title="Display a bar with a list of Tile.">TileBar</a>. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c0ec256308d198c27216e478a30b807"></a><!-- doxytag: member="TileBar::close" ref="a9c0ec256308d198c27216e478a30b807" args="(void)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a9c0ec256308d198c27216e478a30b807">close</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start closing animation. <br/></td></tr>
@@ -92,6 +94,8 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get if all the initialisation succeed.  <a href="#aa01ee82d0e4efdee3e0d61fb454cf88e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#ac1f0ec5ebc0a20a09e34271da0cbacfc">isOpened</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get if the Bar is actually opened.  <a href="#ac1f0ec5ebc0a20a09e34271da0cbacfc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a8f9b1f518f36b8c6908d2e71ffdf0323">isClosed</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get if the Bar is actually closed.  <a href="#a8f9b1f518f36b8c6908d2e71ffdf0323"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TileType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#af0bb67cdcbcf408cc08003752051175f">getSelected</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the TileType selected.  <a href="#af0bb67cdcbcf408cc08003752051175f"></a><br/></td></tr>
 </table>
@@ -112,7 +116,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </ul>
 <p>The bar car return the TileType of the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> selected </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="acb6ef6f0995eb8e625169837bd31cc2a"></a><!-- doxytag: member="TileBar::TileBar" ref="acb6ef6f0995eb8e625169837bd31cc2a" args="(SpriteManager &amp;sm, const Window &amp;win)" -->
+<a class="anchor" id="abf9fa2f5e98f21dee3da327e0fc9751d"></a><!-- doxytag: member="TileBar::TileBar" ref="abf9fa2f5e98f21dee3da327e0fc9751d" args="(SpriteManager &amp;sm, const Window &amp;win, const std::vector&lt; TileView &gt; listTiles)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -126,7 +130,13 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="class_window.html">Window</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>win</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>win</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="struct_tile_view.html">TileView</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>listTiles</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -143,6 +153,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>The <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> to use to load the images </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>win</em>&nbsp;</td><td>The window where the bar will be </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>listTiles</em>&nbsp;</td><td>The list of tiles to display in the <a class="el" href="class_tile_bar.html" title="Display a bar with a list of Tile.">TileBar</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -196,7 +207,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
+          <td> const</td>
         </tr>
       </table>
 </div>
@@ -204,6 +215,27 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Get the TileType selected. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>the TileType selected in the Bar </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8f9b1f518f36b8c6908d2e71ffdf0323"></a><!-- doxytag: member="TileBar::isClosed" ref="a8f9b1f518f36b8c6908d2e71ffdf0323" args="(void) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool TileBar::isClosed </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get if the Bar is actually closed. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the bar is closed </dd></dl>
 
 </div>
 </div>
@@ -294,7 +326,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Sep 19 2010 18:45:41 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 1 2010 20:06:09 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

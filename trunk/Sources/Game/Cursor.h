@@ -42,13 +42,15 @@ class Cursor
 private:
 	const Map* const pMap;					/*!< Map to look at */
 
-	AnimatedSprite* pCursorSprite;			/*!< Sprite for the cursor */
-
-	UVec2 position;							/*!< Position of the cursor */
-
 	// We disallow the copy
 	Cursor(const Cursor& c);
 	Cursor& operator= (const Cursor& c);
+
+protected:
+
+	AnimatedSprite* pCursorSprite;			/*!< Sprite for the cursor */
+
+	UVec2 position;							/*!< Position of the cursor */
 
 public:
 	//! Constructor
@@ -65,7 +67,7 @@ public:
 	/*!
       Will just release the AnimatedSprite used by the cursor
     */
-	~Cursor(void);
+	virtual ~Cursor(void);
 
 	//! Get the tile under the cursor
 	/*!
@@ -102,7 +104,7 @@ public:
 	  \param time The actual time
 	  \return true if all goes right
     */
-	bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
+	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
 /*! \class Cursor Cursor.h "Game/Cursor.h"

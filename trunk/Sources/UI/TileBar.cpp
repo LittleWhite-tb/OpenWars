@@ -237,7 +237,6 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 		// Display the Tiles
 		for ( unsigned int i = 0 ; i < tilesList.size() ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
 		{
-			unsigned tmpVar = tilesList.size();
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
 			unsigned int yOffset = tilesList[i%tilesList.size()][currentY%tilesList[i%tilesList.size()].size()].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 

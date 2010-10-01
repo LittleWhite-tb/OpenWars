@@ -43,10 +43,17 @@ class AnimatedSprite;
 
 struct TileView
 {
-	AnimatedSprite* pASprite;
-	TileType type;
-	int positionX;
+	AnimatedSprite* pASprite;				/*!< The sprite to draw */
+	TileType type;							/*!< The type of the Tile */
+	int positionX;							/*!< The position in the TileBar */
 
+	//! Constructor for the TileView
+	/*!
+		Will fill the structure with the params
+		\param pASprite the AnimatedSprite to dislay
+		\param type the type of the Tile
+		\param positionX the position in the TileBar
+	*/
 	TileView(AnimatedSprite* pASprite, const TileType type, const int positionX):pASprite(pASprite),type(type),positionX(positionX) {}
 };
 
@@ -85,6 +92,7 @@ public:
 	  Will create the surface for the Bar and load the bar cursor and Tiles
 	  \param sm The SpriteManager to use to load the images
 	  \param win The window where the bar will be
+	  \param listTiles The list of tiles to display in the TileBar
 	*/
 	TileBar(SpriteManager& sm, const Window& win, const std::vector<TileView> listTiles);
 
@@ -148,12 +156,24 @@ public:
 	*/
 	bool isOpened(void)const { if ( state != TBS_Closed && state != TBS_Closing ) return true; else return false; }
 
+	//! Get if the Bar is actually closed
+	/*!
+	  \return true if the bar is closed
+	*/
+	bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }
+
 	//! Get the TileType selected
 	/*!
 	  \return the TileType selected in the Bar
 	*/
 	TileType getSelected(void)const;
 };
+
+/*! \struct TileView Tile.h "Game/Tile.h"
+ *  \brief TileView struct
+ *
+ * Used to give a structure usable in the TileBar ( as view of the Tile )
+ */
 
 /*! \class TileBar TileBar.h "UI/TileBar.h"
  *  \brief Display a bar with a list of Tile

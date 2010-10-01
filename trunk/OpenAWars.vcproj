@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib"
+				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib SDL_ttf.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				IgnoreAllDefaultLibraries="false"
@@ -201,6 +201,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Engine\Font.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Engine\Font.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Engine\Renderer.cpp"
 					>
 				</File>
@@ -227,6 +235,14 @@
 				<Filter
 					Name="ResourcesManager"
 					>
+					<File
+						RelativePath=".\Sources\Engine\ResourcesManager\FontManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Engine\ResourcesManager\FontManager.h"
+						>
+					</File>
 					<File
 						RelativePath=".\Sources\Engine\ResourcesManager\SpriteManager.cpp"
 						>

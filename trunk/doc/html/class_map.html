@@ -88,6 +88,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the height of the map.  <a href="#ad038150a2b86ba56221d91009d7b7d19"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ac5bfe1ed6dece3b0bc730152d8d1d3d6">getTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the tile corresponding to the position.  <a href="#ac5bfe1ed6dece3b0bc730152d8d1d3d6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#aa36c1f8a618fd13c9f734698d5ed4fd6">getAssociatedSprite</a> (const TileType type)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type.  <a href="#aa36c1f8a618fd13c9f734698d5ed4fd6"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a642949ccc5e08bddcdb23c1f9a2974be">loadGraphics</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;theme)</td></tr>
@@ -212,6 +214,34 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa36c1f8a618fd13c9f734698d5ed4fd6"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="aa36c1f8a618fd13c9f734698d5ed4fd6" args="(const TileType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * Map::getAssociatedSprite </td>
+          <td>(</td>
+          <td class="paramtype">const TileType&nbsp;</td>
+          <td class="paramname"> <em>type</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return the sprite corresponding to the type. </p>
+<p>If the type is not found in the map library, return NULL </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>the type associated to the sprite to return </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> pointer associated to the type </dd></dl>
 
 </div>
 </div>
@@ -471,7 +501,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Sep 19 2010 18:45:40 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 1 2010 20:06:09 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

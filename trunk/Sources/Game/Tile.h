@@ -210,7 +210,7 @@ typedef struct Tile
 	bool isRoad;					/*!< If the tile is a road tile */
 	bool isBridge;					/*!< If the tile is a bridge tile */
 	bool isRiver;					/*!< If the tile is a river tile */
-	bool isSee;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
+	bool isSea;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
 	bool isBeach;					/*!< If it is beach */
 	bool isBuilding;				/*!< If it is a building */
 	bool needBackground;			/*!< If the Tile need to have a plain has background drawn before */
@@ -219,8 +219,9 @@ typedef struct Tile
 
 	//! Default constructor
 	/*!
+		Sea is true by default
 	*/
-	Tile(void);
+	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isBridge(false),isRiver(false),isSea(true),isBeach(false),isBuilding(false),needBackground(false),cityLife(0) {}
 
 	//! Basic constructor
 	/*!
@@ -229,27 +230,14 @@ typedef struct Tile
 		\param isRoad if the tile is a road tile
 		\param isBridge if the tile is a bridge tile
 		\param isRiver if the tile is a river tile
-		\param isSee if the tile is see tile
+		\param isSea if the tile is see tile
 		\param isBeach if the tile is beach tile
 		\param isBuilding if the tile is a building
 		\param needBackground if some prerendering is needed
 		\param cityLife the life of the building
 	*/
-	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isBridge, const bool isRiver, const bool isSee, const bool isBeach, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
+	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isBridge, const bool isRiver, const bool isSea, const bool isBeach, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
 
-	//! Constructor by copy
-	/*!
-		\param t the Tile to copy
-	*/
-	Tile(const Tile& t);
-
-	//! operator=
-	/*!
-		\param t the Tile to copy
-	*/
-	Tile& operator=(const Tile& t);
-
-	~Tile(void);
 }Tile;
 
 //! Tile factory
@@ -308,6 +296,14 @@ bool parseIsBridge(const TileType tileType);
  * \return true if the type corresponds to a HQ
 */
 bool parseIsHQ(const TileType tileType);
+
+//! Get the name of the tile
+/*!
+ *
+ * \param tileType the type
+ * \return the name of the tile to display
+*/
+const std::string parseName(const TileType tileType);
 
 /*! \struct Tile Tile.h "Game/Tile.h"
  *  \brief Tile struct
