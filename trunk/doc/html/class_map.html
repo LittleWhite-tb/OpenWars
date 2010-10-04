@@ -90,6 +90,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the tile corresponding to the position.  <a href="#ac5bfe1ed6dece3b0bc730152d8d1d3d6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#aa36c1f8a618fd13c9f734698d5ed4fd6">getAssociatedSprite</a> (const TileType type)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type.  <a href="#aa36c1f8a618fd13c9f734698d5ed4fd6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a6a68c1366797107b8a0d664f17696cb5">getAssociatedSprite</a> (const UnitType type)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type.  <a href="#a6a68c1366797107b8a0d664f17696cb5"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a642949ccc5e08bddcdb23c1f9a2974be">loadGraphics</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;theme)</td></tr>
@@ -100,9 +102,12 @@ Protected Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; TileType, <br class="typebreak"/>
 <a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ac60d67d985467fd7a688d1dbca2c2054">tilesASprite</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; UnitType, <br class="typebreak"/>
+<a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a02850efca1aa458414931599456f2ebf">unitsASprite</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#aa510a987349c68df39475a3a217bd733">width</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a39bb864cb5e1d1e609396a2f3559602e">height</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a> **&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a139b094ab210da92e0e2d256b315dd32">map</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_unit.html">Unit</a> ***&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#abba9b970d5407fd43ae3aa4409fd9298">unitMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a92a2f2e3f22fb607e259ee3148eefe85">valid</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
@@ -225,6 +230,34 @@ Protected Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * Map::getAssociatedSprite </td>
           <td>(</td>
           <td class="paramtype">const TileType&nbsp;</td>
+          <td class="paramname"> <em>type</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return the sprite corresponding to the type. </p>
+<p>If the type is not found in the map library, return NULL </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>the type associated to the sprite to return </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> pointer associated to the type </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6a68c1366797107b8a0d664f17696cb5"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="a6a68c1366797107b8a0d664f17696cb5" args="(const UnitType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * Map::getAssociatedSprite </td>
+          <td>(</td>
+          <td class="paramtype">const UnitType&nbsp;</td>
           <td class="paramname"> <em>type</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
@@ -454,6 +487,34 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abba9b970d5407fd43ae3aa4409fd9298"></a><!-- doxytag: member="Map::unitMap" ref="abba9b970d5407fd43ae3aa4409fd9298" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_unit.html">Unit</a>*** <a class="el" href="class_map.html#abba9b970d5407fd43ae3aa4409fd9298">Map::unitMap</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>2D Array representating the unit on the map </p>
+
+</div>
+</div>
+<a class="anchor" id="a02850efca1aa458414931599456f2ebf"></a><!-- doxytag: member="Map::unitsASprite" ref="a02850efca1aa458414931599456f2ebf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;UnitType, <a class="el" href="class_animated_sprite.html">AnimatedSprite</a>*&gt; <a class="el" href="class_map.html#a02850efca1aa458414931599456f2ebf">Map::unitsASprite</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The collection to associate type of the unit to a sprite </p>
+
+</div>
+</div>
 <a class="anchor" id="a92a2f2e3f22fb607e259ee3148eefe85"></a><!-- doxytag: member="Map::valid" ref="a92a2f2e3f22fb607e259ee3148eefe85" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -501,7 +562,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 1 2010 20:06:09 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 4 2010 21:36:19 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

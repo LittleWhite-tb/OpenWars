@@ -140,34 +140,81 @@ class Unit
 {
 private:
 
-	UnitType type;
+	UnitType type;					/*!< The actual unit type */
 
-	unsigned int category;
-	unsigned targetCategory;
+	unsigned int category;			/*!< The category of the unit */
+	unsigned targetCategory;		/*!< The attackable category */
 
-	unsigned int movement;
-	unsigned int fuel;
-	unsigned int fuelConsumption;
-	unsigned int ammo;
+	unsigned int movement;			/*!< The movement possibility */
+	unsigned int fuel;				/*!< The remaining fuel */
+	unsigned int fuelConsumption;	/*!< The fuel consumption per day */
+	unsigned int ammo;				/*!< The remaining ammo */
 
-	unsigned int life;
+	unsigned int life;				/*!< The life */
 
 public:
-	static const unsigned int UC_NONE = 0;		// For non attacking unit
-	static const unsigned int UC_LAND = 1;
-	static const unsigned int UC_NAVY = 2;
-	static const unsigned int UC_AIR = 4;
+	static const unsigned int UC_NONE = 0;		/*!< No unit attackable */
+	static const unsigned int UC_LAND = 1;		/*!< Land units are attackable */
+	static const unsigned int UC_NAVY = 2;		/*!< Navy units are attackable */
+	static const unsigned int UC_AIR = 4;		/*!< Air units are attackable */
 
 
+	//! Basic constructor
+	/*!
+		Set UT_NO_UNIT
+	*/
 	Unit(void):type(UT_NO_UNIT),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0) {}
+	
+	//! Basic destructor
+	/*!
+		By default the unit has ten as life and 99 as fuel
+	  \param type the type of the unit
+	  \param category the category of the unit
+	  \param targetCategory the category of the unit attackable
+	  \param movement the movement possible
+	  \param fuelConsumption the fuel consumption per day
+	  \param ammo the remaining ammo	  
+	*/
 	Unit(const UnitType type, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuelConsumption, const unsigned int ammo)
 		:type(type),category(category),targetCategory(targetCategory),movement(movement),fuel(99),fuelConsumption(fuelConsumption),ammo(ammo),life(10) {}
 
+	//! Basic destructor
+	/*!
+	*/
 	virtual ~Unit(void) {}
 
+	//! Get the type of the unit
+	/*!
+	 * Return the unit type
+	 * \return the type
+	*/
 	UnitType getType(void)const { return type; }
 };
 
+//! Unit factory
+/*!
+ * Return the Unit corresponding to the type
+ * \param tileType the unit to create
+ * \return the newly created Unit
+*/
 Unit* UnitFactory(const UnitType type);
+
+/*! \struct Unit Unit.h "Game/Unit.h"
+ *  \brief Unit struct
+ *
+ * Keeps the following:
+ *		- The enum to characterise the unit (id)
+ *		- The category of the unit
+ *		- The category of the attackable unit
+ *		- The movement possibility
+ *		- The fuel
+ *		- The fuel consumption per day
+ *		- The ammo
+ *		- The life of the unit
+ */
+
+/*! \enum UnitType
+ * Identifiers to know which Unit it is
+ */
 
 #endif
