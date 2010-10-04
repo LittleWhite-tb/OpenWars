@@ -97,23 +97,11 @@ int main(int argc, char** argv)
 				Scaler::setScaleFactor(win);
 
 				SpriteManager sm;
-				Sprite s(sm,"./data/asprite.png",false);
-				AnimatedSprite as(sm,"./data/asprite.png",32,32,1500,true);
-				Map m(sm,MAP_PATH + std::string("m3.txt"));
-				Cursor c(sm,"./data/gfx/cursor_alpha.png",&m,UVec2(2,2));
+				Map m(sm,MAP_PATH + std::string("m4.txt"));
+				Cursor c(sm,"./data/gfx/cursor.png",&m,UVec2(2,2));
 				Camera cam;
 				Keyboard kb;
-/*
-				r->clearScreen();
-			
-				startTime = SDL_GetTicks();
-				while ( SDL_GetTicks() - startTime < 15000 )
-				{
-					r->drawTile(as,IVec2(100,100),SDL_GetTicks());
-					r->drawTile(s,IVec2(100,150));
-					SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-				}
-*/
+
 				if ( m.isValidMap() )
 				{
 					while ( kb.isEscapePressed() == 0 )

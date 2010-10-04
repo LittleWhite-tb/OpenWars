@@ -31,6 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include <fstream>
 
 #include "Tile.h"
+#include "Unit.h"
 
 #include "../Engine/Renderer.h"
 #include "../Engine/ResourcesManager/SpriteManager.h"
@@ -60,6 +61,19 @@ Map :: ~Map(void)
 		delete itTiles->second;
 	}
 	tilesASprite.clear();
+
+	// Delete the unit map
+	for ( unsigned int y = 0 ; y < this->height ; y++ )
+	{
+		for ( unsigned int x = 0 ; x < this->width ; x++ )
+		{
+			delete unitMap[y][x];
+		}
+
+		delete[] unitMap[y];
+	}
+
+	delete[] unitMap;
 
 	// Delete the map
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
@@ -217,6 +231,88 @@ void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
 	tilesASprite[TT_Coast_XBR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xbr.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Coast_XTLBR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xtlbr.png",32,32,NORMAL_SPEED,true);
 	tilesASprite[TT_Coast_XBLTR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xbltr.png",32,32,NORMAL_SPEED,true);
+
+	// Units
+
+	unitsASprite[UT_R_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_infantry.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_bazooka.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_recon.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_tank.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_tankm.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_neo.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_apc.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_artillery.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_rockets.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_aair.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_missiles.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_lander.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_sub.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_bship.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_cruiser.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_tcopter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_copter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_fighter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_bomber.png",32,32,NORMAL_SPEED,true);
+
+	unitsASprite[UT_B_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_infantry.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_bazooka.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_recon.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_tank.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_tankm.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_neo.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_apc.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_artillery.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_rockets.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_aair.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_missiles.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_lander.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_sub.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_bship.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_cruiser.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_tcopter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_copter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_fighter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_bomber.png",32,32,NORMAL_SPEED,true);
+
+	unitsASprite[UT_G_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_infantry.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_bazooka.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_recon.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_tank.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_tankm.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_neo.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_apc.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_artillery.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_rockets.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_aair.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_missiles.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_lander.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_sub.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_bship.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_cruiser.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_tcopter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_copter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_fighter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_bomber.png",32,32,NORMAL_SPEED,true);
+
+	unitsASprite[UT_Y_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_infantry.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_bazooka.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_recon.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_tank.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_tankm.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_neo.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_apc.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_artillery.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_rockets.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_aair.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_missiles.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_lander.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_sub.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_bship.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_cruiser.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_tcopter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_copter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_fighter.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_bomber.png",32,32,NORMAL_SPEED,true);
 }
 
 bool Map :: parser(SpriteManager& sm, const std::string& fileName)
@@ -226,6 +322,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	std::string theme = "";
 	unsigned int lineCounter = 0;
 	unsigned int mapLineCounter = 0;
+	unsigned int unitMapLineCounter = 0;
 	bool error = false;
 
 	LDebug << "Map :: parser '" << fileName.c_str() << "'";
@@ -276,6 +373,26 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 							}
 						}
 					}
+
+					// Allocation of the unit map
+					unitMap = new Unit**[this->height];
+					if ( unitMap == NULL )
+					{
+						LError << "Error to allocate memory for the unitMap! (at height)";
+						error = true;
+					}
+					else
+					{
+						for ( unsigned int y = 0 ; y < this->height ; y++ )
+						{
+							unitMap[y] = new Unit*[this->width];
+							if ( unitMap[y] == NULL )
+							{
+								LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
+								error = true;
+							}
+						}
+					}
 				}
 				else
 				{
@@ -307,6 +424,34 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 					else
 					{
 						LError << "Fail to read the tile type @ " << x << ";" << lineCounter-2;
+						error = true;
+					}
+				}
+			}
+			else if ( lineCounter >= 2+this->height && lineCounter < 2+this->height*2 )	// For the unit map
+			{
+				unitMapLineCounter++;
+
+				// We are reading one line, by one
+				for ( unsigned int x = 0 ; x < this->width ; x++ )
+				{
+					int unitType = -1;
+					ss >> unitType;
+					if ( unitType != -1 )
+					{
+						if ( unitType < UT_END_LIST )
+						{
+							unitMap[lineCounter-(2+this->height)][x] = UnitFactory(static_cast<UnitType>(unitType));
+						}
+						else
+						{
+							LWarning << "Data in the map invalid (" << unitType << ")";
+							error = true;
+						}	
+					}
+					else
+					{
+						LError << "Fail to read the tile type @ " << x << ";" << lineCounter-(2+this->height);
 						error = true;
 					}
 				}
@@ -355,6 +500,10 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 			tilePos.y -= yOffset;
 
 			r.drawTile(*tilesASprite[map[y][x].tileType],tilePos,time);
+			if ( unitMap[y][x]->getType() != UT_NO_UNIT )	// If we have a unit
+			{
+				r.drawTile(*unitsASprite[unitMap[y][x]->getType()],tilePos,time);
+			}
 			tilePos.x += tilesASprite[map[y][x].tileType]->getWidth();
 
 			// Remove offset ( to not affect other sprite )
@@ -392,4 +541,14 @@ AnimatedSprite* Map :: getAssociatedSprite(const TileType type)
 	}
 
 	return tilesASprite[type];
+}
+
+AnimatedSprite* Map :: getAssociatedSprite(const UnitType type)
+{
+	if ( unitsASprite.find(type) == unitsASprite.end() )
+	{
+		return NULL;
+	}
+
+	return unitsASprite[type];
 }

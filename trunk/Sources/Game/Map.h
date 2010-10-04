@@ -29,6 +29,8 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 
 #include "Tile.h"
+#include "Unit.h"
+
 #include "../Types/Vec2.h"
 
 class Renderer;
@@ -41,11 +43,13 @@ class Map
 protected:
 
 	std::map<TileType, AnimatedSprite*> tilesASprite;		/*!< The collection to associate type of the tile to a sprite */
+	std::map<UnitType, AnimatedSprite*> unitsASprite;		/*!< The collection to associate type of the unit to a sprite */
 
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
 	Tile** map;					/*!< 2D Array representating the map */
+	Unit*** unitMap;			/*!< 2D Array representating the unit on the map */
 
 	bool valid;					/*!< if the map is loaded properly */
 
@@ -126,6 +130,14 @@ public:
 		\return the AnimatedSprite pointer associated to the type
 	*/
 	AnimatedSprite* getAssociatedSprite(const TileType type);
+
+	//! Return the sprite corresponding to the type
+	/*!
+		If the type is not found in the map library, return NULL
+		\param type the type associated to the sprite to return
+		\return the AnimatedSprite pointer associated to the type
+	*/
+	AnimatedSprite* getAssociatedSprite(const UnitType type);
 };
 
 /*! \class Map Map.h "Game/Map.h"

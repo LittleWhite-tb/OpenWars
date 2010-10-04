@@ -359,6 +359,14 @@
 					RelativePath=".\Sources\Game\Tile.h"
 					>
 				</File>
+				<File
+					RelativePath=".\Sources\Game\Unit.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Unit.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Types"

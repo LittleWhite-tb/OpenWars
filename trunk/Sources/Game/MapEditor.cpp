@@ -32,6 +32,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/Sprite.h"
 #include "Tile.h"
+#include "Unit.h"
 
 #include "../Utils/Logger.h"
 
@@ -66,11 +67,32 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 		}
 	}
 
+	// Unit map allocation
+	unitMap = new Unit**[this->height];
+	if ( unitMap == NULL )
+	{
+		LError << "Error to allocate memory for the unitMap! (at height)";
+		valid = false;
+	}
+	else
+	{
+		for ( unsigned int y = 0 ; y < this->height ; y++ )
+		{
+			unitMap[y] = new Unit*[this->width];
+			if ( unitMap[y] == NULL )
+			{
+				LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
+				valid = false;
+			}
+		}
+	}
+
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
 	{
 		for ( unsigned int x = 0 ; x < this->width ; x++ )
 		{
-			map[y][x] = TileFactory(TT_Plain);;
+			map[y][x] = TileFactory(TT_Plain);
+			unitMap[y][x] = new Unit();		// Default is not unit
 		}
 	}
 
@@ -1333,7 +1355,7 @@ bool MapEditor :: save(const std::string& fileName)
 	file << this->width << " " << this->height << std::endl;
 
 	// The tiles data
-
+	file << "# Tiles" << std::endl;
 	// For each lines
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
 	{
@@ -1345,6 +1367,24 @@ bool MapEditor :: save(const std::string& fileName)
 				file << " ";
 			}
 			file << map[y][x].tileType;
+		}
+
+		file << std::endl;
+	}
+
+	// The units data
+	file << "# Units" << std::endl;
+	// For each lines
+	for ( unsigned int y = 0 ; y < this->height ; y++ )
+	{
+		// For each columns
+		for ( unsigned int x = 0 ; x < this->width ; x++ )
+		{
+			if ( x!=0 )
+			{
+				file << " ";
+			}
+			file << unitMap[y][x]->getType();
 		}
 
 		file << std::endl;
