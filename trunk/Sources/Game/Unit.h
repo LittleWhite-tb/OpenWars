@@ -25,6 +25,8 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include <string>
+
 enum UnitType
 {
 	UT_NO_UNIT = 0,
@@ -198,6 +200,14 @@ public:
  * \return the newly created Unit
 */
 Unit* UnitFactory(const UnitType type);
+
+//! Get the name of the unit
+/*!
+ *
+ * \param unitType the type
+ * \return the name of the unit to display
+*/
+const std::string parseName(const UnitType unitType);
 
 /*! \struct Unit Unit.h "Game/Unit.h"
  *  \brief Unit struct

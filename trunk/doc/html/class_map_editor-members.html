@@ -57,6 +57,7 @@ This is the complete list of members for <a class="el" href="class_map_editor.ht
   <tr class="memlist"><td><a class="el" href="class_map.html#a6a68c1366797107b8a0d664f17696cb5">getAssociatedSprite</a>(const UnitType type)</td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ad038150a2b86ba56221d91009d7b7d19">getHeight</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ac5bfe1ed6dece3b0bc730152d8d1d3d6">getTile</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a7022539946e1497ff23e32e09fc44367">getUnit</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a0454b453ed0141eccb916435f242f35a">getWidth</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a39bb864cb5e1d1e609396a2f3559602e">height</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678">isValidMap</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
@@ -68,7 +69,9 @@ This is the complete list of members for <a class="el" href="class_map_editor.ht
   <tr class="memlist"><td><a class="el" href="class_map.html#a63b0ac39b8279b0873e3a2a8ed2a8b0f">parser</a>(SpriteManager &amp;sm, const std::string &amp;fileName)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map_editor.html#a37e0c5cbdc413039f62227a253e4ce7f">save</a>(const std::string &amp;fileName)</td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map_editor.html#a7cfe26c558f84771279a44dce818353d">setTile</a>(const UVec2 &amp;position, const TileType tileType)</td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map_editor.html#af842a6c99d3570c104d483165b285030">setTile</a>(const UVec2 &amp;position, const UnitType unitType)</td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map_editor.html#ae71d3a40f0edbf3e943eb43f554f614a">testTile</a>(const UVec2 &amp;position, const TileType tileType) const </td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map_editor.html#a33ae84ca85a0eaa58d2ff79352544fbb">testTile</a>(const UVec2 &amp;position, const UnitType unitType) const </td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ac60d67d985467fd7a688d1dbca2c2054">tilesASprite</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#abba9b970d5407fd43ae3aa4409fd9298">unitMap</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a02850efca1aa458414931599456f2ebf">unitsASprite</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
@@ -90,7 +93,7 @@ This is the complete list of members for <a class="el" href="class_map_editor.ht
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 4 2010 21:36:19 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 5 2010 13:25:53 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

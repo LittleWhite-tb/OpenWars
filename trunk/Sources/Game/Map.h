@@ -123,6 +123,14 @@ public:
 	*/
 	Tile getTile(const UVec2& position)const;
 
+	//! Return the Unit corresponding to the position
+	/*!
+		The function will check if the position is outside the map. If it is, NULL is returned
+		\param position the position of the Tile to get
+		\return the Unit corresponding to the input position or NULL
+	*/
+	Unit* getUnit(const UVec2& position)const;
+
 	//! Return the sprite corresponding to the type
 	/*!
 		If the type is not found in the map library, return NULL

@@ -1204,6 +1204,25 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 	return false;
 }
 
+bool MapEditor :: setTile(const UVec2& position, const UnitType unitType)
+{
+	// Extra protections
+	assert(position.x < this->width);
+	assert(position.y < this->height);
+
+	LDebug << "Map :: setTile " << position << " Tile: " << unitType;
+
+	if ( this->testTile(position,unitType) == false )
+	{
+		return false;
+	}
+
+	delete unitMap[position.y][position.x];
+	unitMap[position.y][position.x] = UnitFactory(unitType);
+
+	return true;
+}
+
 bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 {
 	switch ( tileType )
@@ -1310,11 +1329,13 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 			{
 				 return true;
 			}
+			return false;
 			break;
 		default:
 			return false;
 			break;
 		}
+		return false;
 	break;
 	}
 
@@ -1325,6 +1346,148 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 	}
 
 	assert(0);	// All cases have to be handled
+
+	return true;
+}
+
+bool MapEditor :: testTile(const UVec2& position, const UnitType unitType)const
+{
+	TileType tileType = this->getTile(position).tileType;
+
+	switch ( unitType )
+	{
+		case UT_NO_UNIT:
+			return true;
+			break;
+
+		case UT_R_INFANTRY:
+		case UT_B_INFANTRY:
+		case UT_G_INFANTRY:
+		case UT_Y_INFANTRY:
+		case UT_R_BAZOOKA:
+		case UT_B_BAZOOKA:
+		case UT_G_BAZOOKA:
+		case UT_Y_BAZOOKA:
+			{
+				if ( !parseIsSea(tileType) )
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			break;
+
+		case UT_R_RECON:
+		case UT_B_RECON:
+		case UT_G_RECON:
+		case UT_Y_RECON:
+		case UT_R_TANK:
+		case UT_B_TANK:
+		case UT_G_TANK:
+		case UT_Y_TANK:
+		case UT_R_TANKM:
+		case UT_B_TANKM:
+		case UT_G_TANKM:
+		case UT_Y_TANKM:
+		case UT_R_NEOTANK:
+		case UT_B_NEOTANK:
+		case UT_G_NEOTANK:
+		case UT_Y_NEOTANK:
+		case UT_R_ANTIAIR:
+		case UT_B_ANTIAIR:
+		case UT_G_ANTIAIR:
+		case UT_Y_ANTIAIR:
+		case UT_R_ARTILLERY:
+		case UT_B_ARTILLERY:
+		case UT_G_ARTILLERY:
+		case UT_Y_ARTILLERY:
+		case UT_R_ROCKETS:
+		case UT_B_ROCKETS:
+		case UT_G_ROCKETS:
+		case UT_Y_ROCKETS:
+		case UT_R_MISSILES:
+		case UT_B_MISSILES:
+		case UT_G_MISSILES:
+		case UT_Y_MISSILES:
+		case UT_R_APC:
+		case UT_B_APC:
+		case UT_G_APC:
+		case UT_Y_APC:
+			{
+				if ( !parseIsSea(tileType) && !parseIsRiver(tileType) && !parseIsRiver(tileType) && tileType != TT_Mountain_1 && tileType != TT_Mountain_2 )
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			break;
+
+
+		case UT_R_LANDER:
+		case UT_B_LANDER:
+		case UT_G_LANDER:
+		case UT_Y_LANDER:
+			{
+				if ( parseIsSea(tileType) && parseIsBeach(tileType) )
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			break;
+
+		case UT_R_SUB:
+		case UT_B_SUB:
+		case UT_G_SUB:
+		case UT_Y_SUB:
+		case UT_R_BOMBERSHIP:
+		case UT_B_BOMBERSHIP:
+		case UT_G_BOMBERSHIP:
+		case UT_Y_BOMBERSHIP:
+		case UT_R_CRUISER:
+		case UT_B_CRUISER:
+		case UT_G_CRUISER:
+		case UT_Y_CRUISER:
+			{
+				if ( parseIsSea(tileType) )
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			break;
+
+		case UT_R_TCOPTER:
+		case UT_B_TCOPTER:
+		case UT_G_TCOPTER:
+		case UT_Y_TCOPTER:
+		case UT_R_COPTER:
+		case UT_B_COPTER:
+		case UT_G_COPTER:
+		case UT_Y_COPTER:
+		case UT_R_FIGHTER:
+		case UT_B_FIGHTER:
+		case UT_G_FIGHTER:
+		case UT_Y_FIGHTER:
+		case UT_R_BOMBER:
+		case UT_B_BOMBER:
+		case UT_G_BOMBER:
+		case UT_Y_BOMBER:
+			return true;
+			break;
+	}
 
 	return true;
 }

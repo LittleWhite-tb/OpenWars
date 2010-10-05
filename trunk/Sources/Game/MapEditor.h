@@ -160,8 +160,27 @@ public:
 	/*!
 	  \param position the position where the tile would be put
 	  \param tileType the type of the tile that the user wants to put
+	  \return true if we can set the tile
 	*/
 	bool testTile(const UVec2& position, const TileType tileType)const;
+
+	//! Set the Unit at the position
+	/*!
+		Will overwrite the Unit previously contained on the map by the new one.
+		The new Unit is selected following the internal logic of the editor.
+		\param position the position where to change the tile
+		\param unitType the type of the new unit
+		\return true if all goes right
+	*/
+	bool setTile(const UVec2& position, const UnitType unitType);
+
+	//! Test if this unit type can be put at the position
+	/*!
+	  \param position the position where the tile would be put
+	  \param unitType the type of the unit that the user wants to put
+	  \return true if we can set the unit
+	*/
+	bool testTile(const UVec2& position, const UnitType unitType)const;
 
 	//! Save the Map in a file
 	/*!

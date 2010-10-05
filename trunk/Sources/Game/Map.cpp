@@ -533,6 +533,22 @@ Tile Map :: getTile(const UVec2& position)const
 	}
 }
 
+Unit* Map :: getUnit(const UVec2& position)const
+{
+#ifdef VERBOSE
+	LDebug << "Map :: getUnit " << position;
+#endif
+
+	if ( position.x < this->width && position.y < this->height )
+	{
+		return unitMap[position.y][position.x];
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
 AnimatedSprite* Map :: getAssociatedSprite(const TileType type)
 {
 	if ( tilesASprite.find(type) == tilesASprite.end() )

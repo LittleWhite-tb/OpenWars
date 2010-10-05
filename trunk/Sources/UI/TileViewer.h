@@ -46,8 +46,6 @@ private:
 	Sprite* pBackground;		/*!< the sprite for the background */
 	 AnimatedSprite* pTileSprite;	/*!< the tile to display in the UI */
 
-	TileType tileType;				/*!< the of the type to display */
-
 	std::string title;				/*!< the title to display */
 	std::string tileName;			/*!< the name for the tile to display */
 
@@ -73,11 +71,10 @@ public:
 
 	//! Set the tile to display
 	/*!
-	  \param tileType the type of the tile to display
 	  \param pTileSprite the new sprite to display
 	  \param tileName the name of the tile to display
 	*/
-	void setTile(const TileType tileType, AnimatedSprite* const pTileSprite, const std::string tileName) { this->tileType = tileType; this->pTileSprite = pTileSprite; this->tileName = tileName; }
+	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
 	
 	//! Set a new title to display
 	/*!

@@ -41,20 +41,34 @@ class Window;
 class Sprite;
 class AnimatedSprite;
 
-struct TileView
+class View
 {
-	AnimatedSprite* pASprite;				/*!< The sprite to draw */
-	TileType type;							/*!< The type of the Tile */
-	int positionX;							/*!< The position in the TileBar */
+protected:
 
-	//! Constructor for the TileView
+	AnimatedSprite* pASprite;	/*!< The sprite to draw */
+	
+public:
+
+	int positionX;				/*!< The position in the TileBar */
+
+	//! Constructor for the View
 	/*!
-		Will fill the structure with the params
+		Will fill the class with the params
 		\param pASprite the AnimatedSprite to dislay
-		\param type the type of the Tile
 		\param positionX the position in the TileBar
 	*/
-	TileView(AnimatedSprite* pASprite, const TileType type, const int positionX):pASprite(pASprite),type(type),positionX(positionX) {}
+	View(AnimatedSprite* pASprite, const int positionX):pASprite(pASprite),positionX(positionX) {}
+
+	//! Basic destructor
+	/*!
+	*/
+	virtual ~View() {}
+
+	//! Get the sprite to display
+	/*!
+		\return the sprite to display
+	*/
+	AnimatedSprite* getSprite(void) { return pASprite; }
 };
 
 class TileBar
@@ -73,7 +87,6 @@ private:
 	Sprite* pBarSprite;						/*<! The surface for the bar */
 	Sprite* pBarCursor;						/*<! The surface for the cursor */
 	AnimatedSprite* pBarArrows;				/*<! Up / Down arrows */
-	std::vector<std::vector<TileView> > tilesList;		/*<! The tiles to be displayed in the TileBar */
 
 	int counterMovementAnim;				/*<! counter to know how much to move on the left or right */
 	unsigned int positionY;					/*<! position of the bar on the y axis */
@@ -81,10 +94,24 @@ private:
 	UVec2 windowSize;						/*<! The size of the window where the bar is */
 	TileBarState state;						/*<! The actual animation state of the bar */
 
-	int currentX;						/*<! index of the actual Tile selected on the X axis*/
-	int currentY;						/*<! index of the actual Tile selected on the Y axis*/
-
 	bool valid;								/*<! flag to know if all initialisation goes right */
+
+protected:
+
+	//!The tiles to be displayed in the TileBar
+    /*!
+    */
+	std::vector<std::vector<View*> > viewList;
+
+	//!index of the actual Tile selected on the X axis
+    /*!
+    */
+	int currentX;	
+
+	//! index of the actual Tile selected on the Y axis
+    /*!
+    */
+	int currentY;
 
 public:
 	//! Basic constructor
@@ -94,12 +121,12 @@ public:
 	  \param win The window where the bar will be
 	  \param listTiles The list of tiles to display in the TileBar
 	*/
-	TileBar(SpriteManager& sm, const Window& win, const std::vector<TileView> listTiles);
+	TileBar(SpriteManager& sm, const Window& win, std::vector<View *>& listTiles);
 
 	//! Basic destructor
 	/*!
 	*/
-	~TileBar(void);
+	virtual ~TileBar(void);
 
 	//! Start the opening animation of the Bar
 	/*!
@@ -161,22 +188,16 @@ public:
 	  \return true if the bar is closed
 	*/
 	bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }
-
-	//! Get the TileType selected
-	/*!
-	  \return the TileType selected in the Bar
-	*/
-	TileType getSelected(void)const;
 };
 
-/*! \struct TileView Tile.h "Game/Tile.h"
- *  \brief TileView struct
+/*! \struct View Tile.h "Game/Tile.h"
+ *  \brief View struct
  *
- * Used to give a structure usable in the TileBar ( as view of the Tile )
+ * Used to give a structure usable in the TileBar 
  */
 
 /*! \class TileBar TileBar.h "UI/TileBar.h"
- *  \brief Display a bar with a list of Tile
+ *  \brief Display a bar with a list of sprites
  *
  *	The bar is compose of three parts:
  *		- The bar itself (auto generated surface, half transparent)
@@ -189,7 +210,6 @@ public:
  *		- Move the tile on the left
  *		- Move the tile on the right
  *
- *  The bar car return the TileType of the Tile selected
  *
  */
 

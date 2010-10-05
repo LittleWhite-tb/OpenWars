@@ -388,6 +388,22 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\UI\TileBarTiles.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\UI\TileBarTiles.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\UI\TileBarUnits.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\UI\TileBarUnits.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\UI\TileViewer.cpp"
 					>
 				</File>
