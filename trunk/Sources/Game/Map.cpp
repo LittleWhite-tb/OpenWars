@@ -413,7 +413,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 					{
 						if ( tileType < TT_END_LIST )
 						{
-							map[lineCounter-2][x] = TileFactory(static_cast<TileType>(tileType));
+							map[lineCounter-2][x] = Tile(static_cast<TileType>(tileType));
 						}
 						else
 						{

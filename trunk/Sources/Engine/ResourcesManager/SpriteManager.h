@@ -34,11 +34,10 @@ class SpriteManager
 {
 	struct SurfacePair
 	{
-		SDL_Surface* pSprite;
-		SDL_Surface* pScaledSprite;
+		SDL_Surface* pSprite;		/*!< Sprite scaled or not */
 
-		SurfacePair(void):pSprite(NULL),pScaledSprite(NULL) {};
-		SurfacePair(SDL_Surface* const pSprite, SDL_Surface* const pScaledSprite):pSprite(pSprite),pScaledSprite(pScaledSprite) {};
+		SurfacePair(void):pSprite(NULL) {};
+		SurfacePair(SDL_Surface* const pSprite):pSprite(pSprite) {};
 	};
 
 private:

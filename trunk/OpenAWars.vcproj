@@ -225,6 +225,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Engine\VTime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Engine\VTime.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Engine\Window.cpp"
 					>
 				</File>

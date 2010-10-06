@@ -226,27 +226,11 @@ typedef struct Tile
 	//! Basic constructor
 	/*!
 		\param tileType the type of the tile
-		\param defence the defence level of the tile
-		\param isRoad if the tile is a road tile
-		\param isBridge if the tile is a bridge tile
-		\param isRiver if the tile is a river tile
-		\param isSea if the tile is see tile
-		\param isBeach if the tile is beach tile
-		\param isBuilding if the tile is a building
-		\param needBackground if some prerendering is needed
-		\param cityLife the life of the building
 	*/
-	Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isBridge, const bool isRiver, const bool isSea, const bool isBeach, const bool isBuilding, const bool needBackground, const unsigned char cityLife);
+	Tile(const TileType tileType);
 
 }Tile;
 
-//! Tile factory
-/*!
- * Return the tile corresponding to the type
- * \param tileType the tile to create
- * \return the newly created Tile
-*/
-Tile TileFactory(const TileType tileType);
 
 //! Check if the type correspond to a building
 /*!

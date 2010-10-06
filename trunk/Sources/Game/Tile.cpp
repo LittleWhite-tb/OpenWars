@@ -29,11 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../globals.h"
 
-Tile :: Tile(const TileType tileType, const unsigned char defence, const bool isRoad, const bool isBridge, const bool isRiver, const bool isSea, const bool isBeach, const bool isBuilding, const bool needBackground, const unsigned char cityLife)
-		:tileType(tileType),defence(defence),isRoad(isRoad),isBridge(isBridge),isRiver(isRiver),isSea(isSea),isBeach(isBeach),isBuilding(isBuilding),needBackground(needBackground),cityLife(cityLife) 
-{ 
-}
-
 unsigned char parseDefence(const TileType tileType)
 {
 	switch(tileType)
@@ -1610,16 +1605,15 @@ const std::string parseName(const TileType tileType)
 	return "";
 }
 
-Tile TileFactory(const TileType tileType)
+Tile :: Tile(const TileType tileType)
+:tileType(tileType),cityLife(20)
 {
-	return Tile(tileType,
-				parseDefence(tileType),
-				parseIsRoad(tileType),
-				parseIsBridge(tileType),
-				parseIsRiver(tileType),
-				parseIsSea(tileType),
-				parseIsBeach(tileType),
-				parseNeedBackground(tileType),
-				parseIsBuilding(tileType),
-				20);
+	defence = parseDefence(tileType);
+	isRoad = parseIsRoad(tileType);
+	isBridge = parseIsBridge(tileType);
+	isRiver = parseIsRiver(tileType);
+	isSea = parseIsSea(tileType);
+	isBeach = parseIsBeach(tileType);
+	needBackground = parseNeedBackground(tileType);
+	isBuilding = parseIsBuilding(tileType);
 }
