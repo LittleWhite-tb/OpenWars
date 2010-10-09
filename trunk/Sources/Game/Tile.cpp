@@ -1277,6 +1277,7 @@ bool parseIsHQ(const TileType tileType)
 		case TT_Yellow_HQ:
 			return true;
 			break;
+		case TT_Plain:
 		case TT_Tree:
 		case TT_Mountain_2:
 		case TT_Coast:
@@ -1304,7 +1305,6 @@ bool parseIsHQ(const TileType tileType)
 		case TT_Neutral_Port:
 		case TT_Neutral_Airport:
 		case TT_Neutral_City:
-		case TT_Plain:
 		case TT_Mountain_1:
 		case TT_Beach_TL:
 		case TT_Beach_TL_R:
@@ -1417,6 +1417,7 @@ bool parseIsHQ(const TileType tileType)
 		// To avoid some bug in checkCoherencyRoad:
 		case TT_Invalid:
 			return false;
+			break;
 	}
 
 	assert(0);

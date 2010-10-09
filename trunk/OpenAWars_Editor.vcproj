@@ -344,6 +344,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Game\EditorEngine.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\EditorEngine.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Game\Map.cpp"
 					>
 				</File>

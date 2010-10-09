@@ -31,6 +31,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Game/Tile.h"
 
+#include "../Engine/Controls/Keyboard.h"
+
 #include "../Types/Vec2.h"
 
 struct SDL_Surface;
@@ -96,6 +98,27 @@ private:
 
 	bool valid;								/*<! flag to know if all initialisation goes right */
 
+
+	//! Start to move the tile on the right (cursor move on the left)
+	/*!
+	*/
+	void moveLeft(void);
+
+	//! Start to move the tile on the left (cursor move on the right)
+	/*!
+	*/
+	void moveRight(void);
+
+	//! Change the Y dimension of the TileBar 
+	/*!
+	*/
+	void moveUp(void);
+
+	//! Change the Y dimension of the TileBar 
+	/*!
+	*/
+	void moveDown(void);
+
 protected:
 
 	//!The tiles to be displayed in the TileBar
@@ -133,30 +156,16 @@ public:
 	*/
 	void open(void);
 
-	//! Start to move the tile on the right (cursor move on the left)
-	/*!
-	*/
-	void moveLeft(void);
-
-	//! Start to move the tile on the left (cursor move on the right)
-	/*!
-	*/
-	void moveRight(void);
-
-	//! Change the Y dimension of the TileBar 
-	/*!
-	*/
-	void moveUp(void);
-
-	//! Change the Y dimension of the TileBar 
-	/*!
-	*/
-	void moveDown(void);
-
 	//! Start closing animation
 	/*!
 	*/
 	void close(void);
+
+	//! Move the TileBar following the direction pressed
+	/*!
+	  \param direction the direction to move to
+	*/
+	void move(const ArrowsDirection direction);
 
 	//! Draw the Bar
 	/*!

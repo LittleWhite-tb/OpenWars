@@ -30,13 +30,20 @@ class VTime
 private:
 
 	unsigned int time;
+	unsigned int lastUpdate;
 
+	const unsigned int msSecondsBetweenToFrame;
+
+	void update(void);
 public:
-	VTime(void):time(0) {}
+	VTime(const unsigned int nbFPS);
 
-	void update(void) { time++; }
+	void waitNextFrame(void);
 
 	unsigned int getTime()const { return time; }
+#ifdef _DEBUG
+	void getTime(const unsigned int newTime) { time = newTime; }
+#endif
 };
 
 #endif

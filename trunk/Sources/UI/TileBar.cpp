@@ -141,16 +141,6 @@ TileBar :: ~TileBar(void)
 	LDebug << "TileBar deleted";
 }
 
-void TileBar :: open(void)
-{
-	if ( state == TBS_Closed )
-	{
-		LDebug << "TileBar :: open()";
-
-		state = TBS_Opening;
-	}
-}
-
 void TileBar ::  moveLeft(void)
 {
 	if ( state == TBS_Opened )
@@ -203,6 +193,35 @@ void TileBar :: moveDown(void)
 		LDebug << "TileBar :: moveDown()";
 
 		currentY--;
+	}
+}
+
+void TileBar :: open(void)
+{
+	if ( state == TBS_Closed )
+	{
+		LDebug << "TileBar :: open()";
+
+		state = TBS_Opening;
+	}
+}
+
+void TileBar :: move(const ArrowsDirection direction)
+{
+	switch(direction)
+	{
+		case AD_UP:
+			moveUp();
+			break;
+		case AD_DOWN:
+			moveDown();
+			break;
+		case AD_LEFT:
+			moveLeft();
+			break;
+		case AD_RIGHT:
+			moveRight();
+			break;
 	}
 }
 

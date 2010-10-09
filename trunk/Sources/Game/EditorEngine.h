@@ -1,3 +1,7 @@
+#ifdef EDITOR
+#ifndef __EDITORENGINE_H__
+#define __EDITORENGINE_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,46 +26,58 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "VTime.h"
+#include "../Engine/Renderer.h"
 
-#include <SDL/SDL.h>
+#include "../Types/Vec2.h"
 
-#include "../Utils/Logger.h"
+class Window;
+class SpriteManager;
+class FontManager;
 
-VTime :: VTime(const unsigned int nbFPS)
-:time(0),lastUpdate(0),msSecondsBetweenToFrame(1000/nbFPS)
+class TileBarTiles;
+class TileBarUnits;
+class TileViewer;
+
+class Camera;
+class EditingCursor;
+class MapEditor;
+
+class VTime;
+class Keyboard;
+
+class EditorEngine
 {
+private:
 
-}
+	const Window* pWin;
+	Renderer* pRenderer;
 
-void VTime :: update(void) 
-{ 
-	time++;
-	lastUpdate = SDL_GetTicks();
-}
+	SpriteManager* pSM;
+	FontManager* pFM;
 
-void VTime :: waitNextFrame()
-{
-	static bool isFirst = true;
+	TileBarTiles* pBuildingTB;
+	TileBarUnits* pUnitTB;
+	TileViewer* pTileViewer;
 
-	int timeEllapsed = SDL_GetTicks() - lastUpdate;
-	int timeToWait = msSecondsBetweenToFrame - timeEllapsed;
+	VTime* pVT;
 
-	if ( timeToWait < 6 )
-	{
-		if ( !isFirst )
-		{
-			LWarning << "The game is too slow";
-		}
-		else
-		{
-			isFirst = false;
-		}
-	}
-	else
-	{
-		SDL_Delay(timeToWait);
-	}
+	Keyboard* pKB;
 
-	this->update();
-}
+	MapEditor* pMap;
+	EditingCursor* pEC;
+	Camera* pCam;
+
+public:
+	EditorEngine(void);
+	~EditorEngine(void);
+
+	bool init(const Window* win, const RenderingAPI rAPI);
+	bool load(const UVec2& mapSize);
+
+	bool run(void);
+
+	void saveMap(const std::string& fileName);
+};
+
+#endif
+#endif
