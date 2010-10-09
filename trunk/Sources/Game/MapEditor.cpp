@@ -977,7 +977,7 @@ bool MapEditor :: setTree(const UVec2& position)
 bool MapEditor :: setMountain(const UVec2& position)
 {
 	// The tree will be set on the actual tile, in any case
-	map[position.y][position.x] = Tile(TT_Mountain_1);
+	map[position.y][position.x] = Tile(TT_Mountain_2);
 
 	checkCoherencyAround(position);
 

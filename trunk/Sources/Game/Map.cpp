@@ -511,7 +511,7 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 		}
 
 		// To put 0 here, can be a bit dangerous
-		tilePos.y += tilesASprite[map[y][0].tileType]->getHeight();
+		tilePos.y += (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 	}
 
 	return true;

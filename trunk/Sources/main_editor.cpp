@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
+#include <sstream>
+
 #include "Engine/Window.h"
 
 #include "Engine/ResourcesManager/SpriteManager.h"
@@ -59,8 +61,96 @@ int main(int argc, char** argv)
 	(void)argc;
 	(void)argv;
 
+	unsigned int i = 1;
 	Uint32 startTime = 0;
 
+	unsigned int winWidth=640;
+	unsigned int winHeight=480;
+	bool needFullscreen=false;
+	unsigned int mapWidth=MAP_MIN_WIDTH;
+	unsigned int mapHeight=MAP_MIN_HEIGHT;
+	std::string mapName="save.map";
+
+	// Check the arguments passed
+	while ( i < static_cast<unsigned int>(argc) )
+	{
+		if ( strcmp(argv[i],"--width") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				std::istringstream iss(argv[i+1]);
+				iss >> winWidth;
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --width!";
+				return -1;
+			}
+		}
+		else if ( strcmp(argv[i],"--height") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				std::istringstream iss(argv[i+1]);
+				iss >> winHeight;
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --height!";
+				return -1;
+			}
+		}
+		else if ( strcmp(argv[i],"--fullscreen") == 0 )
+		{
+			needFullscreen = true;
+			i++;
+		}
+		else if ( strcmp(argv[i],"--mapWidth") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				std::istringstream iss(argv[i+1]);
+				iss >> mapWidth;
+				if ( mapWidth < MAP_MIN_WIDTH )
+				{
+					LError << "The width for the map has to be higher or equal to " << MAP_MIN_WIDTH;
+					return -1;
+				}
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --mapWidth!";
+				return -1;
+			}
+		}
+		else if ( strcmp(argv[i],"--mapHeight") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				std::istringstream iss(argv[i+1]);
+				iss >> mapHeight;
+				if ( mapHeight < MAP_MIN_HEIGHT )
+				{
+					LError << "The width for the map has to be higher or equal to " << MAP_MIN_HEIGHT;
+					return -1;
+				}
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --mapHeight!";
+				return -1;
+			}
+		}
+		else if ( strcmp(argv[i],"--mapName") == 0 )
+		{
+			mapName = std::string(argv[i+1]);
+			i+=2;
+		}
+	}
 	// Starting SDL
 	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
 	{
@@ -94,17 +184,17 @@ int main(int argc, char** argv)
 				win.showCursor(false);
 
 				// Window test
-				if ( win.openWindow(640,480,32,false,false) )
+				if ( win.openWindow(winWidth,winHeight,32,needFullscreen,false) )
 				{
 					Scaler::setScaleFactor(win);
 					EditorEngine eEngine;
 					
 					if ( eEngine.init(&win, RAPI_SDL) )
 					{
-						if ( eEngine.load(UVec2(MAP_MIN_WIDTH, MAP_MIN_HEIGHT)) )
+						if ( eEngine.load(UVec2(mapWidth, mapHeight)) )
 						{
 							eEngine.run();
-							eEngine.saveMap("mapTest.txt");
+							eEngine.saveMap(mapName);
 						}
 					}
 				}
