@@ -248,38 +248,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00224"></a><a class="code" href="struct_tile.html#a93fdcc8c693044a3bb3590bdb6daed2a">00224</a>         <a class="code" href="struct_tile.html#a93fdcc8c693044a3bb3590bdb6daed2a" title="Default constructor.">Tile</a>(<span class="keywordtype">void</span>):<a class="code" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>(TT_Invalid),<a class="code" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>(0),<a class="code" href="struct_tile.html#a259babce587617a17cc1b1deb2365d45">isRoad</a>(false),<a class="code" href="struct_tile.html#a082e5201de9fe31a3a46439847e4608f">isBridge</a>(false),<a class="code" href="struct_tile.html#acced9fbb1f46e858a9bb56e7d8aee72f">isRiver</a>(false),<a class="code" href="struct_tile.html#aecc5a4b2cdd3230eab521b37be46ecdf">isSea</a>(true),<a class="code" href="struct_tile.html#afde31ad37d802ba4e7ccb3697307fd81">isBeach</a>(false),<a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>(false),<a class="code" href="struct_tile.html#a9f0e072636609fd79cf2892d41609055">needBackground</a>(false),<a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>(0) {}
 <a name="l00225"></a>00225 
 <a name="l00227"></a>00227 
-<a name="l00239"></a>00239         <a class="code" href="struct_tile.html#a93fdcc8c693044a3bb3590bdb6daed2a" title="Default constructor.">Tile</a>(<span class="keyword">const</span> TileType <a class="code" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a259babce587617a17cc1b1deb2365d45">isRoad</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a082e5201de9fe31a3a46439847e4608f">isBridge</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#acced9fbb1f46e858a9bb56e7d8aee72f">isRiver</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#aecc5a4b2cdd3230eab521b37be46ecdf">isSea</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#afde31ad37d802ba4e7ccb3697307fd81">isBeach</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>, <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="struct_tile.html#a9f0e072636609fd79cf2892d41609055">needBackground</a>, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>);
-<a name="l00240"></a>00240 
-<a name="l00241"></a>00241 }<a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>;
-<a name="l00242"></a>00242 
-<a name="l00244"></a>00244 
-<a name="l00249"></a>00249 <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a> TileFactory(<span class="keyword">const</span> TileType tileType);
+<a name="l00230"></a>00230         <a class="code" href="struct_tile.html#a93fdcc8c693044a3bb3590bdb6daed2a" title="Default constructor.">Tile</a>(<span class="keyword">const</span> TileType <a class="code" href="struct_tile.html#a1c8bdaadbe1006b20b33b74241b455d6">tileType</a>);
+<a name="l00231"></a>00231 
+<a name="l00232"></a>00232 }<a class="code" href="struct_tile.html" title="Tile struct.">Tile</a>;
+<a name="l00233"></a>00233 
+<a name="l00234"></a>00234 
+<a name="l00236"></a>00236 
+<a name="l00240"></a>00240 <span class="keywordtype">bool</span> parseIsBuilding(<span class="keyword">const</span> TileType tileType);
+<a name="l00241"></a>00241 
+<a name="l00243"></a>00243 
+<a name="l00247"></a>00247 <span class="keywordtype">bool</span> parseIsRoad(<span class="keyword">const</span> TileType tileType);
+<a name="l00248"></a>00248 
 <a name="l00250"></a>00250 
-<a name="l00252"></a>00252 
-<a name="l00256"></a>00256 <span class="keywordtype">bool</span> parseIsBuilding(<span class="keyword">const</span> TileType tileType);
+<a name="l00254"></a>00254 <span class="keywordtype">bool</span> parseIsSea(<span class="keyword">const</span> TileType tileType);
+<a name="l00255"></a>00255 
 <a name="l00257"></a>00257 
-<a name="l00259"></a>00259 
-<a name="l00263"></a>00263 <span class="keywordtype">bool</span> parseIsRoad(<span class="keyword">const</span> TileType tileType);
+<a name="l00261"></a>00261 <span class="keywordtype">bool</span> parseIsRiver(<span class="keyword">const</span> TileType tileType);
+<a name="l00262"></a>00262 
 <a name="l00264"></a>00264 
-<a name="l00266"></a>00266 
-<a name="l00270"></a>00270 <span class="keywordtype">bool</span> parseIsSea(<span class="keyword">const</span> TileType tileType);
+<a name="l00268"></a>00268 <span class="keywordtype">bool</span> parseIsBeach(<span class="keyword">const</span> TileType tileType);
+<a name="l00269"></a>00269 
 <a name="l00271"></a>00271 
-<a name="l00273"></a>00273 
-<a name="l00277"></a>00277 <span class="keywordtype">bool</span> parseIsRiver(<span class="keyword">const</span> TileType tileType);
+<a name="l00275"></a>00275 <span class="keywordtype">bool</span> parseIsBridge(<span class="keyword">const</span> TileType tileType);
+<a name="l00276"></a>00276 
 <a name="l00278"></a>00278 
-<a name="l00280"></a>00280 
-<a name="l00284"></a>00284 <span class="keywordtype">bool</span> parseIsBeach(<span class="keyword">const</span> TileType tileType);
+<a name="l00282"></a>00282 <span class="keywordtype">bool</span> parseIsHQ(<span class="keyword">const</span> TileType tileType);
+<a name="l00283"></a>00283 
 <a name="l00285"></a>00285 
-<a name="l00287"></a>00287 
-<a name="l00291"></a>00291 <span class="keywordtype">bool</span> parseIsBridge(<span class="keyword">const</span> TileType tileType);
-<a name="l00292"></a>00292 
-<a name="l00294"></a>00294 
-<a name="l00298"></a>00298 <span class="keywordtype">bool</span> parseIsHQ(<span class="keyword">const</span> TileType tileType);
-<a name="l00299"></a>00299 
-<a name="l00301"></a>00301 
-<a name="l00306"></a>00306 <span class="keyword">const</span> std::string parseName(<span class="keyword">const</span> TileType tileType);
-<a name="l00307"></a>00307 
-<a name="l00323"></a>00323 <span class="preprocessor">#endif</span>
+<a name="l00290"></a>00290 <span class="keyword">const</span> std::string parseName(<span class="keyword">const</span> TileType tileType);
+<a name="l00291"></a>00291 
+<a name="l00307"></a>00307 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -296,7 +294,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 5 2010 13:25:53 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 10 2010 14:36:54 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

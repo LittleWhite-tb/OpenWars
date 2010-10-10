@@ -60,114 +60,120 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032 <span class="preprocessor">#include &quot;../Game/Tile.h&quot;</span>
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;../Types/Vec2.h&quot;</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;../Engine/Controls/Keyboard.h&quot;</span>
 <a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="keyword">struct </span>SDL_Surface;
+<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;../Types/Vec2.h&quot;</span>
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">class </span><a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>;
-<a name="l00039"></a>00039 <span class="keyword">class </span><a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>;
-<a name="l00040"></a>00040 <span class="keyword">class </span><a class="code" href="class_window.html" title="Window management class.">Window</a>;
-<a name="l00041"></a>00041 <span class="keyword">class </span><a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>;
-<a name="l00042"></a>00042 <span class="keyword">class </span><a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>;
-<a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="class_view.html">00044</a> <span class="keyword">class </span><a class="code" href="class_view.html" title="View struct.">View</a>
-<a name="l00045"></a>00045 {
-<a name="l00046"></a>00046 <span class="keyword">protected</span>:
-<a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">00048</a>         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>;       
-<a name="l00050"></a>00050 <span class="keyword">public</span>:
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">00052</a>         <span class="keywordtype">int</span> <a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">positionX</a>;                          
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055 
-<a name="l00060"></a><a class="code" href="class_view.html#a791660afb368ad7aad65a88953b5681f">00060</a>         <a class="code" href="class_view.html#a791660afb368ad7aad65a88953b5681f" title="Constructor for the View.">View</a>(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>, <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">positionX</a>):pASprite(pASprite),positionX(positionX) {}
-<a name="l00061"></a>00061 
+<a name="l00038"></a>00038 <span class="keyword">struct </span>SDL_Surface;
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keyword">class </span><a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>;
+<a name="l00041"></a>00041 <span class="keyword">class </span><a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>;
+<a name="l00042"></a>00042 <span class="keyword">class </span><a class="code" href="class_window.html" title="Window management class.">Window</a>;
+<a name="l00043"></a>00043 <span class="keyword">class </span><a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>;
+<a name="l00044"></a>00044 <span class="keyword">class </span><a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="class_view.html">00046</a> <span class="keyword">class </span><a class="code" href="class_view.html" title="View struct.">View</a>
+<a name="l00047"></a>00047 {
+<a name="l00048"></a>00048 <span class="keyword">protected</span>:
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">00050</a>         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>;       
+<a name="l00052"></a>00052 <span class="keyword">public</span>:
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">00054</a>         <span class="keywordtype">int</span> <a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">positionX</a>;                          
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057 
+<a name="l00062"></a><a class="code" href="class_view.html#a791660afb368ad7aad65a88953b5681f">00062</a>         <a class="code" href="class_view.html#a791660afb368ad7aad65a88953b5681f" title="Constructor for the View.">View</a>(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>, <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">positionX</a>):pASprite(pASprite),positionX(positionX) {}
 <a name="l00063"></a>00063 
-<a name="l00065"></a><a class="code" href="class_view.html#aa02a820358e1a7bf7e34d205212ae8f3">00065</a>         <span class="keyword">virtual</span> <a class="code" href="class_view.html#aa02a820358e1a7bf7e34d205212ae8f3" title="Basic destructor.">~View</a>() {}
-<a name="l00066"></a>00066 
+<a name="l00065"></a>00065 
+<a name="l00067"></a><a class="code" href="class_view.html#aa02a820358e1a7bf7e34d205212ae8f3">00067</a>         <span class="keyword">virtual</span> <a class="code" href="class_view.html#aa02a820358e1a7bf7e34d205212ae8f3" title="Basic destructor.">~View</a>() {}
 <a name="l00068"></a>00068 
-<a name="l00071"></a><a class="code" href="class_view.html#ab33a2122087b2e11edcad5e8f80e83c6">00071</a>         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#ab33a2122087b2e11edcad5e8f80e83c6" title="Get the sprite to display.">getSprite</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>; }
-<a name="l00072"></a>00072 };
-<a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="class_tile_bar.html">00074</a> <span class="keyword">class </span><a class="code" href="class_tile_bar.html" title="Display a bar with a list of sprites.">TileBar</a>
-<a name="l00075"></a>00075 {
-<a name="l00076"></a>00076         <span class="keyword">enum</span> TileBarState
-<a name="l00077"></a>00077         {
-<a name="l00078"></a>00078                 TBS_Opening,
-<a name="l00079"></a>00079                 TBS_Opened,
-<a name="l00080"></a>00080                 TBS_MoveLeft,
-<a name="l00081"></a>00081                 TBS_MoveRight,
-<a name="l00082"></a>00082                 TBS_Closing,
-<a name="l00083"></a>00083                 TBS_Closed
-<a name="l00084"></a>00084         };
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086 <span class="keyword">private</span>:
-<a name="l00087"></a>00087         <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>* pBarSprite;                                             <span class="comment">/*&lt;! The surface for the bar */</span>
-<a name="l00088"></a>00088         <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>* pBarCursor;                                             <span class="comment">/*&lt;! The surface for the cursor */</span>
-<a name="l00089"></a>00089         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* pBarArrows;                             <span class="comment">/*&lt;! Up / Down arrows */</span>
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091         <span class="keywordtype">int</span> counterMovementAnim;                                <span class="comment">/*&lt;! counter to know how much to move on the left or right */</span>
-<a name="l00092"></a>00092         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> positionY;                                 <span class="comment">/*&lt;! position of the bar on the y axis */</span>
-<a name="l00093"></a>00093         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> limit;                                             <span class="comment">/*&lt;! The limit of space needed by all the tiles to be displayed */</span>
-<a name="l00094"></a>00094         <a class="code" href="struct_vec2.html">UVec2</a> windowSize;                                               <span class="comment">/*&lt;! The size of the window where the bar is */</span>
-<a name="l00095"></a>00095         TileBarState state;                                             <span class="comment">/*&lt;! The actual animation state of the bar */</span>
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097         <span class="keywordtype">bool</span> valid;                                                             <span class="comment">/*&lt;! flag to know if all initialisation goes right */</span>
+<a name="l00070"></a>00070 
+<a name="l00073"></a><a class="code" href="class_view.html#ab33a2122087b2e11edcad5e8f80e83c6">00073</a>         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#ab33a2122087b2e11edcad5e8f80e83c6" title="Get the sprite to display.">getSprite</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>; }
+<a name="l00074"></a>00074 };
+<a name="l00075"></a>00075 
+<a name="l00076"></a><a class="code" href="class_tile_bar.html">00076</a> <span class="keyword">class </span><a class="code" href="class_tile_bar.html" title="Display a bar with a list of sprites.">TileBar</a>
+<a name="l00077"></a>00077 {
+<a name="l00078"></a>00078         <span class="keyword">enum</span> TileBarState
+<a name="l00079"></a>00079         {
+<a name="l00080"></a>00080                 TBS_Opening,
+<a name="l00081"></a>00081                 TBS_Opened,
+<a name="l00082"></a>00082                 TBS_MoveLeft,
+<a name="l00083"></a>00083                 TBS_MoveRight,
+<a name="l00084"></a>00084                 TBS_Closing,
+<a name="l00085"></a>00085                 TBS_Closed
+<a name="l00086"></a>00086         };
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 <span class="keyword">private</span>:
+<a name="l00089"></a>00089         <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>* pBarSprite;                                             <span class="comment">/*&lt;! The surface for the bar */</span>
+<a name="l00090"></a>00090         <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>* pBarCursor;                                             <span class="comment">/*&lt;! The surface for the cursor */</span>
+<a name="l00091"></a>00091         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* pBarArrows;                             <span class="comment">/*&lt;! Up / Down arrows */</span>
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093         <span class="keywordtype">int</span> counterMovementAnim;                                <span class="comment">/*&lt;! counter to know how much to move on the left or right */</span>
+<a name="l00094"></a>00094         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> positionY;                                 <span class="comment">/*&lt;! position of the bar on the y axis */</span>
+<a name="l00095"></a>00095         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> limit;                                             <span class="comment">/*&lt;! The limit of space needed by all the tiles to be displayed */</span>
+<a name="l00096"></a>00096         <a class="code" href="struct_vec2.html">UVec2</a> windowSize;                                               <span class="comment">/*&lt;! The size of the window where the bar is */</span>
+<a name="l00097"></a>00097         TileBarState state;                                             <span class="comment">/*&lt;! The actual animation state of the bar */</span>
 <a name="l00098"></a>00098 
-<a name="l00099"></a>00099 <span class="keyword">protected</span>:
+<a name="l00099"></a>00099         <span class="keywordtype">bool</span> valid;                                                             <span class="comment">/*&lt;! flag to know if all initialisation goes right */</span>
 <a name="l00100"></a>00100 
-<a name="l00102"></a>00102 
-<a name="l00104"></a><a class="code" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca">00104</a>         std::vector&lt;std::vector&lt;View*&gt; &gt; <a class="code" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca" title="The tiles to be displayed in the TileBar.">viewList</a>;
-<a name="l00105"></a>00105 
-<a name="l00107"></a>00107 
-<a name="l00109"></a><a class="code" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f">00109</a>         <span class="keywordtype">int</span> <a class="code" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f" title="index of the actual Tile selected on the X axis">currentX</a>;   
-<a name="l00110"></a>00110 
-<a name="l00112"></a>00112 
-<a name="l00114"></a><a class="code" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98">00114</a>         <span class="keywordtype">int</span> <a class="code" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98" title="index of the actual Tile selected on the Y axis">currentY</a>;
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116 <span class="keyword">public</span>:
+<a name="l00101"></a>00101 
+<a name="l00103"></a>00103 
+<a name="l00105"></a>00105         <span class="keywordtype">void</span> moveLeft(<span class="keywordtype">void</span>);
+<a name="l00106"></a>00106 
+<a name="l00108"></a>00108 
+<a name="l00110"></a>00110         <span class="keywordtype">void</span> moveRight(<span class="keywordtype">void</span>);
+<a name="l00111"></a>00111 
+<a name="l00113"></a>00113 
+<a name="l00115"></a>00115         <span class="keywordtype">void</span> moveUp(<span class="keywordtype">void</span>);
+<a name="l00116"></a>00116 
 <a name="l00118"></a>00118 
-<a name="l00124"></a>00124         <a class="code" href="class_tile_bar.html#a16d057b6b8eb0ec4436b0fd75efc4536" title="Basic constructor.">TileBar</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win, std::vector&lt;View *&gt;&amp; listTiles);
+<a name="l00120"></a>00120         <span class="keywordtype">void</span> moveDown(<span class="keywordtype">void</span>);
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122 <span class="keyword">protected</span>:
+<a name="l00123"></a>00123 
 <a name="l00125"></a>00125 
-<a name="l00127"></a>00127 
-<a name="l00129"></a>00129         <span class="keyword">virtual</span> <a class="code" href="class_tile_bar.html#afe884f0febd0ada1053ff4b38de42fae" title="Basic destructor.">~TileBar</a>(<span class="keywordtype">void</span>);
+<a name="l00127"></a><a class="code" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca">00127</a>         std::vector&lt;std::vector&lt;View*&gt; &gt; <a class="code" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca" title="The tiles to be displayed in the TileBar.">viewList</a>;
+<a name="l00128"></a>00128 
 <a name="l00130"></a>00130 
-<a name="l00132"></a>00132 
-<a name="l00134"></a>00134         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#a7ac7db7e769ea8908fb94a884f16163f" title="Start the opening animation of the Bar.">open</a>(<span class="keywordtype">void</span>);
+<a name="l00132"></a><a class="code" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f">00132</a>         <span class="keywordtype">int</span> <a class="code" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f" title="index of the actual Tile selected on the X axis">currentX</a>;   
+<a name="l00133"></a>00133 
 <a name="l00135"></a>00135 
-<a name="l00137"></a>00137 
-<a name="l00139"></a>00139         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#af4e7a9f5bc67bc70cc122ffb958bfcd7" title="Start to move the tile on the right (cursor move on the left).">moveLeft</a>(<span class="keywordtype">void</span>);
-<a name="l00140"></a>00140 
-<a name="l00142"></a>00142 
-<a name="l00144"></a>00144         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#aeef0574564143447bde7521daa09b78d" title="Start to move the tile on the left (cursor move on the right).">moveRight</a>(<span class="keywordtype">void</span>);
-<a name="l00145"></a>00145 
-<a name="l00147"></a>00147 
-<a name="l00149"></a>00149         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#a281fc3c2ab12ceb7095f8ecc582c609a" title="Change the Y dimension of the TileBar.">moveUp</a>(<span class="keywordtype">void</span>);
+<a name="l00137"></a><a class="code" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98">00137</a>         <span class="keywordtype">int</span> <a class="code" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98" title="index of the actual Tile selected on the Y axis">currentY</a>;
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139 <span class="keyword">public</span>:
+<a name="l00141"></a>00141 
+<a name="l00147"></a>00147         <a class="code" href="class_tile_bar.html#a16d057b6b8eb0ec4436b0fd75efc4536" title="Basic constructor.">TileBar</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win, std::vector&lt;View *&gt;&amp; listTiles);
+<a name="l00148"></a>00148 
 <a name="l00150"></a>00150 
-<a name="l00152"></a>00152 
-<a name="l00154"></a>00154         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#ab0b35a0707b9d3aca591ff3ed76edcf3" title="Change the Y dimension of the TileBar.">moveDown</a>(<span class="keywordtype">void</span>);
+<a name="l00152"></a>00152         <span class="keyword">virtual</span> <a class="code" href="class_tile_bar.html#afe884f0febd0ada1053ff4b38de42fae" title="Basic destructor.">~TileBar</a>(<span class="keywordtype">void</span>);
+<a name="l00153"></a>00153 
 <a name="l00155"></a>00155 
-<a name="l00157"></a>00157 
-<a name="l00159"></a>00159         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#a9c0ec256308d198c27216e478a30b807" title="Start closing animation.">close</a>(<span class="keywordtype">void</span>);
+<a name="l00157"></a>00157         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#a7ac7db7e769ea8908fb94a884f16163f" title="Start the opening animation of the Bar.">open</a>(<span class="keywordtype">void</span>);
+<a name="l00158"></a>00158 
 <a name="l00160"></a>00160 
-<a name="l00162"></a>00162 
-<a name="l00166"></a>00166         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#a4e054a52ad98175faa4d6b084b38d5d3" title="Draw the Bar.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time);
-<a name="l00167"></a>00167 
+<a name="l00162"></a>00162         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#a9c0ec256308d198c27216e478a30b807" title="Start closing animation.">close</a>(<span class="keywordtype">void</span>);
+<a name="l00163"></a>00163 
+<a name="l00165"></a>00165 
+<a name="l00168"></a>00168         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#a6e63ebcae48c63679a5935fa93c0e26d" title="Move the TileBar following the direction pressed.">move</a>(<span class="keyword">const</span> ArrowsDirection direction);
 <a name="l00169"></a>00169 
-<a name="l00172"></a>00172         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#ad0947486fc67003c60530f8c5bac8c79" title="Update the states / do the animation.">update</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time);
-<a name="l00173"></a>00173 
-<a name="l00175"></a>00175 
-<a name="l00178"></a><a class="code" href="class_tile_bar.html#aa01ee82d0e4efdee3e0d61fb454cf88e">00178</a>         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#aa01ee82d0e4efdee3e0d61fb454cf88e" title="Get if all the initialisation succeed.">isValid</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> valid; }
-<a name="l00179"></a>00179 
-<a name="l00181"></a>00181 
-<a name="l00184"></a><a class="code" href="class_tile_bar.html#ac1f0ec5ebc0a20a09e34271da0cbacfc">00184</a>         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#ac1f0ec5ebc0a20a09e34271da0cbacfc" title="Get if the Bar is actually opened.">isOpened</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">if</span> ( state != TBS_Closed &amp;&amp; state != TBS_Closing ) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>; }
-<a name="l00185"></a>00185 
-<a name="l00187"></a>00187 
-<a name="l00190"></a><a class="code" href="class_tile_bar.html#a8f9b1f518f36b8c6908d2e71ffdf0323">00190</a>         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#a8f9b1f518f36b8c6908d2e71ffdf0323" title="Get if the Bar is actually closed.">isClosed</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">if</span> ( state == TBS_Closed  ) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>; }
-<a name="l00191"></a>00191 };
-<a name="l00192"></a>00192 
-<a name="l00216"></a>00216 <span class="preprocessor">#endif</span>
-<a name="l00217"></a>00217 <span class="preprocessor"></span><span class="preprocessor">#endif // EDITOR</span>
+<a name="l00171"></a>00171 
+<a name="l00175"></a>00175         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#a4e054a52ad98175faa4d6b084b38d5d3" title="Draw the Bar.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time);
+<a name="l00176"></a>00176 
+<a name="l00178"></a>00178 
+<a name="l00181"></a>00181         <span class="keywordtype">void</span> <a class="code" href="class_tile_bar.html#ad0947486fc67003c60530f8c5bac8c79" title="Update the states / do the animation.">update</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time);
+<a name="l00182"></a>00182 
+<a name="l00184"></a>00184 
+<a name="l00187"></a><a class="code" href="class_tile_bar.html#aa01ee82d0e4efdee3e0d61fb454cf88e">00187</a>         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#aa01ee82d0e4efdee3e0d61fb454cf88e" title="Get if all the initialisation succeed.">isValid</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> valid; }
+<a name="l00188"></a>00188 
+<a name="l00190"></a>00190 
+<a name="l00193"></a><a class="code" href="class_tile_bar.html#ac1f0ec5ebc0a20a09e34271da0cbacfc">00193</a>         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#ac1f0ec5ebc0a20a09e34271da0cbacfc" title="Get if the Bar is actually opened.">isOpened</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">if</span> ( state != TBS_Closed &amp;&amp; state != TBS_Closing ) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>; }
+<a name="l00194"></a>00194 
+<a name="l00196"></a>00196 
+<a name="l00199"></a><a class="code" href="class_tile_bar.html#a8f9b1f518f36b8c6908d2e71ffdf0323">00199</a>         <span class="keywordtype">bool</span> <a class="code" href="class_tile_bar.html#a8f9b1f518f36b8c6908d2e71ffdf0323" title="Get if the Bar is actually closed.">isClosed</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">if</span> ( state == TBS_Closed  ) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>; }
+<a name="l00200"></a>00200 };
+<a name="l00201"></a>00201 
+<a name="l00225"></a>00225 <span class="preprocessor">#endif</span>
+<a name="l00226"></a>00226 <span class="preprocessor"></span><span class="preprocessor">#endif // EDITOR</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -184,7 +190,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 5 2010 13:25:53 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 10 2010 14:36:54 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

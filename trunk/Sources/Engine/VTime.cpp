@@ -28,24 +28,23 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-VTime :: VTime(const unsigned int nbFPS)
-:time(0),lastUpdate(0),msSecondsBetweenToFrame(1000/nbFPS)
+VTime :: VTime(const unsigned int nbFPS, const unsigned int updateNbFPS)
+:time(0),lastDrawTime(0),lastUpdateTime(0),msSecondsBetweenTwoFrame(1000/nbFPS),msSecondsBetweenTwoUpdate(1000/updateNbFPS)
 {
-
 }
 
 void VTime :: update(void) 
 { 
 	time++;
-	lastUpdate = SDL_GetTicks();
+	lastDrawTime = SDL_GetTicks();
 }
 
 void VTime :: waitNextFrame()
 {
 	static bool isFirst = true;
 
-	int timeEllapsed = SDL_GetTicks() - lastUpdate;
-	int timeToWait = msSecondsBetweenToFrame - timeEllapsed;
+	int timeEllapsed = SDL_GetTicks() - lastDrawTime;
+	int timeToWait = msSecondsBetweenTwoFrame - timeEllapsed;
 
 	if ( timeToWait < 6 )
 	{
@@ -64,4 +63,19 @@ void VTime :: waitNextFrame()
 	}
 
 	this->update();
+}
+
+bool VTime :: canUpdate(void)
+{
+	int timeEllapsed = SDL_GetTicks() - lastUpdateTime;
+
+	if ( msSecondsBetweenTwoUpdate < timeEllapsed )
+	{
+		lastUpdateTime = SDL_GetTicks();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

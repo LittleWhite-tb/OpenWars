@@ -69,6 +69,7 @@ int main(int argc, char** argv)
 	bool needFullscreen=false;
 	unsigned int mapWidth=MAP_MIN_WIDTH;
 	unsigned int mapHeight=MAP_MIN_HEIGHT;
+	std::string loadMapName="";
 	std::string mapName="save.map";
 
 	// Check the arguments passed
@@ -145,10 +146,31 @@ int main(int argc, char** argv)
 				return -1;
 			}
 		}
+		else if ( strcmp(argv[i],"--load") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				loadMapName = std::string(argv[i+1]);
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --mapName!";
+				return -1;
+			}
+		}
 		else if ( strcmp(argv[i],"--mapName") == 0 )
 		{
-			mapName = std::string(argv[i+1]);
-			i+=2;
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				mapName = std::string(argv[i+1]);
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --mapName!";
+				return -1;
+			}
 		}
 	}
 	// Starting SDL
@@ -191,7 +213,16 @@ int main(int argc, char** argv)
 					
 					if ( eEngine.init(&win, RAPI_SDL) )
 					{
-						if ( eEngine.load(UVec2(mapWidth, mapHeight)) )
+						bool engineLoadingState = false;
+						if ( !loadMapName.empty() )
+						{
+							engineLoadingState = eEngine.load(loadMapName);
+						}
+						else
+						{
+							engineLoadingState = eEngine.load(UVec2(mapWidth, mapHeight));
+						}
+						if ( engineLoadingState )
 						{
 							eEngine.run();
 							eEngine.saveMap(mapName);

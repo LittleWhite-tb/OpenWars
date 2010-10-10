@@ -146,6 +146,14 @@ public:
     */
 	MapEditor(SpriteManager& sm, const UVec2& size);
 
+	//! Basic constructor
+	/*!
+      Load the map to edit it.
+	  \param sm the sprite manager to load the sprites used by the map
+	  \param fileName the name of the file to load
+    */
+	MapEditor :: MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
+
 	//! Set the Tile at the position
 	/*!
 		Will overwrite the Tile previously contained on the map by the new one.

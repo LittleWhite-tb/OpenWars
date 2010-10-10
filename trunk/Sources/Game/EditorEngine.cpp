@@ -66,37 +66,8 @@ EditorEngine :: ~EditorEngine(void)
 	LDebug << "EditorEngine destructed";
 }
 
-bool EditorEngine :: init(const Window* win, const RenderingAPI rAPI)
+bool EditorEngine :: load(void)
 {
-	LDebug << "EditorEngine init'd";
-
-	pWin = win;
-
-	pRenderer = RendererFactory(win,rAPI);
-
-	pSM = new SpriteManager();
-	pFM = new FontManager();
-
-	pVT = new VTime(60);
-	pKB = new Keyboard();
-
-	if ( pRenderer == NULL || pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
-	{
-		// THe memory will be cleaned by the destructor
-		return false;
-	}
-
-	return true;
-}
-
-bool EditorEngine :: load(const UVec2& mapSize)
-{
-	pMap = new MapEditor(*pSM , mapSize);
-	if ( !pMap->isValidMap() )
-	{
-		return false;
-	}
-
 	pEC = new EditingCursor(*pSM,"./data/gfx/cursor.png","./data/gfx/cursor_wrong.png",pMap,UVec2(5,5));
 	pCam = new Camera();
 
@@ -230,6 +201,51 @@ bool EditorEngine :: load(const UVec2& mapSize)
 	return true;
 }
 
+bool EditorEngine :: init(const Window* win, const RenderingAPI rAPI)
+{
+	LDebug << "EditorEngine init'd";
+
+	pWin = win;
+
+	pRenderer = RendererFactory(win,rAPI);
+
+	pSM = new SpriteManager();
+	pFM = new FontManager();
+
+	pVT = new VTime(60,15);
+	pKB = new Keyboard();
+
+	if ( pRenderer == NULL || pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
+	{
+		// THe memory will be cleaned by the destructor
+		return false;
+	}
+
+	return true;
+}
+
+bool EditorEngine :: load(const UVec2& mapSize)
+{
+	pMap = new MapEditor(*pSM , mapSize);
+	if ( !pMap->isValidMap() )
+	{
+		return false;
+	}
+
+	return this->load();
+}
+
+bool EditorEngine :: load(const std::string& mapName)
+{
+	pMap = new MapEditor(*pSM , mapName);
+	if ( !pMap->isValidMap() )
+	{
+		return false;
+	}
+
+	return this->load();
+}
+
 bool EditorEngine :: run(void)
 {
 	bool isUnit = false;
@@ -253,84 +269,87 @@ bool EditorEngine :: run(void)
 		SDL_UpdateRect(pWin->getWindowSurface(),0,0,0,0);
 
 		// Update part
-		pCam->update(*pEC,*pMap);
-		pKB->update();
+		if ( pVT->canUpdate() )
+		{
+			pCam->update(*pEC,*pMap);
+			pKB->update();
 
-		if ( (pKB->isKey('w') || pKB->isKey('W')) && pUnitTB->isClosed() )
-		{
-			pBuildingTB->open();
-		}
+			if ( (pKB->isKey('w') || pKB->isKey('W')) && pUnitTB->isClosed() )
+			{
+				pBuildingTB->open();
+			}
 
-		if ( (pKB->isKey('q') || pKB->isKey('Q')) && pBuildingTB->isClosed() )
-		{
-			pUnitTB->open();
-		}
+			if ( (pKB->isKey('q') || pKB->isKey('Q')) && pBuildingTB->isClosed() )
+			{
+				pUnitTB->open();
+			}
 
-		if ( pKB->isKey(SDLK_SPACE) && pBuildingTB->isOpened()  )
-		{
-			pBuildingTB->close();
-			isUnit = false;
-			pTileViewer->setTitle("Element");
-			pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
-									  parseName(pBuildingTB->getSelected()));
-		}
-		
-		if ( pKB->isKey(SDLK_SPACE) && pUnitTB->isOpened()  )
-		{
-			pUnitTB->close();
-			isUnit = true;
-			pTileViewer->setTitle("Unit");
-			pTileViewer->setTile(pMap->getAssociatedSprite(pUnitTB->getSelected()), 
-										parseName(pUnitTB->getSelected()));
-		}
-
-		if ( pBuildingTB->isOpened() )
-		{
-			pBuildingTB->move(pKB->getDirectionPressed());
-		}
-		else if ( pUnitTB->isOpened() )
-		{
-			pUnitTB->move(pKB->getDirectionPressed());
-		}
-		else if ( pUnitTB->isClosed() && pBuildingTB->isClosed() )
-		{
-			pEC->move(pKB->getDirectionPressed());
+			if ( pKB->isKey(SDLK_SPACE) && pBuildingTB->isOpened()  )
+			{
+				pBuildingTB->close();
+				isUnit = false;
+				pTileViewer->setTitle("Element");
+				pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
+										  parseName(pBuildingTB->getSelected()));
+			}
 			
-			if ( isUnit )
+			if ( pKB->isKey(SDLK_SPACE) && pUnitTB->isOpened()  )
 			{
-				if ( pKB->isKey(SDLK_SPACE) )
-				{
-					pMap->setTile(pEC->getPosition(),pUnitTB->getSelected());
-				}
-
-				pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pUnitTB->getSelected()));
-			}
-			else
-			{
-				if ( pKB->isKey(SDLK_SPACE) )
-				{
-					pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected());
-				}
-				pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pBuildingTB->getSelected()));
+				pUnitTB->close();
+				isUnit = true;
+				pTileViewer->setTitle("Unit");
+				pTileViewer->setTile(pMap->getAssociatedSprite(pUnitTB->getSelected()), 
+											parseName(pUnitTB->getSelected()));
 			}
 
-			// Check if we have to move the TileViewer
-			if ( pEC->getPosition().y >= 6 )
+			if ( pBuildingTB->isOpened() )
 			{
-				if ( pEC->getPosition().x <= 2  )
+				pBuildingTB->move(pKB->getDirectionPressed());
+			}
+			else if ( pUnitTB->isOpened() )
+			{
+				pUnitTB->move(pKB->getDirectionPressed());
+			}
+			else if ( pUnitTB->isClosed() && pBuildingTB->isClosed() )
+			{
+				pEC->move(pKB->getDirectionPressed());
+				
+				if ( isUnit )
 				{
-					pTileViewer->putOnRight();
+					if ( pKB->isKey(SDLK_SPACE) )
+					{
+						pMap->setTile(pEC->getPosition(),pUnitTB->getSelected());
+					}
+
+					pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pUnitTB->getSelected()));
 				}
-				else if ( pEC->getPosition().x >= 13 )
+				else
 				{
-					pTileViewer->putOnLeft();
+					if ( pKB->isKey(SDLK_SPACE) )
+					{
+						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected());
+					}
+					pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pBuildingTB->getSelected()));
+				}
+
+				// Check if we have to move the TileViewer
+				if ( pEC->getPosition().y >= 6 )
+				{
+					if ( pEC->getPosition().x <= 2  )
+					{
+						pTileViewer->putOnRight();
+					}
+					else if ( pEC->getPosition().x >= 13 )
+					{
+						pTileViewer->putOnLeft();
+					}
 				}
 			}
+
+			
+			pBuildingTB->update(pVT->getTime());
+			pUnitTB->update(pVT->getTime());
 		}
-
-		
-		pBuildingTB->update(pVT->getTime());
-		pUnitTB->update(pVT->getTime());
 
 		pVT->waitNextFrame();
 	}

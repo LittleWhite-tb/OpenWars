@@ -49,35 +49,88 @@ class EditorEngine
 {
 private:
 
-	const Window* pWin;
-	Renderer* pRenderer;
+	const Window* pWin;			/*!< The window to use for the editor (created outside the engine) */
+	Renderer* pRenderer;		/*!< The renderer for the editor */
 
-	SpriteManager* pSM;
-	FontManager* pFM;
+	SpriteManager* pSM;			/*!< The sprite manager for the editor */
+	FontManager* pFM;			/*!< The font manager for the editor */
 
-	TileBarTiles* pBuildingTB;
-	TileBarUnits* pUnitTB;
-	TileViewer* pTileViewer;
+	TileBarTiles* pBuildingTB;	/*!< The tile bar for buildings */
+	TileBarUnits* pUnitTB;		/*!< The tile bar for units*/
+	TileViewer* pTileViewer;	/*!< The tile viewer */
 
-	VTime* pVT;
+	VTime* pVT;					/*!< The virtual time for synchronisation */
 
-	Keyboard* pKB;
+	Keyboard* pKB;				/*!< The keyboard for user access */
 
-	MapEditor* pMap;
-	EditingCursor* pEC;
-	Camera* pCam;
+	MapEditor* pMap;			/*!< The map to use */
+	EditingCursor* pEC;			/*!< The cursor */
+	Camera* pCam;				/*!< The camera */
+
+	//! Load the map, cursor, camera with the associated sprites
+	/*!
+		Will load all needed to set the engine. After you can run the engine.
+		The engine has to be inited.
+		\return true if all goes fine
+	*/
+	bool load(void);
 
 public:
+	//! Basic constructor
+	/*!
+	*/
 	EditorEngine(void);
+
+	//! Basic destructor
+	/*!
+	*/
 	~EditorEngine(void);
 
+	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
+	/*!
+		\param win The window to use with for the editor
+		\param rAPI The rendering API to use
+		\return true if all goes fine
+	*/
 	bool init(const Window* win, const RenderingAPI rAPI);
+
+	//! Load an empty map
+	/*!
+		\param mapSize The size of the empty map
+		\return true if all goes fine
+	*/
 	bool load(const UVec2& mapSize);
 
+	//! Load the map from a file
+	/*!
+		\param mapName the name of the file to load
+		\return true if all goes fine
+	*/
+	bool load(const std::string& mapName);
+
+	//! Start the editor main loop
+	/*!
+		\return true if all goes fine
+	*/
 	bool run(void);
 
+	//! Save the map in a file
+	/*!
+		\param fileName the file where to save the map
+		\return true if all goes fine
+	*/
 	void saveMap(const std::string& fileName);
 };
+
+/*! \class EditorEngine EditorEngine.h "Engine/EditorEngine.h"
+ *  \brief Engine of the whole editor
+ *
+ * Will be inited ; loaded ; and then run following the predefined game loop:
+ *		- draw
+ *		- if it has to be updated (see VTime class documentation)
+ *		- update
+ *		- wait for next frame (see VTime class documentation)
+ */
 
 #endif
 #endif
