@@ -88,25 +88,25 @@ public:
 	/*!
 		\return returns the width of the sprite
 	*/
-	const int getWidth(void)const { return widthSprite; }
+	int getWidth(void)const { return widthSprite; }
 
 	//! Get the height
 	/*!
 		\return returns the height of the sprite
 	*/
-	const int getHeight(void)const { return heightSprite; }
+	int getHeight(void)const { return heightSprite; }
 
 	//! Get the interval between two frames
 	/*!
 		\return returns the interval in millisecond
 	*/
-	const unsigned int getInterval(void)const { return msInterval; }
+	unsigned int getInterval(void)const { return msInterval; }
 
 	//! Set the interval between two frames
 	/*!
 		\param newInterval the new interval in millisecond
 	*/
-	const void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
+	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
 };
 
 /*! \class AnimatedSprite AnimatedSprite.h "Engine/AnimatedSprite.h"

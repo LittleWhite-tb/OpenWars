@@ -119,7 +119,7 @@ public:
 	/*!
       \return the API actually used
     */
-	const RenderingAPI getAPI(void)const { return rAPI; }
+	RenderingAPI getAPI(void)const { return rAPI; }
 };
 
 //! Renderer factory

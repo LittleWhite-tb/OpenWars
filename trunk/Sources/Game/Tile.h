@@ -199,7 +199,7 @@ enum TileType
 	TT_Neutral_City,
 
 	TT_Invalid,		// To make an invalid tile
-	TT_END_LIST,	// This has to be always at the end ; used as loop stoppper
+	TT_END_LIST		// This has to be always at the end ; used as loop stoppper
 };
 
 typedef struct Tile

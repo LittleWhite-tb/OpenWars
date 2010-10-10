@@ -24,8 +24,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Logger.h"
 
-#define NULL	0
-
 Logger* Logger::pInstance = NULL;
 LMessageType Logger::m_messageType = LMT_Debug;
 

@@ -1,0 +1,15 @@
+Dependencies:
+
+You need the SDL, SDL_image, SDL_ttf in development version to compile the OpenAWars_Editor
+
+To compile OpenAWars_Editor you have to type the following command:
+
+make -f Makefile_Editor
+
+To run the program you have to type
+
+./OpenAWars_Editor
+
+To clean, you have to type
+
+make -f Makefile_Editor clean

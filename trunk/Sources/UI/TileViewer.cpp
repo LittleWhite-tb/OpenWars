@@ -34,7 +34,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Types/Vec2.h"
 
-TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string fileNameBackground, const std::string fileNameFont)
+TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont)
 {
 	SDL_Color white = {255,255,255};
 

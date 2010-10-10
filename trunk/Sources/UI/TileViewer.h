@@ -62,7 +62,7 @@ public:
 	  \param fileNameBackground The file for the background
 	  \param fileNameFont The file for the font
 	*/
-	TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string fileNameBackground, const std::string fileNameFont);
+	TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont);
 
 	//! Basic destructor
 	/*!

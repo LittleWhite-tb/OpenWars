@@ -69,7 +69,7 @@ Sprite :: ~Sprite(void)
 #endif
 }
 
-const int Sprite :: getWidth(void)const
+int Sprite :: getWidth(void)const
 {
 	assert(surface);
 
@@ -78,7 +78,7 @@ const int Sprite :: getWidth(void)const
 	return this->surface->w;
 }
 
-const int Sprite :: getHeight(void)const
+int Sprite :: getHeight(void)const
 {
 	assert(surface);
 

@@ -22,7 +22,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "tile.h"
+#include "Tile.h"
 
 #include <cassert>
 

@@ -74,19 +74,19 @@ public:
 	/*!
 		\return returns the width of the surface
 	*/
-	virtual const int getWidth(void)const;
+	virtual int getWidth(void)const;
 
 	//! Get the height
 	/*!
 		\return returns the height of the surface
 	*/
-	virtual const int getHeight(void)const;
+	virtual int getHeight(void)const;
 
 	//! Get the surface
 	/*!
 		\return returns the surface
 	*/
-	SDL_Surface* const getSurface(void)const { return surface; }
+	SDL_Surface* getSurface(void)const { return surface; }
 };
 
 /*! \class Sprite Sprite.h "Engine/Sprite.h"

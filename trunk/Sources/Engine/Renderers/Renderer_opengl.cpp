@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Renderer_opengl.h"
 
 //#include <GL/gl.h>
-#include <SDL/sdl.h>
+#include <SDL/SDL.h>
 
 #include <cassert>
 

@@ -152,7 +152,7 @@ public:
 	  \param sm the sprite manager to load the sprites used by the map
 	  \param fileName the name of the file to load
     */
-	MapEditor :: MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
+	MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
 
 	//! Set the Tile at the position
 	/*!

@@ -28,6 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL.h>
 
 #include <vector>
+#include <string>
 
 typedef struct ResolutionInfo
 {
@@ -113,7 +114,7 @@ public:
     /*!
 	  \return the window surface, where to draw final image
 	*/
-	SDL_Surface* const getWindowSurface(void)const { return pWindowSurface; }
+	SDL_Surface* getWindowSurface(void)const { return pWindowSurface; }
 
 	//! get the height of the window surface
     /*!

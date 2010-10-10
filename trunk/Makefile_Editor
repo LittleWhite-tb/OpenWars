@@ -1,0 +1,83 @@
+# General variables
+DEBUG=no
+
+# Compilator Definitions
+
+export CXX = g++
+export CC = gcc
+export LD = g++
+
+# Variables
+export DEFINES += -DEDITOR -O2
+export DEFINES_DBG += -DEDITOR -ggdb -D_DEBUG
+
+export CXXFLAGS += -Wall -Wextra -pedantic -ansi 
+export CFLAGS += -Wall -Wextra -pedantic -ansi
+export LDFLAGS += -lSDL -lSDL_image -lSDL_ttf -L ./lib/
+
+ifeq ($(DEBUG),yes)
+	CXXFLAGS += $(DEFINES_DBG)
+	CFLAGS += $(DEFINES_DBG)
+else
+	CXXFLAGS += $(DEFINES)
+	CFLAGS += $(DEFINES)
+endif
+
+# Folders settings
+
+SOURCES_DIR = Sources
+ENGINE_DIR = $(SOURCES_DIR)/Engine
+RENDERERS_DIR = $(ENGINE_DIR)/Renderers
+RMANAGER_DIR = $(ENGINE_DIR)/ResourcesManager
+CONTROLS_DIR = $(ENGINE_DIR)/Controls
+GAME_DIR = $(SOURCES_DIR)/Game
+UI_DIR = $(SOURCES_DIR)/UI
+UTILS_DIR = $(SOURCES_DIR)/Utils
+
+# Compilation Rules
+
+EXEC = OpenAWars_Editor
+ENGINE = $(ENGINE_DIR)/Window.o $(ENGINE_DIR)/Renderer.o $(ENGINE_DIR)/Sprite.o $(ENGINE_DIR)/AnimatedSprite.o $(ENGINE_DIR)/VTime.o $(ENGINE_DIR)/Font.o
+RENDERERS = $(RENDERERS_DIR)/Renderer_sdl.o $(RENDERERS_DIR)/Renderer_opengl.o
+RMANAGER = $(RMANAGER_DIR)/SpriteManager.o $(RMANAGER_DIR)/FontManager.o 
+CONTROLS = $(CONTROLS_DIR)/Keyboard.o
+GAME = $(GAME_DIR)/Tile.o $(GAME_DIR)/Map.o $(GAME_DIR)/MapEditor.o $(GAME_DIR)/Cursor.o $(GAME_DIR)/EditingCursor.o $(GAME_DIR)/Camera.o $(GAME_DIR)/Unit.o $(GAME_DIR)/EditorEngine.o
+UTILS = $(UTILS_DIR)/Logger.o $(UTILS_DIR)/Scaler.o
+UI = $(UI_DIR)/TileBar.o $(UI_DIR)/TileBarTiles.o $(UI_DIR)/TileBarUnits.o $(UI_DIR)/TileViewer.o
+OBJECTS = $(UTILS) $(RMANAGER) $(ENGINE) $(RENDERERS) $(CONTROLS) $(UI) $(GAME) $(SOURCES_DIR)/main_editor.o
+
+
+all: $(EXEC)
+ifeq ($(DEBUG),yes)
+	@echo "\033[35m=== Compilation in debug mode\t\t\tDONE\033[0m"
+else
+	@echo "\033[36m=== Compilation in release mode\t\t\tDONE\033[0m"
+endif
+
+%.o: %.cpp *.hpp
+	@echo "\033[34m$(CXX) $< -> $@\033[0m";\
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+%.o: %.cpp *.h
+	@echo "$(CXX) $< -> $@\033[0m";\
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+%.o: %.c *.h
+	@echo "$(CC) $< -> $@\033[0m";\
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(EXEC): $(OBJECTS)
+	@echo "\033[32m$(LD) ($(OBJECTS)) -> $(EXEC)\033[0m";\
+	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
+
+.PHONY: clean mrproper
+
+clean:
+	@echo "\033[31m"
+	rm -rfv $(OBJECTS)
+	@echo "\033[0m"
+
+mrproper: clean
+	@echo "\033[31m"
+	rm -rfv $(EXEC)
+	@echo "\033[0m"
