@@ -96,6 +96,9 @@ private:
 	UVec2 windowSize;						/*<! The size of the window where the bar is */
 	TileBarState state;						/*<! The actual animation state of the bar */
 
+	unsigned int stepX;						/*<! Speed of the animation of the tile bar on the X axis */
+	unsigned int stepY;						/*<! Speed of the animation of the tile bar on the Y axis */
+
 	bool valid;								/*<! flag to know if all initialisation goes right */
 
 

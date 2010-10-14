@@ -118,6 +118,9 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& lis
 	state = TBS_Closed;
 	currentX = 5;
 	currentY = 0;
+	// Speed
+	stepX = windowSize.x / 80;
+	stepY = windowSize.y / 60;
 
 	LDebug << "TileBar created";
 }
@@ -318,30 +321,30 @@ void TileBar :: update(const unsigned int time)
 	switch (state)
 	{
 		case TBS_Closing:
-			positionY+=16;
+			positionY+=stepY;
 			if ( positionY >= windowSize.y )
 			{
 				state = TBS_Closed;
 			}
 			break;
 		case TBS_Opening:
-			positionY-=16;
+			positionY-=stepY;
 			if ( positionY <= windowSize.y - static_cast<int>(Scaler::getYScaleFactor() * 64) )
 			{
 				state = TBS_Opened;
 			}
 			break;
 		case TBS_MoveRight:
-			if ( counterMovementAnim > 8 )
+			if ( counterMovementAnim > stepX )
 			{
 				for ( std::vector<std::vector<View*> >::iterator itVectorASprites = viewList.begin() ; itVectorASprites != viewList.end() ; ++itVectorASprites )
 				{
 					for ( std::vector<View*>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
 					{
-						(*itASprites)->positionX-=8;
+						(*itASprites)->positionX-=stepX;
 					}
 				}
-				counterMovementAnim-=8;
+				counterMovementAnim-=stepX;
 			}
 			else
 			{
@@ -372,17 +375,17 @@ void TileBar :: update(const unsigned int time)
 			}
 			break;
 		case TBS_MoveLeft:
-			if ( counterMovementAnim > 8 )
+			if ( counterMovementAnim > stepX )
 			{
 				for ( std::vector<std::vector<View*> >::iterator itVectorASprites = viewList.begin() ; itVectorASprites != viewList.end() ; ++itVectorASprites )
 				{
 					for ( std::vector<View*>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
 					{
-						(*itASprites)->positionX+=8;
+						(*itASprites)->positionX+=stepX;
 					}
 				}
 
-				counterMovementAnim-=8;
+				counterMovementAnim-=stepX;
 			}
 			else
 			{

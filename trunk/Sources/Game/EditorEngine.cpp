@@ -274,14 +274,22 @@ bool EditorEngine :: run(void)
 			pCam->update(*pEC,*pMap);
 			pKB->update();
 
-			if ( (pKB->isKey('w') || pKB->isKey('W')) && pUnitTB->isClosed() )
+			if ( (pKB->isKey('w') || pKB->isKey('W')) )
 			{
 				pBuildingTB->open();
+				if ( pUnitTB->isOpened() )
+				{
+					pUnitTB->close();
+				}
 			}
 
-			if ( (pKB->isKey('q') || pKB->isKey('Q')) && pBuildingTB->isClosed() )
+			if ( (pKB->isKey('q') || pKB->isKey('Q')) )
 			{
 				pUnitTB->open();
+				if ( pBuildingTB->isOpened() )
+				{
+					pBuildingTB->close();
+				}
 			}
 
 			if ( pKB->isKey(SDLK_SPACE) && pBuildingTB->isOpened()  )
