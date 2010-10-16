@@ -63,8 +63,6 @@ int main(int argc, char** argv)
 	(void)argc;
 	(void)argv;
 
-	Uint32 startTime = 0;
-
 	// Starting SDL
 	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
 	{

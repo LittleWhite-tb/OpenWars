@@ -36,13 +36,18 @@ e-mail: lw.demoscene@gmail.com
 // Default values
 double Scaler::xScaleFactor = 1.0;
 double Scaler::yScaleFactor = 1.0;
+UVec2 Scaler::offset = UVec2(0,0);
 
 void Scaler :: setScaleFactor(const Window& win)
 {
 	xScaleFactor = (win.getWidth() / (double)MAP_MIN_WIDTH) / (double)TILE_DEFAULT_WIDTH;
 	yScaleFactor = (win.getHeight() / (double)MAP_MIN_HEIGHT) / (double)TILE_DEFAULT_HEIGHT;
 
-	LDebug << "Scaler :: setScaleFactor (Found: " << xScaleFactor << ";" << yScaleFactor << ")";
+	// Gap appear when we put the scale factor back to unsigned int
+	offset.x = (win.getWidth() - (static_cast<unsigned int>(xScaleFactor * TILE_DEFAULT_WIDTH) * MAP_MIN_WIDTH ))/2;
+	offset.y = (win.getHeight() - (static_cast<unsigned int>(yScaleFactor * TILE_DEFAULT_HEIGHT) * MAP_MIN_HEIGHT))/2;
+
+	LDebug << "Scaler :: setScaleFactor (Found: " << xScaleFactor << ";" << yScaleFactor << " Offset: " << offset << " )";
 }
 
 bool Scaler :: shrinkSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface)

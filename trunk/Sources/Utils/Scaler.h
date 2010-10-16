@@ -37,6 +37,7 @@ private:
 
 	static double xScaleFactor;		/*!< the scaling factor on the x axis */
 	static double yScaleFactor;		/*!< the scaling factor on the y axis */
+	static UVec2 offset;			/*!< Offset to apply to have the center the tiles
 
 	//! Shrink the surface
 	/*!
@@ -87,6 +88,12 @@ public:
 		\return the current scaling factor for the Y axis
 	*/
 	static double getYScaleFactor(void) { return yScaleFactor; }
+
+	//* Get the offset
+	/*!
+		\return the offset to apply to center the map
+	*/
+	static UVec2 getOffset(void) { return offset; }
 
 };
 

@@ -475,7 +475,8 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
-	IVec2 tilePos(0,0);
+	UVec2 mapOffset = Scaler::getOffset();
+	IVec2 tilePos(0,mapOffset.y);
 
 	LDebug << "Map :: draw";
 
@@ -483,7 +484,7 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 	// For each lines
 	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
 	{
-		tilePos.x = 0;
+		tilePos.x = mapOffset.x;
 		// For each columns
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{

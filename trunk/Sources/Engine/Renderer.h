@@ -60,7 +60,7 @@ public:
 	  \param pWin the Window where the Renderer will draw
 	  \param rAPI the API of the current instance of the Renderer
     */
-	Renderer(const Window* const pWin, const RenderingAPI rAPI):pWin(pWin),rAPI(rAPI) { assert(pWin); };
+	Renderer(const Window* const pWin, const RenderingAPI rAPI):pWin(pWin),rAPI(rAPI) {}
 
 	//! Basic destructor
 	/*!

@@ -27,6 +27,10 @@ e-mail: lw.demoscene@gmail.com
 #include "Renderers/Renderer_opengl.h"
 #include "Renderers/Renderer_sdl.h"
 
+#include "../Utils/Scaler.h"
+
+#include "../globals.h"
+
 Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI)
 {
 	switch (renderingAPI)
