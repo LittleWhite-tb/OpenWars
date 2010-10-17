@@ -73,8 +73,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reopen a window with a different resolution. If a window is not open yet, it doesn't matter, it will open a window if possible.  <a href="#a9c0c54932dca42dbd0a87f85f47442a9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#aa85c37c5b07e955a4377dc79cb75abc0">getResolutionsAvailable</a> (const bool isOpenGL, std::vector&lt; <a class="el" href="struct_resolution_info.html">ResolutionInfo</a> &gt; &amp;riList) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get a list of resolution available on the current machine. To do this, the function will check the resolution with SDL_VideoModeOK(). The test is always done in fullscreen mode to have the best results.  <a href="#aa85c37c5b07e955a4377dc79cb75abc0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a779c3aef5dabfb195d8f8c7021846001">getWindowSurface</a> (void) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the window surface  <a href="#a779c3aef5dabfb195d8f8c7021846001"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a6d803762901b37ac39c16f134759d393">getWindowSurface</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the window surface  <a href="#a6d803762901b37ac39c16f134759d393"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#aba82f61d38d2a9e6d268e7d117009bde">getHeight</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the height of the window surface  <a href="#aba82f61d38d2a9e6d268e7d117009bde"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a24f3fdb50f00fcfea4d4ee173058887a">getWidth</a> (void) const </td></tr>
@@ -302,12 +302,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a779c3aef5dabfb195d8f8c7021846001"></a><!-- doxytag: member="Window::getWindowSurface" ref="a779c3aef5dabfb195d8f8c7021846001" args="(void) const " -->
+<a class="anchor" id="a6d803762901b37ac39c16f134759d393"></a><!-- doxytag: member="Window::getWindowSurface" ref="a6d803762901b37ac39c16f134759d393" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SDL_Surface* const Window::getWindowSurface </td>
+          <td class="memname">SDL_Surface* Window::getWindowSurface </td>
           <td>(</td>
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
@@ -525,7 +525,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 10 2010 14:36:54 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 17 2010 17:40:29 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

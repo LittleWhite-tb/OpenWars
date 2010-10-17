@@ -69,7 +69,7 @@ bool VTime :: canUpdate(void)
 {
 	int timeEllapsed = SDL_GetTicks() - lastUpdateTime;
 
-	if ( msSecondsBetweenTwoUpdate < timeEllapsed )
+	if ( static_cast<int>(msSecondsBetweenTwoUpdate) < timeEllapsed )
 	{
 		lastUpdateTime = SDL_GetTicks();
 		return true;

@@ -353,6 +353,14 @@
 				Name="Utils"
 				>
 				<File
+					RelativePath=".\Sources\Utils\LineParser.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\LineParser.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Utils\Logger.cpp"
 					>
 				</File>

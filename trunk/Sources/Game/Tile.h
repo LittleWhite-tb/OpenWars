@@ -29,6 +29,8 @@ struct SDL_Surface;
 
 #include <string>
 
+#include "../Engine/AnimatedSprite.h"
+
 enum TileType
 {
 	TT_Plain=0,
@@ -96,7 +98,55 @@ enum TileType
 	TT_River_See_B,	// River to See Bottom
 	TT_River_See_L,	// River to See left
 	TT_River_See_R,	// River to See Right
-	TT_River_X,		
+	TT_River_X,	
+
+	// Road
+	TT_Road_H,		// Horizontal
+	TT_Road_V,		// Vertical
+	TT_Road_TL,		// Corner Top Left
+	TT_Road_TR,		// Corner Top Right
+	TT_Road_BL,		// Corner Bottom Left
+	TT_Road_BR,		// Corner Bottom Right
+	TT_Road_T_L,	// T Left
+	TT_Road_T_B,	// T Bottom
+	TT_Road_T_R,	// T Right
+	TT_Road_T_T,	// T Top
+	TT_Road_X,		// X
+
+	// Buildings
+		// Red
+	TT_Red_HQ,
+	TT_Red_Factory,
+	TT_Red_Port,
+	TT_Red_Airport,
+	TT_Red_City,
+
+		// Blue
+	TT_Blue_HQ,
+	TT_Blue_Factory,
+	TT_Blue_Port,
+	TT_Blue_Airport,
+	TT_Blue_City,
+
+		// Green
+	TT_Green_HQ,
+	TT_Green_Factory,
+	TT_Green_Port,
+	TT_Green_Airport,
+	TT_Green_City,
+
+		// Yellow
+	TT_Yellow_HQ,
+	TT_Yellow_Factory,
+	TT_Yellow_Port,
+	TT_Yellow_Airport,
+	TT_Yellow_City,
+
+		// Neutral
+	TT_Neutral_Factory,
+	TT_Neutral_Port,
+	TT_Neutral_Airport,
+	TT_Neutral_City,
 
 	TT_Sea,
 	TT_Sea_TL,		// For see with some coast on it (but just a few)
@@ -150,61 +200,15 @@ enum TileType
 	TT_Coast_XTLBR,		// X with diagonal coast ( on Top Left & Bottom Right )
 	TT_Coast_XBLTR,		// X with diagonal coast ( on Top Right & Bottom Left )
 
-	// Road
-	TT_Road_H,		// Horizontal
-	TT_Road_V,		// Vertical
-	TT_Road_TL,		// Corner Top Left
-	TT_Road_TR,		// Corner Top Right
-	TT_Road_BL,		// Corner Bottom Left
-	TT_Road_BR,		// Corner Bottom Right
-	TT_Road_T_L,	// T Left
-	TT_Road_T_B,	// T Bottom
-	TT_Road_T_R,	// T Right
-	TT_Road_T_T,	// T Top
-	TT_Road_X,		// X
-
-	// Buildings
-		// Red
-	TT_Red_HQ,
-	TT_Red_Factory,
-	TT_Red_Port,
-	TT_Red_Airport,
-	TT_Red_City,
-
-		// Blue
-	TT_Blue_HQ,
-	TT_Blue_Factory,
-	TT_Blue_Port,
-	TT_Blue_Airport,
-	TT_Blue_City,
-
-		// Green
-	TT_Green_HQ,
-	TT_Green_Factory,
-	TT_Green_Port,
-	TT_Green_Airport,
-	TT_Green_City,
-
-		// Yellow
-	TT_Yellow_HQ,
-	TT_Yellow_Factory,
-	TT_Yellow_Port,
-	TT_Yellow_Airport,
-	TT_Yellow_City,
-
-		// Neutral
-	TT_Neutral_Factory,
-	TT_Neutral_Port,
-	TT_Neutral_Airport,
-	TT_Neutral_City,
-
 	TT_Invalid,		// To make an invalid tile
 	TT_END_LIST		// This has to be always at the end ; used as loop stoppper
 };
 
 typedef struct Tile
 {
-	TileType tileType;				/*!< The actual tile type */
+	AnimatedSprite* pASprite;		/*!< The sprite linked to this tile */
+
+	std::string name;				/*!< Name to display in the tilebar */
 
 	unsigned char defence;			/*!< The defence of the tile */
 	bool isRoad;					/*!< If the tile is a road tile */
@@ -213,6 +217,7 @@ typedef struct Tile
 	bool isSea;						/*!< If it is see */ // Reminder: See, only boat can be on it, can't be walkable
 	bool isBeach;					/*!< If it is beach */
 	bool isBuilding;				/*!< If it is a building */
+	bool isHQ;						/*!< If it is a HQ */
 	bool needBackground;			/*!< If the Tile need to have a plain has background drawn before */
 
 	unsigned char cityLife;			/*!< The actual remaining life of the builing */ // For capturing
@@ -221,73 +226,82 @@ typedef struct Tile
 	/*!
 		Sea is true by default
 	*/
-	Tile(void):tileType(TT_Invalid),defence(0),isRoad(false),isBridge(false),isRiver(false),isSea(true),isBeach(false),isBuilding(false),needBackground(false),cityLife(0) {}
+	Tile(void):pASprite(NULL),name(),defence(0),isRoad(false),isBridge(false),isRiver(false),isSea(true),isBeach(false),isBuilding(false),isHQ(false),needBackground(false),cityLife(0) {}
 
-	//! Basic constructor
+	//! Default constructor
 	/*!
-		\param tileType the type of the tile
+		\param pASprite The sprite to use for this tile
+		\param name The name to display for this tile
+		\param defence the defence occured by the tile
+		\param isRoad is this tile a road
+		\param isBridge is this tile a bridge
+		\param isRiver is this tile a river
+		\param isSea is this tile a sea
+		\param isBeach is this tile a beach
+		\param isBuilding is this tile a building
+		\param isHQ is this tile an HQ
+		\param needBackground If the tile need some Plain to be drawn before
+		\param cityLife The maximum life of the city
 	*/
-	Tile(const TileType tileType);
+	Tile(	AnimatedSprite* pASprite, 
+			std::string& name,
+			const unsigned char defence, 
+			const bool isRoad, 
+			const bool isBridge, 
+			const bool isRiver, 
+			const bool isSea, 
+			const bool isBeach, 
+			const bool isBuilding, 
+			const bool isHQ, 
+			const bool needBackground, 
+			const unsigned char cityLife)
+		:pASprite(pASprite),name(name),defence(defence),isRoad(isRoad),isBridge(isBridge),isRiver(isRiver),isSea(isSea),isBeach(isBeach),isBuilding(isBuilding),isHQ(isHQ),needBackground(needBackground),cityLife(cityLife) {
+	
+	}
+
+
+	//! Basic copy constructor
+	/*!
+		\param t the Tile to copy
+	*/
+	Tile(const Tile& t):pASprite(pASprite),
+		name(t.name),
+		defence(t.defence),
+		isRoad(t.isRoad),
+		isBridge(t.isBridge),
+		isRiver(t.isRiver),
+		isSea(t.isSea),
+		isBeach(t.isBeach),
+		isBuilding(t.isBuilding),
+		isHQ(t.isHQ),
+		needBackground(t.needBackground),
+		cityLife(t.cityLife) {}
+
+	//! operator=
+	/*!
+		Sea is true by default
+		\param t the Tile to copy
+		\return the copy
+	*/
+	Tile& operator=(const Tile& t)
+	{
+		this->pASprite = t.pASprite;
+		this->name = t.name;
+		this->defence = t.defence;
+		this->isRoad = t.isRoad;
+		this->isBridge = t.isBridge;
+		this->isRiver = t.isRiver;
+		this->isSea = t.isSea;
+		this->isBeach = t.isBeach;
+		this->isBuilding = t.isBuilding;
+		this->isHQ = t.isHQ;
+		this->needBackground = t.needBackground;
+		this->cityLife = t.cityLife;
+
+		return *this;
+	}
 
 }Tile;
-
-
-//! Check if the type correspond to a building
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a building
-*/
-bool parseIsBuilding(const TileType tileType);
-
-//! Check if the type correspond to a road
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a road
-*/
-bool parseIsRoad(const TileType tileType);
-
-//! Check if the type correspond to a sea
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a sea
-*/
-bool parseIsSea(const TileType tileType);
-
-//! Check if the type correspond to a river
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a river
-*/
-bool parseIsRiver(const TileType tileType);
-
-//! Check if the type correspond to a beach
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a beach
-*/
-bool parseIsBeach(const TileType tileType);
-
-//! Check if the type correspond to a bridge
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a bridge
-*/
-bool parseIsBridge(const TileType tileType);
-
-//! Check if the type correspond to a HQ
-/*!
- * \param tileType the type
- * \return true if the type corresponds to a HQ
-*/
-bool parseIsHQ(const TileType tileType);
-
-//! Get the name of the tile
-/*!
- *
- * \param tileType the type
- * \return the name of the tile to display
-*/
-const std::string parseName(const TileType tileType);
 
 /*! \struct Tile Tile.h "Game/Tile.h"
  *  \brief Tile struct

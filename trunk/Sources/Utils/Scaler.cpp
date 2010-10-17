@@ -108,10 +108,10 @@ bool Scaler :: shrinkSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const 
 			sp = (SDL_Color*)((Uint8*)oosp + 4 * xFactor);
 
 			/* Store result in destination */
-			dp->r = ra / n_average;
-			dp->g = ga / n_average;
-			dp->b = ba / n_average;
-			dp->unused = aa / n_average;
+			dp->r = static_cast<Uint8>(ra / n_average);
+			dp->g = static_cast<Uint8>(ga / n_average);
+			dp->b = static_cast<Uint8>(ba / n_average);
+			dp->unused = static_cast<Uint8>(aa / n_average);
 
 			// Advance destination pointer 
 			dp++;
@@ -212,16 +212,16 @@ bool Scaler :: zoomSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pD
 			ey = (*csay & 0xffff);
 			t1 = ((((c01->r - c00->r) * ex) >> 16) + c00->r) & 0xff;
 			t2 = ((((c11->r - c10->r) * ex) >> 16) + c10->r) & 0xff;
-			dp->r = (((t2 - t1) * ey) >> 16) + t1;
+			dp->r = static_cast<Uint8>((((t2 - t1) * ey) >> 16) + t1);
 			t1 = ((((c01->g - c00->g) * ex) >> 16) + c00->g) & 0xff;
 			t2 = ((((c11->g - c10->g) * ex) >> 16) + c10->g) & 0xff;
-			dp->g = (((t2 - t1) * ey) >> 16) + t1;
+			dp->g = static_cast<Uint8>((((t2 - t1) * ey) >> 16) + t1);
 			t1 = ((((c01->b - c00->b) * ex) >> 16) + c00->b) & 0xff;
 			t2 = ((((c11->b - c10->b) * ex) >> 16) + c10->b) & 0xff;
-			dp->b = (((t2 - t1) * ey) >> 16) + t1;
+			dp->b = static_cast<Uint8>((((t2 - t1) * ey) >> 16) + t1);
 			t1 = ((((c01->unused - c00->unused) * ex) >> 16) + c00->unused) & 0xff;
 			t2 = ((((c11->unused - c10->unused) * ex) >> 16) + c10->unused) & 0xff;
-			dp->unused = (((t2 - t1) * ey) >> 16) + t1;
+			dp->unused = static_cast<Uint8>((((t2 - t1) * ey) >> 16) + t1);
 
 			// Advance source pointers 
 			csax++;

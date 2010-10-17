@@ -41,6 +41,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
+#include "../Utils/LineParser.h"
 #include "../Utils/Logger.h"
 #include "../Utils/Scaler.h"
 #include "../globals.h"
@@ -56,11 +57,11 @@ Map :: Map(SpriteManager& sm, const std::string& fileName)
 Map :: ~Map(void)
 {
 	// Delete the Tiles used my the map
-	for ( std::map<TileType, AnimatedSprite*>::const_iterator itTiles = tilesASprite.begin() ; itTiles != tilesASprite.end() ; ++itTiles )
+	for ( std::map<TileType, Tile>::iterator itTile = tilesSet.begin() ; itTile != tilesSet.end() ; ++itTile)
 	{
-		delete itTiles->second;
+		delete itTile->second.pASprite;
 	}
-	tilesASprite.clear();
+	tilesSet.clear();
 
 	// Delete the unit map
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
@@ -86,233 +87,157 @@ Map :: ~Map(void)
 	LDebug << "Map deleted";
 }
 
+void Map :: loadTileSet(SpriteManager& sm, const std::string& theme)
+{
+	LDebug << "Map :: loadTileSet ( " << theme.c_str() << ")";
+
+	// Need reading of the file
+	std::string tileSetPath = TILESET_PATH + theme + std::string(".oawts");
+
+	LineParser lp(tileSetPath);
+
+	for ( unsigned int i = TT_Plain ; i < TT_Invalid ; i++ )
+	{
+		unsigned int idTile = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		if ( i != idTile )
+		{
+			LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
+		}
+		std::string name = lp.getLine();
+		lp.readNextLine();
+		std::string spriteName = lp.getLine();
+		lp.readNextLine();
+		IVec2 spriteSize = lp.getIVec2();
+		lp.readNextLine();
+		int spriteDuration = lp.getInt();
+		lp.readNextLine();
+		unsigned char defence = static_cast<unsigned char>(lp.getInt());
+		lp.readNextLine();
+		bool isRoad = lp.getBool();
+		lp.readNextLine();
+		bool isBridge = lp.getBool();
+		lp.readNextLine();
+		bool isRiver = lp.getBool();
+		lp.readNextLine();
+		bool isSea = lp.getBool();
+		lp.readNextLine();
+		bool isBeach = lp.getBool();
+		lp.readNextLine();
+		bool isBuilding = lp.getBool();
+		lp.readNextLine();
+		bool isHQ = lp.getBool();
+		lp.readNextLine();
+		bool needBackground = lp.getBool();
+		lp.readNextLine();
+		unsigned char cityLife = static_cast<unsigned char>(lp.getInt());
+		lp.readNextLine();
+
+		tilesSet[static_cast<TileType>(idTile)] = Tile(new AnimatedSprite(sm,GFX_TILES_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+			name,
+			defence,
+			isRoad,
+			isBridge,
+			isRiver,
+			isSea,
+			isBeach,
+			isBuilding,isHQ,
+			needBackground,
+			cityLife);
+	}
+}
+
+void Map :: loadUnitSet(SpriteManager& sm, const std::string& theme)
+{
+
+}
+
 void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
 {
 	LDebug << "Map :: loadGraphics ( " << theme.c_str() << ")";
 
-	tilesASprite[TT_Plain] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/plain.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Tree] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/tree.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Mountain_1] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/mountain1.png",32,32,NORMAL_SPEED,true);
-	// The Mountain2 has a irregular size!
-	tilesASprite[TT_Mountain_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/mountain2.png",32,42,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TL_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tl_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TL_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tl_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TL_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tl_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TR_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tr_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TR_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tr_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_TR_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_tr_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BL_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_bl_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BL_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_bl_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BL_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_bl_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_br.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BR_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_br_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BR_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_br_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_BR_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_br_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_EL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_el.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_ER] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_er.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_ET] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_et.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_EB] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_eb.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_T_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_t_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_T_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_t_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_T_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_t_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_B_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_b_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_B_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_b_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_B_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_b_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_L_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_l_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_L_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_l_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_L_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_l_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_R_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_r_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_R_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_r_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Beach_R_2] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/beach_r_2.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Bridge_H] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/bridge_h.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Bridge_V] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/bridge_v.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_H] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_h.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_V] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_v.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_T_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_t_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_T_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_t_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_T_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_t_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_T_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_t_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_br.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_See_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_See_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_See_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_See_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river2see_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_River_X] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/river_x.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_H] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_h.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_V] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_v.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_br.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_T_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_t_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_T_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_t_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_T_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_t_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_T_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_t_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Road_X] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/road_x.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Red_HQ] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/r_hq.png",32,62,NORMAL_SPEED,true);
-	tilesASprite[TT_Red_Factory] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/r_factory.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Red_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/r_port.png",32,44,NORMAL_SPEED,true);
-	tilesASprite[TT_Red_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/r_airport.png",32,36,NORMAL_SPEED,true);
-	tilesASprite[TT_Red_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/r_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Blue_HQ] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_hq.png",32,64,NORMAL_SPEED,true);
-	tilesASprite[TT_Blue_Factory] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_factory.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Blue_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_port.png",32,42,NORMAL_SPEED,true);
-	tilesASprite[TT_Blue_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_airport.png",32,36,NORMAL_SPEED,true);
-	tilesASprite[TT_Blue_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/b_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Green_HQ] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_hq.png",32,54,NORMAL_SPEED,true);
-	tilesASprite[TT_Green_Factory] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_factory.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Green_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_port.png",32,42,NORMAL_SPEED,true);
-	tilesASprite[TT_Green_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_airport.png",32,36,NORMAL_SPEED,true);
-	tilesASprite[TT_Green_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/g_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Yellow_HQ] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/y_hq.png",32,60,NORMAL_SPEED,true);
-	tilesASprite[TT_Yellow_Factory] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/y_factory.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Yellow_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/y_port.png",32,44,NORMAL_SPEED,true);
-	tilesASprite[TT_Yellow_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/y_airport.png",32,36,NORMAL_SPEED,true);
-	tilesASprite[TT_Yellow_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/y_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Neutral_Factory] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_factory.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Neutral_Port] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_port.png",32,42,NORMAL_SPEED,true);
-	tilesASprite[TT_Neutral_Airport] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_airport.png",32,36,NORMAL_SPEED,true);
-	tilesASprite[TT_Neutral_City] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/n_city.png",32,40,NORMAL_SPEED,true);
-	tilesASprite[TT_Sea] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Sea_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Sea_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Sea_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Sea_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/see_br.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Reef] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/reef.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_ET] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_et.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_EB] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_eb.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_EL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_el.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_ER] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_er.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_br.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_RTL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_rtl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_RTR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_rtr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_RBL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_rbl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_RBR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_rbr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_H] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_h.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_V] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_v.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_L] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_l.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_B] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_b.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_R] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_r.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_T] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_t.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_TL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_tl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_TR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_tr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_BL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_bl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_BR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_br.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_LT] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_lt.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_RT] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_rt.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_LB] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_lb.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_T_RB] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_t_rb.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_X] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_x.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XT] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xt.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XB] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xb.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XTL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xtl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XTR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xtr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XBL] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xbl.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XBR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xbr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XTLBR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xtlbr.png",32,32,NORMAL_SPEED,true);
-	tilesASprite[TT_Coast_XBLTR] = new AnimatedSprite(sm,GFX_TILES_PATH + theme + "/coast_xbltr.png",32,32,NORMAL_SPEED,true);
-
+	loadTileSet(sm,theme);
 	// Units
 
-	unitsASprite[UT_R_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_infantry.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_bazooka.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_recon.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_tank.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_tankm.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_neo.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_apc.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_artillery.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_rockets.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_aair.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_missiles.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_lander.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_sub.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_bship.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_cruiser.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_tcopter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_copter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_fighter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/r_bomber.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_infantry.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_bazooka.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_recon.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_tank.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_tankm.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_neo.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_apc.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_artillery.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_rockets.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_aair.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_missiles.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_lander.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_sub.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_bship.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_cruiser.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_tcopter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_copter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_fighter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_R_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_bomber.png"),32,32,NORMAL_SPEED,true);
 
-	unitsASprite[UT_B_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_infantry.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_bazooka.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_recon.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_tank.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_tankm.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_neo.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_apc.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_artillery.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_rockets.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_aair.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_missiles.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_lander.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_sub.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_bship.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_cruiser.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_tcopter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_copter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_fighter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/b_bomber.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_infantry.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_bazooka.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_recon.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_tank.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_tankm.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_neo.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_apc.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_artillery.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_rockets.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_aair.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_missiles.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_lander.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_sub.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_bship.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_cruiser.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_tcopter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_copter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_fighter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_B_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_bomber.png"),32,32,NORMAL_SPEED,true);
 
-	unitsASprite[UT_G_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_infantry.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_bazooka.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_recon.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_tank.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_tankm.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_neo.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_apc.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_artillery.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_rockets.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_aair.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_missiles.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_lander.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_sub.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_bship.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_cruiser.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_tcopter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_copter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_fighter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/g_bomber.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_infantry.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_bazooka.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_recon.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_tank.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_tankm.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_neo.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_apc.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_artillery.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_rockets.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_aair.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_missiles.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_lander.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_sub.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_bship.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_cruiser.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_tcopter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_copter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_fighter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_G_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_bomber.png"),32,32,NORMAL_SPEED,true);
 
-	unitsASprite[UT_Y_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_infantry.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_bazooka.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_recon.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_tank.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_tankm.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_neo.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_apc.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_artillery.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_rockets.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_aair.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_missiles.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_lander.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_sub.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_bship.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_cruiser.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_tcopter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_copter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_fighter.png",32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH "/y_bomber.png",32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_infantry.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_bazooka.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_recon.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_tank.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_tankm.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_neo.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_apc.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_artillery.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_rockets.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_aair.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_missiles.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_lander.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_sub.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_bship.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_cruiser.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_tcopter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_copter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_fighter.png"),32,32,NORMAL_SPEED,true);
+	unitsASprite[UT_Y_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_bomber.png"),32,32,NORMAL_SPEED,true);
 }
 
 bool Map :: parser(SpriteManager& sm, const std::string& fileName)
@@ -355,7 +280,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 
 				if ( this->width != 0 || this->height != 0 )	// If it looks correct (we can add a maximum size... to be safer)
 				{
-					map = new Tile*[this->height];
+					map = new TileType*[this->height];
 					if ( map == NULL )
 					{
 						LError << "Error to allocate memory for the map! (at height)";
@@ -365,7 +290,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 					{
 						for ( unsigned int y = 0 ; y < this->height ; y++ )
 						{
-							map[y] = new Tile[this->width];
+							map[y] = new TileType[this->width];
 							if ( map[y] == NULL )
 							{
 								LError << "Error to allocate memory for the map! (at width (" << y << "))";
@@ -413,7 +338,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 					{
 						if ( tileType < TT_END_LIST )
 						{
-							map[lineCounter-2][x] = Tile(static_cast<TileType>(tileType));
+							map[lineCounter-2][x] = static_cast<TileType>(tileType);
 						}
 						else
 						{
@@ -489,23 +414,23 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesASprite[map[y][x].tileType]->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 
 			// Draw the background sprite ( Plain )
-			if ( map[y][x].needBackground )
+			if ( tilesSet[map[y][x]].needBackground )
 			{
-				r.drawTile(*tilesASprite[TT_Plain],tilePos);
+				r.drawTile(*tilesSet[TT_Plain].pASprite,tilePos);
 			}
 
 			// Apply offset
 			tilePos.y -= yOffset;
 
-			r.drawTile(*tilesASprite[map[y][x].tileType],tilePos,time);
+			r.drawTile(*tilesSet[map[y][x]].pASprite,tilePos,time);
 			if ( unitMap[y][x]->getType() != UT_NO_UNIT )	// If we have a unit
 			{
 				r.drawTile(*unitsASprite[unitMap[y][x]->getType()],tilePos,time);
 			}
-			tilePos.x += tilesASprite[map[y][x].tileType]->getWidth();
+			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
 
 			// Remove offset ( to not affect other sprite )
 			tilePos.y += yOffset;
@@ -518,15 +443,51 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 	return true;
 }
 
+TileType Map :: getTileType(const UVec2& position)const
+{
+#ifdef VERBOSE
+	LDebug << "Map :: getTileType " << position;
+#endif
+
+	if ( position.x < this->width && position.y < this->height )
+	{
+		// The [] operator is not const...
+		return map[position.y][position.x];
+	}
+	else
+	{
+		return TT_Invalid;
+	}
+}
+
 Tile Map :: getTile(const UVec2& position)const
 {
 #ifdef VERBOSE
 	LDebug << "Map :: getTile " << position;
 #endif
 
-	if ( position.x < this->width && position.y < this->height )
+ 	if ( position.x < this->width && position.y < this->height )
 	{
-		return map[position.y][position.x];
+		// The [] operator is not const...
+		return tilesSet.find(map[position.y][position.x])->second;;
+	}
+	else
+	{
+		return Tile();
+	}
+}
+
+Tile Map :: getTile(const TileType& tt)const
+{
+#ifdef VERBOSE
+	LDebug << "Map :: getTile " << position;
+#endif
+	std::map<TileType, Tile>::const_iterator it = tilesSet.find(tt);
+
+ 	if ( it != tilesSet.end() )
+	{
+		// The [] operator is not const...
+		return it->second;;
 	}
 	else
 	{
@@ -552,12 +513,12 @@ Unit* Map :: getUnit(const UVec2& position)const
 
 AnimatedSprite* Map :: getAssociatedSprite(const TileType type)
 {
-	if ( tilesASprite.find(type) == tilesASprite.end() )
+	if ( tilesSet.find(type) == tilesSet.end() )
 	{
 		return NULL;
 	}
 
-	return tilesASprite[type];
+	return tilesSet[type].pASprite;
 }
 
 AnimatedSprite* Map :: getAssociatedSprite(const UnitType type)

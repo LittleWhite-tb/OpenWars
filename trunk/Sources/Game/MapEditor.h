@@ -93,11 +93,11 @@ private:
     */
 	bool setRoad(const UVec2& position);
 
-	//! Set a see at position and call the cohenrency check
+	//! Set a sea at position and call the cohenrency check
 	/*!
 	  \param position the position of the tile to change for a see one
     */
-	bool setSee(const UVec2& position);
+	bool setSea(const UVec2& position);
 
 	//! Set a reef at position
 	/*!

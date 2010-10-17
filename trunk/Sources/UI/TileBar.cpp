@@ -83,8 +83,8 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& lis
 	// Search the maximum positionX to know the size of the vector
 	for ( std::vector<View*>::const_iterator itTile = listTiles.begin() ; itTile != listTiles.end() ; ++itTile )
 	{
-		if ( maximumX < (*itTile)->positionX )
-			maximumX = (*itTile)->positionX;
+		if ( static_cast<int>(maximumX) < (*itTile)->positionX )
+			maximumX = static_cast<unsigned int>((*itTile)->positionX);
 	}
 	assert(maximumX+1<=listTiles.size());
 	// Resize the vectore to contain the good number of elements
@@ -278,13 +278,13 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 			if ( state == TBS_Opened )
 			{
 				// The currently selected sprite will be centered in the cursor
-				if ( i == currentX )
+				if ( static_cast<int>(i) == currentX )
 				{
 					tilePosition.x = windowSize.x / 2 - viewList[i%viewList.size()][0]->getSprite()->getWidth() / 2;
 				}
 
 				// The following sprite after the selected one have to be offseted to continue the TileBar correctly
-				if ( tilePosition.x > selectedTileXPosition )
+				if ( tilePosition.x > static_cast<int>(selectedTileXPosition) )
 				{
 					tilePosition.x += xOffset;
 				}
@@ -335,7 +335,7 @@ void TileBar :: update(const unsigned int time)
 			}
 			break;
 		case TBS_MoveRight:
-			if ( counterMovementAnim > stepX )
+			if ( counterMovementAnim > static_cast<int>(stepX) )
 			{
 				for ( std::vector<std::vector<View*> >::iterator itVectorASprites = viewList.begin() ; itVectorASprites != viewList.end() ; ++itVectorASprites )
 				{
@@ -375,7 +375,7 @@ void TileBar :: update(const unsigned int time)
 			}
 			break;
 		case TBS_MoveLeft:
-			if ( counterMovementAnim > stepX )
+			if ( counterMovementAnim > static_cast<int>(stepX) )
 			{
 				for ( std::vector<std::vector<View*> >::iterator itVectorASprites = viewList.begin() ; itVectorASprites != viewList.end() ; ++itVectorASprites )
 				{
@@ -405,7 +405,7 @@ void TileBar :: update(const unsigned int time)
 				{
 					for ( std::vector<View*>::iterator itASprites = itVectorASprites->begin() ; itASprites != itVectorASprites->end() ; ++itASprites )
 					{
-						if ( (*itASprites)->positionX > limit )
+						if ( (*itASprites)->positionX > static_cast<int>(limit) )
 						{
 							(*itASprites)->positionX -= limit;
 						}

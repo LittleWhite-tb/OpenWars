@@ -78,14 +78,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#a8a3247c46e7f8d7fd7ba09e7a6dbc79a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SDL_Rect&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#a2fb15b4a8b43954296531431c3399232">getSrcRect</a> (const unsigned int time)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the source rectangle for the internal surface, to draw.  <a href="#a2fb15b4a8b43954296531431c3399232"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#a38de2c32d689e1ffffbce51cde29a15d">getWidth</a> (void) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the width.  <a href="#a38de2c32d689e1ffffbce51cde29a15d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#aecfc23f1bb2b441c9e8b3b193a0bc643">getHeight</a> (void) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the height.  <a href="#aecfc23f1bb2b441c9e8b3b193a0bc643"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#af317124ca92bc8e6b495f9c599b220f0">getInterval</a> (void) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the interval between two frames.  <a href="#af317124ca92bc8e6b495f9c599b220f0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#a9ca1d43aa73b7c01fa441b7b2747a95c">setInterval</a> (const unsigned int newInterval)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the interval between two frames.  <a href="#a9ca1d43aa73b7c01fa441b7b2747a95c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#a1e62b858d951ee8c7ce211c98de51645">getWidth</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the width.  <a href="#a1e62b858d951ee8c7ce211c98de51645"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#ae243e43a719dc79d2d2467f2b2ef67ce">getHeight</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the height.  <a href="#ae243e43a719dc79d2d2467f2b2ef67ce"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#aba3f1b8d3eadac4cbe325a00a554fadc">getInterval</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the interval between two frames.  <a href="#aba3f1b8d3eadac4cbe325a00a554fadc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_animated_sprite.html#ab959b6f48de0cc8640d593e2655ca752">setInterval</a> (const unsigned int newInterval)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the interval between two frames.  <a href="#ab959b6f48de0cc8640d593e2655ca752"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p><a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> management class. </p>
@@ -149,7 +149,7 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Basic constructor. </p>
-<p>Load the sprite set, using the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> To check the loading failure, you have to use <a class="el" href="class_sprite.html#a367d03ad1f45e71383dc424ac329fdc0" title="Get the surface.">getSurface()</a> to check if the pointer returns is NULL </p>
+<p>Load the sprite set, using the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> To check the loading failure, you have to use <a class="el" href="class_sprite.html#a3c3e8400a0a6d3f0433a16899a3cb150" title="Get the surface.">getSurface()</a> to check if the pointer returns is NULL </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the sprite manager to use to load the image </td></tr>
@@ -186,12 +186,12 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aecfc23f1bb2b441c9e8b3b193a0bc643"></a><!-- doxytag: member="AnimatedSprite::getHeight" ref="aecfc23f1bb2b441c9e8b3b193a0bc643" args="(void) const " -->
+<a class="anchor" id="ae243e43a719dc79d2d2467f2b2ef67ce"></a><!-- doxytag: member="AnimatedSprite::getHeight" ref="ae243e43a719dc79d2d2467f2b2ef67ce" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int AnimatedSprite::getHeight </td>
+          <td class="memname">int AnimatedSprite::getHeight </td>
           <td>(</td>
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
@@ -205,16 +205,16 @@ Public Member Functions</h2></td></tr>
 <p>Get the height. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>returns the height of the sprite </dd></dl>
 
-<p>Reimplemented from <a class="el" href="class_sprite.html#a521bc88aff6e4d1c78441465a52b5d65">Sprite</a>.</p>
+<p>Reimplemented from <a class="el" href="class_sprite.html#adb3f159a3473701e600167cf3900bc5f">Sprite</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af317124ca92bc8e6b495f9c599b220f0"></a><!-- doxytag: member="AnimatedSprite::getInterval" ref="af317124ca92bc8e6b495f9c599b220f0" args="(void) const " -->
+<a class="anchor" id="aba3f1b8d3eadac4cbe325a00a554fadc"></a><!-- doxytag: member="AnimatedSprite::getInterval" ref="aba3f1b8d3eadac4cbe325a00a554fadc" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned int AnimatedSprite::getInterval </td>
+          <td class="memname">unsigned int AnimatedSprite::getInterval </td>
           <td>(</td>
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
@@ -257,12 +257,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a38de2c32d689e1ffffbce51cde29a15d"></a><!-- doxytag: member="AnimatedSprite::getWidth" ref="a38de2c32d689e1ffffbce51cde29a15d" args="(void) const " -->
+<a class="anchor" id="a1e62b858d951ee8c7ce211c98de51645"></a><!-- doxytag: member="AnimatedSprite::getWidth" ref="a1e62b858d951ee8c7ce211c98de51645" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int AnimatedSprite::getWidth </td>
+          <td class="memname">int AnimatedSprite::getWidth </td>
           <td>(</td>
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
@@ -276,16 +276,16 @@ Public Member Functions</h2></td></tr>
 <p>Get the width. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>returns the width of the sprite </dd></dl>
 
-<p>Reimplemented from <a class="el" href="class_sprite.html#a746288e2fbb3b6fc8b1d51bdbec7c678">Sprite</a>.</p>
+<p>Reimplemented from <a class="el" href="class_sprite.html#a712a5c14380437e850e7b055ec6e13c8">Sprite</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9ca1d43aa73b7c01fa441b7b2747a95c"></a><!-- doxytag: member="AnimatedSprite::setInterval" ref="a9ca1d43aa73b7c01fa441b7b2747a95c" args="(const unsigned int newInterval)" -->
+<a class="anchor" id="ab959b6f48de0cc8640d593e2655ca752"></a><!-- doxytag: member="AnimatedSprite::setInterval" ref="ab959b6f48de0cc8640d593e2655ca752" args="(const unsigned int newInterval)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const void AnimatedSprite::setInterval </td>
+          <td class="memname">void AnimatedSprite::setInterval </td>
           <td>(</td>
           <td class="paramtype">const unsigned int&nbsp;</td>
           <td class="paramname"> <em>newInterval</em></td>
@@ -325,7 +325,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 10 2010 14:36:54 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 17 2010 17:40:29 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

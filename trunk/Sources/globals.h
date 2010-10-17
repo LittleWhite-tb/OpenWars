@@ -26,6 +26,7 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 // Folders path
+#define TILESET_PATH	"./data/tilesets/"		/*!< Path to the default tile set folder */
 #define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */
 #define GFX_TILES_PATH	"./data/gfx/tiles/"		/*!< Path to the default tiles graphics files folder */
 #define GFX_UNITS_PATH	"./data/gfx/units/"		/*!< Path to the default units graphics files folder */

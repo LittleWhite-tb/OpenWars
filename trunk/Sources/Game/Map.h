@@ -42,18 +42,34 @@ class Map
 {
 protected:
 
-	std::map<TileType, AnimatedSprite*> tilesASprite;		/*!< The collection to associate type of the tile to a sprite */
+	std::map<TileType, Tile>tilesSet;						/*!< Set of tile to use with this map */
 	std::map<UnitType, AnimatedSprite*> unitsASprite;		/*!< The collection to associate type of the unit to a sprite */
 
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
-	Tile** map;					/*!< 2D Array representating the map */
-	Unit*** unitMap;			/*!< 2D Array representating the unit on the map */
+	TileType** map;					/*!< 2D Array representating the map */
+	Unit*** unitMap;				/*!< 2D Array representating the unit on the map */
 
 	bool valid;					/*!< if the map is loaded properly */
 
 	Map(void) {};
+
+	//! Load the tiles that the map will use
+	/*!
+		Will use a tile set file to know the settings of each tiles
+		\param sm the SpriteManager to load the sprites.
+		\param theme the theme to use to know which sprites to load
+	*/
+	void loadTileSet(SpriteManager& sm, const std::string& theme);
+
+	//! Load the units that the map will use
+	/*!
+		Will use a unit set file to know the settings of each units
+		\param sm the SpriteManager to load the sprites.
+		\param theme the theme to use to know which sprites to load
+	*/
+	void loadUnitSet(SpriteManager& sm, const std::string& theme);
 
 	//! Load the tiles that the map will use
 	/*!
@@ -115,6 +131,14 @@ public:
 	*/
 	unsigned int getHeight(void)const { return height; }
 
+	//! Return the type corresponding to the position
+	/*!
+		The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
+		\param position the position of the Tile to get
+		\return the TileType corresponding to the input position ... TT_Invalid if the position is not valid
+	*/
+	TileType getTileType(const UVec2& position)const;
+
 	//! Return the tile corresponding to the position
 	/*!
 		The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
@@ -122,6 +146,13 @@ public:
 		\return the Tile corresponding to the input position
 	*/
 	Tile getTile(const UVec2& position)const;
+
+	//! Return the tile corresponding to the TileType
+	/*!
+		\param tt the TileType
+		\return the Tile corresponding to the input TileType
+	*/
+	Tile getTile(const TileType& tt)const;
 
 	//! Return the Unit corresponding to the position
 	/*!

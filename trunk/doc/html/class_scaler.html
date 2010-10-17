@@ -71,11 +71,31 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the scaling factor on the X axis.  <a href="#a51a35e82ad7521a004408772c366d954"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scaler.html#ad1c57398f9410ab513b8e49f28e82d41">getYScaleFactor</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the scaling factor on the Y axis.  <a href="#ad1c57398f9410ab513b8e49f28e82d41"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_vec2.html">UVec2</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scaler.html#a0ba13f8cf40b97de8428fa0800bab0ed">getOffset</a> (void)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Scaling operation utilities. </p>
 <p>Give functions to handle the sprites scaling operations The scale factor is determined by using the size of the window and some globals (see <a class="el" href="globals_8h_source.html">globals.h</a>) The scale functions is inspired by the SDL_gfx library <a class="el" href="class_scaler.html#af5e8c1a4f1d4d85c8c3a7f6c196de713" title="Set the scaling factors.">setScaleFactor()</a> neeeds to be call after the <a class="el" href="class_window.html" title="Window management class.">Window</a> creation, but before the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> usage (so before creating a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a> or <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>) </p>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a0ba13f8cf40b97de8428fa0800bab0ed"></a><!-- doxytag: member="Scaler::getOffset" ref="a0ba13f8cf40b97de8428fa0800bab0ed" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_vec2.html">UVec2</a> Scaler::getOffset </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>the offset to apply to center the map </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a51a35e82ad7521a004408772c366d954"></a><!-- doxytag: member="Scaler::getXScaleFactor" ref="a51a35e82ad7521a004408772c366d954" args="(void)" -->
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +212,7 @@ Static Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 10 2010 14:36:54 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 17 2010 17:40:29 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

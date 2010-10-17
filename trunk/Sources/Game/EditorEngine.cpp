@@ -196,7 +196,7 @@ bool EditorEngine :: load(void)
 	pTileViewer = new TileViewer(*pSM,*pFM,*pWin,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
 					
 	pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
-								  parseName(pBuildingTB->getSelected()));
+		pMap->getTile(pBuildingTB->getSelected()).name);
 
 	return true;
 }
@@ -298,7 +298,7 @@ bool EditorEngine :: run(void)
 				isUnit = false;
 				pTileViewer->setTitle("Element");
 				pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
-										  parseName(pBuildingTB->getSelected()));
+										  pMap->getTile(pBuildingTB->getSelected()).name);
 			}
 			
 			if ( pKB->isKey(SDLK_SPACE) && pUnitTB->isOpened()  )
