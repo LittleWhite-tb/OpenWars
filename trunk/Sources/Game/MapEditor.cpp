@@ -68,7 +68,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 	}
 
 	// Unit map allocation
-	unitMap = new Unit**[this->height];
+	unitMap = new UnitType*[this->height];
 	if ( unitMap == NULL )
 	{
 		LError << "Error to allocate memory for the unitMap! (at height)";
@@ -78,7 +78,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 	{
 		for ( unsigned int y = 0 ; y < this->height ; y++ )
 		{
-			unitMap[y] = new Unit*[this->width];
+			unitMap[y] = new UnitType[this->width];
 			if ( unitMap[y] == NULL )
 			{
 				LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
@@ -92,7 +92,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 		for ( unsigned int x = 0 ; x < this->width ; x++ )
 		{
 			map[y][x] = TT_Plain;
-			unitMap[y][x] = new Unit();		// Default is not unit
+			unitMap[y][x] = UT_NO_UNIT;		// Default is not unit
 		}
 	}
 
@@ -113,7 +113,7 @@ void MapEditor :: checkCoherencyAround(const UVec2& position)
 	checkCoherency(UVec2(position.x+1,position.y-1)); // Up Right
 
 	// Check if the unit that was here can stay or not
-	if ( this->testTile(position,this->getUnit(position)->getType()) == false )
+	if ( this->testTile(position,this->getUnitType(position)) == false )
 	{
 		// If not, removing it
 		this->setTile(position,UT_NO_UNIT);
@@ -1228,8 +1228,7 @@ bool MapEditor :: setTile(const UVec2& position, const UnitType unitType)
 		return false;
 	}
 
-	delete unitMap[position.y][position.x];
-	unitMap[position.y][position.x] = UnitFactory(unitType);
+	unitMap[position.y][position.x] = unitType;
 
 	return true;
 }
@@ -1563,7 +1562,7 @@ bool MapEditor :: save(const std::string& fileName)
 			{
 				file << " ";
 			}
-			file << unitMap[y][x]->getType();
+			file << unitMap[y][x];
 		}
 
 		file << std::endl;

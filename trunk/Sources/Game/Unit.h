@@ -27,13 +27,15 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+class AnimatedSprite;
+
 enum UnitType
 {
-	UT_NO_UNIT = 0,
+	UT_NO_UNIT = -1,
 
 	// Red
 	// Ground units
-	UT_R_INFANTRY,
+	UT_R_INFANTRY=0,
 	UT_R_BAZOOKA,
 	UT_R_RECON,
 	UT_R_TANK,
@@ -138,11 +140,10 @@ enum UnitType
 	UT_END_LIST					// Stopper
 };
 
-class Unit
+struct Unit
 {
-private:
-
-	UnitType type;					/*!< The actual unit type */
+	AnimatedSprite* pASprite;		/*!< Sprite of the unit */
+	std::string name;				/*!< Name to display for the unit */
 
 	unsigned int category;			/*!< The category of the unit */
 	unsigned targetCategory;		/*!< The attackable category */
@@ -154,7 +155,6 @@ private:
 
 	unsigned int life;				/*!< The life */
 
-public:
 	static const unsigned int UC_NONE = 0;		/*!< No unit attackable */
 	static const unsigned int UC_LAND = 1;		/*!< Land units are attackable */
 	static const unsigned int UC_NAVY = 2;		/*!< Navy units are attackable */
@@ -165,49 +165,58 @@ public:
 	/*!
 		Set UT_NO_UNIT
 	*/
-	Unit(void):type(UT_NO_UNIT),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0) {}
+	Unit(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0) {}
 	
 	//! Basic destructor
 	/*!
-		By default the unit has ten as life and 99 as fuel
-	  \param type the type of the unit
+	  \param pASprite the sprite to use to draw this unit
+	  \param name the name to display
 	  \param category the category of the unit
 	  \param targetCategory the category of the unit attackable
 	  \param movement the movement possible
+	  \param fuel the actual fuel level
 	  \param fuelConsumption the fuel consumption per day
 	  \param ammo the remaining ammo	  
+	  \param life the maximum life for this unit
 	*/
-	Unit(const UnitType type, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuelConsumption, const unsigned int ammo)
-		:type(type),category(category),targetCategory(targetCategory),movement(movement),fuel(99),fuelConsumption(fuelConsumption),ammo(ammo),life(10) {}
+	Unit(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life)
+		:pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life) {}
 
-	//! Basic destructor
+	//! Basic copy constructor
 	/*!
+	  \param u the Unit to copy
 	*/
-	virtual ~Unit(void) {}
+	Unit (const Unit& u)
+		:pASprite(u.pASprite),
+		name(u.name),
+		category(u.category),
+		targetCategory(u.targetCategory),
+		movement(u.movement),
+		fuel(u.fuel),
+		fuelConsumption(u.fuelConsumption),
+		ammo(u.ammo),
+		life(u.life) {}
 
-	//! Get the type of the unit
+	//! operator =
 	/*!
-	 * Return the unit type
-	 * \return the type
+	  \param u the Unit to copy
 	*/
-	UnitType getType(void)const { return type; }
+	const Unit& operator=(const Unit& u)
+	{
+		this->pASprite = u.pASprite;
+		this->name = u.name;
+		this->category = u.category;
+		this->targetCategory = u.targetCategory;
+		this->movement = u.movement;
+		this->fuel = u.fuel;
+		this->fuelConsumption = u.fuelConsumption;
+		this->ammo = u.ammo;
+		this->life = u.life;
+
+		return *this;
+	}
+
 };
-
-//! Unit factory
-/*!
- * Return the Unit corresponding to the type
- * \param tileType the unit to create
- * \return the newly created Unit
-*/
-Unit* UnitFactory(const UnitType type);
-
-//! Get the name of the unit
-/*!
- *
- * \param unitType the type
- * \return the name of the unit to display
-*/
-const std::string parseName(const UnitType unitType);
 
 /*! \struct Unit Unit.h "Game/Unit.h"
  *  \brief Unit struct

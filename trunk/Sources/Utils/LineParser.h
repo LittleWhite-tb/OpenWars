@@ -55,7 +55,7 @@ public:
 	  Open the file and read the first line
 	  \param fileName the name of the file to open
 	*/
-	LineParser(std::string& fileName);
+	LineParser(const std::string& fileName);
 
 	//! Basic destructor
 	/*!

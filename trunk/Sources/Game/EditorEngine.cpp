@@ -307,7 +307,7 @@ bool EditorEngine :: run(void)
 				isUnit = true;
 				pTileViewer->setTitle("Unit");
 				pTileViewer->setTile(pMap->getAssociatedSprite(pUnitTB->getSelected()), 
-											parseName(pUnitTB->getSelected()));
+											pMap->getUnit(pUnitTB->getSelected()).name);
 			}
 
 			if ( pBuildingTB->isOpened() )

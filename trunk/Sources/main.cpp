@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 				Scaler::setScaleFactor(win);
 
 				SpriteManager sm;
-				Map m(sm,MAP_PATH + std::string("m4.txt"));
+				Map m(sm,MAP_PATH + std::string("maw.map"));
 				Cursor c(sm,"./data/gfx/cursor.png",&m,UVec2(2,2));
 				Camera cam;
 				Keyboard kb;

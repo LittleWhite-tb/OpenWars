@@ -43,13 +43,13 @@ class Map
 protected:
 
 	std::map<TileType, Tile>tilesSet;						/*!< Set of tile to use with this map */
-	std::map<UnitType, AnimatedSprite*> unitsASprite;		/*!< The collection to associate type of the unit to a sprite */
+	std::map<UnitType, Unit>unitsSet;						/*!< Set of tile to use with this map */
 
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
 	TileType** map;					/*!< 2D Array representating the map */
-	Unit*** unitMap;				/*!< 2D Array representating the unit on the map */
+	UnitType** unitMap;				/*!< 2D Array representating the unit on the map */
 
 	bool valid;					/*!< if the map is loaded properly */
 
@@ -154,13 +154,28 @@ public:
 	*/
 	Tile getTile(const TileType& tt)const;
 
+	//! Return the UnitType corresponding to the position
+	/*!
+		The function will check if the position is outside the map. If it is, NULL is returned
+		\param position the position of the UnitType to get
+		\return the Unit corresponding to the input position or UT_NO_UNIT
+	*/
+	UnitType getUnitType(const UVec2& position)const;
+
 	//! Return the Unit corresponding to the position
 	/*!
 		The function will check if the position is outside the map. If it is, NULL is returned
-		\param position the position of the Tile to get
+		\param position the position of the Unit to get
 		\return the Unit corresponding to the input position or NULL
 	*/
-	Unit* getUnit(const UVec2& position)const;
+	Unit getUnit(const UVec2& position)const;
+
+	//! Return the Unit corresponding to the UnitType
+	/*!
+		\param ut the UnitTYpe of the Unit to return the position of the Unit to get
+		\return the Unit corresponding to the input UnitType
+	*/
+	Unit getUnit(const UnitType ut)const;
 
 	//! Return the sprite corresponding to the type
 	/*!

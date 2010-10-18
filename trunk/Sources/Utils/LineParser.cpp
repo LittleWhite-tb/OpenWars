@@ -37,7 +37,7 @@ and is under GPL copyright: Copyright (C) 2010 BEYLER Jean Christophe
 
 #include "Logger.h"
 
-LineParser :: LineParser(std::string& fileName)
+LineParser :: LineParser(const std::string& fileName)
 :file(fileName.c_str(),std::ios::in),line(),lineNumber(0)
 {
 	if (!file)

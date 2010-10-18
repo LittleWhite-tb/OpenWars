@@ -56,21 +56,23 @@ Map :: Map(SpriteManager& sm, const std::string& fileName)
 
 Map :: ~Map(void)
 {
-	// Delete the Tiles used my the map
+	// Delete the Tile sprites used by the map
 	for ( std::map<TileType, Tile>::iterator itTile = tilesSet.begin() ; itTile != tilesSet.end() ; ++itTile)
 	{
 		delete itTile->second.pASprite;
 	}
 	tilesSet.clear();
 
+	// Delete the Unit sprite used by the map
+	for ( std::map<UnitType, Unit>::iterator itUnit = unitsSet.begin() ; itUnit != unitsSet.end() ; ++itUnit)
+	{
+		delete itUnit->second.pASprite;
+	}
+	unitsSet.clear();
+
 	// Delete the unit map
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
 	{
-		for ( unsigned int x = 0 ; x < this->width ; x++ )
-		{
-			delete unitMap[y][x];
-		}
-
 		delete[] unitMap[y];
 	}
 
@@ -149,7 +151,54 @@ void Map :: loadTileSet(SpriteManager& sm, const std::string& theme)
 
 void Map :: loadUnitSet(SpriteManager& sm, const std::string& theme)
 {
+	LDebug << "Map :: loadUnitSet ( " << theme.c_str() << ")";
 
+	// Need reading of the file
+	std::string unitSetPath = UNITSET_PATH + theme + std::string(".oawus");
+
+	LineParser lp(unitSetPath);
+
+	for ( unsigned int i = UT_R_INFANTRY ; i < UT_END_LIST ; i++ )
+	{
+		unsigned int idTile = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		if ( i != idTile )
+		{
+			LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
+		}
+		std::string name = lp.getLine();
+		lp.readNextLine();
+		std::string spriteName = lp.getLine();
+		lp.readNextLine();
+		IVec2 spriteSize = lp.getIVec2();
+		lp.readNextLine();
+		int spriteDuration = lp.getInt();
+		lp.readNextLine();
+		unsigned int category = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		unsigned int targetCategory = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		unsigned int movement = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		unsigned int fuel = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		unsigned int fuelConsumption = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		unsigned int ammo = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+		unsigned int maxLife = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
+
+		unitsSet[static_cast<UnitType>(idTile)] = Unit(new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+			name,
+			category,
+			targetCategory,
+			movement,
+			fuel,
+			fuelConsumption,
+			ammo,
+			maxLife);
+	}
 }
 
 void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
@@ -157,242 +206,145 @@ void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
 	LDebug << "Map :: loadGraphics ( " << theme.c_str() << ")";
 
 	loadTileSet(sm,theme);
-	// Units
-
-	unitsASprite[UT_R_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_infantry.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_bazooka.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_recon.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_tank.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_tankm.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_neo.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_apc.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_artillery.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_rockets.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_aair.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_missiles.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_lander.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_sub.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_bship.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_cruiser.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_tcopter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_copter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_fighter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_R_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/r_bomber.png"),32,32,NORMAL_SPEED,true);
-
-	unitsASprite[UT_B_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_infantry.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_bazooka.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_recon.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_tank.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_tankm.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_neo.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_apc.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_artillery.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_rockets.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_aair.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_missiles.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_lander.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_sub.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_bship.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_cruiser.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_tcopter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_copter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_fighter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_B_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/b_bomber.png"),32,32,NORMAL_SPEED,true);
-
-	unitsASprite[UT_G_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_infantry.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_bazooka.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_recon.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_tank.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_tankm.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_neo.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_apc.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_artillery.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_rockets.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_aair.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_missiles.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_lander.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_sub.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_bship.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_cruiser.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_tcopter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_copter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_fighter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_G_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/g_bomber.png"),32,32,NORMAL_SPEED,true);
-
-	unitsASprite[UT_Y_INFANTRY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_infantry.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_BAZOOKA] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_bazooka.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_RECON] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_recon.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_TANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_tank.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_TANKM] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_tankm.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_NEOTANK] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_neo.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_APC] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_apc.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_ARTILLERY] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_artillery.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_ROCKETS] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_rockets.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_ANTIAIR] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_aair.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_MISSILES] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_missiles.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_LANDER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_lander.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_SUB] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_sub.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_BOMBERSHIP] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_bship.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_CRUISER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_cruiser.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_TCOPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_tcopter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_COPTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_copter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_FIGHTER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_fighter.png"),32,32,NORMAL_SPEED,true);
-	unitsASprite[UT_Y_BOMBER] = new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/y_bomber.png"),32,32,NORMAL_SPEED,true);
+	loadUnitSet(sm,theme);
 }
 
 bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 {
-	std::ifstream file;
-	std::string line;
 	std::string theme = "";
-	unsigned int lineCounter = 0;
 	unsigned int mapLineCounter = 0;
 	unsigned int unitMapLineCounter = 0;
 	bool error = false;
 
+	LineParser lp(fileName);
+
 	LDebug << "Map :: parser '" << fileName.c_str() << "'";
 
-	file.open(fileName.c_str(),std::ios::in);
-    if ( file.is_open() == false )
-    {
-		LWarning << "Failed to open: '" << fileName.c_str() << "'";
-		return false;
-	}
+	do
+	{
+		if ( lp.getLineNumber() == 1 )
+		{
+			theme = lp.getLine();
 
-	while ( !file.eof() && !error )
-    {
-        std::getline(file,line);
-		if ( line[0] != '#' && line.size() != 0 ) // If the line is not empty, or is not a comment
-        {
-            std::stringstream ss(line);
-
-			if ( lineCounter == 0 )
-			{
-				ss >> theme;
-
-				LDebug << "Theme: " << theme.c_str();
+			LDebug << "Theme: " << theme.c_str();
 
 				loadGraphics(sm,theme); // TODO : Error checking has to be added ... more ... this line has to move in the constructor
-			}
-			else if ( lineCounter == 1 )
+		}
+		else if ( lp.getLineNumber() == 2 )
+		{
+			IVec2 size = lp.getIVec2();
+
+			this->width = size.x;
+			this->height = size.y;
+
+			if ( this->width != 0 || this->height != 0 )	// If it looks correct (we can add a maximum size... to be safer)
 			{
-				ss >> this->width >> this->height;
-
-				if ( this->width != 0 || this->height != 0 )	// If it looks correct (we can add a maximum size... to be safer)
+				map = new TileType*[this->height];
+				if ( map == NULL )
 				{
-					map = new TileType*[this->height];
-					if ( map == NULL )
-					{
-						LError << "Error to allocate memory for the map! (at height)";
-						error = true;
-					}
-					else
-					{
-						for ( unsigned int y = 0 ; y < this->height ; y++ )
-						{
-							map[y] = new TileType[this->width];
-							if ( map[y] == NULL )
-							{
-								LError << "Error to allocate memory for the map! (at width (" << y << "))";
-								error = true;
-							}
-						}
-					}
-
-					// Allocation of the unit map
-					unitMap = new Unit**[this->height];
-					if ( unitMap == NULL )
-					{
-						LError << "Error to allocate memory for the unitMap! (at height)";
-						error = true;
-					}
-					else
-					{
-						for ( unsigned int y = 0 ; y < this->height ; y++ )
-						{
-							unitMap[y] = new Unit*[this->width];
-							if ( unitMap[y] == NULL )
-							{
-								LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
-								error = true;
-							}
-						}
-					}
+					LError << "Error to allocate memory for the map! (at height)";
+					error = true;
 				}
 				else
 				{
-					LError << "Size of the map not valid (" << this->width << ";" << this->height << ")";
+					for ( unsigned int y = 0 ; y < this->height ; y++ )
+					{
+						map[y] = new TileType[this->width];
+						if ( map[y] == NULL )
+						{
+							LError << "Error to allocate memory for the map! (at width (" << y << "))";
+							error = true;
+						}
+					}
+				}
+
+				// Allocation of the unit map
+				unitMap = new UnitType*[this->height];
+				if ( unitMap == NULL )
+				{
+					LError << "Error to allocate memory for the unitMap! (at height)";
+					error = true;
+				}
+				else
+				{
+					for ( unsigned int y = 0 ; y < this->height ; y++ )
+					{
+						unitMap[y] = new UnitType[this->width];
+						if ( unitMap[y] == NULL )
+						{
+							LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
+							error = true;
+						}
+					}
+				}
+			}
+			else
+			{
+				LError << "Size of the map not valid (" << this->width << ";" << this->height << ")";
+				error = true;
+			}
+		}
+		else if ( lp.getLineNumber() >= 3 && lp.getLineNumber() < 3 + this->height ) // For all lines representating the map
+		{
+			std::stringstream ss(lp.getLine());
+			int tileType = -1;
+
+			mapLineCounter++;
+
+			// We are reading one line, by one
+			for ( unsigned int x = 0 ; x < this->width ; x++ )
+			{
+				ss >> tileType;
+				if ( tileType != -1 )
+				{
+					if ( tileType < TT_END_LIST )
+					{
+						map[lp.getLineNumber()-3][x] = static_cast<TileType>(tileType);
+					}
+					else
+					{
+						LWarning << "Data in the map invalid (" << tileType << ")";
+						error = true;
+					}	
+				}
+				else
+				{
+					LError << "Fail to read the tile type @ " << x << ";" << lp.getLineNumber()-3;
 					error = true;
 				}
 			}
-			else if ( lineCounter >= 2 && lineCounter < 2+this->height ) // For all lines representating the map
-			{
-				mapLineCounter++;
+		}
+		else if ( lp.getLineNumber() >= 3+this->height && lp.getLineNumber() < 3+this->height*2 )	// For the unit map
+		{
+			std::stringstream ss(lp.getLine());
+			int unitType = -1;
 
-				// We are reading one line, by one
-				for ( unsigned int x = 0 ; x < this->width ; x++ )
+			unitMapLineCounter++;
+
+			// We are reading one line, by one
+			for ( unsigned int x = 0 ; x < this->width ; x++ )
+			{
+				ss >> unitType;
+				if ( unitType != -1 )
 				{
-					int tileType = -1;
-					ss >> tileType;
-					if ( tileType != -1 )
+					if ( unitType < UT_END_LIST )
 					{
-						if ( tileType < TT_END_LIST )
-						{
-							map[lineCounter-2][x] = static_cast<TileType>(tileType);
-						}
-						else
-						{
-							LWarning << "Data in the map invalid (" << tileType << ")";
-							error = true;
-						}	
+						unitMap[lp.getLineNumber()-(3+this->height)][x] = static_cast<UnitType>(unitType);
 					}
 					else
 					{
-						LError << "Fail to read the tile type @ " << x << ";" << lineCounter-2;
+						LWarning << "Data in the map invalid (" << unitType << ")";
 						error = true;
-					}
+					}	
 				}
-			}
-			else if ( lineCounter >= 2+this->height && lineCounter < 2+this->height*2 )	// For the unit map
-			{
-				unitMapLineCounter++;
-
-				// We are reading one line, by one
-				for ( unsigned int x = 0 ; x < this->width ; x++ )
+				else
 				{
-					int unitType = -1;
-					ss >> unitType;
-					if ( unitType != -1 )
-					{
-						if ( unitType < UT_END_LIST )
-						{
-							unitMap[lineCounter-(2+this->height)][x] = UnitFactory(static_cast<UnitType>(unitType));
-						}
-						else
-						{
-							LWarning << "Data in the map invalid (" << unitType << ")";
-							error = true;
-						}	
-					}
-					else
-					{
-						LError << "Fail to read the tile type @ " << x << ";" << lineCounter-(2+this->height);
-						error = true;
-					}
+					LError << "Fail to read the tile type @ " << x << ";" << lp.getLineNumber()-(3+this->height);
+					error = true;
 				}
 			}
-            
-            lineCounter++;
-        }
-    }
-
-	if ( mapLineCounter != this->height )
-	{
-		LError << "The number of line declared in the size of the map doesn't correspond to the number of lines in the map data (" << mapLineCounter << ")";
-		error = true;
-	}
-
-	file.close();
+		}
+	}while(lp.readNextLine());
 
 	return !error;
 }
@@ -426,9 +378,9 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 			tilePos.y -= yOffset;
 
 			r.drawTile(*tilesSet[map[y][x]].pASprite,tilePos,time);
-			if ( unitMap[y][x]->getType() != UT_NO_UNIT )	// If we have a unit
+			if ( unitMap[y][x] != UT_NO_UNIT )	// If we have a unit
 			{
-				r.drawTile(*unitsASprite[unitMap[y][x]->getType()],tilePos,time);
+				r.drawTile(*unitsSet[unitMap[y][x]].pASprite,tilePos,time);
 			}
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
 
@@ -469,7 +421,7 @@ Tile Map :: getTile(const UVec2& position)const
  	if ( position.x < this->width && position.y < this->height )
 	{
 		// The [] operator is not const...
-		return tilesSet.find(map[position.y][position.x])->second;;
+		return tilesSet.find(map[position.y][position.x])->second;
 	}
 	else
 	{
@@ -480,7 +432,7 @@ Tile Map :: getTile(const UVec2& position)const
 Tile Map :: getTile(const TileType& tt)const
 {
 #ifdef VERBOSE
-	LDebug << "Map :: getTile " << position;
+	LDebug << "Map :: getTile " << tt;
 #endif
 	std::map<TileType, Tile>::const_iterator it = tilesSet.find(tt);
 
@@ -495,7 +447,7 @@ Tile Map :: getTile(const TileType& tt)const
 	}
 }
 
-Unit* Map :: getUnit(const UVec2& position)const
+UnitType Map :: getUnitType(const UVec2& position)const
 {
 #ifdef VERBOSE
 	LDebug << "Map :: getUnit " << position;
@@ -507,7 +459,41 @@ Unit* Map :: getUnit(const UVec2& position)const
 	}
 	else
 	{
-		return NULL;
+		return UT_NO_UNIT;
+	}
+}
+
+Unit Map :: getUnit(const UVec2& position)const
+{
+#ifdef VERBOSE
+	LDebug << "Map :: getUnit " << position;
+#endif
+
+	if ( position.x < this->width && position.y < this->height )
+	{
+		return unitsSet.find(unitMap[position.y][position.x])->second;
+	}
+	else
+	{
+		return Unit();
+	}
+}
+
+Unit Map :: getUnit(const UnitType ut)const
+{
+#ifdef VERBOSE
+	LDebug << "Map :: getUnit " << ut;
+#endif
+	std::map<UnitType, Unit>::const_iterator it = unitsSet.find(ut);
+
+ 	if ( it != unitsSet.end() )
+	{
+		// The [] operator is not const...
+		return it->second;;
+	}
+	else
+	{
+		return Unit();
 	}
 }
 
@@ -523,10 +509,10 @@ AnimatedSprite* Map :: getAssociatedSprite(const TileType type)
 
 AnimatedSprite* Map :: getAssociatedSprite(const UnitType type)
 {
-	if ( unitsASprite.find(type) == unitsASprite.end() )
+	if ( unitsSet.find(type) == unitsSet.end() )
 	{
 		return NULL;
 	}
 
-	return unitsASprite[type];
+	return unitsSet[type].pASprite;
 }

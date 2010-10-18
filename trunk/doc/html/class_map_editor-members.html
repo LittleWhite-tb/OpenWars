@@ -59,7 +59,9 @@ This is the complete list of members for <a class="el" href="class_map_editor.ht
   <tr class="memlist"><td><a class="el" href="class_map.html#ac5bfe1ed6dece3b0bc730152d8d1d3d6">getTile</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ab17281150188fb4cedb387e850b8bcbf">getTile</a>(const TileType &amp;tt) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a3f7a3365f2efa394913f1f62878a746d">getTileType</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a7022539946e1497ff23e32e09fc44367">getUnit</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a52925acacc329f7045f7acd25825173b">getUnit</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#aa791fe5d6b5a78a1d46c1dcab058dab5">getUnit</a>(const UnitType ut) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a09d8d0581c5c6f4d7b55412555ff31dc">getUnitType</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a0454b453ed0141eccb916435f242f35a">getWidth</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a39bb864cb5e1d1e609396a2f3559602e">height</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678">isValidMap</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
@@ -78,8 +80,8 @@ This is the complete list of members for <a class="el" href="class_map_editor.ht
   <tr class="memlist"><td><a class="el" href="class_map_editor.html#ae71d3a40f0edbf3e943eb43f554f614a">testTile</a>(const UVec2 &amp;position, const TileType tileType) const </td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map_editor.html#a33ae84ca85a0eaa58d2ff79352544fbb">testTile</a>(const UVec2 &amp;position, const UnitType unitType) const </td><td><a class="el" href="class_map_editor.html">MapEditor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#aa1e6bfe43ffa2f60e07b15f858ad9245">tilesSet</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#abba9b970d5407fd43ae3aa4409fd9298">unitMap</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a02850efca1aa458414931599456f2ebf">unitsASprite</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a5b30c0e547909f10f73e152576d66f4e">unitMap</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a269993ef1a3ee310d4d872cec5af3668">unitsSet</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a92a2f2e3f22fb607e259ee3148eefe85">valid</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#aa510a987349c68df39475a3a217bd733">width</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a55d7061de63bc1211c2f52592104d090">~Map</a>(void)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [virtual]</code></td></tr>
@@ -98,7 +100,7 @@ This is the complete list of members for <a class="el" href="class_map_editor.ht
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 17 2010 17:40:29 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 18 2010 20:07:21 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
