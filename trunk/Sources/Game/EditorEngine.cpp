@@ -250,7 +250,7 @@ bool EditorEngine :: run(void)
 {
 	bool isUnit = false;
 
-	while ( pKB->isEscapePressed() == 0 )
+	while ( pKB->isEscapePressed() == 0 && pWin->needClosure() == 0 )
 	{
 		// Drawing part
 		pRenderer->clearScreen();

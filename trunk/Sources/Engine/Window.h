@@ -67,6 +67,8 @@ private:
 	Uint32 getFlags(const bool isFullscreen, const bool isOpenGL)const;
 
 public:
+
+	static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
 	
 	//! Basic constructor
 	/*!
@@ -164,6 +166,12 @@ public:
 	  \param iconName the name of the file to load for the window (should be .ico file)
 	*/
 	void setCaption(const std::string& windowName, const std::string& iconName)const;
+
+	//! The function check if the user pressed the red cross of the window
+    /*!
+	  \result true if the user pressed on the button
+	*/
+	bool needClosure(void)const;
 };
 
 /*! \struct ResolutionInfo Window.h "Engine/Window.h"

@@ -30,6 +30,19 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
+bool Window::isRedCrossPressed = false;
+
+// Callback called once SDL_Quit event appear
+int sdlQuitEventFilter(const SDL_Event* pEvent)
+{
+	if ( pEvent->type == SDL_QUIT )
+	{
+		Window::isRedCrossPressed = true;
+	}
+
+	return 0;	
+}
+
 Window :: Window()
 	:pWindowSurface(NULL),isFullscreen(false),isOpenGL(false)
 {
@@ -108,6 +121,9 @@ bool Window :: openWindow(const unsigned int width, const unsigned int height, c
 		this->isOpenGL = isOpenGL;
 
 		LDebug << "Obtained: " << this->getWidth() << "x" << this->getHeight() << "x" << this->getBitsPerPixel() << " (Fullscreen: " << this->isFullscreen << ")";
+
+		// Installing the event 
+		SDL_SetEventFilter(&sdlQuitEventFilter);
 
 		return true;
 	}
@@ -235,4 +251,9 @@ void Window :: setCaption(const std::string& windowName, const std::string& icon
 	{
 		SDL_WM_SetCaption(windowName.c_str(), iconName.c_str());
 	}
+}
+
+bool Window :: needClosure(void)const
+{
+	return isRedCrossPressed;
 }
