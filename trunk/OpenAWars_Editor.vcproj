@@ -360,6 +360,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Game\Engine.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Engine.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Game\Map.cpp"
 					>
 				</File>

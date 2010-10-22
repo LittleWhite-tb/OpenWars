@@ -23,6 +23,7 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include <string>
+#include <sstream>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -30,13 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine/Window.h"
 #include "Engine/Renderer.h"
-#include "Engine/ResourcesManager/SpriteManager.h"
-#include "Engine/AnimatedSprite.h"
-#include "Engine/Sprite.h"
-
-#include "Game/Map.h"
-#include "Game/Camera.h"
-#include "Game/Cursor.h"
+#include "Game/GameEngine.h"
 
 #include "Types/Vec2.h"
 
@@ -62,6 +57,64 @@ int main(int argc, char** argv)
 {
 	(void)argc;
 	(void)argv;
+
+	unsigned int i = 1;
+
+	unsigned int winWidth=640;
+	unsigned int winHeight=480;
+	bool needFullscreen=false;
+	std::string loadMapName= MAP_PATH "maw.map";
+
+	// Check the arguments passed
+	while ( i < static_cast<unsigned int>(argc) )
+	{
+		if ( strcmp(argv[i],"--width") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				std::istringstream iss(argv[i+1]);
+				iss >> winWidth;
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --width!";
+				return -1;
+			}
+		}
+		else if ( strcmp(argv[i],"--height") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				std::istringstream iss(argv[i+1]);
+				iss >> winHeight;
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --height!";
+				return -1;
+			}
+		}
+		else if ( strcmp(argv[i],"--fullscreen") == 0 )
+		{
+			needFullscreen = true;
+			i++;
+		}
+		else if ( strcmp(argv[i],"--load") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				loadMapName = std::string(argv[i+1]);
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --mapName!";
+				return -1;
+			}
+		}
+	}
 
 	// Starting SDL
 	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
@@ -94,27 +147,16 @@ int main(int argc, char** argv)
 			{
 				Scaler::setScaleFactor(win);
 
-				SpriteManager sm;
-				Map m(sm,MAP_PATH + std::string("maw.map"));
-				Cursor c(sm,"./data/gfx/cursor.png",&m,UVec2(2,2));
-				Camera cam;
-				Keyboard kb;
-
-				if ( m.isValidMap() )
+				GameEngine gEngine;
+					
+				if ( gEngine.init(&win, RAPI_SDL) )
 				{
-					while ( kb.isEscapePressed() == 0 )
+					bool engineLoadingState = false;
+
+					engineLoadingState = gEngine.load(loadMapName);
+					if ( engineLoadingState )
 					{
-						r->clearScreen();
-
-						m.draw(*r,cam,0);
-						c.draw(*r,cam,0);
-						
-						SDL_UpdateRect(win.getWindowSurface(),0,0,0,0);
-
-						c.move(kb.getDirectionPressed());
-						cam.update(c,m);
-						kb.update();
-						SDL_Delay(15);
+						gEngine.run();
 					}
 				}
 			}

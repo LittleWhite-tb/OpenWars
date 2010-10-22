@@ -23,19 +23,13 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include <string>
+#include <sstream>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include <sstream>
-
 #include "Engine/Window.h"
-
-#include "Engine/ResourcesManager/SpriteManager.h"
-#include "Engine/ResourcesManager/FontManager.h"
-#include "Engine/AnimatedSprite.h"
-#include "Engine/Sprite.h"
 
 #include "Game/EditorEngine.h"
 
@@ -62,7 +56,6 @@ int main(int argc, char** argv)
 	(void)argv;
 
 	unsigned int i = 1;
-	Uint32 startTime = 0;
 
 	unsigned int winWidth=640;
 	unsigned int winHeight=480;

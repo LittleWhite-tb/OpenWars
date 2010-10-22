@@ -317,7 +317,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 		else if ( lp.getLineNumber() >= 3+this->height && lp.getLineNumber() < 3+this->height*2 )	// For the unit map
 		{
 			std::stringstream ss(lp.getLine());
-			int unitType = -1;
+			int unitType = -42;
 
 			unitMapLineCounter++;
 
@@ -325,7 +325,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 			for ( unsigned int x = 0 ; x < this->width ; x++ )
 			{
 				ss >> unitType;
-				if ( unitType != -1 )
+				if ( unitType != -42 )
 				{
 					if ( unitType < UT_END_LIST )
 					{

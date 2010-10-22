@@ -28,8 +28,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/Window.h"
 #include "../Engine/Renderer.h"
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/VTime.h"
 
 #include "../UI/TileBarUnits.h"
@@ -45,7 +43,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 
 EditorEngine :: EditorEngine(void)
-:pWin(NULL),pRenderer(NULL),pSM(NULL),pFM(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pVT(NULL),pKB(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
+:Engine(),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
 {
 	LDebug << "EditorEngine constructed";
 }
@@ -54,14 +52,9 @@ EditorEngine :: ~EditorEngine(void)
 {
 	delete pEC;
 	delete pMap;
-	delete pKB;
-	delete pVT;
 	delete pTileViewer;
 	delete pUnitTB;
 	delete pBuildingTB;
-	delete pFM;
-	delete pSM;
-	delete pRenderer;
 
 	LDebug << "EditorEngine destructed";
 }
@@ -201,28 +194,17 @@ bool EditorEngine :: load(void)
 	return true;
 }
 
-bool EditorEngine :: init(const Window* win, const RenderingAPI rAPI)
+bool EditorEngine :: init(const Window* pWin, const RenderingAPI rAPI)
 {
+	bool error = true;
+
+	error = Engine::init(pWin,rAPI);
+
 	LDebug << "EditorEngine init'd";
 
-	pWin = win;
-
-	pRenderer = RendererFactory(win,rAPI);
-
-	pSM = new SpriteManager();
-	pFM = new FontManager();
-
-	pVT = new VTime(60,15);
-	pKB = new Keyboard();
-
-	if ( pRenderer == NULL || pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
-	{
-		// THe memory will be cleaned by the destructor
-		return false;
-	}
-
-	return true;
+	return error;
 }
+
 
 bool EditorEngine :: load(const UVec2& mapSize)
 {

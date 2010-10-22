@@ -26,6 +26,8 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include "Engine.h"
+
 #include "../Engine/Renderer.h"
 
 #include "../Types/Vec2.h"
@@ -45,27 +47,17 @@ class MapEditor;
 class VTime;
 class Keyboard;
 
-class EditorEngine
+class EditorEngine : public Engine
 {
 private:
-
-	const Window* pWin;			/*!< The window to use for the editor (created outside the engine) */
-	Renderer* pRenderer;		/*!< The renderer for the editor */
-
-	SpriteManager* pSM;			/*!< The sprite manager for the editor */
-	FontManager* pFM;			/*!< The font manager for the editor */
-
 	TileBarTiles* pBuildingTB;	/*!< The tile bar for buildings */
 	TileBarUnits* pUnitTB;		/*!< The tile bar for units*/
 	TileViewer* pTileViewer;	/*!< The tile viewer */
 
-	VTime* pVT;					/*!< The virtual time for synchronisation */
-
-	Keyboard* pKB;				/*!< The keyboard for user access */
-
 	MapEditor* pMap;			/*!< The map to use */
-	EditingCursor* pEC;			/*!< The cursor */
+	EditingCursor* pEC;			/*!< The cursor */	
 	Camera* pCam;				/*!< The camera */
+
 
 	//! Load the map, cursor, camera with the associated sprites
 	/*!
@@ -86,20 +78,20 @@ public:
 	*/
 	~EditorEngine(void);
 
-	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
-	/*!
-		\param win The window to use with for the editor
-		\param rAPI The rendering API to use
-		\return true if all goes fine
-	*/
-	bool init(const Window* win, const RenderingAPI rAPI);
-
 	//! Load an empty map
 	/*!
 		\param mapSize The size of the empty map
 		\return true if all goes fine
 	*/
 	bool load(const UVec2& mapSize);
+
+	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
+	/*!
+		\param win The window to use with for the editor
+		\param rAPI The rendering API to use
+		\return true if all goes fine
+	*/
+	bool init(const Window* pWin, const RenderingAPI rAPI);
 
 	//! Load the map from a file
 	/*!
