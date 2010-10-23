@@ -90,6 +90,15 @@ public:
     */
 	virtual bool drawTile(const Sprite& sprite, const IVec2& pos)const=0;
 
+	//! Draw a complete Sprite
+	/*!
+	  \param sprite the sprite to draw
+	  \param pos where the sprite is drawn
+	  \param maskColour the colour to use for the mask on the sprite
+	  \return true if all goes right
+    */
+	virtual bool drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& maskColour)const=0;
+
 	//! Draw a part of a Sprite
 	/*!
 	  \param sprite the sprite to draw

@@ -48,14 +48,17 @@ ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const Window& w
 		pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(win.getWidth(),win.getHeight()),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
 {
 	SDL_Color white = {255,255,255};
+	SDL_Color grey = {64,64,64};
 
 	pFont = new Font(fm,fontFileName,24,white);
+	pFontGrey = new Font(fm,fontFileName,24,grey);
 
 	LDebug << "Construc Box created";
 }
 
 ConstructBox :: ~ConstructBox(void)
 {
+	delete pFontGrey;
 	delete pFont;
 
 	delete pUpArrow;
@@ -66,7 +69,7 @@ ConstructBox :: ~ConstructBox(void)
 	LDebug << "Construc Box delete";
 }
 
-bool ConstructBox :: draw(const Renderer& r)
+bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 {
 	bool errorFlag = true;
 
@@ -110,9 +113,20 @@ bool ConstructBox :: draw(const Renderer& r)
 		IVec2 unitPricePosition(pBackgroundUI->getWidth() - (pFont->getSize(priceString).x), unitPosition.y);
 		IVec2 unitNamePosition(unitPricePosition.x - (static_cast<unsigned int>(20 * Scaler::getXScaleFactor()) + pFont->getSize(unitsList[i].unitName).x) , unitPosition.y);
 
-		errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition);
-		errorFlag &= pFont->draw(r,unitsList[i].unitName,unitNamePosition);
-		errorFlag &= pFont->draw(r,priceString,unitPricePosition);
+		if ( unitsList[i].unitPrice <= moneyAvailable )
+		{
+			errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition);
+			errorFlag &= pFont->draw(r,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= pFont->draw(r,priceString,unitPricePosition);
+		}
+		else
+		{
+			SDL_Colour mask = {64,64,64,255};
+
+			errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition,mask);
+			errorFlag &= pFontGrey->draw(r,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
+		}
 	}
 
 	return errorFlag;

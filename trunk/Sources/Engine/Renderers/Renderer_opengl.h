@@ -50,6 +50,7 @@ public:
 	bool clearScreen(void)const;
 	bool drawTile(SDL_Rect& tile, const SDL_Color& colour)const;
 	bool drawTile(const Sprite& sprite, const IVec2& pos)const;
+	bool drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& maskColour)const;
 	bool drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const;
 	bool drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const;
 	bool drawBackground(SDL_Surface* const pImage)const;

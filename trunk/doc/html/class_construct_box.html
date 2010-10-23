@@ -68,8 +68,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a339d07f1d4f304edfec89ec36cd2b6ea"></a><!-- doxytag: member="ConstructBox::~ConstructBox" ref="a339d07f1d4f304edfec89ec36cd2b6ea" args="(void)" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#a339d07f1d4f304edfec89ec36cd2b6ea">~ConstructBox</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#a3261042c3fb4ae6ba8ee6b32f4d5360b">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the construct box.  <a href="#a3261042c3fb4ae6ba8ee6b32f4d5360b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#acf03138b930d708eb6eb494572691add">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const unsigned int moneyAvailable)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the construct box.  <a href="#acf03138b930d708eb6eb494572691add"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#ad01e754ddd9670c61d470a9325a911fe">update</a> (const ArrowsDirection kd)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the construct box.  <a href="#ad01e754ddd9670c61d470a9325a911fe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">UnitType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#a095d7b97c7c7b585c1abfecc19fbe382">getUnitSelected</a> (void) const </td></tr>
@@ -165,7 +165,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a3261042c3fb4ae6ba8ee6b32f4d5360b"></a><!-- doxytag: member="ConstructBox::draw" ref="a3261042c3fb4ae6ba8ee6b32f4d5360b" args="(const Renderer &amp;r)" -->
+<a class="anchor" id="acf03138b930d708eb6eb494572691add"></a><!-- doxytag: member="ConstructBox::draw" ref="acf03138b930d708eb6eb494572691add" args="(const Renderer &amp;r, const unsigned int moneyAvailable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -173,9 +173,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">bool ConstructBox::draw </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_renderer.html">Renderer</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>r</em></td>
-          <td>&nbsp;)&nbsp;</td>
+          <td class="paramname"> <em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const unsigned int&nbsp;</td>
+          <td class="paramname"> <em>moneyAvailable</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -185,6 +194,7 @@ Public Member Functions</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>r</em>&nbsp;</td><td>the renderer to use to draw the UI </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>moneyAvailable</em>&nbsp;</td><td>the money that the user have </td></tr>
   </table>
   </dd>
 </dl>
@@ -262,7 +272,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 04:27:46 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 23:39:44 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

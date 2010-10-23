@@ -76,6 +76,15 @@ bool ROpenGL :: drawTile(const Sprite& sprite, const IVec2& pos)const
 	return true;
 }
 
+bool ROpenGL :: drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& maskColour)const
+{
+	LDebug << "ROpenGL :: drawTile from Sprite @ " << pos << " maskColour: " << static_cast<int>(maskColour.r) << "," <<  static_cast<int>(maskColour.g) << "," << static_cast<int>(maskColour.b) << "," << static_cast<int>(maskColour.unused);
+
+	(void)sprite;
+
+	return true;
+}
+
 bool ROpenGL :: drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const
 {
 	LDebug << "ROpenGL :: drawTile from Sprite (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ") @ " << pos;

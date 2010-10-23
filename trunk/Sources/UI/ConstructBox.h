@@ -71,6 +71,7 @@ private:
 	Sprite* pDownArrow;								/*!< sprite for the down arrow */
 
 	Font* pFont;									/*!< Font used for the texts */
+	Font* pFontGrey;								/*!< Font used for the texts when no enough money (in grey)*/
 
 	UVec2 windowSize;								/*!< Size of the window where to draw the UI */
 
@@ -103,9 +104,10 @@ public:
 	//! Draw the construct box
 	/*!
 	  \param r the renderer to use to draw the UI
+	  \param moneyAvailable the money that the user have
 	  \return true if all goes right
 	*/
-	bool draw(const Renderer& r);
+	bool draw(const Renderer& r, const unsigned int moneyAvailable);
 
 	//! Update the construct box
 	/*!

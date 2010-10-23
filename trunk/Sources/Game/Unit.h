@@ -180,6 +180,7 @@ struct Unit
 	  \param fuelConsumption the fuel consumption per day
 	  \param ammo the remaining ammo	  
 	  \param life the maximum life for this unit
+	  \param price the price of the unit
 	*/
 	Unit(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)
 		:pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life),price(price) {}

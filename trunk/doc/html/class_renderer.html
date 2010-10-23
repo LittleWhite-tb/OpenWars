@@ -84,6 +84,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a rectangle with a unified colour.  <a href="#a4cf6bb54e5b4f3e77a96aadd64ed17a9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a70db9b4ea0c9dd7bfb77781d088410b2">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const =0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a70db9b4ea0c9dd7bfb77781d088410b2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a9466d5fbb6aa91f330bb35e4e584d3cc">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const SDL_Colour &amp;maskColour) const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a9466d5fbb6aa91f330bb35e4e584d3cc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a1bc535b35a25ccad2156a2ff4e21cdd9">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, SDL_Rect &amp;srcRect, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const =0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a part of a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a1bc535b35a25ccad2156a2ff4e21cdd9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a11f9c557151fffcc8dcb30a5cdf4da47">drawTile</a> (<a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;aSprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const unsigned int time) const =0</td></tr>
@@ -220,6 +222,45 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a70db9b4ea0c9dd7bfb77781d088410b2"></a><!-- doxytag: member="Renderer::drawTile" ref="a70db9b4ea0c9dd7bfb77781d088410b2" args="(const Sprite &amp;sprite, const IVec2 &amp;pos) const =0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Renderer::drawTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_sprite.html">Sprite</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">IVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>sprite</em>&nbsp;</td><td>the sprite to draw </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where the sprite is drawn </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
+
+<p>Implemented in <a class="el" href="class_r_open_g_l.html#a414915b02c51c37ddf56d1c0106dd5de">ROpenGL</a>, and <a class="el" href="class_r_s_d_l.html#a009bd701ce6218073d5dace7de16546a">RSDL</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4cf6bb54e5b4f3e77a96aadd64ed17a9"></a><!-- doxytag: member="Renderer::drawTile" ref="a4cf6bb54e5b4f3e77a96aadd64ed17a9" args="(SDL_Rect &amp;tile, const SDL_Color &amp;colour) const =0" -->
 <div class="memitem">
 <div class="memproto">
@@ -256,52 +297,6 @@ Protected Attributes</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
 <p>Implemented in <a class="el" href="class_r_open_g_l.html#a366d77b4d599030f2b11af119d16b285">ROpenGL</a>, and <a class="el" href="class_r_s_d_l.html#ab6393c2805c9a0a7ddb8af21708fd6ff">RSDL</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a11f9c557151fffcc8dcb30a5cdf4da47"></a><!-- doxytag: member="Renderer::drawTile" ref="a11f9c557151fffcc8dcb30a5cdf4da47" args="(AnimatedSprite &amp;aSprite, const IVec2 &amp;pos, const unsigned int time) const =0" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool Renderer::drawTile </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aSprite</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="struct_vec2.html">IVec2</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const unsigned int&nbsp;</td>
-          <td class="paramname"> <em>time</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [pure virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Draw an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aSprite</em>&nbsp;</td><td>the animation to draw </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where to draw the animation </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>time</em>&nbsp;</td><td>the actual time (to know which frame to draw) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
-
-<p>Implemented in <a class="el" href="class_r_open_g_l.html#a66dda28624ff8d4355277fba5482ba4e">ROpenGL</a>, and <a class="el" href="class_r_s_d_l.html#a0552625492278d06105b316716c971e8">RSDL</a>.</p>
 
 </div>
 </div>
@@ -351,7 +346,7 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a70db9b4ea0c9dd7bfb77781d088410b2"></a><!-- doxytag: member="Renderer::drawTile" ref="a70db9b4ea0c9dd7bfb77781d088410b2" args="(const Sprite &amp;sprite, const IVec2 &amp;pos) const =0" -->
+<a class="anchor" id="a9466d5fbb6aa91f330bb35e4e584d3cc"></a><!-- doxytag: member="Renderer::drawTile" ref="a9466d5fbb6aa91f330bb35e4e584d3cc" args="(const Sprite &amp;sprite, const IVec2 &amp;pos, const SDL_Colour &amp;maskColour) const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -365,7 +360,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="struct_vec2.html">IVec2</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>pos</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SDL_Colour &amp;&nbsp;</td>
+          <td class="paramname"> <em>maskColour</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -381,12 +382,59 @@ Protected Attributes</h2></td></tr>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sprite</em>&nbsp;</td><td>the sprite to draw </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where the sprite is drawn </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>maskColour</em>&nbsp;</td><td>the colour to use for the mask on the sprite </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implemented in <a class="el" href="class_r_open_g_l.html#a414915b02c51c37ddf56d1c0106dd5de">ROpenGL</a>, and <a class="el" href="class_r_s_d_l.html#a009bd701ce6218073d5dace7de16546a">RSDL</a>.</p>
+<p>Implemented in <a class="el" href="class_r_open_g_l.html#ad8989a8fadb0b741863b33017c80eee1">ROpenGL</a>, and <a class="el" href="class_r_s_d_l.html#a64728f45fbd93c69345bdf6d0d4ec6a4">RSDL</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a11f9c557151fffcc8dcb30a5cdf4da47"></a><!-- doxytag: member="Renderer::drawTile" ref="a11f9c557151fffcc8dcb30a5cdf4da47" args="(AnimatedSprite &amp;aSprite, const IVec2 &amp;pos, const unsigned int time) const =0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Renderer::drawTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>aSprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">IVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&nbsp;</td>
+          <td class="paramname"> <em>time</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Draw an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>aSprite</em>&nbsp;</td><td>the animation to draw </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where to draw the animation </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>time</em>&nbsp;</td><td>the actual time (to know which frame to draw) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
+
+<p>Implemented in <a class="el" href="class_r_open_g_l.html#a66dda28624ff8d4355277fba5482ba4e">ROpenGL</a>, and <a class="el" href="class_r_s_d_l.html#a0552625492278d06105b316716c971e8">RSDL</a>.</p>
 
 </div>
 </div>
@@ -458,7 +506,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 04:27:47 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 23:39:44 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

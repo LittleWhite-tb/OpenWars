@@ -90,6 +90,43 @@ bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos)const
 	return true;
 }
 
+bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& maskColour)const
+{
+	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , static_cast<Uint16>(sprite.getWidth()) , static_cast<Uint16>(sprite.getHeight()) };
+	SDL_Surface* pSrc = NULL;
+
+#ifdef VERBOSE
+	LDebug << "RSDL :: drawTile from Sprite @ " << pos << " maskColour: " << static_cast<int>(maskColour.r) << "," <<  static_cast<int>(maskColour.g) << "," << static_cast<int>(maskColour.b) << "," << static_cast<int>(maskColour.unused);
+#endif
+
+	pSrc = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, sprite.getWidth(), sprite.getHeight(), sprite.getSurface()->format->BitsPerPixel, maskColour.r,maskColour.g,maskColour.b, maskColour.unused);
+	if ( pSrc == NULL )
+    {
+		LWarning << "Fail to produce the copy of the sprite for RSDL :: drawTile";
+        return false;
+
+    }
+
+	// The masking is done in CreateRGBSurface
+	if ( SDL_BlitSurface(sprite.getSurface(), NULL, pSrc, NULL)  != 0 )
+	{
+		LWarning << "Fail to copy the sprite in a temporary surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	if ( SDL_BlitSurface(pSrc, NULL, pWin->getWindowSurface(), &r) != 0 )
+	{
+		LWarning << "Fail to blit the surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	SDL_FreeSurface(pSrc);
+
+	return true;
+}
+
 bool RSDL :: drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const
 {
 	SDL_Rect r = { static_cast<Sint16>(pos.x) , static_cast<Sint16>(pos.y) , srcRect.w , srcRect.h };

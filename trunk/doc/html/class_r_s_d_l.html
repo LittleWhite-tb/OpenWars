@@ -80,6 +80,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a rectangle with a unified colour.  <a href="#ab6393c2805c9a0a7ddb8af21708fd6ff"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a009bd701ce6218073d5dace7de16546a">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a009bd701ce6218073d5dace7de16546a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a64728f45fbd93c69345bdf6d0d4ec6a4">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const SDL_Colour &amp;maskColour) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a64728f45fbd93c69345bdf6d0d4ec6a4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a1e34c58d6734ba38c2e44f06e7a01ccc">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, SDL_Rect &amp;srcRect, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a part of a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a1e34c58d6734ba38c2e44f06e7a01ccc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_s_d_l.html#a0552625492278d06105b316716c971e8">drawTile</a> (<a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;aSprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const unsigned int time) const </td></tr>
@@ -262,6 +264,52 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a64728f45fbd93c69345bdf6d0d4ec6a4"></a><!-- doxytag: member="RSDL::drawTile" ref="a64728f45fbd93c69345bdf6d0d4ec6a4" args="(const Sprite &amp;sprite, const IVec2 &amp;pos, const SDL_Colour &amp;maskColour) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RSDL::drawTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_sprite.html">Sprite</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">IVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SDL_Colour &amp;&nbsp;</td>
+          <td class="paramname"> <em>maskColour</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>sprite</em>&nbsp;</td><td>the sprite to draw </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>where the sprite is drawn </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>maskColour</em>&nbsp;</td><td>the colour to use for the mask on the sprite </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
+
+<p>Implements <a class="el" href="class_renderer.html#a9466d5fbb6aa91f330bb35e4e584d3cc">Renderer</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a009bd701ce6218073d5dace7de16546a"></a><!-- doxytag: member="RSDL::drawTile" ref="a009bd701ce6218073d5dace7de16546a" args="(const Sprite &amp;sprite, const IVec2 &amp;pos) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -359,7 +407,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 04:27:47 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 23:39:44 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

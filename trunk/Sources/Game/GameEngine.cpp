@@ -156,17 +156,17 @@ bool GameEngine :: run(void)
 				break;
 			case GS_FACTORY:
 				{
-					pCBFactory->draw(*pRenderer);
+					pCBFactory->draw(*pRenderer,5000);
 				}
 				break;
 			case GS_PORT:
 				{
-					pCBPort->draw(*pRenderer);
+					pCBPort->draw(*pRenderer,5000);
 				}
 				break;
 			case GS_AIRPORT:
 				{
-					pCBAirport->draw(*pRenderer);
+					pCBAirport->draw(*pRenderer,5000);
 				}
 				break;
 		}
