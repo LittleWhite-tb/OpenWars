@@ -80,6 +80,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#a55d7061de63bc1211c2f52592104d090"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a077e065aa7752428aeaad75bd13daf98">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const <a class="el" href="class_camera.html">Camera</a> &amp;c, const unsigned int time)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the map.  <a href="#a077e065aa7752428aeaad75bd13daf98"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a5254693f07a0cca0b7ba2600cd805b1b">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position.  <a href="#a5254693f07a0cca0b7ba2600cd805b1b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678">isValidMap</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return if the map is valid.  <a href="#a5f55867a8b8c41194bfa63e879d90678"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a0454b453ed0141eccb916435f242f35a">getWidth</a> (void) const </td></tr>
@@ -234,14 +236,14 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6a68c1366797107b8a0d664f17696cb5"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="a6a68c1366797107b8a0d664f17696cb5" args="(const UnitType type)" -->
+<a class="anchor" id="aa36c1f8a618fd13c9f734698d5ed4fd6"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="aa36c1f8a618fd13c9f734698d5ed4fd6" args="(const TileType type)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * Map::getAssociatedSprite </td>
           <td>(</td>
-          <td class="paramtype">const UnitType&nbsp;</td>
+          <td class="paramtype">const TileType&nbsp;</td>
           <td class="paramname"> <em>type</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
@@ -262,14 +264,14 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa36c1f8a618fd13c9f734698d5ed4fd6"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="aa36c1f8a618fd13c9f734698d5ed4fd6" args="(const TileType type)" -->
+<a class="anchor" id="a6a68c1366797107b8a0d664f17696cb5"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="a6a68c1366797107b8a0d664f17696cb5" args="(const UnitType type)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> * Map::getAssociatedSprite </td>
           <td>(</td>
-          <td class="paramtype">const TileType&nbsp;</td>
+          <td class="paramtype">const UnitType&nbsp;</td>
           <td class="paramname"> <em>type</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
@@ -668,6 +670,46 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5254693f07a0cca0b7ba2600cd805b1b"></a><!-- doxytag: member="Map::setTile" ref="a5254693f07a0cca0b7ba2600cd805b1b" args="(const UVec2 &amp;position, const UnitType unitType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Map::setTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UnitType&nbsp;</td>
+          <td class="paramname"> <em>unitType</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position. </p>
+<p>Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where to change the tile </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>unitType</em>&nbsp;</td><td>the type of the new unit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_map_editor.html#af842a6c99d3570c104d483165b285030">MapEditor</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a39bb864cb5e1d1e609396a2f3559602e"></a><!-- doxytag: member="Map::height" ref="a39bb864cb5e1d1e609396a2f3559602e" args="" -->
 <div class="memitem">
@@ -786,7 +828,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 18 2010 20:07:21 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 04:27:47 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

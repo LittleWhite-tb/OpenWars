@@ -31,13 +31,31 @@ class Map;
 class Cursor;
 class Camera;
 
+class ConstructBox;
+
 class GameEngine : public Engine
 {
+	enum GameState
+	{
+		GS_VISU,
+		GS_FACTORY,
+		GS_PORT,
+		GS_AIRPORT,
+		GS_SELECT
+	};
+
 private:
 
 	Map* pMap;					/*!< The map to use */
 	Cursor* pC;					/*!< The cursor */
 	Camera* pCam;				/*!< The camera */
+
+	// UI
+	ConstructBox* pCBFactory;	/*!< Construct box for factories */
+	ConstructBox* pCBPort;		/*!< Construct box for ports */
+	ConstructBox* pCBAirport;	/*!< Construct box for airports */
+
+	GameState gState;			/*!< Actual state of the game */
 
 	//! Load the map, cursor, camera with the associated sprites
 	/*!
@@ -48,12 +66,43 @@ private:
 	bool load(void);
 
 public:
+
+	//! Basic constructor
+	/*!
+	*/
 	GameEngine();
+
+	//! Basic destructor
+	/*!
+	*/
 	~GameEngine();
 
+	//! Init the Game Engine
+	/*!
+	  \param pWin the window to use for the game
+	  \param rAPI the API to start for rendering
+	  \return true if all goes right
+	*/
 	bool init(const Window* pWin, const RenderingAPI rAPI);
+	
+	//! load the Game Engine
+	/*!
+	  \param mapName the name of the map to load
+	  \return true if all goes right
+	*/
 	bool load(const std::string& mapName);
+
+	//! Start the game main loop
+	/*!
+		\return true if all goes fine
+	*/
 	bool run(void);
 };
+
+/*! \class GameEngine GameEngine.h "Game/GameEngine.h"
+ *  \brief Engine for the game
+ *
+ * Manage all the game main loop by using states
+ */
 
 #endif

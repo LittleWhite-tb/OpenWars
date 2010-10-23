@@ -67,6 +67,11 @@ Tile Cursor :: getTileUnderCursor(void)const
 	return pMap->getTile(this->position);
 }
 
+TileType Cursor :: getTileTypeUnderCursor(void)const
+{
+	return pMap->getTileType(this->position);
+}
+
 bool Cursor :: move(const ArrowsDirection ad)
 {
 	UVec2 newPosition = this->position;

@@ -87,7 +87,7 @@ public:
 
 	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
 	/*!
-		\param win The window to use with for the editor
+		\param pWin The window to use with for the editor
 		\param rAPI The rendering API to use
 		\return true if all goes fine
 	*/

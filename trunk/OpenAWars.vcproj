@@ -364,6 +364,14 @@
 			<Filter
 				Name="UI"
 				>
+				<File
+					RelativePath=".\Sources\UI\ConstructBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\UI\ConstructBox.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Utils"

@@ -48,7 +48,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
 <h1>Window Class Reference</h1>  </div>
 </div>
@@ -91,6 +92,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the visibility of the cursor.  <a href="#a51f0b468484448ca086efd9910a54652"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ae093551d569a6a631bf64e346ca049fe">setCaption</a> (const std::string &amp;windowName, const std::string &amp;iconName) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the window name and the icon assigned to it.  <a href="#ae093551d569a6a631bf64e346ca049fe"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a884e1341adf3bbee63391369d35ddc0f">needClosure</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The function check if the user pressed the red cross of the window.  <a href="#a884e1341adf3bbee63391369d35ddc0f"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a8c2635b317bbd433a6f1f467c4384493">isRedCrossPressed</a> = false</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p><a class="el" href="class_window.html" title="Window management class.">Window</a> management class. </p>
@@ -386,6 +392,27 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a884e1341adf3bbee63391369d35ddc0f"></a><!-- doxytag: member="Window::needClosure" ref="a884e1341adf3bbee63391369d35ddc0f" args="(void) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Window::needClosure </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The function check if the user pressed the red cross of the window. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the user pressed on the button </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afcd646e621b1ec56ac3f263c1b699369"></a><!-- doxytag: member="Window::openWindow" ref="afcd646e621b1ec56ac3f263c1b699369" args="(const unsigned int width, const unsigned int height, const unsigned short int bpp, const bool isFullscreen, const bool isOpenGL)" -->
 <div class="memitem">
 <div class="memproto">
@@ -506,6 +533,21 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a8c2635b317bbd433a6f1f467c4384493"></a><!-- doxytag: member="Window::isRedCrossPressed" ref="a8c2635b317bbd433a6f1f467c4384493" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_window.html#a8c2635b317bbd433a6f1f467c4384493">Window::isRedCrossPressed</a> = false<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Tell if the red cross button has been pressed </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Sources/Engine/<a class="el" href="_window_8h_source.html">Window.h</a></li>
 <li>Sources/Engine/Window.cpp</li>
@@ -525,7 +567,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 18 2010 20:07:21 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 04:27:47 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

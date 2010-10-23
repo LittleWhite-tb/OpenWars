@@ -188,6 +188,8 @@ void Map :: loadUnitSet(SpriteManager& sm, const std::string& theme)
 		lp.readNextLine();
 		unsigned int maxLife = static_cast<unsigned int>(lp.getInt());
 		lp.readNextLine();
+		unsigned int price = static_cast<unsigned int>(lp.getInt());
+		lp.readNextLine();
 
 		unitsSet[static_cast<UnitType>(idTile)] = Unit(new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
 			name,
@@ -197,7 +199,8 @@ void Map :: loadUnitSet(SpriteManager& sm, const std::string& theme)
 			fuel,
 			fuelConsumption,
 			ammo,
-			maxLife);
+			maxLife,price
+			);
 	}
 }
 
@@ -495,6 +498,14 @@ Unit Map :: getUnit(const UnitType ut)const
 	{
 		return Unit();
 	}
+}
+
+
+bool Map :: setTile(const UVec2& position, const UnitType unitType)
+{
+	unitMap[position.y][position.x] = unitType;
+
+	return true;
 }
 
 AnimatedSprite* Map :: getAssociatedSprite(const TileType type)

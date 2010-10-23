@@ -113,6 +113,16 @@ public:
     */
 	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
 
+	//! Set the Unit at the position
+	/*!
+		Will overwrite the Unit previously contained on the map by the new one.
+		The new Unit is selected following the internal logic of the editor.
+		\param position the position where to change the tile
+		\param unitType the type of the new unit
+		\return true if all goes right
+	*/
+	virtual bool setTile(const UVec2& position, const UnitType unitType);
+
 	//! Return if the map is valid
 	/*!
 		\return true if the map is valid

@@ -54,13 +54,23 @@ public:
 
 	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
 	/*!
-		\param win The window to use with for the editor
+		\param pWin The window to use with for the editor
 		\param rAPI The rendering API to use
 		\return true if all goes fine
 	*/
 	virtual bool init(const Window* pWin, const RenderingAPI rAPI);
 
+	//! Load the map from a file
+	/*!
+		\param mapName the name of the file to load
+		\return true if all goes fine
+	*/
 	virtual bool load(const std::string& mapName)=0;
+
+	//! Start the main loop
+	/*!
+		\return true if all goes fine
+	*/
 	virtual bool run(void)=0;
 };
 

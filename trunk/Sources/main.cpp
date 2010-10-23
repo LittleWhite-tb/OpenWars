@@ -130,33 +130,40 @@ int main(int argc, char** argv)
 		int initIMG = IMG_Init(flags);
 
 		// Starting SDL_image and SDL_ttf
-		if ( (initIMG & flags) != flags && TTF_Init() != -1 )
+		if ( (initIMG & flags) != flags )
 		{
 			LError << "Fail to init the SDL_image with PNG support (" << IMG_GetError() << ")";
 		}
 		else
 		{
-			std::vector<ResolutionInfo> riList;
-
-			win.getResolutionsAvailable(false,riList);
-			win.setCaption("Hello SDL","");
-			win.showCursor(false);
-
-			// Window test
-			if ( win.openWindow(640,480,32,false,false) )
+			if ( TTF_Init() != 0 )
 			{
-				Scaler::setScaleFactor(win);
+				LError << "Fail to init the SDL_tff " << TTF_GetError() << ")";
+			}
+			else
+			{
+				std::vector<ResolutionInfo> riList;
 
-				GameEngine gEngine;
-					
-				if ( gEngine.init(&win, RAPI_SDL) )
+				win.getResolutionsAvailable(false,riList);
+				win.setCaption("Hello SDL","");
+				win.showCursor(false);
+
+				// Window test
+				if ( win.openWindow(640,480,32,false,false) )
 				{
-					bool engineLoadingState = false;
+					Scaler::setScaleFactor(win);
 
-					engineLoadingState = gEngine.load(loadMapName);
-					if ( engineLoadingState )
+					GameEngine gEngine;
+						
+					if ( gEngine.init(&win, RAPI_SDL) )
 					{
-						gEngine.run();
+						bool engineLoadingState = false;
+
+						engineLoadingState = gEngine.load(loadMapName);
+						if ( engineLoadingState )
+						{
+							gEngine.run();
+						}
 					}
 				}
 			}

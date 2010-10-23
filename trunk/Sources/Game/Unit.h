@@ -155,6 +155,8 @@ struct Unit
 
 	unsigned int life;				/*!< The life */
 
+	unsigned int price;				/*!< Price */
+
 	static const unsigned int UC_NONE = 0;		/*!< No unit attackable */
 	static const unsigned int UC_LAND = 1;		/*!< Land units are attackable */
 	static const unsigned int UC_NAVY = 2;		/*!< Navy units are attackable */
@@ -165,7 +167,7 @@ struct Unit
 	/*!
 		Set UT_NO_UNIT
 	*/
-	Unit(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0) {}
+	Unit(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0),price(0) {}
 	
 	//! Basic destructor
 	/*!
@@ -179,8 +181,8 @@ struct Unit
 	  \param ammo the remaining ammo	  
 	  \param life the maximum life for this unit
 	*/
-	Unit(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life)
-		:pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life) {}
+	Unit(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)
+		:pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life),price(price) {}
 
 	//! Basic copy constructor
 	/*!
@@ -195,7 +197,8 @@ struct Unit
 		fuel(u.fuel),
 		fuelConsumption(u.fuelConsumption),
 		ammo(u.ammo),
-		life(u.life) {}
+		life(u.life),
+		price(u.price){}
 
 	//! operator =
 	/*!
@@ -212,6 +215,7 @@ struct Unit
 		this->fuelConsumption = u.fuelConsumption;
 		this->ammo = u.ammo;
 		this->life = u.life;
+		this->price = u.price;
 
 		return *this;
 	}
@@ -230,6 +234,7 @@ struct Unit
  *		- The fuel consumption per day
  *		- The ammo
  *		- The life of the unit
+ *		- The price
  */
 
 /*! \enum UnitType

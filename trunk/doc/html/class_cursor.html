@@ -79,6 +79,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#a11f74764c6efec0bc90a3d58f628bbfd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cursor.html#ae294d6544e5f7f9cdf9b76c3f3190721">getTileUnderCursor</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the tile under the cursor.  <a href="#ae294d6544e5f7f9cdf9b76c3f3190721"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">TileType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cursor.html#abb1119f1bc1b5c28b6b6707b37e595ec">getTileTypeUnderCursor</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the tile type under the cursor.  <a href="#abb1119f1bc1b5c28b6b6707b37e595ec"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_vec2.html">UVec2</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cursor.html#a34695e21bd3263e91d67b5355779f574">getPosition</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the actual position of the cursor.  <a href="#a34695e21bd3263e91d67b5355779f574"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cursor.html#a087f8e2b06c5ade37a4842f34900d089">move</a> (const ArrowsDirection ad)</td></tr>
@@ -241,6 +243,27 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abb1119f1bc1b5c28b6b6707b37e595ec"></a><!-- doxytag: member="Cursor::getTileTypeUnderCursor" ref="abb1119f1bc1b5c28b6b6707b37e595ec" args="(void) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TileType Cursor::getTileTypeUnderCursor </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the tile type under the cursor. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the TileType of the <a class="el" href="class_map.html" title="Map management class.">Map</a> located under the cursor </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ae294d6544e5f7f9cdf9b76c3f3190721"></a><!-- doxytag: member="Cursor::getTileUnderCursor" ref="ae294d6544e5f7f9cdf9b76c3f3190721" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -259,34 +282,6 @@ Protected Attributes</h2></td></tr>
 
 <p>Get the tile under the cursor. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> of the <a class="el" href="class_map.html" title="Map management class.">Map</a> located under the cursor </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a087f8e2b06c5ade37a4842f34900d089"></a><!-- doxytag: member="Cursor::move" ref="a087f8e2b06c5ade37a4842f34900d089" args="(const ArrowsDirection ad)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Cursor::move </td>
-          <td>(</td>
-          <td class="paramtype">const ArrowsDirection&nbsp;</td>
-          <td class="paramname"> <em>ad</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Move to the next position. </p>
-<p>Will move to the next position ( step of 1 ) depending on the direction </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>ad</em>&nbsp;</td><td>The direction where to move </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if the displacement was possible </dd></dl>
 
 </div>
 </div>
@@ -311,6 +306,34 @@ Protected Attributes</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>newPosition</em>&nbsp;</td><td>The position where to move the cursor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the displacement was possible </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a087f8e2b06c5ade37a4842f34900d089"></a><!-- doxytag: member="Cursor::move" ref="a087f8e2b06c5ade37a4842f34900d089" args="(const ArrowsDirection ad)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cursor::move </td>
+          <td>(</td>
+          <td class="paramtype">const ArrowsDirection&nbsp;</td>
+          <td class="paramname"> <em>ad</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Move to the next position. </p>
+<p>Will move to the next position ( step of 1 ) depending on the direction </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>ad</em>&nbsp;</td><td>The direction where to move </td></tr>
   </table>
   </dd>
 </dl>
@@ -366,7 +389,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Oct 18 2010 20:07:21 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 04:27:46 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

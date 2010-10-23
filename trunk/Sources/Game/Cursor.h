@@ -28,6 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "../Engine/Controls/Keyboard.h"
+#include "../Game/Tile.h"
 #include "../Types/Vec2.h"
 
 class Map;
@@ -74,6 +75,12 @@ public:
       \return the Tile of the Map located under the cursor
     */
 	Tile getTileUnderCursor(void)const;
+
+	//! Get the tile type under the cursor
+	/*!
+      \return the TileType of the Map located under the cursor
+    */
+	TileType getTileTypeUnderCursor(void)const;
 
 	//! Get the actual position of the cursor
 	/*!
