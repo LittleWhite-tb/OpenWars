@@ -115,6 +115,15 @@ bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& 
 		return false;
 	}
 
+	// Making a pre blit with the original image
+	if ( SDL_BlitSurface(sprite.getSurface(), NULL, pWin->getWindowSurface(), &r)  != 0 )
+	{
+		LWarning << "Fail to copy the sprite in a temporary surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	// Apply the filter
 	if ( SDL_BlitSurface(pSrc, NULL, pWin->getWindowSurface(), &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";

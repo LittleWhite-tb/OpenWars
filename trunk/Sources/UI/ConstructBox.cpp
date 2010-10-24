@@ -50,8 +50,8 @@ ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const Window& w
 	SDL_Color white = {255,255,255};
 	SDL_Color grey = {64,64,64};
 
-	pFont = new Font(fm,fontFileName,24,white);
-	pFontGrey = new Font(fm,fontFileName,24,grey);
+	pFont = new Font(fm,fontFileName,22,white);
+	pFontGrey = new Font(fm,fontFileName,22,grey);
 
 	LDebug << "Construc Box created";
 }
@@ -98,7 +98,7 @@ bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 	*/
 	for ( unsigned int i = offsetCursorPosition ; i < unitsList.size() && i < offsetCursorPosition+7 ; i++ )
 	{
-		IVec2 unitPosition(static_cast<unsigned int>(40 * Scaler::getXScaleFactor()), uiPosition.y + static_cast<unsigned int>(7 * Scaler::getXScaleFactor()) + (i-offsetCursorPosition) * unitsList[i].pUnitSprite->getHeight());
+		IVec2 unitPosition(static_cast<unsigned int>(40 * Scaler::getXScaleFactor()), uiPosition.y + static_cast<unsigned int>(6 * Scaler::getXScaleFactor()) + (i-offsetCursorPosition) * (unitsList[i].pUnitSprite->getHeight()+1));
 		
 		// Convertion of the price into a string
 		std::string priceString = "0";
@@ -110,8 +110,8 @@ bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 			priceString = oss.str();
 		}
 		
-		IVec2 unitPricePosition(pBackgroundUI->getWidth() - (pFont->getSize(priceString).x), unitPosition.y);
-		IVec2 unitNamePosition(unitPricePosition.x - (static_cast<unsigned int>(20 * Scaler::getXScaleFactor()) + pFont->getSize(unitsList[i].unitName).x) , unitPosition.y);
+		IVec2 unitPricePosition(pBackgroundUI->getWidth() - (pFont->getSize(priceString).x), unitPosition.y + (static_cast<unsigned int>(6 * Scaler::getXScaleFactor())));
+		IVec2 unitNamePosition(pBackgroundUI->getWidth() - (static_cast<unsigned int>(60 * Scaler::getXScaleFactor()) + pFont->getSize(unitsList[i].unitName).x) , unitPricePosition.y);
 
 		if ( unitsList[i].unitPrice <= moneyAvailable )
 		{
@@ -121,7 +121,7 @@ bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 		}
 		else
 		{
-			SDL_Colour mask = {64,64,64,255};
+			SDL_Colour mask = {128,128,128,255};
 
 			errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition,mask);
 			errorFlag &= pFontGrey->draw(r,unitsList[i].unitName,unitNamePosition);
