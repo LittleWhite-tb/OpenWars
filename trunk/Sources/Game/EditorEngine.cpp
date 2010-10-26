@@ -50,6 +50,7 @@ EditorEngine :: EditorEngine(void)
 
 EditorEngine :: ~EditorEngine(void)
 {
+	delete pCam;
 	delete pEC;
 	delete pMap;
 	delete pTileViewer;

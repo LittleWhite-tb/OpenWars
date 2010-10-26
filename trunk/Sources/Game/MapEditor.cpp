@@ -1202,6 +1202,9 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 	case TT_Bridge_H:
 		return setBridge(position);
 		break;
+	// Remove warnings
+	default:
+		break;
 	}
 
 	// For buildings
@@ -1346,6 +1349,9 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 			break;
 		}
 	break;
+	// Remove warnings
+	default:
+		break;
 	}
 
 	// For buildings (can be everywhere)
@@ -1501,6 +1507,10 @@ bool MapEditor :: testTile(const UVec2& position, const UnitType unitType)const
 		case UT_G_BOMBER:
 		case UT_Y_BOMBER:
 			return true;
+			break;
+		// Should not be used
+		case UT_END_LIST:
+			assert(0);
 			break;
 	}
 

@@ -14,8 +14,10 @@ OpenAWars_Editor_SOURCES = 	Engine/Window.cpp Engine/Window.h \
 				Game/Cursor.cpp Game/Cursor.h Game/EditingCursor.cpp Game/EditingCursor.h \
 				Game/Camera.cpp Game/Camera.h \
 				Game/Unit.cpp Game/Unit.h \
+				Game/Engine.cpp Game/Engine.h \
 				Game/EditorEngine.cpp Game/EngitorEngine.h \
 				Utils/Logger.cpp Utils/Logger.h \
+				Utils/LineParser.cpp Utils/LineParser.h \
 				Utils/Scaler.cpp Utils/Scaler.h \
 				UI/TileBar.cpp UI/TaileBar.h UI/TileBarTiles.cpp UI/TileBarTiles.h UI/TileBarUnits.cpp UI/TileBarUnits.h \
 				UI/TileViewer.cpp UI/TileViewer.h \

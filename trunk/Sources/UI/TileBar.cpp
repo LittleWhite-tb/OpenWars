@@ -225,6 +225,9 @@ void TileBar :: move(const ArrowsDirection direction)
 		case AD_RIGHT:
 			moveRight();
 			break;
+		// Remove warnings (we don't mind about the others directions)
+		default:
+			break;
 	}
 }
 
@@ -415,10 +418,10 @@ void TileBar :: update(const unsigned int time)
 				state = TBS_Opened;
 			}
 			break;
-#ifdef _DEBUG
-		default:
+		// Remove warnings (static case)
+		case TBS_Opened:
+		case TBS_Closed:
 			break;
-#endif
 	}
 }
 

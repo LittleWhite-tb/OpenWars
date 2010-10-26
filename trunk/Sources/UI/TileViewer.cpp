@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont)
 {
-	SDL_Color white = {255,255,255};
+	SDL_Color white = {255,255,255,255};
 
 	pBackground = new Sprite(sm,fileNameBackground,true);
 	pFont = new Font(fm,fileNameFont,16,white);

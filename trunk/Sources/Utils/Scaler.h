@@ -37,7 +37,7 @@ private:
 
 	static double xScaleFactor;		/*!< the scaling factor on the x axis */
 	static double yScaleFactor;		/*!< the scaling factor on the y axis */
-	static UVec2 offset;			/*!< Offset to apply to have the center the tiles
+	static UVec2 offset;			/*!< Offset to apply to have the center the tiles */
 
 	//! Shrink the surface
 	/*!

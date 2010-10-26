@@ -64,7 +64,7 @@ bool LineParser :: isEmptyLine()
 {
 	for(std::string::const_iterator itChar = line.begin() ; itChar != line.end() ; ++itChar )
 	{
-		if ( *itChar != ' ' )
+		if ( *itChar != ' ' && *itChar != '\r' )
 			return false;
 	}
 
