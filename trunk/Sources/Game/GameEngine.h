@@ -32,6 +32,7 @@ class Cursor;
 class Camera;
 
 class ConstructBox;
+class MenuBox;
 
 class GameEngine : public Engine
 {
@@ -41,7 +42,8 @@ class GameEngine : public Engine
 		GS_FACTORY,
 		GS_PORT,
 		GS_AIRPORT,
-		GS_SELECT
+		GS_SELECT,
+		GS_MENU
 	};
 
 private:
@@ -54,6 +56,8 @@ private:
 	ConstructBox* pCBFactory;	/*!< Construct box for factories */
 	ConstructBox* pCBPort;		/*!< Construct box for ports */
 	ConstructBox* pCBAirport;	/*!< Construct box for airports */
+
+	MenuBox* pMBMenu;				/*!< menu for the user */
 
 	GameState gState;			/*!< Actual state of the game */
 

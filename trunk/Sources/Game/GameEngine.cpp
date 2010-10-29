@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Camera.h"
 
 #include "../UI/ConstructBox.h"
+#include "../UI/MenuBox.h"
 
 #include "../Engine/VTime.h"
 
@@ -38,13 +39,19 @@ e-mail: lw.demoscene@gmail.com
 #include "../globals.h"
 
 GameEngine :: GameEngine(void)
-:Engine(),pMap(NULL),pC(NULL),pCam(NULL),gState(GS_VISU)
+:Engine(),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU)
 {
 	LDebug << "GameEngine constructed";
 }
 
 GameEngine :: ~GameEngine(void)
 {
+	delete pMBMenu;
+
+	delete pCBAirport;
+	delete pCBPort;
+	delete pCBFactory;
+
 	delete pCam;
 	delete pC;
 	delete pMap;
@@ -73,7 +80,7 @@ bool GameEngine :: load(void)
 		u = pMap->getUnit(UT_R_NEOTANK);
 		factoryUnits.push_back(ConstructUnitView(UT_R_NEOTANK,u.pASprite,u.name,u.price));
 		u = pMap->getUnit(UT_R_APC);
-		factoryUnits.push_back(ConstructUnitView(UT_Y_APC,u.pASprite,u.name,u.price));
+		factoryUnits.push_back(ConstructUnitView(UT_R_APC,u.pASprite,u.name,u.price));
 		u = pMap->getUnit(UT_R_ARTILLERY);
 		factoryUnits.push_back(ConstructUnitView(UT_R_ARTILLERY,u.pASprite,u.name,u.price));
 		u = pMap->getUnit(UT_R_ROCKETS);
@@ -112,6 +119,18 @@ bool GameEngine :: load(void)
 		airportUnits.push_back(ConstructUnitView(UT_R_TCOPTER,u.pASprite,u.name,u.price));		
 	}
 	pCBAirport = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
+
+	// Prepare the data to put in the Construction Box for the Port
+	std::vector<MenuView> menuEntries;
+	{
+		menuEntries.push_back(MenuView("End turn",ME_EndTurn,new AnimatedSprite(*pSM,GFX_PATH "endTurnIcon.png",32,32,200,true)));
+		menuEntries.push_back(MenuView("Quit",ME_Quit,NULL));
+	}
+	pMBMenu = new MenuBox(*pSM,*pFM,*pWin, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries);
+	if ( pMBMenu->getValid() == false )
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -169,6 +188,11 @@ bool GameEngine :: run(void)
 					pCBAirport->draw(*pRenderer,5000);
 				}
 				break;
+			case GS_MENU:
+				{
+					pMBMenu->draw(*pRenderer,pC->getPosition(),pVT->getTime());
+				}
+				break;
 		}
 
 		SDL_UpdateRect(pWin->getWindowSurface(),0,0,0,0);
@@ -178,6 +202,7 @@ bool GameEngine :: run(void)
 		{
 			pCam->update(*pC,*pMap);
 			pKB->update();
+			pMBMenu->update(pKB->getDirectionPressed());
 
 			switch ( gState )
 			{
@@ -197,6 +222,13 @@ bool GameEngine :: run(void)
 							else if ( pC->getTileTypeUnderCursor() == TT_Red_Port )
 							{
 								this->gState = GS_PORT;
+							}
+							/*
+							else if ( ) = UNIT
+							*/
+							else
+							{
+								this->gState = GS_MENU;
 							}
 						}
 					}
@@ -227,6 +259,20 @@ bool GameEngine :: run(void)
 						if ( pKB->isKey(SDLK_SPACE) )
 						{
 							pMap->setTile(pC->getPosition(),pCBAirport->getUnitSelected());
+							this->gState = GS_VISU;
+						}
+					}
+					break;
+				case GS_MENU:
+					{
+						pMBMenu->update(pKB->getDirectionPressed());
+						if ( pKB->isKey(SDLK_SPACE) )
+						{
+							// Check what is in 
+							// pMBMenu->getActualEntry();
+						}
+						else if ( pKB->isKey(SDLK_z) )
+						{
 							this->gState = GS_VISU;
 						}
 					}

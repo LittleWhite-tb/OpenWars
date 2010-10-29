@@ -372,6 +372,14 @@
 					RelativePath=".\Sources\UI\ConstructBox.h"
 					>
 				</File>
+				<File
+					RelativePath=".\Sources\UI\MenuBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\UI\MenuBox.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Utils"
