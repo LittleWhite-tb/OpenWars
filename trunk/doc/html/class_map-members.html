@@ -52,15 +52,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="class_map.html">Map</a>, including all inherited members.<table>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a077e065aa7752428aeaad75bd13daf98">draw</a>(const Renderer &amp;r, const Camera &amp;c, const unsigned int time)</td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a64228dcdbd5a443a8a6c025f3b8612ee">draw</a>(const Renderer &amp;r, const Camera &amp;c, const unsigned int time)=0</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [pure virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#acb36e087d99d31f9c85c63b8e26ee46e">drawTerrain</a>(const Renderer &amp;r, const Camera &amp;c, const unsigned int time)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#afc930df3a60bf13183705cb07dc260a3">enableUnits</a>(void)</td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#aa36c1f8a618fd13c9f734698d5ed4fd6">getAssociatedSprite</a>(const TileType type)</td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a6a68c1366797107b8a0d664f17696cb5">getAssociatedSprite</a>(const UnitType type)</td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ad038150a2b86ba56221d91009d7b7d19">getHeight</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ac5bfe1ed6dece3b0bc730152d8d1d3d6">getTile</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#ab17281150188fb4cedb387e850b8bcbf">getTile</a>(const TileType &amp;tt) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a3f7a3365f2efa394913f1f62878a746d">getTileType</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a52925acacc329f7045f7acd25825173b">getUnit</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#aa791fe5d6b5a78a1d46c1dcab058dab5">getUnit</a>(const UnitType ut) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a27874da897c3cbb8692c3770bdce0ffd">getUnitTemplate</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a009ad8a58a05de2a5e9423314f73e94e">getUnitTemplate</a>(const UnitType ut) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a09d8d0581c5c6f4d7b55412555ff31dc">getUnitType</a>(const UVec2 &amp;position) const </td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a0454b453ed0141eccb916435f242f35a">getWidth</a>(void) const </td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a39bb864cb5e1d1e609396a2f3559602e">height</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
@@ -72,10 +74,10 @@ This is the complete list of members for <a class="el" href="class_map.html">Map
   <tr bgcolor="#f0f0f0"><td><b>Map</b>(void) (defined in <a class="el" href="class_map.html">Map</a>)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [inline, protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a990b3978d94289f3e7ca0ea1bfa97979">Map</a>(SpriteManager &amp;sm, const std::string &amp;fileName)</td><td><a class="el" href="class_map.html">Map</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a63b0ac39b8279b0873e3a2a8ed2a8b0f">parser</a>(SpriteManager &amp;sm, const std::string &amp;fileName)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a5254693f07a0cca0b7ba2600cd805b1b">setTile</a>(const UVec2 &amp;position, const UnitType unitType)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a72ca8578600fde5f6f137ce5342044a0">setTile</a>(const UVec2 &amp;position, const UnitType unitType)=0</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#aa1e6bfe43ffa2f60e07b15f858ad9245">tilesSet</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a5b30c0e547909f10f73e152576d66f4e">unitMap</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_map.html#a269993ef1a3ee310d4d872cec5af3668">unitsSet</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#af44e382b44cf11286ad5b4c74cad0525">unitsSet</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_map.html#a70ca1297b3d27a331e3a767a991547ee">unitViewMap</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a92a2f2e3f22fb607e259ee3148eefe85">valid</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#aa510a987349c68df39475a3a217bd733">width</a></td><td><a class="el" href="class_map.html">Map</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_map.html#a55d7061de63bc1211c2f52592104d090">~Map</a>(void)</td><td><a class="el" href="class_map.html">Map</a></td><td><code> [virtual]</code></td></tr>
@@ -94,7 +96,7 @@ This is the complete list of members for <a class="el" href="class_map.html">Map
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 23:39:44 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

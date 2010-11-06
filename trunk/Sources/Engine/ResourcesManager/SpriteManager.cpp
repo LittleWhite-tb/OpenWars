@@ -77,7 +77,26 @@ SDL_Surface* SpriteManager :: getSurface(const std::string& fileName,const bool 
 				LWarning << "Failed to scale the surface";
 				spritesBank[fileName].pSprite = pTmpSurface;
 			}
-
+/*
+			// Update the Surface to have an optimised for our screen
+			{
+				SDL_Surface* pTmpOptimisedSurface = SDL_DisplayFormat(spritesBank[fileName].pSprite);
+				if ( pTmpOptimisedSurface != NULL )
+				{
+					SDL_Surface* pOldSurface = spritesBank[fileName].pSprite;
+					// We save the optimised picture
+					spritesBank[fileName].pSprite = pTmpOptimisedSurface;
+				    
+					// We delete old one
+					SDL_FreeSurface(pOldSurface);
+				}
+				else
+				{
+					// else nothing happened
+					LWarning << "Fail to have enough memory to optimise the sprites";
+				}
+			}
+*/
 			// Enable RLE acceleration
 			if ( SDL_SetColorKey(spritesBank[fileName].pSprite, SDL_RLEACCEL, spritesBank[fileName].pSprite->format->colorkey) != 0 )
 			{

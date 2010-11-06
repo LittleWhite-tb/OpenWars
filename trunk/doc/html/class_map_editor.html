@@ -76,6 +76,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#ae6bc18144256315a3866b1542feb0f45"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#acd7077f73725360c2e5bead223645761">MapEditor</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;fileName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#acd7077f73725360c2e5bead223645761"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a194946600baa9214d0cb46ed36565edc">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const <a class="el" href="class_camera.html">Camera</a> &amp;c, const unsigned int time)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the map.  <a href="#a194946600baa9214d0cb46ed36565edc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a7cfe26c558f84771279a44dce818353d">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const TileType tileType)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> at the position.  <a href="#a7cfe26c558f84771279a44dce818353d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#ae71d3a40f0edbf3e943eb43f554f614a">testTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const TileType tileType) const </td></tr>
@@ -172,6 +174,52 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a194946600baa9214d0cb46ed36565edc"></a><!-- doxytag: member="MapEditor::draw" ref="a194946600baa9214d0cb46ed36565edc" args="(const Renderer &amp;r, const Camera &amp;c, const unsigned int time)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MapEditor::draw </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_renderer.html">Renderer</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_camera.html">Camera</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&nbsp;</td>
+          <td class="paramname"> <em>time</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Draw the map. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>r</em>&nbsp;</td><td>the renderer to use to draw the map </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>c</em>&nbsp;</td><td>The <a class="el" href="class_camera.html" title="Manage the camera.">Camera</a> (used to draw the correct part of the <a class="el" href="class_map.html" title="Map management class.">Map</a>) </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>time</em>&nbsp;</td><td>the actual time (for animation) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
+
+<p>Implements <a class="el" href="class_map.html#a64228dcdbd5a443a8a6c025f3b8612ee">Map</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a37e0c5cbdc413039f62227a253e4ce7f"></a><!-- doxytag: member="MapEditor::save" ref="a37e0c5cbdc413039f62227a253e4ce7f" args="(const std::string &amp;fileName)" -->
 <div class="memitem">
 <div class="memproto">
@@ -273,44 +321,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Reimplemented from <a class="el" href="class_map.html#a5254693f07a0cca0b7ba2600cd805b1b">Map</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a33ae84ca85a0eaa58d2ff79352544fbb"></a><!-- doxytag: member="MapEditor::testTile" ref="a33ae84ca85a0eaa58d2ff79352544fbb" args="(const UVec2 &amp;position, const UnitType unitType) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MapEditor::testTile </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const UnitType&nbsp;</td>
-          <td class="paramname"> <em>unitType</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Test if this unit type can be put at the position. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where the tile would be put </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>unitType</em>&nbsp;</td><td>the type of the unit that the user wants to put </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if we can set the unit </dd></dl>
+<p>Implements <a class="el" href="class_map.html#a72ca8578600fde5f6f137ce5342044a0">Map</a>.</p>
 
 </div>
 </div>
@@ -351,6 +362,43 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a33ae84ca85a0eaa58d2ff79352544fbb"></a><!-- doxytag: member="MapEditor::testTile" ref="a33ae84ca85a0eaa58d2ff79352544fbb" args="(const UVec2 &amp;position, const UnitType unitType) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MapEditor::testTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UnitType&nbsp;</td>
+          <td class="paramname"> <em>unitType</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Test if this unit type can be put at the position. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where the tile would be put </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>unitType</em>&nbsp;</td><td>the type of the unit that the user wants to put </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if we can set the unit </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Sources/Game/<a class="el" href="_map_editor_8h_source.html">MapEditor.h</a></li>
 <li>Sources/Game/MapEditor.cpp</li>
@@ -370,7 +418,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 23:39:44 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -30,10 +30,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "../Engine/Renderer.h"
+#include "../Game/Camera.h"
 #include "../Engine/Sprite.h"
 #include "Tile.h"
 #include "Unit.h"
 
+#include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
 
 #include "../globals.h"
@@ -68,8 +71,8 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 	}
 
 	// Unit map allocation
-	unitMap = new UnitType*[this->height];
-	if ( unitMap == NULL )
+	unitViewMap = new UnitType*[this->height];
+	if ( unitViewMap == NULL )
 	{
 		LError << "Error to allocate memory for the unitMap! (at height)";
 		valid = false;
@@ -78,8 +81,8 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 	{
 		for ( unsigned int y = 0 ; y < this->height ; y++ )
 		{
-			unitMap[y] = new UnitType[this->width];
-			if ( unitMap[y] == NULL )
+			unitViewMap[y] = new UnitType[this->width];
+			if ( unitViewMap[y] == NULL )
 			{
 				LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
 				valid = false;
@@ -92,11 +95,53 @@ MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
 		for ( unsigned int x = 0 ; x < this->width ; x++ )
 		{
 			map[y][x] = TT_Plain;
-			unitMap[y][x] = UT_NO_UNIT;		// Default is not unit
+			unitViewMap[y][x] = UT_NO_UNIT;		// Default is not unit
 		}
 	}
 
 	LDebug << "MapEditor created " << size;
+}
+
+bool MapEditor :: draw(const Renderer& r, const Camera& c, const unsigned int time)
+{
+	UVec2 cameraPosition = c.getPosition();
+	UVec2 mapOffset = Scaler::getOffset();
+	IVec2 tilePos(0,mapOffset.y);
+	bool bError = true;
+
+	LDebug << "Map :: draw";
+
+	this->drawTerrain(r,c,time);
+
+	// The camera is an offset of the Map drawing
+	// For each lines
+	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
+	{
+		tilePos.x = mapOffset.x;
+		// For each columns
+		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
+		{
+			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+
+			// Apply offset
+			tilePos.y -= yOffset;
+
+			if ( unitViewMap[y][x] != UT_NO_UNIT )	// If we have a unit
+			{
+                bError &= r.drawTile(*unitsSet[unitViewMap[y][x]].pASprite,tilePos,time);
+			}
+			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
+
+			// Remove offset ( to not affect other sprite )
+			tilePos.y += yOffset;
+		}
+
+		// To put 0 here, can be a bit dangerous
+		tilePos.y += (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+	}
+
+	return bError;
 }
 
 void MapEditor :: checkCoherencyAround(const UVec2& position)
@@ -1231,7 +1276,7 @@ bool MapEditor :: setTile(const UVec2& position, const UnitType unitType)
 		return false;
 	}
 
-	unitMap[position.y][position.x] = unitType;
+	unitViewMap[position.y][position.x] = unitType;
 
 	return true;
 }
@@ -1572,7 +1617,7 @@ bool MapEditor :: save(const std::string& fileName)
 			{
 				file << " ";
 			}
-			file << unitMap[y][x];
+			file << unitViewMap[y][x];
 		}
 
 		file << std::endl;

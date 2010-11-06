@@ -43,13 +43,13 @@ class Map
 protected:
 
 	std::map<TileType, Tile>tilesSet;						/*!< Set of tile to use with this map */
-	std::map<UnitType, Unit>unitsSet;						/*!< Set of tile to use with this map */
+	std::map<UnitType, UnitTemplate>unitsSet;					/*!< Set of tile to use with this map */
 
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
 	TileType** map;					/*!< 2D Array representating the map */
-	UnitType** unitMap;				/*!< 2D Array representating the unit on the map */
+	UnitType** unitViewMap;				/*!< 2D Array representating the unit on the map */
 
 	bool valid;					/*!< if the map is loaded properly */
 
@@ -88,6 +88,15 @@ protected:
     */
 	bool parser(SpriteManager& sm, const std::string& fileName);
 
+	//! Draw the terrain map
+	/*!
+	  \param r the renderer to use to draw the map
+	  \param c The Camera (used to draw the correct part of the Map)
+	  \param time the actual time (for animation)
+	  \return true if all goes right
+    */
+	bool drawTerrain(const Renderer& r, const Camera& c, const unsigned int time);
+
 public:
 	//! Basic constructor
 	/*!
@@ -111,7 +120,7 @@ public:
 	  \param time the actual time (for animation)
 	  \return true if all goes right
     */
-	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
+	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)=0;
 
 	//! Set the Unit at the position
 	/*!
@@ -121,7 +130,13 @@ public:
 		\param unitType the type of the new unit
 		\return true if all goes right
 	*/
-	virtual bool setTile(const UVec2& position, const UnitType unitType);
+	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
+    
+    //! Enable the units on the map
+    /*!
+      Will enable all unit on the map
+    */
+    void enableUnits(void);
 
 	//! Return if the map is valid
 	/*!
@@ -172,20 +187,20 @@ public:
 	*/
 	UnitType getUnitType(const UVec2& position)const;
 
-	//! Return the Unit corresponding to the position
+	//! Return the UnitTemplate corresponding to the position
 	/*!
 		The function will check if the position is outside the map. If it is, NULL is returned
 		\param position the position of the Unit to get
-		\return the Unit corresponding to the input position or NULL
+		\return the UnitTemplate corresponding to the input position or NULL
 	*/
-	Unit getUnit(const UVec2& position)const;
+	UnitTemplate getUnitTemplate(const UVec2& position)const;
 
-	//! Return the Unit corresponding to the UnitType
+	//! Return the UnitTemplate corresponding to the UnitType
 	/*!
-		\param ut the UnitTYpe of the Unit to return the position of the Unit to get
-		\return the Unit corresponding to the input UnitType
+		\param ut the UnitType of the Unit to return the position of the Unit to get
+		\return the UnitTemplate corresponding to the input UnitType
 	*/
-	Unit getUnit(const UnitType ut)const;
+	UnitTemplate getUnitTemplate(const UnitType ut)const;
 
 	//! Return the sprite corresponding to the type
 	/*!

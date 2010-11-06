@@ -53,23 +53,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 This is the complete list of members for <a class="el" href="struct_unit.html">Unit</a>, including all inherited members.<table>
   <tr class="memlist"><td><a class="el" href="struct_unit.html#a1472d9636b78194e7037c4ef0df5b3bd">ammo</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a13bd92e946f2f7bc4fb589adaf9a9902">category</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="struct_unit.html#aeb39d41187cabd4794fe581874355bed">enabled</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="struct_unit.html#acb9b9486bf511e3704194aabbcdda246">fuel</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a7373d52630b7283d1145eb497e50a2cd">fuelConsumption</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="struct_unit.html#a183eb7bc78df15213bb382438364e9cb">life</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a0df12df7134d1a696d29a1bcc56ca208">movement</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a03a2344fa6977a2ce44b320e44bc9caa">name</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#aa9808fb7c5d41d8791b194c91649754f">operator=</a>(const Unit &amp;u)</td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a59e0d5204e9df84151a12ed952b26766">pASprite</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#af4ad3717fac8c6f8776289e45ce01ff0">price</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#ad2f34fc05175b0347c8817a7cbda69d9">targetCategory</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a2d89a6d15f0d66134d9f9d5423bdd863">UC_AIR</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [static]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a3fdc3b1936c0a29227923b6185211cac">UC_LAND</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [static]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a2eadb17c69682890943ca8e4431aae74">UC_NAVY</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [static]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a72e5df738f6f6f40b1a514acd070561b">UC_NONE</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [static]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#aef0aa4d75ce07ae9fcedb86ce4f87467">Unit</a>(void)</td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#acaadd054db1de50c2e86a662ed3e66fd">Unit</a>(AnimatedSprite *const pASprite, const std::string &amp;name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)</td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="struct_unit.html#a360cc4c781e2c1da55c9ef04f13542c2">Unit</a>(const Unit &amp;u)</td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="struct_unit.html#ad83f62f7ed26c3b084cbb4df2ff3c157">type</a></td><td><a class="el" href="struct_unit.html">Unit</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Unit</b>(const UnitType ut, const UnitTemplate &amp;uTemp) (defined in <a class="el" href="struct_unit.html">Unit</a>)</td><td><a class="el" href="struct_unit.html">Unit</a></td><td><code> [inline]</code></td></tr>
 </table></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -85,7 +73,7 @@ This is the complete list of members for <a class="el" href="struct_unit.html">U
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 23 2010 23:39:44 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -140,7 +140,17 @@ enum UnitType
 	UT_END_LIST					// Stopper
 };
 
-struct Unit
+enum UnitFaction
+{
+	UF_RED,
+	UF_BLUE,
+	UF_GREEN,
+	UF_YELLOW,
+};
+
+UnitFaction FactionFactory(UnitType ut);
+
+struct UnitTemplate
 {
 	AnimatedSprite* pASprite;		/*!< Sprite of the unit */
 	std::string name;				/*!< Name to display for the unit */
@@ -162,12 +172,11 @@ struct Unit
 	static const unsigned int UC_NAVY = 2;		/*!< Navy units are attackable */
 	static const unsigned int UC_AIR = 4;		/*!< Air units are attackable */
 
-
 	//! Basic constructor
 	/*!
 		Set UT_NO_UNIT
 	*/
-	Unit(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0),price(0) {}
+	UnitTemplate(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0),price(0){}
 	
 	//! Basic destructor
 	/*!
@@ -182,14 +191,14 @@ struct Unit
 	  \param life the maximum life for this unit
 	  \param price the price of the unit
 	*/
-	Unit(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)
+	UnitTemplate(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)
 		:pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life),price(price) {}
 
 	//! Basic copy constructor
 	/*!
 	  \param u the Unit to copy
 	*/
-	Unit (const Unit& u)
+	UnitTemplate (const UnitTemplate& u)
 		:pASprite(u.pASprite),
 		name(u.name),
 		category(u.category),
@@ -205,7 +214,7 @@ struct Unit
 	/*!
 	  \param u the Unit to copy
 	*/
-	const Unit& operator=(const Unit& u)
+	const UnitTemplate& operator=(const UnitTemplate& u)
 	{
 		this->pASprite = u.pASprite;
 		this->name = u.name;
@@ -220,14 +229,27 @@ struct Unit
 
 		return *this;
 	}
-
 };
 
-/*! \struct Unit Unit.h "Game/Unit.h"
- *  \brief Unit struct
+struct Unit
+{
+	UnitType type;					/*!< Type of the unit */
+
+	unsigned int fuel;				/*!< The remaining fuel */
+	unsigned int ammo;				/*!< The remaining ammo */
+
+	unsigned int life;				/*!< The life */
+
+    bool enabled;                   /*!< If the unit is enabled (can be moved) */
+
+	Unit(const UnitType ut,const UnitTemplate& uTemp):type(ut),fuel(uTemp.fuel),ammo(uTemp.ammo),life(uTemp.life),enabled(false) {}
+};
+
+/*! \struct UnitTemplate UnitTemplate.h "Game/Unit.h"
+ *  \brief UnitTemplate struct
  *
+ * Structure to contain the unit information (loaded from files)
  * Keeps the following:
- *		- The enum to characterise the unit (id)
  *		- The category of the unit
  *		- The category of the attackable unit
  *		- The movement possibility
@@ -236,6 +258,18 @@ struct Unit
  *		- The ammo
  *		- The life of the unit
  *		- The price
+ */
+
+/*! \struct Unit Unit.h "Game/Unit.h"
+ *  \brief Unit struct
+ *
+ * Logical unit in the game. 
+ * Cotains:
+ *		- The enum to characterise the unit (id)
+ *		- The fuel
+ *		- The ammo
+ *		- The life of the unit
+ *		- if the unit is enabled
  */
 
 /*! \enum UnitType

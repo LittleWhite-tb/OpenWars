@@ -64,7 +64,7 @@ Map :: ~Map(void)
 	tilesSet.clear();
 
 	// Delete the Unit sprite used by the map
-	for ( std::map<UnitType, Unit>::iterator itUnit = unitsSet.begin() ; itUnit != unitsSet.end() ; ++itUnit)
+	for ( std::map<UnitType, UnitTemplate>::iterator itUnit = unitsSet.begin() ; itUnit != unitsSet.end() ; ++itUnit)
 	{
 		delete itUnit->second.pASprite;
 	}
@@ -73,10 +73,10 @@ Map :: ~Map(void)
 	// Delete the unit map
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
 	{
-		delete[] unitMap[y];
+		delete[] unitViewMap[y];
 	}
 
-	delete[] unitMap;
+	delete[] unitViewMap;
 
 	// Delete the map
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
@@ -191,7 +191,7 @@ void Map :: loadUnitSet(SpriteManager& sm, const std::string& theme)
 		unsigned int price = static_cast<unsigned int>(lp.getInt());
 		lp.readNextLine();
 
-		unitsSet[static_cast<UnitType>(idTile)] = Unit(new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+		unitsSet[static_cast<UnitType>(idTile)] = UnitTemplate(new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
 			name,
 			category,
 			targetCategory,
@@ -262,8 +262,8 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 				}
 
 				// Allocation of the unit map
-				unitMap = new UnitType*[this->height];
-				if ( unitMap == NULL )
+				unitViewMap = new UnitType*[this->height];
+				if ( unitViewMap == NULL )
 				{
 					LError << "Error to allocate memory for the unitMap! (at height)";
 					error = true;
@@ -272,8 +272,8 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 				{
 					for ( unsigned int y = 0 ; y < this->height ; y++ )
 					{
-						unitMap[y] = new UnitType[this->width];
-						if ( unitMap[y] == NULL )
+						unitViewMap[y] = new UnitType[this->width];
+						if ( unitViewMap[y] == NULL )
 						{
 							LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
 							error = true;
@@ -332,7 +332,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 				{
 					if ( unitType < UT_END_LIST )
 					{
-						unitMap[lp.getLineNumber()-(3+this->height)][x] = static_cast<UnitType>(unitType);
+						unitViewMap[lp.getLineNumber()-(3+this->height)][x] = static_cast<UnitType>(unitType);
 					}
 					else
 					{
@@ -352,13 +352,13 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
+bool Map :: drawTerrain(const Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
 	IVec2 tilePos(0,mapOffset.y);
 
-	LDebug << "Map :: draw";
+	LDebug << "Map :: drawTerrain";
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -381,17 +381,14 @@ bool Map :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 			tilePos.y -= yOffset;
 
 			r.drawTile(*tilesSet[map[y][x]].pASprite,tilePos,time);
-			if ( unitMap[y][x] != UT_NO_UNIT )	// If we have a unit
-			{
-				r.drawTile(*unitsSet[unitMap[y][x]].pASprite,tilePos,time);
-			}
+			
+			// Move on the right
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
 
 			// Remove offset ( to not affect other sprite )
 			tilePos.y += yOffset;
 		}
 
-		// To put 0 here, can be a bit dangerous
 		tilePos.y += (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 	}
 
@@ -458,7 +455,7 @@ UnitType Map :: getUnitType(const UVec2& position)const
 
 	if ( position.x < this->width && position.y < this->height )
 	{
-		return unitMap[position.y][position.x];
+		return unitViewMap[position.y][position.x];
 	}
 	else
 	{
@@ -466,7 +463,7 @@ UnitType Map :: getUnitType(const UVec2& position)const
 	}
 }
 
-Unit Map :: getUnit(const UVec2& position)const
+UnitTemplate Map :: getUnitTemplate(const UVec2& position)const
 {
 #ifdef VERBOSE
 	LDebug << "Map :: getUnit " << position;
@@ -474,20 +471,20 @@ Unit Map :: getUnit(const UVec2& position)const
 
 	if ( position.x < this->width && position.y < this->height )
 	{
-		return unitsSet.find(unitMap[position.y][position.x])->second;
+		return unitsSet.find(unitViewMap[position.y][position.x])->second;
 	}
 	else
 	{
-		return Unit();
+		return UnitTemplate();
 	}
 }
 
-Unit Map :: getUnit(const UnitType ut)const
+UnitTemplate Map :: getUnitTemplate(const UnitType ut)const
 {
 #ifdef VERBOSE
 	LDebug << "Map :: getUnit " << ut;
 #endif
-	std::map<UnitType, Unit>::const_iterator it = unitsSet.find(ut);
+	std::map<UnitType, UnitTemplate>::const_iterator it = unitsSet.find(ut);
 
  	if ( it != unitsSet.end() )
 	{
@@ -496,16 +493,8 @@ Unit Map :: getUnit(const UnitType ut)const
 	}
 	else
 	{
-		return Unit();
+		return UnitTemplate();
 	}
-}
-
-
-bool Map :: setTile(const UVec2& position, const UnitType unitType)
-{
-	unitMap[position.y][position.x] = unitType;
-
-	return true;
 }
 
 AnimatedSprite* Map :: getAssociatedSprite(const TileType type)

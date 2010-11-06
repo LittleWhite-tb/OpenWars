@@ -290,7 +290,7 @@ bool EditorEngine :: run(void)
 				isUnit = true;
 				pTileViewer->setTitle("Unit");
 				pTileViewer->setTile(pMap->getAssociatedSprite(pUnitTB->getSelected()), 
-											pMap->getUnit(pUnitTB->getSelected()).name);
+											pMap->getUnitTemplate(pUnitTB->getSelected()).name);
 			}
 
 			if ( pBuildingTB->isOpened() )
@@ -351,6 +351,16 @@ bool EditorEngine :: run(void)
 void EditorEngine :: saveMap(const std::string& fileName)
 {
 	pMap->save(fileName);
+}
+
+bool EditorEngine :: setTile(const UVec2& position, const UnitType unitType)
+{
+    bool bError = true;
+    
+    // We place the unit
+	bError &= dynamic_cast<Map*>(this)->setTile(position,unitType);
+
+    return bError;
 }
 
 #endif

@@ -28,6 +28,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Map.h"
 
+class Renderer;
+class Camera;
+
 class MapEditor : public Map
 {
 private:
@@ -153,6 +156,8 @@ public:
 	  \param fileName the name of the file to load
     */
 	MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
+
+	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
 
 	//! Set the Tile at the position
 	/*!

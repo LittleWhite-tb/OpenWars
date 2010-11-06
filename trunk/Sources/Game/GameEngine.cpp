@@ -24,7 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameEngine.h"
 
-#include "Map.h"
+#include "MapGame.h"
 #include "Cursor.h"
 #include "Camera.h"
 
@@ -67,27 +67,27 @@ bool GameEngine :: load(void)
 	// Prepare the data to put in the Construction Box for the Factory
 	std::vector<ConstructUnitView> factoryUnits;
 	{
-		Unit u = pMap->getUnit(UT_R_INFANTRY);
+		UnitTemplate u = pMap->getUnitTemplate(UT_R_INFANTRY);
 		factoryUnits.push_back(ConstructUnitView(UT_R_INFANTRY,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_BAZOOKA);
+		u = pMap->getUnitTemplate(UT_R_BAZOOKA);
 		factoryUnits.push_back(ConstructUnitView(UT_R_BAZOOKA,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_RECON);
+		u = pMap->getUnitTemplate(UT_R_RECON);
 		factoryUnits.push_back(ConstructUnitView(UT_R_RECON,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_TANK);
+		u = pMap->getUnitTemplate(UT_R_TANK);
 		factoryUnits.push_back(ConstructUnitView(UT_R_TANK,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_TANKM);
+		u = pMap->getUnitTemplate(UT_R_TANKM);
 		factoryUnits.push_back(ConstructUnitView(UT_R_TANKM,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_NEOTANK);
+		u = pMap->getUnitTemplate(UT_R_NEOTANK);
 		factoryUnits.push_back(ConstructUnitView(UT_R_NEOTANK,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_APC);
+		u = pMap->getUnitTemplate(UT_R_APC);
 		factoryUnits.push_back(ConstructUnitView(UT_R_APC,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_ARTILLERY);
+		u = pMap->getUnitTemplate(UT_R_ARTILLERY);
 		factoryUnits.push_back(ConstructUnitView(UT_R_ARTILLERY,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_ROCKETS);
+		u = pMap->getUnitTemplate(UT_R_ROCKETS);
 		factoryUnits.push_back(ConstructUnitView(UT_R_ROCKETS,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_ANTIAIR);
+		u = pMap->getUnitTemplate(UT_R_ANTIAIR);
 		factoryUnits.push_back(ConstructUnitView(UT_R_ANTIAIR,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_MISSILES);
+		u = pMap->getUnitTemplate(UT_R_MISSILES);
 		factoryUnits.push_back(ConstructUnitView(UT_R_MISSILES,u.pASprite,u.name,u.price));
 	}
 	pCBFactory = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
@@ -95,13 +95,13 @@ bool GameEngine :: load(void)
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> portUnits;
 	{
-		Unit u = pMap->getUnit(UT_R_BOMBERSHIP);
+		UnitTemplate u = pMap->getUnitTemplate(UT_R_BOMBERSHIP);
 		portUnits.push_back(ConstructUnitView(UT_R_BOMBERSHIP,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_CRUISER);
+		u = pMap->getUnitTemplate(UT_R_CRUISER);
 		portUnits.push_back(ConstructUnitView(UT_R_CRUISER,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_LANDER);
+		u = pMap->getUnitTemplate(UT_R_LANDER);
 		portUnits.push_back(ConstructUnitView(UT_R_LANDER,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_SUB);
+		u = pMap->getUnitTemplate(UT_R_SUB);
 		portUnits.push_back(ConstructUnitView(UT_R_SUB,u.pASprite,u.name,u.price));		
 	}
 	pCBPort = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
@@ -109,13 +109,13 @@ bool GameEngine :: load(void)
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> airportUnits;
 	{
-		Unit u = pMap->getUnit(UT_R_FIGHTER);
+		UnitTemplate u = pMap->getUnitTemplate(UT_R_FIGHTER);
 		airportUnits.push_back(ConstructUnitView(UT_R_FIGHTER,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_BOMBER);
+		u = pMap->getUnitTemplate(UT_R_BOMBER);
 		airportUnits.push_back(ConstructUnitView(UT_R_BOMBER,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_COPTER);
+		u = pMap->getUnitTemplate(UT_R_COPTER);
 		airportUnits.push_back(ConstructUnitView(UT_R_COPTER,u.pASprite,u.name,u.price));
-		u = pMap->getUnit(UT_R_TCOPTER);
+		u = pMap->getUnitTemplate(UT_R_TCOPTER);
 		airportUnits.push_back(ConstructUnitView(UT_R_TCOPTER,u.pASprite,u.name,u.price));		
 	}
 	pCBAirport = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
@@ -148,7 +148,7 @@ bool GameEngine :: init(const Window* pWin, const RenderingAPI rAPI)
 
 bool GameEngine :: load(const std::string& mapName)
 {
-	pMap = new Map(*pSM , mapName);
+	pMap = new MapGame(*pSM , mapName);
 	if ( !pMap->isValidMap() )
 	{
 		return false;

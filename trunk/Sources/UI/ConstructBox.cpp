@@ -121,7 +121,7 @@ bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 		}
 		else
 		{
-			SDL_Colour mask = {128,128,128,255};
+			static const SDL_Colour mask = {128,128,128,255};
 
 			errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition,mask);
 			errorFlag &= pFontGrey->draw(r,unitsList[i].unitName,unitNamePosition);

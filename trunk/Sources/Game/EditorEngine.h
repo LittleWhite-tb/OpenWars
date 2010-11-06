@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine.h"
 
 #include "../Engine/Renderer.h"
+#include "Unit.h"
 
 #include "../Types/Vec2.h"
 
@@ -112,6 +113,17 @@ public:
 		\return true if all goes fine
 	*/
 	void saveMap(const std::string& fileName);
+    
+    //! Set the Unit at the position
+	/*!
+		Will overwrite the Unit previously contained on the map by the new one.
+		The new Unit is selected following the internal logic of the editor.
+        The unit is automatically enabled in the editor
+		\param position the position where to change the tile
+		\param unitType the type of the new unit
+		\return true if all goes right
+	*/
+	bool setTile(const UVec2& position, const UnitType unitType);
 };
 
 /*! \class EditorEngine EditorEngine.h "Engine/EditorEngine.h"

@@ -345,6 +345,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Game\MapGame.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\MapGame.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Game\Tile.cpp"
 					>
 				</File>
