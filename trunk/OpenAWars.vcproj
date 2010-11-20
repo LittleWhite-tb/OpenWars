@@ -420,6 +420,14 @@
 					RelativePath=".\Sources\Utils\Scaler.h"
 					>
 				</File>
+				<Filter
+					Name="Exceptions"
+					>
+					<File
+						RelativePath=".\Sources\Utils\Exceptions\ConstructionFailedException.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

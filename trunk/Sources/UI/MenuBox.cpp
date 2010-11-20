@@ -34,6 +34,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
+
+#include "../Utils/Exceptions/ConstructionFailedException.h"
+
 #include "../globals.h"
 
 MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, const std::vector<MenuView>& entries)
@@ -51,6 +54,7 @@ MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const 
 	if ( pSurface == NULL )
 	{
 		LError << "SDL_CreateRGBSurfaceFrom() failed (" << SDL_GetError() << ")";
+		throw ConstructionFailedException("MenuBox");
 		return;
 	}
 	

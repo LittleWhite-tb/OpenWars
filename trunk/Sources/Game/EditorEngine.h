@@ -79,13 +79,6 @@ public:
 	*/
 	~EditorEngine(void);
 
-	//! Load an empty map
-	/*!
-		\param mapSize The size of the empty map
-		\return true if all goes fine
-	*/
-	bool load(const UVec2& mapSize);
-
 	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
 	/*!
 		\param pWin The window to use with for the editor
@@ -93,6 +86,14 @@ public:
 		\return true if all goes fine
 	*/
 	bool init(const Window* pWin, const RenderingAPI rAPI);
+
+	//! Load an empty map
+	/*!
+		\param themeName the name of the theme to load
+		\param mapSize The size of the empty map
+		\return true if all goes fine
+	*/
+	bool load(const std::string& themeName, const UVec2& mapSize);
 
 	//! Load the map from a file
 	/*!

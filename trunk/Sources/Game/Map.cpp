@@ -44,6 +44,10 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/LineParser.h"
 #include "../Utils/Logger.h"
 #include "../Utils/Scaler.h"
+
+#include "../Utils/Exceptions/ConstructionFailedException.h"
+#include "../Utils/Exceptions/FileNotOpenedException.h"
+
 #include "../globals.h"
 
 Map :: Map(SpriteManager& sm, const std::string& fileName)
@@ -89,127 +93,169 @@ Map :: ~Map(void)
 	LDebug << "Map deleted";
 }
 
-void Map :: loadTileSet(SpriteManager& sm, const std::string& theme)
+bool Map :: loadTileSet(SpriteManager& sm)
 {
-	LDebug << "Map :: loadTileSet ( " << theme.c_str() << ")";
+	LDebug << "Map :: loadTileSet ( " << m_themeName.c_str() << ")";
 
 	// Need reading of the file
-	std::string tileSetPath = TILESET_PATH + theme + std::string(".oawts");
+	std::string tileSetPath = TILESET_PATH + m_themeName + std::string(".oawts");
 
-	LineParser lp(tileSetPath);
-
-	for ( unsigned int i = TT_Plain ; i < TT_Invalid ; i++ )
+	try
 	{
-		unsigned int idTile = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		if ( i != idTile )
-		{
-			LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
-		}
-		std::string name = lp.getLine();
-		lp.readNextLine();
-		std::string spriteName = lp.getLine();
-		lp.readNextLine();
-		IVec2 spriteSize = lp.getIVec2();
-		lp.readNextLine();
-		int spriteDuration = lp.getInt();
-		lp.readNextLine();
-		unsigned char defence = static_cast<unsigned char>(lp.getInt());
-		lp.readNextLine();
-		bool isRoad = lp.getBool();
-		lp.readNextLine();
-		bool isBridge = lp.getBool();
-		lp.readNextLine();
-		bool isRiver = lp.getBool();
-		lp.readNextLine();
-		bool isSea = lp.getBool();
-		lp.readNextLine();
-		bool isBeach = lp.getBool();
-		lp.readNextLine();
-		bool isBuilding = lp.getBool();
-		lp.readNextLine();
-		bool isHQ = lp.getBool();
-		lp.readNextLine();
-		bool needBackground = lp.getBool();
-		lp.readNextLine();
-		unsigned char cityLife = static_cast<unsigned char>(lp.getInt());
-		lp.readNextLine();
+		LineParser lp(tileSetPath);
 
-		tilesSet[static_cast<TileType>(idTile)] = Tile(new AnimatedSprite(sm,GFX_TILES_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
-			name,
-			defence,
-			isRoad,
-			isBridge,
-			isRiver,
-			isSea,
-			isBeach,
-			isBuilding,isHQ,
-			needBackground,
-			cityLife);
+		for ( unsigned int i = TT_Plain ; i < TT_Invalid ; i++ )
+		{
+			unsigned int idTile = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			if ( i != idTile )
+			{
+				LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
+			}
+			std::string name = lp.getLine();
+			lp.readNextLine();
+			std::string spriteName = lp.getLine();
+			lp.readNextLine();
+			IVec2 spriteSize = lp.getIVec2();
+			lp.readNextLine();
+			int spriteDuration = lp.getInt();
+			lp.readNextLine();
+			unsigned char defence = static_cast<unsigned char>(lp.getInt());
+			lp.readNextLine();
+			bool isRoad = lp.getBool();
+			lp.readNextLine();
+			bool isBridge = lp.getBool();
+			lp.readNextLine();
+			bool isRiver = lp.getBool();
+			lp.readNextLine();
+			bool isSea = lp.getBool();
+			lp.readNextLine();
+			bool isBeach = lp.getBool();
+			lp.readNextLine();
+			bool isBuilding = lp.getBool();
+			lp.readNextLine();
+			bool isHQ = lp.getBool();
+			lp.readNextLine();
+			bool needBackground = lp.getBool();
+			lp.readNextLine();
+			unsigned char cityLife = static_cast<unsigned char>(lp.getInt());
+			lp.readNextLine();
+
+			try
+			{
+
+				tilesSet[static_cast<TileType>(idTile)] = Tile(new AnimatedSprite(sm,GFX_TILES_PATH + m_themeName + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+					name,
+					defence,
+					isRoad,
+					isBridge,
+					isRiver,
+					isSea,
+					isBeach,
+					isBuilding,isHQ,
+					needBackground,
+					cityLife);
+			}
+			catch (ConstructionFailedException& cfe)
+			{
+				LError << cfe.what();
+				return false;
+			}
+		}
 	}
+	catch (FileNotOpenedException fnoe)
+	{
+		LError << fnoe.what();
+		return false;
+	}
+
+	return true;
 }
 
-void Map :: loadUnitSet(SpriteManager& sm, const std::string& theme)
+bool Map :: loadUnitSet(SpriteManager& sm)
 {
-	LDebug << "Map :: loadUnitSet ( " << theme.c_str() << ")";
+	LDebug << "Map :: loadUnitSet ( " << m_themeName.c_str() << ")";
 
 	// Need reading of the file
-	std::string unitSetPath = UNITSET_PATH + theme + std::string(".oawus");
+	std::string unitSetPath = UNITSET_PATH + m_themeName + std::string(".oawus");
 
-	LineParser lp(unitSetPath);
-
-	for ( unsigned int i = UT_R_INFANTRY ; i < UT_END_LIST ; i++ )
+	try
 	{
-		unsigned int idTile = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		if ( i != idTile )
-		{
-			LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
-		}
-		std::string name = lp.getLine();
-		lp.readNextLine();
-		std::string spriteName = lp.getLine();
-		lp.readNextLine();
-		IVec2 spriteSize = lp.getIVec2();
-		lp.readNextLine();
-		int spriteDuration = lp.getInt();
-		lp.readNextLine();
-		unsigned int category = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int targetCategory = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int movement = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int fuel = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int fuelConsumption = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int ammo = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int maxLife = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
-		unsigned int price = static_cast<unsigned int>(lp.getInt());
-		lp.readNextLine();
+		LineParser lp(unitSetPath);
 
-		unitsSet[static_cast<UnitType>(idTile)] = UnitTemplate(new AnimatedSprite(sm,GFX_UNITS_PATH + theme + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
-			name,
-			category,
-			targetCategory,
-			movement,
-			fuel,
-			fuelConsumption,
-			ammo,
-			maxLife,price
-			);
+		for ( unsigned int i = UT_R_INFANTRY ; i < UT_END_LIST ; i++ )
+		{
+			unsigned int idTile = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			if ( i != idTile )
+			{
+				LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
+			}
+			std::string name = lp.getLine();
+			lp.readNextLine();
+			std::string spriteName = lp.getLine();
+			lp.readNextLine();
+			IVec2 spriteSize = lp.getIVec2();
+			lp.readNextLine();
+			int spriteDuration = lp.getInt();
+			lp.readNextLine();
+			unsigned int category = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int targetCategory = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int movement = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int fuel = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int fuelConsumption = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int ammo = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int maxLife = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+			unsigned int price = static_cast<unsigned int>(lp.getInt());
+			lp.readNextLine();
+
+			try
+			{
+
+				unitsSet[static_cast<UnitType>(idTile)] = UnitTemplate(new AnimatedSprite(sm,GFX_UNITS_PATH + m_themeName + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+					name,
+					category,
+					targetCategory,
+					movement,
+					fuel,
+					fuelConsumption,
+					ammo,
+					maxLife,price
+					);
+			}
+			catch (ConstructionFailedException& cfe)
+			{
+				LError << cfe.what();
+				return false;
+			}
+		}
 	}
+	catch (FileNotOpenedException fnoe)
+	{
+		LError << fnoe.what();
+		return false;
+	}
+
+	return true;
 }
 
-void Map :: loadGraphics(SpriteManager& sm, const std::string& theme)
+bool Map :: loadGraphics(SpriteManager& sm)
 {
-	LDebug << "Map :: loadGraphics ( " << theme.c_str() << ")";
+	LDebug << "Map :: loadGraphics";
 
-	loadTileSet(sm,theme);
-	loadUnitSet(sm,theme);
+	if ( loadTileSet(sm) == false || loadUnitSet(sm) == false )
+	{
+		return false;
+	}
+
+	return true;
 }
 
 bool Map :: parser(SpriteManager& sm, const std::string& fileName)
@@ -227,11 +273,15 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	{
 		if ( lp.getLineNumber() == 1 )
 		{
-			theme = lp.getLine();
+			m_themeName = lp.getLine();
 
-			LDebug << "Theme: " << theme.c_str();
+			LDebug << "Theme: " << m_themeName.c_str();
 
-				loadGraphics(sm,theme); // TODO : Error checking has to be added ... more ... this line has to move in the constructor
+			if ( loadGraphics(sm) == false )
+			{
+				LError << "Error to load the graphics";
+				error = true;
+			}
 		}
 		else if ( lp.getLineNumber() == 2 )
 		{

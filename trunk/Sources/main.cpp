@@ -40,19 +40,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "globals.h"
 
-#ifdef _DEBUG
-	// Some specials globals to check if all memory cleaning is properly done
-	unsigned int nbASAllocation = 0;
-	unsigned int nbASDestruction = 0;
-	unsigned int nbSAllocation = 0;
-	unsigned int nbSDestruction = 0;
-	unsigned int nbFAllocation = 0;
-	unsigned int nbFDestruction = 0;
-
-	unsigned int nbTAllocation = 0;
-	unsigned int nbTDestruction = 0;
-#endif
-
 int main(int argc, char** argv)
 {
 	(void)argc;
@@ -179,14 +166,6 @@ int main(int argc, char** argv)
 
 	// Bye bye SDL
 	SDL_Quit();
-
-#ifdef _DEBUG
-	// Final check
-	LDebug << "Number of Sprite Alloc/Destruction: " << nbSAllocation << " / " << nbSDestruction;
-	LDebug << "Number of Animated Sprite Alloc/Destruction: " << nbASAllocation << " / " << nbASDestruction;
-	LDebug << "Number of Font Alloc/Destruction: " << nbFAllocation << " / " << nbFDestruction;
-	LDebug << "Number of Tile Alloc/Destruction: " << nbTAllocation << " / " << nbTDestruction;
-#endif
 
 	Logger::deleteLogger();
 

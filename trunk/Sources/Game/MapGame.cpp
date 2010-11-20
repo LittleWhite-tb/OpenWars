@@ -61,7 +61,10 @@ void MapGame :: enableUnits(void)
 	{
 		for ( unsigned int x = 0 ; x < width ; x++ )
 		{
-            unitMap[y][x]->enabled = true;
+			if ( this->unitViewMap[y][x] != UT_NO_UNIT )
+			{
+				unitMap[y][x]->enabled = true;
+			}
         }
     }
 }
@@ -128,4 +131,16 @@ bool MapGame :: setTile(const UVec2& position, const UnitType unitType)
 	unitMap[position.y][position.x] = new Unit(unitType, unitsSet[unitType]);
 
 	return true;
+}
+
+const Unit* MapGame :: getUnit(const UVec2& position)
+{
+	if ( position.x < this->width && position.y < this->height )
+	{
+		return unitMap[position.y][position.x];
+	}
+	else
+	{
+		return NULL;
+	}
 }

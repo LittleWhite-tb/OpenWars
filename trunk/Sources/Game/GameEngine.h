@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine.h"
 
-class Map;
+class MapGame;
 class Cursor;
 class Camera;
 
@@ -48,7 +48,7 @@ class GameEngine : public Engine
 
 private:
 
-	Map* pMap;					/*!< The map to use */
+	MapGame* pMap;				/*!< The map to use */
 	Cursor* pC;					/*!< The cursor */
 	Camera* pCam;				/*!< The camera */
 
@@ -58,8 +58,11 @@ private:
 	ConstructBox* pCBAirport;	/*!< Construct box for airports */
 
 	MenuBox* pMBMenu;				/*!< menu for the user */
+	MenuBox* pMBMenuUnit;				/*!< menu for the user when using unit */
 
 	GameState gState;			/*!< Actual state of the game */
+
+	bool m_userQuit;			/*!< If the user wants to quit, this variable will be true */
 
 	//! Load the map, cursor, camera with the associated sprites
 	/*!

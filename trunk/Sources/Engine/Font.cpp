@@ -33,31 +33,22 @@ e-mail: lw.demoscene@gmail.com
 #include "Sprite.h"
 
 #include "../Utils/Logger.h"
-
-#ifdef _DEBUG
-	extern unsigned int nbFAllocation;
-	extern unsigned int nbFDestruction;
-#endif
+#include "../Utils/Exceptions/ConstructionFailedException.h"
 
 Font :: Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour)
 	:colour(colour)
 {
 	pFont = fm.getFont(fileName,size);
+	if ( pFont == NULL )
+	{
+		throw ConstructionFailedException("Font");
+	}
 
 	LDebug << "Font created from file (" << fileName.c_str() << ")";
-
-#ifdef _DEBUG
-	nbFAllocation++;
-#endif
-
 }
 
 Font :: ~Font(void)
 {
-#ifdef _DEBUG
-	nbFDestruction++;
-#endif
-
 	LDebug << "Font deleted";
 }
 

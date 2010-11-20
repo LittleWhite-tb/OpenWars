@@ -36,16 +36,18 @@ e-mail: lw.demoscene@gmail.com
 #include "../Engine/Controls/Keyboard.h"
 
 #include "../Utils/Logger.h"
+#include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
 GameEngine :: GameEngine(void)
-:Engine(),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU)
+:Engine(),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),pMBMenuUnit(NULL),gState(GS_VISU),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";
 }
 
 GameEngine :: ~GameEngine(void)
 {
+	delete pMBMenuUnit;
 	delete pMBMenu;
 
 	delete pCBAirport;
@@ -90,7 +92,6 @@ bool GameEngine :: load(void)
 		u = pMap->getUnitTemplate(UT_R_MISSILES);
 		factoryUnits.push_back(ConstructUnitView(UT_R_MISSILES,u.pASprite,u.name,u.price));
 	}
-	pCBFactory = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
 
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> portUnits;
@@ -104,7 +105,6 @@ bool GameEngine :: load(void)
 		u = pMap->getUnitTemplate(UT_R_SUB);
 		portUnits.push_back(ConstructUnitView(UT_R_SUB,u.pASprite,u.name,u.price));		
 	}
-	pCBPort = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
 
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> airportUnits;
@@ -118,15 +118,26 @@ bool GameEngine :: load(void)
 		u = pMap->getUnitTemplate(UT_R_TCOPTER);
 		airportUnits.push_back(ConstructUnitView(UT_R_TCOPTER,u.pASprite,u.name,u.price));		
 	}
-	pCBAirport = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
-
-	// Prepare the data to put in the Construction Box for the Port
-	std::vector<MenuView> menuEntries;
+	
+	try
 	{
-		menuEntries.push_back(MenuView("End turn",ME_EndTurn,new AnimatedSprite(*pSM,GFX_PATH "endTurnIcon.png",32,32,200,true)));
-		menuEntries.push_back(MenuView("Quit",ME_Quit,NULL));
+		// Prepare the data for the basic menu
+		std::vector<MenuView> menuEntries;
+		{
+			menuEntries.push_back(MenuView("End turn",ME_EndTurn,new AnimatedSprite(*pSM,GFX_PATH "endTurnIcon.png",32,32,200,true)));
+			menuEntries.push_back(MenuView("Quit",ME_Quit,NULL));
+		}
+
+		pCBFactory = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
+		pCBPort = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
+		pCBAirport = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
+		pMBMenu = new MenuBox(*pSM,*pFM,*pWin, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries);
 	}
-	pMBMenu = new MenuBox(*pSM,*pFM,*pWin, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries);
+	catch (ConstructionFailedException& cfe)
+	{
+		LError << cfe.what();
+		return false;
+	}
 	if ( pMBMenu->getValid() == false )
 	{
 		return false;
@@ -159,7 +170,7 @@ bool GameEngine :: load(const std::string& mapName)
 
 bool GameEngine :: run(void)
 {
-	while ( pKB->isEscapePressed() == 0 && pWin->needClosure() == 0 )
+	while ( pKB->isEscapePressed() == 0 && pWin->needClosure() == 0 && m_userQuit == false )
 	{
 		// Drawing part
 		pRenderer->clearScreen();
@@ -211,25 +222,35 @@ bool GameEngine :: run(void)
 						pC->move(pKB->getDirectionPressed());
 						if ( pKB->isKey(SDLK_SPACE) )
 						{
-							if ( pC->getTileTypeUnderCursor() == TT_Red_Factory )
+							UnitType currentUT = pMap->getUnitType(pC->getPosition());
+							if ( currentUT == UT_NO_UNIT )
 							{
-								this->gState = GS_FACTORY;
+								if ( pC->getTileTypeUnderCursor() == TT_Red_Factory )
+								{
+									this->gState = GS_FACTORY;
+								}
+								else if ( pC->getTileTypeUnderCursor() == TT_Red_Airport )
+								{
+									this->gState = GS_AIRPORT;
+								}
+								else if ( pC->getTileTypeUnderCursor() == TT_Red_Port )
+								{
+									this->gState = GS_PORT;
+								}
+								else
+								{
+									this->gState = GS_MENU;
+								}
 							}
-							else if ( pC->getTileTypeUnderCursor() == TT_Red_Airport )
-							{
-								this->gState = GS_AIRPORT;
-							}
-							else if ( pC->getTileTypeUnderCursor() == TT_Red_Port )
-							{
-								this->gState = GS_PORT;
-							}
-							/*
-							else if ( ) = UNIT
-							*/
-							else
+							else if ( !pMap->getUnit(pC->getPosition())->enabled )
 							{
 								this->gState = GS_MENU;
 							}
+							// ToDO else second menu
+							/*
+							else if ( ) = UNIT
+							*/
+							
 						}
 					}
 					break;
@@ -269,7 +290,21 @@ bool GameEngine :: run(void)
 						if ( pKB->isKey(SDLK_SPACE) )
 						{
 							// Check what is in 
-							// pMBMenu->getActualEntry();
+							switch (pMBMenu->getActualEntry())
+							{
+								case (ME_EndTurn):
+								{
+									// ToDo Change turn.
+									this->pMap->enableUnits();
+									this->gState = GS_VISU;
+								}
+								break;
+								case (ME_Quit):
+								{
+									m_userQuit = true;
+								}
+								break;
+							}
 						}
 						else if ( pKB->isKey(SDLK_z) )
 						{

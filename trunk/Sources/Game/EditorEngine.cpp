@@ -42,6 +42,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
+#include "../Utils/Exceptions/ConstructionFailedException.h"
+
 EditorEngine :: EditorEngine(void)
 :Engine(),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
 {
@@ -185,9 +187,17 @@ bool EditorEngine :: load(void)
 		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_SUB),UT_Y_SUB,18));
 	}
 
-	pUnitTB = new TileBarUnits(*pSM,*pWin,unitTiles);
-	pBuildingTB = new TileBarTiles(*pSM,*pWin,buildingTiles);
-	pTileViewer = new TileViewer(*pSM,*pFM,*pWin,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
+	try
+	{
+		pUnitTB = new TileBarUnits(*pSM,*pWin,unitTiles);
+		pBuildingTB = new TileBarTiles(*pSM,*pWin,buildingTiles);
+		pTileViewer = new TileViewer(*pSM,*pFM,*pWin,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
+	}
+	catch (ConstructionFailedException& cfe)
+	{
+		LError << cfe.what();
+		return false;
+	}
 					
 	pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
 		pMap->getTile(pBuildingTB->getSelected()).name);
@@ -207,9 +217,9 @@ bool EditorEngine :: init(const Window* pWin, const RenderingAPI rAPI)
 }
 
 
-bool EditorEngine :: load(const UVec2& mapSize)
+bool EditorEngine :: load(const std::string& themeName, const UVec2& mapSize)
 {
-	pMap = new MapEditor(*pSM , mapSize);
+	pMap = new MapEditor(*pSM, themeName , mapSize);
 	if ( !pMap->isValidMap() )
 	{
 		return false;
@@ -220,7 +230,7 @@ bool EditorEngine :: load(const UVec2& mapSize)
 
 bool EditorEngine :: load(const std::string& mapName)
 {
-	pMap = new MapEditor(*pSM , mapName);
+	pMap = new MapEditor(*pSM, mapName);
 	if ( !pMap->isValidMap() )
 	{
 		return false;

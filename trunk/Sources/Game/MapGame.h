@@ -75,6 +75,13 @@ public:
 		\return true if all goes right
 	*/
 	bool setTile(const UVec2& position, const UnitType unitType);
+
+	//! Get the Unit at the position
+	/*!
+		\param position the position where to get the unit
+		\return the pointer on the unit
+	*/
+	const Unit* getUnit(const UVec2& position);
 };
 
 /*! \class MapGame MapGame.h "Game/MapGame.h"

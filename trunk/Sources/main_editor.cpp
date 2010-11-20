@@ -64,6 +64,7 @@ int main(int argc, char** argv)
 	unsigned int mapHeight=MAP_MIN_HEIGHT;
 	std::string loadMapName="";
 	std::string mapName="save.map";
+	std::string themeName="classic";
 
 	// Check the arguments passed
 	while ( i < static_cast<unsigned int>(argc) )
@@ -165,6 +166,19 @@ int main(int argc, char** argv)
 				return -1;
 			}
 		}
+		else if ( strcmp(argv[i],"--theme") == 0 )
+		{
+			if ( i+1 < static_cast<unsigned int>(argc) )
+			{
+				themeName = std::string(argv[i+1]);
+				i+=2;
+			}
+			else
+			{
+				LError << "Missing option for --mapName!";
+				return -1;
+			}
+		}
 	}
 	// Starting SDL
 	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
@@ -213,7 +227,7 @@ int main(int argc, char** argv)
 						}
 						else
 						{
-							engineLoadingState = eEngine.load(UVec2(mapWidth, mapHeight));
+							engineLoadingState = eEngine.load(themeName,UVec2(mapWidth, mapHeight));
 						}
 						if ( engineLoadingState )
 						{

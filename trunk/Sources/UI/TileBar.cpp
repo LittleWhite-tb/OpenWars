@@ -39,6 +39,8 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Utils/Scaler.h"
 
+#include "../Utils/Exceptions/ConstructionFailedException.h"
+
 #include "../globals.h"
 
 TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& listTiles)
@@ -56,7 +58,7 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& lis
 	if ( pSurface == NULL )
 	{
 		LError << "SDL_CreateRGBSurfaceFrom() failed (" << SDL_GetError() << ")";
-		valid = false;
+		throw ConstructionFailedException("TileBar");
 		return;
 	}
 /*
@@ -110,7 +112,6 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& lis
 	pBarArrows = new AnimatedSprite(sm,"./data/gfx/tilebar_arrows.png",45,45,300,true);
 
 	// Final settings
-	valid = true;
 	counterMovementAnim = 0;
 	windowSize = UVec2(win.getWidth(),win.getHeight());
 	limit =  (viewList[0][0]->getSprite()->getWidth() + (static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)*2)) * viewList.size();

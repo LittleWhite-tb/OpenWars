@@ -1,3 +1,6 @@
+#ifndef __CONSTRUCTIONFAILEDEXCEPTION_H__
+#define __CONSTRUCTIONFAILEDEXCEPTION_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,53 +25,24 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Sprite.h"
-
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-
 #include <string>
 
-#include <cassert>
-
-#include "ResourcesManager/SpriteManager.h"
-
-#include "../Utils/Logger.h"
-#include "../Utils/Exceptions/ConstructionFailedException.h"
-
-Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool needScaling)
+class ConstructionFailedException : public std::exception
 {
-	surface = sm.getSurface(fileName,needScaling);
-	if ( surface == NULL )
+private:
+	std::string message;	/*!< Message to display */
+
+public:
+	//! Exception constructor
+	/*!
+	  \param userMessage message from the user to display
+	*/
+	ConstructionFailedException(const std::string& userMessage):message(std::string("Failed to create class '") + userMessage + std::string("'")) {}
+
+	virtual const char* what() const throw()
 	{
-		throw ConstructionFailedException("Sprite");
+		return message.c_str();
 	}
+};
 
-	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
-}
-
-Sprite :: Sprite(SDL_Surface* pSurface)
-	:surface(pSurface)
-{
-	assert(pSurface);
-	LDebug << "Sprite created from SDL_Surface*";
-}
-
-Sprite :: ~Sprite(void)
-{
-	LDebug << "Sprite deleted";
-}
-
-int Sprite :: getWidth(void)const
-{
-	LDebug << "Sprite :: getWidth (" << this->surface->w << ")";
-
-	return this->surface->w;
-}
-
-int Sprite :: getHeight(void)const
-{
-	LDebug << "Sprite :: getHeight (" << this->surface->h << ")";
-
-	return this->surface->h;
-}
+#endif

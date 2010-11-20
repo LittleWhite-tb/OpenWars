@@ -35,9 +35,6 @@ class MapEditor : public Map
 {
 private:
 
-	std::string m_theme;			/*!< Graphical theme for the map */
-
-	
 	//! Check the cohenrency of the tile around the position
 	/*!
 	  \param position the position of the tile where to look around ( 8 direction around )
@@ -145,14 +142,16 @@ public:
 	/*!
       Create an empty map, with only T_Plain
 	  \param sm the sprite manager to load the sprites used by the map
+	  \param themeName the name of the theme to load
 	  \param size the size of the map wanted
     */
-	MapEditor(SpriteManager& sm, const UVec2& size);
+	MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size);
 
 	//! Basic constructor
 	/*!
       Load the map to edit it.
 	  \param sm the sprite manager to load the sprites used by the map
+	  \param themeName the name of the theme to load
 	  \param fileName the name of the file to load
     */
 	MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}

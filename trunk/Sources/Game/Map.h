@@ -48,6 +48,8 @@ protected:
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
+	std::string m_themeName;	/*!< Name of the theme to use */
+
 	TileType** map;					/*!< 2D Array representating the map */
 	UnitType** unitViewMap;				/*!< 2D Array representating the unit on the map */
 
@@ -59,25 +61,25 @@ protected:
 	/*!
 		Will use a tile set file to know the settings of each tiles
 		\param sm the SpriteManager to load the sprites.
-		\param theme the theme to use to know which sprites to load
+		\return true if all goes right
 	*/
-	void loadTileSet(SpriteManager& sm, const std::string& theme);
+	bool loadTileSet(SpriteManager& sm);
 
 	//! Load the units that the map will use
 	/*!
 		Will use a unit set file to know the settings of each units
 		\param sm the SpriteManager to load the sprites.
-		\param theme the theme to use to know which sprites to load
+		\return true if all goes right
 	*/
-	void loadUnitSet(SpriteManager& sm, const std::string& theme);
+	bool loadUnitSet(SpriteManager& sm);
 
 	//! Load the tiles that the map will use
 	/*!
 		Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an AnimatedSprite pointer.
 		\param sm the SpriteManager to load the sprites.
-		\param theme the theme to use to know which sprites to load
+		\return true if all goes right
 	*/
-	void loadGraphics(SpriteManager& sm, const std::string& theme);
+	bool loadGraphics(SpriteManager& sm);
 
 	//! Map file parser
 	/*!
@@ -132,12 +134,6 @@ public:
 	*/
 	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
     
-    //! Enable the units on the map
-    /*!
-      Will enable all unit on the map
-    */
-    void enableUnits(void);
-
 	//! Return if the map is valid
 	/*!
 		\return true if the map is valid

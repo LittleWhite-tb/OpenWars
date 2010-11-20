@@ -33,11 +33,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Utils/Scaler.h"
 
-#ifdef _DEBUG
-	extern unsigned int nbASAllocation;
-	extern unsigned int nbASDestruction;
-#endif
-
 AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
 	:Sprite(sm,fileName,needScaling),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
@@ -62,17 +57,11 @@ AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName,
 	numberAnimation = (this->surface->w / this->widthSprite) * (this->surface->h / this->heightSprite );
 	
 	LDebug << "AnimatedSprite created from '" << fileName.c_str() << "' (" << this->widthSprite << "x" << this->heightSprite << ") Nb Animation: " << numberAnimation;
-#ifdef _DEBUG
-	nbASAllocation++;
-#endif
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)
 {
 	LDebug << "AnimatedSprite deleted";
-#ifdef _DEBUG
-	nbASDestruction++;
-#endif
 }
 
 void AnimatedSprite :: update(const unsigned int time)

@@ -35,6 +35,8 @@ and is under GPL copyright: Copyright (C) 2010 BEYLER Jean Christophe
 
 #include <cassert>
 
+#include "Exceptions/FileNotOpenedException.h"
+
 #include "Logger.h"
 
 LineParser :: LineParser(const std::string& fileName)
@@ -43,9 +45,7 @@ LineParser :: LineParser(const std::string& fileName)
 	if (!file)
 	{
 		LDebug << "LineParser fail to open: " << fileName.c_str();
-		// TODO: Throw an exception
-		assert(0);
-		return;
+		throw FileNotOpenedException(fileName);
 	}
 
 	readNextLine();

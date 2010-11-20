@@ -41,15 +41,15 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MapEditor :: MapEditor(SpriteManager& sm, const UVec2& size)
+MapEditor :: MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size)
 	:Map()
 {
 	width = size.x;
 	height = size.y;
 	valid = true;	// By default the map is valid, but maybe just after, we will fail, so invalidate it
-	m_theme = "classic"; // By default the theme is the classical one
+	m_themeName = themeName;
 
-	this->loadGraphics(sm,m_theme);
+	this->loadGraphics(sm);
 
 	map = new TileType*[this->height];
 	if ( map == NULL )
@@ -1582,7 +1582,7 @@ bool MapEditor :: save(const std::string& fileName)
 	// Now we can start to save the data
 
 	// Name of the theme
-	file << m_theme << std::endl;
+	file << m_themeName << std::endl;
 
 	// The size 'width height'
 	file << this->width << " " << this->height << std::endl;
