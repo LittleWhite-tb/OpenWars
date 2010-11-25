@@ -38,6 +38,7 @@ public:
 	  \param userMessage message from the user to display
 	*/
 	ConstructionFailedException(const std::string& userMessage):message(std::string("Failed to create class '") + userMessage + std::string("'")) {}
+    virtual ~ConstructionFailedException(void)throw() {}
 
 	virtual const char* what() const throw()
 	{

@@ -38,6 +38,7 @@ public:
 	  \param userMessage message from the user to display
 	*/
 	FileNotOpenedException(const std::string& userMessage):message(std::string("Failed to open '") + userMessage + std::string("'")) {}
+    virtual ~FileNotOpenedException(void)throw() {}
 
 	virtual const char* what() const throw()
 	{
