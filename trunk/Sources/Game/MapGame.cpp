@@ -144,3 +144,39 @@ const Unit* MapGame :: getUnit(const UVec2& position)
 		return NULL;
 	}
 }
+
+bool MapGame :: move(const UVec2& origPosition, const UVec2& destPosition)
+{
+    if ( origPosition == destPosition )
+    {
+        return false;
+    }
+    
+    if ( origPosition.x >= this->width && origPosition.y >= this->height )
+	{
+        return false;
+    }
+    
+    Unit* unit = unitMap[origPosition.y][origPosition.x];
+    if ( unit == NULL )
+    {
+        return false;
+    }
+    
+    if ( !testTile(destPosition, unit->type))
+    {
+        return false;
+    }
+    
+    // Move physical unit data
+    unitMap[origPosition.y][origPosition.x] = NULL;
+    unitMap[destPosition.y][destPosition.x] = unit;
+    
+    // Move reprentation unit data
+    unitViewMap[destPosition.y][destPosition.x] = unitViewMap[origPosition.y][origPosition.x];
+    unitViewMap[origPosition.y][origPosition.x] = UT_NO_UNIT;
+    
+    unit->enabled = false;
+    
+    return true;
+}

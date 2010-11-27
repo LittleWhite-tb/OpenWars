@@ -213,6 +213,14 @@ public:
 		\return the AnimatedSprite pointer associated to the type
 	*/
 	AnimatedSprite* getAssociatedSprite(const UnitType type);
+    
+    //! Test if this unit type can be put at the position
+	/*!
+	  \param position the position where the tile would be put
+	  \param unitType the type of the unit that the user wants to put
+	  \return true if we can set the unit
+	*/
+	bool testTile(const UVec2& position, const UnitType unitType)const;
 };
 
 /*! \class Map Map.h "Game/Map.h"

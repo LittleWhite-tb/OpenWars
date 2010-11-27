@@ -322,7 +322,7 @@ bool EditorEngine :: run(void)
 						pMap->setTile(pEC->getPosition(),pUnitTB->getSelected());
 					}
 
-					pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pUnitTB->getSelected()));
+					pEC->setIsWrong(!pMap->Map::testTile(pEC->getPosition(),pUnitTB->getSelected()));
 				}
 				else
 				{

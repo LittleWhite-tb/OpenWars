@@ -40,14 +40,23 @@ e-mail: lw.demoscene@gmail.com
 #include "../globals.h"
 
 GameEngine :: GameEngine(void)
-:Engine(),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),pMBMenuUnit(NULL),gState(GS_VISU),m_userQuit(false)
+:Engine(),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";
 }
 
 GameEngine :: ~GameEngine(void)
 {
-	delete pMBMenuUnit;
+    for ( std::vector<MenuView*>::iterator itMenuView = menuEntries.begin() ; itMenuView != menuEntries.end() ; ++itMenuView )
+    {
+        delete *itMenuView;
+    }
+    
+    for ( std::vector<MenuView*>::iterator itMenuView = unitMenuEntries.begin() ; itMenuView != unitMenuEntries.end() ; ++itMenuView )
+    {
+        delete *itMenuView;
+    }
+    
 	delete pMBMenu;
 
 	delete pCBAirport;
@@ -122,11 +131,11 @@ bool GameEngine :: load(void)
 	try
 	{
 		// Prepare the data for the basic menu
-		std::vector<MenuView> menuEntries;
-		{
-			menuEntries.push_back(MenuView("End turn",ME_EndTurn,new AnimatedSprite(*pSM,GFX_PATH "endTurnIcon.png",32,32,200,true)));
-			menuEntries.push_back(MenuView("Quit",ME_Quit,NULL));
-		}
+        menuEntries.push_back(new MenuView("End turn",ME_EndTurn,new AnimatedSprite(*pSM,GFX_PATH "endTurnIcon.png",32,32,200,true)));
+        menuEntries.push_back(new MenuView("Quit",ME_Quit,NULL));
+        
+        // Unit menu
+        unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
 		pCBFactory = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
 		pCBPort = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
@@ -136,10 +145,6 @@ bool GameEngine :: load(void)
 	catch (ConstructionFailedException& cfe)
 	{
 		LError << cfe.what();
-		return false;
-	}
-	if ( pMBMenu->getValid() == false )
-	{
 		return false;
 	}
 
@@ -199,6 +204,17 @@ bool GameEngine :: run(void)
 					pCBAirport->draw(*pRenderer,5000);
 				}
 				break;
+            case GS_SELECT:
+                {
+                    pMBMenu->draw(*pRenderer,pC->getPosition(),pVT->getTime());
+                }
+                break;
+            case GS_MOVE:
+                {
+                    // TODO: Display the move map stuff
+                    pC->draw(*pRenderer,*pCam,pVT->getTime());
+                }
+                break;
 			case GS_MENU:
 				{
 					pMBMenu->draw(*pRenderer,pC->getPosition(),pVT->getTime());
@@ -213,7 +229,6 @@ bool GameEngine :: run(void)
 		{
 			pCam->update(*pC,*pMap);
 			pKB->update();
-			pMBMenu->update(pKB->getDirectionPressed());
 
 			switch ( gState )
 			{
@@ -239,17 +254,20 @@ bool GameEngine :: run(void)
 								}
 								else
 								{
+                                    pMBMenu->setMenus(menuEntries);
 									this->gState = GS_MENU;
 								}
 							}
 							else if ( !pMap->getUnit(pC->getPosition())->enabled )
 							{
+                                pMBMenu->setMenus(menuEntries);
 								this->gState = GS_MENU;
 							}
-							// ToDO else second menu
-							/*
-							else if ( ) = UNIT
-							*/
+							else
+							{
+                                pMBMenu->setMenus(unitMenuEntries);
+                                this->gState = GS_SELECT;
+                            }
 							
 						}
 					}
@@ -312,6 +330,46 @@ bool GameEngine :: run(void)
 						}
 					}
 					break;
+                case GS_SELECT:
+                    {
+                        pMBMenu->update(pKB->getDirectionPressed());
+						if ( pKB->isKey(SDLK_SPACE) )
+						{
+                            // Check what is in 
+							switch (pMBMenu->getActualEntry())
+							{
+								case (ME_Move):
+								{
+									// ToDo Change turn.
+									// this->pMap->moveUnit();
+                                    selectedUnitPosition = pC->getPosition();
+									this->gState = GS_MOVE;
+								}
+								break;
+							}
+                        }
+                        else if ( pKB->isKey(SDLK_z) )
+						{
+							this->gState = GS_VISU;
+						}
+                    }
+                    break;
+                case GS_MOVE:
+                    {
+                        pC->move(pKB->getDirectionPressed());
+                        if ( pKB->isKey(SDLK_SPACE) )
+						{
+                            if ( this->pMap->move(selectedUnitPosition, pC->getPosition()) )
+                            {
+                                this->gState = GS_VISU;
+                            }
+                        }
+                        else if ( pKB->isKey(SDLK_z) )
+						{
+							this->gState = GS_SELECT;
+						}
+                    }
+                    break;
 			}
 		}
 

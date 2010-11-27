@@ -39,12 +39,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, const std::vector<MenuView>& entries)
+MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries)
 :pCursor(new AnimatedSprite(sm,cursorFileName,32,32,200,true)),actualPosition(0),entries(entries)
 {
 	// Creating the background
 	SDL_Surface* pSurface = NULL;
-	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,150,20 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor() * entries.size()),32,
+	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,150,10 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor()),32,
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
 												0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000
 #else
@@ -80,11 +80,13 @@ MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const 
 
 MenuBox :: ~MenuBox()
 {
-	for (std::vector<MenuView>::iterator itEntry = entries.begin() ; itEntry != entries.end() ; ++itEntry)
+/*
+	for (std::vector<MenuView>::iterator itEntry = pEntries->begin() ; itEntry != pEntries->end() ; ++itEntry)
 	{
 		delete itEntry->pASprite;
 	}
-
+*/
+    delete pFont;
 	delete pCursor;
 
 	SDL_FreeSurface(pBackground->getSurface());
@@ -121,26 +123,27 @@ bool MenuBox :: draw(const Renderer& r, const UVec2& cursorPosition, const unsig
 
 	IVec2 itemPosition(position.x + static_cast<unsigned int>(20 * Scaler::getXScaleFactor()) , position.y + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
 
-	bError &= r.drawTile(*pBackground,position);
-
 	for ( unsigned int i = 0 ; i < entries.size() ; i++ )
 	{
+        itemPosition.y = itemPosition.y -5;
+        bError &= r.drawTile(*pBackground,itemPosition);
+        itemPosition.y = itemPosition.y +5;
 		if ( i == actualPosition )
 		{
 			IVec2 cursorPosition(position.x - static_cast<unsigned int>(15 * Scaler::getXScaleFactor()), itemPosition.y);
 			bError &= r.drawTile(*pCursor, cursorPosition, time);
 		}
-		if ( entries[i].pASprite != NULL )
+		if ( entries[i]->pASprite != NULL )
 		{
-			bError &= r.drawTile(*(entries[i].pASprite),itemPosition,time);
+			bError &= r.drawTile(*(entries[i]->pASprite),itemPosition,time);
 		}
 		{
 			IVec2 textPosition(position.x + static_cast<unsigned int>((TILE_DEFAULT_WIDTH + 24) * Scaler::getXScaleFactor()), itemPosition.y + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor() / 2));
-			IVec2 textSize = pFont->getSize(entries[i].name);
+			IVec2 textSize = pFont->getSize(entries[i]->name);
 			textPosition.y -= textSize.y/2;
-			pFont->draw(r,entries[i].name, textPosition);
+			pFont->draw(r,entries[i]->name, textPosition);
 		}
-		itemPosition.y += static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor());
+		itemPosition.y += 10 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor());
 	}
 
 	return bError;

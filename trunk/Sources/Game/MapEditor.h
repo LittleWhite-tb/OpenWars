@@ -186,14 +186,6 @@ public:
 	*/
 	bool setTile(const UVec2& position, const UnitType unitType);
 
-	//! Test if this unit type can be put at the position
-	/*!
-	  \param position the position where the tile would be put
-	  \param unitType the type of the unit that the user wants to put
-	  \return true if we can set the unit
-	*/
-	bool testTile(const UVec2& position, const UnitType unitType)const;
-
 	//! Save the Map in a file
 	/*!
 		\param fileName the file name where to save the file

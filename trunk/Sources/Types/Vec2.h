@@ -41,6 +41,16 @@ struct Vec2
 		\param y the value on the y axis
 	*/
 	Vec2(const T& x, const T& y):x(x),y(y) {}
+    
+    bool operator==(const Vec2<T>& v)const
+    {
+        if ( v.x == this->x && v.y == this->y )
+        {
+            return true;
+        }
+        
+        return false;
+    }
 };
 
 //! << overloading

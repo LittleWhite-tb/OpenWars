@@ -42,6 +42,8 @@ class Font;
 
 enum MenuEntry
 {
+    ME_Move,
+    
 	ME_EndTurn,
 	ME_Quit,
 };
@@ -60,6 +62,8 @@ struct MenuView
 	  \param pASprite the sprite to draw for this entry
 	*/
 	MenuView(const std::string& name, const MenuEntry entry, AnimatedSprite* const pASprite):name(name),entry(entry),pASprite(pASprite) {}
+    
+    ~MenuView() { delete pASprite; }
 };
 
 class MenuBox
@@ -72,9 +76,7 @@ private:
 	unsigned int windowXPosition;		/*!< Window width */
 	unsigned int actualPosition;		/*!< actual position of the cursor */
 
-	std::vector<MenuView> entries;		/*!< entries in the UI */
-
-	bool valid;							/*!< flag to know if the initialisation goes right */
+	std::vector<MenuView*> entries;    /*!< entries in the UI */
 
 public:
 	//! Basic construct
@@ -86,7 +88,7 @@ public:
 	  \param fontFileName the font to load for the texts
 	  \param entries the entries to display in the UI
 	*/
-	MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, const std::vector<MenuView>& entries);
+	MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries);
 
 	//! Basic destructor
 	/*!
@@ -113,13 +115,13 @@ public:
 	/*!
 	  \return The MenuEntry of the element currently selected
 	*/
-	MenuEntry getActualEntry(void) { return entries[actualPosition].entry; }
-
-	//! Get if the constructor goes right
-	/*!
-	  \return true if the initialisation goes right
-	*/
-	bool getValid()const { return valid; }
+	MenuEntry getActualEntry(void) { return entries[actualPosition]->entry; }
+    
+    //! Change the menus in the box
+    /*!
+      \param newEntries the new entries to show
+    */
+    void setMenus(std::vector<MenuView*> newEntries) { entries = newEntries; }
 };
 
 /*! \class MenuBox MenuBox.h "UI/MenuBox.h"

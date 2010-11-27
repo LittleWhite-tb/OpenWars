@@ -82,6 +82,14 @@ public:
 		\return the pointer on the unit
 	*/
 	const Unit* getUnit(const UVec2& position);
+    
+    //! Move the unit to a new position
+    /*!
+      \param origPosition the position of the unit
+      \param destPosition the position of the unit after moving it
+      \return true if it was possible to move it
+    */
+    bool move(const UVec2& origPosition, const UVec2& destPosition);
 };
 
 /*! \class MapGame MapGame.h "Game/MapGame.h"

@@ -27,12 +27,15 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine.h"
 
+#include <vector>
+
 class MapGame;
 class Cursor;
 class Camera;
 
-class ConstructBox;
+struct MenuView;
 class MenuBox;
+class ConstructBox;
 
 class GameEngine : public Engine
 {
@@ -43,7 +46,9 @@ class GameEngine : public Engine
 		GS_PORT,
 		GS_AIRPORT,
 		GS_SELECT,
-		GS_MENU
+		GS_MENU,
+        
+        GS_MOVE
 	};
 
 private:
@@ -56,11 +61,14 @@ private:
 	ConstructBox* pCBFactory;	/*!< Construct box for factories */
 	ConstructBox* pCBPort;		/*!< Construct box for ports */
 	ConstructBox* pCBAirport;	/*!< Construct box for airports */
+    
+    std::vector<MenuView*> menuEntries;  /*!< Entries in the menu */
+    std::vector<MenuView*> unitMenuEntries; /*!< Entries for unit selection */
 
 	MenuBox* pMBMenu;				/*!< menu for the user */
-	MenuBox* pMBMenuUnit;				/*!< menu for the user when using unit */
 
 	GameState gState;			/*!< Actual state of the game */
+    UVec2 selectedUnitPosition; /*!< Position of the unit selected (the one to move or to control) */
 
 	bool m_userQuit;			/*!< If the user wants to quit, this variable will be true */
 
