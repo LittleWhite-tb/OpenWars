@@ -37,15 +37,30 @@ class Camera;
 
 class MapGame : public Map
 {
+    struct TileEffect
+    {
+        bool isHighlight;
+        bool isAttackable;
+        
+        TileEffect():isHighlight(false),isAttackable(false) {}
+        void clear(void) { isHighlight = false ; isAttackable = false; }
+    };
+    
 private:
 	Unit*** unitMap;			/*!< Map of units logical information */
+    TileEffect** effectMap;     /*!< Map containing information for the additionnal effect */
+    
+    Sprite* pHighlightSprite;   /*!< Sprite used for highlighting the map */
+    Sprite* pAttackableSprite;  /*!< Sprite used for highlighting where the player can attack the map */
 public:
 
 	//! Basic constructor
 	/**
+       \param fileNameHighlight the name of the sprite to load for highlighting the cells
+       \param fileNameAttackable the name of the sprite to load for attackable cells
 		Load the map
 	*/
-	MapGame(SpriteManager& sm, const std::string& fileName);
+	MapGame(SpriteManager& sm, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
 
 	//! Basic destructor
 	/**
@@ -90,6 +105,24 @@ public:
       \return true if it was possible to move it
     */
     bool move(const UVec2& origPosition, const UVec2& destPosition);
+    
+    
+    //! Set the move possibility for the unit at the origPosition
+    /*!
+      \param origPosition the position where the unit to move is
+    */
+    void setMoveHighlight(const UVec2& origPosition, const UnitType ut, const int movement);
+    
+    //! Set the attack possibility for the unit at the origPosition
+    /*!
+      \param origPosition the position where the unit to move is
+    */
+    void setAttackableHighLight(const UVec2& origPosition);
+    
+    //! Clear the highlight effect on the map
+    /*!
+    */
+    void clearHighlight(void);
 };
 
 /*! \class MapGame MapGame.h "Game/MapGame.h"

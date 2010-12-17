@@ -164,7 +164,7 @@ bool GameEngine :: init(const Window* pWin, const RenderingAPI rAPI)
 
 bool GameEngine :: load(const std::string& mapName)
 {
-	pMap = new MapGame(*pSM , mapName);
+	pMap = new MapGame(*pSM , mapName, GFX_PATH "highlight.png",GFX_PATH "highlightAttack.png");
 	if ( !pMap->isValidMap() )
 	{
 		return false;
@@ -343,6 +343,16 @@ bool GameEngine :: run(void)
 									// ToDo Change turn.
 									// this->pMap->moveUnit();
                                     selectedUnitPosition = pC->getPosition();
+                                    
+                                    // If the unit has not enough fuel ... we will move the unit only of the distance possible with the fuel
+                                    const Unit* pUnitSelected = pMap->getUnit(selectedUnitPosition);
+                                    int movement = pMap->getUnitTemplate(pUnitSelected->type).movement;
+                                    if ( pUnitSelected->fuel < pMap->getUnitTemplate(pUnitSelected->type).movement)
+                                    {
+                                        movement = pUnitSelected->fuel;
+                                    }
+                                    pMap->setMoveHighlight(selectedUnitPosition,pUnitSelected->type,movement);
+                                    
 									this->gState = GS_MOVE;
 								}
 								break;
@@ -361,11 +371,13 @@ bool GameEngine :: run(void)
 						{
                             if ( this->pMap->move(selectedUnitPosition, pC->getPosition()) )
                             {
+                                pMap->clearHighlight();
                                 this->gState = GS_VISU;
                             }
                         }
                         else if ( pKB->isKey(SDLK_z) )
 						{
+                            pMap->clearHighlight();
 							this->gState = GS_SELECT;
 						}
                     }

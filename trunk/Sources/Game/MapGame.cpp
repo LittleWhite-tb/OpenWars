@@ -7,9 +7,10 @@
 #include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
 
+#include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
-MapGame :: MapGame(SpriteManager& sm, const std::string& fileName):Map(sm,fileName)
+MapGame :: MapGame(SpriteManager& sm, const std::string& fileName,const std::string& fileNameHighlight, const std::string& fileNameAttackable):Map(sm,fileName),pHighlightSprite(NULL),pAttackableSprite(NULL)
 {
 	unitMap = new Unit**[this->height];
 	if ( unitMap == NULL )
@@ -36,6 +37,38 @@ MapGame :: MapGame(SpriteManager& sm, const std::string& fileName):Map(sm,fileNa
 			unitMap[y][x] = NULL;
 		}
 	}
+    
+    effectMap = new TileEffect*[this->height];
+    if ( effectMap == NULL )
+    {
+        LError << "Fail to allocate memory for the effect map";
+		valid = false;
+		return;
+    }
+    
+    for ( unsigned int y = 0 ; y < this->height ; y++ )
+    {
+        effectMap[y] = new TileEffect[this->width];
+        if ( effectMap[y] == NULL )
+        {
+            LError << "Fail to allocate memory for the effect map (y=" << y << ")";
+            valid = false;
+            // Memory leak ?
+            delete [] effectMap;
+            return;
+        }
+    }
+    
+    try
+    {
+        pHighlightSprite = new Sprite(sm,fileNameHighlight,true);
+        pAttackableSprite = new Sprite(sm,fileNameAttackable,true);
+    }
+    catch ( ConstructionFailedException& cfe)
+    {
+        LError << "Fail to construct: " << cfe.what();
+        valid = false;
+    }
 
 	LDebug << "MapGame created";
 }
@@ -53,6 +86,13 @@ MapGame :: ~MapGame()
 	}
 
 	delete[] unitMap;
+    
+    for ( unsigned int y = 0 ; y < this->height ; y++ )
+    {
+        delete [] effectMap[y];
+    }
+    
+    delete [] effectMap;
 }
 
 void MapGame :: enableUnits(void)
@@ -107,53 +147,70 @@ bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time
                     bError &= r.drawTile(*unitsSet[unitViewMap[y][x]].pASprite,tilePos,mask);
                 }
 			}
-			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
 
 			// Remove offset ( to not affect other sprite )
-			tilePos.y += yOffset;
-		}
+            tilePos.y += yOffset;
+            
+            // Effects
+            if ( effectMap[y][x].isHighlight )
+            {
+                bError &= r.drawTile(*pHighlightSprite,tilePos);
+            }
+            if ( effectMap[y][x].isAttackable )
+            {
+                bError &= r.drawTile(*pAttackableSprite,tilePos);
+            }
+            
+            // Move on the right
+            tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
+        }
 
-		// To put 0 here, can be a bit dangerous
-		tilePos.y += (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
-	}
+        // To put 0 here, can be a bit dangerous
+        tilePos.y += (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+    }
 
-	return bError;
+    return bError;
 }
 
 bool MapGame :: setTile(const UVec2& position, const UnitType unitType)
 {
-	unitViewMap[position.y][position.x] = unitType;
-	if ( unitMap[position.y][position.x] != NULL )
-	{
-		delete unitMap[position.y][position.x];
-	}
+    unitViewMap[position.y][position.x] = unitType;
+    if ( unitMap[position.y][position.x] != NULL )
+    {
+            delete unitMap[position.y][position.x];
+    }
 
-	unitMap[position.y][position.x] = new Unit(unitType, unitsSet[unitType]);
+    unitMap[position.y][position.x] = new Unit(unitType, unitsSet[unitType]);
 
-	return true;
+    return true;
 }
 
 const Unit* MapGame :: getUnit(const UVec2& position)
 {
-	if ( position.x < this->width && position.y < this->height )
-	{
-		return unitMap[position.y][position.x];
-	}
-	else
-	{
-		return NULL;
-	}
+    if ( position.x < this->width && position.y < this->height )
+    {
+            return unitMap[position.y][position.x];
+    }
+    else
+    {
+            return NULL;
+    }
 }
 
 bool MapGame :: move(const UVec2& origPosition, const UVec2& destPosition)
 {
+    if ( effectMap[destPosition.y][destPosition.x].isHighlight == false )
+    {
+        return false;
+    }
+    
     if ( origPosition == destPosition )
     {
         return false;
     }
     
     if ( origPosition.x >= this->width && origPosition.y >= this->height )
-	{
+    {
         return false;
     }
     
@@ -172,11 +229,84 @@ bool MapGame :: move(const UVec2& origPosition, const UVec2& destPosition)
     unitMap[origPosition.y][origPosition.x] = NULL;
     unitMap[destPosition.y][destPosition.x] = unit;
     
-    // Move reprentation unit data
+    // Move representation unit data
     unitViewMap[destPosition.y][destPosition.x] = unitViewMap[origPosition.y][origPosition.x];
     unitViewMap[origPosition.y][origPosition.x] = UT_NO_UNIT;
     
     unit->enabled = false;
     
     return true;
+}
+
+void MapGame :: setMoveHighlight(const UVec2& origPosition, const UnitType ut, const int movement)
+{
+    // ToDo: Cost of the tile for movement
+    if ( movement <= 0 || effectMap[origPosition.y][origPosition.x].isHighlight || !testTile(origPosition, ut) )
+    {
+        return;
+    }
+    
+    if ( (this->getUnitType(origPosition) == UT_NO_UNIT) )
+    {
+        effectMap[origPosition.y][origPosition.x].isHighlight = true;
+    }
+    
+    {
+        UVec2 newPosition(origPosition);
+        newPosition.x+=1;
+        TileType nextTileType = this->getTileType(newPosition);
+        if ( nextTileType != TT_Invalid )
+        {
+            setMoveHighlight(newPosition,ut,movement-1);
+        }
+    }
+    
+    {
+        UVec2 newPosition(origPosition);
+        newPosition.x-=1;
+        TileType nextTileType = this->getTileType(newPosition);
+        if ( nextTileType != TT_Invalid )
+        {
+            setMoveHighlight(newPosition,ut,movement-1);
+        }
+    }
+    
+    {
+        UVec2 newPosition(origPosition);
+        newPosition.y+=1;
+        TileType nextTileType = this->getTileType(newPosition);
+        if ( nextTileType != TT_Invalid )
+        {
+            setMoveHighlight(newPosition,ut,movement-1);
+        }
+    }
+    
+    {
+        UVec2 newPosition(origPosition);
+        newPosition.y-=1;
+        TileType nextTileType = this->getTileType(newPosition);
+        if ( nextTileType != TT_Invalid )
+        {
+            setMoveHighlight(newPosition,ut,movement-1);
+        }
+    }
+}
+    
+void MapGame :: setAttackableHighLight(const UVec2& origPosition)
+{
+    effectMap[origPosition.y][origPosition.x+1].isAttackable = true;
+    effectMap[origPosition.y][origPosition.x-1].isAttackable = true;
+    effectMap[origPosition.y+1][origPosition.x].isAttackable = true;
+    effectMap[origPosition.y-1][origPosition.x].isAttackable = true;
+}
+    
+void MapGame :: clearHighlight(void)
+{
+    for ( unsigned int y = 0 ; y < this->height ; y++ )
+	{
+		for ( unsigned int x = 0 ; x < this->width ; x++ )
+		{
+            effectMap[y][x].clear();
+        }
+    }
 }

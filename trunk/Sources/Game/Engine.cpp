@@ -64,7 +64,7 @@ bool Engine :: init(const Window* pWin, const RenderingAPI rAPI)
 	pSM = new SpriteManager();
 	pFM = new FontManager();
 
-	pVT = new VTime(60,15);
+	pVT = new VTime(60,10);
 	pKB = new Keyboard();
 
 	if ( pRenderer == NULL || pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
