@@ -50,13 +50,6 @@ struct ConstructUnitView
 	std::string unitName;			/*!< name of the unit */
 	unsigned int unitPrice;			/*!< price of the unit */
 
-	//! Basic constructor
-	/*!
-	  \param unitType type of the unit
-	  \param pUnitSprite sprite to use for the unit
-	  \param unitName name of the unit
-	  \param unitPrice price of the unit
-	*/
 	ConstructUnitView(const UnitType unitType, AnimatedSprite* const pUnitSprite, const std::string& unitName, const unsigned int unitPrice)
 		:unitType(unitType),pUnitSprite(pUnitSprite),unitName(unitName),unitPrice(unitPrice) {}
 };
@@ -80,46 +73,14 @@ private:
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	//! Basic constructor
-	/*!
-	  \param sm the sprite manager to load the sprites
-	  \param fm the font manager to load the fonts
-	  \param win the window to draw in
-	  \param backgroundFileName the path to the sprite to load for the background
-	  \param cursorFileName the path to the sprite to load for the cursor
-	  \param upArrowFileName the path to the sprite to load for the up arrow
-	  \param downArrowFileName the path to the sprite to load for the down arrow
-	  \param fontFileName the path to the font to load for the texts
-	  \param unitsList the list of units to display
-	*/
 	ConstructBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
-		const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList);
-	
-	//! Basic destructor
-	/*!
-	*/
+const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList);
 	~ConstructBox(void);
 
-
-	//! Draw the construct box
-	/*!
-	  \param r the renderer to use to draw the UI
-	  \param moneyAvailable the money that the user have
-	  \return true if all goes right
-	*/
 	bool draw(const Renderer& r, const unsigned int moneyAvailable);
 
-	//! Update the construct box
-	/*!
-	  Move the cursor following the keys pressed
-	  \param kd the key direction pressed
-	*/
 	void update(const ArrowsDirection kd);
 
-	//! Get the unit type currently selected
-	/*!
-	  \return The unit type of the unit currently selected
-	*/
 	UnitType getUnitSelected(void)const;
 };
 
@@ -129,10 +90,50 @@ public:
  * The ContructBox show a list of unit with name and price that we can build
  */
 
+/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
+ * \param sm the SpriteManaget to load the sprites
+ * \param fm the FontManager to load the fonts
+ * \param win the window to draw in
+ * \param backgroundFileName the path to the sprite to load for the background
+ * \param cursorFileName the path to the sprite to load for the cursor
+ * \param upArrowFileName the path to the sprite to load for the up arrow
+ * \param downArrowFileName the path to the sprite to load for the down arrow
+ * \param fontFileName the path to the font to load for the texts
+ * \param unitsList the list of units to display
+ */
+
+/*! \fn ConstructBox::~ConstructBox(void)
+ */
+
+/*! \fn bool ConstructBox::draw(const Renderer& r, const unsigned int moneyAvailable)
+ * \brief Draw the construct box
+ * \param r the renderer to use to draw the UI
+ * \param moneyAvailable the money that the user have
+ * \return true if all goes right
+ */
+
+/*! \fn void ConstructBox::update(const ArrowsDirection kd)
+ * \brief Update the construct box
+ * Move the cursor following the keys pressed
+ * \param kd the key direction pressed
+ */
+
+/*! \fn UnitType ConstructBox::getUnitSelected(void)const
+ * \brief Get the unit type currently selected
+ * \return The unit type of the unit currently selected
+ */
+
 /*! \struct ConstructUnitView ConstructBox.h "Game/ConstructBox.h"
  *  \brief ConstructUnitView struct
  *
  * Used to give a structure usable in the ConstructBox to contain Unit
+ */
+
+/*! \fn ConstructUnitView::ConstructUnitView(const UnitType unitType, AnimatedSprite* const pUnitSprite, const std::string& unitName, const unsigned int unitPrice)
+ * \param unitType type of the unit
+ * \param pUnitSprite sprite to use for the unit
+ * \param unitName name of the unit
+ * \param unitPrice price of the unit
  */
 
 #endif

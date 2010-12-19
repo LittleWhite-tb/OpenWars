@@ -39,60 +39,18 @@ private:
 	static double yScaleFactor;		/*!< the scaling factor on the y axis */
 	static UVec2 offset;			/*!< Offset to apply to have the center the tiles */
 
-	//! Shrink the surface
-	/*!
-		Apply a shrink operation on the source to create the destination.
-		The shrink function can only support fraction of the original image.
-		\param pSrcSurface the source surface
-		\param pDstSurface the destination surface
-		\return true if all is right
-	*/
 	static bool shrinkSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface);
-
-	//! Zoom the surface
-	/*!
-		Apply a zoom operation on the source to create the destination
-		\param pSrcSurface the source surface
-		\param pDstSurface the destination surface
-		\return true if all is right
-	*/
 	static bool zoomSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface);
 
 public:
 
-	//! Set the scaling factors
-	/*!
-		To determine the scaling factor, we are using the size of the window plus some globals set in globals.h
-		\param win the window to match
-	*/
 	static void setScaleFactor(const Window& win);
 
-	//! Scale a surface
-	/*!
-		Apply the scale factors to the source surface to create the new scaled surface
-		Once the operation is done, the source is kept without any modifications (not freed).
-		The output surface is newly allocated.
-		\param pSrcSurface the sprite to scale
-		\return the scaled surface or NULL if the function failed
-	*/
 	static SDL_Surface* scale(SDL_Surface* const pSrcSurface);
 
-	//! Get the scaling factor on the X axis
-	/*!
-		\return the current scaling factor for the X axis
-	*/
 	static double getXScaleFactor(void) { return xScaleFactor; }
-
-	//! Get the scaling factor on the Y axis
-	/*!
-		\return the current scaling factor for the Y axis
-	*/
 	static double getYScaleFactor(void) { return yScaleFactor; }
 
-	//* Get the offset
-	/*!
-		\return the offset to apply to center the map
-	*/
 	static UVec2 getOffset(void) { return offset; }
 
 };
@@ -104,6 +62,53 @@ public:
  * The scale factor is determined by using the size of the window and some globals (see globals.h)
  * The scale functions is inspired by the SDL_gfx library
  * setScaleFactor() neeeds to be call after the Window creation, but before the SpriteManager usage (so before creating a Sprite or AnimatedSprite)
+ */
+
+/*! \fn static bool Scaler::shrinkSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface)
+ * \brief Shrink the surface
+ * Apply a shrink operation on the source to create the destination.
+ * The shrink function can only support fraction of the original image.
+ * \param pSrcSurface the source surface
+ * \param pDstSurface the destination surface
+ * \return true if all is right
+ */
+
+/*! \fn static bool Scaler::zoomSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface)
+ * \brief Zoom the surface
+ * Apply a zoom operation on the source to create the destination
+ * \param pSrcSurface the source surface
+ * \param pDstSurface the destination surface
+ * \return true if all is right
+ */
+
+/*! \fn static void Scaler::setScaleFactor(const Window& win)
+ * \brief Set the scaling factors
+ * To determine the scaling factor, we are using the size of the window plus some globals set in globals.h
+ * \param win the window to match
+ */
+
+/*! \fn static SDL_Surface* Scaler::scale(SDL_Surface* const pSrcSurface)
+ * \brief Scale a surface
+ * Apply the scale factors to the source surface to create the new scaled surface
+ * Once the operation is done, the source is kept without any modifications (not freed).
+ * The output surface is newly allocated.
+ * \param pSrcSurface the sprite to scale
+ * \return the scaled surface or NULL if the function failed
+ */
+
+/*! \fn static double Scaler::getXScaleFactor(void)
+ * \brief Get the scaling factor on the X axis
+ * \return the current scaling factor for the X axis
+ */
+
+/*! \fn static double Scaler::getYScaleFactor(void)
+ * \brief Get the scaling factor on the Y axis
+ * \return the current scaling factor for the Y axis
+ */
+
+/*! \fn static UVec2 Scaler::getOffset(void)
+ * \brief Get the offset
+ * \return the offset to apply to center the map
  */
 
 #endif

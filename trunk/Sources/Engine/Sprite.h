@@ -45,47 +45,14 @@ protected:
 	SDL_Surface* surface;		/*!< the internal surface */
 
 public:
-
-	//! Basic constructor
-	/*!
-      Load the image, using the SpriteManager
-	  To check the loading failure, you have to use getSurface() to check if the pointer returns is NULL
-	  \param sm the sprite manager to use to load the image
-	  \param fileName the file to load
-	  \param needScaling if some scaling operation has to be done on this sprite
-    */
 	Sprite(SpriteManager& sm, const std::string& fileName,const bool needScaling);
-
-	//! Constructor by using SDL_Surface pointer
-	/*!
-		The SDL_Surface should be ready to use.
-		Warning: The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using getSurface().
-		\param pSurface pointer on the surface to use
-	*/
 	Sprite(SDL_Surface* pSurface);
 
-	//! Basic destructor
-	/*!
-      Free the internal surface
-    */
 	virtual ~Sprite(void);
 
-	//! Get the width
-	/*!
-		\return returns the width of the surface
-	*/
 	virtual int getWidth(void)const;
-
-	//! Get the height
-	/*!
-		\return returns the height of the surface
-	*/
 	virtual int getHeight(void)const;
 
-	//! Get the surface
-	/*!
-		\return returns the surface
-	*/
 	SDL_Surface* getSurface(void)const { return surface; }
 };
 
@@ -98,6 +65,39 @@ public:
  *		- Get the width
  *		- Get the height
  *		- Get surface
+ */
+
+/*! \fn Sprite::Sprite(SpriteManager& sm, const std::string& fileName,const bool needScaling)
+ * Load the image, using the SpriteManager
+ * To check the loading failure, you have to use getSurface() to check if the pointer returns is NULL
+ * \param sm the sprite manager to use to load the image
+ * \param fileName the file to load
+ * \param needScaling if some scaling operation has to be done on this sprite
+ */
+
+/*! \fn Sprite::Sprite(SDL_Surface* pSurface)
+ * The SDL_Surface should be ready to use.
+ * \warning The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using getSurface().
+ * \param pSurface pointer on the surface to use
+ */
+
+/*! \fn virtual Sprite::~Sprite(void)
+ * Free the internal surface
+ */
+
+/*! \fn virtual int Sprite::getWidth(void)const
+ * \brief Get the width
+ * \return returns the width of the surface
+ */
+
+/*! \fn virtual int Sprite::getHeight(void)const
+ * \brief Get the height
+ * \return returns the height of the surface
+ */
+
+/*! \fn SDL_Surface* Sprite::getSurface(void)const
+ * \brief Get the surface
+ * \return returns the surface
  */
 
 #endif

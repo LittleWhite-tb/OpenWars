@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Utils/LineParser.h Source File</title>
+<title>OpenAWars: Sources/Utils/LineParser.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -65,41 +65,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00041"></a>00041         std::ifstream file;             
 <a name="l00042"></a>00042         std::string line;               
 <a name="l00043"></a>00043         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lineNumber;        
-<a name="l00045"></a>00045 
+<a name="l00045"></a>00045         <span class="keywordtype">bool</span> isEmptyLine();
 <a name="l00046"></a>00046 
-<a name="l00049"></a>00049         <span class="keywordtype">bool</span> isEmptyLine();
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="keyword">public</span>:
-<a name="l00052"></a>00052 
-<a name="l00054"></a>00054 
-<a name="l00058"></a>00058         <a class="code" href="class_line_parser.html#af7a57dcb012686131366a1e6d945d671" title="Basic constructor.">LineParser</a>(<span class="keyword">const</span> std::string&amp; fileName);
-<a name="l00059"></a>00059 
-<a name="l00061"></a>00061 
-<a name="l00064"></a>00064         <a class="code" href="class_line_parser.html#a7cd74546d2e34f9d6618b86c07c4b028" title="Basic destructor.">~LineParser</a>();
-<a name="l00065"></a>00065 
-<a name="l00067"></a>00067 
-<a name="l00070"></a>00070         <span class="keywordtype">bool</span> <a class="code" href="class_line_parser.html#a718979b1ebd9757f174394beff51e9a3" title="Read the next line.">readNextLine</a>();
-<a name="l00071"></a>00071 
-<a name="l00073"></a>00073 
-<a name="l00076"></a><a class="code" href="class_line_parser.html#ada490fdc0e548559c966328e5027e3d3">00076</a>         <span class="keyword">const</span> std::string&amp; <a class="code" href="class_line_parser.html#ada490fdc0e548559c966328e5027e3d3" title="Get the actual line.">getLine</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> line; }
-<a name="l00077"></a>00077 
-<a name="l00079"></a>00079 
-<a name="l00082"></a><a class="code" href="class_line_parser.html#afba5aaf8aaa9e984dedde139aa600c1f">00082</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_line_parser.html#afba5aaf8aaa9e984dedde139aa600c1f" title="Get the actual line number.">getLineNumber</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> lineNumber; }
-<a name="l00083"></a>00083 
-<a name="l00085"></a>00085 
-<a name="l00088"></a>00088         <span class="keywordtype">bool</span> <a class="code" href="class_line_parser.html#aa6839b602a143e2a4f8022effc567027" title="Read a boolean on the line.">getBool</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00089"></a>00089 
-<a name="l00091"></a>00091 
-<a name="l00094"></a>00094         <span class="keywordtype">int</span> <a class="code" href="class_line_parser.html#ab32de663c4a8dcc8daa3aa15ccbf5f44" title="Read a int on the line.">getInt</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00095"></a>00095 
-<a name="l00097"></a>00097 
-<a name="l00100"></a>00100         <span class="keywordtype">float</span> <a class="code" href="class_line_parser.html#af2f11a6f3a7657f479ef7183fc900f3f" title="Read a float on the line.">getFloat</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00101"></a>00101 
-<a name="l00103"></a>00103 
-<a name="l00106"></a>00106         <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a> <a class="code" href="class_line_parser.html#ad068b15e71c8985a17bbdb09c215c951" title="Read a IVec2 on the line.">getIVec2</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00107"></a>00107 };
-<a name="l00108"></a>00108 
-<a name="l00119"></a>00119 <span class="preprocessor">#endif</span>
+<a name="l00047"></a>00047 <span class="keyword">public</span>:
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         <a class="code" href="class_line_parser.html#af7a57dcb012686131366a1e6d945d671" title="Basic constructor Open the file and read the first line.">LineParser</a>(<span class="keyword">const</span> std::string&amp; fileName);
+<a name="l00050"></a>00050         ~<a class="code" href="class_line_parser.html" title="Class for parsing file line by line.">LineParser</a>();
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052         <span class="keywordtype">bool</span> <a class="code" href="class_line_parser.html#a718979b1ebd9757f174394beff51e9a3" title="Read the next line.">readNextLine</a>();
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="class_line_parser.html#a7110135f0980abd6561a864b0dd85a4c">00054</a>         <span class="keyword">const</span> std::string&amp; <a class="code" href="class_line_parser.html#a7110135f0980abd6561a864b0dd85a4c" title="Get the actual line.">getLine</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> line; }
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="class_line_parser.html#afba5aaf8aaa9e984dedde139aa600c1f">00056</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_line_parser.html#afba5aaf8aaa9e984dedde139aa600c1f" title="Get the actual line number.">getLineNumber</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> lineNumber; }
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058         <span class="keywordtype">bool</span> <a class="code" href="class_line_parser.html#aa6839b602a143e2a4f8022effc567027" title="Read a boolean on the line.">getBool</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00059"></a>00059         <span class="keywordtype">int</span> <a class="code" href="class_line_parser.html#ab32de663c4a8dcc8daa3aa15ccbf5f44" title="Read a int on the line.">getInt</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00060"></a>00060         <span class="keywordtype">float</span> <a class="code" href="class_line_parser.html#af2f11a6f3a7657f479ef7183fc900f3f" title="Read a float on the line.">getFloat</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00061"></a>00061         <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a> <a class="code" href="class_line_parser.html#ad068b15e71c8985a17bbdb09c215c951" title="Read a IVec2 on the line.">getIVec2</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00062"></a>00062 };
+<a name="l00063"></a>00063 
+<a name="l00123"></a>00123 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -116,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

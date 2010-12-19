@@ -48,69 +48,23 @@ private:
 	Cursor& operator= (const Cursor& c);
 
 protected:
-
 	AnimatedSprite* pCursorSprite;			/*!< Sprite for the cursor */
 
 	UVec2 position;							/*!< Position of the cursor */
 
 public:
-	//! Constructor
-	/*!
-      Load the sprite to use for the Cursor and place the cursor to a initial position.
-	  \param sm The SpriteManager to use to load the sprite for the cursor
-	  \param fileName The name of the file to load
-	  \param pMap A pointer on the Map to use
-	  \param initialPosition The initial position of the cursor
-    */
-	Cursor(SpriteManager& sm, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
 
-	//! Basic destructor
-	/*!
-      Will just release the AnimatedSprite used by the cursor
-    */
+	Cursor(SpriteManager& sm, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
 	virtual ~Cursor(void);
 
-	//! Get the tile under the cursor
-	/*!
-      \return the Tile of the Map located under the cursor
-    */
 	Tile getTileUnderCursor(void)const;
-
-	//! Get the tile type under the cursor
-	/*!
-      \return the TileType of the Map located under the cursor
-    */
 	TileType getTileTypeUnderCursor(void)const;
 
-	//! Get the actual position of the cursor
-	/*!
-      \return The position
-    */
 	UVec2 getPosition()const { return position; }
 
-	//! Move to the next position
-	/*!
-      Will move to the next position ( step of 1 ) depending on the direction
-	  \param ad The direction where to move
-	  \return true if the displacement was possible
-    */
 	bool move(const ArrowsDirection ad);
-
-	//! Move to a new position
-	/*!
-      Will move the cursor to a new position
-	  \param newPosition The position where to move the cursor
-	  \return true if the displacement was possible
-    */
 	bool move(const UVec2& newPosition);
 
-	//! Draw the cursor
-	/*!
-	  \param r The Renderer to use to draw the cursor
-	  \param c The Camera (used to draw the cursor at the correct place on the screen)
-	  \param time The actual time
-	  \return true if all goes right
-    */
 	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
@@ -123,6 +77,54 @@ public:
  * - Get the Tile under the cursor
  * - Move
  * - Draw
+ */
+
+/*! \fn Cursor::Cursor(SpriteManager& sm, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition)
+ * Load the sprite to use for the Cursor and place the cursor to a initial position.
+ * \param sm The SpriteManager to use to load the sprite for the cursor
+ * \param fileName The name of the file to load
+ * \param pMap A pointer on the Map to use
+ * \param initialPosition The initial position of the cursor
+ */
+
+/*! \fn virtual Cursor::~Cursor(void)
+ */
+
+/*! \fn Tile Cursor::getTileUnderCursor(void)const
+ * \brief Get the tile under the cursor
+ * \return the Tile of the Map located under the cursor
+ */
+
+/*! \fn TileType Cursor::getTileTypeUnderCursor(void)const
+ * \brief Get the tile type under the cursor
+ * \return the TileType of the Map located under the cursor
+ */
+
+/*! \fn UVec2 Cursor::getPosition()const
+ * \brief Get the actual position of the cursor
+ * \return The position
+ */
+
+/*! \fn bool Cursor::move(const ArrowsDirection ad)
+ * \brief Move to the next position
+ * Will move to the next position ( step of 1 ) depending on the direction
+ * \param ad The direction where to move
+ * \return true if the displacement was possible
+ */
+
+/*! \fn bool Cursor::move(const UVec2& newPosition)
+ * \brief Move to a new position
+ * Will move the cursor to a new position
+ * \param newPosition The position where to move the cursor
+ * \return true if the displacement was possible
+ */
+
+/*! \fn virtual bool Cursor::draw(const Renderer& r, const Camera& c, const unsigned int time)const
+ * \brief Draw the cursor
+ * \param r The Renderer to use to draw the cursor
+ * \param c The Camera (used to draw the cursor at the correct place on the screen)
+ * \param time The actual time
+ * \return true if all goes right
  */
 
 #endif

@@ -72,45 +72,17 @@ private:
 
 	bool m_userQuit;			/*!< If the user wants to quit, this variable will be true */
 
-	//! Load the map, cursor, camera with the associated sprites
-	/*!
-		Will load all needed to set the engine. After you can run the engine.
-		The engine has to be inited.
-		\return true if all goes fine
-	*/
+
 	bool load(void);
 
 public:
-
-	//! Basic constructor
-	/*!
-	*/
 	GameEngine();
-
-	//! Basic destructor
-	/*!
-	*/
 	~GameEngine();
 
-	//! Init the Game Engine
-	/*!
-	  \param pWin the window to use for the game
-	  \param rAPI the API to start for rendering
-	  \return true if all goes right
-	*/
 	bool init(const Window* pWin, const RenderingAPI rAPI);
-	
-	//! load the Game Engine
-	/*!
-	  \param mapName the name of the map to load
-	  \return true if all goes right
-	*/
+
 	bool load(const std::string& mapName);
 
-	//! Start the game main loop
-	/*!
-		\return true if all goes fine
-	*/
 	bool run(void);
 };
 
@@ -118,6 +90,37 @@ public:
  *  \brief Engine for the game
  *
  * Manage all the game main loop by using states
+ */
+
+/*! \fn bool GameEngine::load(void)
+ * \brief Load the map, cursor, camera with the associated sprites
+ * Will load all needed to set the engine. After you can run the engine.
+ * The engine has to be inited.
+ * \return true if all goes fine
+ */
+
+/*! \fn GameEngine::GameEngine()
+ */
+
+/*! \fn GameEngine::~GameEngine()
+ */
+
+/*! \fn bool GameEngine::init(const Window* pWin, const RenderingAPI rAPI)
+ * \brief Init the Game Engine
+ * \param pWin the window to use for the game
+ * \param rAPI the API to start for rendering
+ * \return true if all goes right
+ */
+
+/*! \fn bool GameEngine::load(const std::string& mapName)
+ * \brief load the Game Engine
+ * \param mapName the name of the map to load
+ * \return true if all goes right
+ */
+
+/*! \fn bool GameEngine::run(void)
+ * \brief Start the game main loop
+ * \return true if all goes fine
  */
 
 #endif

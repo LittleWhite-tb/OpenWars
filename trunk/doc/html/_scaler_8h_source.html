@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Utils/Scaler.h Source File</title>
+<title>OpenAWars: Sources/Utils/Scaler.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -67,33 +67,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00038"></a>00038         <span class="keyword">static</span> <span class="keywordtype">double</span> xScaleFactor;             
 <a name="l00039"></a>00039         <span class="keyword">static</span> <span class="keywordtype">double</span> yScaleFactor;             
 <a name="l00040"></a>00040         <span class="keyword">static</span> <a class="code" href="struct_vec2.html">UVec2</a> offset;                    
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 
-<a name="l00050"></a>00050         <span class="keyword">static</span> <span class="keywordtype">bool</span> shrinkSurface(SDL_Surface* <span class="keyword">const</span> pSrcSurface, SDL_Surface* <span class="keyword">const</span> pDstSurface);
-<a name="l00051"></a>00051 
+<a name="l00042"></a>00042         <span class="keyword">static</span> <span class="keywordtype">bool</span> shrinkSurface(SDL_Surface* <span class="keyword">const</span> pSrcSurface, SDL_Surface* <span class="keyword">const</span> pDstSurface);
+<a name="l00043"></a>00043         <span class="keyword">static</span> <span class="keywordtype">bool</span> zoomSurface(SDL_Surface* <span class="keyword">const</span> pSrcSurface, SDL_Surface* <span class="keyword">const</span> pDstSurface);
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="keyword">public</span>:
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_scaler.html#abcf324224c5faa4b2e7b7073372a2678" title="Set the scaling factors To determine the scaling factor, we are using the size of the window plus som...">setScaleFactor</a>(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win);
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         <span class="keyword">static</span> SDL_Surface* <a class="code" href="class_scaler.html#ab0cdb8fd81b11c2a6047fb2d8d45756d" title="Scale a surface Apply the scale factors to the source surface to create the new scaled surface Once t...">scale</a>(SDL_Surface* <span class="keyword">const</span> pSrcSurface);
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="class_scaler.html#a51a35e82ad7521a004408772c366d954">00051</a>         <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code" href="class_scaler.html#a51a35e82ad7521a004408772c366d954" title="Get the scaling factor on the X axis.">getXScaleFactor</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> xScaleFactor; }
+<a name="l00052"></a><a class="code" href="class_scaler.html#ad1c57398f9410ab513b8e49f28e82d41">00052</a>         <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code" href="class_scaler.html#ad1c57398f9410ab513b8e49f28e82d41" title="Get the scaling factor on the Y axis.">getYScaleFactor</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> yScaleFactor; }
 <a name="l00053"></a>00053 
-<a name="l00059"></a>00059         <span class="keyword">static</span> <span class="keywordtype">bool</span> zoomSurface(SDL_Surface* <span class="keyword">const</span> pSrcSurface, SDL_Surface* <span class="keyword">const</span> pDstSurface);
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="keyword">public</span>:
-<a name="l00062"></a>00062 
-<a name="l00064"></a>00064 
-<a name="l00068"></a>00068         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_scaler.html#af5e8c1a4f1d4d85c8c3a7f6c196de713" title="Set the scaling factors.">setScaleFactor</a>(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win);
-<a name="l00069"></a>00069 
-<a name="l00071"></a>00071 
-<a name="l00078"></a>00078         <span class="keyword">static</span> SDL_Surface* <a class="code" href="class_scaler.html#a1139b4de2736c40a922a35cfd6970fd6" title="Scale a surface.">scale</a>(SDL_Surface* <span class="keyword">const</span> pSrcSurface);
-<a name="l00079"></a>00079 
-<a name="l00081"></a>00081 
-<a name="l00084"></a><a class="code" href="class_scaler.html#a51a35e82ad7521a004408772c366d954">00084</a>         <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code" href="class_scaler.html#a51a35e82ad7521a004408772c366d954" title="Get the scaling factor on the X axis.">getXScaleFactor</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> xScaleFactor; }
-<a name="l00085"></a>00085 
-<a name="l00087"></a>00087 
-<a name="l00090"></a><a class="code" href="class_scaler.html#ad1c57398f9410ab513b8e49f28e82d41">00090</a>         <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code" href="class_scaler.html#ad1c57398f9410ab513b8e49f28e82d41" title="Get the scaling factor on the Y axis.">getYScaleFactor</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> yScaleFactor; }
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092         <span class="comment">//* Get the offset</span>
-<a name="l00096"></a><a class="code" href="class_scaler.html#a0ba13f8cf40b97de8428fa0800bab0ed">00096</a> <span class="comment"></span>        <span class="keyword">static</span> <a class="code" href="struct_vec2.html">UVec2</a> <a class="code" href="class_scaler.html#a0ba13f8cf40b97de8428fa0800bab0ed">getOffset</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> offset; }
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098 };
-<a name="l00099"></a>00099 
-<a name="l00109"></a>00109 <span class="preprocessor">#endif</span>
+<a name="l00054"></a><a class="code" href="class_scaler.html#a0ba13f8cf40b97de8428fa0800bab0ed">00054</a>         <span class="keyword">static</span> <a class="code" href="struct_vec2.html">UVec2</a> <a class="code" href="class_scaler.html#a0ba13f8cf40b97de8428fa0800bab0ed" title="Get the offset.">getOffset</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> offset; }
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 };
+<a name="l00057"></a>00057 
+<a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -110,7 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -1,3 +1,4 @@
+#ifdef EDITOR
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -86,3 +87,5 @@ bool TileViewer :: draw(const Renderer& r)
 
 	return error;
 }
+
+#endif

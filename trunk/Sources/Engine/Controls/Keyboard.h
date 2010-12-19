@@ -45,41 +45,15 @@ private:
 	unsigned char* keys;		/*!< Array of keys state */
 
 public:
-	//! Basic constructor
-	/*!
-      Call the update function to have an array ready
-    */
 	Keyboard(void);
-
-	//! Basic destructor
-	/*!
-      Do nothing because the array get is an internal SDL array
-    */
 	~Keyboard(void);
 
-	//! Check if the escape key is pressed
-	/*!
-	  \return 0 if the escape key is not pressed
-    */
 	unsigned char isEscapePressed(void)const;
 
-	//! Check which direction the user wants to go
-	/*!
-	  The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions.
-	  \return the direction
-    */
 	ArrowsDirection getDirectionPressed(void)const;
 
-	//! Check the specified key
-	/*!
-	  \param key the key to check
-	  \return 0 if the key is not pressed
-	*/
 	unsigned char isKey(unsigned int key);
 
-	//! Update the keys array
-	/*!
-	*/
 	void update(void);
 };
 
@@ -89,6 +63,34 @@ public:
  * Can check the following:
  *		- If the escape key is pressed
  *		- Which direction is pressed ( by checking the arrows keys )
+ */
+
+/*! \fn Keyboard::Keyboard(void)
+ * Call the update function to have an array ready
+ */
+
+/*! \fn Keyboard::~Keyboard(void)
+ */
+
+/*! \fn unsigned char Keyboard::isEscapePressed(void)const
+ * \brief Check if the escape key is pressed
+ * \return 0 if the escape key is not pressed
+ */
+
+/*! \fn ArrowsDirection Keyboard::getDirectionPressed(void)const
+ * \brief Check which direction the user wants to go
+ * The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions.
+ * \return the direction
+ */
+
+/*! \fn unsigned char Keyboard::isKey(unsigned int key)
+ * \brief Check the specified key
+ * \param key the key to check
+ * \return 0 if the key is not pressed
+ */
+
+/*! \fn void Keyboard::update(void)
+ * \brief Update the keys array
  */
 
 /*! \enum ArrowsDirection

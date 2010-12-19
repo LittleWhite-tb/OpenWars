@@ -38,19 +38,9 @@ protected:
 	UnitType type;							/*!< The type of the Unit */
 
 public:
-	//! Constructor for the TileView
-	/*!
-		Will fill the structure with the params
-		\param pASprite the AnimatedSprite to dislay
-		\param type the type of the Unit
-		\param positionX the position in the TileBar
-	*/
+
 	UnitView(AnimatedSprite* pASprite, const UnitType type, const int positionX):View(pASprite,positionX),type(type) {}
 
-	//! Return the UnitType kept
-	/*!
-		\return the UnitType
-	*/
 	UnitType getType()const { return type; }
 };
 
@@ -61,27 +51,27 @@ private:
 	std::vector<std::vector<UnitView> > unitsList;		/*<! The units to be displayed in the TileBar */
 
 public:
-
-	//! Basic constructor
-	/*!
-      Create a TileBar with units
-	  \param sm the sprite manager to load the sprites used by the map
-	  \param win The window where the bar will be
-	  \param listTiles The list of units to display in the TileBar
-    */
 	TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles);
 
-	//! Get the UnitType selected
-	/*!
-	  \return the UnitType selected in the Bar
-	*/
 	UnitType getSelected(void)const;
 };
 
-/*! \struct UnitView TileBarUnits.h "Game/TileBarUnits.h"
+/*! \class UnitView TileBarUnits.h "Game/TileBarUnits.h"
  *  \brief UnitView struct
  *
  * Used to give a structure usable in the TileBar to contain Unit
+ */
+
+/*! \fn UnitView::UnitView(AnimatedSprite* pASprite, const UnitType type, const int positionX)
+ * Will fill the structure with the params
+ * \param pASprite the AnimatedSprite to dislay
+ * \param type the type of the Unit
+ * \param positionX the position in the TileBar
+ */
+
+/*! \fn UnitType UnitView::getType()const
+ * \brief Return the UnitType kept
+ * \return the UnitType
  */
 
 /*! \class TileBarUnits TileBarUnits.h "UI/TileBarUnits.h"
@@ -89,6 +79,17 @@ public:
  *
  *	Specialisation for the TileBar to display units
  *
+ */
+
+/*! \fn TileBarUnits::TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
+ * \brief Create a TileBar with units
+ * \param sm the sprite manager to load the sprites used by the map
+ * \param win The window where the bar will be
+ * \param listTiles The list of units to display in the TileBar
+
+/*! \fn UnitType TileBarUnits::getSelected(void)const
+ * \brief Get the UnitType selected
+ * \return the UnitType selected in the Bar
  */
 
 #endif

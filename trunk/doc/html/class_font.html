@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Font Class Reference</title>
+<title>OpenAWars: Font Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -63,13 +63,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_font.html#a3594dab95849fac859c9ea448b1fb191">Font</a> (<a class="el" href="class_font_manager.html">FontManager</a> &amp;fm, const std::string &amp;fileName, const int size, const SDL_Colour &amp;colour)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a3594dab95849fac859c9ea448b1fb191"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae626ac28f1fc2efd7cc72fc9b049c70b"></a><!-- doxytag: member="Font::~Font" ref="ae626ac28f1fc2efd7cc72fc9b049c70b" args="(void)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_font.html#ae626ac28f1fc2efd7cc72fc9b049c70b">~Font</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_font.html#aae8738ea7c185f40a80a762fefefc7e2">Font</a> (<a class="el" href="class_font_manager.html">FontManager</a> &amp;fm, const std::string &amp;fileName, const int size, const SDL_Color &amp;colour)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_vec2.html">IVec2</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_font.html#a717d0db26ec3c85225bc51b1cbd5cd89">getSize</a> (const std::string &amp;text)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the size of the surface that will be created when text is passed.  <a href="#a717d0db26ec3c85225bc51b1cbd5cd89"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the size of the surface that will be created when text is passed Return the size of the surface created for the text passed.  <a href="#a717d0db26ec3c85225bc51b1cbd5cd89"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SDL_Colour&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_font.html#a20e789d21629d7a50c7d20eca67ab9cb">getColour</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the colour of the font.  <a href="#a20e789d21629d7a50c7d20eca67ab9cb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_font.html#a721f551ff6d6355fb5432c5a8a48c83e">setColour</a> (const SDL_Colour &amp;newColour)</td></tr>
@@ -86,7 +82,7 @@ Public Member Functions</h2></td></tr>
 <li>Draw </li>
 </ul>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a3594dab95849fac859c9ea448b1fb191"></a><!-- doxytag: member="Font::Font" ref="a3594dab95849fac859c9ea448b1fb191" args="(FontManager &amp;fm, const std::string &amp;fileName, const int size, const SDL_Colour &amp;colour)" -->
+<a class="anchor" id="aae8738ea7c185f40a80a762fefefc7e2"></a><!-- doxytag: member="Font::Font" ref="aae8738ea7c185f40a80a762fefefc7e2" args="(FontManager &amp;fm, const std::string &amp;fileName, const int size, const SDL_Color &amp;colour)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -111,7 +107,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const SDL_Colour &amp;&nbsp;</td>
+          <td class="paramtype">const SDL_Color &amp;&nbsp;</td>
           <td class="paramname"> <em>colour</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -122,8 +118,6 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
 <p>Load the font, using the <a class="el" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a> with the size specified </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -219,8 +213,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Get the size of the surface that will be created when text is passed. </p>
-<p>Return the size of the surface created for the text passed </p>
+<p>Get the size of the surface that will be created when text is passed Return the size of the surface created for the text passed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>text</em>&nbsp;</td><td>The text to simulate to get the size </td></tr>
@@ -276,7 +269,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

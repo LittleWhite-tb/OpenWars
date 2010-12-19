@@ -57,169 +57,39 @@ protected:
 
 	Map(void) {};
 
-	//! Load the tiles that the map will use
-	/*!
-		Will use a tile set file to know the settings of each tiles
-		\param sm the SpriteManager to load the sprites.
-		\return true if all goes right
-	*/
 	bool loadTileSet(SpriteManager& sm);
-
-	//! Load the units that the map will use
-	/*!
-		Will use a unit set file to know the settings of each units
-		\param sm the SpriteManager to load the sprites.
-		\return true if all goes right
-	*/
 	bool loadUnitSet(SpriteManager& sm);
-
-	//! Load the tiles that the map will use
-	/*!
-		Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an AnimatedSprite pointer.
-		\param sm the SpriteManager to load the sprites.
-		\return true if all goes right
-	*/
 	bool loadGraphics(SpriteManager& sm);
 
-	//! Map file parser
-	/*!
-      Will parse the information contained in the map. When possible, will check if the information are correct
-	  \param sm the sprite manager to load the sprites used by the map
-	  \param fileName the name of the file to load
-	  \return true if all goes right
-    */
 	bool parser(SpriteManager& sm, const std::string& fileName);
 
-	//! Draw the terrain map
-	/*!
-	  \param r the renderer to use to draw the map
-	  \param c The Camera (used to draw the correct part of the Map)
-	  \param time the actual time (for animation)
-	  \return true if all goes right
-    */
 	bool drawTerrain(const Renderer& r, const Camera& c, const unsigned int time);
 
 public:
-	//! Basic constructor
-	/*!
-      Will call the parser
-	  If you need to check if the map is correct (and you should), please use isValidMap()
-	  \param sm the sprite manager to load the sprites used by the map
-	  \param fileName the name of the file to load
-    */
 	Map(SpriteManager& sm, const std::string& fileName);
-
-	//! Basic destructor
-	/*!
-      Frees the map
-    */
 	virtual ~Map(void);
 
-	//! Draw the map
-	/*!
-	  \param r the renderer to use to draw the map
-	  \param c The Camera (used to draw the correct part of the Map)
-	  \param time the actual time (for animation)
-	  \return true if all goes right
-    */
 	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)=0;
 
-	//! Set the Unit at the position
-	/*!
-		Will overwrite the Unit previously contained on the map by the new one.
-		The new Unit is selected following the internal logic of the editor.
-		\param position the position where to change the tile
-		\param unitType the type of the new unit
-		\return true if all goes right
-	*/
 	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
     
-	//! Return if the map is valid
-	/*!
-		\return true if the map is valid
-	*/
 	bool isValidMap(void)const { return valid; }
 
-	//! Return the width of the map
-	/*!
-		\return width of the map
-	*/
 	unsigned int getWidth(void)const { return width; }
-
-	//! Return the height of the map
-	/*!
-		\return height of the map
-	*/
 	unsigned int getHeight(void)const { return height; }
 
-	//! Return the type corresponding to the position
-	/*!
-		The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
-		\param position the position of the Tile to get
-		\return the TileType corresponding to the input position ... TT_Invalid if the position is not valid
-	*/
-	TileType getTileType(const UVec2& position)const;
-
-	//! Return the tile corresponding to the position
-	/*!
-		The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
-		\param position the position of the Tile to get
-		\return the Tile corresponding to the input position
-	*/
 	Tile getTile(const UVec2& position)const;
-
-	//! Return the tile corresponding to the TileType
-	/*!
-		\param tt the TileType
-		\return the Tile corresponding to the input TileType
-	*/
 	Tile getTile(const TileType& tt)const;
 
-	//! Return the UnitType corresponding to the position
-	/*!
-		The function will check if the position is outside the map. If it is, NULL is returned
-		\param position the position of the UnitType to get
-		\return the Unit corresponding to the input position or UT_NO_UNIT
-	*/
+	TileType getTileType(const UVec2& position)const;
 	UnitType getUnitType(const UVec2& position)const;
 
-	//! Return the UnitTemplate corresponding to the position
-	/*!
-		The function will check if the position is outside the map. If it is, NULL is returned
-		\param position the position of the Unit to get
-		\return the UnitTemplate corresponding to the input position or NULL
-	*/
 	UnitTemplate getUnitTemplate(const UVec2& position)const;
-
-	//! Return the UnitTemplate corresponding to the UnitType
-	/*!
-		\param ut the UnitType of the Unit to return the position of the Unit to get
-		\return the UnitTemplate corresponding to the input UnitType
-	*/
 	UnitTemplate getUnitTemplate(const UnitType ut)const;
 
-	//! Return the sprite corresponding to the type
-	/*!
-		If the type is not found in the map library, return NULL
-		\param type the type associated to the sprite to return
-		\return the AnimatedSprite pointer associated to the type
-	*/
 	AnimatedSprite* getAssociatedSprite(const TileType type);
-
-	//! Return the sprite corresponding to the type
-	/*!
-		If the type is not found in the map library, return NULL
-		\param type the type associated to the sprite to return
-		\return the AnimatedSprite pointer associated to the type
-	*/
 	AnimatedSprite* getAssociatedSprite(const UnitType type);
     
-    //! Test if this unit type can be put at the position
-	/*!
-	  \param position the position where the tile would be put
-	  \param unitType the type of the unit that the user wants to put
-	  \return true if we can set the unit
-	*/
 	bool testTile(const UVec2& position, const UnitType unitType)const;
 };
 
@@ -231,6 +101,146 @@ public:
  *		- Load from file (directly in the constructor, the parsing is done manualy)
  *		- Draw the map
  *		- Get a Tile
+ */
+
+/*! \fn bool Map::loadTileSet(SpriteManager& sm)
+ * \brief Load the tiles that the map will use
+ * Will use a tile set file to know the settings of each tiles
+ * \param sm the SpriteManager to load the sprites.
+ * \return true if all goes right
+ */
+
+/*! \fn bool Map::loadUnitSet(SpriteManager& sm)
+ * \brief Load the units that the map will use
+ * Will use a unit set file to know the settings of each units
+ * \param sm the SpriteManager to load the sprites.
+ * \return true if all goes right
+ */
+
+/*! \fn bool Map::loadGraphics(SpriteManager& sm)
+ * \brief Load the tiles that the map will use
+ * Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an AnimatedSprite pointer.
+ * \param sm the SpriteManager to load the sprites.
+ * \return true if all goes right
+ */
+
+/*! \fn bool Map::parser(SpriteManager& sm, const std::string& fileName)
+ * \brief Map file parser
+ * Will parse the information contained in the map. When possible, will check if the information are correct
+ * \param sm the sprite manager to load the sprites used by the map
+ * \param fileName the name of the file to load
+ * \return true if all goes right
+ */
+
+/*! \fn bool Map::drawTerrain(const Renderer& r, const Camera& c, const unsigned int time)
+ * \brief Draw the terrain map
+ * \param r the renderer to use to draw the map
+ * \param c The Camera (used to draw the correct part of the Map)
+ * \param time the actual time (for animation)
+ * \return true if all goes right
+ */
+
+/*! \fn Map::Map(SpriteManager& sm, const std::string& fileName)
+ * Will call the parser
+ * If you need to check if the map is correct (and you should), please use isValidMap()
+ * \param sm the sprite manager to load the sprites used by the map
+ * \param fileName the name of the file to load
+ */
+
+/*! \fn virtual Map::~Map(void)
+ */
+
+/*! \fn virtual bool Map::draw(const Renderer& r, const Camera& c, const unsigned int time)=0
+ * \brief Draw the map
+ * \param r the renderer to use to draw the map
+ * \param c The Camera (used to draw the correct part of the Map)
+ * \param time the actual time (for animation)
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Map::setTile(const UVec2& position, const UnitType unitType)=0
+ * \brief Set the Unit at the position
+ * Will overwrite the Unit previously contained on the map by the new one.
+ * The new Unit is selected following the internal logic of the editor.
+ * \param position the position where to change the tile
+ * \param unitType the type of the new unit
+ * \return true if all goes right
+ */
+
+/*! \fn bool Map::isValidMap(void)const
+ * \brief Return if the map is valid
+ * \return true if the map is valid
+ */
+
+/*! \fn unsigned int Map::getWidth(void)const
+ * \brief Return the width of the map
+ * \return width of the map
+ */
+
+/*! \fn unsigned int Map::getHeight(void)const
+ * \brief Return the height of the map
+ * \return height of the map
+ */
+
+/*! \fn TileType Map::getTileType(const UVec2& position)const
+ * \brief Return the type corresponding to the position
+ * The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
+ * \param position the position of the Tile to get
+ * \return the TileType corresponding to the input position ... TT_Invalid if the position is not valid
+ */
+
+/*! \fn Tile Map::getTile(const UVec2& position)const
+ * \brief Return the tile corresponding to the position
+ * The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
+ * \param position the position of the Tile to get
+ * \return the Tile corresponding to the input position
+ */
+
+/*! \fn Tile Map::getTile(const TileType& tt)const
+ * \brief Return the tile corresponding to the TileType
+ * \param tt the TileType
+ * \return the Tile corresponding to the input TileType
+ */
+
+/*! \fn UnitType Map::getUnitType(const UVec2& position)const
+ * \brief Return the UnitType corresponding to the position
+ * The function will check if the position is outside the map. If it is, NULL is returned
+ * \param position the position of the UnitType to get
+ * \return the Unit corresponding to the input position or UT_NO_UNIT
+ */
+
+/*! \fn UnitTemplate Map::getUnitTemplate(const UVec2& position)const
+ * \brief Return the UnitTemplate corresponding to the position
+ * The function will check if the position is outside the map. If it is, NULL is returned
+ * \param position the position of the Unit to get
+ * \return the UnitTemplate corresponding to the input position or NULL
+ */
+
+/*! \fn UnitTemplate Map::getUnitTemplate(const UnitType ut)const
+ * \brief Return the UnitTemplate corresponding to the UnitType
+ * \param ut the UnitType of the Unit to return the position of the Unit to get
+ * \return the UnitTemplate corresponding to the input UnitType
+ */
+
+/*! \fn AnimatedSprite* Map::getAssociatedSprite(const TileType type)
+ * \brief Return the sprite corresponding to the type
+ * If the type is not found in the map library, return NULL
+ * \param type the type associated to the sprite to return
+ * \return the AnimatedSprite pointer associated to the type
+ */
+
+/*! \fn AnimatedSprite* Map::getAssociatedSprite(const UnitType type)
+ * \brief Return the sprite corresponding to the type
+ * If the type is not found in the map library, return NULL
+ * \param type the type associated to the sprite to return
+ * \return the AnimatedSprite pointer associated to the type
+ */
+
+/*! \fn bool Map::testTile(const UVec2& position, const UnitType unitType)const
+ * \brief Test if this unit type can be put at the position
+ * \param position the position where the tile would be put
+ * \param unitType the type of the unit that the user wants to put
+ * \return true if we can set the unit
  */
 
 #endif

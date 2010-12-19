@@ -36,39 +36,17 @@ private:
 	const unsigned int msSecondsBetweenTwoFrame;		/*!< Time between two frames */
 	const unsigned int msSecondsBetweenTwoUpdate;		/*!< Time between two updates */
 
-	//! Update the class
-	/*!
-		Will increment the virtual time, and update the lastDrawTime variable
-	*/
 	void update(void);
 public:
-	//! Construct the VTime
-	/*!
-		Assign the different frequencies
-		\param nbFPS The number of FPS between two frames
-		\param updateNbFPS The number of FPS between two updates
-	*/
 	VTime(const unsigned int nbFPS, const unsigned int updateNbFPS);
 
-	//! Wait until the next frame has to be displayed
-	/*!
-		Use the lastDrawTime variable to know the time to wait
-	*/
 	void waitNextFrame(void);
 
-	//! Ask if we have to update the game (update synchro)
-	/*!
-		\return true if we have to update
-	*/
 	bool canUpdate(void);
 
-	//! Get the actual virtual time
-	/*!
-		\return the virtual time
-	*/
 	unsigned int getTime()const { return time; }
 #ifdef _DEBUG
-	void getTime(const unsigned int newTime) { time = newTime; }
+	void setTime(const unsigned int newTime) { time = newTime; }
 #endif
 };
 
@@ -78,6 +56,32 @@ public:
  * Gives an new time, that has to be used with the rest of the program.
  * The new time gives the posssibility to manage the time, independently of the real time
  * Two frenquencies are defined in the class. The first is used for the drawing synchronisation (often 60FPS), the second for the update.
+ */
+
+/*! \fn void VTime::update(void)
+ * \brief Update the class
+ * Will increment the virtual time, and update the lastDrawTime variable
+ */
+
+/*! \fn VTime::VTime(const unsigned int nbFPS, const unsigned int updateNbFPS)
+ * Assign the different frequencies
+ * \param nbFPS The number of FPS between two frames
+ * \param updateNbFPS The number of FPS between two updates
+ */
+
+/*! \fn void VTime::waitNextFrame(void)
+ * \brief Wait until the next frame has to be displayed
+ * Use the lastDrawTime variable to know the time to wait
+ */
+
+/*! \fn bool VTime::canUpdate(void)
+ * \brief Ask if we have to update the game (update synchro)
+ * \return true if we have to update
+ */
+
+/*! \fn unsigned int VTime::getTime()const
+ * \brief Get the actual virtual time
+ * \return the virtual time
  */
 
 #endif

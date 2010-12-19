@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Game/EditingCursor.h Source File</title>
+<title>OpenAWars: Sources/Game/EditingCursor.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -67,30 +67,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00038"></a>00038 <span class="keyword">class </span><a class="code" href="class_map.html" title="Map management class.">Map</a>;
 <a name="l00039"></a>00039 <span class="keyword">class </span><a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>;
 <a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="class_editing_cursor.html">00041</a> <span class="keyword">class </span><a class="code" href="class_editing_cursor.html" title="Manage the EditingCursor on the Map.">EditingCursor</a> : <span class="keyword">public</span> <a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>
+<a name="l00041"></a>00041 <span class="keyword">class </span>EditingCursor : <span class="keyword">public</span> <a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>
 <a name="l00042"></a>00042 {
 <a name="l00043"></a>00043 <span class="keyword">private</span>:
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* pWrongCursorSprite;                     
 <a name="l00047"></a>00047         <span class="keywordtype">bool</span> isWrong;                                                           
 <a name="l00049"></a>00049 <span class="keyword">public</span>:
-<a name="l00051"></a>00051 
-<a name="l00058"></a>00058         <a class="code" href="class_editing_cursor.html#a075d13ac3680046fec62f8755263e362" title="Basic constructor.">EditingCursor</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileNameCursor, <span class="keyword">const</span> std::string&amp; fileNameWrongCursor, <span class="keyword">const</span> <a class="code" href="class_map.html" title="Map management class.">Map</a>* <span class="keyword">const</span> pMap, <span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; initialPosition);
-<a name="l00059"></a>00059 
-<a name="l00061"></a>00061 
-<a name="l00064"></a>00064         <a class="code" href="class_editing_cursor.html#a9d1bc6fcef48e115d0ef9cf086c292b1" title="Basic destructor.">~EditingCursor</a>(<span class="keywordtype">void</span>);
-<a name="l00065"></a>00065 
-<a name="l00067"></a>00067 
-<a name="l00070"></a><a class="code" href="class_editing_cursor.html#aab24fdee69d3b4ce24ab762082ad208c">00070</a>         <span class="keywordtype">bool</span> <a class="code" href="class_editing_cursor.html#aab24fdee69d3b4ce24ab762082ad208c" title="Get if the cursor is in the wrong state.">getIsWrong</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> isWrong; }
-<a name="l00071"></a>00071 
-<a name="l00073"></a>00073 
-<a name="l00076"></a><a class="code" href="class_editing_cursor.html#afcb1cb34fc70f3c2edc15d8a50a6ecfe">00076</a>         <span class="keywordtype">void</span> <a class="code" href="class_editing_cursor.html#afcb1cb34fc70f3c2edc15d8a50a6ecfe" title="Set the cursor state.">setIsWrong</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> isWrong) { this-&gt;isWrong = isWrong; }
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_editing_cursor.html#a50170d9381180095ebe7e4d51bf07391" title="Draw the cursor.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>&amp; c, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time)<span class="keyword">const</span>;
-<a name="l00079"></a>00079 };
-<a name="l00080"></a>00080 
-<a name="l00088"></a>00088 <span class="preprocessor">#endif</span>
-<a name="l00089"></a>00089 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00050"></a>00050         EditingCursor(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileNameCursor, <span class="keyword">const</span> std::string&amp; fileNameWrongCursor, <span class="keyword">const</span> <a class="code" href="class_map.html" title="Map management class.">Map</a>* <span class="keyword">const</span> pMap, <span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; initialPosition);
+<a name="l00051"></a>00051         ~EditingCursor(<span class="keywordtype">void</span>);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <span class="keywordtype">bool</span> getIsWrong(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> isWrong; }
+<a name="l00054"></a>00054         <span class="keywordtype">void</span> setIsWrong(<span class="keyword">const</span> <span class="keywordtype">bool</span> isWrong) { this-&gt;isWrong = isWrong; }
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#af0b7299e233044c517cceb0f58dd2401" title="Draw the cursor.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>&amp; c, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time)<span class="keyword">const</span>;
+<a name="l00057"></a>00057 };
+<a name="l00058"></a>00058 
+<a name="l00087"></a>00087 <span class="preprocessor">#endif</span>
+<a name="l00088"></a>00088 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -107,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Map Class Reference</title>
+<title>OpenAWars: Map Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -66,8 +66,7 @@ Inheritance diagram for Map:</div>
  <div class="center">
   <img src="class_map.png" usemap="#Map_map" alt=""/>
   <map id="Map_map" name="Map_map">
-<area href="class_map_editor.html" alt="MapEditor" shape="rect" coords="0,56,70,80"/>
-<area href="class_map_game.html" alt="MapGame" shape="rect" coords="80,56,150,80"/>
+<area href="class_map_game.html" alt="MapGame" shape="rect" coords="0,56,69,80"/>
 </map>
 </div>
 
@@ -76,47 +75,44 @@ Inheritance diagram for Map:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a990b3978d94289f3e7ca0ea1bfa97979">Map</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;fileName)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a990b3978d94289f3e7ca0ea1bfa97979"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a55d7061de63bc1211c2f52592104d090">~Map</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#a55d7061de63bc1211c2f52592104d090"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a64228dcdbd5a443a8a6c025f3b8612ee">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const <a class="el" href="class_camera.html">Camera</a> &amp;c, const unsigned int time)=0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the map.  <a href="#a64228dcdbd5a443a8a6c025f3b8612ee"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a72ca8578600fde5f6f137ce5342044a0">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType)=0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position.  <a href="#a72ca8578600fde5f6f137ce5342044a0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#afc930df3a60bf13183705cb07dc260a3">enableUnits</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enable the units on the map.  <a href="#afc930df3a60bf13183705cb07dc260a3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a2c6b456ab3eea95964ca482877f687dc">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const <a class="el" href="class_camera.html">Camera</a> &amp;c, const unsigned int time)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the map.  <a href="#a2c6b456ab3eea95964ca482877f687dc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ab0ad6f5d546589dd425f8eb5f21db884">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor.  <a href="#ab0ad6f5d546589dd425f8eb5f21db884"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678">isValidMap</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return if the map is valid.  <a href="#a5f55867a8b8c41194bfa63e879d90678"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a0454b453ed0141eccb916435f242f35a">getWidth</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the width of the map.  <a href="#a0454b453ed0141eccb916435f242f35a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ad038150a2b86ba56221d91009d7b7d19">getHeight</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the height of the map.  <a href="#ad038150a2b86ba56221d91009d7b7d19"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">TileType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a3f7a3365f2efa394913f1f62878a746d">getTileType</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the type corresponding to the position.  <a href="#a3f7a3365f2efa394913f1f62878a746d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ac5bfe1ed6dece3b0bc730152d8d1d3d6">getTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the tile corresponding to the position.  <a href="#ac5bfe1ed6dece3b0bc730152d8d1d3d6"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the tile corresponding to the position The function will check if the position is outside the map. If it is, the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> returned has for type TT_Invalid.  <a href="#ac5bfe1ed6dece3b0bc730152d8d1d3d6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ab17281150188fb4cedb387e850b8bcbf">getTile</a> (const TileType &amp;tt) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the tile corresponding to the TileType.  <a href="#ab17281150188fb4cedb387e850b8bcbf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">TileType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a3f7a3365f2efa394913f1f62878a746d">getTileType</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the type corresponding to the position The function will check if the position is outside the map. If it is, the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> returned has for type TT_Invalid.  <a href="#a3f7a3365f2efa394913f1f62878a746d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">UnitType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a09d8d0581c5c6f4d7b55412555ff31dc">getUnitType</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the UnitType corresponding to the position.  <a href="#a09d8d0581c5c6f4d7b55412555ff31dc"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the UnitType corresponding to the position The function will check if the position is outside the map. If it is, NULL is returned.  <a href="#a09d8d0581c5c6f4d7b55412555ff31dc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_unit_template.html">UnitTemplate</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a27874da897c3cbb8692c3770bdce0ffd">getUnitTemplate</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the <a class="el" href="struct_unit_template.html" title="UnitTemplate struct.">UnitTemplate</a> corresponding to the position.  <a href="#a27874da897c3cbb8692c3770bdce0ffd"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the <a class="el" href="struct_unit_template.html" title="UnitTemplate struct.">UnitTemplate</a> corresponding to the position The function will check if the position is outside the map. If it is, NULL is returned.  <a href="#a27874da897c3cbb8692c3770bdce0ffd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_unit_template.html">UnitTemplate</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a009ad8a58a05de2a5e9423314f73e94e">getUnitTemplate</a> (const UnitType ut) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the <a class="el" href="struct_unit_template.html" title="UnitTemplate struct.">UnitTemplate</a> corresponding to the UnitType.  <a href="#a009ad8a58a05de2a5e9423314f73e94e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#aa36c1f8a618fd13c9f734698d5ed4fd6">getAssociatedSprite</a> (const TileType type)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type.  <a href="#aa36c1f8a618fd13c9f734698d5ed4fd6"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type If the type is not found in the map library, return NULL.  <a href="#aa36c1f8a618fd13c9f734698d5ed4fd6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a6a68c1366797107b8a0d664f17696cb5">getAssociatedSprite</a> (const UnitType type)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type.  <a href="#a6a68c1366797107b8a0d664f17696cb5"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the sprite corresponding to the type If the type is not found in the map library, return NULL.  <a href="#a6a68c1366797107b8a0d664f17696cb5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a8de807beb962532c7850265cee34a857">testTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test if this unit type can be put at the position.  <a href="#a8de807beb962532c7850265cee34a857"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ad3b464ee1394517e777ad51584abe9d2">loadTileSet</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;theme)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the tiles that the map will use.  <a href="#ad3b464ee1394517e777ad51584abe9d2"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a7e1a0fa6537052d93d4267fb936c6f79">loadUnitSet</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;theme)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the units that the map will use.  <a href="#a7e1a0fa6537052d93d4267fb936c6f79"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a642949ccc5e08bddcdb23c1f9a2974be">loadGraphics</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;theme)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the tiles that the map will use.  <a href="#a642949ccc5e08bddcdb23c1f9a2974be"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#add73606d1943565e4f60bc1c644ef54f">loadTileSet</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the tiles that the map will use Will use a tile set file to know the settings of each tiles.  <a href="#add73606d1943565e4f60bc1c644ef54f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a67f00a0a2a914972a6f4a62fe2179553">loadUnitSet</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the units that the map will use Will use a unit set file to know the settings of each units.  <a href="#a67f00a0a2a914972a6f4a62fe2179553"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ad77ce3f24ff5c0c699da5fb6ee8f73a7">loadGraphics</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the tiles that the map will use Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> pointer.  <a href="#ad77ce3f24ff5c0c699da5fb6ee8f73a7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a63b0ac39b8279b0873e3a2a8ed2a8b0f">parser</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;fileName)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="class_map.html" title="Map management class.">Map</a> file parser.  <a href="#a63b0ac39b8279b0873e3a2a8ed2a8b0f"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="class_map.html" title="Map management class.">Map</a> file parser Will parse the information contained in the map. When possible, will check if the information are correct.  <a href="#a63b0ac39b8279b0873e3a2a8ed2a8b0f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#acb36e087d99d31f9c85c63b8e26ee46e">drawTerrain</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const <a class="el" href="class_camera.html">Camera</a> &amp;c, const unsigned int time)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the terrain map.  <a href="#acb36e087d99d31f9c85c63b8e26ee46e"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
@@ -125,6 +121,7 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; UnitType, <a class="el" href="struct_unit_template.html">UnitTemplate</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#af44e382b44cf11286ad5b4c74cad0525">unitsSet</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#aa510a987349c68df39475a3a217bd733">width</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a39bb864cb5e1d1e609396a2f3559602e">height</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#af6dbc962043223b08a2017bf9990f5cb">m_themeName</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TileType **&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#aeafdf8943d2359231c60c3893eece05b">map</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">UnitType **&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a70ca1297b3d27a331e3a767a991547ee">unitViewMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a92a2f2e3f22fb607e259ee3148eefe85">valid</a></td></tr>
@@ -162,8 +159,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
 <p>Will call the parser If you need to check if the map is correct (and you should), please use <a class="el" href="class_map.html#a5f55867a8b8c41194bfa63e879d90678" title="Return if the map is valid.">isValidMap()</a> </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -175,34 +170,13 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a55d7061de63bc1211c2f52592104d090"></a><!-- doxytag: member="Map::~Map" ref="a55d7061de63bc1211c2f52592104d090" args="(void)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Map::~Map </td>
-          <td>(</td>
-          <td class="paramtype">void&nbsp;</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Basic destructor. </p>
-<p>Frees the map </p>
-
-</div>
-</div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a64228dcdbd5a443a8a6c025f3b8612ee"></a><!-- doxytag: member="Map::draw" ref="a64228dcdbd5a443a8a6c025f3b8612ee" args="(const Renderer &amp;r, const Camera &amp;c, const unsigned int time)=0" -->
+<a class="anchor" id="a2c6b456ab3eea95964ca482877f687dc"></a><!-- doxytag: member="Map::draw" ref="a2c6b456ab3eea95964ca482877f687dc" args="(const Renderer &amp;r, const Camera &amp;c, const unsigned int time)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool Map::draw </td>
+          <td class="memname">bool Map::draw </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_renderer.html">Renderer</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>r</em>, </td>
@@ -239,7 +213,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implemented in <a class="el" href="class_map_editor.html#a194946600baa9214d0cb46ed36565edc">MapEditor</a>, and <a class="el" href="class_map_game.html#aa444d34b84763a8f91837112f3236888">MapGame</a>.</p>
+<p>Implemented in <a class="el" href="class_map_game.html#aa444d34b84763a8f91837112f3236888">MapGame</a>.</p>
 
 </div>
 </div>
@@ -287,29 +261,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afc930df3a60bf13183705cb07dc260a3"></a><!-- doxytag: member="Map::enableUnits" ref="afc930df3a60bf13183705cb07dc260a3" args="(void)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Map::enableUnits </td>
-          <td>(</td>
-          <td class="paramtype">void&nbsp;</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Enable the units on the map. </p>
-<p>Will enable all unit on the map </p>
-
-<p>Reimplemented in <a class="el" href="class_map_game.html#a83561f2627c7c9f05784647ba0fa1750">MapGame</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aa36c1f8a618fd13c9f734698d5ed4fd6"></a><!-- doxytag: member="Map::getAssociatedSprite" ref="aa36c1f8a618fd13c9f734698d5ed4fd6" args="(const TileType type)" -->
 <div class="memitem">
 <div class="memproto">
@@ -326,8 +277,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Return the sprite corresponding to the type. </p>
-<p>If the type is not found in the map library, return NULL </p>
+<p>Return the sprite corresponding to the type If the type is not found in the map library, return NULL. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>the type associated to the sprite to return </td></tr>
@@ -354,8 +304,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Return the sprite corresponding to the type. </p>
-<p>If the type is not found in the map library, return NULL </p>
+<p>Return the sprite corresponding to the type If the type is not found in the map library, return NULL. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>the type associated to the sprite to return </td></tr>
@@ -403,8 +352,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Return the tile corresponding to the position. </p>
-<p>The function will check if the position is outside the map. If it is, the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> returned has for type TT_Invalid </p>
+<p>Return the tile corresponding to the position The function will check if the position is outside the map. If it is, the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> returned has for type TT_Invalid. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position of the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> to get </td></tr>
@@ -458,8 +406,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Return the type corresponding to the position. </p>
-<p>The function will check if the position is outside the map. If it is, the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> returned has for type TT_Invalid </p>
+<p>Return the type corresponding to the position The function will check if the position is outside the map. If it is, the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> returned has for type TT_Invalid. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position of the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> to get </td></tr>
@@ -513,8 +460,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Return the <a class="el" href="struct_unit_template.html" title="UnitTemplate struct.">UnitTemplate</a> corresponding to the position. </p>
-<p>The function will check if the position is outside the map. If it is, NULL is returned </p>
+<p>Return the <a class="el" href="struct_unit_template.html" title="UnitTemplate struct.">UnitTemplate</a> corresponding to the position The function will check if the position is outside the map. If it is, NULL is returned. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position of the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> to get </td></tr>
@@ -541,8 +487,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Return the UnitType corresponding to the position. </p>
-<p>The function will check if the position is outside the map. If it is, NULL is returned </p>
+<p>Return the UnitType corresponding to the position The function will check if the position is outside the map. If it is, NULL is returned. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position of the UnitType to get </td></tr>
@@ -595,114 +540,84 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a642949ccc5e08bddcdb23c1f9a2974be"></a><!-- doxytag: member="Map::loadGraphics" ref="a642949ccc5e08bddcdb23c1f9a2974be" args="(SpriteManager &amp;sm, const std::string &amp;theme)" -->
+<a class="anchor" id="ad77ce3f24ff5c0c699da5fb6ee8f73a7"></a><!-- doxytag: member="Map::loadGraphics" ref="ad77ce3f24ff5c0c699da5fb6ee8f73a7" args="(SpriteManager &amp;sm)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Map::loadGraphics </td>
+          <td class="memname">bool Map::loadGraphics </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>sm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>theme</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [protected]</code></td>
+          <td class="paramname"> <em>sm</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Load the tiles that the map will use. </p>
-<p>Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> pointer. </p>
+<p>Load the tiles that the map will use Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an <a class="el" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a> pointer. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> to load the sprites. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>theme</em>&nbsp;</td><td>the theme to use to know which sprites to load </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ad3b464ee1394517e777ad51584abe9d2"></a><!-- doxytag: member="Map::loadTileSet" ref="ad3b464ee1394517e777ad51584abe9d2" args="(SpriteManager &amp;sm, const std::string &amp;theme)" -->
+<a class="anchor" id="add73606d1943565e4f60bc1c644ef54f"></a><!-- doxytag: member="Map::loadTileSet" ref="add73606d1943565e4f60bc1c644ef54f" args="(SpriteManager &amp;sm)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Map::loadTileSet </td>
+          <td class="memname">bool Map::loadTileSet </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>sm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>theme</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [protected]</code></td>
+          <td class="paramname"> <em>sm</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Load the tiles that the map will use. </p>
-<p>Will use a tile set file to know the settings of each tiles </p>
+<p>Load the tiles that the map will use Will use a tile set file to know the settings of each tiles. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> to load the sprites. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>theme</em>&nbsp;</td><td>the theme to use to know which sprites to load </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a7e1a0fa6537052d93d4267fb936c6f79"></a><!-- doxytag: member="Map::loadUnitSet" ref="a7e1a0fa6537052d93d4267fb936c6f79" args="(SpriteManager &amp;sm, const std::string &amp;theme)" -->
+<a class="anchor" id="a67f00a0a2a914972a6f4a62fe2179553"></a><!-- doxytag: member="Map::loadUnitSet" ref="a67f00a0a2a914972a6f4a62fe2179553" args="(SpriteManager &amp;sm)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Map::loadUnitSet </td>
+          <td class="memname">bool Map::loadUnitSet </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>sm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>theme</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [protected]</code></td>
+          <td class="paramname"> <em>sm</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Load the units that the map will use. </p>
-<p>Will use a unit set file to know the settings of each units </p>
+<p>Load the units that the map will use Will use a unit set file to know the settings of each units. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> to load the sprites. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>theme</em>&nbsp;</td><td>the theme to use to know which sprites to load </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
 </div>
 </div>
@@ -731,8 +646,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="class_map.html" title="Map management class.">Map</a> file parser. </p>
-<p>Will parse the information contained in the map. When possible, will check if the information are correct </p>
+<p><a class="el" href="class_map.html" title="Map management class.">Map</a> file parser Will parse the information contained in the map. When possible, will check if the information are correct. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the sprite manager to load the sprites used by the map </td></tr>
@@ -744,12 +658,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a72ca8578600fde5f6f137ce5342044a0"></a><!-- doxytag: member="Map::setTile" ref="a72ca8578600fde5f6f137ce5342044a0" args="(const UVec2 &amp;position, const UnitType unitType)=0" -->
+<a class="anchor" id="ab0ad6f5d546589dd425f8eb5f21db884"></a><!-- doxytag: member="Map::setTile" ref="ab0ad6f5d546589dd425f8eb5f21db884" args="(const UVec2 &amp;position, const UnitType unitType)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool Map::setTile </td>
+          <td class="memname">bool Map::setTile </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>position</em>, </td>
@@ -769,8 +683,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position. </p>
-<p>Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. </p>
+<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where to change the tile </td></tr>
@@ -780,7 +693,44 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implemented in <a class="el" href="class_map_editor.html#af842a6c99d3570c104d483165b285030">MapEditor</a>, and <a class="el" href="class_map_game.html#a81d640017aaec145f3fc3a53f78855be">MapGame</a>.</p>
+<p>Implemented in <a class="el" href="class_map_game.html#a81d640017aaec145f3fc3a53f78855be">MapGame</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8de807beb962532c7850265cee34a857"></a><!-- doxytag: member="Map::testTile" ref="a8de807beb962532c7850265cee34a857" args="(const UVec2 &amp;position, const UnitType unitType) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Map::testTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UnitType&nbsp;</td>
+          <td class="paramname"> <em>unitType</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Test if this unit type can be put at the position. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where the tile would be put </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>unitType</em>&nbsp;</td><td>the type of the unit that the user wants to put </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if we can set the unit </dd></dl>
 
 </div>
 </div>
@@ -796,6 +746,20 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Height (in tile) of the map </p>
+
+</div>
+</div>
+<a class="anchor" id="af6dbc962043223b08a2017bf9990f5cb"></a><!-- doxytag: member="Map::m_themeName" ref="af6dbc962043223b08a2017bf9990f5cb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="class_map.html#af6dbc962043223b08a2017bf9990f5cb">Map::m_themeName</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Name of the theme to use </p>
 
 </div>
 </div>
@@ -902,7 +866,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

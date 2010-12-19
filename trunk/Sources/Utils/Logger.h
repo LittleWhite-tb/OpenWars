@@ -52,25 +52,10 @@ private:
 
 public:
 
-	//! Get an instance of the logger
-	/*!
-		As all Singleton, if an instance of the logger already exists, this one is returned, otherwise we are creating a new one
-		\param messageType the type of the message to send to the instance
-		\return an instance of the Logger
-	*/
 	static Logger* getLogger(const LMessageType messageType);
 
-	//! Basic destructor
-	/*!
-		Free memory
-	*/
 	static void deleteLogger(void);
 
-	//! << overloading
-	/*!
-		\param message the message to send to the logger
-		\return an instance of the logger to loop the << usage
-	*/
 	template <class T>
 	Logger& operator<< (const T& message);
 };
@@ -88,6 +73,23 @@ public:
  * The following should be the way to use it:
  *		- Use at anytime LDebug / LWarning / LError shortcuts to send messages
  *		- Free memory by calling deleteLogger() (if you reuse the shortcuts or getLogger(), you need to call again deleteLogger())
+ */
+
+/*! \fn static Logger* Logger::getLogger(const LMessageType messageType)
+ * \brief Get an instance of the logger
+ * As all Singleton, if an instance of the logger already exists, this one is returned, otherwise we are creating a new one
+ * \param messageType the type of the message to send to the instance
+ * \return an instance of the Logger
+ */
+
+/*! \fn static void Logger::deleteLogger(void)
+ * Delete the instance of the logger
+ */
+
+/*! \fn Logger& Logger::operator<< (const T& message)
+ * \brief << overloading
+ * \param message the message to send to the logger
+ * \return an instance of the logger to loop the << usage
  */
 
 /*! \enum LMessageType

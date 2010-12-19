@@ -33,10 +33,6 @@ private:
 	std::string message;	/*!< Message to display */
 
 public:
-	//! Exception constructor
-	/*!
-	  \param userMessage message from the user to display
-	*/
 	FileNotOpenedException(const std::string& userMessage):message(std::string("Failed to open '") + userMessage + std::string("'")) {}
     virtual ~FileNotOpenedException(void)throw() {}
 
@@ -45,5 +41,18 @@ public:
 		return message.c_str();
 	}
 };
+
+/*! \class FileNotOpenedException FileNotOpenedException.h "Utils/Exceptions/FileNotOpenedException.h"
+ *  \brief Exception for file not opened
+ */
+
+/*! \fn FileNotOpenedException::FileNotOpenedException(const std::string& userMessage)
+ * Create a message of the format: "Failed to open 'USER_MESSAGE'"
+ * \param userMessage message from the user to display
+ */
+
+/*! \fn virtual const char* FileNotOpenedException::what()const throw()
+ * \return the error message
+ */
 
 #endif

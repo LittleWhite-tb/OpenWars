@@ -241,55 +241,54 @@ bool MapGame :: move(const UVec2& origPosition, const UVec2& destPosition)
 void MapGame :: setMoveHighlight(const UVec2& origPosition, const UnitType ut, const int movement)
 {
     // ToDo: Cost of the tile for movement
-    if ( movement <= 0 || effectMap[origPosition.y][origPosition.x].isHighlight || !testTile(origPosition, ut) )
+	// Stopping condition
+    if ( movement <= 0 )
     {
         return;
     }
     
+	// TODO: Add faction detection
+	// If not same faction -> stop
+	// else this
     if ( (this->getUnitType(origPosition) == UT_NO_UNIT) )
     {
         effectMap[origPosition.y][origPosition.x].isHighlight = true;
     }
-    
-    {
-        UVec2 newPosition(origPosition);
-        newPosition.x+=1;
-        TileType nextTileType = this->getTileType(newPosition);
-        if ( nextTileType != TT_Invalid )
-        {
-            setMoveHighlight(newPosition,ut,movement-1);
-        }
-    }
-    
-    {
-        UVec2 newPosition(origPosition);
-        newPosition.x-=1;
-        TileType nextTileType = this->getTileType(newPosition);
-        if ( nextTileType != TT_Invalid )
-        {
-            setMoveHighlight(newPosition,ut,movement-1);
-        }
-    }
-    
-    {
-        UVec2 newPosition(origPosition);
-        newPosition.y+=1;
-        TileType nextTileType = this->getTileType(newPosition);
-        if ( nextTileType != TT_Invalid )
-        {
-            setMoveHighlight(newPosition,ut,movement-1);
-        }
-    }
-    
-    {
-        UVec2 newPosition(origPosition);
-        newPosition.y-=1;
-        TileType nextTileType = this->getTileType(newPosition);
-        if ( nextTileType != TT_Invalid )
-        {
-            setMoveHighlight(newPosition,ut,movement-1);
-        }
-    }
+
+	// Continue the recursivity
+	TileType nextTileType;
+
+	// Right
+	UVec2 rightPosition(origPosition.x+1,origPosition.y);
+	nextTileType = this->getTileType(rightPosition);
+    if ( nextTileType != TT_Invalid && !effectMap[rightPosition.y][rightPosition.x].isHighlight && testTile(rightPosition, ut) )
+	{
+		setMoveHighlight(rightPosition,ut,movement-1);	
+	}
+
+	// Up
+	UVec2 upPosition(origPosition.x,origPosition.y-1);
+	nextTileType = this->getTileType(upPosition);
+    if ( nextTileType != TT_Invalid && !effectMap[upPosition.y][upPosition.x].isHighlight && testTile(upPosition, ut) )
+	{
+		setMoveHighlight(upPosition,ut,movement-1);	
+	}
+
+	// Down
+	UVec2 downPosition(origPosition.x,origPosition.y+1);
+	nextTileType = this->getTileType(downPosition);
+    if ( nextTileType != TT_Invalid && !effectMap[downPosition.y][downPosition.x].isHighlight && testTile(downPosition, ut) )
+	{
+		setMoveHighlight(downPosition,ut,movement-1);	
+	}
+
+	// Left
+	UVec2 leftPosition(origPosition.x-1,origPosition.y);
+	nextTileType = this->getTileType(leftPosition);
+    if ( nextTileType != TT_Invalid && !effectMap[leftPosition.y][leftPosition.x].isHighlight && testTile(leftPosition, ut) )
+	{
+		setMoveHighlight(leftPosition,ut,movement-1);	
+	}
 }
     
 void MapGame :: setAttackableHighLight(const UVec2& origPosition)

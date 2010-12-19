@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Keyboard Class Reference</title>
+<title>OpenAWars: Keyboard Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -64,13 +64,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#a1763d0d9f911c636d1225140ad25131f">Keyboard</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a1763d0d9f911c636d1225140ad25131f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#ad0ef023e94a521de3c19b76ec74cc2e9">~Keyboard</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#ad0ef023e94a521de3c19b76ec74cc2e9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#a616ac50fcb9f67b89603dd30c2df7895">isEscapePressed</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check if the escape key is pressed.  <a href="#a616ac50fcb9f67b89603dd30c2df7895"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ArrowsDirection&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#a27e9d1ce4606f0e9b4c823b27dacb801">getDirectionPressed</a> (void) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check which direction the user wants to go.  <a href="#a27e9d1ce4606f0e9b4c823b27dacb801"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check which direction the user wants to go The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions.  <a href="#a27e9d1ce4606f0e9b4c823b27dacb801"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_keyboard.html#abf6b029565b607977acb4835adc81859">isKey</a> (unsigned int key)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check the specified key.  <a href="#abf6b029565b607977acb4835adc81859"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c3472f6f5dbb5210d22d87880133c2b"></a><!-- doxytag: member="Keyboard::update" ref="a9c3472f6f5dbb5210d22d87880133c2b" args="(void)" -->
@@ -100,30 +97,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
 <p>Call the update function to have an array ready </p>
-
-</div>
-</div>
-<a class="anchor" id="ad0ef023e94a521de3c19b76ec74cc2e9"></a><!-- doxytag: member="Keyboard::~Keyboard" ref="ad0ef023e94a521de3c19b76ec74cc2e9" args="(void)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Keyboard::~Keyboard </td>
-          <td>(</td>
-          <td class="paramtype">void&nbsp;</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Basic destructor. </p>
-<p>Do nothing because the array get is an internal SDL array </p>
 
 </div>
 </div>
@@ -144,8 +118,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 <div class="memdoc">
 
-<p>Check which direction the user wants to go. </p>
-<p>The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions. </p>
+<p>Check which direction the user wants to go The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>the direction </dd></dl>
 
 </div>
@@ -217,7 +190,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -54,90 +54,21 @@ protected:
 	RenderingAPI rAPI;			/*!< Remember which API is actually implemented */
 	
 public:
-	//! Basic constructor
-	/*!
-      Do nothing, just copying the enum of the API used
-	  \param pWin the Window where the Renderer will draw
-	  \param rAPI the API of the current instance of the Renderer
-    */
 	Renderer(const Window* const pWin, const RenderingAPI rAPI):pWin(pWin),rAPI(rAPI) {}
-
-	//! Basic destructor
-	/*!
-      Do nothing
-    */
 	virtual ~Renderer(void) {};
 
-	//! Clear the screen (black)
-	/*!
-	  \return true if all goes right
-    */
 	virtual bool clearScreen(void)const=0;
 
-	//! Draw a rectangle with a unified colour
-	/*!
-	  \param tile the rectangle to fill
-	  \param colour the colour to use to fill the rectangle
-	  \return true if all goes right
-    */
 	virtual bool drawTile(SDL_Rect& tile, const SDL_Color& colour)const=0;
-
-	//! Draw a complete Sprite
-	/*!
-	  \param sprite the sprite to draw
-	  \param pos where the sprite is drawn
-	  \return true if all goes right
-    */
 	virtual bool drawTile(const Sprite& sprite, const IVec2& pos)const=0;
-
-	//! Draw a complete Sprite
-	/*!
-	  \param sprite the sprite to draw
-	  \param pos where the sprite is drawn
-	  \param maskColour the colour to use for the mask on the sprite
-	  \return true if all goes right
-    */
 	virtual bool drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& maskColour)const=0;
-
-	//! Draw a part of a Sprite
-	/*!
-	  \param sprite the sprite to draw
-	  \param srcRect the rectangle on the source Sprite to draw
-	  \param pos the position where to draw the part of the sprite
-	  \return true if all goes right
-    */
 	virtual bool drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const=0;
-
-	//! Draw an AnimatedSprite
-	/*!
-	  \param aSprite the animation to draw
-	  \param pos where to draw the animation
-	  \param time the actual time (to know which frame to draw)
-	  \return true if all goes right
-    */
 	virtual bool drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const=0;
-
-	//! Draw a background
-	/*!
-	  \param pImage the imageto copy in background
-	  \return true if all goes right
-    */
 	virtual bool drawBackground(SDL_Surface* const pImage)const=0;
-	
-	//! Get the current API used
-	/*!
-      \return the API actually used
-    */
+
 	RenderingAPI getAPI(void)const { return rAPI; }
 };
 
-//! Renderer factory
-/*!
- * Return the renderer corresponding to the parameter
- * \param pWin the Window where the Renderer will draw
- * \param renderingAPI the specific API renderer to return
- * \return the wanted renderer
-*/
 Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI);
 
 /*! \class Renderer Renderer.h "Engine/Renderer.h"
@@ -155,8 +86,78 @@ Renderer* RendererFactory(const Window* const pWin, const RenderingAPI rendering
  *		- Draw an image in background
  */
 
+/*! \fn Renderer::Renderer(const Window* const pWin, const RenderingAPI rAPI)
+ * \brief Do nothing, just copying the enum of the API used
+ * \param pWin the Window where the Renderer will draw
+ * \param rAPI the API of the current instance of the Renderer
+ */
+
+/*! \fn virtual Renderer::~Renderer(void)
+ */
+
+/*! \fn virtual bool Renderer::clearScreen(void)const=0
+ * \brief Clear the screen (black)
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Renderer::drawTile(SDL_Rect& tile, const SDL_Color& colour)const=0
+ * \brief Draw a rectangle with a unified colour
+ * \param tile the rectangle to fill
+ * \param colour the colour to use to fill the rectangle
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Renderer::drawTile(const Sprite& sprite, const IVec2& pos)const=0
+ * \brief Draw a complete Sprite
+ * \param sprite the sprite to draw
+ * \param pos where the sprite is drawn
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Renderer::drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& maskColour)const=0
+ * \brief Draw a complete Sprite using a masling colour
+ * \param sprite the sprite to draw
+ * \param pos where the sprite is drawn
+ * \param maskColour the colour to use for the mask on the sprite
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Renderer::drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)const=0
+ * \brief Draw a part of a Sprite
+ * \param sprite the sprite to draw
+ * \param srcRect the rectangle on the source Sprite to draw
+ * \param pos the position where to draw the part of the sprite
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Renderer::drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned int time)const=0
+ * \brief Draw an AnimatedSprite
+ * \param aSprite the animation to draw
+ * \param pos where to draw the animation
+ * \param time the actual time (to know which frame to draw)
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Renderer::drawBackground(SDL_Surface* const pImage)const=0
+ * \brief Draw a background
+ * \param pImage the imageto copy in background
+ * \return true if all goes right
+ */
+
+/*! \fn RenderingAPI Renderer::getAPI(void)const
+ * \brief Get the current API used
+ * \return the API actually used
+ */
+
 /*! \enum RenderingAPI
  * Identifiers to know which API it is
  */
+
+/*! \fn Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI)
+ * \brief Return the renderer corresponding to the parameter
+ * \param pWin the Window where the Renderer will draw
+ * \param renderingAPI the specific API renderer to return
+ * \return the wanted Renderer
+*/
 
 #endif

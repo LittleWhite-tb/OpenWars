@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Engine/Font.h Source File</title>
+<title>OpenAWars: Sources/Engine/Font.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -63,40 +63,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00034"></a>00034 <span class="keyword">class </span><a class="code" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a>;
 <a name="l00035"></a>00035 <span class="keyword">class </span><a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>;
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">struct </span>SDL_Color;
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="class_font.html">00039</a> <span class="keyword">class </span><a class="code" href="class_font.html" title="Class for fonts.">Font</a>
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041 <span class="keyword">private</span>:
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043         <span class="comment">// Disallow the copy</span>
-<a name="l00044"></a>00044         <a class="code" href="class_font.html" title="Class for fonts.">Font</a>(<span class="keyword">const</span> <a class="code" href="class_font.html" title="Class for fonts.">Font</a>&amp; s);
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> operator= (<span class="keyword">const</span> <a class="code" href="class_font.html" title="Class for fonts.">Font</a>&amp; s);
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047         TTF_Font* pFont;                        
-<a name="l00048"></a>00048         SDL_Colour colour;                      
-<a name="l00050"></a>00050 <span class="keyword">public</span>:
+<a name="l00037"></a><a class="code" href="class_font.html">00037</a> <span class="keyword">class </span><a class="code" href="class_font.html" title="Class for fonts.">Font</a>
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039 <span class="keyword">private</span>:
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041         <span class="comment">// Disallow the copy</span>
+<a name="l00042"></a>00042         <a class="code" href="class_font.html" title="Class for fonts.">Font</a>(<span class="keyword">const</span> <a class="code" href="class_font.html" title="Class for fonts.">Font</a>&amp; s);
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> operator= (<span class="keyword">const</span> <a class="code" href="class_font.html" title="Class for fonts.">Font</a>&amp; s);
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045         TTF_Font* pFont;                        
+<a name="l00046"></a>00046         SDL_Color colour;                       
+<a name="l00048"></a>00048 <span class="keyword">public</span>:
+<a name="l00049"></a>00049         <a class="code" href="class_font.html" title="Class for fonts.">Font</a>(<a class="code" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a>&amp; fm, <span class="keyword">const</span> std::string&amp; fileName, <span class="keyword">const</span> <span class="keywordtype">int</span> size, <span class="keyword">const</span> SDL_Color&amp; colour);
+<a name="l00050"></a>00050         ~<a class="code" href="class_font.html" title="Class for fonts.">Font</a>(<span class="keywordtype">void</span>);
 <a name="l00051"></a>00051 
+<a name="l00052"></a>00052         <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a> <a class="code" href="class_font.html#a717d0db26ec3c85225bc51b1cbd5cd89" title="Get the size of the surface that will be created when text is passed Return the size of the surface c...">getSize</a>(<span class="keyword">const</span> std::string&amp; text);
 <a name="l00053"></a>00053 
-<a name="l00060"></a>00060         <a class="code" href="class_font.html" title="Class for fonts.">Font</a>(<a class="code" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a>&amp; fm, <span class="keyword">const</span> std::string&amp; fileName, <span class="keyword">const</span> <span class="keywordtype">int</span> size, <span class="keyword">const</span> SDL_Colour&amp; colour);
-<a name="l00061"></a>00061 
-<a name="l00063"></a>00063 
-<a name="l00065"></a>00065         <a class="code" href="class_font.html#ae626ac28f1fc2efd7cc72fc9b049c70b" title="Basic destructor.">~Font</a>(<span class="keywordtype">void</span>);
-<a name="l00066"></a>00066 
-<a name="l00068"></a>00068 
-<a name="l00073"></a>00073         <a class="code" href="struct_vec2.html">IVec2</a> <a class="code" href="class_font.html#a717d0db26ec3c85225bc51b1cbd5cd89" title="Get the size of the surface that will be created when text is passed.">getSize</a>(<span class="keyword">const</span> std::string&amp; text);
-<a name="l00074"></a>00074 
-<a name="l00076"></a>00076 
-<a name="l00079"></a><a class="code" href="class_font.html#a20e789d21629d7a50c7d20eca67ab9cb">00079</a>         SDL_Colour <a class="code" href="class_font.html#a20e789d21629d7a50c7d20eca67ab9cb" title="Get the colour of the font.">getColour</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> colour; }
-<a name="l00080"></a>00080 
-<a name="l00082"></a>00082 
-<a name="l00085"></a><a class="code" href="class_font.html#a721f551ff6d6355fb5432c5a8a48c83e">00085</a>         <span class="keywordtype">void</span> <a class="code" href="class_font.html#a721f551ff6d6355fb5432c5a8a48c83e" title="Set the colour of the font.">setColour</a>(<span class="keyword">const</span> SDL_Colour&amp; newColour) { colour = newColour; }
-<a name="l00086"></a>00086 
-<a name="l00088"></a>00088 
-<a name="l00094"></a>00094         <span class="keywordtype">bool</span> <a class="code" href="class_font.html#a4178be574f9014cb03678902da8e1c16" title="Draw a text with the font.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; position);
-<a name="l00095"></a>00095 };
-<a name="l00096"></a>00096 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif</span>
+<a name="l00054"></a><a class="code" href="class_font.html#a20e789d21629d7a50c7d20eca67ab9cb">00054</a>         SDL_Colour <a class="code" href="class_font.html#a20e789d21629d7a50c7d20eca67ab9cb" title="Get the colour of the font.">getColour</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> colour; }
+<a name="l00055"></a><a class="code" href="class_font.html#a721f551ff6d6355fb5432c5a8a48c83e">00055</a>         <span class="keywordtype">void</span> <a class="code" href="class_font.html#a721f551ff6d6355fb5432c5a8a48c83e" title="Set the colour of the font.">setColour</a>(<span class="keyword">const</span> SDL_Colour&amp; newColour) { colour = newColour; }
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057         <span class="keywordtype">bool</span> <a class="code" href="class_font.html#a4178be574f9014cb03678902da8e1c16" title="Draw a text with the font.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; position);
+<a name="l00058"></a>00058 };
+<a name="l00059"></a>00059 
+<a name="l00105"></a>00105 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -113,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

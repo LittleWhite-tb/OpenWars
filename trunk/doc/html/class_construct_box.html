@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: ConstructBox Class Reference</title>
+<title>OpenAWars: ConstructBox Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -64,14 +64,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#afca4a9b8b329476049ebaaa110fe164f">ConstructBox</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, <a class="el" href="class_font_manager.html">FontManager</a> &amp;fm, const <a class="el" href="class_window.html">Window</a> &amp;win, const std::string &amp;backgroundFileName, const std::string &amp;cursorFileName, const std::string &amp;upArrowFileName, const std::string &amp;downArrowFileName, const std::string &amp;fontFileName, const std::vector&lt; <a class="el" href="struct_construct_unit_view.html">ConstructUnitView</a> &gt; &amp;unitsList)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#afca4a9b8b329476049ebaaa110fe164f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a339d07f1d4f304edfec89ec36cd2b6ea"></a><!-- doxytag: member="ConstructBox::~ConstructBox" ref="a339d07f1d4f304edfec89ec36cd2b6ea" args="(void)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#a339d07f1d4f304edfec89ec36cd2b6ea">~ConstructBox</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#acf03138b930d708eb6eb494572691add">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const unsigned int moneyAvailable)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the construct box.  <a href="#acf03138b930d708eb6eb494572691add"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#ad01e754ddd9670c61d470a9325a911fe">update</a> (const ArrowsDirection kd)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the construct box.  <a href="#ad01e754ddd9670c61d470a9325a911fe"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the construct box Move the cursor following the keys pressed.  <a href="#ad01e754ddd9670c61d470a9325a911fe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">UnitType&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_construct_box.html#a095d7b97c7c7b585c1abfecc19fbe382">getUnitSelected</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the unit type currently selected.  <a href="#a095d7b97c7c7b585c1abfecc19fbe382"></a><br/></td></tr>
 </table>
@@ -145,12 +141,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the sprite manager to load the sprites </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>fm</em>&nbsp;</td><td>the font manager to load the fonts </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the SpriteManaget to load the sprites </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fm</em>&nbsp;</td><td>the <a class="el" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a> to load the fonts </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>win</em>&nbsp;</td><td>the window to draw in </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>backgroundFileName</em>&nbsp;</td><td>the path to the sprite to load for the background </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>cursorFileName</em>&nbsp;</td><td>the path to the sprite to load for the cursor </td></tr>
@@ -242,8 +236,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Update the construct box. </p>
-<p>Move the cursor following the keys pressed </p>
+<p>Update the construct box Move the cursor following the keys pressed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>kd</em>&nbsp;</td><td>the key direction pressed </td></tr>
@@ -272,7 +265,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

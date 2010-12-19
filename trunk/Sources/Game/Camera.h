@@ -35,48 +35,17 @@ class Camera
 private:
 	UVec2 position;						/*!< Position of the camera */
 
-
-	//! Move on the left
-	/*!
-    */
 	void moveLeft();
-	//! Move up
-	/*!
-    */
 	void moveUp();
-	//! Move on the right
-	/*!
-	  \param map the Map to check to know if we can move
-    */
 	void moveRight(const Map& map);
-	//! Move down
-	/*!
-	  \param map the Map to check to know if we can move
-    */
 	void moveDown(const Map& map);
 
 public:
-	//! Basic constructor
-	/*!
-    */
 	Camera(void);
-	//! Basic destructor
-	/*!
-    */
 	~Camera(void);
 
-	//! Update the camera
-	/*!
-      If needed (depending of the position of the Cursor on the screen), the camera will be moved.
-	  \param c the cursor to check
-	  \param map the map on which one the camera look at
-    */
 	void update(const Cursor& c, const Map& map);
 
-	//! Get the position
-	/*!
-      \return The position of the camera
-    */
 	UVec2 getPosition(void)const { return position; }
 };
 
@@ -84,6 +53,42 @@ public:
  *  \brief Manage the camera
  *
  * The camera will create an offset for the cursor, be moved by the cursor, and create offset for the Map drawing
+ */
+
+/*! \fn void Camera::moveLeft()
+ * \brief Move on the left
+ */
+
+/*! \fn void Camera::moveUp()
+ * \brief Move up
+ */
+
+/*! \fn void Camera::moveRight(const Map& map)
+ * \brief Move on the right
+ * \param map the Map to check to know if we can move
+ */
+
+/*! \fn void Camera::moveDown(const Map& map)
+ * \brief Move down
+ * \param map the Map to check to know if we can move
+ */
+
+/*! \fn Camera::Camera(void)
+ */
+
+/*! \fn Camera::~Camera(void)
+ */
+
+/*! \fn void Camera::update(const Cursor& c, const Map& map)
+ * \brief Update the camera
+ * If needed (depending of the position of the Cursor on the screen), the camera will be moved.
+ * \param c the cursor to check
+ * \param map the map on which one the camera look at
+ */
+
+/*! \fn UVec2 Camera::getPosition(void)const
+ * \brief Get the position
+ * \return The position of the camera
  */
 
 

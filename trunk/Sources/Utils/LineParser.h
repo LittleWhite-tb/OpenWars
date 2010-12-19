@@ -42,67 +42,22 @@ private:
 	std::string line;		/*!< The actual line to parse */
 	unsigned int lineNumber;	/*!< Actual line number */
 
-	//! Check if the actual line is empty
-	/*!
-	  \return true if the line is empty
-	*/
 	bool isEmptyLine();
 
 public:
 
-	//! Basic constructor
-	/*!
-	  Open the file and read the first line
-	  \param fileName the name of the file to open
-	*/
 	LineParser(const std::string& fileName);
-
-	//! Basic destructor
-	/*!
-	  close the file
-	*/
 	~LineParser();
 
-	//! Read the next line
-	/*!
-	  \return false if we have reached the end of the line
-	*/
 	bool readNextLine();
 
-	//! Get the actual line 
-	/*!
-	  \return the actual line
-	*/
 	const std::string& getLine()const { return line; }
 
-	//! Get the actual line number
-	/*!
-	  \return the actua line number
-	*/
 	unsigned int getLineNumber()const { return lineNumber; }
 
-	//! Read a boolean on the line
-	/*!
-	  \return the boolean on the line
-	*/
 	bool getBool(void)const;
-
-	//! Read a int on the line
-	/*!
-	  \return the int on the line
-	*/
 	int getInt(void)const;
-
-	//! Read a float on the line
-	/*!
-	  \return the float on the line
-	*/
 	float getFloat(void)const;
-
-	//! Read a IVec2 on the line
-	/*!
-	  \return the IVec2 on the line
-	*/
 	IVec2 getIVec2(void)const;
 };
 
@@ -114,6 +69,55 @@ public:
  *		- int
  *		- float
  *		- IVec2
+ */
+
+/*! \fn bool LineParser::isEmptyLine()
+ * Check if the actual line is empty
+ * \return true if the line is empty
+ */
+
+/*! \fn LineParser::LineParser(const std::string& fileName)
+ * \brief Basic constructor
+ * Open the file and read the first line
+ * \param fileName the name of the file to open
+ */
+
+/*! \fn LineParser::~LineParser()
+ */
+
+/*! \fn bool LineParser::readNextLine()
+ * \brief Read the next line
+ * \return false if we have reached the end of the line
+ */
+
+/*! \fn const std::string& LineParser::getLine()const
+ * \brief Get the actual line 
+ * \return the actual line
+ */
+
+/*! \fn unsigned int LineParser::getLineNumber()const
+ * \brief Get the actual line number
+ * \return the actua line number
+ */
+
+/*! \fn bool LineParser::getBool(void)const
+ * \brief Read a boolean on the line
+ * \return the boolean on the line
+ */
+
+/*! \fn int LineParser::getInt(void)const
+ * \brief Read a int on the line
+ * \return the int on the line
+ */
+
+/*! \fn float LineParser::getFloat(void)const
+ * \brief Read a float on the line
+ * \return the float on the line
+ */
+
+/*! \fn IVec2 LineParser::getIVec2(void)const
+ * \brief Read a IVec2 on the line
+ * \return the IVec2 on the line
  */
 
 #endif

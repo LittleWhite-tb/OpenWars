@@ -46,4 +46,17 @@ public:
 	}
 };
 
+/*! \class ConstructionFailedException ConstructionFailedException.h "Utils/Exceptions/ConstructionFailedException.h"
+ *  \brief Exception for classes failed to be created
+ */
+
+/*! \fn ConstructionFailedException::ConstructionFailedException(const std::string& userMessage)
+ * Create a message of the format: "Failed to create class 'USER_MESSAGE'"
+ * \param userMessage message from the user to display
+ */
+
+/*! \fn virtual const char* ConstructionFailedException::what()const throw()
+ * \return the error message
+ */
+
 #endif

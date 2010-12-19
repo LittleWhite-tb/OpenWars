@@ -75,10 +75,6 @@ Inheritance diagram for TileBar:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a16d057b6b8eb0ec4436b0fd75efc4536">TileBar</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const <a class="el" href="class_window.html">Window</a> &amp;win, std::vector&lt; <a class="el" href="class_view.html">View</a> * &gt; &amp;listTiles)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a16d057b6b8eb0ec4436b0fd75efc4536"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe884f0febd0ada1053ff4b38de42fae"></a><!-- doxytag: member="TileBar::~TileBar" ref="afe884f0febd0ada1053ff4b38de42fae" args="(void)" -->
-virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#afe884f0febd0ada1053ff4b38de42fae">~TileBar</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ac7db7e769ea8908fb94a884f16163f"></a><!-- doxytag: member="TileBar::open" ref="a7ac7db7e769ea8908fb94a884f16163f" args="(void)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a7ac7db7e769ea8908fb94a884f16163f">open</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start the opening animation of the Bar. <br/></td></tr>
@@ -99,15 +95,9 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get if the Bar is actually closed.  <a href="#a8f9b1f518f36b8c6908d2e71ffdf0323"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a338f2a108b7366c5a7b57780b356d4ca"></a><!-- doxytag: member="TileBar::viewList" ref="a338f2a108b7366c5a7b57780b356d4ca" args="" -->
-std::vector&lt; std::vector&lt; <a class="el" href="class_view.html">View</a> * &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca">viewList</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The tiles to be displayed in the <a class="el" href="class_tile_bar.html" title="Display a bar with a list of sprites.">TileBar</a>. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a072cfbb24a89b48bd7dab60e9e03919f"></a><!-- doxytag: member="TileBar::currentX" ref="a072cfbb24a89b48bd7dab60e9e03919f" args="" -->
-int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f">currentX</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">index of the actual <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> selected on the X axis <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d8b3055bd4124e26f9e6a641575aa98"></a><!-- doxytag: member="TileBar::currentY" ref="a4d8b3055bd4124e26f9e6a641575aa98" args="" -->
-int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98">currentY</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">index of the actual <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> selected on the Y axis <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; <a class="el" href="class_view.html">View</a> * &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca">viewList</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f">currentX</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98">currentY</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Display a bar with a list of sprites. </p>
@@ -155,8 +145,6 @@ int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
 <p>Will create the surface for the Bar and load the bar cursor and Tiles </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -203,6 +191,7 @@ int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
 </div>
 </div>
@@ -321,6 +310,49 @@ int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 </div>
 </div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a072cfbb24a89b48bd7dab60e9e03919f"></a><!-- doxytag: member="TileBar::currentX" ref="a072cfbb24a89b48bd7dab60e9e03919f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_tile_bar.html#a072cfbb24a89b48bd7dab60e9e03919f">TileBar::currentX</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>index of the actual <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> selected on the X axis </p>
+
+</div>
+</div>
+<a class="anchor" id="a4d8b3055bd4124e26f9e6a641575aa98"></a><!-- doxytag: member="TileBar::currentY" ref="a4d8b3055bd4124e26f9e6a641575aa98" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_tile_bar.html#a4d8b3055bd4124e26f9e6a641575aa98">TileBar::currentY</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>index of the actual <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> selected on the Y axis </p>
+
+</div>
+</div>
+<a class="anchor" id="a338f2a108b7366c5a7b57780b356d4ca"></a><!-- doxytag: member="TileBar::viewList" ref="a338f2a108b7366c5a7b57780b356d4ca" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::vector&lt;<a class="el" href="class_view.html">View</a>*&gt; &gt; <a class="el" href="class_tile_bar.html#a338f2a108b7366c5a7b57780b356d4ca">TileBar::viewList</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The tiles to be displayed in the <a class="el" href="class_tile_bar.html" title="Display a bar with a list of sprites.">TileBar</a> </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Sources/UI/<a class="el" href="_tile_bar_8h_source.html">TileBar.h</a></li>
 <li>Sources/UI/TileBar.cpp</li>
@@ -340,7 +372,7 @@ int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:08:29 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: SpriteManager Class Reference</title>
+<title>OpenAWars: SpriteManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -67,13 +67,9 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><b>SurfacePair</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a10ebf455f897963194d87663bcdf84"></a><!-- doxytag: member="SpriteManager::SpriteManager" ref="a1a10ebf455f897963194d87663bcdf84" args="(void)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite_manager.html#a1a10ebf455f897963194d87663bcdf84">SpriteManager</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite_manager.html#ad8ed760ba08cbd5cfcb1cc4946c67cc8">~SpriteManager</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#ad8ed760ba08cbd5cfcb1cc4946c67cc8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite_manager.html#ad706568912e81560b58da903717482f4">getSurface</a> (const std::string &amp;fileName, const bool needScaling)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the surface following the path to the sprite.  <a href="#ad706568912e81560b58da903717482f4"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the surface following the path to the sprite Check the bank to know if the sprite is already loaded, if not, load the sprite and returns it.  <a href="#ad706568912e81560b58da903717482f4"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Manager for the sprites resources. </p>
@@ -96,9 +92,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic destructor. </p>
-<p>Deletes properly all sprites loaded </p>
+<p>Deletes all <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a> loaded </p>
 
 </div>
 </div>
@@ -128,8 +122,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Gets the surface following the path to the sprite. </p>
-<p>Check the bank to know if the sprite is already loaded, if not, load the sprite and returns it. </p>
+<p>Gets the surface following the path to the sprite Check the bank to know if the sprite is already loaded, if not, load the sprite and returns it. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>the name of the file to open (used as ID for the bank) </td></tr>
@@ -159,7 +152,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

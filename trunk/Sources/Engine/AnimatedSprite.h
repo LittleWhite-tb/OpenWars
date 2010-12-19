@@ -52,60 +52,18 @@ private:
 	AnimatedSprite(const AnimatedSprite& as);
 	void operator= (const AnimatedSprite& as);
 
-	/** Updates the instance to change the sprite to show if needed
-     *  \param time the actual time
-     */
 	void update(const unsigned int time);
 
 public:
-	//! Basic constructor
-	/*!
-      Load the sprite set, using the SpriteManager
-	  To check the loading failure, you have to use getSurface() to check if the pointer returns is NULL
-	  \param sm the sprite manager to use to load the image
-	  \param fileName the file to load
-	  \param width of the sprite
-	  \param height of the sprite
-	  \param msInterval interval between two sprite in milliseconds
-	  \param needScaling if some scaling operation has to be done on this sprite
-    */
 	AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling);
-
-	//! Basic destructor
-	/*!
-      Free the internal surface
-    */
 	~AnimatedSprite(void);
 
-	//! Get the source rectangle for the internal surface, to draw
-	/*!
-	  Following the current frame, the rectangle to draw will be returned
-      \param time the actual time
-    */
 	SDL_Rect getSrcRect(const unsigned int time);
 
-	//! Get the width
-	/*!
-		\return returns the width of the sprite
-	*/
 	int getWidth(void)const { return widthSprite; }
-
-	//! Get the height
-	/*!
-		\return returns the height of the sprite
-	*/
 	int getHeight(void)const { return heightSprite; }
 
-	//! Get the interval between two frames
-	/*!
-		\return returns the interval in millisecond
-	*/
 	unsigned int getInterval(void)const { return msInterval; }
-
-	//! Set the interval between two frames
-	/*!
-		\param newInterval the new interval in millisecond
-	*/
 	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
 };
 
@@ -120,6 +78,50 @@ public:
  *		- Get the rectangle to use to draw the correct animation
  *		- Get interval between two sprites of the animation, in milliseconds
  *		- Set interval between two sprites of the animation, in milliseconds
+ */
+
+/*! \fn void AnimatedSprite::update(const unsigned int time)
+ * \brief Updates the instance to change the sprite to show if needed
+ * \param time the actual time
+ */
+
+/*! \fn AnimatedSprite::AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
+ * Load the sprite set, using the SpriteManager
+ * \param sm the sprite manager to use to load the image
+ * \param fileName the file to load
+ * \param width of the sprite
+ * \param height of the sprite
+ * \param msInterval interval between two sprite in milliseconds
+ * \param needScaling if some scaling operation has to be done on this sprite 
+ */
+
+/*! \fn AnimatedSprite::~AnimatedSprite(void)
+ */
+
+/*! \fn SDL_Rect AnimatedSprite::getSrcRect(const unsigned int time)
+ * \brief Get the source rectangle for the internal surface, to draw
+ * Following the current frame, the rectangle to draw will be returned
+ * \param time the actual time
+ */
+
+/*! \fn int AnimatedSprite::getWidth(void)const
+ * \brief Get the width
+ * \return returns the width of the sprite
+ */
+
+/*! \fn int AnimatedSprite::getHeight(void)const
+ * \brief Get the height
+ * \return returns the height of the sprite
+ */
+
+/*! \fn unsigned int AnimatedSprite::getInterval(void)const
+ * \brief Get the interval between two frames
+ * \return returns the interval in millisecond
+ */
+
+/*! \fn void AnimatedSprite::setInterval(const unsigned int newInterval)
+ * \brief Set the interval between two frames
+ * \param newInterval the new interval in millisecond
  */
 
 #endif

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Game/Cursor.h Source File</title>
+<title>OpenAWars: Sources/Game/Cursor.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -76,36 +76,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00048"></a>00048         <a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>&amp; operator= (<span class="keyword">const</span> <a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>&amp; c);
 <a name="l00049"></a>00049 
 <a name="l00050"></a>00050 <span class="keyword">protected</span>:
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="class_cursor.html#a3d58cc3126a90b2584de1ef395241cc4">00052</a>         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_cursor.html#a3d58cc3126a90b2584de1ef395241cc4">pCursorSprite</a>;                  
-<a name="l00054"></a><a class="code" href="class_cursor.html#a57ffbac813d0bfd2d1c3a3a2a34f3e3f">00054</a>         <a class="code" href="struct_vec2.html">UVec2</a> <a class="code" href="class_cursor.html#a57ffbac813d0bfd2d1c3a3a2a34f3e3f">position</a>;                                                 
-<a name="l00056"></a>00056 <span class="keyword">public</span>:
-<a name="l00058"></a>00058 
-<a name="l00065"></a>00065         <a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileName, <span class="keyword">const</span> <a class="code" href="class_map.html" title="Map management class.">Map</a>* <span class="keyword">const</span> pMap, <span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; initialPosition);
-<a name="l00066"></a>00066 
-<a name="l00068"></a>00068 
-<a name="l00071"></a>00071         <span class="keyword">virtual</span> <a class="code" href="class_cursor.html#a11f74764c6efec0bc90a3d58f628bbfd" title="Basic destructor.">~Cursor</a>(<span class="keywordtype">void</span>);
-<a name="l00072"></a>00072 
-<a name="l00074"></a>00074 
-<a name="l00077"></a>00077         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a> <a class="code" href="class_cursor.html#ae294d6544e5f7f9cdf9b76c3f3190721" title="Get the tile under the cursor.">getTileUnderCursor</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00078"></a>00078 
-<a name="l00080"></a>00080 
-<a name="l00083"></a>00083         TileType <a class="code" href="class_cursor.html#abb1119f1bc1b5c28b6b6707b37e595ec" title="Get the tile type under the cursor.">getTileTypeUnderCursor</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00084"></a>00084 
-<a name="l00086"></a>00086 
-<a name="l00089"></a><a class="code" href="class_cursor.html#a34695e21bd3263e91d67b5355779f574">00089</a>         <a class="code" href="struct_vec2.html">UVec2</a> <a class="code" href="class_cursor.html#a34695e21bd3263e91d67b5355779f574" title="Get the actual position of the cursor.">getPosition</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> <a class="code" href="class_cursor.html#a57ffbac813d0bfd2d1c3a3a2a34f3e3f">position</a>; }
-<a name="l00090"></a>00090 
-<a name="l00092"></a>00092 
-<a name="l00097"></a>00097         <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#a087f8e2b06c5ade37a4842f34900d089" title="Move to the next position.">move</a>(<span class="keyword">const</span> ArrowsDirection ad);
-<a name="l00098"></a>00098 
-<a name="l00100"></a>00100 
-<a name="l00105"></a>00105         <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#a087f8e2b06c5ade37a4842f34900d089" title="Move to the next position.">move</a>(<span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; newPosition);
-<a name="l00106"></a>00106 
-<a name="l00108"></a>00108 
-<a name="l00114"></a>00114         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#af0b7299e233044c517cceb0f58dd2401" title="Draw the cursor.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>&amp; c, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time)<span class="keyword">const</span>;
-<a name="l00115"></a>00115 };
-<a name="l00116"></a>00116 
-<a name="l00128"></a>00128 <span class="preprocessor">#endif</span>
+<a name="l00051"></a><a class="code" href="class_cursor.html#a3d58cc3126a90b2584de1ef395241cc4">00051</a>         <a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_cursor.html#a3d58cc3126a90b2584de1ef395241cc4">pCursorSprite</a>;                  
+<a name="l00053"></a><a class="code" href="class_cursor.html#a57ffbac813d0bfd2d1c3a3a2a34f3e3f">00053</a>         <a class="code" href="struct_vec2.html">UVec2</a> <a class="code" href="class_cursor.html#a57ffbac813d0bfd2d1c3a3a2a34f3e3f">position</a>;                                                 
+<a name="l00055"></a>00055 <span class="keyword">public</span>:
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057         <a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> std::string&amp; fileName, <span class="keyword">const</span> <a class="code" href="class_map.html" title="Map management class.">Map</a>* <span class="keyword">const</span> pMap, <span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; initialPosition);
+<a name="l00058"></a>00058         <span class="keyword">virtual</span> ~<a class="code" href="class_cursor.html" title="Manage the cursor on the Map.">Cursor</a>(<span class="keywordtype">void</span>);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         <a class="code" href="struct_tile.html" title="Tile struct.">Tile</a> <a class="code" href="class_cursor.html#ae294d6544e5f7f9cdf9b76c3f3190721" title="Get the tile under the cursor.">getTileUnderCursor</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00061"></a>00061         TileType <a class="code" href="class_cursor.html#abb1119f1bc1b5c28b6b6707b37e595ec" title="Get the tile type under the cursor.">getTileTypeUnderCursor</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="class_cursor.html#a34695e21bd3263e91d67b5355779f574">00063</a>         <a class="code" href="struct_vec2.html">UVec2</a> <a class="code" href="class_cursor.html#a34695e21bd3263e91d67b5355779f574" title="Get the actual position of the cursor.">getPosition</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> <a class="code" href="class_cursor.html#a57ffbac813d0bfd2d1c3a3a2a34f3e3f">position</a>; }
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065         <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#a087f8e2b06c5ade37a4842f34900d089" title="Move to the next position Will move to the next position ( step of 1 ) depending on the direction...">move</a>(<span class="keyword">const</span> ArrowsDirection ad);
+<a name="l00066"></a>00066         <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#a087f8e2b06c5ade37a4842f34900d089" title="Move to the next position Will move to the next position ( step of 1 ) depending on the direction...">move</a>(<span class="keyword">const</span> <a class="code" href="struct_vec2.html">UVec2</a>&amp; newPosition);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_cursor.html#af0b7299e233044c517cceb0f58dd2401" title="Draw the cursor.">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r, <span class="keyword">const</span> <a class="code" href="class_camera.html" title="Manage the camera.">Camera</a>&amp; c, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time)<span class="keyword">const</span>;
+<a name="l00069"></a>00069 };
+<a name="l00070"></a>00070 
+<a name="l00130"></a>00130 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -122,7 +111,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

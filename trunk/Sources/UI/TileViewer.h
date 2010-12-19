@@ -53,50 +53,16 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	//! Basic constructor
-	/*!
-	  Will load the font and the background
-	  \param sm The SpriteManager to use to load the background
-	  \param fm The FontManager to use to load the font
-	  \param win The Windows where to draw the UI
-	  \param fileNameBackground The file for the background
-	  \param fileNameFont The file for the font
-	*/
 	TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont);
-
-	//! Basic destructor
-	/*!
-	*/
 	~TileViewer(void);
 
-	//! Set the tile to display
-	/*!
-	  \param pTileSprite the new sprite to display
-	  \param tileName the name of the tile to display
-	*/
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
-	
-	//! Set a new title to display
-	/*!
-	  \param title the new title
-	*/
+
 	void setTitle(const std::string& title) { this->title = title; }
 
-	//! Set the UI on the left of the screen
-	/*!
-	*/
 	void putOnLeft(void);
-
-	//! Set the UI on the right of the screen
-	/*!
-	*/
 	void putOnRight(void);
 
-	//! draw the UI
-	/*!
-		\param r the Renderer to use to draw
-		\return true if all goes right
-	*/
 	bool draw(const Renderer& r);
 };
 
@@ -107,6 +73,43 @@ public:
  *		- Change the title
  *		- Change the positio ( on left or right of the screen )
  *		- Change the tile
+ */
+
+/*! \fn TileViewer::TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont)
+ * Will load the font and the background
+ * \param sm The SpriteManager to use to load the background
+ * \param fm The FontManager to use to load the font
+ * \param win The Windows where to draw the UI
+ * \param fileNameBackground The file for the background
+ * \param fileNameFont The file for the font
+ */
+
+/*! \fn TileViewer::~TileViewer(void)
+ */
+
+/*! \fn void TileViewer::setTile(AnimatedSprite* const pTileSprite, const std::string tileName)
+ * \brief Set the tile to display
+ * \param pTileSprite the new sprite to display
+ * \param tileName the name of the tile to display
+ */
+
+/*! \fn void TileViewer::setTitle(const std::string& title)
+ * \brief Set a new title to display
+ * \param title the new title
+ */
+
+/*! \fn void TileViewer::putOnLeft(void)
+ * \brief Set the UI on the left of the screen
+ */
+
+/*! \fn void TileViewer::putOnRight(void)
+ * \brief Set the UI on the right of the screen
+ */
+
+/*! \fn bool TileViewer::draw(const Renderer& r)
+ * draw the UI
+ * \param r the Renderer to use to draw
+ * \return true if all goes right
  */
 
 #endif

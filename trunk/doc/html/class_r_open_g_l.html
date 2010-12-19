@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: ROpenGL Class Reference</title>
+<title>OpenAWars: ROpenGL Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -73,7 +73,6 @@ Inheritance diagram for ROpenGL:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#abbd00dec8fab64f8f3c2340890ac902a">ROpenGL</a> (const <a class="el" href="class_window.html">Window</a> *const <a class="el" href="class_renderer.html#aeca255032e9749475998c9af86a1f006">pWin</a>)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#abbd00dec8fab64f8f3c2340890ac902a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#ad10e655f49c90066b797d0cd1a3d76a8">clearScreen</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Clear the screen (black).  <a href="#ad10e655f49c90066b797d0cd1a3d76a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#a366d77b4d599030f2b11af119d16b285">drawTile</a> (SDL_Rect &amp;tile, const SDL_Color &amp;colour) const </td></tr>
@@ -81,7 +80,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#a414915b02c51c37ddf56d1c0106dd5de">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a414915b02c51c37ddf56d1c0106dd5de"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#ad8989a8fadb0b741863b33017c80eee1">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const SDL_Colour &amp;maskColour) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#ad8989a8fadb0b741863b33017c80eee1"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a> using a masling colour.  <a href="#ad8989a8fadb0b741863b33017c80eee1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#a0fc07dcb36bfd196e05ff3cf887b88a4">drawTile</a> (const <a class="el" href="class_sprite.html">Sprite</a> &amp;sprite, SDL_Rect &amp;srcRect, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw a part of a <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>.  <a href="#a0fc07dcb36bfd196e05ff3cf887b88a4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_open_g_l.html#a66dda28624ff8d4355277fba5482ba4e">drawTile</a> (<a class="el" href="class_animated_sprite.html">AnimatedSprite</a> &amp;aSprite, const <a class="el" href="struct_vec2.html">IVec2</a> &amp;pos, const unsigned int time) const </td></tr>
@@ -108,8 +107,6 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>pWin</em>&nbsp;</td><td>the <a class="el" href="class_window.html" title="Window management class.">Window</a> where the <a class="el" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a> will draw </td></tr>
@@ -139,7 +136,7 @@ Public Member Functions</h2></td></tr>
 <p>Clear the screen (black). </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#aa9f50b15c87553779609d865a1ccd843">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a7a3ec41b3bcc9f11ca6e55a3b0d8ee3e">Renderer</a>.</p>
 
 </div>
 </div>
@@ -168,7 +165,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a18b20da9f4c7b9abbaae61c42ab2fa12">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a68ff2c8d7828df28b23f9358e7ea306e">Renderer</a>.</p>
 
 </div>
 </div>
@@ -214,7 +211,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a11f9c557151fffcc8dcb30a5cdf4da47">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a92c2610d212082d5365c9ca28e116078">Renderer</a>.</p>
 
 </div>
 </div>
@@ -260,7 +257,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a1bc535b35a25ccad2156a2ff4e21cdd9">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#afc9d8d76aa0c35f60efac01c611c72cf">Renderer</a>.</p>
 
 </div>
 </div>
@@ -295,7 +292,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a>. </p>
+<p>Draw a complete <a class="el" href="class_sprite.html" title="Sprite management class.">Sprite</a> using a masling colour. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sprite</em>&nbsp;</td><td>the sprite to draw </td></tr>
@@ -306,7 +303,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a9466d5fbb6aa91f330bb35e4e584d3cc">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a24e859e52a350c14c0528672efd04b1e">Renderer</a>.</p>
 
 </div>
 </div>
@@ -345,7 +342,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a70db9b4ea0c9dd7bfb77781d088410b2">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a18f39e88c2bf30735ae8b29a263f9c76">Renderer</a>.</p>
 
 </div>
 </div>
@@ -384,7 +381,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9">Renderer</a>.</p>
+<p>Implements <a class="el" href="class_renderer.html#a638edd5642fe59f1cedbc2bd39812113">Renderer</a>.</p>
 
 </div>
 </div>
@@ -407,7 +404,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

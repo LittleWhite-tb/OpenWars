@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/UI/TileViewer.h Source File</title>
+<title>OpenAWars: Sources/UI/TileViewer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -67,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00038"></a>00038 <span class="keyword">class </span><a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>;
 <a name="l00039"></a>00039 <span class="keyword">class </span><a class="code" href="class_window.html" title="Window management class.">Window</a>;
 <a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="class_tile_viewer.html">00041</a> <span class="keyword">class </span><a class="code" href="class_tile_viewer.html" title="viewer for Tile for the editor to indicate which tile is selected">TileViewer</a>
+<a name="l00041"></a>00041 <span class="keyword">class </span>TileViewer
 <a name="l00042"></a>00042 {
 <a name="l00043"></a>00043 <span class="keyword">private</span>:
 <a name="l00044"></a>00044 
@@ -77,32 +77,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00049"></a>00049         std::string title;                              
 <a name="l00050"></a>00050         std::string tileName;                   
 <a name="l00052"></a>00052         <a class="code" href="struct_vec2.html">UVec2</a> windowSize;                               
-<a name="l00053"></a>00053         <a class="code" href="struct_vec2.html">IVec2</a> position;                                 
+<a name="l00053"></a>00053         <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a> position;                                 
 <a name="l00055"></a>00055 <span class="keyword">public</span>:
-<a name="l00057"></a>00057 
-<a name="l00065"></a>00065         <a class="code" href="class_tile_viewer.html#a0a65f8232e9064e793dfd924ec88de8f" title="Basic constructor.">TileViewer</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <a class="code" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a>&amp; fm, <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win, <span class="keyword">const</span> std::string&amp; fileNameBackground, <span class="keyword">const</span> std::string&amp; fileNameFont);
-<a name="l00066"></a>00066 
+<a name="l00056"></a>00056         TileViewer(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <a class="code" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a>&amp; fm, <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win, <span class="keyword">const</span> std::string&amp; fileNameBackground, <span class="keyword">const</span> std::string&amp; fileNameFont);
+<a name="l00057"></a>00057         ~TileViewer(<span class="keywordtype">void</span>);
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <span class="keywordtype">void</span> setTile(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <span class="keyword">const</span> pTileSprite, <span class="keyword">const</span> std::string tileName) { this-&gt;pTileSprite = pTileSprite; this-&gt;tileName = tileName; }
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061         <span class="keywordtype">void</span> setTitle(<span class="keyword">const</span> std::string&amp; title) { this-&gt;title = title; }
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> putOnLeft(<span class="keywordtype">void</span>);
+<a name="l00064"></a>00064         <span class="keywordtype">void</span> putOnRight(<span class="keywordtype">void</span>);
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         <span class="keywordtype">bool</span> draw(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r);
+<a name="l00067"></a>00067 };
 <a name="l00068"></a>00068 
-<a name="l00070"></a>00070         <a class="code" href="class_tile_viewer.html#a93c6f31b11d7ee259a91daba2124f0fe" title="Basic destructor.">~TileViewer</a>(<span class="keywordtype">void</span>);
-<a name="l00071"></a>00071 
-<a name="l00073"></a>00073 
-<a name="l00077"></a><a class="code" href="class_tile_viewer.html#ad16a3b9fe1bd08f492f40912855da6c1">00077</a>         <span class="keywordtype">void</span> <a class="code" href="class_tile_viewer.html#ad16a3b9fe1bd08f492f40912855da6c1" title="Set the tile to display.">setTile</a>(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <span class="keyword">const</span> pTileSprite, <span class="keyword">const</span> std::string tileName) { this-&gt;pTileSprite = pTileSprite; this-&gt;tileName = tileName; }
-<a name="l00078"></a>00078         
-<a name="l00080"></a>00080 
-<a name="l00083"></a><a class="code" href="class_tile_viewer.html#a6ac936912fb75fe93b58067ceb5fe807">00083</a>         <span class="keywordtype">void</span> <a class="code" href="class_tile_viewer.html#a6ac936912fb75fe93b58067ceb5fe807" title="Set a new title to display.">setTitle</a>(<span class="keyword">const</span> std::string&amp; title) { this-&gt;title = title; }
-<a name="l00084"></a>00084 
-<a name="l00086"></a>00086 
-<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="class_tile_viewer.html#ac3935076ca2770b0bac236376e9e4dc6" title="Set the UI on the left of the screen.">putOnLeft</a>(<span class="keywordtype">void</span>);
-<a name="l00089"></a>00089 
-<a name="l00091"></a>00091 
-<a name="l00093"></a>00093         <span class="keywordtype">void</span> <a class="code" href="class_tile_viewer.html#a32bf6e365ad5a69ba688c806193596ca" title="Set the UI on the right of the screen.">putOnRight</a>(<span class="keywordtype">void</span>);
-<a name="l00094"></a>00094 
-<a name="l00096"></a>00096 
-<a name="l00100"></a>00100         <span class="keywordtype">bool</span> <a class="code" href="class_tile_viewer.html#aab5bd5db8bc497f79dd52d80cbbbfe72" title="draw the UI">draw</a>(<span class="keyword">const</span> <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>&amp; r);
-<a name="l00101"></a>00101 };
-<a name="l00102"></a>00102 
-<a name="l00112"></a>00112 <span class="preprocessor">#endif</span>
-<a name="l00113"></a>00113 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00115"></a>00115 <span class="preprocessor">#endif</span>
+<a name="l00116"></a>00116 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -119,7 +110,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

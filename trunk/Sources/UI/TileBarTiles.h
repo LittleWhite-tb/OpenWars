@@ -40,19 +40,8 @@ private:
 	TileType type;							/*!< The type of the Tile */					
 
 public:
-	//! Constructor for the TileView
-	/*!
-		Will fill the class with the params
-		\param pASprite the AnimatedSprite to dislay
-		\param type the type of the Tile
-		\param positionX the position in the TileBar
-	*/
 	TileView(AnimatedSprite* pASprite, const TileType type, const int positionX):View(pASprite,positionX),type(type) {}
 
-	//! Return the TileType kept
-	/*!
-		\return the TileType
-	*/
 	TileType getType()const { return type; }
 };
 
@@ -61,20 +50,8 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-
-	//! Basic constructor
-	/*!
-      Create a TileBar with tiles
-	  \param sm the sprite manager to load the sprites used by the map
-	  \param win The window where the bar will be
-	  \param listTiles The list of tiles to display in the TileBar
-    */
 	TileBarTiles(SpriteManager& sm, const Window& win, std::vector<TileView*>& listTiles);
 
-	//! Get the TileType selected
-	/*!
-	  \return the TileType selected in the Bar
-	*/
 	TileType getSelected(void)const;
 };
 
@@ -84,11 +61,35 @@ public:
  * Used to give a structure usable in the TileBar to contain Tile
  */
 
+/*! \fn TileView::TileView(AnimatedSprite* pASprite, const TileType type, const int positionX)
+ * \brief Will fill the class with the params
+ * \param pASprite the AnimatedSprite to dislay
+ * \param type the type of the Tile
+ * \param positionX the position in the TileBar
+ */
+
+/*! \fn TileType TileView::getType()const
+ * \brief Return the TileType kept
+ * \return the TileType
+ */
+
 /*! \class TileBarTiles TileBarTiles.h "UI/TileBarTiles.h"
  *  \brief Display a bar with a list of Tiles
  *
  *	Specialisation for the TileBar to display tiles
  *
+ */
+
+/*! \fn TileBarTiles::TileBarTiles(SpriteManager& sm, const Window& win, std::vector<TileView*>& listTiles)
+ * Create a TileBar with tiles
+ * \param sm the sprite manager to load the sprites used by the map
+ * \param win The window where the bar will be
+ * \param listTiles The list of tiles to display in the TileBar
+ */
+
+/*! \fn TileType TileBarTiles::getSelected(void)const
+ * \brief Get the TileType selected
+ * \return the TileType selected in the Bar
  */
 
 #endif

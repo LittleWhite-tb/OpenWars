@@ -76,4 +76,9 @@ typedef Vec2<unsigned int> UVec2;
  *  2D vector containing two fileds (x and y).
  */
 
+/*! \fn bool Vec2::operator==(const Vec2<T>& v)const
+ * \brief equality operator
+ * \param v the second vector to compare against
+ */
+
 #endif

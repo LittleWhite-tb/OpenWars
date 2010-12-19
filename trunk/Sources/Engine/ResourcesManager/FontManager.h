@@ -50,22 +50,9 @@ private:
 	void operator= (const FontManager& fm);
 
 public:
-	//! Basic constructor
-	/**
-	*/
 	FontManager(void);
-	//! Basic destructor
-	/**
-		Deletes properly all fonts loaded
-	*/
 	~FontManager(void);
 
-	//! Gets the font following the path to the font and the size
-	/**
-		Check the bank to know if the font is already loaded with this size, if not, load the font and returns it.
-		\param fileName the name of the file to open (used as ID for the bank)
-		\param size the size wanted for the font
-	*/
 	TTF_Font* getFont(const std::string& fileName, const int size);
 };
 
@@ -79,6 +66,20 @@ public:
  * The id used to recognise the font is simply the path to the font file
  *
  * When this is destructed, all pointers are correctly freed (TTF_CloseFont()), so thanks to this, we don't need to bother about memory liberation
+ */
+
+/*! \fn FontManager::FontManager(void)
+ */
+
+/*! \fn FontManager::~FontManager(void)
+ * Deletes properly all fonts loaded
+ *\
+
+/*! \fn TTF_Font* FontManager::getFont(const std::string& fileName, const int size)
+ * \brief Gets the font following the path to the font and the size
+ * Check the bank to know if the font is already loaded with this size, if not, load the font and returns it.
+ * \param fileName the name of the file to open (used as ID for the bank)
+ * \param size the size wanted for the font
  */
 
 #endif

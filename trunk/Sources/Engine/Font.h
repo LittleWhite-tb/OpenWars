@@ -34,8 +34,6 @@ e-mail: lw.demoscene@gmail.com
 class FontManager;
 class Renderer;
 
-struct SDL_Color;
-
 class Font
 {
 private:
@@ -45,52 +43,17 @@ private:
 	void operator= (const Font& s);
 
 	TTF_Font* pFont;			/*!< the font */
-	SDL_Colour colour;			/*!< the colour */
+	SDL_Color colour;			/*!< the colour */
 
 public:
-
-	//! Basic constructor
-	/*!
-	  Load the font, using the FontManager with the size specified
-	  \param fm The FontManager to use to load the font
-	  \param fileName The file to load
-	  \param size The size wanted for the font
-	  \param colour The drawing colour
-	*/
-	Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Colour& colour);
-
-	//! Basic destructor
-	/*!
-	*/
+	Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour);
 	~Font(void);
 
-	//! Get the size of the surface that will be created when text is passed
-	/*!
-	  Return the size of the surface created for the text passed
-	  \param text The text to simulate to get the size
-	  \return the size of the surface to render the text
-	*/
 	IVec2 getSize(const std::string& text);
 
-	//! Get the colour of the font
-	/*!
-	  \return the colour
-	*/
 	SDL_Colour getColour(void)const { return colour; }
-
-	//! Set the colour of the font
-	/*!
-	  \param newColour the new colour for the font
-	*/
 	void setColour(const SDL_Colour& newColour) { colour = newColour; }
 
-	//! Draw a text with the font
-	/*!
-	  \param r the Renderer to use to draw the text
-	  \param text the Text to draw
-	  \param position the position where to draw
-	  \return true if all goes right
-	*/
 	bool draw(const Renderer& r, const std::string& text, const IVec2& position);
 };
 
@@ -101,6 +64,42 @@ public:
  *		- Get the size of a text
  *		- Change the colour used to display the font
  *		- Draw
+ */
+
+/*! \fn Font::Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour)
+ * Load the font, using the FontManager with the size specified
+ * \param fm The FontManager to use to load the font
+ * \param fileName The file to load
+ * \param size The size wanted for the font
+ * \param colour The drawing colour
+ */
+
+/*! \fn Font::~Font(void)
+ */
+
+/*! \fn IVec2 Font::getSize(const std::string& text)
+ * \brief Get the size of the surface that will be created when text is passed
+ * Return the size of the surface created for the text passed
+ * \param text The text to simulate to get the size
+ * \return the size of the surface to render the text
+ */
+
+/*! \fn SDL_Colour Font::getColour(void)const
+ * \brief Get the colour of the font
+ * \return the colour
+ */
+
+/*! \fn void Font::setColour(const SDL_Colour& newColour)
+ * \brief Set the colour of the font
+ * \param newColour the new colour for the font
+ */
+
+/*! \fn bool Font::draw(const Renderer& r, const std::string& text, const IVec2& position)
+ * \brief Draw a text with the font
+ * \param r the Renderer to use to draw the text
+ * \param text the Text to draw
+ * \param position the position where to draw
+ * \return true if all goes right
  */
 
 #endif

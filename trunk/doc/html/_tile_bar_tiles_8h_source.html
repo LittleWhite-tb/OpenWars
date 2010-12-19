@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/UI/TileBarTiles.h Source File</title>
+<title>OpenAWars: Sources/UI/TileBarTiles.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -63,33 +63,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00034"></a>00034 <span class="keyword">class </span><a class="code" href="class_window.html" title="Window management class.">Window</a>;
 <a name="l00035"></a>00035 <span class="keyword">class </span><a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>;
 <a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="class_tile_view.html">00037</a> <span class="keyword">class </span><a class="code" href="class_tile_view.html" title="TileView struct.">TileView</a> : <span class="keyword">public</span> <a class="code" href="class_view.html" title="View struct.">View</a>
+<a name="l00037"></a>00037 <span class="keyword">class </span>TileView : <span class="keyword">public</span> View
 <a name="l00038"></a>00038 {       
 <a name="l00039"></a>00039 <span class="keyword">private</span>:
 <a name="l00040"></a>00040         TileType type;                                                  
 <a name="l00042"></a>00042 <span class="keyword">public</span>:
+<a name="l00043"></a>00043         TileView(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* pASprite, <span class="keyword">const</span> TileType type, <span class="keyword">const</span> <span class="keywordtype">int</span> positionX):View(pASprite,positionX),type(type) {}
 <a name="l00044"></a>00044 
-<a name="l00050"></a><a class="code" href="class_tile_view.html#abbc3abca3b10226e5467f76f8a90e9e0">00050</a>         <a class="code" href="class_tile_view.html#abbc3abca3b10226e5467f76f8a90e9e0" title="Constructor for the TileView.">TileView</a>(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>* <a class="code" href="class_view.html#afebe02306af99958e81b57080205d1d3">pASprite</a>, <span class="keyword">const</span> TileType type, <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="class_view.html#a2737bb4dbaa50f1836a510450be94483">positionX</a>):<a class="code" href="class_view.html" title="View struct.">View</a>(pASprite,positionX),type(type) {}
+<a name="l00045"></a>00045         TileType getType()<span class="keyword">const </span>{ <span class="keywordflow">return</span> type; }
+<a name="l00046"></a>00046 };
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 <span class="keyword">class </span>TileBarTiles : <span class="keyword">public</span> TileBar
+<a name="l00049"></a>00049 {
+<a name="l00050"></a>00050 <span class="keyword">private</span>:
 <a name="l00051"></a>00051 
-<a name="l00053"></a>00053 
-<a name="l00056"></a><a class="code" href="class_tile_view.html#a798965cce425b3763b1eeeda9f629d49">00056</a>         TileType <a class="code" href="class_tile_view.html#a798965cce425b3763b1eeeda9f629d49" title="Return the TileType kept.">getType</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> type; }
-<a name="l00057"></a>00057 };
-<a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="class_tile_bar_tiles.html">00059</a> <span class="keyword">class </span><a class="code" href="class_tile_bar_tiles.html" title="Display a bar with a list of Tiles.">TileBarTiles</a> : <span class="keyword">public</span> <a class="code" href="class_tile_bar.html" title="Display a bar with a list of sprites.">TileBar</a>
-<a name="l00060"></a>00060 {
-<a name="l00061"></a>00061 <span class="keyword">private</span>:
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="keyword">public</span>:
-<a name="l00064"></a>00064 
-<a name="l00066"></a>00066 
-<a name="l00072"></a>00072         <a class="code" href="class_tile_bar_tiles.html#a6265818250cffae3301004a968f18ee6" title="Basic constructor.">TileBarTiles</a>(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win, std::vector&lt;TileView*&gt;&amp; listTiles);
-<a name="l00073"></a>00073 
-<a name="l00075"></a>00075 
-<a name="l00078"></a>00078         TileType <a class="code" href="class_tile_bar_tiles.html#a3d45528eb4828d7a96973349148afbff" title="Get the TileType selected.">getSelected</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
-<a name="l00079"></a>00079 };
-<a name="l00080"></a>00080 
-<a name="l00094"></a>00094 <span class="preprocessor">#endif</span>
-<a name="l00095"></a>00095 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00052"></a>00052 <span class="keyword">public</span>:
+<a name="l00053"></a>00053         TileBarTiles(<a class="code" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>&amp; sm, <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>&amp; win, std::vector&lt;TileView*&gt;&amp; listTiles);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055         TileType getSelected(<span class="keywordtype">void</span>)<span class="keyword">const</span>;
+<a name="l00056"></a>00056 };
+<a name="l00057"></a>00057 
+<a name="l00095"></a>00095 <span class="preprocessor">#endif</span>
+<a name="l00096"></a>00096 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -106,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

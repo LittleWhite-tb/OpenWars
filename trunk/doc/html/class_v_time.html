@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: VTime Class Reference</title>
+<title>OpenAWars: VTime Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -64,9 +64,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_time.html#a853c07a17a7ee89cd89be2ec6794b779">VTime</a> (const unsigned int nbFPS, const unsigned int updateNbFPS)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct the <a class="el" href="class_v_time.html" title="Virtual Time class.">VTime</a>.  <a href="#a853c07a17a7ee89cd89be2ec6794b779"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_time.html#ae560b7cf56442ed5a492228394e32d1f">waitNextFrame</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Wait until the next frame has to be displayed.  <a href="#ae560b7cf56442ed5a492228394e32d1f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae560b7cf56442ed5a492228394e32d1f"></a><!-- doxytag: member="VTime::waitNextFrame" ref="ae560b7cf56442ed5a492228394e32d1f" args="(void)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_time.html#ae560b7cf56442ed5a492228394e32d1f">waitNextFrame</a> (void)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Wait until the next frame has to be displayed Use the lastDrawTime variable to know the time to wait. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_time.html#a8753bfe03c0a918725689961919e172e">canUpdate</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ask if we have to update the game (update synchro).  <a href="#a8753bfe03c0a918725689961919e172e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_time.html#aec20821e6ae00db53d343d93503b4673">getTime</a> () const </td></tr>
@@ -100,8 +100,6 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Construct the <a class="el" href="class_v_time.html" title="Virtual Time class.">VTime</a>. </p>
 <p>Assign the different frequencies </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -155,27 +153,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae560b7cf56442ed5a492228394e32d1f"></a><!-- doxytag: member="VTime::waitNextFrame" ref="ae560b7cf56442ed5a492228394e32d1f" args="(void)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void VTime::waitNextFrame </td>
-          <td>(</td>
-          <td class="paramtype">void&nbsp;</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Wait until the next frame has to be displayed. </p>
-<p>Use the lastDrawTime variable to know the time to wait </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Sources/Engine/<a class="el" href="_v_time_8h_source.html">VTime.h</a></li>
 <li>Sources/Engine/VTime.cpp</li>
@@ -195,7 +172,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

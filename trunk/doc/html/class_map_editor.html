@@ -72,20 +72,18 @@ Inheritance diagram for MapEditor:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#ae6bc18144256315a3866b1542feb0f45">MapEditor</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const <a class="el" href="struct_vec2.html">UVec2</a> &amp;size)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#ae6bc18144256315a3866b1542feb0f45"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#ad0a33e1f7352e0b76b10c295e4983728">MapEditor</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;themeName, const <a class="el" href="struct_vec2.html">UVec2</a> &amp;size)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create an empty map, with only T_Plain.  <a href="#ad0a33e1f7352e0b76b10c295e4983728"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#acd7077f73725360c2e5bead223645761">MapEditor</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;fileName)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#acd7077f73725360c2e5bead223645761"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the map to edit it.  <a href="#acd7077f73725360c2e5bead223645761"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a194946600baa9214d0cb46ed36565edc">draw</a> (const <a class="el" href="class_renderer.html">Renderer</a> &amp;r, const <a class="el" href="class_camera.html">Camera</a> &amp;c, const unsigned int time)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Draw the map.  <a href="#a194946600baa9214d0cb46ed36565edc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a7cfe26c558f84771279a44dce818353d">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const TileType tileType)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> at the position.  <a href="#a7cfe26c558f84771279a44dce818353d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#ae71d3a40f0edbf3e943eb43f554f614a">testTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const TileType tileType) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test if this type tile can be put at the position.  <a href="#ae71d3a40f0edbf3e943eb43f554f614a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a7cfe26c558f84771279a44dce818353d">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const TileType tileType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> at the position Will overwrite the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> previously contained on the map by the new one. The new <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> is selected following the internal logic of the editor, to set the best tile type for this case, by checking around.  <a href="#a7cfe26c558f84771279a44dce818353d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#af842a6c99d3570c104d483165b285030">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position.  <a href="#af842a6c99d3570c104d483165b285030"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a33ae84ca85a0eaa58d2ff79352544fbb">testTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test if this unit type can be put at the position.  <a href="#a33ae84ca85a0eaa58d2ff79352544fbb"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor.  <a href="#af842a6c99d3570c104d483165b285030"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map_editor.html#a37e0c5cbdc413039f62227a253e4ce7f">save</a> (const std::string &amp;fileName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Save the <a class="el" href="class_map.html" title="Map management class.">Map</a> in a file.  <a href="#a37e0c5cbdc413039f62227a253e4ce7f"></a><br/></td></tr>
 </table>
@@ -99,7 +97,7 @@ Public Member Functions</h2></td></tr>
 <li>Saving in a file </li>
 </ul>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ae6bc18144256315a3866b1542feb0f45"></a><!-- doxytag: member="MapEditor::MapEditor" ref="ae6bc18144256315a3866b1542feb0f45" args="(SpriteManager &amp;sm, const UVec2 &amp;size)" -->
+<a class="anchor" id="ad0a33e1f7352e0b76b10c295e4983728"></a><!-- doxytag: member="MapEditor::MapEditor" ref="ad0a33e1f7352e0b76b10c295e4983728" args="(SpriteManager &amp;sm, const std::string &amp;themeName, const UVec2 &amp;size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -108,6 +106,12 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>sm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>themeName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -124,11 +128,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Basic constructor. </p>
-<p>Create an empty map, with only T_Plain </p>
+<p>Create an empty map, with only T_Plain. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the sprite manager to load the sprites used by the map </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>themeName</em>&nbsp;</td><td>the name of the theme to load </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>the size of the map wanted </td></tr>
   </table>
   </dd>
@@ -161,7 +165,6 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Basic constructor. </p>
 <p>Load the map to edit it. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -216,7 +219,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_map.html#a64228dcdbd5a443a8a6c025f3b8612ee">Map</a>.</p>
+<p>Implements <a class="el" href="class_map.html#a2c6b456ab3eea95964ca482877f687dc">Map</a>.</p>
 
 </div>
 </div>
@@ -240,44 +243,6 @@ Public Member Functions</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>the file name where to save the file </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a7cfe26c558f84771279a44dce818353d"></a><!-- doxytag: member="MapEditor::setTile" ref="a7cfe26c558f84771279a44dce818353d" args="(const UVec2 &amp;position, const TileType tileType)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MapEditor::setTile </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TileType&nbsp;</td>
-          <td class="paramname"> <em>tileType</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Set the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> at the position. </p>
-<p>Will overwrite the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> previously contained on the map by the new one. The new <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> is selected following the internal logic of the editor, to set the best tile type for this case, by checking around. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where to change the tile </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>tileType</em>&nbsp;</td><td>the type of the new tile </td></tr>
   </table>
   </dd>
 </dl>
@@ -310,8 +275,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position. </p>
-<p>Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. </p>
+<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where to change the tile </td></tr>
@@ -321,7 +285,44 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
-<p>Implements <a class="el" href="class_map.html#a72ca8578600fde5f6f137ce5342044a0">Map</a>.</p>
+<p>Implements <a class="el" href="class_map.html#ab0ad6f5d546589dd425f8eb5f21db884">Map</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7cfe26c558f84771279a44dce818353d"></a><!-- doxytag: member="MapEditor::setTile" ref="a7cfe26c558f84771279a44dce818353d" args="(const UVec2 &amp;position, const TileType tileType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MapEditor::setTile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TileType&nbsp;</td>
+          <td class="paramname"> <em>tileType</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> at the position Will overwrite the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> previously contained on the map by the new one. The new <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> is selected following the internal logic of the editor, to set the best tile type for this case, by checking around. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where to change the tile </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>tileType</em>&nbsp;</td><td>the type of the new tile </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes right </dd></dl>
 
 </div>
 </div>
@@ -362,43 +363,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a33ae84ca85a0eaa58d2ff79352544fbb"></a><!-- doxytag: member="MapEditor::testTile" ref="a33ae84ca85a0eaa58d2ff79352544fbb" args="(const UVec2 &amp;position, const UnitType unitType) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MapEditor::testTile </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const UnitType&nbsp;</td>
-          <td class="paramname"> <em>unitType</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Test if this unit type can be put at the position. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where the tile would be put </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>unitType</em>&nbsp;</td><td>the type of the unit that the user wants to put </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if we can set the unit </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Sources/Game/<a class="el" href="_map_editor_8h_source.html">MapEditor.h</a></li>
 <li>Sources/Game/MapEditor.cpp</li>
@@ -418,7 +382,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:08:29 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

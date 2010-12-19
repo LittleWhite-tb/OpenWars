@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Game/Engine.h Source File</title>
+<title>OpenAWars: Sources/Game/Engine.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -77,17 +77,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00052"></a>00052         <a class="code" href="class_engine.html" title="Basic base for the engines.">Engine</a>(<span class="keywordtype">void</span>);
 <a name="l00053"></a>00053         <span class="keyword">virtual</span> ~<a class="code" href="class_engine.html" title="Basic base for the engines.">Engine</a>(<span class="keywordtype">void</span>);
 <a name="l00054"></a>00054 
+<a name="l00055"></a>00055         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_engine.html#a1fbb5cfb8cd2d22718062171cf4ffa19" title="Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...).">init</a>(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <a class="code" href="class_engine.html#a79255b95de2a9403baa5ef50040e83be">pWin</a>, <span class="keyword">const</span> RenderingAPI rAPI);
 <a name="l00056"></a>00056 
-<a name="l00061"></a>00061         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_engine.html#a1fbb5cfb8cd2d22718062171cf4ffa19" title="Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...).">init</a>(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <a class="code" href="class_engine.html#a79255b95de2a9403baa5ef50040e83be">pWin</a>, <span class="keyword">const</span> RenderingAPI rAPI);
-<a name="l00062"></a>00062 
-<a name="l00064"></a>00064 
-<a name="l00068"></a>00068         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_engine.html#adc854d6622e007dcde952f35de277f0c" title="Load the map from a file.">load</a>(<span class="keyword">const</span> std::string&amp; mapName)=0;
-<a name="l00069"></a>00069 
-<a name="l00071"></a>00071 
-<a name="l00074"></a>00074         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_engine.html#ab19a11223fc0eee8863942a82b348b59" title="Start the main loop.">run</a>(<span class="keywordtype">void</span>)=0;
-<a name="l00075"></a>00075 };
-<a name="l00076"></a>00076 
-<a name="l00085"></a>00085 <span class="preprocessor">#endif</span>
+<a name="l00057"></a>00057         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_engine.html#a2423c9f0f4be771c15018e4a423fc3e7" title="Load the map from a file.">load</a>(<span class="keyword">const</span> std::string&amp; mapName)=0;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_engine.html#a9bdd648e5ae8c42d241d5efeeae5af85" title="Start the main loop.">run</a>(<span class="keywordtype">void</span>)=0;
+<a name="l00060"></a>00060 };
+<a name="l00061"></a>00061 
+<a name="l00093"></a>00093 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -104,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

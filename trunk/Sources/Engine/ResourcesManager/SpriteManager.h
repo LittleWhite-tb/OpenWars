@@ -48,22 +48,9 @@ private:
 	void operator= (const SpriteManager& sm);
 
 public:
-	//! Basic constructor
-	/**
-	*/
 	SpriteManager(void);
-	//! Basic destructor
-	/**
-		Deletes properly all sprites loaded
-	*/
 	~SpriteManager(void);
 
-	//! Gets the surface following the path to the sprite
-	/**
-		Check the bank to know if the sprite is already loaded, if not, load the sprite and returns it.
-		\param fileName the name of the file to open (used as ID for the bank)
-		\param needScaling ask for a normal sprite or a scaled one
-	*/
 	SDL_Surface* getSurface(const std::string& fileName, const bool needScaling);
 };
 
@@ -77,6 +64,20 @@ public:
  * The id used to recognise the sprite is simply the path to the sprite file
  *
  * When this is destructed, all pointers are correctly freed (SDL_FreeSurface()), so thanks to this, we don't need to bother about memory liberation in Sprite / AnimatedSprite classes
+ */
+
+/*! \fn SpriteManager::SpriteManager(void)
+ */
+
+/*! \fn SpriteManager::~SpriteManager(void)
+ * Deletes all Sprite loaded
+ */
+
+/*! \fn SDL_Surface* SpriteManager::getSurface(const std::string& fileName, const bool needScaling)
+ * \brief Gets the surface following the path to the sprite
+ * Check the bank to know if the sprite is already loaded, if not, load the sprite and returns it.
+ * \param fileName the name of the file to open (used as ID for the bank)
+ * \param needScaling ask for a normal sprite or a scaled one
  */
 
 #endif

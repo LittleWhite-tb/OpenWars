@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sprite Class Reference</title>
+<title>OpenAWars: Sprite Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -74,17 +74,14 @@ Inheritance diagram for Sprite:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a37ffabec6e46df22039eecf891b7f671">Sprite</a> (<a class="el" href="class_sprite_manager.html">SpriteManager</a> &amp;sm, const std::string &amp;fileName, const bool needScaling)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor.  <a href="#a37ffabec6e46df22039eecf891b7f671"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#acb530e7c60874c50675a2c0f0e388022">Sprite</a> (SDL_Surface *pSurface)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor by using SDL_Surface pointer.  <a href="#acb530e7c60874c50675a2c0f0e388022"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#ae2cc659dea1ee5802b336d5c9b4f8f41">~Sprite</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor.  <a href="#ae2cc659dea1ee5802b336d5c9b4f8f41"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a712a5c14380437e850e7b055ec6e13c8">getWidth</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the width.  <a href="#a712a5c14380437e850e7b055ec6e13c8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#adb3f159a3473701e600167cf3900bc5f">getHeight</a> (void) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the height.  <a href="#adb3f159a3473701e600167cf3900bc5f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a3c3e8400a0a6d3f0433a16899a3cb150">getSurface</a> (void) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the surface.  <a href="#a3c3e8400a0a6d3f0433a16899a3cb150"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a32f658b41032eea4961b9ae58ee4e008">getSurface</a> (void) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the surface.  <a href="#a32f658b41032eea4961b9ae58ee4e008"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sprite.html#a87379327ab9c97a9ce6a4405e159d7e9">surface</a></td></tr>
@@ -129,9 +126,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic constructor. </p>
-<p>Load the image, using the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> To check the loading failure, you have to use <a class="el" href="class_sprite.html#a3c3e8400a0a6d3f0433a16899a3cb150" title="Get the surface.">getSurface()</a> to check if the pointer returns is NULL </p>
+<p>Load the image, using the <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a> To check the loading failure, you have to use <a class="el" href="class_sprite.html#a32f658b41032eea4961b9ae58ee4e008" title="Get the surface.">getSurface()</a> to check if the pointer returns is NULL </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>sm</em>&nbsp;</td><td>the sprite manager to use to load the image </td></tr>
@@ -158,9 +153,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Constructor by using SDL_Surface pointer. </p>
-<p>The SDL_Surface should be ready to use. Warning: The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using <a class="el" href="class_sprite.html#a3c3e8400a0a6d3f0433a16899a3cb150" title="Get the surface.">getSurface()</a>. </p>
+<p>The SDL_Surface should be ready to use. </p>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using <a class="el" href="class_sprite.html#a32f658b41032eea4961b9ae58ee4e008" title="Get the surface.">getSurface()</a>. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>pSurface</em>&nbsp;</td><td>pointer on the surface to use </td></tr>
@@ -185,8 +179,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic destructor. </p>
 <p>Free the internal surface </p>
 
 </div>
@@ -215,12 +207,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3c3e8400a0a6d3f0433a16899a3cb150"></a><!-- doxytag: member="Sprite::getSurface" ref="a3c3e8400a0a6d3f0433a16899a3cb150" args="(void) const " -->
+<a class="anchor" id="a32f658b41032eea4961b9ae58ee4e008"></a><!-- doxytag: member="Sprite::getSurface" ref="a32f658b41032eea4961b9ae58ee4e008" args="(void) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SDL_Surface* Sprite::getSurface </td>
+          <td class="memname">SDL_Surface * Sprite::getSurface </td>
           <td>(</td>
           <td class="paramtype">void&nbsp;</td>
           <td class="paramname"></td>
@@ -293,7 +285,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

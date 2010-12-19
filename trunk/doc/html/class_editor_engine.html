@@ -72,16 +72,10 @@ Inheritance diagram for EditorEngine:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5521dc3bd7b6e015674584142ce077ae"></a><!-- doxytag: member="EditorEngine::EditorEngine" ref="a5521dc3bd7b6e015674584142ce077ae" args="(void)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#a5521dc3bd7b6e015674584142ce077ae">EditorEngine</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic constructor. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88bb0a25783296202ef8268df98e377a"></a><!-- doxytag: member="EditorEngine::~EditorEngine" ref="a88bb0a25783296202ef8268df98e377a" args="(void)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#a88bb0a25783296202ef8268df98e377a">~EditorEngine</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic destructor. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#ae7131614f26c465757fe8cddb58f61ed">load</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;mapSize)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load an empty map.  <a href="#ae7131614f26c465757fe8cddb58f61ed"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#a62fccdb7e95da2d989f2d9f554ae83ea">init</a> (const <a class="el" href="class_window.html">Window</a> *<a class="el" href="class_engine.html#a79255b95de2a9403baa5ef50040e83be">pWin</a>, const RenderingAPI rAPI)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Init the engine by constructing all elements (<a class="el" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>, <a class="el" href="class_sprite_manager.html" title="Manager for the sprites resources.">SpriteManager</a>, <a class="el" href="class_font_manager.html" title="Manager for the fonts resources.">FontManager</a>,...).  <a href="#a62fccdb7e95da2d989f2d9f554ae83ea"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#ac646654e7caa55fec6717dd1826189b0">load</a> (const std::string &amp;themeName, const <a class="el" href="struct_vec2.html">UVec2</a> &amp;mapSize)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load an empty map.  <a href="#ac646654e7caa55fec6717dd1826189b0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#a25e6f5de84b54dde23050602e465fa8f">load</a> (const std::string &amp;mapName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Load the map from a file.  <a href="#a25e6f5de84b54dde23050602e465fa8f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#a909a621bb065b6dc0b7b596772063844">run</a> (void)</td></tr>
@@ -89,7 +83,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#ad3635ed3a143431f2509c2807950e718">saveMap</a> (const std::string &amp;fileName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Save the map in a file.  <a href="#ad3635ed3a143431f2509c2807950e718"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_editor_engine.html#ab78efdd11eb7c9a871d920c2cb409277">setTile</a> (const <a class="el" href="struct_vec2.html">UVec2</a> &amp;position, const UnitType unitType)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position.  <a href="#ab78efdd11eb7c9a871d920c2cb409277"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. The unit is automatically enabled in the editor.  <a href="#ab78efdd11eb7c9a871d920c2cb409277"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p><a class="el" href="class_engine.html" title="Basic base for the engines.">Engine</a> of the whole editor. </p>
@@ -140,17 +134,26 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae7131614f26c465757fe8cddb58f61ed"></a><!-- doxytag: member="EditorEngine::load" ref="ae7131614f26c465757fe8cddb58f61ed" args="(const UVec2 &amp;mapSize)" -->
+<a class="anchor" id="ac646654e7caa55fec6717dd1826189b0"></a><!-- doxytag: member="EditorEngine::load" ref="ac646654e7caa55fec6717dd1826189b0" args="(const std::string &amp;themeName, const UVec2 &amp;mapSize)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool EditorEngine::load </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>mapSize</em></td>
-          <td>&nbsp;)&nbsp;</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>themeName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="struct_vec2.html">UVec2</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>mapSize</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -159,6 +162,7 @@ Public Member Functions</h2></td></tr>
 <p>Load an empty map. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>themeName</em>&nbsp;</td><td>the name of the theme to load </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>mapSize</em>&nbsp;</td><td>The size of the empty map </td></tr>
   </table>
   </dd>
@@ -192,7 +196,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes fine </dd></dl>
 
-<p>Implements <a class="el" href="class_engine.html#adc854d6622e007dcde952f35de277f0c">Engine</a>.</p>
+<p>Implements <a class="el" href="class_engine.html#a2423c9f0f4be771c15018e4a423fc3e7">Engine</a>.</p>
 
 </div>
 </div>
@@ -215,7 +219,7 @@ Public Member Functions</h2></td></tr>
 <p>Start the editor main loop. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if all goes fine </dd></dl>
 
-<p>Implements <a class="el" href="class_engine.html#ab19a11223fc0eee8863942a82b348b59">Engine</a>.</p>
+<p>Implements <a class="el" href="class_engine.html#a9bdd648e5ae8c42d241d5efeeae5af85">Engine</a>.</p>
 
 </div>
 </div>
@@ -271,8 +275,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position. </p>
-<p>Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. The unit is automatically enabled in the editor </p>
+<p>Set the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> at the position Will overwrite the <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> previously contained on the map by the new one. The new <a class="el" href="struct_unit.html" title="Unit struct.">Unit</a> is selected following the internal logic of the editor. The unit is automatically enabled in the editor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>position</em>&nbsp;</td><td>the position where to change the tile </td></tr>
@@ -303,7 +306,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:08:29 for OpenAWars_Editor by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

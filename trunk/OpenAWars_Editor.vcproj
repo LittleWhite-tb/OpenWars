@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="OpenAWars_Editor"
 	ProjectGUID="{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}"
 	RootNamespace="OpenAWars_Editor"

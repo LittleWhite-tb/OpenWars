@@ -222,27 +222,8 @@ typedef struct Tile
 
 	unsigned char cityLife;			/*!< The actual remaining life of the builing */ // For capturing
 
-	//! Default constructor
-	/*!
-		Sea is true by default
-	*/
 	Tile(void):pASprite(NULL),name(),defence(0),isRoad(false),isBridge(false),isRiver(false),isSea(true),isBeach(false),isBuilding(false),isHQ(false),needBackground(false),cityLife(0) {}
 
-	//! Default constructor
-	/*!
-		\param pASprite The sprite to use for this tile
-		\param name The name to display for this tile
-		\param defence the defence occured by the tile
-		\param isRoad is this tile a road
-		\param isBridge is this tile a bridge
-		\param isRiver is this tile a river
-		\param isSea is this tile a sea
-		\param isBeach is this tile a beach
-		\param isBuilding is this tile a building
-		\param isHQ is this tile an HQ
-		\param needBackground If the tile need some Plain to be drawn before
-		\param cityLife The maximum life of the city
-	*/
 	Tile(	AnimatedSprite* pASprite, 
 			std::string& name,
 			const unsigned char defence, 
@@ -259,11 +240,6 @@ typedef struct Tile
 	
 	}
 
-
-	//! Basic copy constructor
-	/*!
-		\param t the Tile to copy
-	*/
 	Tile(const Tile& t):pASprite(pASprite),
 		name(t.name),
 		defence(t.defence),
@@ -277,12 +253,6 @@ typedef struct Tile
 		needBackground(t.needBackground),
 		cityLife(t.cityLife) {}
 
-	//! operator=
-	/*!
-		Sea is true by default
-		\param t the Tile to copy
-		\return the copy
-	*/
 	Tile& operator=(const Tile& t)
 	{
 		this->pASprite = t.pASprite;
@@ -303,6 +273,10 @@ typedef struct Tile
 
 }Tile;
 
+/*! \enum TileType
+ * Identifiers to know which Tile it is
+ */
+
 /*! \struct Tile Tile.h "Game/Tile.h"
  *  \brief Tile struct
  *
@@ -314,8 +288,34 @@ typedef struct Tile
  *		- The life of the building (gameplay)
  */
 
-/*! \enum TileType
- * Identifiers to know which Tile it is
+/*! \fn Tile::Tile(void)
+ * Sea is true by default
+ */
+
+/*! \fn Tile::Tile(AnimatedSprite* pASprite,std::string& name,const unsigned char defence,const bool isRoad, const bool isBridge, const bool isRiver, const bool isSea, const bool isBeach, const bool isBuilding, const bool isHQ, const bool needBackground, const unsigned char cityLife)
+ * \param pASprite The sprite to use for this tile
+ * \param name The name to display for this tile
+ * \param defence the defence occured by the tile
+ * \param isRoad is this tile a road
+ * \param isBridge is this tile a bridge
+ * \param isRiver is this tile a river
+ * \param isSea is this tile a sea
+ * \param isBeach is this tile a beach
+ * \param isBuilding is this tile a building
+ * \param isHQ is this tile an HQ
+ * \param needBackground If the tile need some Plain to be drawn before
+ * \param cityLife The maximum life of the city
+ */
+
+/*! \fn Tile::Tile(const Tile& t)
+ * \param t the Tile to copy
+ */
+
+/*! \fn Tile& Tile::operator=(const Tile& t)
+ * \brief operator=
+ * Sea is true by default
+ * \param t the Tile to copy
+ * \return the copy
  */
 
 #endif

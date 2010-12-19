@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Sources/Engine/Renderer.h Source File</title>
+<title>OpenAWars: Sources/Engine/Renderer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -82,41 +82,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00053"></a><a class="code" href="class_renderer.html#aeca255032e9749475998c9af86a1f006">00053</a>         <span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <a class="code" href="class_renderer.html#aeca255032e9749475998c9af86a1f006">pWin</a>;                             
 <a name="l00054"></a><a class="code" href="class_renderer.html#a221bf110038b85a864e1ff0c3c7a0f91">00054</a>         RenderingAPI <a class="code" href="class_renderer.html#a221bf110038b85a864e1ff0c3c7a0f91">rAPI</a>;                      
 <a name="l00056"></a>00056 <span class="keyword">public</span>:
-<a name="l00058"></a>00058 
-<a name="l00063"></a><a class="code" href="class_renderer.html#a77136af7f723a1161476dfc9073b9906">00063</a>         <a class="code" href="class_renderer.html#a77136af7f723a1161476dfc9073b9906" title="Basic constructor.">Renderer</a>(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <span class="keyword">const</span> <a class="code" href="class_renderer.html#aeca255032e9749475998c9af86a1f006">pWin</a>, <span class="keyword">const</span> RenderingAPI <a class="code" href="class_renderer.html#a221bf110038b85a864e1ff0c3c7a0f91">rAPI</a>):pWin(pWin),rAPI(rAPI) {}
-<a name="l00064"></a>00064 
-<a name="l00066"></a>00066 
-<a name="l00069"></a><a class="code" href="class_renderer.html#a5879ad2780607f9350eb89b62de81bd5">00069</a>         <span class="keyword">virtual</span> <a class="code" href="class_renderer.html#a5879ad2780607f9350eb89b62de81bd5" title="Basic destructor.">~Renderer</a>(<span class="keywordtype">void</span>) {};
-<a name="l00070"></a>00070 
-<a name="l00072"></a>00072 
-<a name="l00075"></a>00075         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#aa9f50b15c87553779609d865a1ccd843" title="Clear the screen (black).">clearScreen</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>=0;
-<a name="l00076"></a>00076 
-<a name="l00078"></a>00078 
-<a name="l00083"></a>00083         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9" title="Draw a rectangle with a unified colour.">drawTile</a>(SDL_Rect&amp; tile, <span class="keyword">const</span> SDL_Color&amp; colour)<span class="keyword">const</span>=0;
-<a name="l00084"></a>00084 
-<a name="l00086"></a>00086 
-<a name="l00091"></a>00091         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9" title="Draw a rectangle with a unified colour.">drawTile</a>(<span class="keyword">const</span> <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>&amp; sprite, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos)<span class="keyword">const</span>=0;
-<a name="l00092"></a>00092 
-<a name="l00094"></a>00094 
-<a name="l00100"></a>00100         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9" title="Draw a rectangle with a unified colour.">drawTile</a>(<span class="keyword">const</span> <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>&amp; sprite, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos, <span class="keyword">const</span> SDL_Colour&amp; maskColour)<span class="keyword">const</span>=0;
-<a name="l00101"></a>00101 
-<a name="l00103"></a>00103 
-<a name="l00109"></a>00109         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9" title="Draw a rectangle with a unified colour.">drawTile</a>(<span class="keyword">const</span> <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>&amp; sprite, SDL_Rect&amp; srcRect, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos)<span class="keyword">const</span>=0;
-<a name="l00110"></a>00110 
-<a name="l00112"></a>00112 
-<a name="l00118"></a>00118         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a4cf6bb54e5b4f3e77a96aadd64ed17a9" title="Draw a rectangle with a unified colour.">drawTile</a>(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>&amp; aSprite, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time)<span class="keyword">const</span>=0;
-<a name="l00119"></a>00119 
-<a name="l00121"></a>00121 
-<a name="l00125"></a>00125         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a18b20da9f4c7b9abbaae61c42ab2fa12" title="Draw a background.">drawBackground</a>(SDL_Surface* <span class="keyword">const</span> pImage)<span class="keyword">const</span>=0;
-<a name="l00126"></a>00126         
-<a name="l00128"></a>00128 
-<a name="l00131"></a><a class="code" href="class_renderer.html#adf18192a18c805b567c357a79725b8c8">00131</a>         RenderingAPI <a class="code" href="class_renderer.html#adf18192a18c805b567c357a79725b8c8" title="Get the current API used.">getAPI</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> <a class="code" href="class_renderer.html#a221bf110038b85a864e1ff0c3c7a0f91">rAPI</a>; }
-<a name="l00132"></a>00132 };
-<a name="l00133"></a>00133 
-<a name="l00135"></a>00135 
-<a name="l00141"></a>00141 <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>* RendererFactory(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <span class="keyword">const</span> pWin, <span class="keyword">const</span> RenderingAPI renderingAPI);
-<a name="l00142"></a>00142 
-<a name="l00162"></a>00162 <span class="preprocessor">#endif</span>
+<a name="l00057"></a><a class="code" href="class_renderer.html#a77136af7f723a1161476dfc9073b9906">00057</a>         <a class="code" href="class_renderer.html#a77136af7f723a1161476dfc9073b9906" title="Do nothing, just copying the enum of the API used.">Renderer</a>(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <span class="keyword">const</span> <a class="code" href="class_renderer.html#aeca255032e9749475998c9af86a1f006">pWin</a>, <span class="keyword">const</span> RenderingAPI <a class="code" href="class_renderer.html#a221bf110038b85a864e1ff0c3c7a0f91">rAPI</a>):pWin(pWin),rAPI(rAPI) {}
+<a name="l00058"></a>00058         <span class="keyword">virtual</span> ~<a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>(<span class="keywordtype">void</span>) {};
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a7a3ec41b3bcc9f11ca6e55a3b0d8ee3e" title="Clear the screen (black).">clearScreen</a>(<span class="keywordtype">void</span>)<span class="keyword">const</span>=0;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a638edd5642fe59f1cedbc2bd39812113" title="Draw a rectangle with a unified colour.">drawTile</a>(SDL_Rect&amp; tile, <span class="keyword">const</span> SDL_Color&amp; colour)<span class="keyword">const</span>=0;
+<a name="l00063"></a>00063         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a638edd5642fe59f1cedbc2bd39812113" title="Draw a rectangle with a unified colour.">drawTile</a>(<span class="keyword">const</span> <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>&amp; sprite, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos)<span class="keyword">const</span>=0;
+<a name="l00064"></a>00064         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a638edd5642fe59f1cedbc2bd39812113" title="Draw a rectangle with a unified colour.">drawTile</a>(<span class="keyword">const</span> <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>&amp; sprite, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos, <span class="keyword">const</span> SDL_Colour&amp; maskColour)<span class="keyword">const</span>=0;
+<a name="l00065"></a>00065         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a638edd5642fe59f1cedbc2bd39812113" title="Draw a rectangle with a unified colour.">drawTile</a>(<span class="keyword">const</span> <a class="code" href="class_sprite.html" title="Sprite management class.">Sprite</a>&amp; sprite, SDL_Rect&amp; srcRect, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos)<span class="keyword">const</span>=0;
+<a name="l00066"></a>00066         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a638edd5642fe59f1cedbc2bd39812113" title="Draw a rectangle with a unified colour.">drawTile</a>(<a class="code" href="class_animated_sprite.html" title="AnimatedSprite management class.">AnimatedSprite</a>&amp; aSprite, <span class="keyword">const</span> <a class="code" href="struct_vec2.html" title="2D Vector structure">IVec2</a>&amp; pos, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time)<span class="keyword">const</span>=0;
+<a name="l00067"></a>00067         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_renderer.html#a68ff2c8d7828df28b23f9358e7ea306e" title="Draw a background.">drawBackground</a>(SDL_Surface* <span class="keyword">const</span> pImage)<span class="keyword">const</span>=0;
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="class_renderer.html#adf18192a18c805b567c357a79725b8c8">00069</a>         RenderingAPI <a class="code" href="class_renderer.html#adf18192a18c805b567c357a79725b8c8" title="Get the current API used.">getAPI</a>(<span class="keywordtype">void</span>)<span class="keyword">const </span>{ <span class="keywordflow">return</span> <a class="code" href="class_renderer.html#a221bf110038b85a864e1ff0c3c7a0f91">rAPI</a>; }
+<a name="l00070"></a>00070 };
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 <a class="code" href="class_renderer.html" title="Base for the API specific renderer.">Renderer</a>* RendererFactory(<span class="keyword">const</span> <a class="code" href="class_window.html" title="Window management class.">Window</a>* <span class="keyword">const</span> pWin, <span class="keyword">const</span> RenderingAPI renderingAPI);
+<a name="l00073"></a>00073 
+<a name="l00163"></a>00163 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -133,7 +116,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

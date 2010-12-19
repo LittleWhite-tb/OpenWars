@@ -54,15 +54,7 @@ struct MenuView
 	MenuEntry entry;			/*!< id of the entry */
 	AnimatedSprite* pASprite;	/*!< sprite to display */
 
-	//! Basic construct
-	/*!
-		Note: The AnimatedSprite will be deleted by the parent UI
-	  \param name the name to display for this entry
-	  \param entry the id of the entry
-	  \param pASprite the sprite to draw for this entry
-	*/
 	MenuView(const std::string& name, const MenuEntry entry, AnimatedSprite* const pASprite):name(name),entry(entry),pASprite(pASprite) {}
-    
     ~MenuView() { delete pASprite; }
 };
 
@@ -79,48 +71,15 @@ private:
 	std::vector<MenuView*> entries;    /*!< entries in the UI */
 
 public:
-	//! Basic construct
-	/*!
-	  \param sm The sprite manager to load the sprites
-	  \param fm The font manager to load the fonts
-	  \param win the window where to draw the UI
-	  \param cursorFileName the file to load for the cursor
-	  \param fontFileName the font to load for the texts
-	  \param entries the entries to display in the UI
-	*/
 	MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries);
-
-	//! Basic destructor
-	/*!
-	*/
 	~MenuBox(void);
 
-	//! Draw the construct box
-	/*!
-	  \param r the renderer to use to draw the UI
-	  \param cursorPosition the position of the cursor (to place the UI)
-	  \param time the actual time
-	  \return true if all goes right
-	*/
 	bool draw(const Renderer& r, const UVec2& cursorPosition, const unsigned int time);
 
-	//! Update the construct box
-	/*!
-	  Move the cursor following the keys pressed
-	  \param kd the key direction pressed
-	*/
 	void update(const ArrowsDirection kd);
 
-	//! Get the actual element selected
-	/*!
-	  \return The MenuEntry of the element currently selected
-	*/
 	MenuEntry getActualEntry(void) { return entries[actualPosition]->entry; }
     
-    //! Change the menus in the box
-    /*!
-      \param newEntries the new entries to show
-    */
     void setMenus(std::vector<MenuView*> newEntries) { entries = newEntries; }
 };
 
@@ -131,10 +90,56 @@ public:
  * The background is constructed on the fly, so it needs special precaution.
  */
 
+/*! \fn MenuBox::MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries)
+ * \param sm The sprite manager to load the sprites
+ * \param fm The font manager to load the fonts
+ * \param win the window where to draw the UI
+ * \param cursorFileName the file to load for the cursor
+ * \param fontFileName the font to load for the texts
+ * \param entries the entries to display in the UI
+ */
+
+/*! \fn MenuBox::~MenuBox(void)
+ */
+
+/*! \fn bool MenuBox::draw(const Renderer& r, const UVec2& cursorPosition, const unsigned int time)
+ * \brief Draw the construct box
+ * \param r the renderer to use to draw the UI
+ * \param cursorPosition the position of the cursor (to place the UI)
+ * \param time the actual time
+ * \return true if all goes right
+ */
+
+/*! \fn void MenuBox::update(const ArrowsDirection kd)
+ * \brief Update the construct box
+ * Move the cursor following the keys pressed
+ * \param kd the key direction pressed
+ */
+
+/*! \fn MenuEntry MenuBox::getActualEntry(void)
+ * \brief Get the actual element selected
+ * \return The MenuEntry of the element currently selected
+ */
+
+/*! \fn void MenuBox::setMenus(std::vector<MenuView*> newEntries)
+ * \brief Change the menus in the box
+ * \param newEntries the new entries to show
+ */
+
 /*! \struct MenuView MenuBox.h "UI/MenuBox.h"
  *  \brief MenuView struct
  *
  * Used to give a structure usable in the MenuBox to contain an entry
+ */
+
+/*! \fn MenuView::MenuView(const std::string& name, const MenuEntry entry, AnimatedSprite* const pASprite)
+ * Note: The AnimatedSprite will be deleted by the parent UI
+ * \param name the name to display for this entry
+ * \param entry the id of the entry
+ * \param pASprite the sprite to draw for this entry
+ */
+
+/*! \fn MenuView::~MenuView()
  */
 
 #endif

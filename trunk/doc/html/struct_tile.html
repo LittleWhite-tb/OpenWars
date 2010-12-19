@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>OpenAWars_Editor: Tile Struct Reference</title>
+<title>OpenAWars: Tile Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -65,13 +65,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a93fdcc8c693044a3bb3590bdb6daed2a">Tile</a> (void)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a93fdcc8c693044a3bb3590bdb6daed2a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#adcb89efa24786f81223f9ad608413f9f">Tile</a> (<a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *<a class="el" href="struct_tile.html#afd44f2417e1573cab7dcac158e07c233">pASprite</a>, std::string &amp;<a class="el" href="struct_tile.html#aa5408d0f0f4a60f25796f651db2f84ac">name</a>, const unsigned char <a class="el" href="struct_tile.html#a318447d2176bdfd1ed5ee08828b573da">defence</a>, const bool <a class="el" href="struct_tile.html#a259babce587617a17cc1b1deb2365d45">isRoad</a>, const bool <a class="el" href="struct_tile.html#a082e5201de9fe31a3a46439847e4608f">isBridge</a>, const bool <a class="el" href="struct_tile.html#acced9fbb1f46e858a9bb56e7d8aee72f">isRiver</a>, const bool <a class="el" href="struct_tile.html#aecc5a4b2cdd3230eab521b37be46ecdf">isSea</a>, const bool <a class="el" href="struct_tile.html#afde31ad37d802ba4e7ccb3697307fd81">isBeach</a>, const bool <a class="el" href="struct_tile.html#a12e1e32b1f95e04f07bfc6369590104e">isBuilding</a>, const bool <a class="el" href="struct_tile.html#abee56cf5e0374a77cdb214f286ffbaa8">isHQ</a>, const bool <a class="el" href="struct_tile.html#a9f0e072636609fd79cf2892d41609055">needBackground</a>, const unsigned char <a class="el" href="struct_tile.html#af3284cb286ceb3ba8fa324de8a42e776">cityLife</a>)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#adcb89efa24786f81223f9ad608413f9f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a34eb07f7b32114156d8192869dabe242">Tile</a> (const <a class="el" href="struct_tile.html">Tile</a> &amp;t)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Basic copy constructor.  <a href="#a34eb07f7b32114156d8192869dabe242"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#aa4613e5589c9f26a74ef914e899483fb">operator=</a> (const <a class="el" href="struct_tile.html">Tile</a> &amp;t)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">operator=  <a href="#aa4613e5589c9f26a74ef914e899483fb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_tile.html">Tile</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#a9afe41756541f0d1c5d21f3189c2485f">operator=</a> (const <a class="el" href="struct_tile.html">Tile</a> &amp;t)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">operator= Sea is true by default  <a href="#a9afe41756541f0d1c5d21f3189c2485f"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_animated_sprite.html">AnimatedSprite</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tile.html#afd44f2417e1573cab7dcac158e07c233">pASprite</a></td></tr>
@@ -113,8 +110,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Default constructor. </p>
 <p>Sea is true by default </p>
 
 </div>
@@ -203,8 +198,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Default constructor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>pASprite</em>&nbsp;</td><td>The sprite to use for this tile </td></tr>
@@ -240,8 +233,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Basic copy constructor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>t</em>&nbsp;</td><td>the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> to copy </td></tr>
@@ -252,12 +243,12 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aa4613e5589c9f26a74ef914e899483fb"></a><!-- doxytag: member="Tile::operator=" ref="aa4613e5589c9f26a74ef914e899483fb" args="(const Tile &amp;t)" -->
+<a class="anchor" id="a9afe41756541f0d1c5d21f3189c2485f"></a><!-- doxytag: member="Tile::operator=" ref="a9afe41756541f0d1c5d21f3189c2485f" args="(const Tile &amp;t)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_tile.html">Tile</a>&amp; Tile::operator= </td>
+          <td class="memname"><a class="el" href="struct_tile.html">Tile</a> &amp; Tile::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_tile.html">Tile</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>t</em></td>
@@ -268,8 +259,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>operator= </p>
-<p>Sea is true by default </p>
+<p>operator= Sea is true by default </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>t</em>&nbsp;</td><td>the <a class="el" href="struct_tile.html" title="Tile struct.">Tile</a> to copy </td></tr>
@@ -467,7 +457,7 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Nov 6 2010 16:05:25 for OpenAWars_Editor by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Dec 19 2010 16:35:16 for OpenAWars by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

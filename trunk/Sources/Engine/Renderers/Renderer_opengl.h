@@ -40,10 +40,6 @@ class ROpenGL : public Renderer
 private:
 
 public:
-	//! Basic constructor
-	/*!
-	  \param pWin the Window where the Renderer will draw
-    */
 	ROpenGL(const Window* const pWin);
 	~ROpenGL(void);
 
@@ -60,6 +56,10 @@ public:
  *  \brief OpenGL implementation for the Renderer
  *
  * Inherits the Renderer interface
+ */
+
+/*! \fn ROpenGL::ROpenGL(const Window* const pWin)
+ * \param pWin the Window where the Renderer will draw
  */
 
 #endif

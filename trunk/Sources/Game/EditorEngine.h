@@ -59,71 +59,21 @@ private:
 	EditingCursor* pEC;			/*!< The cursor */	
 	Camera* pCam;				/*!< The camera */
 
-
-	//! Load the map, cursor, camera with the associated sprites
-	/*!
-		Will load all needed to set the engine. After you can run the engine.
-		The engine has to be inited.
-		\return true if all goes fine
-	*/
 	bool load(void);
 
 public:
-	//! Basic constructor
-	/*!
-	*/
 	EditorEngine(void);
-
-	//! Basic destructor
-	/*!
-	*/
 	~EditorEngine(void);
 
-	//! Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
-	/*!
-		\param pWin The window to use with for the editor
-		\param rAPI The rendering API to use
-		\return true if all goes fine
-	*/
 	bool init(const Window* pWin, const RenderingAPI rAPI);
 
-	//! Load an empty map
-	/*!
-		\param themeName the name of the theme to load
-		\param mapSize The size of the empty map
-		\return true if all goes fine
-	*/
 	bool load(const std::string& themeName, const UVec2& mapSize);
-
-	//! Load the map from a file
-	/*!
-		\param mapName the name of the file to load
-		\return true if all goes fine
-	*/
 	bool load(const std::string& mapName);
 
-	//! Start the editor main loop
-	/*!
-		\return true if all goes fine
-	*/
 	bool run(void);
 
-	//! Save the map in a file
-	/*!
-		\param fileName the file where to save the map
-		\return true if all goes fine
-	*/
 	void saveMap(const std::string& fileName);
-    
-    //! Set the Unit at the position
-	/*!
-		Will overwrite the Unit previously contained on the map by the new one.
-		The new Unit is selected following the internal logic of the editor.
-        The unit is automatically enabled in the editor
-		\param position the position where to change the tile
-		\param unitType the type of the new unit
-		\return true if all goes right
-	*/
+
 	bool setTile(const UVec2& position, const UnitType unitType);
 };
 
@@ -135,6 +85,60 @@ public:
  *		- if it has to be updated (see VTime class documentation)
  *		- update
  *		- wait for next frame (see VTime class documentation)
+ */
+
+/*! \fn bool EditorEngine::load(void)
+ * \brief Load the map, cursor, camera with the associated sprites
+ * Will load all needed to set the engine. After you can run the engine.
+ * The engine has to be inited.
+ * \return true if all goes fine
+ */
+
+/* \fn EditorEngine::EditorEngine(void)
+ */
+
+/*! \fn EditorEngine::~EditorEngine(void)
+ */
+
+/*! \fn bool EditorEngine::init(const Window* pWin, const RenderingAPI rAPI)
+ * \brief Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
+ * \param pWin The window to use with for the editor
+ * \param rAPI The rendering API to use
+ * \return true if all goes fine
+ */
+
+/*! \fn bool EditorEngine::load(const std::string& themeName, const UVec2& mapSize)
+ * \brief Load an empty map
+ * \param themeName the name of the theme to load
+ * \param mapSize The size of the empty map
+ * \return true if all goes fine
+ */
+
+/*! \fn bool EditorEngine::load(const std::string& mapName);
+ * \brief Load the map from a file
+ * \param mapName the name of the file to load
+ * \return true if all goes fine
+ */
+
+/*! \fn bool EditorEngine::run(void)
+ * \brief Start the editor main loop
+ * \return true if all goes fine
+ */
+
+/*! \fn void EditorEngine::saveMap(const std::string& fileName)
+ * \brief Save the map in a file
+ * \param fileName the file where to save the map
+ * \return true if all goes fine
+ */
+
+/*! \fn bool EditorEngine::setTile(const UVec2& position, const UnitType unitType);
+ * \brief Set the Unit at the position
+ * Will overwrite the Unit previously contained on the map by the new one.
+ * The new Unit is selected following the internal logic of the editor.
+ * The unit is automatically enabled in the editor
+ * \param position the position where to change the tile
+ * \param unitType the type of the new unit
+ * \return true if all goes right
  */
 
 #endif

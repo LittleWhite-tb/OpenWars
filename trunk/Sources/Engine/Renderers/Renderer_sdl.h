@@ -40,10 +40,6 @@ class RSDL : public Renderer
 private:
 
 public:
-	//! Basic constructor
-	/*!
-	  \param pWin the Window where the Renderer will draw
-    */
 	RSDL(const Window* const pWin);
 	~RSDL(void);
 
@@ -60,6 +56,10 @@ public:
  *  \brief SDL implementation for the Renderer
  *
  * Inherits the Renderer interface
+ */
+
+/*! \fn RSDL::RSDL(const Window* const pWin)
+ * \param pWin the Window where the Renderer will draw
  */
 
 #endif
