@@ -29,7 +29,9 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "Engine/Window.h"
+#include "NEngine/NE.h"
+#include "NEngine/NEngine.h"
+#include "NEngine/NETypes.h"
 
 #include "Game/EditorEngine.h"
 
@@ -57,8 +59,7 @@ int main(int argc, char** argv)
 
 	unsigned int i = 1;
 
-	unsigned int winWidth=640;
-	unsigned int winHeight=480;
+	USize2 winSize(640,480);
 	bool needFullscreen=false;
 	unsigned int mapWidth=MAP_MIN_WIDTH;
 	unsigned int mapHeight=MAP_MIN_HEIGHT;
@@ -74,7 +75,7 @@ int main(int argc, char** argv)
 			if ( i+1 < static_cast<unsigned int>(argc) )
 			{
 				std::istringstream iss(argv[i+1]);
-				iss >> winWidth;
+				iss >> winSize.width;
 				i+=2;
 			}
 			else
@@ -88,7 +89,7 @@ int main(int argc, char** argv)
 			if ( i+1 < static_cast<unsigned int>(argc) )
 			{
 				std::istringstream iss(argv[i+1]);
-				iss >> winHeight;
+				iss >> winSize.height;
 				i+=2;
 			}
 			else
@@ -180,10 +181,10 @@ int main(int argc, char** argv)
 			}
 		}
 	}
-	// Starting SDL
-	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
+
+	// Starting the native engine
+	if ( NE::init() == false )
 	{
-		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
 		return 1;
 	}
 
@@ -206,15 +207,15 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				std::vector<ResolutionInfo> riList;
+				// std::vector<ResolutionInfo> riList;
 
-				win.getResolutionsAvailable(false,riList);
-				win.setCaption("OpenAWars Editor","");
-				win.showCursor(false);
-
-				// Window test
-				if ( win.openWindow(winWidth,winHeight,32,needFullscreen,false) )
+				// win.getResolutionsAvailable(false,riList);
+				win = NE::get()->createWindow(winSize,32,needFullscreen,false);
+				if ( win != 0 ) // Window test
 				{
+					NE::get()->setCaption("OpenAWars Editor","");
+					NE::get()->setCursorVisible(false);
+
 					Scaler::setScaleFactor(win);
 					EditorEngine eEngine;
 					
@@ -236,6 +237,8 @@ int main(int argc, char** argv)
 						}
 					}
 				}
+
+				NE::get()->destroyWindow(win);
 			}
 
 			// Stopping SDL_ttf
@@ -245,8 +248,8 @@ int main(int argc, char** argv)
 		}
 	}
 
-	// Bye bye SDL
-	SDL_Quit();
+	// Stopping Native engine
+	NE::stop();
 
 #ifdef _DEBUG
 	// Final check

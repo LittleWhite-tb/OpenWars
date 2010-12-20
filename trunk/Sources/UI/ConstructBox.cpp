@@ -24,10 +24,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ConstructBox.h"
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/Renderer.h"
-#include "../Engine/Window.h"
 
 #include "../Engine/Font.h"
 #include "../Engine/Sprite.h"
@@ -45,7 +48,7 @@ e-mail: lw.demoscene@gmail.com
 ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 							 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
 							 :pBackgroundUI(new Sprite(sm,backgroundFileName,true)),pCursor(new Sprite(sm,cursorFileName,true)),
-		pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(win.getWidth(),win.getHeight()),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
+							 pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(NE::get()->getWindowSize(win)),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
 {
 	SDL_Color white = {255,255,255};
 	SDL_Color grey = {64,64,64};

@@ -26,7 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Sprite.h"
 
-#include "Window.h"
 #include "Renderer.h"
 #include "ResourcesManager/SpriteManager.h"
 

@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __NE_H__
+#define __NE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,33 +25,17 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+class NEngine;
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
-
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
-
-#include "../Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
+class NE
 {
-	
-}
+private:
+	static NEngine* pEngine;
 
-UnitType TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
-}
+public:
+	static bool init(void);
+	static void stop(void);
+	static NEngine* get(void);
+};
 
 #endif

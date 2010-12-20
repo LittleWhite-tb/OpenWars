@@ -1,5 +1,3 @@
-#ifdef EDITOR
-
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -24,33 +22,4 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
-
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
-
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
-
-#include "../Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
-{
-	
-}
-
-UnitType TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
-}
-
-#endif
+#include "NEngine.h"

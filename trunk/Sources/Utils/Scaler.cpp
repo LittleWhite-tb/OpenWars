@@ -28,8 +28,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Engine/Window.h"
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
 
+#include "../Types/Vec2.h"
 #include "Logger.h"
 #include "../globals.h"
 
@@ -40,12 +43,14 @@ UVec2 Scaler::offset = UVec2(0,0);
 
 void Scaler :: setScaleFactor(const Window& win)
 {
-	xScaleFactor = (win.getWidth() / (double)MAP_MIN_WIDTH) / (double)TILE_DEFAULT_WIDTH;
-	yScaleFactor = (win.getHeight() / (double)MAP_MIN_HEIGHT) / (double)TILE_DEFAULT_HEIGHT;
+	USize2 winSize = NE::get()->getWindowSize(win);
+
+	xScaleFactor = (winSize.width / (double)MAP_MIN_WIDTH) / (double)TILE_DEFAULT_WIDTH;
+	yScaleFactor = (winSize.height / (double)MAP_MIN_HEIGHT) / (double)TILE_DEFAULT_HEIGHT;
 
 	// Gap appear when we put the scale factor back to unsigned int
-	offset.x = (win.getWidth() - (static_cast<unsigned int>(xScaleFactor * TILE_DEFAULT_WIDTH) * MAP_MIN_WIDTH ))/2;
-	offset.y = (win.getHeight() - (static_cast<unsigned int>(yScaleFactor * TILE_DEFAULT_HEIGHT) * MAP_MIN_HEIGHT))/2;
+	offset.x = (winSize.width - (static_cast<unsigned int>(xScaleFactor * TILE_DEFAULT_WIDTH) * MAP_MIN_WIDTH ))/2;
+	offset.y = (winSize.height - (static_cast<unsigned int>(yScaleFactor * TILE_DEFAULT_HEIGHT) * MAP_MIN_HEIGHT))/2;
 
 	LDebug << "Scaler :: setScaleFactor (Found: " << xScaleFactor << ";" << yScaleFactor << " Offset: " << offset << " )";
 }

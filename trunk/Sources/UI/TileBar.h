@@ -29,6 +29,8 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <utility>
 
+#include "../NEngine/NETypes.h"
+
 #include "../Game/Tile.h"
 
 #include "../Engine/Controls/Keyboard.h"
@@ -39,7 +41,6 @@ struct SDL_Surface;
 
 class SpriteManager;
 class Renderer;
-class Window;
 class Sprite;
 class AnimatedSprite;
 
@@ -79,7 +80,7 @@ private:
 	int counterMovementAnim;				/*!< counter to know how much to move on the left or right */
 	unsigned int positionY;					/*!< position of the bar on the y axis */
 	unsigned int limit;						/*!< The limit of space needed by all the tiles to be displayed */
-	UVec2 windowSize;						/*!< The size of the window where the bar is */
+	USize2 windowSize;						/*!< The size of the window where the bar is */
 	TileBarState state;						/*!< The actual animation state of the bar */
 
 	unsigned int stepX;						/*!< Speed of the animation of the tile bar on the X axis */

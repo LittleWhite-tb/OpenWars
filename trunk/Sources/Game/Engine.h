@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/Renderer.h"
 
-class Window;
+#include "../NEngine/NETypes.h"
 
 class SpriteManager;
 class FontManager;
@@ -38,7 +38,7 @@ class Keyboard;
 class Engine
 {
 protected:
-	const Window* pWin;			/*!< The window to use for the editor (created outside the engine) */
+	Window* pWin;			/*!< The window to use for the editor (created outside the engine) */
 	Renderer* pRenderer;		/*!< The renderer for the editor */
 
 	SpriteManager* pSM;			/*!< The sprite manager for the editor */
@@ -52,7 +52,7 @@ public:
 	Engine(void);
 	virtual ~Engine(void);
 
-	virtual bool init(const Window* pWin, const RenderingAPI rAPI);
+	virtual bool init(Window* pWin, const RenderingAPI rAPI);
 
 	virtual bool load(const std::string& mapName)=0;
 

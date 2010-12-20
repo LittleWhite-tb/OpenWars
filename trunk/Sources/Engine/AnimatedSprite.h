@@ -27,11 +27,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
+#include "../NEngine/NETypes.h"
+
 #include "Sprite.h"
 
 #include "../Types/Vec2.h"
 
-class Window;
 class Renderer;
 class SpriteManager;
 

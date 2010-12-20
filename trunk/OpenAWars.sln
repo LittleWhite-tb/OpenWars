@@ -7,16 +7,26 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenAWars_Editor", "OpenAWa
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_SDL|Win32 = Debug_SDL|Win32
 		Debug|Win32 = Debug|Win32
+		Release_SDL|Win32 = Release_SDL|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Debug_SDL|Win32.ActiveCfg = Debug_SDL|Win32
+		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Debug_SDL|Win32.Build.0 = Debug_SDL|Win32
 		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Debug|Win32.Build.0 = Debug|Win32
+		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Release_SDL|Win32.ActiveCfg = Release_SDL|Win32
+		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Release_SDL|Win32.Build.0 = Release_SDL|Win32
 		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Release|Win32.ActiveCfg = Release|Win32
 		{9005F586-5E97-4AA6-8758-BDB89FFD05B8}.Release|Win32.Build.0 = Release|Win32
+		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Debug_SDL|Win32.ActiveCfg = Debug_SDL|Win32
+		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Debug_SDL|Win32.Build.0 = Debug_SDL|Win32
 		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Debug|Win32.Build.0 = Debug|Win32
+		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Release_SDL|Win32.ActiveCfg = Release_SDL|Win32
+		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Release_SDL|Win32.Build.0 = Release_SDL|Win32
 		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Release|Win32.ActiveCfg = Release|Win32
 		{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

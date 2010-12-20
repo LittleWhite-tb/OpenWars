@@ -24,10 +24,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MenuBox.h"
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/Renderer.h"
-#include "../Engine/Window.h"
 #include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
@@ -73,7 +76,7 @@ MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const 
 
 	SDL_Colour red={255,0,0,255};
 
-	windowXPosition = win.getWidth();
+	windowXPosition = NE::get()->getWindowSize(win).width;
 	
 	pFont = new Font(fm,fontFileName,18,red);
 }

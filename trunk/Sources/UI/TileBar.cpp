@@ -30,8 +30,11 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <utility>
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/Window.h"
 #include "../Engine/Renderer.h"
 #include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
@@ -44,11 +47,12 @@ e-mail: lw.demoscene@gmail.com
 #include "../globals.h"
 
 TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& listTiles)
+:windowSize(NE::get()->getWindowSize(win))
 {
 	unsigned int barHeight = static_cast<unsigned int>(64 * Scaler::getYScaleFactor());
 	unsigned int maximumX = 0;
 	SDL_Surface* pSurface = NULL;
-	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,win.getWidth(),barHeight,32,
+	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,windowSize.width,barHeight,32,
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
 												0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000
 #else
@@ -113,9 +117,8 @@ TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& lis
 
 	// Final settings
 	counterMovementAnim = 0;
-	windowSize = UVec2(win.getWidth(),win.getHeight());
 	limit =  (viewList[0][0]->getSprite()->getWidth() + (static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)*2)) * viewList.size();
-	positionY = win.getHeight();
+	positionY = windowSize.height;
 	state = TBS_Closed;
 	currentX = 5;
 	currentY = 0;

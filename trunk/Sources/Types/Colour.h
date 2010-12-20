@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __COLOUR_H__
+#define __COLOUR_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,33 +25,39 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include <iostream>
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
-
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
-
-#include "../Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
+struct Colour
 {
-	
+	unsigned char r; 
+	unsigned char g; 
+	unsigned char b; 
+	unsigned char a;
+
+	Colour():r(255),g(255),b(255),a(255) {}
+	Colour(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a):r(r),g(g),b(b),a(a) {}
+	Colour(const unsigned int rgba) { setRGBA(rgba); }
+
+	void setRGBA(const unsigned int rgba)
+	{
+		this->r = (rgba >> 24) & 0x000000FF;
+		this->g = (rgba >> 16) & 0x000000FF;
+		this->b = (rgba >> 8) & 0x000000FF;
+		this->b = rgba & 0x000000FF;
+	}
+};
+
+std::ostream& operator<< (std::ostream& o, const Colour& c)
+{
+	o << "Colour(R: " << c.r << " ; G: " << c.g << " ; B: " << c.b << " ; A: " << c.a << ")";
+
+	return o;
 }
 
-UnitType TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
-}
+/*! \fn std::ostream& operator<< (std::ostream& o, const Colour& c)
+	\param o the stream where to send the output
+	\param c the colour to send
+	\return the stream (to loop)
+*/
 
 #endif

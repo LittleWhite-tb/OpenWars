@@ -29,7 +29,9 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "Engine/Window.h"
+#include "NEngine/NE.h"
+#include "NEngine/NEngine.h"
+
 #include "Engine/Renderer.h"
 #include "Game/GameEngine.h"
 
@@ -47,8 +49,7 @@ int main(int argc, char** argv)
 
 	unsigned int i = 1;
 
-	unsigned int winWidth=640;
-	unsigned int winHeight=480;
+	USize2 winSize(640,480);
 	bool needFullscreen=false;
 	std::string loadMapName= MAP_PATH "maw.map";
 
@@ -60,7 +61,7 @@ int main(int argc, char** argv)
 			if ( i+1 < static_cast<unsigned int>(argc) )
 			{
 				std::istringstream iss(argv[i+1]);
-				iss >> winWidth;
+				iss >> winSize.width;
 				i+=2;
 			}
 			else
@@ -74,7 +75,7 @@ int main(int argc, char** argv)
 			if ( i+1 < static_cast<unsigned int>(argc) )
 			{
 				std::istringstream iss(argv[i+1]);
-				iss >> winHeight;
+				iss >> winSize.height;
 				i+=2;
 			}
 			else
@@ -103,10 +104,9 @@ int main(int argc, char** argv)
 		}
 	}
 
-	// Starting SDL
-	if ( SDL_Init(SDL_INIT_VIDEO) == -1 )
+	// Starting the native engine
+	if ( NE::init() == false )
 	{
-		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
 		return 1;
 	}
 
@@ -129,15 +129,15 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				std::vector<ResolutionInfo> riList;
-
-				win.getResolutionsAvailable(false,riList);
-				win.setCaption("Hello SDL","");
-				win.showCursor(false);
-
-				// Window test
-				if ( win.openWindow(640,480,32,false,false) )
+				// std::vector<ResolutionInfo> riList;
+				
+				// win.getResolutionsAvailable(false,riList);
+				win = NE::get()->createWindow(winSize,32,needFullscreen,false);
+				if ( win != 0 ) // Window test
 				{
+					NE::get()->setCaption("OpenAWars","");
+					NE::get()->setCursorVisible(false);
+
 					Scaler::setScaleFactor(win);
 
 					GameEngine gEngine;
@@ -153,6 +153,8 @@ int main(int argc, char** argv)
 						}
 					}
 				}
+
+				NE::get()->destroyWindow(win);
 			}
 
 			// Stopping SDL_ttf
@@ -164,8 +166,8 @@ int main(int argc, char** argv)
 		delete r;
 	}
 
-	// Bye bye SDL
-	SDL_Quit();
+	// Stopping the Native Engine
+	NE::stop();
 
 	Logger::deleteLogger();
 

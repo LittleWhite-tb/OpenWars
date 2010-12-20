@@ -26,8 +26,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileBarTiles.h"
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/Window.h"
 #include "../Engine/AnimatedSprite.h"
 
 #include "../Utils/Logger.h"

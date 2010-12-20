@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __NETYPES_H__
+#define __NETYPES_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,33 +25,16 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+typedef unsigned int Uint32;
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
+#ifdef SDL_ENGINE
+	#include <SDL/SDL.h>
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
-
-#include "../Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
-{
-	
-}
-
-UnitType TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
-}
+	typedef SDL_Surface* Window;
+#elif SFML_ENGINE
+	typedef sf::RenderWindow Window;
+#elif GLUT_ENGINE
+	typedef int Window;	// In GLUT, there is no access to the Window. So int is the type (to check error)
+#endif
 
 #endif

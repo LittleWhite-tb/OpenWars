@@ -1,5 +1,3 @@
-#ifdef EDITOR
-
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -24,33 +22,46 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include "NE.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
+#include <cassert>
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
+#include "Native/NESDL.h"
 
 #include "../Utils/Logger.h"
+#include "../Utils/Exceptions/ConstructionFailedException.h"
 
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
+NEngine* NE::pEngine = NULL;
+
+bool NE::init(void)
 {
-	
+	if ( NE::pEngine != NULL )
+	{
+		LError << "The native engine is already defined";
+		return false;
+	}
+
+	try
+	{
+		NE::pEngine = new NESDL();
+	}
+	catch (ConstructionFailedException& cfe)
+	{
+		LError << cfe.what();
+		return false;
+	}
+
+	return true;
 }
 
-UnitType TileBarUnits :: getSelected(void)const
+void NE :: stop(void)
 {
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
+	delete NE::pEngine;
+	NE::pEngine = NULL;
 }
 
-#endif
+NEngine* NE :: get(void)
+{
+	assert(NE::pEngine);
+	return NE::pEngine;
+}

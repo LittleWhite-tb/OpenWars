@@ -26,7 +26,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditorEngine.h"
 
-#include "../Engine/Window.h"
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/Renderer.h"
 #include "../Engine/VTime.h"
 
@@ -205,7 +208,7 @@ bool EditorEngine :: load(void)
 	return true;
 }
 
-bool EditorEngine :: init(const Window* pWin, const RenderingAPI rAPI)
+bool EditorEngine :: init(Window* pWin, const RenderingAPI rAPI)
 {
 	bool error = true;
 
@@ -243,7 +246,7 @@ bool EditorEngine :: run(void)
 {
 	bool isUnit = false;
 
-	while ( pKB->isEscapePressed() == 0 && pWin->needClosure() == 0 )
+	while ( pKB->isEscapePressed() == 0 && NE::get()->needWindowClosure() == false )
 	{
 		// Drawing part
 		pRenderer->clearScreen();
@@ -259,7 +262,7 @@ bool EditorEngine :: run(void)
 		pUnitTB->draw(*pRenderer,0);
 		pBuildingTB->draw(*pRenderer,0);
 
-		SDL_UpdateRect(pWin->getWindowSurface(),0,0,0,0);
+		SDL_UpdateRect(*pWin,0,0,0,0);
 
 		// Update part
 		if ( pVT->canUpdate() )

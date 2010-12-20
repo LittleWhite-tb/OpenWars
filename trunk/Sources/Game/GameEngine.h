@@ -79,7 +79,7 @@ public:
 	GameEngine();
 	~GameEngine();
 
-	bool init(const Window* pWin, const RenderingAPI rAPI);
+	bool init(Window* pWin, const RenderingAPI rAPI);
 
 	bool load(const std::string& mapName);
 

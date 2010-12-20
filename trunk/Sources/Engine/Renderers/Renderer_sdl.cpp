@@ -28,13 +28,16 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Window.h"
 #include "../Sprite.h"
 #include "../AnimatedSprite.h"
 
+#include "../../NEngine/NE.h"
+#include "../../NEngine/NEngine.h"
+#include "../../NEngine/NETypes.h"
+
 #include "../../Utils/Logger.h"
 
-RSDL :: RSDL(const Window* const pWin)
+RSDL :: RSDL(Window* const pWin)
 	:Renderer(pWin,RAPI_SDL)
 {
 	LDebug << "RSDL created";
@@ -47,24 +50,20 @@ RSDL :: ~RSDL(void)
 
 bool RSDL :: clearScreen(void)const
 {
-	SDL_Surface* pWindowSurface = pWin->getWindowSurface();
-
 	LDebug << "RSDL :: clearScreen";
 
-	SDL_FillRect(pWindowSurface,NULL,SDL_MapRGB(pWindowSurface->format,0,0,0));
+	SDL_FillRect(*pWin,NULL,SDL_MapRGB((*pWin)->format,0,0,0));
 
 	return true;
 }
 
 bool RSDL :: drawTile(SDL_Rect& tile, const SDL_Color& colour)const
 {
-	SDL_Surface* pWindowSurface = pWin->getWindowSurface();
-
 #ifdef VERBOSE
 	LDebug << "RSDL :: drawTile from colour (pos: " << tile.x << "x" << tile.y << " size: " << tile.w << "x" << tile.h << " colour: " << static_cast<int>(colour.r) << "," <<  static_cast<int>(colour.g) << "," << static_cast<int>(colour.b) << "," << static_cast<int>(colour.unused) << ")";
 #endif
 
-	if ( SDL_FillRect(pWindowSurface, &tile, SDL_MapRGBA(pWindowSurface->format, colour.r, colour.g, colour.b, colour.unused)) == -1 )
+	if ( SDL_FillRect(*pWin, &tile, SDL_MapRGBA((*pWin)->format, colour.r, colour.g, colour.b, colour.unused)) == -1 )
 	{
 		LWarning << "Failed to draw";
 		return false;
@@ -81,7 +80,7 @@ bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos)const
 	LDebug << "RSDL :: drawTile from Sprite @ " << pos;
 #endif
 
-	if ( SDL_BlitSurface(sprite.getSurface(), NULL, pWin->getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(sprite.getSurface(), NULL, *pWin, &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;
@@ -116,7 +115,7 @@ bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& 
 	}
 
 	// Making a pre blit with the original image
-	if ( SDL_BlitSurface(sprite.getSurface(), NULL, pWin->getWindowSurface(), &r)  != 0 )
+	if ( SDL_BlitSurface(sprite.getSurface(), NULL, *pWin, &r)  != 0 )
 	{
 		LWarning << "Fail to copy the sprite in a temporary surface";
 		SDL_FreeSurface(pSrc);
@@ -124,7 +123,7 @@ bool RSDL :: drawTile(const Sprite& sprite, const IVec2& pos, const SDL_Colour& 
 	}
 
 	// Apply the filter
-	if ( SDL_BlitSurface(pSrc, NULL, pWin->getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(pSrc, NULL, *pWin, &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		SDL_FreeSurface(pSrc);
@@ -144,7 +143,7 @@ bool RSDL :: drawTile(const Sprite& sprite, SDL_Rect& srcRect, const IVec2& pos)
 	LDebug << "RSDL :: drawTile from Sprite (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ") @ " << pos;
 #endif
 
-	if ( SDL_BlitSurface(sprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(sprite.getSurface(), &srcRect, *pWin, &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;
@@ -162,7 +161,7 @@ bool RSDL :: drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned 
 	LDebug << "RSDL :: drawTile from AnimatedSprite @ " << pos.x << ";" << pos.y;
 #endif
 
-	if ( SDL_BlitSurface(aSprite.getSurface(), &srcRect, pWin->getWindowSurface(), &r) != 0 )
+	if ( SDL_BlitSurface(aSprite.getSurface(), &srcRect, *pWin, &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;
@@ -173,7 +172,8 @@ bool RSDL :: drawTile(AnimatedSprite& aSprite, const IVec2& pos, const unsigned 
 
 bool RSDL :: drawBackground(SDL_Surface* const pImage)const
 {
-	SDL_Rect r = { 0, 0, static_cast<Uint16>(pWin->getWidth()), static_cast<Uint16>(pWin->getHeight()) };
+	USize2 winSize = NE::get()->getWindowSize(*pWin);
+	SDL_Rect r = { 0, 0, static_cast<Uint16>(winSize.width), static_cast<Uint16>(winSize.height) };
 
 	assert(pImage);
 
@@ -181,7 +181,7 @@ bool RSDL :: drawBackground(SDL_Surface* const pImage)const
 	LDebug << "RSDL :: drawBackground";
 #endif
 
-	if ( SDL_BlitSurface(pWin->getWindowSurface(), NULL, pImage, &r) != 0 )
+	if ( SDL_BlitSurface(*pWin, NULL, pImage, &r) != 0 )
 	{
 		LWarning << "Fail to blit the surface";
 		return false;

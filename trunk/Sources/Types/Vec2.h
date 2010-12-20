@@ -30,8 +30,16 @@ e-mail: lw.demoscene@gmail.com
 template <typename T>
 struct Vec2
 {
-	T x;				/*!< The value on the x axis */
-	T y;				/*!< The value on the y axis */
+	union
+	{
+		T x;				/*!< The value on the x axis */
+		T width;
+	};
+	union
+	{
+		T y;				/*!< The value on the y axis */
+		T height;
+	};
 
 	Vec2(void):x(0),y(0) {}
 
@@ -53,14 +61,8 @@ struct Vec2
     }
 };
 
-//! << overloading
-/*!
-	\param o the stream where to send the output
-	\param v the vector to send
-	\return the stream (to loop)
-*/
 template <typename T>
-std::ostream& operator<< (std::ostream& o, const Vec2<T> v)
+std::ostream& operator<< (std::ostream& o, const Vec2<T>& v)
 {
 	o << "Vec2(" << v.x << ";" << v.y << ")";
 
@@ -68,7 +70,9 @@ std::ostream& operator<< (std::ostream& o, const Vec2<T> v)
 }
 
 typedef Vec2<int> IVec2;
+typedef Vec2<int> ISize2;
 typedef Vec2<unsigned int> UVec2;
+typedef Vec2<unsigned int> USize2;
 
 /*! \struct Vec2 Vec2.h "Types/Vec2.h"
  *  \brief 2D Vector structure
@@ -80,5 +84,11 @@ typedef Vec2<unsigned int> UVec2;
  * \brief equality operator
  * \param v the second vector to compare against
  */
+
+/*! \fn std::ostream& operator<< (std::ostream& o, const Vec2<T>& v)
+	\param o the stream where to send the output
+	\param v the vector to send
+	\return the stream (to loop)
+*/
 
 #endif

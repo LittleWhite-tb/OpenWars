@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "Window.h"
+#include "../NEngine/NETypes.h"
 
 #include "../Types/Vec2.h"
 
@@ -35,7 +35,6 @@ struct SDL_Surface;
 struct SDL_Rect;
 struct SDL_Colour;
 
-class Window;
 class Sprite;
 class AnimatedSprite;
 
@@ -50,11 +49,11 @@ class Renderer
 private:
 
 protected:
-	const Window* pWin;				/*!< Keep the window where to draw */
+	Window* pWin;				/*!< Keep the window where to draw */
 	RenderingAPI rAPI;			/*!< Remember which API is actually implemented */
 	
 public:
-	Renderer(const Window* const pWin, const RenderingAPI rAPI):pWin(pWin),rAPI(rAPI) {}
+	Renderer(Window* const pWin, const RenderingAPI rAPI):pWin(pWin),rAPI(rAPI) {}
 	virtual ~Renderer(void) {};
 
 	virtual bool clearScreen(void)const=0;
@@ -69,7 +68,7 @@ public:
 	RenderingAPI getAPI(void)const { return rAPI; }
 };
 
-Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI);
+Renderer* RendererFactory(Window* const pWin, const RenderingAPI renderingAPI);
 
 /*! \class Renderer Renderer.h "Engine/Renderer.h"
  *  \brief Base for the API specific renderer.

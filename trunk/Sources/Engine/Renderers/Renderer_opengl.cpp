@@ -29,19 +29,22 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Window.h"
 #include "../Sprite.h"
 #include "../AnimatedSprite.h"
 
+#include "../../NEngine/NETypes.h"
+
 #include "../../Utils/Logger.h"
 
-ROpenGL :: ROpenGL(const Window* const pWin)
+ROpenGL :: ROpenGL(Window* const pWin)
 	:Renderer(pWin,RAPI_OpenGL)
 {
+	/*
 	if ( !pWin->isOpenGLWindow() )
 	{
 		LWarning << "The window passed to the OpenGL renderer is not compatible with OpenGL";
 	}
+	*/
 
 	LDebug << "ROpenGL created";
 

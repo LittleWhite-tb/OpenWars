@@ -26,7 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Engine/Window.h"
 #include "../Engine/Renderer.h"
 
 #include "../Engine/ResourcesManager/SpriteManager.h"
@@ -53,7 +52,7 @@ Engine :: ~Engine(void)
 	delete pRenderer;
 }
 
-bool Engine :: init(const Window* pWin, const RenderingAPI rAPI)
+bool Engine :: init(Window* pWin, const RenderingAPI rAPI)
 {
 	assert(pWin);
 

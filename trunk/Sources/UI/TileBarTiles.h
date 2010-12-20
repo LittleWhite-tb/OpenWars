@@ -28,10 +28,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileBar.h"
 
+#include "../NEngine/NETypes.h"
+
 #include "../Game/Tile.h"
 
 class SpriteManager;
-class Window;
 class AnimatedSprite;
 
 class TileView : public View

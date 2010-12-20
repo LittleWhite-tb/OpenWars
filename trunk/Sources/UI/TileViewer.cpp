@@ -25,6 +25,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileViewer.h"
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/Renderer.h"
@@ -37,13 +41,14 @@ e-mail: lw.demoscene@gmail.com
 
 TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont)
 {
+	USize2 winSize(NE::get()->getWindowSize(win));
 	SDL_Color white = {255,255,255,255};
 
 	pBackground = new Sprite(sm,fileNameBackground,true);
 	pFont = new Font(fm,fileNameFont,16,white);
 
-	windowSize = UVec2(win.getWidth(),win.getHeight());
-	position = IVec2(win.getWidth() - pBackground->getWidth() - 10, win.getHeight() - pBackground->getHeight() - 10);
+	windowSize = NE::get()->getWindowSize(win);
+	position = IVec2(winSize.width - pBackground->getWidth() - 10, winSize.height - pBackground->getHeight() - 10);
 	
 	title = "Element";
 

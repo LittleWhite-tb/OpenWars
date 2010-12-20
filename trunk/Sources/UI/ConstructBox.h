@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <string>
 
+#include "../NEngine/NETypes.h"
+
 #include "../Game/Unit.h"
 
 #include "../Engine/Controls/Keyboard.h"
@@ -37,7 +39,6 @@ e-mail: lw.demoscene@gmail.com
 class SpriteManager;
 class FontManager;
 class Renderer;
-class Window;
 
 class Sprite;
 class AnimatedSprite;
@@ -66,7 +67,7 @@ private:
 	Font* pFont;									/*!< Font used for the texts */
 	Font* pFontGrey;								/*!< Font used for the texts when no enough money (in grey)*/
 
-	UVec2 windowSize;								/*!< Size of the window where to draw the UI */
+	USize2 windowSize;								/*!< Size of the window where to draw the UI */
 
 	std::vector<ConstructUnitView> unitsList;		/*!< list of units */
 	unsigned int actualPosition;					/*!< actual position of the cursor */

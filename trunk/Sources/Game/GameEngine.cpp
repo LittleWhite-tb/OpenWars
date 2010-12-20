@@ -24,6 +24,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameEngine.h"
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "MapGame.h"
 #include "Cursor.h"
 #include "Camera.h"
@@ -151,7 +155,7 @@ bool GameEngine :: load(void)
 	return true;
 }
 
-bool GameEngine :: init(const Window* pWin, const RenderingAPI rAPI)
+bool GameEngine :: init(Window* pWin, const RenderingAPI rAPI)
 {
 	bool error = true;
 
@@ -175,7 +179,7 @@ bool GameEngine :: load(const std::string& mapName)
 
 bool GameEngine :: run(void)
 {
-	while ( pKB->isEscapePressed() == 0 && pWin->needClosure() == 0 && m_userQuit == false )
+	while ( pKB->isEscapePressed() == 0 && NE::get()->needWindowClosure() == 0 && m_userQuit == false )
 	{
 		// Drawing part
 		pRenderer->clearScreen();
@@ -222,7 +226,7 @@ bool GameEngine :: run(void)
 				break;
 		}
 
-		SDL_UpdateRect(pWin->getWindowSurface(),0,0,0,0);
+		SDL_UpdateRect(*pWin,0,0,0,0);
 
 		// Update part
 		if ( pVT->canUpdate() )

@@ -31,7 +31,6 @@ struct SDL_Surface;
 struct SDL_Colour;
 struct SDL_Rect;
 
-class Window;
 class Sprite;
 class AnimatedSprite;
 
@@ -40,7 +39,7 @@ class ROpenGL : public Renderer
 private:
 
 public:
-	ROpenGL(const Window* const pWin);
+	ROpenGL(Window* const pWin);
 	~ROpenGL(void);
 
 	bool clearScreen(void)const;
@@ -58,7 +57,7 @@ public:
  * Inherits the Renderer interface
  */
 
-/*! \fn ROpenGL::ROpenGL(const Window* const pWin)
+/*! \fn ROpenGL::ROpenGL(Window* const pWin)
  * \param pWin the Window where the Renderer will draw
  */
 

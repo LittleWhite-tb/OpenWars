@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __NENGINE_H__
+#define __NENGINE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,33 +25,28 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include "NETypes.h"
+#include "../Types/Vec2.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
+#include <string>
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
-
-#include "../Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
+class NEngine
 {
-	
-}
+private:
 
-UnitType TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
-}
+public:
+	virtual ~NEngine() {}
+
+	virtual Window createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)=0;
+	virtual USize2 getWindowSize(const Window win)=0;
+	virtual int getBitsPerPixel(const Window win)=0;
+	virtual void destroyWindow(Window win)=0;
+
+	virtual bool isCursorVisible(void)const=0;
+	virtual void setCursorVisible(const bool mustShowCursor)const=0;
+	virtual void setCaption(const std::string& windowName, const std::string& iconName)const=0;
+
+	virtual bool needWindowClosure(void)const=0;
+};
 
 #endif

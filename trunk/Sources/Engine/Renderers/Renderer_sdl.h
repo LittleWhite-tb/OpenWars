@@ -27,11 +27,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Renderer.h"
 
+#include "../../NEngine/NETypes.h"
+
 struct SDL_Surface;
 struct SDL_Colour;
 struct SDL_Rect;
 
-class Window;
 class Sprite;
 class AnimatedSprite;
 
@@ -40,7 +41,7 @@ class RSDL : public Renderer
 private:
 
 public:
-	RSDL(const Window* const pWin);
+	RSDL(Window* const pWin);
 	~RSDL(void);
 
 	bool clearScreen(void)const;

@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-Renderer* RendererFactory(const Window* const pWin, const RenderingAPI renderingAPI)
+Renderer* RendererFactory(Window* const pWin, const RenderingAPI renderingAPI)
 {
 	switch (renderingAPI)
 	{

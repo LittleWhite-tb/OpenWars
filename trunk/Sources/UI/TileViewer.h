@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Game/Tile.h"
 
+#include "../NEngine/NETypes.h"
+
 #include "../Types/Vec2.h"
 
 class SpriteManager;
@@ -36,7 +38,6 @@ class Renderer;
 class Font;
 class Sprite;
 class AnimatedSprite;
-class Window;
 
 class TileViewer
 {
@@ -49,7 +50,7 @@ private:
 	std::string title;				/*!< the title to display */
 	std::string tileName;			/*!< the name for the tile to display */
 
-	UVec2 windowSize;				/*!< The window size */
+	USize2 windowSize;				/*!< The window size */
 	IVec2 position;					/*!< the UI position */
 
 public:

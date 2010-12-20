@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __NESDL_H__
+#define __NESDL_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,33 +25,35 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include "../NEngine.h"
+#include "../NETypes.h"
+#include "../../Types/Vec2.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
+#include <string>
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/AnimatedSprite.h"
-
-#include "../Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(SpriteManager& sm, const Window& win, std::vector<UnitView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
+class NESDL : public NEngine
 {
-	
-}
+private:
 
-UnitType TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getType();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
-	}
-}
+	Uint32 getFlags(const bool isFullscreen, const bool isOpenGL)const;
+
+public:
+	static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
+
+
+	NESDL(void);
+	~NESDL(void);
+
+	Window createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL);
+	USize2 getWindowSize(const Window win);
+	int getBitsPerPixel(const Window win);
+	void destroyWindow(Window win);
+
+	bool isCursorVisible(void)const;
+	void setCursorVisible(const bool mustShowCursor)const;
+	void setCaption(const std::string& windowName, const std::string& iconName)const;
+
+	bool needWindowClosure(void)const { return isRedCrossPressed; }
+};
 
 #endif

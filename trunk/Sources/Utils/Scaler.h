@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 struct SDL_Surface;
 
-class Window;
+#include "../NEngine/NETypes.h"
 
 #include "../Types/Vec2.h"
 

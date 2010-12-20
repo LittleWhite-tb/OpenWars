@@ -28,12 +28,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine.h"
 
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/Renderer.h"
 #include "Unit.h"
 
 #include "../Types/Vec2.h"
 
-class Window;
 class SpriteManager;
 class FontManager;
 
@@ -65,7 +66,7 @@ public:
 	EditorEngine(void);
 	~EditorEngine(void);
 
-	bool init(const Window* pWin, const RenderingAPI rAPI);
+	bool init(Window* pWin, const RenderingAPI rAPI);
 
 	bool load(const std::string& themeName, const UVec2& mapSize);
 	bool load(const std::string& mapName);

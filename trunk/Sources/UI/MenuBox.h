@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <vector>
 
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Controls/Keyboard.h"
 
@@ -36,7 +38,6 @@ e-mail: lw.demoscene@gmail.com
 class SpriteManager;
 class FontManager;
 class Renderer;
-class Window;
 class Sprite;
 class Font;
 
