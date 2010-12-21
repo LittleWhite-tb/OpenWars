@@ -35,8 +35,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-TileBarTiles :: TileBarTiles(SpriteManager& sm, const Window& win, std::vector<TileView*>& listTiles)
-:TileBar(sm,win,reinterpret_cast<std::vector<View*>& >(listTiles))
+TileBarTiles :: TileBarTiles(SpriteManager& sm, const Window* const pWin, std::vector<TileView*>& listTiles)
+:TileBar(sm,pWin,reinterpret_cast<std::vector<View*>& >(listTiles))
 {
 	
 }

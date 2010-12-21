@@ -57,7 +57,7 @@ public:
 	MapGame(SpriteManager& sm, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
 	~MapGame();
 
-	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
+	bool draw(Window* const pWin, const Camera& c, const unsigned int time);
 
 	void enableUnits(void);
 

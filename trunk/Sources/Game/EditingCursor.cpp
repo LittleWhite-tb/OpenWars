@@ -25,7 +25,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditingCursor.h"
 
-#include "../Engine/Renderer.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/AnimatedSprite.h"
 
 #include "Camera.h"
@@ -51,7 +52,7 @@ EditingCursor :: ~EditingCursor(void)
 	LDebug << "EditingCursor deleted";
 }
 
-bool EditingCursor :: draw(const Renderer& r, const Camera& c, const unsigned int time)const
+bool EditingCursor :: draw(Window* const pWin, const Camera& c, const unsigned int time)const
 {
 	UVec2 cameraPosition = c.getPosition();
 	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),
@@ -62,11 +63,11 @@ bool EditingCursor :: draw(const Renderer& r, const Camera& c, const unsigned in
 
 	if ( isWrong )
 	{
-		return r.drawTile(*pWrongCursorSprite,screenPosition,time);
+		return pWrongCursorSprite->draw(pWin,screenPosition,time);
 	}
 	else
 	{
-		return r.drawTile(*pCursorSprite,screenPosition,time);
+		return pCursorSprite->draw(pWin,screenPosition,time);
 	}
 }
 

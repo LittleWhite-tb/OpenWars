@@ -39,6 +39,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/Controls/Keyboard.h"
 
+#include "../Types/Colour.h"
+
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
@@ -141,10 +143,10 @@ bool GameEngine :: load(void)
         // Unit menu
         unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
-		pCBFactory = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
-		pCBPort = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
-		pCBAirport = new ConstructBox(*pSM,*pFM,*pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
-		pMBMenu = new MenuBox(*pSM,*pFM,*pWin, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries);
+		pCBFactory = new ConstructBox(*pSM,*pFM,pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
+		pCBPort = new ConstructBox(*pSM,*pFM,pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
+		pCBAirport = new ConstructBox(*pSM,*pFM,pWin,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
+		pMBMenu = new MenuBox(*pSM,*pFM,pWin, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries);
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -155,11 +157,11 @@ bool GameEngine :: load(void)
 	return true;
 }
 
-bool GameEngine :: init(Window* pWin, const RenderingAPI rAPI)
+bool GameEngine :: init(Window* pWin)
 {
 	bool error = true;
 
-	error = Engine::init(pWin,rAPI);
+	error = Engine::init(pWin);
 
 	LDebug << "GameEngine init'd";
 
@@ -182,51 +184,51 @@ bool GameEngine :: run(void)
 	while ( pKB->isEscapePressed() == 0 && NE::get()->needWindowClosure() == 0 && m_userQuit == false )
 	{
 		// Drawing part
-		pRenderer->clearScreen();
+		NE::get()->clearScreen(pWin,Colour(0,0,0));
 
-		pMap->draw(*pRenderer,*pCam,pVT->getTime());
+		pMap->draw(pWin,*pCam,pVT->getTime());
 		
 		switch ( gState )
 		{
 			case GS_VISU:
 				{
-					pC->draw(*pRenderer,*pCam,pVT->getTime());
+					pC->draw(pWin,*pCam,pVT->getTime());
 				}
 				break;
 			case GS_FACTORY:
 				{
-					pCBFactory->draw(*pRenderer,5000);
+					pCBFactory->draw(pWin,5000);
 				}
 				break;
 			case GS_PORT:
 				{
-					pCBPort->draw(*pRenderer,5000);
+					pCBPort->draw(pWin,5000);
 				}
 				break;
 			case GS_AIRPORT:
 				{
-					pCBAirport->draw(*pRenderer,5000);
+					pCBAirport->draw(pWin,5000);
 				}
 				break;
             case GS_SELECT:
                 {
-                    pMBMenu->draw(*pRenderer,pC->getPosition(),pVT->getTime());
+                    pMBMenu->draw(pWin,pC->getPosition(),pVT->getTime());
                 }
                 break;
             case GS_MOVE:
                 {
                     // TODO: Display the move map stuff
-                    pC->draw(*pRenderer,*pCam,pVT->getTime());
+                    pC->draw(pWin,*pCam,pVT->getTime());
                 }
                 break;
 			case GS_MENU:
 				{
-					pMBMenu->draw(*pRenderer,pC->getPosition(),pVT->getTime());
+					pMBMenu->draw(pWin,pC->getPosition(),pVT->getTime());
 				}
 				break;
 		}
 
-		SDL_UpdateRect(*pWin,0,0,0,0);
+		SDL_UpdateRect(pWin,0,0,0,0);
 
 		// Update part
 		if ( pVT->canUpdate() )

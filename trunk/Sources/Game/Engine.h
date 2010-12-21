@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../Engine/Renderer.h"
+#include <string>
 
 #include "../NEngine/NETypes.h"
 
@@ -39,7 +39,6 @@ class Engine
 {
 protected:
 	Window* pWin;			/*!< The window to use for the editor (created outside the engine) */
-	Renderer* pRenderer;		/*!< The renderer for the editor */
 
 	SpriteManager* pSM;			/*!< The sprite manager for the editor */
 	FontManager* pFM;			/*!< The font manager for the editor */
@@ -52,7 +51,7 @@ public:
 	Engine(void);
 	virtual ~Engine(void);
 
-	virtual bool init(Window* pWin, const RenderingAPI rAPI);
+	virtual bool init(Window* pWin);
 
 	virtual bool load(const std::string& mapName)=0;
 
@@ -72,7 +71,7 @@ public:
 /*! \fn virtual Engine::~Engine(void)
  */
 
-/*! \fn virtual bool Engine::init(const Window* pWin, const RenderingAPI rAPI)
+/*! \fn virtual bool Engine::init(Window* pWin, const RenderingAPI rAPI)
  * \brief Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
  * \param pWin The window to use with for the editor
  * \param rAPI The rendering API to use

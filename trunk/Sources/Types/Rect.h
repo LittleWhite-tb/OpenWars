@@ -1,5 +1,5 @@
-#ifndef __NETYPES_H__
-#define __NETYPES_H__
+#ifndef __RECT_H__
+#define __RECT_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,19 +25,14 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-typedef unsigned int Uint32;
+#include "../Types/Vec2.h"
 
-#ifdef SDL_ENGINE
-	#include <SDL/SDL.h>
+struct Rect
+{
+	IVec2 position;
+	USize2 size;
 
-	typedef SDL_Surface Window;
-	typedef SDL_Surface Surface;
-#elif SFML_ENGINE
-	#include <SFML/Graphics.hpp>
-
-	typedef sf::RenderWindow Window;
-#elif GLUT_ENGINE
-	typedef int Window;	// In GLUT, there is no access to the Window. So int is the type (to check error)
-#endif
+	Rect(const IVec2& position, const USize2& size):position(position),size(size) {}
+};
 
 #endif

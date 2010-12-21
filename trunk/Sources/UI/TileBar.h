@@ -99,7 +99,7 @@ protected:
 	int currentY;				/*!< index of the actual Tile selected on the Y axis */
 
 public:
-	TileBar(SpriteManager& sm, const Window& win, std::vector<View *>& listTiles);
+	TileBar(SpriteManager& sm, const Window* const pWin, std::vector<View *>& listTiles);
 	virtual ~TileBar(void);
 
 	void open(void);
@@ -107,7 +107,7 @@ public:
 
 	void move(const ArrowsDirection direction);
 
-	bool draw(const Renderer& r, const unsigned int time);
+	bool draw(Window* const pWin, const unsigned int time);
 
 	void update(const unsigned int time);
 
@@ -170,10 +170,10 @@ public:
  * \brief Change the Y dimension of the TileBar 
  */
 
-/*! \fn TileBar::TileBar(SpriteManager& sm, const Window& win, std::vector<View *>& listTiles)
+/*! \fn TileBar::TileBar(SpriteManager& sm, const Window* const pWin, std::vector<View *>& listTiles)
  * Will create the surface for the Bar and load the bar cursor and Tiles
  * \param sm The SpriteManager to use to load the images
- * \param win The window where the bar will be
+ * \param pWin The window where the bar will be
  * \param listTiles The list of tiles to display in the TileBar
  */
 

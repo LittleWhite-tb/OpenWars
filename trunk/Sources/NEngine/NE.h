@@ -30,12 +30,34 @@ class NEngine;
 class NE
 {
 private:
-	static NEngine* pEngine;
+	static NEngine* pEngine;		/*!< Engine to use by the program */
 
 public:
 	static bool init(void);
 	static void stop(void);
 	static NEngine* get(void);
 };
+
+/*! \class NE NE.h "NEngine/NE.h"
+ *  \brief Layer giving the visibility of the NEngine to the application
+ *
+ * This class is a static class giving a global visibility of the NEngine to the application.
+ * The function init() has to be called at the beginning of the application, and stop() at the end of the program.
+ * NE could be implemented using a Singleton.
+ */
+
+/*! \fn static bool NE::init(void)
+ * \brief Init the NEngine contained in NE
+ * \return true if the NEngine is correctly started
+ */
+
+/*! \fn static void NE::stop(void)
+ * \brief clear the NEngine
+ */
+
+/*! \fn static NEngine* NE::get(void)
+ * \brief Get the NEngine
+ * \return a pointer to the NEngine
+ */
 
 #endif

@@ -31,7 +31,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
-#include "../Engine/Renderer.h"
 #include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
@@ -39,16 +38,15 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Types/Vec2.h"
 
-TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& fileNameBackground, const std::string& fileNameFont)
+TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& fileNameBackground, const std::string& fileNameFont)
+:windowSize(NE::get()->getWindowSize(pWin))
 {
-	USize2 winSize(NE::get()->getWindowSize(win));
 	SDL_Color white = {255,255,255,255};
 
 	pBackground = new Sprite(sm,fileNameBackground,true);
 	pFont = new Font(fm,fileNameFont,16,white);
 
-	windowSize = NE::get()->getWindowSize(win);
-	position = IVec2(winSize.width - pBackground->getWidth() - 10, winSize.height - pBackground->getHeight() - 10);
+	position = IVec2(windowSize.width - pBackground->getWidth() - 10, windowSize.height - pBackground->getHeight() - 10);
 	
 	title = "Element";
 
@@ -73,7 +71,7 @@ void TileViewer :: putOnRight(void)
 	position.x = windowSize.x - pBackground->getWidth() - 10;
 }
 
-bool TileViewer :: draw(const Renderer& r)
+bool TileViewer :: draw(Window* const pWin)
 {
 	bool error = true;
 
@@ -85,10 +83,10 @@ bool TileViewer :: draw(const Renderer& r)
 
 	LDebug << "TileViewer draw";
 
-	error &= r.drawTile(*pBackground,position);
-	error &= pFont->draw(r,title,titlePosition);
-	error &= r.drawTile(*pTileSprite,tilePosition,0);
-	error &= pFont->draw(r,tileName,namePosition);
+	error &= pBackground->draw(pWin,position);
+	error &= pFont->draw(pWin,title,titlePosition);
+	error &= pTileSprite->draw(pWin,tilePosition,0);
+	error &= pFont->draw(pWin,tileName,namePosition);
 
 	return error;
 }

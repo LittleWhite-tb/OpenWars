@@ -30,6 +30,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "../NEngine/NETypes.h"
 #include "../Types/Vec2.h"
 
 class SpriteManager;
@@ -53,7 +54,7 @@ public:
 	bool getIsWrong(void)const { return isWrong; }
 	void setIsWrong(const bool isWrong) { this->isWrong = isWrong; }
 
-	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
+	virtual bool draw(Window* const pWin, const Camera& c, const unsigned int time)const;
 };
 
 /*! \class EditingCursor EditingCursor.h "Game/EditingCursor.h"

@@ -29,7 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "ResourcesManager/FontManager.h"
-#include "Renderer.h"
 #include "Sprite.h"
 
 #include "../Utils/Logger.h"
@@ -66,7 +65,7 @@ IVec2 Font :: getSize(const std::string& text)
 	return size;
 }
 
-bool Font :: draw(const Renderer& r, const std::string& text, const IVec2& position)
+bool Font :: draw(Window* const pWin, const std::string& text, const IVec2& position)
 {
 	bool error = false;
 
@@ -80,7 +79,7 @@ bool Font :: draw(const Renderer& r, const std::string& text, const IVec2& posit
 		return false;
 	}
 
-	error = r.drawTile(Sprite(pTmpSurface),position);
+	error = Sprite(pTmpSurface).draw(pWin,position);
 
 	SDL_FreeSurface(pTmpSurface);
 

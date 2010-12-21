@@ -30,7 +30,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../NEngine/NETypes.h"
 
-#include "../Engine/Renderer.h"
 #include "Unit.h"
 
 #include "../Types/Vec2.h"
@@ -66,7 +65,7 @@ public:
 	EditorEngine(void);
 	~EditorEngine(void);
 
-	bool init(Window* pWin, const RenderingAPI rAPI);
+	bool init(Window* pWin);
 
 	bool load(const std::string& themeName, const UVec2& mapSize);
 	bool load(const std::string& mapName);
@@ -101,7 +100,7 @@ public:
 /*! \fn EditorEngine::~EditorEngine(void)
  */
 
-/*! \fn bool EditorEngine::init(const Window* pWin, const RenderingAPI rAPI)
+/*! \fn bool EditorEngine::init(Window* pWin, const RenderingAPI rAPI)
  * \brief Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
  * \param pWin The window to use with for the editor
  * \param rAPI The rendering API to use

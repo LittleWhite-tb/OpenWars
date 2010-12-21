@@ -31,15 +31,23 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "../NEngine/NE.h"
+#include "../NEngine/NEngine.h"
+#include "../NEngine/NETypes.h"
+
 #include "ResourcesManager/SpriteManager.h"
+
+#include "../Types/Vec2.h"
+#include "../Types/Colour.h"
+#include "../Types/Rect.h"
 
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 
 Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool needScaling)
 {
-	surface = sm.getSurface(fileName,needScaling);
-	if ( surface == NULL )
+	pSurface = sm.getSurface(fileName,needScaling);
+	if ( pSurface == NULL )
 	{
 		throw ConstructionFailedException("Sprite");
 	}
@@ -48,7 +56,7 @@ Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool need
 }
 
 Sprite :: Sprite(SDL_Surface* pSurface)
-	:surface(pSurface)
+	:pSurface(pSurface)
 {
 	assert(pSurface);
 	LDebug << "Sprite created from SDL_Surface*";
@@ -59,16 +67,31 @@ Sprite :: ~Sprite(void)
 	LDebug << "Sprite deleted";
 }
 
+USize2 Sprite :: getSize(void)const
+{
+	return NE::get()->getSurfaceSize(pSurface);
+}
+
 int Sprite :: getWidth(void)const
 {
-	LDebug << "Sprite :: getWidth (" << this->surface->w << ")";
-
-	return this->surface->w;
+	return NE::get()->getSurfaceSize(pSurface).width;
 }
 
 int Sprite :: getHeight(void)const
 {
-	LDebug << "Sprite :: getHeight (" << this->surface->h << ")";
+	return NE::get()->getSurfaceSize(pSurface).height;
+}
 
-	return this->surface->h;
+bool Sprite :: draw(Window* const pWin, const IVec2& position)
+{
+	assert(pWin);
+
+	return NE::get()->drawSurface(pWin, position, this->pSurface);
+}
+
+bool Sprite :: draw(Window* const pWin, const IVec2& position, const Colour& mask)
+{
+	assert(pWin);
+
+	return NE::get()->drawSurface(pWin, position, this->pSurface,mask);
 }

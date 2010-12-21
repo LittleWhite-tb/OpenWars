@@ -30,7 +30,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Engine/Renderer.h"
+#include "../NEngine/NETypes.h"
+
 #include "../Game/Camera.h"
 #include "../Engine/Sprite.h"
 #include "Tile.h"
@@ -102,7 +103,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const std::string& themeName, const UV
 	LDebug << "MapEditor created " << size;
 }
 
-bool MapEditor :: draw(const Renderer& r, const Camera& c, const unsigned int time)
+bool MapEditor :: draw(Window* const pWin, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
@@ -111,7 +112,7 @@ bool MapEditor :: draw(const Renderer& r, const Camera& c, const unsigned int ti
 
 	LDebug << "Map :: draw";
 
-	this->drawTerrain(r,c,time);
+	this->drawTerrain(pWin,c,time);
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -129,7 +130,7 @@ bool MapEditor :: draw(const Renderer& r, const Camera& c, const unsigned int ti
 
 			if ( unitViewMap[y][x] != UT_NO_UNIT )	// If we have a unit
 			{
-                bError &= r.drawTile(*unitsSet[unitViewMap[y][x]].pASprite,tilePos,time);
+                bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(pWin,tilePos,time);
 			}
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
 

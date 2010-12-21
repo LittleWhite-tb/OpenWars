@@ -32,6 +32,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Sprite.h"
 
 #include "../Types/Vec2.h"
+#include "../Types/Rect.h"
 
 class Renderer;
 class SpriteManager;
@@ -59,13 +60,17 @@ public:
 	AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling);
 	~AnimatedSprite(void);
 
-	SDL_Rect getSrcRect(const unsigned int time);
+	Rect getSrcRect(const unsigned int time);
 
+	USize2 getSize(void)const { return USize2(widthSprite,heightSprite); }
 	int getWidth(void)const { return widthSprite; }
 	int getHeight(void)const { return heightSprite; }
 
 	unsigned int getInterval(void)const { return msInterval; }
 	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
+
+	bool draw(Window* const pWin, const IVec2& position, const unsigned int time=0);
+	bool draw(Window* const pWin, const IVec2& position, const Colour& mask, const unsigned int time=0);
 };
 
 /*! \class AnimatedSprite AnimatedSprite.h "Engine/AnimatedSprite.h"

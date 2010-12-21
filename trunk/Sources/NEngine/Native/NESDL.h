@@ -31,6 +31,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+struct Colour;
+struct Rect;
+
 class NESDL : public NEngine
 {
 private:
@@ -44,16 +47,48 @@ public:
 	NESDL(void);
 	~NESDL(void);
 
-	Window createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL);
-	USize2 getWindowSize(const Window win);
-	int getBitsPerPixel(const Window win);
-	void destroyWindow(Window win);
+	// Windowing
+	Window* createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL);
+	USize2 getWindowSize(const Window* const pWin);
+	int getBitsPerPixel(const Window* const pWin);
+	void destroyWindow(Window* const pWin);
 
 	bool isCursorVisible(void)const;
 	void setCursorVisible(const bool mustShowCursor)const;
 	void setCaption(const std::string& windowName, const std::string& iconName)const;
 
 	bool needWindowClosure(void)const { return isRedCrossPressed; }
+
+	// Drawing
+	USize2 getSurfaceSize(const Surface* const pSurface);
+
+	bool clearScreen(Window* const pWin, const Colour& colour);
+
+	bool drawTile(Window* const pWin, const Rect& tile, const Colour& colour)const;
+	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface);
+	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Colour& mask);
+	// bool drawSurface(Window* const pWin, const Rect& destRect, Surface* const pSurface);
+	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect);
+	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect, const Colour& mask);
 };
+
+/*! \class NESDL NESDL.h NEngine\Native\NESDL.h
+ * \brief SDL implementation
+ *
+ * \warning the SDL implementation may have some differencies because of the capability of the SDL library. This one can only manage one window at the same time.
+ */
+
+/*! \fn Uint32 NESDL::getFlags(const bool isFullscreen, const bool isOpenGL)const
+ * \brief Give flags following the platform capabilities and the flags passed
+ * \param isFullscreen true if fullscreen is wanted
+ * \param isOpenGL true if OpenGL is wanted
+ * \return flags on 32bits for SDL API
+ */
+
+/*! \fn NESDL::NESDL(void)
+ */
+
+/*! \fn NESDL::~NESDL(void)
+ */
 
 #endif

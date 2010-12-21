@@ -41,9 +41,9 @@ double Scaler::xScaleFactor = 1.0;
 double Scaler::yScaleFactor = 1.0;
 UVec2 Scaler::offset = UVec2(0,0);
 
-void Scaler :: setScaleFactor(const Window& win)
+void Scaler :: setScaleFactor(const Window* const pWin)
 {
-	USize2 winSize = NE::get()->getWindowSize(win);
+	USize2 winSize = NE::get()->getWindowSize(pWin);
 
 	xScaleFactor = (winSize.width / (double)MAP_MIN_WIDTH) / (double)TILE_DEFAULT_WIDTH;
 	yScaleFactor = (winSize.height / (double)MAP_MIN_HEIGHT) / (double)TILE_DEFAULT_HEIGHT;

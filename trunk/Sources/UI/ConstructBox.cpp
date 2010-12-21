@@ -30,13 +30,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
-#include "../Engine/Renderer.h"
 
 #include "../Engine/Font.h"
 #include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 
 #include "../Types/Vec2.h"
+#include "../Types/Colour.h"
 
 #include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
@@ -45,10 +45,10 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <sstream>
 
-ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 							 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
 							 :pBackgroundUI(new Sprite(sm,backgroundFileName,true)),pCursor(new Sprite(sm,cursorFileName,true)),
-							 pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(NE::get()->getWindowSize(win)),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
+							 pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(NE::get()->getWindowSize(pWin)),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
 {
 	SDL_Color white = {255,255,255};
 	SDL_Color grey = {64,64,64};
@@ -72,7 +72,7 @@ ConstructBox :: ~ConstructBox(void)
 	LDebug << "Construc Box delete";
 }
 
-bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
+bool ConstructBox :: draw(Window* const pWin, const unsigned int moneyAvailable)
 {
 	bool errorFlag = true;
 
@@ -81,20 +81,21 @@ bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + pBackgroundUI->getHeight() - pDownArrow->getHeight());
 	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getHeight() + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
 
-	errorFlag &= r.drawTile(*pBackgroundUI,uiPosition);
+	errorFlag &= pBackgroundUI->draw(pWin,uiPosition);
 	if ( unitsList.size() > 6 )
 	{
 		if ( offsetCursorPosition > 0 )
 		{
-			errorFlag &= r.drawTile(*pUpArrow,upArrowPosition);
+			errorFlag &= pUpArrow->draw(pWin,upArrowPosition);
 		}
 		
 		if ( offsetCursorPosition < 4 )
 		{
-			errorFlag &= r.drawTile(*pDownArrow,downArrowPosition);
+			errorFlag &= pDownArrow->draw(pWin,downArrowPosition);
 		}
 	}
-	errorFlag &= r.drawTile(*pCursor,cursorPosition);
+
+	errorFlag &= pCursor->draw(pWin,cursorPosition);
 
 	/**
 		Offset cursor make the list behaving in the way that until the cursor is not down, we are displaying the first of the list
@@ -118,17 +119,15 @@ bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 
 		if ( unitsList[i].unitPrice <= moneyAvailable )
 		{
-			errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition);
-			errorFlag &= pFont->draw(r,unitsList[i].unitName,unitNamePosition);
-			errorFlag &= pFont->draw(r,priceString,unitPricePosition);
+			errorFlag &= unitsList[i].pUnitSprite->draw(pWin, unitPosition);
+			errorFlag &= pFont->draw(pWin,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= pFont->draw(pWin,priceString,unitPricePosition);
 		}
 		else
 		{
-			static const SDL_Colour mask = {128,128,128,255};
-
-			errorFlag &= r.drawTile(*unitsList[i].pUnitSprite,unitPosition,mask);
-			errorFlag &= pFontGrey->draw(r,unitsList[i].unitName,unitNamePosition);
-			errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
+			errorFlag &= unitsList[i].pUnitSprite->draw(pWin,unitPosition,Colour(128,128,128,255));
+			errorFlag &= pFontGrey->draw(pWin,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= pFontGrey->draw(pWin,priceString,unitPricePosition);
 		}
 	}
 

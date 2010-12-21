@@ -359,14 +359,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Engine\Renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\Renderer.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Sources\Engine\Sprite.cpp"
 					>
 				</File>
@@ -391,26 +383,6 @@
 					</File>
 					<File
 						RelativePath=".\Sources\Engine\Controls\Keyboard.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Renderers"
-					>
-					<File
-						RelativePath=".\Sources\Engine\Renderers\Renderer_opengl.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Sources\Engine\Renderers\Renderer_opengl.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Sources\Engine\Renderers\Renderer_sdl.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Sources\Engine\Renderers\Renderer_sdl.h"
 						>
 					</File>
 				</Filter>
@@ -558,6 +530,10 @@
 			<Filter
 				Name="Types"
 				>
+				<File
+					RelativePath=".\Sources\Types\Colour.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\Sources\Types\Colour.h"
 					>

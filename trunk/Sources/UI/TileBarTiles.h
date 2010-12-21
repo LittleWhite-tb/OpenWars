@@ -51,7 +51,7 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-	TileBarTiles(SpriteManager& sm, const Window& win, std::vector<TileView*>& listTiles);
+	TileBarTiles(SpriteManager& sm, const Window* const pWin, std::vector<TileView*>& listTiles);
 
 	TileType getSelected(void)const;
 };
@@ -81,10 +81,10 @@ public:
  *
  */
 
-/*! \fn TileBarTiles::TileBarTiles(SpriteManager& sm, const Window& win, std::vector<TileView*>& listTiles)
+/*! \fn TileBarTiles::TileBarTiles(SpriteManager& sm, const Window* const pWin, std::vector<TileView*>& listTiles)
  * Create a TileBar with tiles
  * \param sm the sprite manager to load the sprites used by the map
- * \param win The window where the bar will be
+ * \param pWin The window where the bar will be
  * \param listTiles The list of tiles to display in the TileBar
  */
 

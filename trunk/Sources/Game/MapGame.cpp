@@ -1,8 +1,34 @@
+#ifndef DOXYGEN_IGNORE_TAG
+/**
+OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
+Copyright (C) 2010  Alexandre LAURENT
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+website: http://code.google.com/p/openawars/
+e-mail: lw.demoscene@gmail.com
+**/
+#endif
+
 #include "MapGame.h"
 
-#include "../Engine/Renderer.h"
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Game/Camera.h"
+
+#include "../Types/Vec2.h"
+#include "../Types/Colour.h"
 
 #include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
@@ -109,7 +135,7 @@ void MapGame :: enableUnits(void)
     }
 }
 
-bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time)
+bool MapGame :: draw(Window* const pWin, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
@@ -118,7 +144,7 @@ bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time
 
 	LDebug << "Map :: draw";
 
-	this->drawTerrain(r,c,time);
+	this->drawTerrain(pWin,c,time);
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -138,13 +164,11 @@ bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time
 			{
                 if ( unitMap[y][x]->enabled )
                 {
-                    bError &= r.drawTile(*unitsSet[unitViewMap[y][x]].pASprite,tilePos,time);
+                    bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(pWin,tilePos,time);
                 }
                 else
                 {
-                    static const SDL_Colour mask = {128,128,128,255};
-                    
-                    bError &= r.drawTile(*unitsSet[unitViewMap[y][x]].pASprite,tilePos,mask);
+					bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(pWin,tilePos,Colour(128,128,128,255),0);
                 }
 			}
 
@@ -154,11 +178,11 @@ bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time
             // Effects
             if ( effectMap[y][x].isHighlight )
             {
-                bError &= r.drawTile(*pHighlightSprite,tilePos);
+                bError &= pHighlightSprite->draw(pWin,tilePos);
             }
             if ( effectMap[y][x].isAttackable )
             {
-                bError &= r.drawTile(*pAttackableSprite,tilePos);
+                bError &= pAttackableSprite->draw(pWin,tilePos);
             }
             
             // Move on the right

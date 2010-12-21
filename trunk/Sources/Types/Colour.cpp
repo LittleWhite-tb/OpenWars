@@ -22,26 +22,11 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Renderer.h"
+#include "Colour.h"
 
-#include "Renderers/Renderer_opengl.h"
-#include "Renderers/Renderer_sdl.h"
-
-#include "../Utils/Scaler.h"
-
-#include "../globals.h"
-
-Renderer* RendererFactory(Window* const pWin, const RenderingAPI renderingAPI)
+std::ostream& operator<< (std::ostream& o, const Colour& c)
 {
-	switch (renderingAPI)
-	{
-		case RAPI_SDL:
-			return new RSDL(pWin);
-			break;
-		case RAPI_OpenGL:
-			return new ROpenGL(pWin);
-			break;
-	}
+	o << "Colour(R: " << c.r << " ; G: " << c.g << " ; B: " << c.b << " ; A: " << c.a << ")";
 
-	return NULL;
+	return o;
 }

@@ -30,6 +30,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+struct Colour;
+struct Rect;
+
 class NEngine
 {
 private:
@@ -37,16 +40,92 @@ private:
 public:
 	virtual ~NEngine() {}
 
-	virtual Window createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)=0;
-	virtual USize2 getWindowSize(const Window win)=0;
-	virtual int getBitsPerPixel(const Window win)=0;
-	virtual void destroyWindow(Window win)=0;
+	// Windowing
+	virtual Window* createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)=0;
+	virtual USize2 getWindowSize(const Window* const pWin)=0;
+	virtual int getBitsPerPixel(const Window* const pWin)=0;
+	virtual void destroyWindow(Window* const pWin)=0;
 
 	virtual bool isCursorVisible(void)const=0;
 	virtual void setCursorVisible(const bool mustShowCursor)const=0;
 	virtual void setCaption(const std::string& windowName, const std::string& iconName)const=0;
 
 	virtual bool needWindowClosure(void)const=0;
+
+	// Drawing
+	virtual USize2 getSurfaceSize(const Surface* const pSurface)=0;
+
+	virtual bool clearScreen(Window* const pWin, const Colour& colour)=0;
+
+	virtual bool drawTile(Window* const pWin, const Rect& tile, const Colour& colour)const=0;
+	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface)=0;
+	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Colour& mask)=0;
+	// virtual bool drawSurface(Window* const pWin, const Rect& destRect, Surface* const pSurface)=0;
+	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect)=0;
+	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect, const Colour& mask)=0;
 };
+
+/*! \class NEngine NEngine.h "NEngine/NEngine.h"
+ *  \brief Interface describing how to implement a NEngine for the application
+ *
+ * By saying this class as interface, it means that it is a virtual pure class.
+ * Each inheritency of this class should reimplement all functions described here to give a complete wrapper for the application upper the graphical library
+ * The class handle all basics needed by a game application such as:
+ *		- Window
+ *		- Drawing operations
+ *		- Inputs handling
+ *		- Pictures loading
+ *		- Font management
+ */
+
+/*! \fn virtual NEngine::~NEngine()
+ */
+
+/*! \fn virtual Window* NEngine::createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)=0
+ * \brief Create a window where to render
+ * \param winSize the size of the window
+ * \param bpp the Bits per pixel wanted
+ * \param isFullscreen true if the window should be fullscreen
+ * \param isOpenGL true if the window should be compatible with OpenGL
+ * \return a pointer to the window
+ */
+
+/*! \fn virtual USize2 NEngine::getWindowSize(const Window* const pWin)=0
+ * \brief Get the size of the Window
+ * \param pWin a pointer to the window
+ * \return the size of the window
+ */
+
+/*! \fn virtual int NEngine::getBitsPerPixel(const Window* const pWin)=0
+ * \brief Get the number of bits per pixel of the Window
+ * \param pWin a pointer to the window
+ * \return the number of bits per pixel
+ */
+
+/*! \fn virtual void NEngine::destroyWindow(Window* const pWin)=0
+ * \brief Destroy the Window
+ * \param pWin pointer on the window to destroy
+ */
+
+/*! \fn virtual bool NEngine::isCursorVisible(void)const=0
+ * \brief Get if the cursor is visible
+ * \return true if the cursor is visible
+ */
+
+/*! \fn virtual void NEngine::setCursorVisible(const bool mustShowCursor)const=0
+ * \brief Set the visibility of the cursor
+ * \param mustShowCursor true if the cursor must be visible
+ */
+
+/*! \fn virtual void NEngine::setCaption(const std::string& windowName, const std::string& iconName)const=0
+ * \brief Set the name and icon for the Window
+ * \param windowName the new name of the window
+ * \param iconName the path to the icon
+ */
+
+/*! \fn virtual bool NEngine::needWindowClosure(void)const=0
+ * \brief Get if the window has to be closes (after the user clicked on the red cross)
+ * \return true if the window should be closed
+ */
 
 #endif

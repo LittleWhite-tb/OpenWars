@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Map.h"
 
+#include "../NEngine/NETypes.h"
+
 class Renderer;
 class Camera;
 
@@ -56,7 +58,7 @@ public:
 	MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size);
 	MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
 
-	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
+	bool draw(Window* const pWin, const Camera& c, const unsigned int time);
 
 	bool testTile(const UVec2& position, const TileType tileType)const;
 

@@ -74,11 +74,11 @@ private:
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	ConstructBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+	ConstructBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList);
 	~ConstructBox(void);
 
-	bool draw(const Renderer& r, const unsigned int moneyAvailable);
+	bool draw(Window* const pWin, const unsigned int moneyAvailable);
 
 	void update(const ArrowsDirection kd);
 
@@ -91,10 +91,10 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
  * The ContructBox show a list of unit with name and price that we can build
  */
 
-/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
+/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
  * \param sm the SpriteManaget to load the sprites
  * \param fm the FontManager to load the fonts
- * \param win the window to draw in
+ * \param pWin the window to draw in
  * \param backgroundFileName the path to the sprite to load for the background
  * \param cursorFileName the path to the sprite to load for the cursor
  * \param upArrowFileName the path to the sprite to load for the up arrow

@@ -24,8 +24,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Cursor.h"
 
+#include "../NEngine/NETypes.h"
+
 #include "Map.h"
-#include "../Engine/Renderer.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Controls/Keyboard.h"
 #include "../Utils/Logger.h"
@@ -158,7 +159,7 @@ bool Cursor :: move(const UVec2& newPosition)
 	return true;
 }
 
-bool Cursor :: draw(const Renderer& r, const Camera& c, const unsigned int time)const
+bool Cursor :: draw(Window* const pWin, const Camera& c, const unsigned int time)const
 {
 	UVec2 cameraPosition = c.getPosition();
 	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),
@@ -167,5 +168,5 @@ bool Cursor :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 	screenPosition.x += Scaler::getOffset().x;
 	screenPosition.y += Scaler::getOffset().y;
 
-	return r.drawTile(*pCursorSprite,screenPosition,time);
+	return pCursorSprite->draw(pWin,screenPosition,time);
 }

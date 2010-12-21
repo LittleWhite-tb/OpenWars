@@ -29,13 +29,13 @@ e-mail: lw.demoscene@gmail.com
 
 struct Colour
 {
-	unsigned char r; 
-	unsigned char g; 
-	unsigned char b; 
-	unsigned char a;
+	unsigned char r;		/*!< Red componant */
+	unsigned char g;		/*!< Green componant */
+	unsigned char b;		/*!< Blue componant */
+	unsigned char a;		/*!< Alpha componant */
 
 	Colour():r(255),g(255),b(255),a(255) {}
-	Colour(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a):r(r),g(g),b(b),a(a) {}
+	Colour(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a=255):r(r),g(g),b(b),a(a) {}
 	Colour(const unsigned int rgba) { setRGBA(rgba); }
 
 	void setRGBA(const unsigned int rgba)
@@ -47,12 +47,34 @@ struct Colour
 	}
 };
 
-std::ostream& operator<< (std::ostream& o, const Colour& c)
-{
-	o << "Colour(R: " << c.r << " ; G: " << c.g << " ; B: " << c.b << " ; A: " << c.a << ")";
+std::ostream& operator<< (std::ostream& o, const Colour& c);
 
-	return o;
-}
+/*! \struct Colour Colour.h Types/Colour.h
+ * \brief Colour container
+ *
+ * Contain a color in 32bit representation (8R ; 8G ; 8B ; 8A)
+ */
+
+/*! \fn Colour::Colour()
+ * \brief Create a white colour
+ */
+
+/*! \fn Colour::Colour(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a)
+ * \brief Create the colour from parameters
+ * \param r the red component
+ * \param g the green component
+ * \param b the blue component
+ * \param a the alpha component
+ */
+
+/*! \fn Colour::Colour(const unsigned int rgba)
+ * \brief Create the colour from a 32bit representation (RGBA)
+ * \param rgba the colour
+ */
+
+/*! \fn void Colour::setRGBA(const unsigned int rgba)
+ * \brief Set the colour to rgba
+ */
 
 /*! \fn std::ostream& operator<< (std::ostream& o, const Colour& c)
 	\param o the stream where to send the output

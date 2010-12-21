@@ -26,8 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Engine/Renderer.h"
-
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 
@@ -38,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 
 Engine::Engine(void)
-:pWin(NULL),pRenderer(NULL),pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
+:pWin(NULL),pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
 {
 
 }
@@ -49,16 +47,13 @@ Engine :: ~Engine(void)
 	delete pVT;
 	delete pFM;
 	delete pSM;
-	delete pRenderer;
 }
 
-bool Engine :: init(Window* pWin, const RenderingAPI rAPI)
+bool Engine :: init(Window* pWin)
 {
 	assert(pWin);
 
 	this->pWin = pWin;
-
-	pRenderer = RendererFactory(pWin,rAPI);
 
 	pSM = new SpriteManager();
 	pFM = new FontManager();
@@ -66,7 +61,7 @@ bool Engine :: init(Window* pWin, const RenderingAPI rAPI)
 	pVT = new VTime(60,10);
 	pKB = new Keyboard();
 
-	if ( pRenderer == NULL || pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
+	if ( pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
 	{
 		// THe memory will be cleaned by the destructor
 		return false;

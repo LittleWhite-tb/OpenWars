@@ -27,10 +27,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-struct SDL_Surface;
-struct SDL_Color;
+#include "../NEngine/NETypes.h"
+#include "../Types/Vec2.h"
 
 class SpriteManager;
+struct Colour;
 
 class Sprite
 {
@@ -42,18 +43,22 @@ private:
 
 protected:
 	
-	SDL_Surface* surface;		/*!< the internal surface */
+	Surface* pSurface;		/*!< the internal surface */
 
 public:
 	Sprite(SpriteManager& sm, const std::string& fileName,const bool needScaling);
-	Sprite(SDL_Surface* pSurface);
+	Sprite(Surface* pSurface);
 
 	virtual ~Sprite(void);
 
 	virtual int getWidth(void)const;
 	virtual int getHeight(void)const;
+	virtual USize2 getSize(void)const;
 
-	SDL_Surface* getSurface(void)const { return surface; }
+	Surface* getSurface(void)const { return pSurface; }
+
+	virtual bool draw(Window* const pWin, const IVec2& position);
+	virtual bool draw(Window* const pWin, const IVec2& position, const Colour& mask);
 };
 
 /*! \class Sprite Sprite.h "Engine/Sprite.h"

@@ -29,11 +29,13 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <cassert>
+
+#include "../NEngine/NETypes.h"
 
 #include "Tile.h"
 #include "Unit.h"
 
-#include "../Engine/Renderer.h"
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/AnimatedSprite.h"
 
@@ -402,11 +404,12 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: drawTerrain(const Renderer& r, const Camera& c, const unsigned int time)
+bool Map :: drawTerrain(Window* const pWin, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
 	IVec2 tilePos(0,mapOffset.y);
+	bool bResult = true;
 
 	LDebug << "Map :: drawTerrain";
 
@@ -424,13 +427,13 @@ bool Map :: drawTerrain(const Renderer& r, const Camera& c, const unsigned int t
 			// Draw the background sprite ( Plain )
 			if ( tilesSet[map[y][x]].needBackground )
 			{
-				r.drawTile(*tilesSet[TT_Plain].pASprite,tilePos);
+				bResult &= tilesSet[TT_Plain].pASprite->draw(pWin,tilePos,0);
 			}
 
 			// Apply offset
 			tilePos.y -= yOffset;
 
-			r.drawTile(*tilesSet[map[y][x]].pASprite,tilePos,time);
+			bResult &= tilesSet[map[y][x]].pASprite->draw(pWin,tilePos,time);
 			
 			// Move on the right
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();

@@ -32,7 +32,6 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NE.h"
 #include "NEngine/NEngine.h"
 
-#include "Engine/Renderer.h"
 #include "Game/GameEngine.h"
 
 #include "Types/Vec2.h"
@@ -111,8 +110,8 @@ int main(int argc, char** argv)
 	}
 
 	{
-		Window win;
-		Renderer* r = RendererFactory(&win, RAPI_SDL);
+		Window* pWin;
+
 		int flags = IMG_INIT_PNG;
 		int initIMG = IMG_Init(flags);
 
@@ -132,17 +131,17 @@ int main(int argc, char** argv)
 				// std::vector<ResolutionInfo> riList;
 				
 				// win.getResolutionsAvailable(false,riList);
-				win = NE::get()->createWindow(winSize,32,needFullscreen,false);
-				if ( win != 0 ) // Window test
+				pWin = NE::get()->createWindow(winSize,32,needFullscreen,false);
+				if ( pWin != NULL ) // Window test
 				{
 					NE::get()->setCaption("OpenAWars","");
 					NE::get()->setCursorVisible(false);
 
-					Scaler::setScaleFactor(win);
+					Scaler::setScaleFactor(pWin);
 
 					GameEngine gEngine;
 						
-					if ( gEngine.init(&win, RAPI_SDL) )
+					if ( gEngine.init(pWin) )
 					{
 						bool engineLoadingState = false;
 
@@ -154,7 +153,7 @@ int main(int argc, char** argv)
 					}
 				}
 
-				NE::get()->destroyWindow(win);
+				NE::get()->destroyWindow(pWin);
 			}
 
 			// Stopping SDL_ttf
@@ -162,8 +161,6 @@ int main(int argc, char** argv)
 			// Bye bye SDL_image
 			IMG_Quit();
 		}
-
-		delete r;
 	}
 
 	// Stopping the Native Engine

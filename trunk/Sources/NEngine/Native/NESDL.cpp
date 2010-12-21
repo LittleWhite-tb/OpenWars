@@ -27,9 +27,12 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL.h>
 
 #include <string>
+#include <cassert>
 
 #include "../NETypes.h"
 #include "../../Types/Vec2.h"
+#include "../../Types/Colour.h"
+#include "../../Types/Rect.h"
 
 #include "../../Utils/Logger.h"
 #include "../../Utils/Exceptions/ConstructionFailedException.h"
@@ -103,13 +106,13 @@ Uint32 NESDL :: getFlags(const bool isFullscreen, const bool isOpenGL)const
 	return sdlVideoFlags;
 }
 
-Window NESDL :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)
+Window* NESDL :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)
 {
 	Uint32 sdlVideoFlags = this->getFlags(isFullscreen,isOpenGL);
 
 	LDebug << "NESDL :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << "|" << isOpenGL << ")";
 
-	Window pWindowSurface = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
+	Window* pWindowSurface = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
 
 	if ( pWindowSurface != NULL )
 	{
@@ -125,20 +128,25 @@ Window NESDL :: createWindow(const USize2& winSize, const unsigned short bpp, co
 	return NULL;
 }
 
-void NESDL :: destroyWindow(Window win)
+void NESDL :: destroyWindow(Window* const pWin)
 {
+	assert(pWin);
 	// Nothing to do for SDL ... SDL_Quit() does the job
-	(void)win;
+	(void)pWin;
 }
 
-USize2 NESDL :: getWindowSize(const Window win)
+USize2 NESDL :: getWindowSize(const Window* const pWin)
 {
-	return USize2(win->w,win->h);
+	assert(pWin);
+
+	return USize2(pWin->w,pWin->h);
 }
 
-int NESDL :: getBitsPerPixel(const Window win)
+int NESDL :: getBitsPerPixel(const Window* const pWin)
 {
-	return win->format->BitsPerPixel;
+	assert(pWin);
+
+	return pWin->format->BitsPerPixel;
 }
 
 bool NESDL :: isCursorVisible(void)const
@@ -181,4 +189,204 @@ void NESDL :: setCaption(const std::string& windowName, const std::string& iconN
 	{
 		SDL_WM_SetCaption(windowName.c_str(), iconName.c_str());
 	}
+}
+
+//Drawing
+
+USize2 NESDL :: getSurfaceSize(const Surface* const pSurface)
+{
+	assert(pSurface);
+	return USize2(pSurface->w,pSurface->h);
+}
+
+bool NESDL :: clearScreen(Window* const pWin, const Colour& colour)
+{
+	assert(pWin);
+
+	if ( SDL_FillRect(pWin,NULL,SDL_MapRGB(pWin->format,colour.r,colour.g,colour.b)) != 0 )
+	{
+		LWarning << "Fail to clear the screen";
+		return false;
+	}
+
+	return true;
+}
+
+bool NESDL :: drawTile(Window* const pWin, const Rect& tile, const Colour& colour)const
+{
+	SDL_Rect sdlTile = { static_cast<short int>(tile.position.x),
+						static_cast<short int>(tile.position.y),
+						static_cast<unsigned short int>(tile.position.width),
+						static_cast<unsigned short int>(tile.position.height) };
+
+	if ( SDL_FillRect(pWin, &sdlTile, SDL_MapRGBA(pWin->format, colour.r, colour.g, colour.b, colour.a)) == -1 )
+	{
+		LWarning << "Failed to draw";
+		return false;
+	}
+
+	return true;
+}
+
+bool NESDL :: drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface)
+{
+	assert(pWin);
+	assert(pSurface);
+
+	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
+						static_cast<short int>(position.y),
+						static_cast<unsigned short int>(pSurface->w),
+						static_cast<unsigned short int>(pSurface->h) };
+
+	if ( SDL_BlitSurface(pSurface, NULL, pWin, &sdlDestRect) != 0 )
+	{
+		LWarning << "Fail to blit the surface";
+		return false;
+	}
+
+	return true;
+}
+
+bool NESDL :: drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Colour& mask)
+{
+	assert(pWin);
+	assert(pSurface);
+
+	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
+						static_cast<short int>(position.y),
+						static_cast<unsigned short int>(pSurface->w),
+						static_cast<unsigned short int>(pSurface->h) };
+
+	SDL_Surface* pSrc = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, pSurface->w, pSurface->h, pSurface->format->BitsPerPixel, mask.r,mask.g,mask.b, mask.a);
+	if ( pSrc == NULL )
+    {
+		LWarning << "Fail to produce the copy of the sprite for RSDL :: drawTile";
+        return false;
+
+    }
+
+	// The masking is done in CreateRGBSurface
+	if ( SDL_BlitSurface(pSurface, NULL, pSrc, NULL)  != 0 )
+	{
+		LWarning << "Fail to copy the sprite in a temporary surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	// Making a pre blit with the original image
+	if ( SDL_BlitSurface(pSurface, NULL, pWin, &sdlDestRect)  != 0 )
+	{
+		LWarning << "Fail to copy the sprite in a temporary surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	// Apply the filter
+	if ( SDL_BlitSurface(pSrc, NULL, pWin, &sdlDestRect) != 0 )
+	{
+		LWarning << "Fail to blit the surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	SDL_FreeSurface(pSrc);
+
+	return true;
+}
+
+/*
+bool drawSurface(Window* const pWin, const Rect& destRect, Surface* const pSurface)
+{
+	assert(pWin);
+	assert(pSurface);
+
+	SDL_Rect sdlDestRect = { static_cast<short int>(destRect.position.x),
+						static_cast<short int>(destRect.position.y),
+						static_cast<unsigned short int>(destRect.position.width),
+						static_cast<unsigned short int>(destRect.position.height) };
+
+	if ( SDL_BlitSurface(pSurface, NULL, pWin, &sdlDestRect) != 0 )
+	{
+		LWarning << "Fail to blit the surface";
+		return false;
+	}
+
+	return true;
+}
+*/
+
+bool NESDL :: drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect)
+{
+	assert(pWin);
+	assert(pSurface);
+
+	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
+						static_cast<short int>(position.y),
+						static_cast<unsigned short int>(srcRect.size.width),
+						static_cast<unsigned short int>(srcRect.size.height) };
+
+	SDL_Rect sdlSrcRect = { static_cast<short int>(srcRect.position.x),
+						static_cast<short int>(srcRect.position.y),
+						static_cast<unsigned short int>(srcRect.size.width),
+						static_cast<unsigned short int>(srcRect.size.height) };
+
+	if ( SDL_BlitSurface(pSurface, &sdlSrcRect, pWin, &sdlDestRect) != 0 )
+	{
+		LWarning << "Fail to blit the surface";
+		return false;
+	}
+
+	return true;
+}
+
+bool NESDL :: drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect, const Colour& mask)
+{
+	assert(pWin);
+	assert(pSurface);
+
+	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
+						static_cast<short int>(position.y),
+						static_cast<unsigned short int>(srcRect.size.width),
+						static_cast<unsigned short int>(srcRect.size.height) };
+
+	SDL_Rect sdlSrcRect = { static_cast<short int>(srcRect.position.x),
+						static_cast<short int>(srcRect.position.y),
+						static_cast<unsigned short int>(srcRect.size.width),
+						static_cast<unsigned short int>(srcRect.size.height) };
+
+	SDL_Surface* pSrc = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, srcRect.size.width, srcRect.size.height, pSurface->format->BitsPerPixel, mask.r,mask.g,mask.b, mask.a);
+	if ( pSrc == NULL )
+    {
+		LWarning << "Fail to produce the copy of the sprite for RSDL :: drawTile";
+        return false;
+
+    }
+
+	// The masking is done in CreateRGBSurface
+	if ( SDL_BlitSurface(pSurface, &sdlSrcRect, pSrc, NULL)  != 0 )
+	{
+		LWarning << "Fail to copy the sprite in a temporary surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	// Making a pre blit with the original image
+	if ( SDL_BlitSurface(pSurface, &sdlSrcRect, pWin, &sdlDestRect)  != 0 )
+	{
+		LWarning << "Fail to copy the sprite in a temporary surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	// Apply the filter
+	if ( SDL_BlitSurface(pSrc, NULL, pWin, &sdlDestRect) != 0 )
+	{
+		LWarning << "Fail to blit the surface";
+		SDL_FreeSurface(pSrc);
+		return false;
+	}
+
+	SDL_FreeSurface(pSrc);
+
+	return true;
 }

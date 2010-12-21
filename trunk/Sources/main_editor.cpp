@@ -189,7 +189,7 @@ int main(int argc, char** argv)
 	}
 
 	{
-		Window win;
+		Window* pWin;
 
 		int flags = IMG_INIT_PNG;
 		int initIMG = IMG_Init(flags);
@@ -210,16 +210,16 @@ int main(int argc, char** argv)
 				// std::vector<ResolutionInfo> riList;
 
 				// win.getResolutionsAvailable(false,riList);
-				win = NE::get()->createWindow(winSize,32,needFullscreen,false);
-				if ( win != 0 ) // Window test
+				pWin = NE::get()->createWindow(winSize,32,needFullscreen,false);
+				if ( pWin != NULL ) // Window test
 				{
 					NE::get()->setCaption("OpenAWars Editor","");
 					NE::get()->setCursorVisible(false);
 
-					Scaler::setScaleFactor(win);
+					Scaler::setScaleFactor(pWin);
 					EditorEngine eEngine;
 					
-					if ( eEngine.init(&win, RAPI_SDL) )
+					if ( eEngine.init(pWin) )
 					{
 						bool engineLoadingState = false;
 						if ( !loadMapName.empty() )
@@ -238,7 +238,7 @@ int main(int argc, char** argv)
 					}
 				}
 
-				NE::get()->destroyWindow(win);
+				NE::get()->destroyWindow(pWin);
 			}
 
 			// Stopping SDL_ttf

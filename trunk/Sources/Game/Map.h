@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <map>
 
+#include "../NEngine/NETypes.h"
+
 #include "Tile.h"
 #include "Unit.h"
 
@@ -63,13 +65,13 @@ protected:
 
 	bool parser(SpriteManager& sm, const std::string& fileName);
 
-	bool drawTerrain(const Renderer& r, const Camera& c, const unsigned int time);
+	bool drawTerrain(Window* const pWin, const Camera& c, const unsigned int time);
 
 public:
 	Map(SpriteManager& sm, const std::string& fileName);
 	virtual ~Map(void);
 
-	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)=0;
+	virtual bool draw(Window* const pWin, const Camera& c, const unsigned int time)=0;
 
 	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
     

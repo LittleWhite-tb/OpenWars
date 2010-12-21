@@ -27,6 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "../NEngine/NETypes.h"
+
 #include "../Engine/Controls/Keyboard.h"
 #include "../Game/Tile.h"
 #include "../Types/Vec2.h"
@@ -34,7 +36,6 @@ e-mail: lw.demoscene@gmail.com
 class Map;
 class Camera;
 struct Tile;
-class Renderer;
 class SpriteManager;
 class AnimatedSprite;
 
@@ -65,7 +66,7 @@ public:
 	bool move(const ArrowsDirection ad);
 	bool move(const UVec2& newPosition);
 
-	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
+	virtual bool draw(Window* const pWin, const Camera& c, const unsigned int time)const;
 };
 
 /*! \class Cursor Cursor.h "Game/Cursor.h"

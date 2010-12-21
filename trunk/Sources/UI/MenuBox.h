@@ -72,10 +72,10 @@ private:
 	std::vector<MenuView*> entries;    /*!< entries in the UI */
 
 public:
-	MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries);
+	MenuBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries);
 	~MenuBox(void);
 
-	bool draw(const Renderer& r, const UVec2& cursorPosition, const unsigned int time);
+	bool draw(Window* const pWin, const UVec2& cursorPosition, const unsigned int time);
 
 	void update(const ArrowsDirection kd);
 
@@ -91,10 +91,10 @@ public:
  * The background is constructed on the fly, so it needs special precaution.
  */
 
-/*! \fn MenuBox::MenuBox(SpriteManager& sm, FontManager& fm, const Window& win, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries)
+/*! \fn MenuBox::MenuBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries)
  * \param sm The sprite manager to load the sprites
  * \param fm The font manager to load the fonts
- * \param win the window where to draw the UI
+ * \param pWin the window where to draw the UI
  * \param cursorFileName the file to load for the cursor
  * \param fontFileName the font to load for the texts
  * \param entries the entries to display in the UI

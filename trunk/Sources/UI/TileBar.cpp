@@ -29,13 +29,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include <vector>
 #include <utility>
+#include <cassert>
 
 #include "../NEngine/NE.h"
 #include "../NEngine/NEngine.h"
 #include "../NEngine/NETypes.h"
 
 #include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/Renderer.h"
 #include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Game/Tile.h"
@@ -46,8 +46,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-TileBar :: TileBar(SpriteManager& sm, const Window& win, std::vector<View*>& listTiles)
-:windowSize(NE::get()->getWindowSize(win))
+TileBar :: TileBar(SpriteManager& sm, const Window* const pWin, std::vector<View*>& listTiles)
+:windowSize(NE::get()->getWindowSize(pWin))
 {
 	unsigned int barHeight = static_cast<unsigned int>(64 * Scaler::getYScaleFactor());
 	unsigned int maximumX = 0;
@@ -245,7 +245,7 @@ void TileBar :: close(void)
 	}
 }
 
-bool TileBar :: draw(const Renderer& r, const unsigned int time)
+bool TileBar :: draw(Window* const pWin, const unsigned int time)
 {
 	bool isOk = true;
 
@@ -255,7 +255,7 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 
 	if ( state != TBS_Closed )
 	{
-		isOk &= r.drawTile(*pBarSprite,barPosition);
+		isOk &= pBarSprite->draw(pWin,barPosition);
 	}
 	
 	if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
@@ -303,16 +303,16 @@ bool TileBar :: draw(const Renderer& r, const unsigned int time)
 			// Remove little bug that one sprite is visible on the bound left
 			if ( state != TBS_Opened || tilePosition.x > 0 )
 			{
-				isOk &= r.drawTile(*viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite(), tilePosition, time);
+				isOk &= viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->draw(pWin,tilePosition,time);
 			}
 		}
 
 		// Draw the cursor
-		r.drawTile(*pBarCursor,cursorPosition);
+		isOk &= pBarCursor->draw(pWin,cursorPosition);
 		// Draw the arrow if needed
 		if ( viewList[currentX].size() > 1 && state == TBS_Opened )
 		{
-			r.drawTile(*pBarArrows,cursorPosition);
+			isOk &= pBarArrows->draw(pWin,cursorPosition);
 		}
 	}
 

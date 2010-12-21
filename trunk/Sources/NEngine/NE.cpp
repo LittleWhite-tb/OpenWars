@@ -43,7 +43,13 @@ bool NE::init(void)
 
 	try
 	{
+#ifdef SDL_ENGINE
 		NE::pEngine = new NESDL();
+#elif SFML_ENGINE
+		NE::pEngine = new NESFML();
+#elif GLUT_ENGINE
+		NE::pEngine = new NEGLUT();
+#endif
 	}
 	catch (ConstructionFailedException& cfe)
 	{

@@ -30,7 +30,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/NEngine.h"
 #include "../NEngine/NETypes.h"
 
-#include "../Engine/Renderer.h"
 #include "../Engine/VTime.h"
 
 #include "../UI/TileBarUnits.h"
@@ -42,6 +41,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Camera.h"
 
 #include "../Engine/Controls/Keyboard.h"
+
+#include "../Types/Colour.h"
 
 #include "../Utils/Logger.h"
 
@@ -192,9 +193,9 @@ bool EditorEngine :: load(void)
 
 	try
 	{
-		pUnitTB = new TileBarUnits(*pSM,*pWin,unitTiles);
-		pBuildingTB = new TileBarTiles(*pSM,*pWin,buildingTiles);
-		pTileViewer = new TileViewer(*pSM,*pFM,*pWin,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
+		pUnitTB = new TileBarUnits(*pSM,pWin,unitTiles);
+		pBuildingTB = new TileBarTiles(*pSM,pWin,buildingTiles);
+		pTileViewer = new TileViewer(*pSM,*pFM,pWin,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -208,11 +209,11 @@ bool EditorEngine :: load(void)
 	return true;
 }
 
-bool EditorEngine :: init(Window* pWin, const RenderingAPI rAPI)
+bool EditorEngine :: init(Window* const pWin)
 {
 	bool error = true;
 
-	error = Engine::init(pWin,rAPI);
+	error = Engine::init(pWin);
 
 	LDebug << "EditorEngine init'd";
 
@@ -249,20 +250,20 @@ bool EditorEngine :: run(void)
 	while ( pKB->isEscapePressed() == 0 && NE::get()->needWindowClosure() == false )
 	{
 		// Drawing part
-		pRenderer->clearScreen();
+		NE::get()->clearScreen(pWin,Colour(0,0,0));
 
-		pMap->draw(*pRenderer,*pCam,pVT->getTime());
-		pEC->draw(*pRenderer,*pCam,pVT->getTime());
+		pMap->draw(pWin,*pCam,pVT->getTime());
+		pEC->draw(pWin,*pCam,pVT->getTime());
 
 		if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
 		{
-			pTileViewer->draw(*pRenderer);
+			pTileViewer->draw(pWin);
 		}
 
-		pUnitTB->draw(*pRenderer,0);
-		pBuildingTB->draw(*pRenderer,0);
+		pUnitTB->draw(pWin,0);
+		pBuildingTB->draw(pWin,0);
 
-		SDL_UpdateRect(*pWin,0,0,0,0);
+		SDL_UpdateRect(pWin,0,0,0,0);
 
 		// Update part
 		if ( pVT->canUpdate() )
