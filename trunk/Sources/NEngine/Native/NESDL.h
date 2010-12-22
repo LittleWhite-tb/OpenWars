@@ -40,6 +40,10 @@ private:
 
 	Uint32 getFlags(const bool isFullscreen, const bool isOpenGL)const;
 
+	bool isCursorVisible(void)const;
+	void setCursorVisible(const bool mustShowCursor)const;
+	void setCaption(const std::string& windowName, const std::string& iconName)const;
+
 public:
 	static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
 
@@ -48,14 +52,10 @@ public:
 	~NESDL(void);
 
 	// Windowing
-	Window* createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL);
+	Window* createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false);
 	USize2 getWindowSize(const Window* const pWin);
 	int getBitsPerPixel(const Window* const pWin);
 	void destroyWindow(Window* const pWin);
-
-	bool isCursorVisible(void)const;
-	void setCursorVisible(const bool mustShowCursor)const;
-	void setCaption(const std::string& windowName, const std::string& iconName)const;
 
 	bool needWindowClosure(void)const { return isRedCrossPressed; }
 
@@ -64,18 +64,36 @@ public:
 
 	bool clearScreen(Window* const pWin, const Colour& colour);
 
-	bool drawTile(Window* const pWin, const Rect& tile, const Colour& colour)const;
+	bool drawRect(Window* const pWin, const Rect& tile, const Colour& colour)const;
 	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface);
 	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Colour& mask);
 	// bool drawSurface(Window* const pWin, const Rect& destRect, Surface* const pSurface);
 	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect);
 	bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect, const Colour& mask);
+
+	bool updateScreen(Window* const pWin);
 };
 
 /*! \class NESDL NESDL.h NEngine\Native\NESDL.h
  * \brief SDL implementation
  *
  * \warning the SDL implementation may have some differencies because of the capability of the SDL library. This one can only manage one window at the same time.
+ */
+
+/*! \fn virtual bool NESDL::isCursorVisible(void)const=0
+ * \brief Get if the cursor is visible
+ * \return true if the cursor is visible
+ */
+
+/*! \fn virtual void NESDL::setCursorVisible(const bool mustShowCursor)const=0
+ * \brief Set the visibility of the cursor
+ * \param mustShowCursor true if the cursor must be visible
+ */
+
+/*! \fn virtual void NESDL::setCaption(const std::string& windowName, const std::string& iconName)const=0
+ * \brief Set the name and icon for the Window
+ * \param windowName the new name of the window
+ * \param iconName the path to the icon
  */
 
 /*! \fn Uint32 NESDL::getFlags(const bool isFullscreen, const bool isOpenGL)const

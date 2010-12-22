@@ -183,14 +183,12 @@ int main(int argc, char** argv)
 	}
 
 	// Starting the native engine
-	if ( NE::init() == false )
+	if ( NE::init(winSize,32,needFullscreen,"OpenAWars Editor") == false )
 	{
 		return 1;
 	}
 
 	{
-		Window* pWin;
-
 		int flags = IMG_INIT_PNG;
 		int initIMG = IMG_Init(flags);
 
@@ -207,38 +205,27 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				// std::vector<ResolutionInfo> riList;
-
-				// win.getResolutionsAvailable(false,riList);
-				pWin = NE::get()->createWindow(winSize,32,needFullscreen,false);
-				if ( pWin != NULL ) // Window test
+				
+				Scaler::initScaleFactor();
+				EditorEngine eEngine;
+				
+				if ( eEngine.init() )
 				{
-					NE::get()->setCaption("OpenAWars Editor","");
-					NE::get()->setCursorVisible(false);
-
-					Scaler::setScaleFactor(pWin);
-					EditorEngine eEngine;
-					
-					if ( eEngine.init(pWin) )
+					bool engineLoadingState = false;
+					if ( !loadMapName.empty() )
 					{
-						bool engineLoadingState = false;
-						if ( !loadMapName.empty() )
-						{
-							engineLoadingState = eEngine.load(loadMapName);
-						}
-						else
-						{
-							engineLoadingState = eEngine.load(themeName,UVec2(mapWidth, mapHeight));
-						}
-						if ( engineLoadingState )
-						{
-							eEngine.run();
-							eEngine.saveMap(mapName);
-						}
+						engineLoadingState = eEngine.load(loadMapName);
+					}
+					else
+					{
+						engineLoadingState = eEngine.load(themeName,UVec2(mapWidth, mapHeight));
+					}
+					if ( engineLoadingState )
+					{
+						eEngine.run();
+						eEngine.saveMap(mapName);
 					}
 				}
-
-				NE::get()->destroyWindow(pWin);
 			}
 
 			// Stopping SDL_ttf

@@ -65,7 +65,7 @@ public:
 	EditorEngine(void);
 	~EditorEngine(void);
 
-	bool init(Window* pWin);
+	bool init(void);
 
 	bool load(const std::string& themeName, const UVec2& mapSize);
 	bool load(const std::string& mapName);
@@ -100,10 +100,8 @@ public:
 /*! \fn EditorEngine::~EditorEngine(void)
  */
 
-/*! \fn bool EditorEngine::init(Window* pWin, const RenderingAPI rAPI)
+/*! \fn bool EditorEngine::init()
  * \brief Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
- * \param pWin The window to use with for the editor
- * \param rAPI The rendering API to use
  * \return true if all goes fine
  */
 

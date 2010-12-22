@@ -28,8 +28,6 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <string>
 
-#include "../NEngine/NETypes.h"
-
 #include "../Game/Unit.h"
 
 #include "../Engine/Controls/Keyboard.h"
@@ -74,11 +72,11 @@ private:
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	ConstructBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+	ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList);
 	~ConstructBox(void);
 
-	bool draw(Window* const pWin, const unsigned int moneyAvailable);
+	bool draw(const unsigned int moneyAvailable);
 
 	void update(const ArrowsDirection kd);
 
@@ -91,10 +89,9 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
  * The ContructBox show a list of unit with name and price that we can build
  */
 
-/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
+/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
  * \param sm the SpriteManaget to load the sprites
  * \param fm the FontManager to load the fonts
- * \param pWin the window to draw in
  * \param backgroundFileName the path to the sprite to load for the background
  * \param cursorFileName the path to the sprite to load for the cursor
  * \param upArrowFileName the path to the sprite to load for the up arrow
@@ -106,9 +103,8 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
 /*! \fn ConstructBox::~ConstructBox(void)
  */
 
-/*! \fn bool ConstructBox::draw(const Renderer& r, const unsigned int moneyAvailable)
+/*! \fn bool ConstructBox::draw(const unsigned int moneyAvailable)
  * \brief Draw the construct box
- * \param r the renderer to use to draw the UI
  * \param moneyAvailable the money that the user have
  * \return true if all goes right
  */

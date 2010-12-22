@@ -28,8 +28,6 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <map>
 
-#include "../NEngine/NETypes.h"
-
 #include "Tile.h"
 #include "Unit.h"
 
@@ -65,13 +63,13 @@ protected:
 
 	bool parser(SpriteManager& sm, const std::string& fileName);
 
-	bool drawTerrain(Window* const pWin, const Camera& c, const unsigned int time);
+	bool drawTerrain(const Camera& c, const unsigned int time);
 
 public:
 	Map(SpriteManager& sm, const std::string& fileName);
 	virtual ~Map(void);
 
-	virtual bool draw(Window* const pWin, const Camera& c, const unsigned int time)=0;
+	virtual bool draw(const Camera& c, const unsigned int time)=0;
 
 	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
     
@@ -134,9 +132,8 @@ public:
  * \return true if all goes right
  */
 
-/*! \fn bool Map::drawTerrain(const Renderer& r, const Camera& c, const unsigned int time)
+/*! \fn bool Map::drawTerrain(const Camera& c, const unsigned int time)
  * \brief Draw the terrain map
- * \param r the renderer to use to draw the map
  * \param c The Camera (used to draw the correct part of the Map)
  * \param time the actual time (for animation)
  * \return true if all goes right
@@ -152,9 +149,8 @@ public:
 /*! \fn virtual Map::~Map(void)
  */
 
-/*! \fn virtual bool Map::draw(const Renderer& r, const Camera& c, const unsigned int time)=0
+/*! \fn virtual bool Map::draw(const Camera& c, const unsigned int time)=0
  * \brief Draw the map
- * \param r the renderer to use to draw the map
  * \param c The Camera (used to draw the correct part of the Map)
  * \param time the actual time (for animation)
  * \return true if all goes right

@@ -44,7 +44,7 @@ private:
 
 public:
 
-	static void setScaleFactor(const Window* const pWin);
+	static void initScaleFactor(void);
 
 	static SDL_Surface* scale(SDL_Surface* const pSrcSurface);
 
@@ -81,10 +81,9 @@ public:
  * \return true if all is right
  */
 
-/*! \fn static void Scaler::setScaleFactor(const Window* const pWin)
- * \brief Set the scaling factors
+/*! \fn static void Scaler::initScaleFactor()
+ * \brief Init the scaling factors
  * To determine the scaling factor, we are using the size of the window plus some globals set in globals.h
- * \param pWin the window to match
  */
 
 /*! \fn static SDL_Surface* Scaler::scale(SDL_Surface* const pSrcSurface)

@@ -54,7 +54,7 @@ public:
 	bool getIsWrong(void)const { return isWrong; }
 	void setIsWrong(const bool isWrong) { this->isWrong = isWrong; }
 
-	virtual bool draw(Window* const pWin, const Camera& c, const unsigned int time)const;
+	virtual bool draw(const Camera& c, const unsigned int time)const;
 };
 
 /*! \class EditingCursor EditingCursor.h "Game/EditingCursor.h"

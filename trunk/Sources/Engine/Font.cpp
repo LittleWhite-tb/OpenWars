@@ -65,7 +65,7 @@ IVec2 Font :: getSize(const std::string& text)
 	return size;
 }
 
-bool Font :: draw(Window* const pWin, const std::string& text, const IVec2& position)
+bool Font :: draw(const std::string& text, const IVec2& position)
 {
 	bool error = false;
 
@@ -79,7 +79,7 @@ bool Font :: draw(Window* const pWin, const std::string& text, const IVec2& posi
 		return false;
 	}
 
-	error = Sprite(pTmpSurface).draw(pWin,position);
+	error = Sprite(pTmpSurface).draw(position);
 
 	SDL_FreeSurface(pTmpSurface);
 

@@ -193,9 +193,9 @@ bool EditorEngine :: load(void)
 
 	try
 	{
-		pUnitTB = new TileBarUnits(*pSM,pWin,unitTiles);
-		pBuildingTB = new TileBarTiles(*pSM,pWin,buildingTiles);
-		pTileViewer = new TileViewer(*pSM,*pFM,pWin,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
+		pUnitTB = new TileBarUnits(*pSM,unitTiles);
+		pBuildingTB = new TileBarTiles(*pSM,buildingTiles);
+		pTileViewer = new TileViewer(*pSM,*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -209,11 +209,11 @@ bool EditorEngine :: load(void)
 	return true;
 }
 
-bool EditorEngine :: init(Window* const pWin)
+bool EditorEngine :: init(void)
 {
 	bool error = true;
 
-	error = Engine::init(pWin);
+	error = Engine::init();
 
 	LDebug << "EditorEngine init'd";
 
@@ -247,23 +247,23 @@ bool EditorEngine :: run(void)
 {
 	bool isUnit = false;
 
-	while ( pKB->isEscapePressed() == 0 && NE::get()->needWindowClosure() == false )
+	while ( pKB->isEscapePressed() == 0 && NE::needWindowClosure() == false )
 	{
 		// Drawing part
-		NE::get()->clearScreen(pWin,Colour(0,0,0));
+		NE::clearScreen(Colour(0,0,0));
 
-		pMap->draw(pWin,*pCam,pVT->getTime());
-		pEC->draw(pWin,*pCam,pVT->getTime());
+		pMap->draw(*pCam,pVT->getTime());
+		pEC->draw(*pCam,pVT->getTime());
 
 		if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
 		{
-			pTileViewer->draw(pWin);
+			pTileViewer->draw();
 		}
 
-		pUnitTB->draw(pWin,0);
-		pBuildingTB->draw(pWin,0);
+		pUnitTB->draw(0);
+		pBuildingTB->draw(0);
 
-		SDL_UpdateRect(pWin,0,0,0,0);
+		NE::updateScreen();
 
 		// Update part
 		if ( pVT->canUpdate() )

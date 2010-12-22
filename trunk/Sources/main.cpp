@@ -104,14 +104,12 @@ int main(int argc, char** argv)
 	}
 
 	// Starting the native engine
-	if ( NE::init() == false )
+	if ( NE::init(winSize,32,needFullscreen,"OpenAWars") == false )
 	{
 		return 1;
 	}
 
 	{
-		Window* pWin;
-
 		int flags = IMG_INIT_PNG;
 		int initIMG = IMG_Init(flags);
 
@@ -128,32 +126,21 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				// std::vector<ResolutionInfo> riList;
-				
-				// win.getResolutionsAvailable(false,riList);
-				pWin = NE::get()->createWindow(winSize,32,needFullscreen,false);
-				if ( pWin != NULL ) // Window test
+
+				Scaler::initScaleFactor();
+
+				GameEngine gEngine;
+					
+				if ( gEngine.init() )
 				{
-					NE::get()->setCaption("OpenAWars","");
-					NE::get()->setCursorVisible(false);
+					bool engineLoadingState = false;
 
-					Scaler::setScaleFactor(pWin);
-
-					GameEngine gEngine;
-						
-					if ( gEngine.init(pWin) )
+					engineLoadingState = gEngine.load(loadMapName);
+					if ( engineLoadingState )
 					{
-						bool engineLoadingState = false;
-
-						engineLoadingState = gEngine.load(loadMapName);
-						if ( engineLoadingState )
-						{
-							gEngine.run();
-						}
+						gEngine.run();
 					}
 				}
-
-				NE::get()->destroyWindow(pWin);
 			}
 
 			// Stopping SDL_ttf

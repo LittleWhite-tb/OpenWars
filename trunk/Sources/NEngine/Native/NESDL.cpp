@@ -106,17 +106,21 @@ Uint32 NESDL :: getFlags(const bool isFullscreen, const bool isOpenGL)const
 	return sdlVideoFlags;
 }
 
-Window* NESDL :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)
+Window* NESDL :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon, const bool showCursor)
 {
-	Uint32 sdlVideoFlags = this->getFlags(isFullscreen,isOpenGL);
+	Uint32 sdlVideoFlags = this->getFlags(isFullscreen,false);
 
-	LDebug << "NESDL :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << "|" << isOpenGL << ")";
+	LDebug << "NESDL :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << ")";
 
 	Window* pWindowSurface = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
 
 	if ( pWindowSurface != NULL )
 	{
 		LDebug << "Obtained: " << pWindowSurface->w << "x" << pWindowSurface->h << "x" << pWindowSurface->format->BitsPerPixel;
+
+		// Set additionnal settings
+		this->setCaption(windowName,windowIcon);
+		this->setCursorVisible(showCursor);
 
 		// Installing the event 
 		SDL_SetEventFilter(&sdlQuitEventFilter);
@@ -212,7 +216,7 @@ bool NESDL :: clearScreen(Window* const pWin, const Colour& colour)
 	return true;
 }
 
-bool NESDL :: drawTile(Window* const pWin, const Rect& tile, const Colour& colour)const
+bool NESDL :: drawRect(Window* const pWin, const Rect& tile, const Colour& colour)const
 {
 	SDL_Rect sdlTile = { static_cast<short int>(tile.position.x),
 						static_cast<short int>(tile.position.y),
@@ -387,6 +391,15 @@ bool NESDL :: drawSurface(Window* const pWin, const IVec2& position, Surface* co
 	}
 
 	SDL_FreeSurface(pSrc);
+
+	return true;
+}
+
+bool NESDL :: updateScreen(Window* const pWin)
+{
+	assert(pWin);
+
+	SDL_UpdateRect(pWin,0,0,0,0);
 
 	return true;
 }

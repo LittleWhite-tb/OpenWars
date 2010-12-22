@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 
 Engine::Engine(void)
-:pWin(NULL),pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
+:pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
 {
 
 }
@@ -49,12 +49,8 @@ Engine :: ~Engine(void)
 	delete pSM;
 }
 
-bool Engine :: init(Window* pWin)
+bool Engine :: init()
 {
-	assert(pWin);
-
-	this->pWin = pWin;
-
 	pSM = new SpriteManager();
 	pFM = new FontManager();
 

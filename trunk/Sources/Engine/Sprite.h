@@ -57,8 +57,8 @@ public:
 
 	Surface* getSurface(void)const { return pSurface; }
 
-	virtual bool draw(Window* const pWin, const IVec2& position);
-	virtual bool draw(Window* const pWin, const IVec2& position, const Colour& mask);
+	virtual bool draw(const IVec2& position);
+	virtual bool draw(const IVec2& position, const Colour& mask);
 };
 
 /*! \class Sprite Sprite.h "Engine/Sprite.h"
@@ -80,7 +80,7 @@ public:
  * \param needScaling if some scaling operation has to be done on this sprite
  */
 
-/*! \fn Sprite::Sprite(SDL_Surface* pSurface)
+/*! \fn Sprite::Sprite(Surface* pSurface)
  * The SDL_Surface should be ready to use.
  * \warning The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using getSurface().
  * \param pSurface pointer on the surface to use
@@ -100,9 +100,27 @@ public:
  * \return returns the height of the surface
  */
 
+/*! \fn virtual USize2 Sprite::getSize(void)const
+ * \brief Get the size
+ * \return returns the size of the surface
+ */
+
 /*! \fn SDL_Surface* Sprite::getSurface(void)const
  * \brief Get the surface
  * \return returns the surface
+ */
+
+/*! \fn virtual bool Sprite::draw(const IVec2& position)
+ * \brief Draw the Sprite at position
+ * \param position where to draw the sprite
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool Sprite::draw(const IVec2& position, const Colour& mask)
+ * \brief Draw the Sprite at position
+ * \param position where to draw the sprite
+ * \param mask mask to use when drawing the sprite
+ * \return true if all goes right
  */
 
 #endif

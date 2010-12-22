@@ -51,7 +51,7 @@ private:
 	std::vector<std::vector<UnitView> > unitsList;		/*<! The units to be displayed in the TileBar */
 
 public:
-	TileBarUnits(SpriteManager& sm, const Window* const pWin, std::vector<UnitView*>& listTiles);
+	TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles);
 
 	UnitType getSelected(void)const;
 };
@@ -81,10 +81,9 @@ public:
  *
  */
 
-/*! \fn TileBarUnits::TileBarUnits(SpriteManager& sm, const Window* const pWin, std::vector<UnitView*>& listTiles)
+/*! \fn TileBarUnits::TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles)
  * \brief Create a TileBar with units
  * \param sm the sprite manager to load the sprites used by the map
- * \param pWin The window where the bar will be
  * \param listTiles The list of units to display in the TileBar
 
 /*! \fn UnitType TileBarUnits::getSelected(void)const

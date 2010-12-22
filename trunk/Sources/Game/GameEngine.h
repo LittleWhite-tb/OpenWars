@@ -81,7 +81,7 @@ public:
 	GameEngine();
 	~GameEngine();
 
-	bool init(Window* pWin);
+	bool init(void);
 
 	bool load(const std::string& mapName);
 
@@ -107,10 +107,8 @@ public:
 /*! \fn GameEngine::~GameEngine()
  */
 
-/*! \fn bool GameEngine::init(Window* pWin, const RenderingAPI rAPI)
+/*! \fn bool GameEngine::init()
  * \brief Init the Game Engine
- * \param pWin the window to use for the game
- * \param rAPI the API to start for rendering
  * \return true if all goes right
  */
 

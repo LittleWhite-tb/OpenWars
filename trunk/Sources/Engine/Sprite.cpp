@@ -55,7 +55,7 @@ Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool need
 	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
 }
 
-Sprite :: Sprite(SDL_Surface* pSurface)
+Sprite :: Sprite(Surface* pSurface)
 	:pSurface(pSurface)
 {
 	assert(pSurface);
@@ -69,29 +69,25 @@ Sprite :: ~Sprite(void)
 
 USize2 Sprite :: getSize(void)const
 {
-	return NE::get()->getSurfaceSize(pSurface);
+	return NE::getSurfaceSize(pSurface);
 }
 
 int Sprite :: getWidth(void)const
 {
-	return NE::get()->getSurfaceSize(pSurface).width;
+	return NE::getSurfaceSize(pSurface).width;
 }
 
 int Sprite :: getHeight(void)const
 {
-	return NE::get()->getSurfaceSize(pSurface).height;
+	return NE::getSurfaceSize(pSurface).height;
 }
 
-bool Sprite :: draw(Window* const pWin, const IVec2& position)
+bool Sprite :: draw(const IVec2& position)
 {
-	assert(pWin);
-
-	return NE::get()->drawSurface(pWin, position, this->pSurface);
+	return NE::drawSurface(position, this->pSurface);
 }
 
-bool Sprite :: draw(Window* const pWin, const IVec2& position, const Colour& mask)
+bool Sprite :: draw(const IVec2& position, const Colour& mask)
 {
-	assert(pWin);
-
-	return NE::get()->drawSurface(pWin, position, this->pSurface,mask);
+	return NE::drawSurface(position, this->pSurface,mask);
 }

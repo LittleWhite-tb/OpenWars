@@ -28,8 +28,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Game/Tile.h"
 
-#include "../NEngine/NETypes.h"
-
 #include "../Types/Vec2.h"
 
 class SpriteManager;
@@ -54,7 +52,7 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	TileViewer(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& fileNameBackground, const std::string& fileNameFont);
+	TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont);
 	~TileViewer(void);
 
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
@@ -64,7 +62,7 @@ public:
 	void putOnLeft(void);
 	void putOnRight(void);
 
-	bool draw(Window* const pWin);
+	bool draw();
 };
 
 /*! \class TileViewer TileViewer.h "Engine/TileViewer.h"
@@ -76,11 +74,10 @@ public:
  *		- Change the tile
  */
 
-/*! \fn TileViewer::TileViewer(SpriteManager& sm, FontManager& fm, const Window* const pWin, const std::string& fileNameBackground, const std::string& fileNameFont)
+/*! \fn TileViewer::TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont)
  * Will load the font and the background
  * \param sm The SpriteManager to use to load the background
  * \param fm The FontManager to use to load the font
- * \param pWin The Window where to draw the UI
  * \param fileNameBackground The file for the background
  * \param fileNameFont The file for the font
  */
@@ -107,9 +104,8 @@ public:
  * \brief Set the UI on the right of the screen
  */
 
-/*! \fn bool TileViewer::draw(const Renderer& r)
+/*! \fn bool TileViewer::draw()
  * draw the UI
- * \param r the Renderer to use to draw
  * \return true if all goes right
  */
 

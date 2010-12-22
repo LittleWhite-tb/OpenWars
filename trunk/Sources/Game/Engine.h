@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../NEngine/NETypes.h"
-
 class SpriteManager;
 class FontManager;
 
@@ -38,8 +36,6 @@ class Keyboard;
 class Engine
 {
 protected:
-	Window* pWin;			/*!< The window to use for the editor (created outside the engine) */
-
 	SpriteManager* pSM;			/*!< The sprite manager for the editor */
 	FontManager* pFM;			/*!< The font manager for the editor */
 
@@ -51,7 +47,7 @@ public:
 	Engine(void);
 	virtual ~Engine(void);
 
-	virtual bool init(Window* pWin);
+	virtual bool init(void);
 
 	virtual bool load(const std::string& mapName)=0;
 
@@ -71,10 +67,8 @@ public:
 /*! \fn virtual Engine::~Engine(void)
  */
 
-/*! \fn virtual bool Engine::init(Window* pWin, const RenderingAPI rAPI)
+/*! \fn virtual bool Engine::init()
  * \brief Init the engine by constructing all elements (Renderer, SpriteManager, FontManager,...)
- * \param pWin The window to use with for the editor
- * \param rAPI The rendering API to use
  * \return true if all goes fine
  */
 

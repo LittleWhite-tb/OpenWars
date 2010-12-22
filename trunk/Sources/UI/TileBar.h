@@ -29,8 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <utility>
 
-#include "../NEngine/NETypes.h"
-
 #include "../Game/Tile.h"
 
 #include "../Engine/Controls/Keyboard.h"
@@ -99,7 +97,7 @@ protected:
 	int currentY;				/*!< index of the actual Tile selected on the Y axis */
 
 public:
-	TileBar(SpriteManager& sm, const Window* const pWin, std::vector<View *>& listTiles);
+	TileBar(SpriteManager& sm, std::vector<View *>& listTiles);
 	virtual ~TileBar(void);
 
 	void open(void);
@@ -107,7 +105,7 @@ public:
 
 	void move(const ArrowsDirection direction);
 
-	bool draw(Window* const pWin, const unsigned int time);
+	bool draw(const unsigned int time);
 
 	void update(const unsigned int time);
 
@@ -170,10 +168,9 @@ public:
  * \brief Change the Y dimension of the TileBar 
  */
 
-/*! \fn TileBar::TileBar(SpriteManager& sm, const Window* const pWin, std::vector<View *>& listTiles)
+/*! \fn TileBar::TileBar(SpriteManager& sm, std::vector<View *>& listTiles)
  * Will create the surface for the Bar and load the bar cursor and Tiles
  * \param sm The SpriteManager to use to load the images
- * \param pWin The window where the bar will be
  * \param listTiles The list of tiles to display in the TileBar
  */
 
@@ -193,9 +190,8 @@ public:
  * \param direction the direction to move to
  */
 
-/*! \fn bool TileBar::draw(const Renderer& r, const unsigned int time)
+/*! \fn bool TileBar::draw(const unsigned int time)
  * \brief Draw the Bar
- * \param r the Renderer to use
  * \param time Time used for the animations
  * \return true if all goes right
  */

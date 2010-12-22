@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-#include "../NEngine/NETypes.h"
-
 #include "Sprite.h"
 
 #include "../Types/Vec2.h"
@@ -69,8 +67,8 @@ public:
 	unsigned int getInterval(void)const { return msInterval; }
 	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
 
-	bool draw(Window* const pWin, const IVec2& position, const unsigned int time=0);
-	bool draw(Window* const pWin, const IVec2& position, const Colour& mask, const unsigned int time=0);
+	bool draw(const IVec2& position, const unsigned int time=0);
+	bool draw(const IVec2& position, const Colour& mask, const unsigned int time=0);
 };
 
 /*! \class AnimatedSprite AnimatedSprite.h "Engine/AnimatedSprite.h"
@@ -128,6 +126,21 @@ public:
 /*! \fn void AnimatedSprite::setInterval(const unsigned int newInterval)
  * \brief Set the interval between two frames
  * \param newInterval the new interval in millisecond
+ */
+
+/*! \fn bool AnimatedSprite::draw(const IVec2& position, const unsigned int time=0)
+ * \brief Draw the Sprite at position
+ * \param position where to draw the sprite
+ * \param time time of the animation
+ * \return true if all goes right
+ */
+
+/*! \fn bool AnimatedSprite::draw(const IVec2& position, const Colour& mask, const unsigned int time=0)
+ * \brief Draw the Sprite at position
+ * \param position where to draw the sprite
+ * \param mask mask to use when drawing the sprite
+ * \param time time of the animation
+ * \return true if all goes right
  */
 
 #endif

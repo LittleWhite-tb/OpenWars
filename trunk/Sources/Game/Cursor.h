@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../NEngine/NETypes.h"
-
 #include "../Engine/Controls/Keyboard.h"
 #include "../Game/Tile.h"
 #include "../Types/Vec2.h"
@@ -66,7 +64,7 @@ public:
 	bool move(const ArrowsDirection ad);
 	bool move(const UVec2& newPosition);
 
-	virtual bool draw(Window* const pWin, const Camera& c, const unsigned int time)const;
+	virtual bool draw(const Camera& c, const unsigned int time)const;
 };
 
 /*! \class Cursor Cursor.h "Game/Cursor.h"
@@ -120,9 +118,8 @@ public:
  * \return true if the displacement was possible
  */
 
-/*! \fn virtual bool Cursor::draw(const Renderer& r, const Camera& c, const unsigned int time)const
+/*! \fn virtual bool Cursor::draw(const Camera& c, const unsigned int time)const
  * \brief Draw the cursor
- * \param r The Renderer to use to draw the cursor
  * \param c The Camera (used to draw the cursor at the correct place on the screen)
  * \param time The actual time
  * \return true if all goes right

@@ -29,10 +29,21 @@ e-mail: lw.demoscene@gmail.com
 
 struct Rect
 {
-	IVec2 position;
-	USize2 size;
+	IVec2 position;		/*!< Position of the rectange */
+	USize2 size;		/*!< Size of the rectangle */
 
 	Rect(const IVec2& position, const USize2& size):position(position),size(size) {}
 };
+
+/*! \struct Rect Rect.h Types/Rect.h
+ * \brief Rectangle container
+ *
+ * Contain a rectangle based on x, y position and width, height
+ */
+
+/*! \fn Rect::Rect(const IVec2& position, const USize2& size)
+ * \param position the position of the rectangle
+ * \param size the size of the rectangle
+ */
 
 #endif

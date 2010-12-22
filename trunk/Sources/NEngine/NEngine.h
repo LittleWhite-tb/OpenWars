@@ -41,14 +41,10 @@ public:
 	virtual ~NEngine() {}
 
 	// Windowing
-	virtual Window* createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)=0;
+	virtual Window* createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0;
 	virtual USize2 getWindowSize(const Window* const pWin)=0;
 	virtual int getBitsPerPixel(const Window* const pWin)=0;
 	virtual void destroyWindow(Window* const pWin)=0;
-
-	virtual bool isCursorVisible(void)const=0;
-	virtual void setCursorVisible(const bool mustShowCursor)const=0;
-	virtual void setCaption(const std::string& windowName, const std::string& iconName)const=0;
 
 	virtual bool needWindowClosure(void)const=0;
 
@@ -57,12 +53,14 @@ public:
 
 	virtual bool clearScreen(Window* const pWin, const Colour& colour)=0;
 
-	virtual bool drawTile(Window* const pWin, const Rect& tile, const Colour& colour)const=0;
+	virtual bool drawRect(Window* const pWin, const Rect& tile, const Colour& colour)const=0;
 	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface)=0;
 	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Colour& mask)=0;
 	// virtual bool drawSurface(Window* const pWin, const Rect& destRect, Surface* const pSurface)=0;
 	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect)=0;
 	virtual bool drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect, const Colour& mask)=0;
+
+	virtual bool updateScreen(Window* const pWin)=0;
 };
 
 /*! \class NEngine NEngine.h "NEngine/NEngine.h"
@@ -81,12 +79,14 @@ public:
 /*! \fn virtual NEngine::~NEngine()
  */
 
-/*! \fn virtual Window* NEngine::createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const bool isOpenGL)=0
+/*! \fn virtual Window* NEngine::createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0
  * \brief Create a window where to render
  * \param winSize the size of the window
  * \param bpp the Bits per pixel wanted
  * \param isFullscreen true if the window should be fullscreen
- * \param isOpenGL true if the window should be compatible with OpenGL
+ * \param windowName the name of the window
+ * \param windowIcon the icon path for the window
+ * \param showCursor true if the cursor is visible
  * \return a pointer to the window
  */
 
@@ -107,25 +107,72 @@ public:
  * \param pWin pointer on the window to destroy
  */
 
-/*! \fn virtual bool NEngine::isCursorVisible(void)const=0
- * \brief Get if the cursor is visible
- * \return true if the cursor is visible
- */
-
-/*! \fn virtual void NEngine::setCursorVisible(const bool mustShowCursor)const=0
- * \brief Set the visibility of the cursor
- * \param mustShowCursor true if the cursor must be visible
- */
-
-/*! \fn virtual void NEngine::setCaption(const std::string& windowName, const std::string& iconName)const=0
- * \brief Set the name and icon for the Window
- * \param windowName the new name of the window
- * \param iconName the path to the icon
- */
-
 /*! \fn virtual bool NEngine::needWindowClosure(void)const=0
  * \brief Get if the window has to be closes (after the user clicked on the red cross)
  * \return true if the window should be closed
+ */
+
+/*! \fn virtual USize2 NEngine::getSurfaceSize(const Surface* const pSurface)=0
+ * \brief Get the size of the Surface
+ * \param pSurface the surface to know the size
+ * \return the size of the surface
+ */
+
+/*! \fn virtual bool NEngine::clearScreen(Window* const pWin, const Colour& colour)=0
+ * \brief Clear the screen with colour
+ * \param pWin the Window to clear
+ * \param colour the colour to use to clear the screen
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NEngine::drawRect(Window* const pWin, const Rect& tile, const Colour& colour)const=0
+ * \brief Draw a coloured rect
+ * \param pWin the Window where to draw
+ * \param tile the rectangle to colour
+ * \param colour the colour to use
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NEngine::drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface)=0
+ * \brief Draw a surface
+ * \param pWin the Window where to draw
+ * \param position the position where to draw on the Window
+ * \param pSurface the surface to copy
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NEngine::drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Colour& mask)=0
+ * \brief Draw a surface with an additional mask
+ * \param pWin the Window where to draw
+ * \param position the position where to draw on the Window
+ * \param pSurface the surface to copy
+ * \param mask the mask to apply to the surface
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NEngine::drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect)=0
+ * \brief Draw a part of a surface
+ * \param pWin the Window where to draw
+ * \param position the position where to draw on the Window
+ * \param pSurface the surface to copy
+ * \param srcRect the rectangle to copy from pSurface
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NEngine::drawSurface(Window* const pWin, const IVec2& position, Surface* const pSurface, const Rect& srcRect, const Colour& mask)=0
+ * \brief Draw a part of a surface
+ * \param pWin the Window where to draw
+ * \param position the position where to draw on the Window
+ * \param pSurface the surface to copy
+ * \param srcRect the rectangle to copy from pSurface
+ * \param mask the mask to apply to the surface
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NEngine::updateScreen(Window* const pWin)=0
+ * \brief Update the screen (swap buffers)
+ * \param pWin the window to update
+ * \return true if all goes right
  */
 
 #endif

@@ -31,8 +31,6 @@ e-mail: lw.demoscene@gmail.com
 #include <fstream>
 #include <cassert>
 
-#include "../NEngine/NETypes.h"
-
 #include "Tile.h"
 #include "Unit.h"
 
@@ -404,7 +402,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: drawTerrain(Window* const pWin, const Camera& c, const unsigned int time)
+bool Map :: drawTerrain(const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
@@ -427,13 +425,13 @@ bool Map :: drawTerrain(Window* const pWin, const Camera& c, const unsigned int 
 			// Draw the background sprite ( Plain )
 			if ( tilesSet[map[y][x]].needBackground )
 			{
-				bResult &= tilesSet[TT_Plain].pASprite->draw(pWin,tilePos,0);
+				bResult &= tilesSet[TT_Plain].pASprite->draw(tilePos,0);
 			}
 
 			// Apply offset
 			tilePos.y -= yOffset;
 
-			bResult &= tilesSet[map[y][x]].pASprite->draw(pWin,tilePos,time);
+			bResult &= tilesSet[map[y][x]].pASprite->draw(tilePos,time);
 			
 			// Move on the right
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();

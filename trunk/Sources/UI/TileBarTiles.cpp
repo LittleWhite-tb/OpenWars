@@ -28,15 +28,14 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../NEngine/NE.h"
 #include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
 
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/AnimatedSprite.h"
 
 #include "../Utils/Logger.h"
 
-TileBarTiles :: TileBarTiles(SpriteManager& sm, const Window* const pWin, std::vector<TileView*>& listTiles)
-:TileBar(sm,pWin,reinterpret_cast<std::vector<View*>& >(listTiles))
+TileBarTiles :: TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles)
+:TileBar(sm,reinterpret_cast<std::vector<View*>& >(listTiles))
 {
 	
 }

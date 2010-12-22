@@ -57,7 +57,7 @@ public:
 	MapGame(SpriteManager& sm, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
 	~MapGame();
 
-	bool draw(Window* const pWin, const Camera& c, const unsigned int time);
+	bool draw(const Camera& c, const unsigned int time);
 
 	void enableUnits(void);
 
@@ -91,9 +91,8 @@ public:
 /*! \fn MapGame::~MapGame()
  */
 
-/*! \fn bool MapGame::draw(const Renderer& r, const Camera& c, const unsigned int time)
+/*! \fn bool MapGame::draw(const Camera& c, const unsigned int time)
  * \brief Draw the map
- * \param r the renderer to use to draw the map
  * \param c The Camera (used to draw the correct part of the Map)
  * \param time the actual time (for animation)
  * \return true if all goes right

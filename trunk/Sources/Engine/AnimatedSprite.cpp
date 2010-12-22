@@ -30,7 +30,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../NEngine/NE.h"
 #include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
 
 #include "../Types/Rect.h"
 
@@ -42,7 +41,7 @@ e-mail: lw.demoscene@gmail.com
 AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
 	:Sprite(sm,fileName,needScaling),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
-	USize2 surfaceSize = NE::get()->getSurfaceSize(this->pSurface);
+	USize2 surfaceSize = NE::getSurfaceSize(this->pSurface);
 
 	// We scale the size of the sprite surface (since we always apply the scaler on the surface, from the SpriteManager)
 	if ( needScaling )
@@ -91,7 +90,7 @@ void AnimatedSprite :: update(const unsigned int time)
 
 Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 {
-	unsigned int nbAnimOnWidth = NE::get()->getSurfaceSize(this->pSurface).width / widthSprite;
+	unsigned int nbAnimOnWidth = NE::getSurfaceSize(this->pSurface).width / widthSprite;
 	
 	IVec2 position(	widthSprite * (animationCounter % nbAnimOnWidth),
 					heightSprite * (animationCounter / nbAnimOnWidth));
@@ -105,20 +104,16 @@ Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 	return srcRect;
 }
 
-bool AnimatedSprite :: draw(Window* const pWin, const IVec2& position, const unsigned int time)
+bool AnimatedSprite :: draw(const IVec2& position, const unsigned int time)
 {
-	assert(pWin);
-
 	Rect srcRect = this->getSrcRect(time);
 
-	return NE::get()->drawSurface(pWin,position,this->pSurface,srcRect);
+	return NE::drawSurface(position,this->pSurface,srcRect);
 }
 
-bool AnimatedSprite :: draw(Window* const pWin, const IVec2& position, const Colour& mask, const unsigned int time)
+bool AnimatedSprite :: draw(const IVec2& position, const Colour& mask, const unsigned int time)
 {
-	assert(pWin);
-
 	Rect srcRect = this->getSrcRect(time);
 
-	return NE::get()->drawSurface(pWin,position,this->pSurface,srcRect,mask);
+	return NE::drawSurface(position,this->pSurface,srcRect,mask);
 }
