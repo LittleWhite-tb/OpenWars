@@ -51,7 +51,7 @@ private:
 	std::vector<std::vector<UnitView> > unitsList;		/*<! The units to be displayed in the TileBar */
 
 public:
-	TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles);
+	TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles, const USize2& windowSize);
 
 	UnitType getSelected(void)const;
 };

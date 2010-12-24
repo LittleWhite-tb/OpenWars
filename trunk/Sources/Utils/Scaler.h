@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 struct SDL_Surface;
 
-#include "../NEngine/NETypes.h"
-
 #include "../Types/Vec2.h"
 
 class Scaler
@@ -44,7 +42,7 @@ private:
 
 public:
 
-	static void initScaleFactor(void);
+	static void initScaleFactor(const USize2& winSize);
 
 	static SDL_Surface* scale(SDL_Surface* const pSrcSurface);
 

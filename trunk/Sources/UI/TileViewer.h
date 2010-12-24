@@ -52,7 +52,7 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont);
+	TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont,  const USize2& windowSize);
 	~TileViewer(void);
 
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
@@ -62,7 +62,7 @@ public:
 	void putOnLeft(void);
 	void putOnRight(void);
 
-	bool draw();
+	bool draw(const Renderer& r);
 };
 
 /*! \class TileViewer TileViewer.h "Engine/TileViewer.h"

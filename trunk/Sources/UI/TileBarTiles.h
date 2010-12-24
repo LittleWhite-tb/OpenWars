@@ -49,7 +49,7 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-	TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles);
+	TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles, const USize2& windowSize);
 
 	TileType getSelected(void)const;
 };

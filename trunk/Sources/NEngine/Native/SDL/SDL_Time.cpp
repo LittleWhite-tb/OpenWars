@@ -1,6 +1,3 @@
-#ifndef __NETYPES_H__
-#define __NETYPES_H__
-
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -25,19 +22,16 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-typedef unsigned int Uint32;
+#include "SDL_Time.h"
 
-#ifdef SDL_ENGINE
-	#include <SDL/SDL.h>
+#include <SDL/SDL.h>
 
-	typedef SDL_Surface Window;
-	typedef SDL_Surface Surface;
-#elif SFML_ENGINE
-	#include <SFML/Graphics.hpp>
+unsigned int SDL_Time :: getTime(void)
+{
+	return SDL_GetTicks();
+}
 
-	typedef sf::RenderWindow Window;
-#elif GLUT_ENGINE
-	typedef int Window;	// In GLUT, there is no access to the Window. So int is the type (to check error)
-#endif
-
-#endif
+void SDL_Time :: delay(unsigned int msSec)
+{
+	SDL_Delay(msSec);
+}

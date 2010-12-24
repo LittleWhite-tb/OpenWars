@@ -64,7 +64,7 @@ public:
 	bool move(const ArrowsDirection ad);
 	bool move(const UVec2& newPosition);
 
-	virtual bool draw(const Camera& c, const unsigned int time)const;
+	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
 /*! \class Cursor Cursor.h "Game/Cursor.h"

@@ -24,8 +24,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameEngine.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
+#include "../NEngine/Engine.h"
+#include "../NEngine/Window.h"
+#include "../NEngine/Renderer.h"
 
 #include "MapGame.h"
 #include "Cursor.h"
@@ -44,8 +45,8 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
-GameEngine :: GameEngine(void)
-:Engine(),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
+GameEngine :: GameEngine(NEngine* const pNE)
+:Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";
 }
@@ -142,10 +143,10 @@ bool GameEngine :: load(void)
         // Unit menu
         unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
-		pCBFactory = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits);
-		pCBPort = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits);
-		pCBAirport = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits);
-		pMBMenu = new MenuBox(*pSM,*pFM, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries);
+		pCBFactory = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits,pNE->getWindow()->getWindowSize());
+		pCBPort = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits,pNE->getWindow()->getWindowSize());
+		pCBAirport = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits,pNE->getWindow()->getWindowSize());
+		pMBMenu = new MenuBox(*pSM,*pFM, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries,pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -180,54 +181,54 @@ bool GameEngine :: load(const std::string& mapName)
 
 bool GameEngine :: run(void)
 {
-	while ( pKB->isEscapePressed() == 0 && NE::needWindowClosure() == 0 && m_userQuit == false )
+	while ( pKB->isEscapePressed() == 0 && pNE->getWindow()->needWindowClosure() == 0 && m_userQuit == false )
 	{
 		// Drawing part
-		NE::clearScreen(Colour(0,0,0));
+		pNE->getRenderer()->clearScreen(Colour(0,0,0));
 
-		pMap->draw(*pCam,pVT->getTime());
+		pMap->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
 		
 		switch ( gState )
 		{
 			case GS_VISU:
 				{
-					pC->draw(*pCam,pVT->getTime());
+					pC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
 				}
 				break;
 			case GS_FACTORY:
 				{
-					pCBFactory->draw(5000);
+					pCBFactory->draw(*pNE->getRenderer(),5000);
 				}
 				break;
 			case GS_PORT:
 				{
-					pCBPort->draw(5000);
+					pCBPort->draw(*pNE->getRenderer(),5000);
 				}
 				break;
 			case GS_AIRPORT:
 				{
-					pCBAirport->draw(5000);
+					pCBAirport->draw(*pNE->getRenderer(),5000);
 				}
 				break;
             case GS_SELECT:
                 {
-                    pMBMenu->draw(pC->getPosition(),pVT->getTime());
+                    pMBMenu->draw(*pNE->getRenderer(),pC->getPosition(),pVT->getTime());
                 }
                 break;
             case GS_MOVE:
                 {
                     // TODO: Display the move map stuff
-                    pC->draw(*pCam,pVT->getTime());
+                    pC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
                 }
                 break;
 			case GS_MENU:
 				{
-					pMBMenu->draw(pC->getPosition(),pVT->getTime());
+					pMBMenu->draw(*pNE->getRenderer(),pC->getPosition(),pVT->getTime());
 				}
 				break;
 		}
 
-		NE::updateScreen();
+		pNE->getRenderer()->updateWindow();
 
 		// Update part
 		if ( pVT->canUpdate() )

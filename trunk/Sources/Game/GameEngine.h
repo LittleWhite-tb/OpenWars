@@ -78,7 +78,7 @@ private:
 	bool load(void);
 
 public:
-	GameEngine();
+	GameEngine(NEngine* const pNE);
 	~GameEngine();
 
 	bool init(void);

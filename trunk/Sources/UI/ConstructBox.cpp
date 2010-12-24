@@ -24,9 +24,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ConstructBox.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 
@@ -45,9 +42,9 @@ e-mail: lw.demoscene@gmail.com
 #include <sstream>
 
 ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
-							 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
+							 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
 							 :pBackgroundUI(new Sprite(sm,backgroundFileName,true)),pCursor(new Sprite(sm,cursorFileName,true)),
-							 pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(NE::getWindowSize()),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
+							 pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(windowSize),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
 {
 	SDL_Color white = {255,255,255};
 	SDL_Color grey = {64,64,64};
@@ -71,7 +68,7 @@ ConstructBox :: ~ConstructBox(void)
 	LDebug << "Construc Box delete";
 }
 
-bool ConstructBox :: draw(const unsigned int moneyAvailable)
+bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
 {
 	bool errorFlag = true;
 
@@ -80,21 +77,21 @@ bool ConstructBox :: draw(const unsigned int moneyAvailable)
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + pBackgroundUI->getHeight() - pDownArrow->getHeight());
 	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getHeight() + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
 
-	errorFlag &= pBackgroundUI->draw(uiPosition);
+	errorFlag &= pBackgroundUI->draw(r,uiPosition);
 	if ( unitsList.size() > 6 )
 	{
 		if ( offsetCursorPosition > 0 )
 		{
-			errorFlag &= pUpArrow->draw(upArrowPosition);
+			errorFlag &= pUpArrow->draw(r,upArrowPosition);
 		}
 		
 		if ( offsetCursorPosition < 4 )
 		{
-			errorFlag &= pDownArrow->draw(downArrowPosition);
+			errorFlag &= pDownArrow->draw(r,downArrowPosition);
 		}
 	}
 
-	errorFlag &= pCursor->draw(cursorPosition);
+	errorFlag &= pCursor->draw(r,cursorPosition);
 
 	/**
 		Offset cursor make the list behaving in the way that until the cursor is not down, we are displaying the first of the list
@@ -118,15 +115,15 @@ bool ConstructBox :: draw(const unsigned int moneyAvailable)
 
 		if ( unitsList[i].unitPrice <= moneyAvailable )
 		{
-			errorFlag &= unitsList[i].pUnitSprite->draw(unitPosition);
-			errorFlag &= pFont->draw(unitsList[i].unitName,unitNamePosition);
-			errorFlag &= pFont->draw(priceString,unitPricePosition);
+			errorFlag &= unitsList[i].pUnitSprite->draw(r,unitPosition);
+			errorFlag &= pFont->draw(r,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= pFont->draw(r,priceString,unitPricePosition);
 		}
 		else
 		{
-			errorFlag &= unitsList[i].pUnitSprite->draw(unitPosition,Colour(128,128,128,255));
-			errorFlag &= pFontGrey->draw(unitsList[i].unitName,unitNamePosition);
-			errorFlag &= pFontGrey->draw(priceString,unitPricePosition);
+			errorFlag &= unitsList[i].pUnitSprite->draw(r,unitPosition,Colour(128,128,128,255));
+			errorFlag &= pFontGrey->draw(r,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
 		}
 	}
 

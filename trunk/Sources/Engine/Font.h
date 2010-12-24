@@ -54,7 +54,7 @@ public:
 	SDL_Colour getColour(void)const { return colour; }
 	void setColour(const SDL_Colour& newColour) { colour = newColour; }
 
-	bool draw(const std::string& text, const IVec2& position);
+	bool draw(const Renderer& r, const std::string& text, const IVec2& position);
 };
 
 /*! \class Font Font.h "Engine/Font.h"

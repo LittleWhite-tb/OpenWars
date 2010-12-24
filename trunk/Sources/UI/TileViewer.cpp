@@ -25,9 +25,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileViewer.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/Sprite.h"
@@ -37,8 +34,8 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Types/Vec2.h"
 
-TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont)
-:windowSize(NE::getWindowSize())
+TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
+:windowSize(windowSize)
 {
 	SDL_Color white = {255,255,255,255};
 
@@ -70,7 +67,7 @@ void TileViewer :: putOnRight(void)
 	position.x = windowSize.x - pBackground->getWidth() - 10;
 }
 
-bool TileViewer :: draw()
+bool TileViewer :: draw(const Renderer& r)
 {
 	bool error = true;
 
@@ -82,10 +79,10 @@ bool TileViewer :: draw()
 
 	LDebug << "TileViewer draw";
 
-	error &= pBackground->draw(position);
-	error &= pFont->draw(title,titlePosition);
-	error &= pTileSprite->draw(tilePosition,0);
-	error &= pFont->draw(tileName,namePosition);
+	error &= pBackground->draw(r,position);
+	error &= pFont->draw(r,title,titlePosition);
+	error &= pTileSprite->draw(r,tilePosition,0);
+	error &= pFont->draw(r,tileName,namePosition);
 
 	return error;
 }

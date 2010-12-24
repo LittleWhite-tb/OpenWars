@@ -28,8 +28,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Sprite.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
+#include "../NEngine/Renderer.h"
+#include "../NEngine/Native/SDL/SDL_Sprite.h"
 
 #include "../Types/Rect.h"
 
@@ -41,7 +41,7 @@ e-mail: lw.demoscene@gmail.com
 AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
 	:Sprite(sm,fileName,needScaling),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
-	USize2 surfaceSize = NE::getSurfaceSize(this->pSurface);
+	USize2 surfaceSize = USize2(this->pSurface->w,this->pSurface->h);
 
 	// We scale the size of the sprite surface (since we always apply the scaler on the surface, from the SpriteManager)
 	if ( needScaling )
@@ -90,7 +90,7 @@ void AnimatedSprite :: update(const unsigned int time)
 
 Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 {
-	unsigned int nbAnimOnWidth = NE::getSurfaceSize(this->pSurface).width / widthSprite;
+	unsigned int nbAnimOnWidth = this->pSurface->w / widthSprite;
 	
 	IVec2 position(	widthSprite * (animationCounter % nbAnimOnWidth),
 					heightSprite * (animationCounter / nbAnimOnWidth));
@@ -104,16 +104,16 @@ Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 	return srcRect;
 }
 
-bool AnimatedSprite :: draw(const IVec2& position, const unsigned int time)
+bool AnimatedSprite :: draw(const Renderer& r, const IVec2& position, const unsigned int time)
 {
 	Rect srcRect = this->getSrcRect(time);
 
-	return NE::drawSurface(position,this->pSurface,srcRect);
+	return r.drawSurface(position,SDL_Sprite(this->pSurface),srcRect);
 }
 
-bool AnimatedSprite :: draw(const IVec2& position, const Colour& mask, const unsigned int time)
+bool AnimatedSprite :: draw(const Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time)
 {
 	Rect srcRect = this->getSrcRect(time);
 
-	return NE::drawSurface(position,this->pSurface,srcRect,mask);
+	return r.drawSurface(position,SDL_Sprite(this->pSurface),srcRect,mask);
 }

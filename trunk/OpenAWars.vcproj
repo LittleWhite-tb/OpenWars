@@ -561,36 +561,120 @@
 				Name="NEngine"
 				>
 				<File
-					RelativePath=".\Sources\NEngine\NE.cpp"
+					RelativePath=".\Sources\NEngine\Engine.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\NEngine\NE.h"
+					RelativePath=".\Sources\NEngine\Engine.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\NEngine\NEngine.cpp"
+					RelativePath=".\Sources\NEngine\Input.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\NEngine\NEngine.h"
+					RelativePath=".\Sources\NEngine\Renderer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\NEngine\NETypes.h"
+					RelativePath=".\Sources\NEngine\Renderer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Sound.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\SoundLoader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Sprite.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\SpriteLoader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Time.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Window.h"
 					>
 				</File>
 				<Filter
 					Name="Native"
 					>
-					<File
-						RelativePath=".\Sources\NEngine\Native\NESDL.cpp"
+					<Filter
+						Name="SDL"
 						>
-					</File>
-					<File
-						RelativePath=".\Sources\NEngine\Native\NESDL.h"
-						>
-					</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Engine.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Engine.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Input.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Input.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Renderer.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Renderer.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SoundLoader.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SoundLoader.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Sprite.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Sprite.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoader.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoader.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Time.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Time.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Window.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Window.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 		</Filter>

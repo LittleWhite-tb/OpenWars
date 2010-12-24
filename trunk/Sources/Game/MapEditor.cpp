@@ -101,7 +101,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const std::string& themeName, const UV
 	LDebug << "MapEditor created " << size;
 }
 
-bool MapEditor :: draw(const Camera& c, const unsigned int time)
+bool MapEditor :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
@@ -110,7 +110,7 @@ bool MapEditor :: draw(const Camera& c, const unsigned int time)
 
 	LDebug << "Map :: draw";
 
-	this->drawTerrain(c,time);
+	this->drawTerrain(r,c,time);
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -128,7 +128,7 @@ bool MapEditor :: draw(const Camera& c, const unsigned int time)
 
 			if ( unitViewMap[y][x] != UT_NO_UNIT )	// If we have a unit
 			{
-                bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(tilePos,time);
+                bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(r,tilePos,time);
 			}
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
 

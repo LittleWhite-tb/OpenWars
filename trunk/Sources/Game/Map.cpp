@@ -402,7 +402,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: drawTerrain(const Camera& c, const unsigned int time)
+bool Map :: drawTerrain(const Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
@@ -425,13 +425,13 @@ bool Map :: drawTerrain(const Camera& c, const unsigned int time)
 			// Draw the background sprite ( Plain )
 			if ( tilesSet[map[y][x]].needBackground )
 			{
-				bResult &= tilesSet[TT_Plain].pASprite->draw(tilePos,0);
+				bResult &= tilesSet[TT_Plain].pASprite->draw(r,tilePos,0);
 			}
 
 			// Apply offset
 			tilePos.y -= yOffset;
 
-			bResult &= tilesSet[map[y][x]].pASprite->draw(tilePos,time);
+			bResult &= tilesSet[map[y][x]].pASprite->draw(r,tilePos,time);
 			
 			// Move on the right
 			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();

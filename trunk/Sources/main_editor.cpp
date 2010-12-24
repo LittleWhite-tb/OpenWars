@@ -29,9 +29,9 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "NEngine/NE.h"
-#include "NEngine/NEngine.h"
-#include "NEngine/NETypes.h"
+#include "NEngine/Engine.h"
+#include "NEngine/Window.h"
+#include "NEngine/Native/SDL/SDL_Engine.h"
 
 #include "Game/EditorEngine.h"
 
@@ -183,7 +183,8 @@ int main(int argc, char** argv)
 	}
 
 	// Starting the native engine
-	if ( NE::init(winSize,32,needFullscreen,"OpenAWars Editor") == false )
+	NEngine* pNE = new SDL_Engine();
+	if ( pNE->init() == false )
 	{
 		return 1;
 	}
@@ -203,11 +204,12 @@ int main(int argc, char** argv)
 			{
 				LError << "Fail to init the SDL_tff " << TTF_GetError() << ")";
 			}
-			else
+
+			if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars Editor") )
 			{
 				
-				Scaler::initScaleFactor();
-				EditorEngine eEngine;
+				Scaler::initScaleFactor(pNE->getWindow()->getWindowSize());
+				EditorEngine eEngine(pNE);
 				
 				if ( eEngine.init() )
 				{
@@ -236,7 +238,8 @@ int main(int argc, char** argv)
 	}
 
 	// Stopping Native engine
-	NE::stop();
+	pNE->stop();
+	delete pNE;
 
 #ifdef _DEBUG
 	// Final check

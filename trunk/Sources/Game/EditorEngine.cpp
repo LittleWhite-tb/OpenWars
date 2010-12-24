@@ -26,9 +26,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditorEngine.h"
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
+#include "../NEngine/Engine.h"
+#include "../NEngine/Window.h"
+#include "../NEngine/Renderer.h"
 
 #include "../Engine/VTime.h"
 
@@ -48,8 +48,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 
-EditorEngine :: EditorEngine(void)
-:Engine(),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
+EditorEngine :: EditorEngine(NEngine* const pNE)
+:Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
 {
 	LDebug << "EditorEngine constructed";
 }
@@ -193,9 +193,9 @@ bool EditorEngine :: load(void)
 
 	try
 	{
-		pUnitTB = new TileBarUnits(*pSM,unitTiles);
-		pBuildingTB = new TileBarTiles(*pSM,buildingTiles);
-		pTileViewer = new TileViewer(*pSM,*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf");
+		pUnitTB = new TileBarUnits(*pSM,unitTiles,pNE->getWindow()->getWindowSize());
+		pBuildingTB = new TileBarTiles(*pSM,buildingTiles,pNE->getWindow()->getWindowSize());
+		pTileViewer = new TileViewer(*pSM,*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf",pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -247,23 +247,23 @@ bool EditorEngine :: run(void)
 {
 	bool isUnit = false;
 
-	while ( pKB->isEscapePressed() == 0 && NE::needWindowClosure() == false )
+	while ( pKB->isEscapePressed() == 0 && pNE->getWindow()->needWindowClosure() == false )
 	{
 		// Drawing part
-		NE::clearScreen(Colour(0,0,0));
+		pNE->getRenderer()->clearScreen(Colour(0,0,0));
 
-		pMap->draw(*pCam,pVT->getTime());
-		pEC->draw(*pCam,pVT->getTime());
+		pMap->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
+		pEC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
 
 		if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
 		{
-			pTileViewer->draw();
+			pTileViewer->draw(*pNE->getRenderer());
 		}
 
-		pUnitTB->draw(0);
-		pBuildingTB->draw(0);
+		pUnitTB->draw(*pNE->getRenderer(),0);
+		pBuildingTB->draw(*pNE->getRenderer(),0);
 
-		NE::updateScreen();
+		pNE->getRenderer()->updateWindow();
 
 		// Update part
 		if ( pVT->canUpdate() )

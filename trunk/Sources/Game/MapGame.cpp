@@ -135,7 +135,7 @@ void MapGame :: enableUnits(void)
     }
 }
 
-bool MapGame :: draw(const Camera& c, const unsigned int time)
+bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();
@@ -144,7 +144,7 @@ bool MapGame :: draw(const Camera& c, const unsigned int time)
 
 	LDebug << "Map :: draw";
 
-	this->drawTerrain(c,time);
+	this->drawTerrain(r,c,time);
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -164,11 +164,11 @@ bool MapGame :: draw(const Camera& c, const unsigned int time)
 			{
                 if ( unitMap[y][x]->enabled )
                 {
-                    bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(tilePos,time);
+                    bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(r,tilePos,time);
                 }
                 else
                 {
-					bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(tilePos,Colour(128,128,128,255),0);
+					bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(r,tilePos,Colour(128,128,128,255),0);
                 }
 			}
 
@@ -178,11 +178,11 @@ bool MapGame :: draw(const Camera& c, const unsigned int time)
             // Effects
             if ( effectMap[y][x].isHighlight )
             {
-                bError &= pHighlightSprite->draw(tilePos);
+                bError &= pHighlightSprite->draw(r,tilePos);
             }
             if ( effectMap[y][x].isAttackable )
             {
-                bError &= pAttackableSprite->draw(tilePos);
+                bError &= pAttackableSprite->draw(r,tilePos);
             }
             
             // Move on the right

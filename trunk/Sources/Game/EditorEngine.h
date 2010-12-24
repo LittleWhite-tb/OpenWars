@@ -28,8 +28,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine.h"
 
-#include "../NEngine/NETypes.h"
-
 #include "Unit.h"
 
 #include "../Types/Vec2.h"
@@ -62,7 +60,7 @@ private:
 	bool load(void);
 
 public:
-	EditorEngine(void);
+	EditorEngine(NEngine* const pNE);
 	~EditorEngine(void);
 
 	bool init(void);

@@ -22,4 +22,50 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "NEngine.h"
+#include "SDL_Engine.h"
+
+#include <SDL/SDL.h>
+
+#include "SDL_Window.h"
+#include "SDL_Renderer.h"
+#include "SDL_Input.h"
+#include "SDL_Time.h"
+
+#include "../../../Utils/Logger.h"
+
+bool SDL_Engine :: init(void)
+{
+	if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
+	{
+		LError << "Error while initializing SDL -> SDL_INIT_VIDEO";
+		return false;
+	}
+
+	pWin = new SDL_Window();
+	pRenderer = new SDL_Renderer(pWin);
+	pTime = new SDL_Time();
+	pInput = new SDL_Input();
+
+	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL )
+	{
+		LError << "Fail to allocate memory for SDL_Engine components";
+		return false;
+	}
+
+	LDebug << "Native Engine SDL started";
+	return true;
+}
+
+bool SDL_Engine :: stop(void)
+{
+	delete pTime; pTime = NULL;
+	delete pInput; pInput = NULL;
+	delete pRenderer; pRenderer = NULL;
+	delete pWin; pWin = NULL;
+
+	SDL_Quit();
+
+	LDebug << "Native Engine SDL stopped";
+
+	return true;
+}

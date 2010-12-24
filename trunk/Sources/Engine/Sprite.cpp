@@ -31,9 +31,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-#include "../NEngine/NETypes.h"
+#include "../NEngine/Renderer.h"
+#include "../NEngine/Native/SDL/SDL_Sprite.h"
 
 #include "ResourcesManager/SpriteManager.h"
 
@@ -55,7 +54,7 @@ Sprite :: Sprite(SpriteManager& sm, const std::string& fileName, const bool need
 	LDebug << "Sprite created from file (" << fileName.c_str() << ")";
 }
 
-Sprite :: Sprite(Surface* pSurface)
+Sprite :: Sprite(SDL_Surface* pSurface)
 	:pSurface(pSurface)
 {
 	assert(pSurface);
@@ -69,25 +68,25 @@ Sprite :: ~Sprite(void)
 
 USize2 Sprite :: getSize(void)const
 {
-	return NE::getSurfaceSize(pSurface);
+	return USize2(pSurface->w,pSurface->h);
 }
 
 int Sprite :: getWidth(void)const
 {
-	return NE::getSurfaceSize(pSurface).width;
+	return pSurface->w;
 }
 
 int Sprite :: getHeight(void)const
 {
-	return NE::getSurfaceSize(pSurface).height;
+	return pSurface->h;
 }
 
-bool Sprite :: draw(const IVec2& position)
+bool Sprite :: draw(const Renderer& r, const IVec2& position)
 {
-	return NE::drawSurface(position, this->pSurface);
+	return r.drawSurface(position, SDL_Sprite(this->pSurface));
 }
 
-bool Sprite :: draw(const IVec2& position, const Colour& mask)
+bool Sprite :: draw(const Renderer& r, const IVec2& position, const Colour& mask)
 {
-	return NE::drawSurface(position, this->pSurface,mask);
+	return r.drawSurface(position, SDL_Sprite(this->pSurface), mask);
 }

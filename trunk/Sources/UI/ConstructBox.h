@@ -73,10 +73,10 @@ private:
 
 public:
 	ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
-const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList);
+const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize);
 	~ConstructBox(void);
 
-	bool draw(const unsigned int moneyAvailable);
+	bool draw(const Renderer& r, const unsigned int moneyAvailable);
 
 	void update(const ArrowsDirection kd);
 

@@ -26,6 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "../NEngine/Engine.h"
+
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 
@@ -35,10 +37,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-Engine::Engine(void)
-:pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
+Engine::Engine(NEngine* const pNE)
+:pNE(pNE),pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
 {
-
+	assert(pNE);
 }
 
 Engine :: ~Engine(void)

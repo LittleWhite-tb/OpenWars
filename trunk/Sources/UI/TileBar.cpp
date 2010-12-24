@@ -31,9 +31,6 @@ e-mail: lw.demoscene@gmail.com
 #include <utility>
 #include <cassert>
 
-#include "../NEngine/NE.h"
-#include "../NEngine/NEngine.h"
-
 #include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
@@ -45,8 +42,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-TileBar :: TileBar(SpriteManager& sm, std::vector<View*>& listTiles)
-:windowSize(NE::getWindowSize())
+TileBar :: TileBar(SpriteManager& sm, std::vector<View*>& listTiles, const USize2& windowSize)
+:windowSize(windowSize)
 {
 	unsigned int barHeight = static_cast<unsigned int>(64 * Scaler::getYScaleFactor());
 	unsigned int maximumX = 0;
@@ -244,7 +241,7 @@ void TileBar :: close(void)
 	}
 }
 
-bool TileBar :: draw(const unsigned int time)
+bool TileBar :: draw(const Renderer& r, const unsigned int time)
 {
 	bool isOk = true;
 
@@ -254,7 +251,7 @@ bool TileBar :: draw(const unsigned int time)
 
 	if ( state != TBS_Closed )
 	{
-		isOk &= pBarSprite->draw(barPosition);
+		isOk &= pBarSprite->draw(r,barPosition);
 	}
 	
 	if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
@@ -302,16 +299,16 @@ bool TileBar :: draw(const unsigned int time)
 			// Remove little bug that one sprite is visible on the bound left
 			if ( state != TBS_Opened || tilePosition.x > 0 )
 			{
-				isOk &= viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->draw(tilePosition,time);
+				isOk &= viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->draw(r,tilePosition,time);
 			}
 		}
 
 		// Draw the cursor
-		isOk &= pBarCursor->draw(cursorPosition);
+		isOk &= pBarCursor->draw(r,cursorPosition);
 		// Draw the arrow if needed
 		if ( viewList[currentX].size() > 1 && state == TBS_Opened )
 		{
-			isOk &= pBarArrows->draw(cursorPosition);
+			isOk &= pBarArrows->draw(r,cursorPosition);
 		}
 	}
 
