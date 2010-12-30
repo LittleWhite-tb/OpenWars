@@ -91,7 +91,7 @@ MenuBox :: ~MenuBox()
 	delete pBackground;
 }
 
-bool MenuBox :: draw(const Renderer& r, const UVec2& cursorPosition, const unsigned int time)
+bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
 {
 	static const unsigned int margin = static_cast<unsigned int>(10 * Scaler::getXScaleFactor());
 	static bool onRight = true;

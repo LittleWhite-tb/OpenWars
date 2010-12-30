@@ -1,5 +1,5 @@
-#ifndef __WINDOW_H__
-#define __WINDOW_H__
+#ifndef __NE_WINDOW_H__
+#define __NE_WINDOW_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -28,25 +28,27 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "../Types/Vec2.h"
-
-class Window
+namespace NE
 {
-protected:
+	class Window
+	{
+	protected:
 
-	void* pWindow;
+		void* pWindow;
 
-public:
-	Window(void) {};
-	virtual ~Window(void) {}
+	public:
+		Window(void) {};
+		virtual ~Window(void) {}
 
-	virtual bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0;
-	virtual USize2 getWindowSize(void)const=0;
-	virtual int getBitsPerPixel(void)const=0;
-	virtual void destroyWindow(void)=0;
+		virtual bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0;
+		virtual USize2 getWindowSize(void)const=0;
+		virtual int getBitsPerPixel(void)const=0;
+		virtual void destroyWindow(void)=0;
 
-	virtual bool needWindowClosure(void)const=0;
+		virtual bool needWindowClosure(void)const=0;
 
-	friend class Renderer;
-};
+		friend class Renderer;
+	};
+}
 
 #endif

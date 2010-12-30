@@ -1,5 +1,5 @@
-#ifndef __SDL_SPRITELOADER_H__
-#define __SDL_SPRITELOADER_H__
+#ifndef __NE_SDL_SPRITELOADER_H__
+#define __NE_SDL_SPRITELOADER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -29,12 +29,15 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-class Sprite;
-
-class SDL_SpriteLoader : public SpriteLoader
+namespace NE
 {
-public:
-	Sprite* loadSprite(const std::string& fileName);
-};
+	class Sprite;
+
+	class SDL_SpriteLoader : public SpriteLoader
+	{
+	public:
+		Sprite* loadSprite(const std::string& fileName);
+	};
+}
 
 #endif

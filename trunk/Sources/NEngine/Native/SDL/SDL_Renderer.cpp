@@ -35,7 +35,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../../Utils/Logger.h"
 
-bool SDL_Renderer :: clearScreen(const Colour& colour)
+bool NE :: SDL_Renderer :: clearScreen(const Colour& colour)
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 
@@ -48,7 +48,7 @@ bool SDL_Renderer :: clearScreen(const Colour& colour)
 	return true;
 }
 
-bool SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
+bool NE :: SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 	SDL_Rect sdlTile = { static_cast<short int>(tile.position.x),
@@ -65,7 +65,7 @@ bool SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
 	return true;
 }
 
-bool SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
@@ -83,7 +83,7 @@ bool SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite)cons
 	return true;
 }
 
-bool SDL_Renderer :: drawSurface(const IVec2& position, const Sprite& sprite, const Colour& mask)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position, const Sprite& sprite, const Colour& mask)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
@@ -129,7 +129,7 @@ bool SDL_Renderer :: drawSurface(const IVec2& position, const Sprite& sprite, co
 	return true;
 }
 
-bool SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
@@ -152,7 +152,7 @@ bool SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, con
 	return true;
 }
 
-bool SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect, const Colour& mask)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect, const Colour& mask)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
@@ -203,7 +203,7 @@ bool SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, con
 	return true;
 }
 
-bool SDL_Renderer :: updateWindow(void)
+bool NE :: SDL_Renderer :: updateWindow(void)
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
 

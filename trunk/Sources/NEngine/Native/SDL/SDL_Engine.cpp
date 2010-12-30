@@ -30,10 +30,12 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_Renderer.h"
 #include "SDL_Input.h"
 #include "SDL_Time.h"
+#include "SDL_Sprite.h"
+#include "SDL_SpriteLoader.h"
 
 #include "../../../Utils/Logger.h"
 
-bool SDL_Engine :: init(void)
+bool NE :: SDL_Engine :: init(void)
 {
 	if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
 	{
@@ -41,12 +43,13 @@ bool SDL_Engine :: init(void)
 		return false;
 	}
 
-	pWin = new SDL_Window();
-	pRenderer = new SDL_Renderer(pWin);
-	pTime = new SDL_Time();
-	pInput = new SDL_Input();
+	pWin = new NE::SDL_Window();
+	pRenderer = new NE::SDL_Renderer(pWin);
+	pTime = new NE::SDL_Time();
+	pInput = new NE::SDL_Input();
+	pSpriteLoader = new NE::SDL_SpriteLoader();
 
-	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL )
+	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL || pSpriteLoader == NULL )
 	{
 		LError << "Fail to allocate memory for SDL_Engine components";
 		return false;
@@ -56,8 +59,9 @@ bool SDL_Engine :: init(void)
 	return true;
 }
 
-bool SDL_Engine :: stop(void)
+bool NE :: SDL_Engine :: stop(void)
 {
+	delete pSpriteLoader; pSpriteLoader = NULL;
 	delete pTime; pTime = NULL;
 	delete pInput; pInput = NULL;
 	delete pRenderer; pRenderer = NULL;
@@ -68,4 +72,9 @@ bool SDL_Engine :: stop(void)
 	LDebug << "Native Engine SDL stopped";
 
 	return true;
+}
+
+NE::Sprite* NE::SDL_Engine::loadSpriteFromFile(const std::string& fileName)
+{
+	return pSpriteLoader->loadSprite(fileName);
 }

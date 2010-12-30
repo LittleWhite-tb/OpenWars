@@ -1,5 +1,5 @@
-#ifndef __RENDERER_H__
-#define __RENDERER_H__
+#ifndef __NE_RENDERER_H__
+#define __NE_RENDERER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -30,31 +30,36 @@ e-mail: lw.demoscene@gmail.com
 struct Colour;
 struct Rect;
 
-class Sprite;
-class Window;
 
-class Renderer
+
+namespace NE
 {
-protected:
+	class Sprite;
+	class Window;
 
-	Window* pWin;
+	class Renderer
+	{
+	protected:
 
-	void* getNativeWindow(void)const;
-	void* getNativeSurface(const Sprite& sprite)const;
+		Window* pWin;
 
-public:
-	Renderer(Window* pWin):pWin(pWin) {}
-	virtual ~Renderer(void) {}
+		void* getNativeWindow(void)const;
+		void* getNativeSurface(const Sprite& sprite)const;
 
-	virtual bool clearScreen(const Colour& colour)=0;
+	public:
+		Renderer(Window* pWin):pWin(pWin) {}
+		virtual ~Renderer(void) {}
 
-	virtual bool drawRect(const Rect& tile, const Colour& colour)const=0;
-	virtual bool drawSurface(const IVec2& position,const Sprite& pSurface)const=0;
-	virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Colour& mask)const=0;
-	virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect)const=0;
-	virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect, const Colour& mask)const=0;
+		virtual bool clearScreen(const Colour& colour)=0;
 
-	virtual bool updateWindow(void)=0;
-};
+		virtual bool drawRect(const Rect& tile, const Colour& colour)const=0;
+		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface)const=0;
+		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Colour& mask)const=0;
+		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect)const=0;
+		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect, const Colour& mask)const=0;
+
+		virtual bool updateWindow(void)=0;
+	};
+}
 
 #endif

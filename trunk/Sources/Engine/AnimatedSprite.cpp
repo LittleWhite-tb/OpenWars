@@ -104,16 +104,16 @@ Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 	return srcRect;
 }
 
-bool AnimatedSprite :: draw(const Renderer& r, const IVec2& position, const unsigned int time)
+bool AnimatedSprite :: draw(const NE::Renderer& r, const IVec2& position, const unsigned int time)
 {
 	Rect srcRect = this->getSrcRect(time);
 
-	return r.drawSurface(position,SDL_Sprite(this->pSurface),srcRect);
+	return r.drawSurface(position,NE::SDL_Sprite(this->pSurface),srcRect);
 }
 
-bool AnimatedSprite :: draw(const Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time)
+bool AnimatedSprite :: draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time)
 {
 	Rect srcRect = this->getSrcRect(time);
 
-	return r.drawSurface(position,SDL_Sprite(this->pSurface),srcRect,mask);
+	return r.drawSurface(position,NE::SDL_Sprite(this->pSurface),srcRect,mask);
 }

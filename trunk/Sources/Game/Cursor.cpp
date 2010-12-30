@@ -157,7 +157,7 @@ bool Cursor :: move(const UVec2& newPosition)
 	return true;
 }
 
-bool Cursor :: draw(const Renderer& r, const Camera& c, const unsigned int time)const
+bool Cursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const
 {
 	UVec2 cameraPosition = c.getPosition();
 	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),

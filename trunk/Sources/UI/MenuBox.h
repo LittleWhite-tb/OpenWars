@@ -35,7 +35,7 @@ e-mail: lw.demoscene@gmail.com
 
 class SpriteManager;
 class FontManager;
-class Renderer;
+namespace NE { class Renderer; }
 class Sprite;
 class Font;
 
@@ -73,7 +73,7 @@ public:
 	MenuBox(SpriteManager& sm, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize);
 	~MenuBox(void);
 
-	bool draw(const Renderer& r, const UVec2& cursorPosition, const unsigned int time);
+	bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);
 
 	void update(const ArrowsDirection kd);
 

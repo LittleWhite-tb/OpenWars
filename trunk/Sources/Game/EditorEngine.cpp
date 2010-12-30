@@ -48,7 +48,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 
-EditorEngine :: EditorEngine(NEngine* const pNE)
+EditorEngine :: EditorEngine(NE::Engine* const pNE)
 :Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
 {
 	LDebug << "EditorEngine constructed";

@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Unit.h"
 
-class Renderer;
+namespace NE { class Renderer; }
 class SpriteManager;
 class Camera;
 
@@ -57,7 +57,7 @@ public:
 	MapGame(SpriteManager& sm, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
 	~MapGame();
 
-	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
+	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 	void enableUnits(void);
 

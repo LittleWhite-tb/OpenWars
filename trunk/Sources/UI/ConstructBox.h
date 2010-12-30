@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 class SpriteManager;
 class FontManager;
-class Renderer;
+namespace NE { class Renderer; }
 
 class Sprite;
 class AnimatedSprite;
@@ -76,7 +76,7 @@ public:
 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize);
 	~ConstructBox(void);
 
-	bool draw(const Renderer& r, const unsigned int moneyAvailable);
+	bool draw(const NE::Renderer& r, const unsigned int moneyAvailable);
 
 	void update(const ArrowsDirection kd);
 

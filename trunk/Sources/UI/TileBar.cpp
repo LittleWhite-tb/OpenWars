@@ -241,7 +241,7 @@ void TileBar :: close(void)
 	}
 }
 
-bool TileBar :: draw(const Renderer& r, const unsigned int time)
+bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 {
 	bool isOk = true;
 

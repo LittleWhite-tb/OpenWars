@@ -32,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Vec2.h"
 #include "../Types/Rect.h"
 
-class Renderer;
+namespace NE { class Renderer; }
 class SpriteManager;
 
 class AnimatedSprite : public Sprite
@@ -67,8 +67,8 @@ public:
 	unsigned int getInterval(void)const { return msInterval; }
 	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
 
-	bool draw(const Renderer& r, const IVec2& position, const unsigned int time=0);
-	bool draw(const Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time=0);
+	bool draw(const NE::Renderer& r, const IVec2& position, const unsigned int time=0);
+	bool draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time=0);
 };
 
 /*! \class AnimatedSprite AnimatedSprite.h "Engine/AnimatedSprite.h"

@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Map.h"
 
-class Renderer;
+namespace NE { class Renderer; }
 class Camera;
 
 class MapEditor : public Map
@@ -56,7 +56,7 @@ public:
 	MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size);
 	MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
 
-	bool draw(const Renderer& r, const Camera& c, const unsigned int time);
+	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 	bool testTile(const UVec2& position, const TileType tileType)const;
 

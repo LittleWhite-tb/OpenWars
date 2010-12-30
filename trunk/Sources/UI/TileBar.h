@@ -38,7 +38,7 @@ e-mail: lw.demoscene@gmail.com
 struct SDL_Surface;
 
 class SpriteManager;
-class Renderer;
+namespace NE { class Renderer; }
 class Sprite;
 class AnimatedSprite;
 
@@ -105,7 +105,7 @@ public:
 
 	void move(const ArrowsDirection direction);
 
-	bool draw(const Renderer& r, const unsigned int time);
+	bool draw(const NE::Renderer& r, const unsigned int time);
 
 	void update(const unsigned int time);
 

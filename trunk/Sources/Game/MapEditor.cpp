@@ -101,7 +101,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const std::string& themeName, const UV
 	LDebug << "MapEditor created " << size;
 }
 
-bool MapEditor :: draw(const Renderer& r, const Camera& c, const unsigned int time)
+bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();

@@ -1,5 +1,5 @@
-#ifndef __SOUND_H__
-#define __SOUND_H__
+#ifndef __NE_SOUND_H__
+#define __NE_SOUND_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,14 +25,17 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-class Sound
+namespace NE
 {
-public:
-	Sound(void);
-	virtual Sound(void);
+	class Sound
+	{
+	public:
+		Sound(void);
+		virtual Sound(void);
 
-	virtual play(const bool loop=false)=0;
-	virtual stop(void)=0;
-};
+		virtual play(const bool loop=false)=0;
+		virtual stop(void)=0;
+	};
+}
 
 #endif

@@ -50,7 +50,7 @@ EditingCursor :: ~EditingCursor(void)
 	LDebug << "EditingCursor deleted";
 }
 
-bool EditingCursor :: draw(const Renderer& r, const Camera& c, const unsigned int time)const
+bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const
 {
 	UVec2 cameraPosition = c.getPosition();
 	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),

@@ -81,12 +81,12 @@ int Sprite :: getHeight(void)const
 	return pSurface->h;
 }
 
-bool Sprite :: draw(const Renderer& r, const IVec2& position)
+bool Sprite :: draw(const NE::Renderer& r, const IVec2& position)
 {
-	return r.drawSurface(position, SDL_Sprite(this->pSurface));
+	return r.drawSurface(position, NE::SDL_Sprite(this->pSurface));
 }
 
-bool Sprite :: draw(const Renderer& r, const IVec2& position, const Colour& mask)
+bool Sprite :: draw(const NE::Renderer& r, const IVec2& position, const Colour& mask)
 {
-	return r.drawSurface(position, SDL_Sprite(this->pSurface), mask);
+	return r.drawSurface(position, NE::SDL_Sprite(this->pSurface), mask);
 }

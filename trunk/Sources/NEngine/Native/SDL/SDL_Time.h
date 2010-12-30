@@ -1,5 +1,5 @@
-#ifndef __SDL_TIME_H__
-#define __SDL_TIME_H__
+#ifndef __NE_SDL_TIME_H__
+#define __NE_SDL_TIME_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,14 +27,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../Time.h"
 
-class SDL_Time : public Time
+namespace NE
 {
-public:
-	SDL_Time(void):Time() {}
-	~SDL_Time(void) {}
+	class SDL_Time : public Time
+	{
+	public:
+		SDL_Time(void):Time() {}
+		~SDL_Time(void) {}
 
-	unsigned int getTime(void);
-	void delay(unsigned int msSec);
-};
+		unsigned int getTime(void);
+		void delay(unsigned int msSec);
+	};
+}
 
 #endif

@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 class SpriteManager;
-class Renderer;
+namespace NE { class Renderer; }
 class AnimatedSprite;
 class Map;
 class Camera;
@@ -51,7 +51,7 @@ public:
 	bool getIsWrong(void)const { return isWrong; }
 	void setIsWrong(const bool isWrong) { this->isWrong = isWrong; }
 
-	virtual bool draw(const Renderer& r, const Camera& c, const unsigned int time)const;
+	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
 /*! \class EditingCursor EditingCursor.h "Game/EditingCursor.h"

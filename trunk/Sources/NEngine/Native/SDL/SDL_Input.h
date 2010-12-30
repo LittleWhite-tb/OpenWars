@@ -1,5 +1,5 @@
-#ifndef __SDL_INPUT_H__
-#define __SDL_INPUT_H__
+#ifndef __NE_SDL_INPUT_H__
+#define __NE_SDL_INPUT_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,21 +27,24 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../Input.h"
 
-class SDL_Input : public Input
+namespace NE
 {
-private:
+	class SDL_Input : public Input
+	{
+	private:
 
-	int nbKeys;					/*!< The number of keys repertoried in the array */
-	unsigned char* pKeys;		/*!< Array of keys state */
+		int nbKeys;					/*!< The number of keys repertoried in the array */
+		unsigned char* pKeys;		/*!< Array of keys state */
 
-	void update(void);
+		void update(void);
 
-public:
-	SDL_Input(void):Input() { this->update(); }
-	~SDL_Input(void) {}
+	public:
+		SDL_Input(void):Input() { this->update(); }
+		~SDL_Input(void) {}
 
-	Input::ArrowsDirection getDirection(void);
-	Input::Buttons getButtons(void);
-};
+		Input::ArrowsDirection getDirection(void);
+		Input::Buttons getButtons(void);
+	};
+}
 
 #endif

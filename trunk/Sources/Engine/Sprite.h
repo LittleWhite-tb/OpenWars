@@ -34,7 +34,7 @@ struct Colour;
 
 struct SDL_Surface;
 
-class Renderer;
+namespace NE { class Renderer; }
 
 class Sprite
 {
@@ -60,8 +60,8 @@ public:
 
 	SDL_Surface* getSurface(void)const { return pSurface; }
 
-	virtual bool draw(const Renderer& r, const IVec2& position);
-	virtual bool draw(const Renderer& r, const IVec2& position, const Colour& mask);
+	virtual bool draw(const NE::Renderer& r, const IVec2& position);
+	virtual bool draw(const NE::Renderer& r, const IVec2& position, const Colour& mask);
 };
 
 /*! \class Sprite Sprite.h "Engine/Sprite.h"

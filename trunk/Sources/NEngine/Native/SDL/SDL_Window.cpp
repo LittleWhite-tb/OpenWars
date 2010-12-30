@@ -30,20 +30,20 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../../Utils/Logger.h"
 
-bool SDL_Window::isRedCrossPressed = false;
+bool NE::SDL_Window::isRedCrossPressed = false;
 
 // Callback called once SDL_Quit event appear
 int sdlQuitEventFilter(const SDL_Event* pEvent)
 {
 	if ( pEvent->type == SDL_QUIT )
 	{
-		SDL_Window::isRedCrossPressed = true;
+		NE::SDL_Window::isRedCrossPressed = true;
 	}
 
 	return 0;	
 }
 
-SDL_Window :: ~SDL_Window(void)
+NE :: SDL_Window :: ~SDL_Window(void)
 {
 	if ( pWindow != NULL )
 	{
@@ -51,7 +51,7 @@ SDL_Window :: ~SDL_Window(void)
 	}
 }
 
-unsigned int SDL_Window :: getFlags(const bool isFullscreen, const bool isOpenGL)const
+unsigned int NE :: SDL_Window :: getFlags(const bool isFullscreen, const bool isOpenGL)const
 {
 	unsigned int sdlVideoFlags = SDL_DOUBLEBUF | SDL_ANYFORMAT;
 	const SDL_VideoInfo* pVideoInfo = SDL_GetVideoInfo();	// The documentation does not descrive a case of this function returning NULL pointer
@@ -89,7 +89,7 @@ unsigned int SDL_Window :: getFlags(const bool isFullscreen, const bool isOpenGL
 	return sdlVideoFlags;
 }
 
-bool SDL_Window :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon, const bool showCursor)
+bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon, const bool showCursor)
 {
 	Uint32 sdlVideoFlags = this->getFlags(isFullscreen,false);
 
@@ -124,18 +124,18 @@ bool SDL_Window :: createWindow(const USize2& winSize, const unsigned short bpp,
 }
 
 
-void SDL_Window :: destroyWindow(void)
+void NE :: SDL_Window :: destroyWindow(void)
 {
 	// Nothing here ... with SDL is done in SDL_Quit (SDL_Engine -> stop())
 }
 
-USize2 SDL_Window :: getWindowSize(void)const
+USize2 NE :: SDL_Window :: getWindowSize(void)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->pWindow;
 	return USize2(pSDLWindow->w,pSDLWindow->h);
 }
 
-int SDL_Window :: getBitsPerPixel(void)const
+int NE :: SDL_Window :: getBitsPerPixel(void)const
 {
 	SDL_Surface* pSDLWindow = (SDL_Surface*)this->pWindow;
 	return pSDLWindow->format->BitsPerPixel;

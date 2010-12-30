@@ -32,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 
 class SpriteManager;
 class FontManager;
-class Renderer;
+namespace NE { class Renderer; }
 class Font;
 class Sprite;
 class AnimatedSprite;
@@ -62,7 +62,7 @@ public:
 	void putOnLeft(void);
 	void putOnRight(void);
 
-	bool draw(const Renderer& r);
+	bool draw(const NE::Renderer& r);
 };
 
 /*! \class TileViewer TileViewer.h "Engine/TileViewer.h"

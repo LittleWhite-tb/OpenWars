@@ -29,12 +29,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-void* Renderer :: getNativeWindow()const
+void* NE::Renderer :: getNativeWindow()const
 {
 	return pWin->pWindow;
 }
 
-void* Renderer :: getNativeSurface(const Sprite& sprite)const
+void* NE::Renderer :: getNativeSurface(const Sprite& sprite)const
 {
 	return sprite.pData;
 }

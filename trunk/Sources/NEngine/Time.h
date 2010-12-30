@@ -1,5 +1,5 @@
-#ifndef __TIME_H__
-#define __TIME_H__
+#ifndef __NE_TIME_H__
+#define __NE_TIME_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,14 +25,17 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-class Time
+namespace NE
 {
-public:
-	Time(void) {}
-	virtual ~Time(void) {}
+	class Time
+	{
+	public:
+		Time(void) {}
+		virtual ~Time(void) {}
 
-	virtual unsigned int getTime(void)=0;
-	virtual void delay(unsigned int msSec)=0;
-};
+		virtual unsigned int getTime(void)=0;
+		virtual void delay(unsigned int msSec)=0;
+	};
+}
 
 #endif

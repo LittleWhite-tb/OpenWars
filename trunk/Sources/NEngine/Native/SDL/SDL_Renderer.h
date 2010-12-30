@@ -1,5 +1,5 @@
-#ifndef __SDL_RENDERER_H__
-#define __SDL_RENDERER_H__
+#ifndef __NE_SDL_RENDERER_H__
+#define __NE_SDL_RENDERER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -35,23 +35,26 @@ struct Rect;
 class Window;
 class Sprite;
 
-class SDL_Renderer : public Renderer
+namespace NE
 {
-private:
+	class SDL_Renderer : public Renderer
+	{
+	private:
 
-public:
-	SDL_Renderer(Window* pWin):Renderer(pWin) {}
-	~SDL_Renderer(void) {}
+	public:
+		SDL_Renderer(Window* pWin):Renderer(pWin) {}
+		~SDL_Renderer(void) {}
 
-	bool clearScreen(const Colour& colour);
+		bool clearScreen(const Colour& colour);
 
-	bool drawRect(const Rect& tile, const Colour& colour)const;
-	bool drawSurface(const IVec2& position,const Sprite& pSprite)const;
-	bool drawSurface(const IVec2& position, const Sprite& pSprite, const Colour& mask)const;
-	bool drawSurface(const IVec2& position, const Sprite& pSprite, const Rect& srcRect)const;
-	bool drawSurface(const IVec2& position, const Sprite& pSprite, const Rect& srcRect, const Colour& mask)const;
+		bool drawRect(const Rect& tile, const Colour& colour)const;
+		bool drawSurface(const IVec2& position,const Sprite& pSprite)const;
+		bool drawSurface(const IVec2& position, const Sprite& pSprite, const Colour& mask)const;
+		bool drawSurface(const IVec2& position, const Sprite& pSprite, const Rect& srcRect)const;
+		bool drawSurface(const IVec2& position, const Sprite& pSprite, const Rect& srcRect, const Colour& mask)const;
 
-	bool updateWindow(void);
-};
+		bool updateWindow(void);
+	};
+}
 
 #endif

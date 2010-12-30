@@ -183,7 +183,7 @@ int main(int argc, char** argv)
 	}
 
 	// Starting the native engine
-	NEngine* pNE = new SDL_Engine();
+	NE::Engine* pNE = new NE::SDL_Engine();
 	if ( pNE->init() == false )
 	{
 		return 1;

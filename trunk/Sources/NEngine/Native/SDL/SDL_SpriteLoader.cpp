@@ -33,12 +33,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../../Utils/Logger.h"
 
-Sprite* SDL_SpriteLoader :: loadSprite(const std::string& fileName)
+NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
 {
 	SDL_Surface* pSurface = SDL_LoadBMP(fileName.c_str());
 	if ( pSurface != NULL )
 	{
-		SDL_Sprite* pSprite = new SDL_Sprite(pSurface);
+		NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
 		if ( pSprite == NULL )
 		{
 			LError << "Fail to allocate memory for a SDL_Sprite";

@@ -60,7 +60,7 @@ private:
 	bool load(void);
 
 public:
-	EditorEngine(NEngine* const pNE);
+	EditorEngine(NE::Engine* const pNE);
 	~EditorEngine(void);
 
 	bool init(void);

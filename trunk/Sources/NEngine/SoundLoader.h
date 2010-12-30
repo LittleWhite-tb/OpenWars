@@ -1,5 +1,5 @@
-#ifndef __SOUNDLOADER_H__
-#define __SOUNDLOADER_H__
+#ifndef __NE_SOUNDLOADER_H__
+#define __NE_SOUNDLOADER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,10 +27,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-class SoundLoader
+namespace NE
 {
-public:
-	Sound* loadSound(const std::string& fileName);
-};
+	class SoundLoader
+	{
+	public:
+		Sound* loadSound(const std::string& fileName);
+	};
+}
 
 #endif

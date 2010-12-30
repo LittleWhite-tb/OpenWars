@@ -1,5 +1,5 @@
-#ifndef __SPRITE_H__
-#define __SPRITE_H__
+#ifndef __NE_SPRITE_H__
+#define __NE_SPRITE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,17 +27,20 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class Sprite
+namespace NE
 {
-protected:
-	void* pData;
-public:
-	Sprite(void* pData):pData(pData) {}
-	virtual ~Sprite(void);
+	class Sprite
+	{
+	protected:
+		void* pData;
+	public:
+		Sprite(void* pData):pData(pData) {}
+		virtual ~Sprite(void) {}
 
-	virtual USize2 getSize(void)const=0;
+		virtual USize2 getSize(void)const=0;
 
-	friend class Renderer;
-};
+		friend class Renderer;
+	};
+}
 
 #endif

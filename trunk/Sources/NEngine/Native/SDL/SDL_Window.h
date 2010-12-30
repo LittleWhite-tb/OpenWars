@@ -1,5 +1,5 @@
-#ifndef __SDL_WINDOW_H__
-#define __SDL_WINDOW_H__
+#ifndef __NE_SDL_WINDOW_H__
+#define __NE_SDL_WINDOW_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -29,25 +29,28 @@ e-mail: lw.demoscene@gmail.com
 
 struct SDL_Surface;
 
-class SDL_Window : public Window
+namespace NE
 {
-private:
-	unsigned int getFlags(const bool isFullscreen, const bool isOpenGL)const;
+	class SDL_Window : public Window
+	{
+	private:
+		unsigned int getFlags(const bool isFullscreen, const bool isOpenGL)const;
 
-public:
-	static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
+	public:
+		static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
 
 
-	SDL_Window(void):Window() {}
-	~SDL_Window(void);
+		SDL_Window(void):Window() {}
+		~SDL_Window(void);
 
-	bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false);
-	void destroyWindow(void);
+		bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false);
+		void destroyWindow(void);
 
-	USize2 getWindowSize(void)const;
-	int getBitsPerPixel(void)const;
+		USize2 getWindowSize(void)const;
+		int getBitsPerPixel(void)const;
 
-	bool needWindowClosure(void)const { return isRedCrossPressed; }
-};
+		bool needWindowClosure(void)const { return isRedCrossPressed; }
+	};
+}
 
 #endif

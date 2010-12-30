@@ -135,7 +135,7 @@ void MapGame :: enableUnits(void)
     }
 }
 
-bool MapGame :: draw(const Renderer& r, const Camera& c, const unsigned int time)
+bool MapGame :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();

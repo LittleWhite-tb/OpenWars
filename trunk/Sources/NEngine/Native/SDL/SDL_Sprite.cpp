@@ -26,12 +26,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-SDL_Sprite :: ~SDL_Sprite(void)
+NE :: SDL_Sprite :: ~SDL_Sprite(void)
 {
 	// SDL_FreeSurface((SDL_Surface*)this->pData);
 }
 
-USize2 SDL_Sprite :: getSize(void)const
+USize2 NE :: SDL_Sprite :: getSize(void)const
 {
 	SDL_Surface* pSurface = (SDL_Surface*)this->pData;
 	return USize2(pSurface->w,pSurface->h);

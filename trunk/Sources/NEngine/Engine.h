@@ -1,5 +1,5 @@
-#ifndef __NENGINE_H__
-#define __NENGINE_H__
+#ifndef __NE_ENGINE_H__
+#define __NE_ENGINE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,37 +25,49 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-class Window;
-class Renderer;
-class Input;
-class Time;
+#include <string>
 
-class NEngine
+namespace NE
 {
-protected:
-	Window* pWin;
-	Renderer* pRenderer;
-	Input* pInput;
-	Time* pTime;
+	class Window;
+	class Renderer;
+	class Input;
+	class Time;
 
-public:
-	NEngine(void) {}
-	virtual ~NEngine(void) {}
+	class Sprite;
+	class SpriteLoader;
 
-	virtual bool init(void)=0;
-	virtual bool stop(void)=0;
+	class Engine
+	{
+	protected:
+		Window* pWin;
+		Renderer* pRenderer;
+		Input* pInput;
+		Time* pTime;
 
-	Window* getWindow(void) { return pWin; }
-	// void setWindow(Window* const pWin) { this->pWin = pWin; }
+		SpriteLoader* pSpriteLoader;
 
-	Renderer* getRenderer(void) { return pRenderer; }
-	// void setRenderer(Renderer* const pRenderer) { this->pRenderer = pRenderer; }
+	public:
+		Engine(void) {}
+		virtual ~Engine(void) {}
 
-	Input* getInput(void) { return pInput; }
-	// void setInput(Input* const pInput) { this->pInput = pInput; }
+		virtual bool init(void)=0;
+		virtual bool stop(void)=0;
 
-	Time* getTime(void) { return pTime; }
-	// void setTime(Time* const pTime) { this->pTime = pTime; }
-};
+		Window* getWindow(void) { return pWin; }
+		// void setWindow(Window* const pWin) { this->pWin = pWin; }
+
+		virtual Sprite* loadSpriteFromFile(const std::string& fileName)=0;
+
+		Renderer* getRenderer(void) { return pRenderer; }
+		// void setRenderer(Renderer* const pRenderer) { this->pRenderer = pRenderer; }
+
+		Input* getInput(void) { return pInput; }
+		// void setInput(Input* const pInput) { this->pInput = pInput; }
+
+		Time* getTime(void) { return pTime; }
+		// void setTime(Time* const pTime) { this->pTime = pTime; }
+	};
+}
 
 #endif

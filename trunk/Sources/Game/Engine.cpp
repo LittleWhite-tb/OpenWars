@@ -37,7 +37,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-Engine::Engine(NEngine* const pNE)
+Engine::Engine(NE::Engine* const pNE)
 :pNE(pNE),pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
 {
 	assert(pNE);

@@ -45,7 +45,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
-GameEngine :: GameEngine(NEngine* const pNE)
+GameEngine :: GameEngine(NE::Engine* const pNE)
 :Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";

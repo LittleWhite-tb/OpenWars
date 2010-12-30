@@ -1,5 +1,5 @@
-#ifndef __SPRITELOADER_H__
-#define __SPRITELOADER_H__
+#ifndef __NE_SPRITELOADER_H__
+#define __NE_SPRITELOADER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,14 +27,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-class Sprite;
-
-class SpriteLoader
+namespace NE
 {
-public:
-	virtual ~SpriteLoader(void) {}
+	class Sprite;
 
-	Sprite* loadSprite(const std::string& fileName);
-};
+	class SpriteLoader
+	{
+	public:
+		virtual ~SpriteLoader(void) {}
+
+		virtual Sprite* loadSprite(const std::string& fileName)=0;
+	};
+}
 
 #endif

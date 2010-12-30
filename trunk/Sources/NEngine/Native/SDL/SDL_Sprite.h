@@ -1,5 +1,5 @@
-#ifndef __SDL_SPRITE_H__
-#define __SDL_SPRITE_H__
+#ifndef __NE_SDL_SPRITE_H__
+#define __NE_SDL_SPRITE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -31,13 +31,16 @@ e-mail: lw.demoscene@gmail.com
 
 struct SDL_Surface;
 
-class SDL_Sprite : public Sprite
+namespace NE
 {
-public:
-	SDL_Sprite(SDL_Surface* pSprite):Sprite(pSprite) {}
-	~SDL_Sprite(void);
+	class SDL_Sprite : public Sprite
+	{
+	public:
+		SDL_Sprite(SDL_Surface* pSprite):Sprite(pSprite) {}
+		~SDL_Sprite(void);
 
-	USize2 getSize(void)const;
-};
+		USize2 getSize(void)const;
+	};
+}
 
 #endif

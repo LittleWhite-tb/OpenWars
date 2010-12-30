@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-void SDL_Input :: update()
+void NE :: SDL_Input :: update()
 {
 	int nbKeys = 0;
 
@@ -36,7 +36,7 @@ void SDL_Input :: update()
 	this->nbKeys = nbKeys;
 }
 
-Input::ArrowsDirection SDL_Input :: getDirection(void)
+NE::Input::ArrowsDirection NE :: SDL_Input :: getDirection(void)
 {
 	update();
 
@@ -82,11 +82,11 @@ Input::ArrowsDirection SDL_Input :: getDirection(void)
 	return AD_NONE;
 }
 
-Input::Buttons SDL_Input :: getButtons(void)
+NE::Input::Buttons NE :: SDL_Input :: getButtons(void)
 {
 	update();
 
-	Input::Buttons buttonPressed = 0;
+	NE::Input::Buttons buttonPressed = 0;
 
 	if ( pKeys[SDLK_q] )
 	{

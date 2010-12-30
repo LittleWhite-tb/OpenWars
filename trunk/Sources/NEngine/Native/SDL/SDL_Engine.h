@@ -1,5 +1,5 @@
-#ifndef __SDL_ENGINE_H__
-#define __SDL_ENGINE_H__
+#ifndef __NE_SDL_ENGINE_H__
+#define __NE_SDL_ENGINE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,14 +27,23 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../Engine.h"
 
-class SDL_Engine : public NEngine
-{
-public:
-	SDL_Engine(void):NEngine() {}
-	~SDL_Engine(void) {}
 
-	bool init(void);
-	bool stop(void);
-};
+
+namespace NE
+{
+	class Sprite;
+
+	class SDL_Engine : public NE::Engine
+	{
+	public:
+		SDL_Engine(void):NE::Engine() {}
+		~SDL_Engine(void) {}
+
+		bool init(void);
+		bool stop(void);
+
+		Sprite* loadSpriteFromFile(const std::string& fileName);
+	};
+}
 
 #endif

@@ -67,7 +67,7 @@ void TileViewer :: putOnRight(void)
 	position.x = windowSize.x - pBackground->getWidth() - 10;
 }
 
-bool TileViewer :: draw(const Renderer& r)
+bool TileViewer :: draw(const NE::Renderer& r)
 {
 	bool error = true;
 

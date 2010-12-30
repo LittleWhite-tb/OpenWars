@@ -561,10 +561,6 @@
 				Name="NEngine"
 				>
 				<File
-					RelativePath=".\Sources\NEngine\Engine.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\Sources\NEngine\Engine.h"
 					>
 				</File>

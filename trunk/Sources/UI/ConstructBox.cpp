@@ -68,7 +68,7 @@ ConstructBox :: ~ConstructBox(void)
 	LDebug << "Construc Box delete";
 }
 
-bool ConstructBox :: draw(const Renderer& r, const unsigned int moneyAvailable)
+bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailable)
 {
 	bool errorFlag = true;
 

@@ -402,7 +402,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 	return !error;
 }
 
-bool Map :: drawTerrain(const Renderer& r, const Camera& c, const unsigned int time)
+bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	UVec2 mapOffset = Scaler::getOffset();

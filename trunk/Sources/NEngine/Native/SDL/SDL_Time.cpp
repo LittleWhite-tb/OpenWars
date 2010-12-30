@@ -26,12 +26,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-unsigned int SDL_Time :: getTime(void)
+unsigned int NE :: SDL_Time :: getTime(void)
 {
 	return SDL_GetTicks();
 }
 
-void SDL_Time :: delay(unsigned int msSec)
+void NE :: SDL_Time :: delay(unsigned int msSec)
 {
 	SDL_Delay(msSec);
 }
