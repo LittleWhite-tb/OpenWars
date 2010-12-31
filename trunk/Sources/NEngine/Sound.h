@@ -31,11 +31,33 @@ namespace NE
 	{
 	public:
 		Sound(void);
-		virtual Sound(void);
+		virtual ~Sound(void);
 
-		virtual play(const bool loop=false)=0;
-		virtual stop(void)=0;
+		virtual void play(const bool loop=false)=0;
+		virtual void stop(void)=0;
 	};
 }
+
+/*! \class NE::Sound Sound.h "NEngine/Sound.h"
+ *  \brief Sound interface
+ *
+ * The Sound class gives an interface to implement new platform specific Sound functions.
+ */
+
+/*! \fn NE::Sound::Sound(void)
+ */
+
+/* \fn virtual NE::Sound::~Sound(void)
+ */
+
+/*! \fn virtual void NE::Sound::play(const bool loop=false)=0
+ * \brief play the Sound
+ * \param loop true if the Sound must be looped
+ */
+
+/*! \fn virtual void NE::Sound::stop(void)=0
+ * \brief stop the Sound
+ * Do nothing if the Sound is not played
+ */
 
 #endif

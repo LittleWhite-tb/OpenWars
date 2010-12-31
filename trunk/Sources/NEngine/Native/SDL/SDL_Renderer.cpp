@@ -37,7 +37,7 @@ e-mail: lw.demoscene@gmail.com
 
 bool NE :: SDL_Renderer :: clearScreen(const Colour& colour)
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
 
 	if ( SDL_FillRect(pSDLWindow,NULL,SDL_MapRGB(pSDLWindow->format,colour.r,colour.g,colour.b)) != 0 )
 	{
@@ -50,11 +50,11 @@ bool NE :: SDL_Renderer :: clearScreen(const Colour& colour)
 
 bool NE :: SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
 	SDL_Rect sdlTile = { static_cast<short int>(tile.position.x),
 						static_cast<short int>(tile.position.y),
-						static_cast<unsigned short int>(tile.position.width),
-						static_cast<unsigned short int>(tile.position.height) };
+						static_cast<unsigned short int>(tile.size.width),
+						static_cast<unsigned short int>(tile.size.height) };
 
 	if ( SDL_FillRect(pSDLWindow, &sdlTile, SDL_MapRGBA(pSDLWindow->format, colour.r, colour.g, colour.b, colour.a)) == -1 )
 	{
@@ -67,8 +67,8 @@ bool NE :: SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
 
 bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
-	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
+	SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(sprite));
 	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
 						static_cast<short int>(position.y),
 						static_cast<unsigned short int>(pSDLSurface->w),
@@ -85,8 +85,8 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprit
 
 bool NE :: SDL_Renderer :: drawSurface(const IVec2& position, const Sprite& sprite, const Colour& mask)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
-	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
+	SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(sprite));
 	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
 						static_cast<short int>(position.y),
 						static_cast<unsigned short int>(pSDLSurface->w),
@@ -131,8 +131,8 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position, const Sprite& spri
 
 bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
-	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
+	SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(sprite));
 	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
 						static_cast<short int>(position.y),
 						static_cast<unsigned short int>(srcRect.size.width),
@@ -154,8 +154,8 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprit
 
 bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect, const Colour& mask)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
-	SDL_Surface* pSDLSurface = (SDL_Surface*)this->getNativeSurface(sprite);
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
+	SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(sprite));
 	SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
 						static_cast<short int>(position.y),
 						static_cast<unsigned short int>(srcRect.size.width),
@@ -205,7 +205,7 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprit
 
 bool NE :: SDL_Renderer :: updateWindow(void)
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->getNativeWindow();
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
 
 	SDL_UpdateRect(pSDLWindow,0,0,0,0);
 

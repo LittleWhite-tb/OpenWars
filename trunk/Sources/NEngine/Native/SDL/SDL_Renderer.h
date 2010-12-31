@@ -57,4 +57,8 @@ namespace NE
 	};
 }
 
+/*! \fn NE::SDL_Renderer::SDL_Renderer(Window* pWin)
+ * \param pWin Window to use by the Renderer
+ */
+
 #endif

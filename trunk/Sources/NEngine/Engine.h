@@ -40,12 +40,12 @@ namespace NE
 	class Engine
 	{
 	protected:
-		Window* pWin;
-		Renderer* pRenderer;
-		Input* pInput;
-		Time* pTime;
+		Window* pWin;					/*!< Window used by the Engine */
+		Renderer* pRenderer;			/*!< Renderer used by the Engine */
+		Input* pInput;					/*!< Input used by the Engine */
+		Time* pTime;					/*!< Time used by the Engine */
 
-		SpriteLoader* pSpriteLoader;
+		SpriteLoader* pSpriteLoader;	/*!< SpriteLoader used by the Engine */
 
 	public:
 		Engine(void) {}
@@ -69,5 +69,54 @@ namespace NE
 		// void setTime(Time* const pTime) { this->pTime = pTime; }
 	};
 }
+
+/*! \class NE::Engine Engine.h "NEngine/Engine.h"
+ *  \brief Engine interface
+ *
+ * The Engine class gives an interface to implement new platform specific engine used by the game.
+ * The Engine generally contains a Window, a Renderer, a SpriteLoader but also Input and Time.
+ */
+
+/*! \fn NE::Engine::Engine(void)
+ */
+
+/*! \fn virtual NE::Engine::~Engine(void)
+ */
+
+/*! \fn virtual bool NE::Engine::init(void)=0
+ * \brief Start the engine (and all sub API used)
+ * \return true if all goes right
+ */
+
+/*! \fn virtual bool NE::Engine::stop(void)=0
+ * \brief Stop the engine (and all sub API used)
+ * \return true if all goes right
+ */
+
+/*! \fn Window* NE::Engine::getWindow(void)
+ * \brief Get the Window used by the Engine
+ * \return a pointer to the Window
+ */
+
+/*! \fn virtual Sprite* NE::Engine::loadSpriteFromFile(const std::string& fileName)
+ * \brief Load a Sprite from a file (using the SpriteLoader)
+ * \param fileName the name of the file to load
+ * \return a pointer to a Sprite
+ */
+
+/*! \fn Renderer* NE::Engine::getRenderer(void)
+ * \brief Get the Renderer used by the Engine
+ * \return a pointer to the Renderer
+ */
+
+/*! \fn Input* NE::Engine::getInput(void)
+ * \brief Get the Input used by the Engine
+ * \return a pointer to the Input
+ */
+
+/*! \fn Time* NE::Engine::getTime(void)
+ * \brief Get the Time used by the Engine
+ * \return a pointer to the Time
+ */
 
 #endif

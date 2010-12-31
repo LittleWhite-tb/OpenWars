@@ -32,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/Controls/Keyboard.h"
 
-#include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 
 class SpriteManager;
 class FontManager;

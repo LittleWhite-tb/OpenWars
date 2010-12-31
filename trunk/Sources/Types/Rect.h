@@ -26,6 +26,7 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 
 struct Rect
 {

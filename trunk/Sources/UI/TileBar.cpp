@@ -119,8 +119,8 @@ TileBar :: TileBar(SpriteManager& sm, std::vector<View*>& listTiles, const USize
 	currentX = 5;
 	currentY = 0;
 	// Speed
-	stepX = windowSize.x / 80;
-	stepY = windowSize.y / 60;
+	stepX = windowSize.width / 80;
+	stepY = windowSize.height / 60;
 
 	LDebug << "TileBar created";
 }
@@ -256,17 +256,17 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 	
 	if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
 	{
-		unsigned int selectedTileXPosition = windowSize.x / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2;
+		unsigned int selectedTileXPosition = windowSize.width / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2;
 		unsigned int xOffset = 0;
 		if ( currentX-1 >= 0 )
 		{
-			xOffset = (windowSize.x / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2) - viewList[currentX-1][0]->positionX;
+			xOffset = (windowSize.width / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2) - viewList[currentX-1][0]->positionX;
 		}
 		else
 		{
-			xOffset = (windowSize.x / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2) - viewList[viewList.size()-1][0]->positionX;
+			xOffset = (windowSize.width / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2) - viewList[viewList.size()-1][0]->positionX;
 		}
-		IVec2 cursorPosition(windowSize.x / 2 - pBarCursor->getWidth()/2, positionY + static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_BAR_HEIGHT) / 2 - pBarCursor->getHeight()/2);
+		IVec2 cursorPosition(windowSize.width / 2 - pBarCursor->getWidth()/2, positionY + static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_BAR_HEIGHT) / 2 - pBarCursor->getHeight()/2);
 
 		// Display the Tiles
 		for ( unsigned int i = 0 ; i < viewList.size() ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
@@ -283,7 +283,7 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 				// The currently selected sprite will be centered in the cursor
 				if ( static_cast<int>(i) == currentX )
 				{
-					tilePosition.x = windowSize.x / 2 - viewList[i%viewList.size()][0]->getSprite()->getWidth() / 2;
+					tilePosition.x = windowSize.width / 2 - viewList[i%viewList.size()][0]->getSprite()->getWidth() / 2;
 				}
 
 				// The following sprite after the selected one have to be offseted to continue the TileBar correctly
@@ -325,14 +325,14 @@ void TileBar :: update(const unsigned int time)
 	{
 		case TBS_Closing:
 			positionY+=stepY;
-			if ( positionY >= windowSize.y )
+			if ( positionY >= windowSize.height )
 			{
 				state = TBS_Closed;
 			}
 			break;
 		case TBS_Opening:
 			positionY-=stepY;
-			if ( positionY <= windowSize.y - static_cast<int>(Scaler::getYScaleFactor() * 64) )
+			if ( positionY <= windowSize.height - static_cast<int>(Scaler::getYScaleFactor() * 64) )
 			{
 				state = TBS_Opened;
 			}

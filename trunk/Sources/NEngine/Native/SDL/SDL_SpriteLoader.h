@@ -36,7 +36,7 @@ namespace NE
 	class SDL_SpriteLoader : public SpriteLoader
 	{
 	public:
-		Sprite* loadSprite(const std::string& fileName);
+		Sprite* loadSpriteFromFile(const std::string& fileName);
 	};
 }
 

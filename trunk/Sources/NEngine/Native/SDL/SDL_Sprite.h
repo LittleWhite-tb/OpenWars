@@ -43,4 +43,8 @@ namespace NE
 	};
 }
 
+/*! \fn NE::SDL_Sprite::SDL_Sprite(SDL_Surface* pSprite)
+ * \param pSprite Native surface to use by the Sprite
+ */
+
 #endif

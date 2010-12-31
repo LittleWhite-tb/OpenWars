@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-#include "../../../Types/Vec2.h"
+#include "../../../Types/Size2.h"
 
 #include "../../../Utils/Logger.h"
 
@@ -131,12 +131,12 @@ void NE :: SDL_Window :: destroyWindow(void)
 
 USize2 NE :: SDL_Window :: getWindowSize(void)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->pWindow;
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->pWindow);
 	return USize2(pSDLWindow->w,pSDLWindow->h);
 }
 
 int NE :: SDL_Window :: getBitsPerPixel(void)const
 {
-	SDL_Surface* pSDLWindow = (SDL_Surface*)this->pWindow;
+	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->pWindow);
 	return pSDLWindow->format->BitsPerPixel;
 }

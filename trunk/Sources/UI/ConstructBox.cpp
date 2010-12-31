@@ -72,7 +72,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 {
 	bool errorFlag = true;
 
-	IVec2 uiPosition(20, windowSize.y - (pBackgroundUI->getHeight() + static_cast<unsigned int>(20 * Scaler::getYScaleFactor())));
+	IVec2 uiPosition(20, windowSize.height - (pBackgroundUI->getHeight() + static_cast<unsigned int>(20 * Scaler::getYScaleFactor())));
 	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getWidth() / 2) + pBackgroundUI->getWidth() / 2 , uiPosition.y);
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + pBackgroundUI->getHeight() - pDownArrow->getHeight());
 	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getHeight() + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));

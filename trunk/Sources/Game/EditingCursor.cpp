@@ -56,8 +56,8 @@ bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigne
 	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),
 								 (this->position.y - cameraPosition.y ) * (static_cast<int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT)));
 
-	screenPosition.x += Scaler::getOffset().x;
-	screenPosition.y += Scaler::getOffset().y;
+	screenPosition.x += Scaler::getOffset().width;
+	screenPosition.y += Scaler::getOffset().height;
 
 	if ( isWrong )
 	{

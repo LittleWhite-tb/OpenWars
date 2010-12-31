@@ -25,14 +25,14 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 
 namespace NE
 {
 	class Sprite
 	{
 	protected:
-		void* pData;
+		void* pData;		/*!< The pointer on the native Sprite */
 	public:
 		Sprite(void* pData):pData(pData) {}
 		virtual ~Sprite(void) {}
@@ -42,5 +42,23 @@ namespace NE
 		friend class Renderer;
 	};
 }
+
+/*! \class NE::Sprite Sprite.h "NEngine/Sprite.h"
+ *  \brief Sprite interface
+ *
+ * The Sprite class gives an interface to implement new platform specific Sprite functions.
+ */
+
+/*! \fn NE::Sprite::Sprite(void* pData)
+ * \param pData the pointer on the native sprite data
+ */
+
+/*! \fn virtual NE::Sprite::~Sprite(void)
+ */
+
+/*! \fn virtual USize2 NE::Sprite::getSize(void)const=0
+ * \brief Get the size of the Sprite
+ * \return the size of the Sprite
+ */
 
 #endif

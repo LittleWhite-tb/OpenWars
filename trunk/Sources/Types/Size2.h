@@ -1,5 +1,5 @@
-#ifndef __VEC2_H__
-#define __VEC2_H__
+#ifndef __SIZE2_H__
+#define __SIZE2_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -28,23 +28,23 @@ e-mail: lw.demoscene@gmail.com
 #include <iostream>
 
 template <typename T>
-struct Vec2
+struct Size2
 {
-	T x;				/*!< The value on the x axis */
-	T y;				/*!< The value on the y axis */
+	T width;			/*!< The value for the width */
+	T height;			/*!< The value for the height */
 
-	Vec2(void):x(0),y(0) {}
+	Size2(void):width(0),height(0) {}
 
 	//! Basic constructor
 	/*!
-		\param x the value on the x axis
-		\param y the value on the y axis
+		\param width the value for the width
+		\param height the value for the height
 	*/
-	Vec2(const T& x, const T& y):x(x),y(y) {}
+	Size2(const T& width, const T& height):width(width),height(height) {}
     
-    bool operator==(const Vec2<T>& v)const
+    bool operator==(const Size2<T>& s)const
     {
-        if ( v.x == this->x && v.y == this->y )
+        if ( s.width == this->width && s.height == this->height )
         {
             return true;
         }
@@ -54,30 +54,30 @@ struct Vec2
 };
 
 template <typename T>
-std::ostream& operator<< (std::ostream& o, const Vec2<T>& v)
+std::ostream& operator<< (std::ostream& o, const Size2<T>& s)
 {
-	o << "Vec2(" << v.x << ";" << v.y << ")";
+	o << "Size2(" << s.width << ";" << s.height << ")";
 
 	return o;
 }
 
-typedef Vec2<int> IVec2;
-typedef Vec2<unsigned int> UVec2;
+typedef Size2<int> ISize2;
+typedef Size2<unsigned int> USize2;
 
-/*! \struct Vec2 Vec2.h "Types/Vec2.h"
- *  \brief 2D Vector structure
+/*! \struct Size2 Size2.h "Types/Size2.h"
+ *  \brief 2D Size structure
  *
- *  2D vector containing two fileds (x and y).
+ *  2D size containing two fileds (width and height).
  */
 
-/*! \fn bool Vec2::operator==(const Vec2<T>& v)const
+/*! \fn bool Vec2::operator==(const Size2<T>& s)const
  * \brief equality operator
- * \param v the second vector to compare against
+ * \param v the second size to compare against
  */
 
-/*! \fn std::ostream& operator<< (std::ostream& o, const Vec2<T>& v)
+/*! \fn std::ostream& operator<< (std::ostream& o, const Size2<T>& s)
 	\param o the stream where to send the output
-	\param v the vector to send
+	\param s the size to send
 	\return the stream (to loop)
 */
 

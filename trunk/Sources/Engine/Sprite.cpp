@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ResourcesManager/SpriteManager.h"
 
-#include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 #include "../Types/Colour.h"
 #include "../Types/Rect.h"
 

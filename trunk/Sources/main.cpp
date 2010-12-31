@@ -144,6 +144,8 @@ int main(int argc, char** argv)
 						gEngine.run();
 					}
 				}
+
+				pNE->getWindow()->destroyWindow();
 			}
 
 			// Stopping SDL_ttf

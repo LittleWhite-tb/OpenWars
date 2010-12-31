@@ -28,14 +28,14 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 #include "Logger.h"
 #include "../globals.h"
 
 // Default values
 double Scaler::xScaleFactor = 1.0;
 double Scaler::yScaleFactor = 1.0;
-UVec2 Scaler::offset = UVec2(0,0);
+USize2 Scaler::offset = USize2(0,0);
 
 void Scaler :: initScaleFactor(const USize2& winSize)
 {
@@ -43,8 +43,8 @@ void Scaler :: initScaleFactor(const USize2& winSize)
 	yScaleFactor = (winSize.height / (double)MAP_MIN_HEIGHT) / (double)TILE_DEFAULT_HEIGHT;
 
 	// Gap appear when we put the scale factor back to unsigned int
-	offset.x = (winSize.width - (static_cast<unsigned int>(xScaleFactor * TILE_DEFAULT_WIDTH) * MAP_MIN_WIDTH ))/2;
-	offset.y = (winSize.height - (static_cast<unsigned int>(yScaleFactor * TILE_DEFAULT_HEIGHT) * MAP_MIN_HEIGHT))/2;
+	offset.width = (winSize.width - (static_cast<unsigned int>(xScaleFactor * TILE_DEFAULT_WIDTH) * MAP_MIN_WIDTH ))/2;
+	offset.height = (winSize.height - (static_cast<unsigned int>(yScaleFactor * TILE_DEFAULT_HEIGHT) * MAP_MIN_HEIGHT))/2;
 
 	LDebug << "Scaler :: setScaleFactor (Found: " << xScaleFactor << ";" << yScaleFactor << " Offset: " << offset << " )";
 }

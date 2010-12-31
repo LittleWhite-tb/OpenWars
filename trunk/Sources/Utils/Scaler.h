@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 struct SDL_Surface;
 
-#include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 
 class Scaler
 {
@@ -35,7 +35,7 @@ private:
 
 	static double xScaleFactor;		/*!< the scaling factor on the x axis */
 	static double yScaleFactor;		/*!< the scaling factor on the y axis */
-	static UVec2 offset;			/*!< Offset to apply to have the center the tiles */
+	static USize2 offset;			/*!< Offset to apply to have the center the tiles */
 
 	static bool shrinkSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface);
 	static bool zoomSurface(SDL_Surface* const pSrcSurface, SDL_Surface* const pDstSurface);
@@ -49,7 +49,7 @@ public:
 	static double getXScaleFactor(void) { return xScaleFactor; }
 	static double getYScaleFactor(void) { return yScaleFactor; }
 
-	static UVec2 getOffset(void) { return offset; }
+	static USize2 getOffset(void) { return offset; }
 
 };
 

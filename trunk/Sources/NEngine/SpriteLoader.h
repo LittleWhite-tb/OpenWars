@@ -36,8 +36,23 @@ namespace NE
 	public:
 		virtual ~SpriteLoader(void) {}
 
-		virtual Sprite* loadSprite(const std::string& fileName)=0;
+		virtual Sprite* loadSpriteFromFile(const std::string& fileName)=0;
 	};
 }
+
+/*! \class NE::SpriteLoader SpriteLoader.h "NEngine/SpriteLoader.h"
+ *  \brief SpriteLoader interface
+ *
+ * The SpriteLoader class gives an interface to implement new platform specific Sprite loading functions.
+ */
+
+/*! \fn virtual NE::SpriteLoader::~SpriteLoader(void)
+ */
+
+/*! \fn virtual Sprite* NE::SpriteLoader::loadSpriteFromFile(const std::string& fileName)=0
+ * \brief load a Sprite from a file
+ * \param fileName the name of the file to load
+ * \return a pointer to the newly loaded Sprite
+*/
 
 #endif

@@ -425,6 +425,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\Types\Size2.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\Types\Vec2.h"
 					>
 				</File>

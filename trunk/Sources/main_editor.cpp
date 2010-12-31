@@ -228,6 +228,8 @@ int main(int argc, char** argv)
 						eEngine.saveMap(mapName);
 					}
 				}
+
+				pNE->getWindow()->destroyWindow();
 			}
 
 			// Stopping SDL_ttf

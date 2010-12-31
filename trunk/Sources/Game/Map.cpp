@@ -405,8 +405,8 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
-	UVec2 mapOffset = Scaler::getOffset();
-	IVec2 tilePos(0,mapOffset.y);
+	USize2 mapOffset = Scaler::getOffset();
+	IVec2 tilePos(0,mapOffset.height);
 	bool bResult = true;
 
 	LDebug << "Map :: drawTerrain";
@@ -415,7 +415,7 @@ bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned i
 	// For each lines
 	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
 	{
-		tilePos.x = mapOffset.x;
+		tilePos.x = mapOffset.width;
 		// For each columns
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{

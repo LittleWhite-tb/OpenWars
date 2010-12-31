@@ -33,7 +33,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../../Utils/Logger.h"
 
-NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
+NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
 {
 	SDL_Surface* pSurface = SDL_LoadBMP(fileName.c_str());
 	if ( pSurface != NULL )

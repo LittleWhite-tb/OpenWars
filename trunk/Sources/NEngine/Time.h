@@ -38,4 +38,28 @@ namespace NE
 	};
 }
 
+/*! \class NE::Time Time.h "NEngine/Time.h"
+ *  \brief Time interface
+ *
+ * The Time class gives an interface to implement new platform specific time related functions in the game.
+ * Only the two simplest functions are implemented. One to get the time, the other one to wait (pause) the process an amount of time
+ */
+
+/*! \fn NE::Time::Time(void)
+ */
+
+/*! \fn virtual NE::Time::~Time(void)
+ */
+
+/*! \fn virtual unsigned int NE::Time::getTime(void)=0
+ * \brief Get the actual time
+ * Note: The value return can be from the start of the process or the exact actual time.
+ * \return the value of the time.
+ */
+
+/*! \fn virtual void NE::Time::delay(unsigned int msSec)=0
+ * \brief Pause the process for some milliseconds
+ * \param msSec the amount of time to wait in milliseconds
+*/
+
 #endif
