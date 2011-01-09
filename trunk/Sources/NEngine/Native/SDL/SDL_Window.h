@@ -53,4 +53,8 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Window SDL_Window.h "NEngine/Native/SDL/SDL_Window.h"
+ *  \brief SDL implementation for Window
+ */
+
 #endif

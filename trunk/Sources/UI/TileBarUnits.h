@@ -81,10 +81,12 @@ public:
  *
  */
 
-/*! \fn TileBarUnits::TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles)
+/*! \fn TileBarUnits::TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles, const USize2& windowSize)
  * \brief Create a TileBar with units
  * \param sm the sprite manager to load the sprites used by the map
  * \param listTiles The list of units to display in the TileBar
+ * \param windowSize the size of the window (used as reference to place the TileBar)
+ */
 
 /*! \fn UnitType TileBarUnits::getSelected(void)const
  * \brief Get the UnitType selected

@@ -79,9 +79,10 @@ public:
  * \return true if all is right
  */
 
-/*! \fn static void Scaler::initScaleFactor()
+/*! \fn static void Scaler::initScaleFactor(const USize2& winSize)
  * \brief Init the scaling factors
  * To determine the scaling factor, we are using the size of the window plus some globals set in globals.h
+ * \param winSize the size of the window to determine the scaling factors
  */
 
 /*! \fn static SDL_Surface* Scaler::scale(SDL_Surface* const pSrcSurface)

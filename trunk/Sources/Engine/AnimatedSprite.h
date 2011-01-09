@@ -128,15 +128,17 @@ public:
  * \param newInterval the new interval in millisecond
  */
 
-/*! \fn bool AnimatedSprite::draw(const IVec2& position, const unsigned int time=0)
+/*! \fn bool AnimatedSprite::draw(const NE::Renderer& r, const IVec2& position, const unsigned int time=0)
  * \brief Draw the Sprite at position
+ * \param r the NE::Renderer to use to draw the AnimatedSprite
  * \param position where to draw the sprite
  * \param time time of the animation
  * \return true if all goes right
  */
 
-/*! \fn bool AnimatedSprite::draw(const IVec2& position, const Colour& mask, const unsigned int time=0)
+/*! \fn bool AnimatedSprite::draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time=0)
  * \brief Draw the Sprite at position
+ * \param r the NE::Renderer to use to draw the AnimatedSprite
  * \param position where to draw the sprite
  * \param mask mask to use when drawing the sprite
  * \param time time of the animation

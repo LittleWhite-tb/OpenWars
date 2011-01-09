@@ -94,8 +94,9 @@ public:
  * \param newColour the new colour for the font
  */
 
-/*! \fn bool Font::draw(const std::string& text, const IVec2& position)
+/*! \fn bool Font::draw(const NE::Renderer& r, const std::string& text, const IVec2& position)
  * \brief Draw a text with the font
+ * \param r the NE::Renderer to use to draw the Font
  * \param text the Text to draw
  * \param position the position where to draw
  * \return true if all goes right

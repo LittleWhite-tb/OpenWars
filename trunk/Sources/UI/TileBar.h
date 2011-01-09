@@ -169,10 +169,11 @@ public:
  * \brief Change the Y dimension of the TileBar 
  */
 
-/*! \fn TileBar::TileBar(SpriteManager& sm, std::vector<View *>& listTiles)
+/*! \fn TileBar::TileBar(SpriteManager& sm, std::vector<View *>& listTiles, const USize2& windowSize)
  * Will create the surface for the Bar and load the bar cursor and Tiles
  * \param sm The SpriteManager to use to load the images
  * \param listTiles The list of tiles to display in the TileBar
+ * \param windowSize the size of the window (used as reference to place the TileBar)
  */
 
 /*! \fn virtual TileBar::~TileBar(void)
@@ -191,8 +192,9 @@ public:
  * \param direction the direction to move to
  */
 
-/*! \fn bool TileBar::draw(const unsigned int time)
+/*! \fn bool TileBar::draw(const NE::Renderer& r, const unsigned int time)
  * \brief Draw the Bar
+ * \param r the NE::Renderer to use to draw the TileBar
  * \param time Time used for the animations
  * \return true if all goes right
  */

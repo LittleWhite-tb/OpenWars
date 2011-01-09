@@ -70,9 +70,9 @@ typedef Size2<unsigned int> USize2;
  *  2D size containing two fileds (width and height).
  */
 
-/*! \fn bool Vec2::operator==(const Size2<T>& s)const
+/*! \fn bool Size2::operator==(const Size2<T>& s)const
  * \brief equality operator
- * \param v the second size to compare against
+ * \param s the second size to compare against
  */
 
 /*! \fn std::ostream& operator<< (std::ostream& o, const Size2<T>& s)

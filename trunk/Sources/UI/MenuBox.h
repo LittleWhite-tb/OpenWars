@@ -89,19 +89,21 @@ public:
  * The background is constructed on the fly, so it needs special precaution.
  */
 
-/*! \fn MenuBox::MenuBox(SpriteManager& sm, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries)
+/*! \fn MenuBox::MenuBox(SpriteManager& sm, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize)
  * \param sm The sprite manager to load the sprites
  * \param fm The font manager to load the fonts
  * \param cursorFileName the file to load for the cursor
  * \param fontFileName the font to load for the texts
+ * \param winSize the size of the window (used as reference to place the MenuBox)
  * \param entries the entries to display in the UI
  */
 
 /*! \fn MenuBox::~MenuBox(void)
  */
 
-/*! \fn bool MenuBox::draw(const UVec2& cursorPosition, const unsigned int time)
+/*! \fn bool MenuBox::draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
  * \brief Draw the construct box
+ * \param r the NE::Renderer to use to draw the MenuBox
  * \param cursorPosition the position of the cursor (to place the UI)
  * \param time the actual time
  * \return true if all goes right

@@ -43,6 +43,10 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Sprite SDL_Sprite.h "NEngine/Native/SDL/SDL_Sprite.h"
+ *  \brief SDL implementation for Sprite
+ */
+
 /*! \fn NE::SDL_Sprite::SDL_Sprite(SDL_Surface* pSprite)
  * \param pSprite Native surface to use by the Sprite
  */

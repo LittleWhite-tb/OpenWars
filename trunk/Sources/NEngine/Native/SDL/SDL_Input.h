@@ -47,4 +47,8 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Input SDL_Input.h "NEngine/Native/SDL/SDL_Input.h"
+ *  \brief SDL implementation for Input (keyboard)
+ */
+
 #endif

@@ -57,6 +57,10 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Renderer SDL_Renderer.h "NEngine/Native/SDL/SDL_Renderer.h"
+ *  \brief SDL implementation for Renderer
+ */
+
 /*! \fn NE::SDL_Renderer::SDL_Renderer(Window* pWin)
  * \param pWin Window to use by the Renderer
  */

@@ -84,7 +84,7 @@ public:
  * \param needScaling if some scaling operation has to be done on this sprite
  */
 
-/*! \fn Sprite::Sprite(Surface* pSurface)
+/*! \fn Sprite::Sprite(SDL_Surface* pSurface)
  * The SDL_Surface should be ready to use.
  * \warning The SDL_Surface will not be deleted, you have to do to it just before deletion of the instance, using getSurface().
  * \param pSurface pointer on the surface to use
@@ -114,14 +114,16 @@ public:
  * \return returns the surface
  */
 
-/*! \fn virtual bool Sprite::draw(const IVec2& position)
+/*! \fn virtual bool Sprite::draw(const NE::Renderer& r, const IVec2& position)
  * \brief Draw the Sprite at position
+ * \param r the NE::Renderer used to draw the Sprite
  * \param position where to draw the sprite
  * \return true if all goes right
  */
 
-/*! \fn virtual bool Sprite::draw(const IVec2& position, const Colour& mask)
+/*! \fn virtual bool Sprite::draw(const NE::Renderer& r, const IVec2& position, const Colour& mask)
  * \brief Draw the Sprite at position
+ * \param r the NE::Renderer used to draw the Sprite
  * \param position where to draw the sprite
  * \param mask mask to use when drawing the sprite
  * \return true if all goes right

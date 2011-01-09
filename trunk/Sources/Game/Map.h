@@ -132,8 +132,9 @@ public:
  * \return true if all goes right
  */
 
-/*! \fn bool Map::drawTerrain(const Camera& c, const unsigned int time)
+/*! \fn bool Map::drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time)
  * \brief Draw the terrain map
+ * \param r the NE::Renderer to use to draw the Map
  * \param c The Camera (used to draw the correct part of the Map)
  * \param time the actual time (for animation)
  * \return true if all goes right
@@ -149,8 +150,9 @@ public:
 /*! \fn virtual Map::~Map(void)
  */
 
-/*! \fn virtual bool Map::draw(const Camera& c, const unsigned int time)=0
+/*! \fn virtual bool Map::draw(const NE::Renderer& r, const Camera& c, const unsigned int time)=0
  * \brief Draw the map
+ * \param r the NE::Renderer to use to draw the Map
  * \param c The Camera (used to draw the correct part of the Map)
  * \param time the actual time (for animation)
  * \return true if all goes right

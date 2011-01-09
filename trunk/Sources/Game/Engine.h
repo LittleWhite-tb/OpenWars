@@ -38,7 +38,7 @@ class Keyboard;
 class Engine
 {
 protected:
-	NE::Engine* pNE;
+	NE::Engine* pNE;            /*!< Native engine to use in the Engine */
 
 	SpriteManager* pSM;			/*!< The sprite manager for the editor */
 	FontManager* pFM;			/*!< The font manager for the editor */
@@ -65,7 +65,8 @@ public:
  *	The engine should at least implement a init and a run function.
  */
 
-/*! \fn Engine::Engine(void);
+/*! \fn Engine::Engine(NE::Engine* const pNE);
+ * \param pNE pointer of the Native Engine to user
  */
 
 /*! \fn virtual Engine::~Engine(void)

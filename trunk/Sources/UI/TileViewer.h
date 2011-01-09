@@ -52,7 +52,7 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont,  const USize2& windowSize);
+	TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
 	~TileViewer(void);
 
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
@@ -74,12 +74,13 @@ public:
  *		- Change the tile
  */
 
-/*! \fn TileViewer::TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont)
+/*! \fn TileViewer::TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
  * Will load the font and the background
  * \param sm The SpriteManager to use to load the background
  * \param fm The FontManager to use to load the font
  * \param fileNameBackground The file for the background
  * \param fileNameFont The file for the font
+ * \param windowSize the size of the window (used as reference to place the viewer)
  */
 
 /*! \fn TileViewer::~TileViewer(void)
@@ -104,8 +105,9 @@ public:
  * \brief Set the UI on the right of the screen
  */
 
-/*! \fn bool TileViewer::draw()
+/*! \fn bool TileViewer::draw(const NE::Renderer& r)
  * draw the UI
+ * \param r the NE::Renderer to use to draw the viewer
  * \return true if all goes right
  */
 

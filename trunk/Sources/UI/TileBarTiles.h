@@ -79,10 +79,11 @@ public:
  *
  */
 
-/*! \fn TileBarTiles::TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles)
+/*! \fn TileBarTiles::TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles, const USize2& windowSize)
  * Create a TileBar with tiles
  * \param sm the sprite manager to load the sprites used by the map
  * \param listTiles The list of tiles to display in the TileBar
+ * \param windowSize the size of the window (used as reference to place the TileBar)
  */
 
 /*! \fn TileType TileBarTiles::getSelected(void)const

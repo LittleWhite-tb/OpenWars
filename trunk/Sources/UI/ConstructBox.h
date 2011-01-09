@@ -89,7 +89,7 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
  * The ContructBox show a list of unit with name and price that we can build
  */
 
-/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList)
+/*! \fn ConstructBox::ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
  * \param sm the SpriteManaget to load the sprites
  * \param fm the FontManager to load the fonts
  * \param backgroundFileName the path to the sprite to load for the background
@@ -98,13 +98,15 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
  * \param downArrowFileName the path to the sprite to load for the down arrow
  * \param fontFileName the path to the font to load for the texts
  * \param unitsList the list of units to display
+ * \param windowSize the size of the window (used to place the ConstructBox)
  */
 
 /*! \fn ConstructBox::~ConstructBox(void)
  */
 
-/*! \fn bool ConstructBox::draw(const unsigned int moneyAvailable)
+/*! \fn bool ConstructBox::draw(const NE::Renderer& r, const unsigned int moneyAvailable)
  * \brief Draw the construct box
+ * \param r the NE::Renderer used to draw
  * \param moneyAvailable the money that the user have
  * \return true if all goes right
  */

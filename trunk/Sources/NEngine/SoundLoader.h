@@ -42,9 +42,6 @@ namespace NE
  * The SoundLoader class gives an interface to implement new platform specific Sound loading functions.
  */
 
-/*! \fn virtual NE::SoundLoader::~SoundLoader(void)
- */
-
 /*! \fn virtual Sound* NE::SoundLoader::loadSoundFromFile(const std::string& fileName)=0
  * \brief load a Sound from a file
  * \param fileName the name of the file to load

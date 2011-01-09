@@ -118,8 +118,9 @@ public:
  * \return true if the displacement was possible
  */
 
-/*! \fn virtual bool Cursor::draw(const Camera& c, const unsigned int time)const
+/*! \fn virtual bool Cursor::draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const
  * \brief Draw the cursor
+ * \param r the NE::Renderer to use to draw the Cursor
  * \param c The Camera (used to draw the cursor at the correct place on the screen)
  * \param time The actual time
  * \return true if all goes right

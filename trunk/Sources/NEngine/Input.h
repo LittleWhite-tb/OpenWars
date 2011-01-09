@@ -69,10 +69,10 @@ namespace NE
  * The Input class gives an interface to implement new platform specific inputs.
  */
 
-/*! \fn NE:Input::Input(void)
+/*! \fn NE::Input::Input(void)
  */
 
-/*! \fn virtual NE:Input::~Input(void)
+/*! \fn virtual NE::Input::~Input(void)
  */
 
 /*! \fn virtual NE::Input::ArrowsDirection NE::Input::getDirection(void)=0

@@ -46,4 +46,8 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Engine SDL_Engine.h "NEngine/Native/SDL/SDL_Engine.h"
+ *  \brief SDL implementation for Engine
+ */
+
 #endif

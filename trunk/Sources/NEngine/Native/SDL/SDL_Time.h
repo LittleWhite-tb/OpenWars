@@ -40,4 +40,11 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Time SDL_Time.h "NEngine/Native/SDL/SDL_Time.h"
+ *  \brief SDL Time implementation
+ *
+ * Get the time using SDL_GetTicks() in milli seconds
+ * The delay using SDL_Delay() have a precision of 10ms
+ */
+
 #endif
