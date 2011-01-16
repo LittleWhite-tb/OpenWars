@@ -30,3 +30,13 @@ std::ostream& operator<< (std::ostream& o, const Colour& c)
 
 	return o;
 }
+
+bool operator< (const Colour& c1, const Colour& c2)
+{
+    if ( c1.r < c2.r && c1.g < c2.g && c1.b < c2.b && c1.a < c2.a )
+    {
+        return true;
+    }
+    
+    return false;
+}

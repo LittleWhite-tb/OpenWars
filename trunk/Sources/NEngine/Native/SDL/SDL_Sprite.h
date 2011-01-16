@@ -35,9 +35,12 @@ namespace NE
 {
 	class SDL_Sprite : public Sprite
 	{
+    protected: 
+    
+        ~SDL_Sprite(void);
+        
 	public:
 		SDL_Sprite(SDL_Surface* pSprite):Sprite(pSprite) {}
-		~SDL_Sprite(void);
 
 		USize2 getSize(void)const;
 	};

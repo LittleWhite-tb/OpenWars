@@ -26,31 +26,32 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "Sprite.h"
-
 #include "../NEngine/Renderer.h"
-#include "../NEngine/Native/SDL/SDL_Sprite.h"
+#include "../NEngine/Sprite.h"
 
+#include "../Types/Colour.h"
 #include "../Types/Rect.h"
-
-#include "ResourcesManager/SpriteManager.h"
 
 #include "../Utils/Logger.h"
 #include "../Utils/Scaler.h"
 
-AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
-	:Sprite(sm,fileName,needScaling),animationCounter(0),lastUpdate(0),msInterval(msInterval)
+AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval)
+    :pSprite(pSprite),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
-	USize2 surfaceSize = USize2(this->pSurface->w,this->pSurface->h);
+    USize2 surfaceSize = pSprite->getSize();
+    this->spriteSize = spriteSize;
 
 	// We scale the size of the sprite surface (since we always apply the scaler on the surface, from the SpriteManager)
+/*
 	if ( needScaling )
 	{
 		this->widthSprite = static_cast<unsigned int>(width * Scaler::getXScaleFactor());
 		this->heightSprite = static_cast<unsigned int>(height * Scaler::getYScaleFactor());
 	}
+*/
 
 	// Special cas where the size given by the user is not completely right, or there is only one sprite (no animation)
+/*
 	if ( surfaceSize.width < static_cast<int>(widthSprite) )
 	{
 		this->widthSprite = surfaceSize.width;
@@ -60,10 +61,10 @@ AnimatedSprite :: AnimatedSprite(SpriteManager& sm, const std::string& fileName,
 	{
 		this->heightSprite = surfaceSize.height;
 	}
-
-	numberAnimation = (surfaceSize.width / this->widthSprite) * (surfaceSize.height / this->heightSprite );
+*/
+	numberAnimation = (surfaceSize.width / this->spriteSize.width) * (surfaceSize.height / this->spriteSize.height );
 	
-	LDebug << "AnimatedSprite created from '" << fileName.c_str() << "' (" << this->widthSprite << "x" << this->heightSprite << ") Nb Animation: " << numberAnimation;
+	LDebug << "AnimatedSprite (" << spriteSize << ") Nb Animation: " << numberAnimation;
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)
@@ -90,12 +91,12 @@ void AnimatedSprite :: update(const unsigned int time)
 
 Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 {
-	unsigned int nbAnimOnWidth = this->pSurface->w / widthSprite;
+	unsigned int nbAnimOnWidth = this->pSprite->getSize().width / spriteSize.width;
 	
-	IVec2 position(	widthSprite * (animationCounter % nbAnimOnWidth),
-					heightSprite * (animationCounter / nbAnimOnWidth));
+	IVec2 position(	spriteSize.width * (animationCounter % nbAnimOnWidth),
+					spriteSize.height * (animationCounter / nbAnimOnWidth));
 
-	Rect srcRect(position,USize2(widthSprite,heightSprite));
+	Rect srcRect(position,spriteSize);
 
 	//LDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
 
@@ -108,12 +109,12 @@ bool AnimatedSprite :: draw(const NE::Renderer& r, const IVec2& position, const 
 {
 	Rect srcRect = this->getSrcRect(time);
 
-	return r.drawSurface(position,NE::SDL_Sprite(this->pSurface),srcRect);
+	return r.drawSurface(position,*pSprite,srcRect);
 }
 
 bool AnimatedSprite :: draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time)
 {
 	Rect srcRect = this->getSrcRect(time);
 
-	return r.drawSurface(position,NE::SDL_Sprite(this->pSurface),srcRect,mask);
+	return r.drawSurface(position,*pSprite,srcRect,mask);
 }

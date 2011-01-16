@@ -25,6 +25,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditingCursor.h"
 
+#include "../NEngine/SpriteLoader.h"
+
 #include "../Engine/AnimatedSprite.h"
 
 #include "Camera.h"
@@ -34,11 +36,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-EditingCursor :: EditingCursor(SpriteManager& sm, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
-	:Cursor(sm,fileNameCursor,pMap,initialPosition),isWrong(false)
+EditingCursor :: EditingCursor(NE::SpriteLoader* pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
+	:Cursor(pSL,fileNameCursor,pMap,initialPosition),isWrong(false)
 {
 	// The size of the tiles and the cursor are the same to have better effect
-	pWrongCursorSprite = new AnimatedSprite(sm,fileNameWrongCursor,TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT, CURSOR_SPEED,true);
+	pWrongCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileNameWrongCursor),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED);
 
 	LDebug << "EditingCursor created " << initialPosition;
 }

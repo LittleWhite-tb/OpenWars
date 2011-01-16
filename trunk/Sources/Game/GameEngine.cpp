@@ -27,6 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Engine.h"
 #include "../NEngine/Window.h"
 #include "../NEngine/Renderer.h"
+#include "../NEngine/SpriteLoader.h"
 
 #include "MapGame.h"
 #include "Cursor.h"
@@ -78,7 +79,7 @@ GameEngine :: ~GameEngine(void)
 
 bool GameEngine :: load(void)
 {
-	pC = new Cursor(*pSM,"./data/gfx/cursor.png",pMap,UVec2(5,5));
+	pC = new Cursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png",pMap,UVec2(5,5));
 	pCam = new Camera();
 
 	// Prepare the data to put in the Construction Box for the Factory
@@ -137,16 +138,16 @@ bool GameEngine :: load(void)
 	try
 	{
 		// Prepare the data for the basic menu
-        menuEntries.push_back(new MenuView("End turn",ME_EndTurn,new AnimatedSprite(*pSM,GFX_PATH "endTurnIcon.png",32,32,200,true)));
+        menuEntries.push_back(new MenuView("End turn",ME_EndTurn,new AnimatedSprite(pNE->getSpriteLoader()->loadSpriteFromFile(GFX_PATH "endTurnIcon.png"),USize2(32,32),200)));
         menuEntries.push_back(new MenuView("Quit",ME_Quit,NULL));
         
         // Unit menu
         unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
-		pCBFactory = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits,pNE->getWindow()->getWindowSize());
-		pCBPort = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits,pNE->getWindow()->getWindowSize());
-		pCBAirport = new ConstructBox(*pSM,*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits,pNE->getWindow()->getWindowSize());
-		pMBMenu = new MenuBox(*pSM,*pFM, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries,pNE->getWindow()->getWindowSize());
+		pCBFactory = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits,pNE->getWindow()->getWindowSize());
+		pCBPort = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits,pNE->getWindow()->getWindowSize());
+		pCBAirport = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits,pNE->getWindow()->getWindowSize());
+		pMBMenu = new MenuBox(pNE->getSpriteLoader(),pNE->getSpriteFactory(),*pFM, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries,pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -170,7 +171,7 @@ bool GameEngine :: init(void)
 
 bool GameEngine :: load(const std::string& mapName)
 {
-	pMap = new MapGame(*pSM , mapName, GFX_PATH "highlight.png",GFX_PATH "highlightAttack.png");
+	pMap = new MapGame(pNE->getSpriteLoader(), mapName, GFX_PATH "highlight.png",GFX_PATH "highlightAttack.png");
 	if ( !pMap->isValidMap() )
 	{
 		return false;

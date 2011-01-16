@@ -31,8 +31,11 @@ e-mail: lw.demoscene@gmail.com
 #include <utility>
 #include <cassert>
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
-#include "../Engine/Sprite.h"
+#include "../NEngine/Sprite.h"
+#include "../NEngine/SpriteLoader.h"
+#include "../NEngine/SpriteFactory.h"
+#include "../NEngine/Renderer.h"
+
 #include "../Engine/AnimatedSprite.h"
 #include "../Game/Tile.h"
 #include "../Utils/Logger.h"
@@ -42,45 +45,19 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-TileBar :: TileBar(SpriteManager& sm, std::vector<View*>& listTiles, const USize2& windowSize)
+TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View*>& listTiles, const USize2& windowSize)
 :windowSize(windowSize)
 {
 	unsigned int barHeight = static_cast<unsigned int>(64 * Scaler::getYScaleFactor());
 	unsigned int maximumX = 0;
-	SDL_Surface* pSurface = NULL;
-	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,windowSize.width,barHeight,32,
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-												0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000
-#else
-												0xff000000,  0x00ff0000, 0x0000ff00, 0x000000ff
-#endif
-												);
-	if ( pSurface == NULL )
-	{
-		LError << "SDL_CreateRGBSurfaceFrom() failed (" << SDL_GetError() << ")";
-		throw ConstructionFailedException("TileBar");
-		return;
-	}
-/*
-	// Put half alpha for the bar
-	if ( SDL_SetAlpha(pSurface,SDL_SRCALPHA,128) != 0 )
-	{
-		LWarning << "SDL_SetAlpha failed for putting half alpha on the bar";
-	}
-*/
 	
-	unsigned int* pPixel = reinterpret_cast<unsigned int*>(pSurface->pixels);
-	for ( int i = 0 ; i < pSurface->w * pSurface->h ; i++ )
-	{
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-		*pPixel = 0x80000000;
-#else
-		*pPixel = 0x00000080;
-#endif
-		pPixel++;
-	}
 	
-	pBarSprite = new Sprite(pSurface);
+	pBarSprite = pSF->createSpriteFromColour(Colour(0x00000080),USize2(windowSize.width,barHeight));
+    if ( pBarSprite == NULL )
+    {
+        ConstructionFailedException("TileBar");
+        return;
+    }
 
 	// Search the maximum positionX to know the size of the vector
 	for ( std::vector<View*>::const_iterator itTile = listTiles.begin() ; itTile != listTiles.end() ; ++itTile )
@@ -106,14 +83,14 @@ TileBar :: TileBar(SpriteManager& sm, std::vector<View*>& listTiles, const USize
 	}
 
 	// Load the cursor
-	pBarCursor = new Sprite(sm,"./data/gfx/tilebar_cursor.png",true);
+	pBarCursor = pSL->loadSpriteFromFile("./data/gfx/tilebar_cursor.png");
 
 	// Load the arrows
-	pBarArrows = new AnimatedSprite(sm,"./data/gfx/tilebar_arrows.png",45,45,300,true);
+	pBarArrows = new AnimatedSprite(pSL->loadSpriteFromFile("./data/gfx/tilebar_arrows.png"),USize2(45,45),300);
 
 	// Final settings
 	counterMovementAnim = 0;
-	limit =  (viewList[0][0]->getSprite()->getWidth() + (static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)*2)) * viewList.size();
+	limit =  (viewList[0][0]->getSprite()->getSize().width + (static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN)*2)) * viewList.size();
 	positionY = windowSize.height;
 	state = TBS_Closed;
 	currentX = 5;
@@ -128,10 +105,6 @@ TileBar :: TileBar(SpriteManager& sm, std::vector<View*>& listTiles, const USize
 TileBar :: ~TileBar(void)
 {
 	delete pBarArrows;
-	delete pBarCursor;
-
-	SDL_FreeSurface(pBarSprite->getSurface());
-	delete pBarSprite;
 
 	for ( std::vector<std::vector<View*> >::const_iterator itListView = viewList.begin() ; itListView != viewList.end() ; ++itListView )
 	{
@@ -251,39 +224,40 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 
 	if ( state != TBS_Closed )
 	{
-		isOk &= pBarSprite->draw(r,barPosition);
+		isOk &= r.drawSurface(barPosition,*pBarSprite);
 	}
 	
 	if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
 	{
-		unsigned int selectedTileXPosition = windowSize.width / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2;
+        unsigned int spriteWidth = viewList[currentX][0]->getSprite()->getSize().width;
+		unsigned int selectedTileXPosition = windowSize.width / 2 - spriteWidth / 2;
 		unsigned int xOffset = 0;
 		if ( currentX-1 >= 0 )
 		{
-			xOffset = (windowSize.width / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2) - viewList[currentX-1][0]->positionX;
+			xOffset = (windowSize.width / 2 - spriteWidth / 2) - viewList[currentX-1][0]->positionX;
 		}
 		else
 		{
-			xOffset = (windowSize.width / 2 - viewList[currentX][0]->getSprite()->getWidth() / 2) - viewList[viewList.size()-1][0]->positionX;
+			xOffset = (windowSize.width / 2 - spriteWidth / 2) - viewList[viewList.size()-1][0]->positionX;
 		}
-		IVec2 cursorPosition(windowSize.width / 2 - pBarCursor->getWidth()/2, positionY + static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_BAR_HEIGHT) / 2 - pBarCursor->getHeight()/2);
+		IVec2 cursorPosition(windowSize.width / 2 - pBarCursor->getSize().width/2, positionY + static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_BAR_HEIGHT) / 2 - pBarCursor->getSize().height/2);
 
 		// Display the Tiles
 		for ( unsigned int i = 0 ; i < viewList.size() ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->getSize().height - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 
 			IVec2 tilePosition(viewList[i%viewList.size()][0]->positionX, positionY + static_cast<int>(Scaler::getYScaleFactor() * TILE_BAR_YMARGIN *2));
 			// Offset, because we are drawing one before the first visible
-			tilePosition.x -= static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN *2) + viewList[i%viewList.size()][0]->getSprite()->getWidth();
+			tilePosition.x -= static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN *2) + viewList[i%viewList.size()][0]->getSprite()->getSize().width;
 
 			if ( state == TBS_Opened )
 			{
 				// The currently selected sprite will be centered in the cursor
 				if ( static_cast<int>(i) == currentX )
 				{
-					tilePosition.x = windowSize.width / 2 - viewList[i%viewList.size()][0]->getSprite()->getWidth() / 2;
+					tilePosition.x = windowSize.width / 2 - viewList[i%viewList.size()][0]->getSprite()->getSize().width / 2;
 				}
 
 				// The following sprite after the selected one have to be offseted to continue the TileBar correctly
@@ -304,7 +278,7 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 		}
 
 		// Draw the cursor
-		isOk &= pBarCursor->draw(r,cursorPosition);
+		isOk &= r.drawSurface(cursorPosition,*pBarCursor);
 		// Draw the arrow if needed
 		if ( viewList[currentX].size() > 1 && state == TBS_Opened )
 		{
@@ -370,7 +344,7 @@ void TileBar :: update(const unsigned int time)
 					{
 						if ( (*itASprites)->positionX < 0 )
 						{
-							(*itASprites)->positionX = (limit - ((static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) + (*itASprites)->getSprite()->getWidth())));
+							(*itASprites)->positionX = (limit - ((static_cast<int>(Scaler::getXScaleFactor() * TILE_BAR_XMARGIN) + (*itASprites)->getSprite()->getSize().width)));
 						}
 					}
 				}

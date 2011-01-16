@@ -30,11 +30,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class SpriteManager;
+namespace NE { class SpriteLoader; }
+namespace NE { class Sprite; }
 class FontManager;
 namespace NE { class Renderer; }
 class Font;
-class Sprite;
+
 class AnimatedSprite;
 
 class TileViewer
@@ -42,7 +43,7 @@ class TileViewer
 private:
 
 	Font* pFont;				/*!< the font to use */
-	Sprite* pBackground;		/*!< the sprite for the background */
+	NE::Sprite* pBackground;		/*!< the sprite for the background */
 	 AnimatedSprite* pTileSprite;	/*!< the tile to display in the UI */
 
 	std::string title;				/*!< the title to display */
@@ -52,7 +53,7 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
+	TileViewer(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
 	~TileViewer(void);
 
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }

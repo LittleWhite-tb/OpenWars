@@ -25,24 +25,27 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileViewer.h"
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
+#include "../NEngine/SpriteLoader.h"
+#include "../NEngine/Renderer.h"
+
 #include "../Engine/ResourcesManager/FontManager.h"
-#include "../Engine/Sprite.h"
+#include "../NEngine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
 
 #include "../Utils/Logger.h"
 #include "../Types/Vec2.h"
 
-TileViewer :: TileViewer(SpriteManager& sm, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
+TileViewer :: TileViewer(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
 :windowSize(windowSize)
 {
 	SDL_Color white = {255,255,255,255};
 
-	pBackground = new Sprite(sm,fileNameBackground,true);
+	pBackground = pSL->loadSpriteFromFile(fileNameBackground);
 	pFont = new Font(fm,fileNameFont,16,white);
-
-	position = IVec2(windowSize.width - pBackground->getWidth() - 10, windowSize.height - pBackground->getHeight() - 10);
+    
+    USize2 backgroundSize = pBackground->getSize();
+	position = IVec2(windowSize.width - backgroundSize.width - 10, windowSize.height - backgroundSize.height - 10);
 	
 	title = "Element";
 
@@ -54,7 +57,6 @@ TileViewer :: ~TileViewer(void)
 	LDebug << "TileViewer deleted";
 
 	delete pFont;
-	delete pBackground;
 }
 
 void TileViewer :: putOnLeft(void)
@@ -64,22 +66,23 @@ void TileViewer :: putOnLeft(void)
 
 void TileViewer :: putOnRight(void)
 {
-	position.x = windowSize.width - pBackground->getWidth() - 10;
+	position.x = windowSize.width - pBackground->getSize().width - 10;
 }
 
 bool TileViewer :: draw(const NE::Renderer& r)
 {
 	bool error = true;
+    USize2 backgroundSize = pBackground->getSize();
 
 	IVec2 titleSize = pFont->getSize(title);
 	IVec2 nameSize = pFont->getSize(tileName);
-	IVec2 titlePosition((position.x + (pBackground->getWidth() - titleSize.x)/2) , position.y - titleSize.y/2);
-	IVec2 tilePosition(position.x + (pBackground->getWidth() - pTileSprite->getWidth())/2 , position.y + (pBackground->getHeight() - pTileSprite->getHeight())/2);
-	IVec2 namePosition(position.x + (pBackground->getWidth() - nameSize.x)/2 , tilePosition.y + pTileSprite->getHeight() + 2);
+	IVec2 titlePosition((position.x + (backgroundSize.width - titleSize.x)/2) , position.y - titleSize.y/2);
+	IVec2 tilePosition(position.x + (backgroundSize.width - pTileSprite->getSize().width)/2 , position.y + (backgroundSize.height - pTileSprite->getSize().height)/2);
+	IVec2 namePosition(position.x + (backgroundSize.width - nameSize.x)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
 
 	LDebug << "TileViewer draw";
 
-	error &= pBackground->draw(r,position);
+	error &= r.drawSurface(position,*pBackground);
 	error &= pFont->draw(r,title,titlePosition);
 	error &= pTileSprite->draw(r,tilePosition,0);
 	error &= pFont->draw(r,tileName,namePosition);

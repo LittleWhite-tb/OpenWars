@@ -103,6 +103,16 @@ IVec2 LineParser :: getIVec2(void)const
 	return v;
 }
 
+USize2 LineParser :: getUSize2(void)const
+{
+	std::stringstream ss(line);
+	USize2 s;
+
+	ss >> s.width >> s.height;
+
+	return s;
+}
+
 int LineParser :: getInt(void)const
 {
 	std::stringstream ss(line);

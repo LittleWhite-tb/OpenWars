@@ -27,19 +27,27 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Size2.h"
 
+struct Colour;
+
 namespace NE
 {
 	class Sprite
 	{
 	protected:
 		void* pData;		/*!< The pointer on the native Sprite */
+    
+        virtual ~Sprite(void) {}
+        
 	public:
 		Sprite(void* pData):pData(pData) {}
-		virtual ~Sprite(void) {}
 
 		virtual USize2 getSize(void)const=0;
 
 		friend class Renderer;
+        
+        // To have only the sprite loader able to delete a Sprite
+        friend class SpriteLoader;
+        friend class SpriteFactory;
 	};
 }
 

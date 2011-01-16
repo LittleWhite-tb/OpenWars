@@ -34,7 +34,8 @@ e-mail: lw.demoscene@gmail.com
 class Map;
 class Camera;
 struct Tile;
-class SpriteManager;
+
+namespace NE { class SpriteLoader; }
 class AnimatedSprite;
 
 class Cursor
@@ -53,7 +54,7 @@ protected:
 
 public:
 
-	Cursor(SpriteManager& sm, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
+	Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
 	virtual ~Cursor(void);
 
 	Tile getTileUnderCursor(void)const;

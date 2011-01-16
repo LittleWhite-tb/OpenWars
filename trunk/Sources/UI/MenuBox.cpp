@@ -24,9 +24,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MenuBox.h"
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
+#include "../NEngine/SpriteLoader.h"
+#include "../NEngine/SpriteFactory.h"
+#include "../NEngine/Sprite.h"
+#include "../NEngine/Renderer.h"
+
 #include "../Engine/ResourcesManager/FontManager.h"
-#include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
 
@@ -37,37 +40,15 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MenuBox :: MenuBox(SpriteManager& sm, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& windowSize)
-:pCursor(new AnimatedSprite(sm,cursorFileName,32,32,200,true)),actualPosition(0),entries(entries)
+MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& windowSize)
+:pCursor(new AnimatedSprite(pSL->loadSpriteFromFile(cursorFileName),USize2(32,32),200)),actualPosition(0),entries(entries)
 {
-	// Creating the background
-	SDL_Surface* pSurface = NULL;
-	pSurface = SDL_CreateRGBSurface(SDL_HWSURFACE,150,10 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor()),32,
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-												0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000
-#else
-												0xff000000,  0x00ff0000, 0x0000ff00, 0x000000ff
-#endif
-												);
-	if ( pSurface == NULL )
-	{
-		LError << "SDL_CreateRGBSurfaceFrom() failed (" << SDL_GetError() << ")";
-		throw ConstructionFailedException("MenuBox");
+	pBackground = pSF->createSpriteFromColour(Colour(0xC0C0C0C0), USize2(150,10 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor())));
+    if ( pBackground == NULL )
+    {
+        throw ConstructionFailedException("MenuBox");
 		return;
-	}
-	
-	unsigned int* pPixel = reinterpret_cast<unsigned int*>(pSurface->pixels);
-	for ( int i = 0 ; i < pSurface->w * pSurface->h ; i++ )
-	{
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-		*pPixel = 0xC0C0C0C0;
-#else
-		*pPixel = 0xC0C0C0C0;
-#endif
-		pPixel++;
-	}
-
-	pBackground = new Sprite(pSurface);
+    }
 
 	SDL_Colour red={255,0,0,255};
 
@@ -86,9 +67,6 @@ MenuBox :: ~MenuBox()
 */
     delete pFont;
 	delete pCursor;
-
-	SDL_FreeSurface(pBackground->getSurface());
-	delete pBackground;
 }
 
 bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
@@ -112,7 +90,7 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 
 	if (onRight == true)
 	{
-		position.x = windowXPosition - (pBackground->getWidth() + margin);	
+		position.x = windowXPosition - (pBackground->getSize().width + margin);	
 	}
 	else
 	{
@@ -124,7 +102,7 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 	for ( unsigned int i = 0 ; i < entries.size() ; i++ )
 	{
         itemPosition.y = itemPosition.y -5;
-        bError &= pBackground->draw(r,itemPosition);
+        bError &= r.drawSurface(itemPosition,*pBackground);
         itemPosition.y = itemPosition.y +5;
 		if ( i == actualPosition )
 		{

@@ -24,7 +24,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MapGame.h"
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
+#include "../NEngine/SpriteLoader.h"
+#include "../NEngine/Sprite.h"
+
+#include "../NEngine/Renderer.h"
+
 #include "../Game/Camera.h"
 
 #include "../Types/Vec2.h"
@@ -36,7 +40,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
-MapGame :: MapGame(SpriteManager& sm, const std::string& fileName,const std::string& fileNameHighlight, const std::string& fileNameAttackable):Map(sm,fileName),pHighlightSprite(NULL),pAttackableSprite(NULL)
+MapGame :: MapGame(NE::SpriteLoader* const pSL, const std::string& fileName,const std::string& fileNameHighlight, const std::string& fileNameAttackable):Map(pSL,fileName),pHighlightSprite(NULL),pAttackableSprite(NULL)
 {
 	unitMap = new Unit**[this->height];
 	if ( unitMap == NULL )
@@ -87,8 +91,8 @@ MapGame :: MapGame(SpriteManager& sm, const std::string& fileName,const std::str
     
     try
     {
-        pHighlightSprite = new Sprite(sm,fileNameHighlight,true);
-        pAttackableSprite = new Sprite(sm,fileNameAttackable,true);
+        pHighlightSprite = pSL->loadSpriteFromFile(fileNameHighlight);
+        pAttackableSprite = pSL->loadSpriteFromFile(fileNameAttackable);
     }
     catch ( ConstructionFailedException& cfe)
     {
@@ -155,7 +159,7 @@ bool MapGame :: draw(const NE::Renderer& r, const Camera& c, const unsigned int 
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 
 			// Apply offset
 			tilePos.y -= yOffset;
@@ -178,15 +182,15 @@ bool MapGame :: draw(const NE::Renderer& r, const Camera& c, const unsigned int 
             // Effects
             if ( effectMap[y][x].isHighlight )
             {
-                bError &= pHighlightSprite->draw(r,tilePos);
+                bError &= r.drawSurface(tilePos,*pHighlightSprite);
             }
             if ( effectMap[y][x].isAttackable )
             {
-                bError &= pAttackableSprite->draw(r,tilePos);
+                bError &= r.drawSurface(tilePos,*pAttackableSprite);
             }
             
             // Move on the right
-            tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
+            tilePos.x += tilesSet[map[y][x]].pASprite->getSize().width;
         }
 
         // To put 0 here, can be a bit dangerous

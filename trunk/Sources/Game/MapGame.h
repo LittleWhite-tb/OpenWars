@@ -32,7 +32,9 @@ e-mail: lw.demoscene@gmail.com
 #include "Unit.h"
 
 namespace NE { class Renderer; }
-class SpriteManager;
+namespace NE { class SpriteLoader; }
+namespace NE { class Sprite; }
+
 class Camera;
 
 class MapGame : public Map
@@ -50,11 +52,11 @@ private:
 	Unit*** unitMap;			/*!< Map of units logical information */
     TileEffect** effectMap;     /*!< Map containing information for the additionnal effect */
     
-    Sprite* pHighlightSprite;   /*!< Sprite used for highlighting the map */
-    Sprite* pAttackableSprite;  /*!< Sprite used for highlighting where the player can attack the map */
+    NE::Sprite* pHighlightSprite;   /*!< Sprite used for highlighting the map */
+    NE::Sprite* pAttackableSprite;  /*!< Sprite used for highlighting where the player can attack the map */
 
 public:
-	MapGame(SpriteManager& sm, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
+	MapGame(NE::SpriteLoader* const pSL, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
 	~MapGame();
 
 	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);

@@ -30,8 +30,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "../NEngine/SpriteLoader.h"
+
 #include "../Game/Camera.h"
-#include "../Engine/Sprite.h"
 #include "Tile.h"
 #include "Unit.h"
 
@@ -40,7 +41,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MapEditor :: MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size)
+MapEditor :: MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size)
 	:Map()
 {
 	width = size.x;
@@ -48,7 +49,7 @@ MapEditor :: MapEditor(SpriteManager& sm, const std::string& themeName, const UV
 	valid = true;	// By default the map is valid, but maybe just after, we will fail, so invalidate it
 	m_themeName = themeName;
 
-	this->loadGraphics(sm);
+	this->loadGraphics(pSL);
 
 	map = new TileType*[this->height];
 	if ( map == NULL )
@@ -121,7 +122,7 @@ bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned in
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 
 			// Apply offset
 			tilePos.y -= yOffset;
@@ -130,7 +131,7 @@ bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned in
 			{
                 bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(r,tilePos,time);
 			}
-			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
+			tilePos.x += tilesSet[map[y][x]].pASprite->getSize().width;
 
 			// Remove offset ( to not affect other sprite )
 			tilePos.y += yOffset;

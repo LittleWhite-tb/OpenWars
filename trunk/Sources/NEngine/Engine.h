@@ -36,6 +36,7 @@ namespace NE
 
 	class Sprite;
 	class SpriteLoader;
+	class SpriteFactory;
 
 	class Engine
 	{
@@ -46,6 +47,7 @@ namespace NE
 		Time* pTime;					/*!< Time used by the Engine */
 
 		SpriteLoader* pSpriteLoader;	/*!< SpriteLoader used by the Engine */
+		SpriteFactory* pSpriteFactory;	/*!< SpriteFactory used by the Engine */
 
 	public:
 		Engine(void) {}
@@ -57,7 +59,8 @@ namespace NE
 		Window* getWindow(void) { return pWin; }
 		// void setWindow(Window* const pWin) { this->pWin = pWin; }
 
-		virtual Sprite* loadSpriteFromFile(const std::string& fileName)=0;
+        SpriteLoader* getSpriteLoader(void) { return pSpriteLoader; }
+        SpriteFactory* getSpriteFactory(void) { return pSpriteFactory; }
 
 		Renderer* getRenderer(void) { return pRenderer; }
 		// void setRenderer(Renderer* const pRenderer) { this->pRenderer = pRenderer; }

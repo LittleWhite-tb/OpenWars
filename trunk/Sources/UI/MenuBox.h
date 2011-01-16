@@ -33,10 +33,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class SpriteManager;
+namespace NE { class SpriteLoader; }
+namespace NE { class SpriteFactory; }
+namespace NE { class Sprite; }
 class FontManager;
 namespace NE { class Renderer; }
-class Sprite;
 class Font;
 
 enum MenuEntry
@@ -60,7 +61,7 @@ struct MenuView
 class MenuBox
 {
 private:
-	Sprite* pBackground;				/*!< background for the UI (generated on the fly by the constructor) */
+	NE::Sprite* pBackground;				/*!< background for the UI (generated on the fly by the constructor) */
 	AnimatedSprite* pCursor;			/*!< cursor */
 	Font* pFont;						/*!< font for the texts */
 
@@ -70,7 +71,7 @@ private:
 	std::vector<MenuView*> entries;    /*!< entries in the UI */
 
 public:
-	MenuBox(SpriteManager& sm, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize);
+	MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize);
 	~MenuBox(void);
 
 	bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);

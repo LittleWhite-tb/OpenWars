@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Map.h"
 
 namespace NE { class Renderer; }
+namespace NE { class SpriteLoader; }
 class Camera;
 
 class MapEditor : public Map
@@ -53,8 +54,8 @@ private:
 	bool setBuilding(const UVec2& position, const TileType type);
 
 public:
-	MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size);
-	MapEditor(SpriteManager& sm, const std::string& fileName):Map(sm,fileName) {}
+	MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size);
+	MapEditor(NE::SpriteLoader* const pSL, const std::string& fileName):Map(pSL,fileName) {}
 
 	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 

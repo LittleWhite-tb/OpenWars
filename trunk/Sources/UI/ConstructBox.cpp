@@ -24,11 +24,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ConstructBox.h"
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
+#include "../NEngine/SpriteLoader.h"
+#include "../NEngine/Sprite.h"
+#include "../NEngine/Renderer.h"
+
 #include "../Engine/ResourcesManager/FontManager.h"
 
 #include "../Engine/Font.h"
-#include "../Engine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 
 #include "../Types/Vec2.h"
@@ -41,13 +43,13 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <sstream>
 
-ConstructBox :: ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+ConstructBox :: ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 							 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
-							 :pBackgroundUI(new Sprite(sm,backgroundFileName,true)),pCursor(new Sprite(sm,cursorFileName,true)),
-							 pUpArrow(new Sprite(sm,upArrowFileName,true)), pDownArrow(new Sprite(sm,downArrowFileName,true)),windowSize(windowSize),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
+							 :pBackgroundUI(pSL->loadSpriteFromFile(backgroundFileName)),pCursor(pSL->loadSpriteFromFile(cursorFileName)),
+							 pUpArrow(pSL->loadSpriteFromFile(upArrowFileName)), pDownArrow(pSL->loadSpriteFromFile(downArrowFileName)),windowSize(windowSize),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
 {
-	SDL_Color white = {255,255,255};
-	SDL_Color grey = {64,64,64};
+	SDL_Color white = {255,255,255,255};
+	SDL_Color grey = {64,64,64,255};
 
 	pFont = new Font(fm,fontFileName,22,white);
 	pFontGrey = new Font(fm,fontFileName,22,grey);
@@ -60,45 +62,41 @@ ConstructBox :: ~ConstructBox(void)
 	delete pFontGrey;
 	delete pFont;
 
-	delete pUpArrow;
-	delete pDownArrow;
-	delete pCursor;
-	delete pBackgroundUI;
-
 	LDebug << "Construc Box delete";
 }
 
 bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailable)
 {
 	bool errorFlag = true;
+    USize2 backgroundSize = pBackgroundUI->getSize();
 
-	IVec2 uiPosition(20, windowSize.height - (pBackgroundUI->getHeight() + static_cast<unsigned int>(20 * Scaler::getYScaleFactor())));
-	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getWidth() / 2) + pBackgroundUI->getWidth() / 2 , uiPosition.y);
-	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + pBackgroundUI->getHeight() - pDownArrow->getHeight());
-	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getHeight() + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
+	IVec2 uiPosition(20, windowSize.height - (backgroundSize.height + static_cast<unsigned int>(20 * Scaler::getYScaleFactor())));
+	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getSize().width / 2) + backgroundSize.width / 2 , uiPosition.y);
+	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
+	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getSize().height + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
 
-	errorFlag &= pBackgroundUI->draw(r,uiPosition);
+	errorFlag &= r.drawSurface(uiPosition,*pBackgroundUI);
 	if ( unitsList.size() > 6 )
 	{
 		if ( offsetCursorPosition > 0 )
 		{
-			errorFlag &= pUpArrow->draw(r,upArrowPosition);
+            errorFlag &= r.drawSurface(upArrowPosition,*pUpArrow);
 		}
 		
 		if ( offsetCursorPosition < 4 )
 		{
-			errorFlag &= pDownArrow->draw(r,downArrowPosition);
+            errorFlag &= r.drawSurface(downArrowPosition,*pDownArrow);
 		}
 	}
 
-	errorFlag &= pCursor->draw(r,cursorPosition);
+    errorFlag &= r.drawSurface(cursorPosition,*pCursor);
 
 	/**
 		Offset cursor make the list behaving in the way that until the cursor is not down, we are displaying the first of the list
 	*/
 	for ( unsigned int i = offsetCursorPosition ; i < unitsList.size() && i < offsetCursorPosition+7 ; i++ )
 	{
-		IVec2 unitPosition(static_cast<unsigned int>(40 * Scaler::getXScaleFactor()), uiPosition.y + static_cast<unsigned int>(6 * Scaler::getXScaleFactor()) + (i-offsetCursorPosition) * (unitsList[i].pUnitSprite->getHeight()+1));
+		IVec2 unitPosition(static_cast<unsigned int>(40 * Scaler::getXScaleFactor()), uiPosition.y + static_cast<unsigned int>(6 * Scaler::getXScaleFactor()) + (i-offsetCursorPosition) * (unitsList[i].pUnitSprite->getSize().height+1));
 		
 		// Convertion of the price into a string
 		std::string priceString = "0";
@@ -110,8 +108,8 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 			priceString = oss.str();
 		}
 		
-		IVec2 unitPricePosition(pBackgroundUI->getWidth() - (pFont->getSize(priceString).x), unitPosition.y + (static_cast<unsigned int>(6 * Scaler::getXScaleFactor())));
-		IVec2 unitNamePosition(pBackgroundUI->getWidth() - (static_cast<unsigned int>(60 * Scaler::getXScaleFactor()) + pFont->getSize(unitsList[i].unitName).x) , unitPricePosition.y);
+		IVec2 unitPricePosition(backgroundSize.width - (pFont->getSize(priceString).x), unitPosition.y + (static_cast<unsigned int>(6 * Scaler::getXScaleFactor())));
+		IVec2 unitNamePosition(backgroundSize.width - (static_cast<unsigned int>(60 * Scaler::getXScaleFactor()) + pFont->getSize(unitsList[i].unitName).x) , unitPricePosition.y);
 
 		if ( unitsList[i].unitPrice <= moneyAvailable )
 		{

@@ -29,7 +29,6 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class Engine; }
 
-class SpriteManager;
 class FontManager;
 
 class VTime;
@@ -40,7 +39,6 @@ class Engine
 protected:
 	NE::Engine* pNE;            /*!< Native engine to use in the Engine */
 
-	SpriteManager* pSM;			/*!< The sprite manager for the editor */
 	FontManager* pFM;			/*!< The font manager for the editor */
 
 	VTime* pVT;					/*!< The virtual time for synchronisation */

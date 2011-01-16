@@ -30,7 +30,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Game/Tile.h"
 
-class SpriteManager;
+namespace NE { class SpriteLoader; }
+namespace NE { class SpriteFactory; }
+
 class AnimatedSprite;
 
 class TileView : public View
@@ -49,7 +51,7 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-	TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles, const USize2& windowSize);
+	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSize);
 
 	TileType getSelected(void)const;
 };

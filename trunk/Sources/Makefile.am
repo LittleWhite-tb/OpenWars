@@ -1,11 +1,10 @@
 bin_PROGRAMS = OpenAWars_Editor OpenAWars
-OpenAWars_Editor_SOURCES = 	NEngine/Window.h NEngine/Renderer.cpp NEngine/Renderer.h NEngine/Sprite.h NEngine/Input.h NEngine/Engine.h NEngine/Time.h NEngine/SpriteLoader.cpp NEngine/SpriteLoader.h NEngine/Sound.h NEngine/SoundLoader.h \
-				NEngine/Native/SDL/SDL_Window.cpp NEngine/Native/SDL/SDL_Window.h NEngine/Native/SDL/SDL_Sprite.cpp NEngine/Native/SDL/SDL_Sprite.h NEngine/Native/SDL/SDL_SpriteLoader.cpp NEngine/Native/SDL/SDL_SpriteLoader.h NEngine/Native/SDL/SDL_Renderer.cpp NEngine/Native/SDL/SDL_Renderer.h NEngine/Native/SDL/SDL_Input.cpp NEngine/Native/SDL/SDL_Input.h NEngine/Native/SDL/SDL_Time.cpp NEngine/Native/SDL/SDL_Time.h NEngine/Native/SDL/SDL_SoundLoader.cpp NEngine/Native/SDL/SDL_SoundLoader.h NEngine/Native/SDL/SDL_Engine.cpp NEngine/Native/SDL/SDL_Engine.h \
-				Engine/Sprite.cpp Engine/Sprite.h \
+OpenAWars_Editor_SOURCES = 	NEngine/Window.h NEngine/Renderer.cpp NEngine/Renderer.h NEngine/Sprite.h NEngine/Input.h NEngine/Engine.h NEngine/Time.h NEngine/SpriteLoader.cpp NEngine/SpriteLoader.h NEngine/SpriteFactory.cpp NEngine/SpriteFactory.h NEngine/Sound.h NEngine/SoundLoader.h \
+				NEngine/Native/SDL/SDL_Window.cpp NEngine/Native/SDL/SDL_Window.h NEngine/Native/SDL/SDL_Sprite.cpp NEngine/Native/SDL/SDL_Sprite.h NEngine/Native/SDL/SDL_SpriteLoader.cpp NEngine/Native/SDL/SDL_SpriteLoader.h NEngine/Native/SDL/SDL_SpriteFactory.cpp NEngine/Native/SDL/SDL_SpriteFactory.h NEngine/Native/SDL/SDL_Renderer.cpp NEngine/Native/SDL/SDL_Renderer.h NEngine/Native/SDL/SDL_Input.cpp NEngine/Native/SDL/SDL_Input.h NEngine/Native/SDL/SDL_Time.cpp NEngine/Native/SDL/SDL_Time.h NEngine/Native/SDL/SDL_SoundLoader.cpp NEngine/Native/SDL/SDL_SoundLoader.h NEngine/Native/SDL/SDL_Engine.cpp NEngine/Native/SDL/SDL_Engine.h \
+				Types/Colour.cpp Types/Colour.h \
 				Engine/AnimatedSprite.cpp Engine/AnimatedSprite.h \
 				Engine/VTime.cpp Engine/VTime.h \
 				Engine/Font.cpp Engine/Font.h \
-				Engine/ResourcesManager/SpriteManager.cpp Engine/ResourcesManager/SpriteManager.h \
 				Engine/ResourcesManager/FontManager.cpp Engine/ResourcesManager/FontManager.h \
 				Engine/Controls/Keyboard.cpp Engine/Controls/Keyboard.h \
 				Game/Tile.cpp Game/Tile.h Game/Map.cpp Game/Map.h Game/MapEditor.cpp Game/MapEditor.h \
@@ -21,13 +20,12 @@ OpenAWars_Editor_SOURCES = 	NEngine/Window.h NEngine/Renderer.cpp NEngine/Render
 				UI/TileViewer.cpp UI/TileViewer.h \
 				main_editor.cpp main_editor.h globals.h
 OpenAWars_Editor_CPPFLAGS = -DEDITOR
-OpenAWars_SOURCES = 		NEngine/Window.h NEngine/Renderer.cpp NEngine/Renderer.h NEngine/Sprite.h NEngine/Input.h NEngine/Engine.h NEngine/Time.h NEngine/SpriteLoader.cpp NEngine/SpriteLoader.h NEngine/Sound.h NEngine/SoundLoader.h \
-				NEngine/Native/SDL/SDL_Window.cpp NEngine/Native/SDL/SDL_Window.h NEngine/Native/SDL/SDL_Sprite.cpp NEngine/Native/SDL/SDL_Sprite.h NEngine/Native/SDL/SDL_SpriteLoader.cpp NEngine/Native/SDL/SDL_SpriteLoader.h NEngine/Native/SDL/SDL_Renderer.cpp NEngine/Native/SDL/SDL_Renderer.h NEngine/Native/SDL/SDL_Input.cpp NEngine/Native/SDL/SDL_Input.h NEngine/Native/SDL/SDL_Time.cpp NEngine/Native/SDL/SDL_Time.h NEngine/Native/SDL/SDL_SoundLoader.cpp NEngine/Native/SDL/SDL_SoundLoader.h NEngine/Native/SDL/SDL_Engine.cpp NEngine/Native/SDL/SDL_Engine.h \
-				Engine/Sprite.cpp Engine/Sprite.h \
+OpenAWars_SOURCES = 		NEngine/Window.h NEngine/Renderer.cpp NEngine/Renderer.h NEngine/Sprite.h NEngine/Input.h NEngine/Engine.h NEngine/Time.h NEngine/SpriteLoader.cpp NEngine/SpriteLoader.h NEngine/SpriteFactory.cpp NEngine/SpriteFactory.h  NEngine/Sound.h NEngine/SoundLoader.h \
+				NEngine/Native/SDL/SDL_Window.cpp NEngine/Native/SDL/SDL_Window.h NEngine/Native/SDL/SDL_Sprite.cpp NEngine/Native/SDL/SDL_Sprite.h NEngine/Native/SDL/SDL_SpriteLoader.cpp NEngine/Native/SDL/SDL_SpriteLoader.h NEngine/Native/SDL/SDL_SpriteFactory.cpp NEngine/Native/SDL/SDL_SpriteFactory.h NEngine/Native/SDL/SDL_Renderer.cpp NEngine/Native/SDL/SDL_Renderer.h NEngine/Native/SDL/SDL_Input.cpp NEngine/Native/SDL/SDL_Input.h NEngine/Native/SDL/SDL_Time.cpp NEngine/Native/SDL/SDL_Time.h NEngine/Native/SDL/SDL_SoundLoader.cpp NEngine/Native/SDL/SDL_SoundLoader.h NEngine/Native/SDL/SDL_Engine.cpp NEngine/Native/SDL/SDL_Engine.h \
+				Types/Colour.cpp Types/Colour.h \
 				Engine/AnimatedSprite.cpp Engine/AnimatedSprite.h \
 				Engine/VTime.cpp Engine/VTime.h \
 				Engine/Font.cpp Engine/Font.h \
-				Engine/ResourcesManager/SpriteManager.cpp Engine/ResourcesManager/SpriteManager.h \
 				Engine/ResourcesManager/FontManager.cpp Engine/ResourcesManager/FontManager.h \
 				Engine/Controls/Keyboard.cpp Engine/Controls/Keyboard.h \
 				Game/Tile.cpp Game/Tile.h Game/Map.cpp Game/Map.h Game/MapGame.cpp Game/MapGame.h \

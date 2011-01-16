@@ -28,8 +28,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "../NEngine/Native/SDL/SDL_Sprite.h"
+#include "../NEngine/Renderer.h"
+
 #include "ResourcesManager/FontManager.h"
-#include "Sprite.h"
 
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ConstructionFailedException.h"
@@ -79,7 +81,7 @@ bool Font :: draw(const NE::Renderer& r, const std::string& text, const IVec2& p
 		return false;
 	}
 
-	error = Sprite(pTmpSurface).draw(r,position);
+    error = r.drawSurface(position,*(new NE::SDL_Sprite(pTmpSurface)));
 
 	SDL_FreeSurface(pTmpSurface);
 

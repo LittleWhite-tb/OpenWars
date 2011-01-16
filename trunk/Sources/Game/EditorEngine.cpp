@@ -68,7 +68,7 @@ EditorEngine :: ~EditorEngine(void)
 
 bool EditorEngine :: load(void)
 {
-	pEC = new EditingCursor(*pSM,"./data/gfx/cursor.png","./data/gfx/cursor_wrong.png",pMap,UVec2(5,5));
+	pEC = new EditingCursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png","./data/gfx/cursor_wrong.png",pMap,UVec2(5,5));
 	pCam = new Camera();
 
 	// Prepare the data to put in the TileBar for building
@@ -193,9 +193,9 @@ bool EditorEngine :: load(void)
 
 	try
 	{
-		pUnitTB = new TileBarUnits(*pSM,unitTiles,pNE->getWindow()->getWindowSize());
-		pBuildingTB = new TileBarTiles(*pSM,buildingTiles,pNE->getWindow()->getWindowSize());
-		pTileViewer = new TileViewer(*pSM,*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf",pNE->getWindow()->getWindowSize());
+		pUnitTB = new TileBarUnits(pNE->getSpriteLoader(),pNE->getSpriteFactory(),unitTiles,pNE->getWindow()->getWindowSize());
+		pBuildingTB = new TileBarTiles(pNE->getSpriteLoader(),pNE->getSpriteFactory(),buildingTiles,pNE->getWindow()->getWindowSize());
+		pTileViewer = new TileViewer(pNE->getSpriteLoader(),*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf",pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -223,7 +223,7 @@ bool EditorEngine :: init(void)
 
 bool EditorEngine :: load(const std::string& themeName, const UVec2& mapSize)
 {
-	pMap = new MapEditor(*pSM, themeName , mapSize);
+	pMap = new MapEditor(pNE->getSpriteLoader(), themeName , mapSize);
 	if ( !pMap->isValidMap() )
 	{
 		return false;
@@ -234,7 +234,7 @@ bool EditorEngine :: load(const std::string& themeName, const UVec2& mapSize)
 
 bool EditorEngine :: load(const std::string& mapName)
 {
-	pMap = new MapEditor(*pSM, mapName);
+	pMap = new MapEditor(pNE->getSpriteLoader(), mapName);
 	if ( !pMap->isValidMap() )
 	{
 		return false;

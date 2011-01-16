@@ -30,6 +30,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Game/Unit.h"
 
+namespace NE { class SpriteLoader; }
+namespace NE { class SpriteFactory; }
+
 class AnimatedSprite;
 
 class UnitView : public View
@@ -51,7 +54,7 @@ private:
 	std::vector<std::vector<UnitView> > unitsList;		/*<! The units to be displayed in the TileBar */
 
 public:
-	TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles, const USize2& windowSize);
+	TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize);
 
 	UnitType getSelected(void)const;
 };

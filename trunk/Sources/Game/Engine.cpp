@@ -28,7 +28,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../NEngine/Engine.h"
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
 #include "../Engine/ResourcesManager/FontManager.h"
 
 #include "../Engine/VTime.h"
@@ -38,7 +37,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 
 Engine::Engine(NE::Engine* const pNE)
-:pNE(pNE),pSM(NULL),pFM(NULL),pVT(NULL),pKB(NULL)
+:pNE(pNE),pFM(NULL),pVT(NULL),pKB(NULL)
 {
 	assert(pNE);
 }
@@ -48,18 +47,16 @@ Engine :: ~Engine(void)
 	delete pKB;
 	delete pVT;
 	delete pFM;
-	delete pSM;
 }
 
 bool Engine :: init()
 {
-	pSM = new SpriteManager();
 	pFM = new FontManager();
 
 	pVT = new VTime(60,10);
 	pKB = new Keyboard();
 
-	if ( pSM == NULL || pFM == NULL || pVT == NULL ||pKB == NULL )
+	if ( pFM == NULL || pVT == NULL ||pKB == NULL )
 	{
 		// THe memory will be cleaned by the destructor
 		return false;

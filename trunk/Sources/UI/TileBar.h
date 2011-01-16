@@ -38,9 +38,10 @@ e-mail: lw.demoscene@gmail.com
 
 struct SDL_Surface;
 
-class SpriteManager;
+namespace NE { class SpriteLoader; }
+namespace NE { class SpriteFactory; }
 namespace NE { class Renderer; }
-class Sprite;
+namespace NE { class Sprite; }
 class AnimatedSprite;
 
 class View
@@ -72,8 +73,8 @@ class TileBar
 	};
 
 private:
-	Sprite* pBarSprite;						/*!< The surface for the bar */
-	Sprite* pBarCursor;						/*!< The surface for the cursor */
+	NE::Sprite* pBarSprite;						/*!< The surface for the bar */
+	NE::Sprite* pBarCursor;						/*!< The surface for the cursor */
 	AnimatedSprite* pBarArrows;				/*!< Up / Down arrows */
 
 	int counterMovementAnim;				/*!< counter to know how much to move on the left or right */
@@ -98,7 +99,7 @@ protected:
 	int currentY;				/*!< index of the actual Tile selected on the Y axis */
 
 public:
-	TileBar(SpriteManager& sm, std::vector<View *>& listTiles, const USize2& windowSize);
+	TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View *>& listTiles, const USize2& windowSize);
 	virtual ~TileBar(void);
 
 	void open(void);

@@ -32,6 +32,7 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_Time.h"
 #include "SDL_Sprite.h"
 #include "SDL_SpriteLoader.h"
+#include "SDL_SpriteFactory.h"
 
 #include "../../../Utils/Logger.h"
 
@@ -48,8 +49,9 @@ bool NE :: SDL_Engine :: init(void)
 	pTime = new NE::SDL_Time();
 	pInput = new NE::SDL_Input();
 	pSpriteLoader = new NE::SDL_SpriteLoader();
+	pSpriteFactory = new NE::SDL_SpriteFactory();
 
-	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL || pSpriteLoader == NULL )
+	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL )
 	{
 		LError << "Fail to allocate memory for SDL_Engine components";
 		return false;

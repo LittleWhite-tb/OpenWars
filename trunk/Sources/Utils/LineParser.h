@@ -34,6 +34,7 @@ and is under GPL copyright: Copyright (C) 2010 BEYLER Jean Christophe
 #include <string>
 
 #include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 
 class LineParser
 {
@@ -59,6 +60,7 @@ public:
 	int getInt(void)const;
 	float getFloat(void)const;
 	IVec2 getIVec2(void)const;
+	USize2 getUSize2(void)const;
 };
 
 /*! \class LineParser LineParser.h "Utils/LineParser.h"

@@ -34,11 +34,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Size2.h"
 
-class SpriteManager;
+namespace NE { class SpriteLoader; }
+namespace NE { class Sprite; }
 class FontManager;
 namespace NE { class Renderer; }
 
-class Sprite;
+
 class AnimatedSprite;
 class Font;
 
@@ -57,10 +58,10 @@ class ConstructBox
 {
 private:
 
-	Sprite* pBackgroundUI;							/*!< sprite for the background */
-	Sprite* pCursor;								/*!< sprite for the cursor */
-	Sprite* pUpArrow;								/*!< sprite for the up arrow */
-	Sprite* pDownArrow;								/*!< sprite for the down arrow */
+	NE::Sprite* pBackgroundUI;							/*!< sprite for the background */
+	NE::Sprite* pCursor;								/*!< sprite for the cursor */
+	NE::Sprite* pUpArrow;								/*!< sprite for the up arrow */
+	NE::Sprite* pDownArrow;								/*!< sprite for the down arrow */
 
 	Font* pFont;									/*!< Font used for the texts */
 	Font* pFontGrey;								/*!< Font used for the texts when no enough money (in grey)*/
@@ -72,7 +73,7 @@ private:
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	ConstructBox(SpriteManager& sm, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+	ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize);
 	~ConstructBox(void);
 

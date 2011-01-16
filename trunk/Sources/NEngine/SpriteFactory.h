@@ -1,3 +1,6 @@
+#ifndef __SPRITEFACTORY_H__
+#define __SPRITEFACTORY_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,38 +25,30 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "SpriteLoader.h"
+#include <map>
 
-#include "Sprite.h"
+#include "../Types/Colour.h"
+#include "../Types/Size2.h"
 
-#include "../Utils/Logger.h"
-
-NE::SpriteLoader :: ~SpriteLoader(void)
+namespace NE
 {
-    for( std::map<std::string, NE::Sprite*>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
-	{
-		delete (itSprite->second);
-	}
-	spritesBank.clear();
-}
-
-NE::Sprite* NE::SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
-{
-    if ( spritesBank.find(fileName) == spritesBank.end() ) // Not found
-    {
+    class Sprite;
     
-        Sprite* pSprite = loadSprite(fileName);
-        if ( pSprite == NULL )
-        {
-            LError << "NE::SpriteLoader (Fail to load the Sprite ('" << fileName << "')";
-            return NULL;
-        }
-        
-        spritesBank[fileName] = pSprite;
-        return pSprite;
-    }
-    else
+    class SpriteFactory
     {
-        return spritesBank[fileName];
-    }
+    private: 
+
+        std::map<Colour, Sprite*> spritesBank;
+
+    protected:
+
+        virtual Sprite* createSprite(const Colour& colour, const USize2& spriteSize)=0;
+
+    public:
+        virtual ~SpriteFactory(void);
+    
+        Sprite* createSpriteFromColour(const Colour& colour, const USize2& spriteSize);
+    };
 }
+
+#endif

@@ -48,6 +48,7 @@ struct Colour
 };
 
 std::ostream& operator<< (std::ostream& o, const Colour& c);
+bool operator< (const Colour& c1, const Colour& c2);
 
 /*! \struct Colour Colour.h Types/Colour.h
  * \brief Colour container

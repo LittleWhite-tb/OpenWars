@@ -35,7 +35,7 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class Renderer; }
 class Camera;
-class SpriteManager;
+namespace NE { class SpriteLoader; }
 class AnimatedSprite;
 
 class Map
@@ -57,16 +57,16 @@ protected:
 
 	Map(void) {};
 
-	bool loadTileSet(SpriteManager& sm);
-	bool loadUnitSet(SpriteManager& sm);
-	bool loadGraphics(SpriteManager& sm);
+	bool loadTileSet(NE::SpriteLoader* const pSL);
+	bool loadUnitSet(NE::SpriteLoader* const pSL);
+	bool loadGraphics(NE::SpriteLoader* const pSL);
 
-	bool parser(SpriteManager& sm, const std::string& fileName);
+	bool parser(NE::SpriteLoader* const pSL, const std::string& fileName);
 
 	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 public:
-	Map(SpriteManager& sm, const std::string& fileName);
+	Map(NE::SpriteLoader* const pSL, const std::string& fileName);
 	virtual ~Map(void);
 
 	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)=0;

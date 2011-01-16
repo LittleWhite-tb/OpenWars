@@ -32,7 +32,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class SpriteManager;
 class FontManager;
 
 class TileBarTiles;

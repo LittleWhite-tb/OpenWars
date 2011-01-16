@@ -34,7 +34,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Tile.h"
 #include "Unit.h"
 
-#include "../Engine/ResourcesManager/SpriteManager.h"
+#include "../NEngine/SpriteLoader.h"
 #include "../Engine/AnimatedSprite.h"
 
 #include "Camera.h"
@@ -50,10 +50,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-Map :: Map(SpriteManager& sm, const std::string& fileName)
+Map :: Map(NE::SpriteLoader* const pSL, const std::string& fileName)
 	:width(0),height(0),map(NULL),valid(false)
 {
-	valid = this->parser(sm,fileName);
+	valid = this->parser(pSL,fileName);
 
 	LDebug << "Map '" << fileName.c_str() << "' created";
 }
@@ -93,7 +93,7 @@ Map :: ~Map(void)
 	LDebug << "Map deleted";
 }
 
-bool Map :: loadTileSet(SpriteManager& sm)
+bool Map :: loadTileSet(NE::SpriteLoader* const pSL)
 {
 	LDebug << "Map :: loadTileSet ( " << m_themeName.c_str() << ")";
 
@@ -116,7 +116,7 @@ bool Map :: loadTileSet(SpriteManager& sm)
 			lp.readNextLine();
 			std::string spriteName = lp.getLine();
 			lp.readNextLine();
-			IVec2 spriteSize = lp.getIVec2();
+			USize2 spriteSize = lp.getUSize2();
 			lp.readNextLine();
 			int spriteDuration = lp.getInt();
 			lp.readNextLine();
@@ -144,7 +144,7 @@ bool Map :: loadTileSet(SpriteManager& sm)
 			try
 			{
 
-				tilesSet[static_cast<TileType>(idTile)] = Tile(new AnimatedSprite(sm,GFX_TILES_PATH + m_themeName + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+				tilesSet[static_cast<TileType>(idTile)] = Tile(new AnimatedSprite(pSL->loadSpriteFromFile(GFX_TILES_PATH + m_themeName + std::string("/") + spriteName), spriteSize, spriteDuration),
 					name,
 					defence,
 					isRoad,
@@ -172,7 +172,7 @@ bool Map :: loadTileSet(SpriteManager& sm)
 	return true;
 }
 
-bool Map :: loadUnitSet(SpriteManager& sm)
+bool Map :: loadUnitSet(NE::SpriteLoader* const pSL)
 {
 	LDebug << "Map :: loadUnitSet ( " << m_themeName.c_str() << ")";
 
@@ -195,7 +195,7 @@ bool Map :: loadUnitSet(SpriteManager& sm)
 			lp.readNextLine();
 			std::string spriteName = lp.getLine();
 			lp.readNextLine();
-			IVec2 spriteSize = lp.getIVec2();
+			USize2 spriteSize = lp.getUSize2();
 			lp.readNextLine();
 			int spriteDuration = lp.getInt();
 			lp.readNextLine();
@@ -219,7 +219,7 @@ bool Map :: loadUnitSet(SpriteManager& sm)
 			try
 			{
 
-				unitsSet[static_cast<UnitType>(idTile)] = UnitTemplate(new AnimatedSprite(sm,GFX_UNITS_PATH + m_themeName + std::string("/") + spriteName, spriteSize.x , spriteSize.y, spriteDuration, true),
+				unitsSet[static_cast<UnitType>(idTile)] = UnitTemplate(new AnimatedSprite(pSL->loadSpriteFromFile(GFX_UNITS_PATH + m_themeName + std::string("/") + spriteName), spriteSize, spriteDuration),
 					name,
 					category,
 					targetCategory,
@@ -246,11 +246,11 @@ bool Map :: loadUnitSet(SpriteManager& sm)
 	return true;
 }
 
-bool Map :: loadGraphics(SpriteManager& sm)
+bool Map :: loadGraphics(NE::SpriteLoader* const pSL)
 {
 	LDebug << "Map :: loadGraphics";
 
-	if ( loadTileSet(sm) == false || loadUnitSet(sm) == false )
+	if ( loadTileSet(pSL) == false || loadUnitSet(pSL) == false )
 	{
 		return false;
 	}
@@ -258,7 +258,7 @@ bool Map :: loadGraphics(SpriteManager& sm)
 	return true;
 }
 
-bool Map :: parser(SpriteManager& sm, const std::string& fileName)
+bool Map :: parser(NE::SpriteLoader* const pSL, const std::string& fileName)
 {
 	std::string theme = "";
 	unsigned int mapLineCounter = 0;
@@ -277,7 +277,7 @@ bool Map :: parser(SpriteManager& sm, const std::string& fileName)
 
 			LDebug << "Theme: " << m_themeName.c_str();
 
-			if ( loadGraphics(sm) == false )
+			if ( loadGraphics(pSL) == false )
 			{
 				LError << "Error to load the graphics";
 				error = true;
@@ -420,7 +420,7 @@ bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned i
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getHeight() - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
 
 			// Draw the background sprite ( Plain )
 			if ( tilesSet[map[y][x]].needBackground )
@@ -434,7 +434,7 @@ bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned i
 			bResult &= tilesSet[map[y][x]].pASprite->draw(r,tilePos,time);
 			
 			// Move on the right
-			tilePos.x += tilesSet[map[y][x]].pASprite->getWidth();
+			tilePos.x += tilesSet[map[y][x]].pASprite->getSize().width;
 
 			// Remove offset ( to not affect other sprite )
 			tilePos.y += yOffset;

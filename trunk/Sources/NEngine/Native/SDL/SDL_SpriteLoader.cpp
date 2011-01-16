@@ -25,6 +25,7 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_SpriteLoader.h"
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 #include <string>
 #include <fstream>
@@ -35,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
 {
-	SDL_Surface* pSurface = SDL_LoadBMP(fileName.c_str());
+	SDL_Surface* pSurface = IMG_Load(fileName.c_str());
 	if ( pSurface != NULL )
 	{
 		NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);

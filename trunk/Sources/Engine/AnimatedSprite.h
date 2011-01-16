@@ -27,19 +27,22 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-#include "Sprite.h"
-
 #include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 #include "../Types/Rect.h"
 
 namespace NE { class Renderer; }
-class SpriteManager;
+namespace NE { class Sprite; }
 
-class AnimatedSprite : public Sprite
+class Colour;
+
+class AnimatedSprite
 {
 private:
-	unsigned int widthSprite;				/*!< width of the animation */
-	unsigned int heightSprite;				/*!< height of the animation */
+
+    NE::Sprite* pSprite;
+    
+    USize2 spriteSize;
 
 	unsigned int numberAnimation;			/*!< number of animation in the sprite */
 	unsigned int animationCounter;			/*!< number of the current animation */
@@ -55,14 +58,13 @@ private:
 	void update(const unsigned int time);
 
 public:
-	AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling);
+    AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
+
 	~AnimatedSprite(void);
 
 	Rect getSrcRect(const unsigned int time);
 
-	USize2 getSize(void)const { return USize2(widthSprite,heightSprite); }
-	int getWidth(void)const { return widthSprite; }
-	int getHeight(void)const { return heightSprite; }
+	USize2 getSize(void)const { return spriteSize; }
 
 	unsigned int getInterval(void)const { return msInterval; }
 	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }

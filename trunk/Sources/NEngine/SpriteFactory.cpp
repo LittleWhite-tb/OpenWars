@@ -22,38 +22,37 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "SpriteLoader.h"
+#include "SpriteFactory.h"
 
 #include "Sprite.h"
 
 #include "../Utils/Logger.h"
 
-NE::SpriteLoader :: ~SpriteLoader(void)
+NE::SpriteFactory :: ~SpriteFactory(void)
 {
-    for( std::map<std::string, NE::Sprite*>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
+    for( std::map<Colour, NE::Sprite*>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
 	{
 		delete (itSprite->second);
 	}
 	spritesBank.clear();
 }
 
-NE::Sprite* NE::SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
+NE::Sprite* NE::SpriteFactory::createSpriteFromColour(const Colour& colour, const USize2& spriteSize)
 {
-    if ( spritesBank.find(fileName) == spritesBank.end() ) // Not found
+    if ( spritesBank.find(colour) == spritesBank.end() ) // Not found
     {
-    
-        Sprite* pSprite = loadSprite(fileName);
+        Sprite* pSprite = createSprite(colour,spriteSize);
         if ( pSprite == NULL )
         {
-            LError << "NE::SpriteLoader (Fail to load the Sprite ('" << fileName << "')";
+            LError << "NE::SpriteFactory (Fail to create the Sprite ('" << colour << "')";
             return NULL;
         }
         
-        spritesBank[fileName] = pSprite;
+        spritesBank[colour] = pSprite;
         return pSprite;
     }
     else
     {
-        return spritesBank[fileName];
+        return spritesBank[colour];
     }
 }
