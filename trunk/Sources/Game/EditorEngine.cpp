@@ -68,7 +68,7 @@ EditorEngine :: ~EditorEngine(void)
 
 bool EditorEngine :: load(void)
 {
-	pEC = new EditingCursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png","./data/gfx/cursor_wrong.png",pMap,UVec2(5,5));
+	pEC = new EditingCursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png","./data/gfx/cursor_wrong.png",pMap,UVec2(5,5),pNE->getSpriteScaling());
 	pCam = new Camera();
 
 	// Prepare the data to put in the TileBar for building
@@ -193,8 +193,8 @@ bool EditorEngine :: load(void)
 
 	try
 	{
-		pUnitTB = new TileBarUnits(pNE->getSpriteLoader(),pNE->getSpriteFactory(),unitTiles,pNE->getWindow()->getWindowSize());
-		pBuildingTB = new TileBarTiles(pNE->getSpriteLoader(),pNE->getSpriteFactory(),buildingTiles,pNE->getWindow()->getWindowSize());
+		pUnitTB = new TileBarUnits(pNE->getSpriteLoader(),pNE->getSpriteFactory(),unitTiles,pNE->getWindow()->getWindowSize(), pNE->getSpriteScaling());
+		pBuildingTB = new TileBarTiles(pNE->getSpriteLoader(),pNE->getSpriteFactory(),buildingTiles,pNE->getWindow()->getWindowSize(), pNE->getSpriteScaling());
 		pTileViewer = new TileViewer(pNE->getSpriteLoader(),*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf",pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
@@ -223,7 +223,7 @@ bool EditorEngine :: init(void)
 
 bool EditorEngine :: load(const std::string& themeName, const UVec2& mapSize)
 {
-	pMap = new MapEditor(pNE->getSpriteLoader(), themeName , mapSize);
+	pMap = new MapEditor(pNE->getSpriteLoader(), themeName , mapSize, pNE->getSpriteScaling());
 	if ( !pMap->isValidMap() )
 	{
 		return false;
@@ -234,7 +234,7 @@ bool EditorEngine :: load(const std::string& themeName, const UVec2& mapSize)
 
 bool EditorEngine :: load(const std::string& mapName)
 {
-	pMap = new MapEditor(pNE->getSpriteLoader(), mapName);
+	pMap = new MapEditor(pNE->getSpriteLoader(), mapName, pNE->getSpriteScaling());
 	if ( !pMap->isValidMap() )
 	{
 		return false;
@@ -252,16 +252,16 @@ bool EditorEngine :: run(void)
 		// Drawing part
 		pNE->getRenderer()->clearScreen(Colour(0,0,0));
 
-		pMap->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-		pEC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
+		pMap->draw(*pNE->getRenderer(),*pCam,pVT->getTime(),pNE->getSpriteScaling());
+		pEC->draw(*pNE->getRenderer(),*pCam,pVT->getTime(),pNE->getSpriteScaling());
 
 		if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
 		{
 			pTileViewer->draw(*pNE->getRenderer());
 		}
 
-		pUnitTB->draw(*pNE->getRenderer(),0);
-		pBuildingTB->draw(*pNE->getRenderer(),0);
+		pUnitTB->draw(*pNE->getRenderer(),0,pNE->getSpriteScaling());
+		pBuildingTB->draw(*pNE->getRenderer(),0,pNE->getSpriteScaling());
 
 		pNE->getRenderer()->updateWindow();
 
@@ -309,11 +309,11 @@ bool EditorEngine :: run(void)
 
 			if ( pBuildingTB->isOpened() )
 			{
-				pBuildingTB->move(pKB->getDirectionPressed());
+				pBuildingTB->move(pKB->getDirectionPressed(),pNE->getSpriteScaling());
 			}
 			else if ( pUnitTB->isOpened() )
 			{
-				pUnitTB->move(pKB->getDirectionPressed());
+				pUnitTB->move(pKB->getDirectionPressed(),pNE->getSpriteScaling());
 			}
 			else if ( pUnitTB->isClosed() && pBuildingTB->isClosed() )
 			{
@@ -352,8 +352,8 @@ bool EditorEngine :: run(void)
 			}
 
 			
-			pBuildingTB->update(pVT->getTime());
-			pUnitTB->update(pVT->getTime());
+			pBuildingTB->update(pVT->getTime(),pNE->getSpriteScaling());
+			pUnitTB->update(pVT->getTime(),pNE->getSpriteScaling());
 		}
 
 		pVT->waitNextFrame();

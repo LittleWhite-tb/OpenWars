@@ -56,10 +56,10 @@ private:
     NE::Sprite* pAttackableSprite;  /*!< Sprite used for highlighting where the player can attack the map */
 
 public:
-	MapGame(NE::SpriteLoader* const pSL, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
+	MapGame(NE::SpriteLoader* const pSL, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable, const float scalingFactor);
 	~MapGame();
 
-	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
+	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor);
 
 	void enableUnits(void);
 

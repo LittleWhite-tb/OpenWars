@@ -27,6 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "Scaler.h"
+
 namespace NE
 {
 	class Window;
@@ -37,7 +39,7 @@ namespace NE
 	class Sprite;
 	class SpriteLoader;
 	class SpriteFactory;
-
+    
 	class Engine
 	{
 	protected:
@@ -48,6 +50,8 @@ namespace NE
 
 		SpriteLoader* pSpriteLoader;	/*!< SpriteLoader used by the Engine */
 		SpriteFactory* pSpriteFactory;	/*!< SpriteFactory used by the Engine */
+        
+        Scaler* pScaler;                /*!< Scaler used by the Engine */
 
 	public:
 		Engine(void) {}
@@ -61,6 +65,8 @@ namespace NE
 
         SpriteLoader* getSpriteLoader(void) { return pSpriteLoader; }
         SpriteFactory* getSpriteFactory(void) { return pSpriteFactory; }
+        float getSpriteScaling(void)const { return pScaler->getScaleFactor(); }
+        void setSpriteScaling(const int newScaleFactor)const { return pScaler->setScaleFactor(newScaleFactor); }
 
 		Renderer* getRenderer(void) { return pRenderer; }
 		// void setRenderer(Renderer* const pRenderer) { this->pRenderer = pRenderer; }

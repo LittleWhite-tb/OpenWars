@@ -33,36 +33,28 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Rect.h"
 
 #include "../Utils/Logger.h"
-#include "../Utils/Scaler.h"
 
-AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval)
+AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval, const float scalingFactor)
     :pSprite(pSprite),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
     USize2 surfaceSize = pSprite->getSize();
-    this->spriteSize = spriteSize;
 
 	// We scale the size of the sprite surface (since we always apply the scaler on the surface, from the SpriteManager)
-/*
-	if ( needScaling )
-	{
-		this->widthSprite = static_cast<unsigned int>(width * Scaler::getXScaleFactor());
-		this->heightSprite = static_cast<unsigned int>(height * Scaler::getYScaleFactor());
-	}
-*/
+    this->spriteSize.width = static_cast<unsigned int>(spriteSize.width * scalingFactor);
+    this->spriteSize.height = static_cast<unsigned int>(spriteSize.height * scalingFactor);
 
 	// Special cas where the size given by the user is not completely right, or there is only one sprite (no animation)
-/*
-	if ( surfaceSize.width < static_cast<int>(widthSprite) )
+	if ( surfaceSize.width < this->spriteSize.width )
 	{
-		this->widthSprite = surfaceSize.width;
+		surfaceSize.width = surfaceSize.width;
 	}
 
-	if ( surfaceSize.height < static_cast<int>(heightSprite) )
+	if ( surfaceSize.height < this->spriteSize.height )
 	{
-		this->heightSprite = surfaceSize.height;
+		surfaceSize.height = surfaceSize.height;
 	}
-*/
-	numberAnimation = (surfaceSize.width / this->spriteSize.width) * (surfaceSize.height / this->spriteSize.height );
+
+	numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 	
 	LDebug << "AnimatedSprite (" << spriteSize << ") Nb Animation: " << numberAnimation;
 }

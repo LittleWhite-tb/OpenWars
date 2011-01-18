@@ -34,13 +34,12 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Vec2.h"
 #include "../Types/Colour.h"
 
-#include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
 
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
-MapGame :: MapGame(NE::SpriteLoader* const pSL, const std::string& fileName,const std::string& fileNameHighlight, const std::string& fileNameAttackable):Map(pSL,fileName),pHighlightSprite(NULL),pAttackableSprite(NULL)
+MapGame :: MapGame(NE::SpriteLoader* const pSL, const std::string& fileName,const std::string& fileNameHighlight, const std::string& fileNameAttackable,const float scalingFactor):Map(pSL,fileName,scalingFactor),pHighlightSprite(NULL),pAttackableSprite(NULL)
 {
 	unitMap = new Unit**[this->height];
 	if ( unitMap == NULL )
@@ -139,27 +138,27 @@ void MapGame :: enableUnits(void)
     }
 }
 
-bool MapGame :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)
+bool MapGame :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time,const float scalingFactor)
 {
 	UVec2 cameraPosition = c.getPosition();
-	USize2 mapOffset = Scaler::getOffset();
-	IVec2 tilePos(0,mapOffset.height);
+	// USize2 mapOffset = Scaler::getOffset();
+	IVec2 tilePos(0,0/*mapOffset.height*/);
 	bool bError = true;
 
 	LDebug << "Map :: draw";
 
-	this->drawTerrain(r,c,time);
+	this->drawTerrain(r,c,time,scalingFactor);
 
 	// The camera is an offset of the Map drawing
 	// For each lines
 	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
 	{
-		tilePos.x = mapOffset.width;
+		tilePos.x = 0;//mapOffset.width;
 		// For each columns
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - (static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_HEIGHT));
 
 			// Apply offset
 			tilePos.y -= yOffset;
@@ -194,7 +193,7 @@ bool MapGame :: draw(const NE::Renderer& r, const Camera& c, const unsigned int 
         }
 
         // To put 0 here, can be a bit dangerous
-        tilePos.y += (static_cast<unsigned int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT));
+        tilePos.y += (static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_HEIGHT));
     }
 
     return bError;

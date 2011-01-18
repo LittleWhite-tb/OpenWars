@@ -54,7 +54,7 @@ protected:
 
 public:
 
-	Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
+	Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition, const float scalingFactor);
 	virtual ~Cursor(void);
 
 	Tile getTileUnderCursor(void)const;
@@ -65,7 +65,7 @@ public:
 	bool move(const ArrowsDirection ad);
 	bool move(const UVec2& newPosition);
 
-	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
+	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)const;
 };
 
 /*! \class Cursor Cursor.h "Game/Cursor.h"

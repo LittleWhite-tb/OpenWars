@@ -51,7 +51,7 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSize);
+	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSizeconst, const float scalingFactor);
 
 	TileType getSelected(void)const;
 };

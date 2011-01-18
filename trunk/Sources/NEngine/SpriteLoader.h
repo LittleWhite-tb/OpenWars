@@ -31,12 +31,15 @@ e-mail: lw.demoscene@gmail.com
 namespace NE
 {
 	class Sprite;
+	class Scaler;
 
 	class SpriteLoader
 	{
     private:
     
         std::map<std::string, Sprite*> spritesBank;  /*!< Bank saving the Sprite loaded */
+        
+        Scaler* pScaler;                            /*!< Scaler to use after loading the Sprite */
         
     protected:
         virtual Sprite* loadSprite(const std::string& fileName)=0;
@@ -45,6 +48,8 @@ namespace NE
 		virtual ~SpriteLoader(void);
 
 		Sprite* loadSpriteFromFile(const std::string& fileName);
+        
+        void setSpriteScaler(Scaler* pScaler) { this->pScaler = pScaler; }
 	};
 }
 

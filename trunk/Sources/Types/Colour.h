@@ -43,7 +43,7 @@ struct Colour
 		this->r = (rgba >> 24) & 0x000000FF;
 		this->g = (rgba >> 16) & 0x000000FF;
 		this->b = (rgba >> 8) & 0x000000FF;
-		this->b = rgba & 0x000000FF;
+		this->a = rgba & 0x000000FF;
 	}
 };
 

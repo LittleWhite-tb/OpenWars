@@ -38,7 +38,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Types/Vec2.h"
 
 #include "Utils/Logger.h"
-#include "Utils/Scaler.h"
 
 #include "globals.h"
 
@@ -129,9 +128,7 @@ int main(int argc, char** argv)
 
 			if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
 			{
-
-				Scaler::initScaleFactor(pNE->getWindow()->getWindowSize());
-
+                pNE->setSpriteScaling(2);
 				GameEngine gEngine(pNE);
 					
 				if ( gEngine.init() )

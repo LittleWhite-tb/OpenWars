@@ -32,15 +32,14 @@ e-mail: lw.demoscene@gmail.com
 #include "Camera.h"
 
 #include "../Utils/Logger.h"
-#include "../Utils/Scaler.h"
 
 #include "../globals.h"
 
-EditingCursor :: EditingCursor(NE::SpriteLoader* pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
-	:Cursor(pSL,fileNameCursor,pMap,initialPosition),isWrong(false)
+EditingCursor :: EditingCursor(NE::SpriteLoader* pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition, const float scalingFactor)
+	:Cursor(pSL,fileNameCursor,pMap,initialPosition,scalingFactor),isWrong(false)
 {
 	// The size of the tiles and the cursor are the same to have better effect
-	pWrongCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileNameWrongCursor),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED);
+	pWrongCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileNameWrongCursor),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED,scalingFactor);
 
 	LDebug << "EditingCursor created " << initialPosition;
 }
@@ -52,15 +51,15 @@ EditingCursor :: ~EditingCursor(void)
 	LDebug << "EditingCursor deleted";
 }
 
-bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const
+bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)const
 {
 	UVec2 cameraPosition = c.getPosition();
-	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),
-								 (this->position.y - cameraPosition.y ) * (static_cast<int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT)));
-
+	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(scalingFactor * TILE_DEFAULT_WIDTH)),
+								 (this->position.y - cameraPosition.y ) * (static_cast<int>(scalingFactor * TILE_DEFAULT_HEIGHT)));
+/*
 	screenPosition.x += Scaler::getOffset().width;
 	screenPosition.y += Scaler::getOffset().height;
-
+*/
 	if ( isWrong )
 	{
 		return pWrongCursorSprite->draw(r,screenPosition,time);

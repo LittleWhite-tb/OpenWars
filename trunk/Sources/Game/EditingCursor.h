@@ -45,13 +45,13 @@ private:
 	bool isWrong;								/*!< The state of the cursor */
 
 public:
-	EditingCursor(NE::SpriteLoader* const pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition);
+	EditingCursor(NE::SpriteLoader* const pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition, const float scalingFactor);
 	~EditingCursor(void);
 
 	bool getIsWrong(void)const { return isWrong; }
 	void setIsWrong(const bool isWrong) { this->isWrong = isWrong; }
 
-	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
+	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)const;
 };
 
 /*! \class EditingCursor EditingCursor.h "Game/EditingCursor.h"

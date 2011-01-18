@@ -33,6 +33,7 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_Sprite.h"
 #include "SDL_SpriteLoader.h"
 #include "SDL_SpriteFactory.h"
+#include "SDL_Scaler.h"
 
 #include "../../../Utils/Logger.h"
 
@@ -50,12 +51,15 @@ bool NE :: SDL_Engine :: init(void)
 	pInput = new NE::SDL_Input();
 	pSpriteLoader = new NE::SDL_SpriteLoader();
 	pSpriteFactory = new NE::SDL_SpriteFactory();
+	pScaler = new NE::SDL_Scaler();
 
-	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL )
+	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL || pScaler == NULL )
 	{
 		LError << "Fail to allocate memory for SDL_Engine components";
 		return false;
 	}
+    
+    pSpriteLoader->setSpriteScaler(pScaler);
 
 	LDebug << "Native Engine SDL started";
 	return true;
@@ -63,6 +67,8 @@ bool NE :: SDL_Engine :: init(void)
 
 bool NE :: SDL_Engine :: stop(void)
 {
+    delete pScaler;
+    
 	delete pSpriteLoader; pSpriteLoader = NULL;
 	delete pTime; pTime = NULL;
 	delete pInput; pInput = NULL;

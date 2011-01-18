@@ -31,15 +31,14 @@ e-mail: lw.demoscene@gmail.com
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Controls/Keyboard.h"
 #include "../Utils/Logger.h"
-#include "../Utils/Scaler.h"
 #include "Camera.h"
 #include "../globals.h"
 
-Cursor :: Cursor(NE::SpriteLoader* const  pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0)*/)
+Cursor :: Cursor(NE::SpriteLoader* const  pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0)*/, const float scalingFactor)
 	:pMap(pMap),position(initialPosition)
 {
 	// The size of the tiles and the cursor are the same to have better effect
-	pCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileName),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED);
+	pCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileName),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED, scalingFactor);
 
 	// Check if the position entered is correct
 	if ( position.x >= pMap->getWidth() )
@@ -160,14 +159,14 @@ bool Cursor :: move(const UVec2& newPosition)
 	return true;
 }
 
-bool Cursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const
+bool Cursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)const
 {
 	UVec2 cameraPosition = c.getPosition();
-	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(Scaler::getXScaleFactor() * TILE_DEFAULT_WIDTH)),
-								 (this->position.y - cameraPosition.y ) * (static_cast<int>(Scaler::getYScaleFactor() * TILE_DEFAULT_HEIGHT)));
-
+	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(scalingFactor * TILE_DEFAULT_WIDTH)),
+								 (this->position.y - cameraPosition.y ) * (static_cast<int>(scalingFactor * TILE_DEFAULT_HEIGHT)));
+/*
 	screenPosition.x += Scaler::getOffset().width;
 	screenPosition.y += Scaler::getOffset().height;
-
+*/
 	return pCursorSprite->draw(r,screenPosition,time);
 }

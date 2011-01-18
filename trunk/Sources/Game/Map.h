@@ -57,19 +57,19 @@ protected:
 
 	Map(void) {};
 
-	bool loadTileSet(NE::SpriteLoader* const pSL);
-	bool loadUnitSet(NE::SpriteLoader* const pSL);
-	bool loadGraphics(NE::SpriteLoader* const pSL);
+	bool loadTileSet(NE::SpriteLoader* const pSL, const float scalingFactor);
+	bool loadUnitSet(NE::SpriteLoader* const pSL, const float scalingFactor);
+	bool loadGraphics(NE::SpriteLoader* const pSL, const float scalingFactor);
 
-	bool parser(NE::SpriteLoader* const pSL, const std::string& fileName);
+	bool parser(NE::SpriteLoader* const pSL, const std::string& fileName, const float scalingFactor);
 
-	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
+	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor);
 
 public:
-	Map(NE::SpriteLoader* const pSL, const std::string& fileName);
+	Map(NE::SpriteLoader* const pSL, const std::string& fileName, float scalingFactor);
 	virtual ~Map(void);
 
-	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)=0;
+	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)=0;
 
 	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
     

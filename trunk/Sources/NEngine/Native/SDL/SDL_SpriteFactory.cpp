@@ -57,9 +57,9 @@ NE::Sprite* NE::SDL_SpriteFactory :: createSprite(const Colour& colour, const US
 	for ( int i = 0 ; i < pSurface->w * pSurface->h ; i++ )
 	{
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
-		*pPixel = colour.a << 24 + colour.b << 16 + colour.g << 8 + colour.r;
+		*pPixel = (colour.a << 24) + (colour.b << 16) + (colour.g << 8) + colour.r;
 #else
-		*pPixel = colour.r << 24 + colour.g << 16 + colour.b << 8 + colour.a;
+		*pPixel = (colour.r << 24 + (colour.g << 16) + (colour.b << 8) + colour.a;
 #endif
 		pPixel++;
 	}

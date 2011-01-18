@@ -33,8 +33,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-TileBarUnits :: TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize)
-:TileBar(pSL,pSF,reinterpret_cast<std::vector<View*>& >(listTiles),windowSize)
+TileBarUnits :: TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize, const float scalingFactor)
+:TileBar(pSL,pSF,reinterpret_cast<std::vector<View*>& >(listTiles),windowSize,scalingFactor)
 {
 	
 }
