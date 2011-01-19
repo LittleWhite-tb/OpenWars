@@ -44,7 +44,7 @@ AC_CHECK_TYPES([ptrdiff_t])
 # Checks for library functions.
 AC_FUNC_MALLOC
 
-CPPFLAGS=" -Wall -Wextra -g -O0"
+CPPFLAGS=" -Wall -Wextra"
 
 AC_CONFIG_FILES([
         Makefile
