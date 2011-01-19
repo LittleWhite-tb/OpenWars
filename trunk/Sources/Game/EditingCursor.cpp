@@ -35,11 +35,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-EditingCursor :: EditingCursor(NE::SpriteLoader* pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition, const float scalingFactor)
-	:Cursor(pSL,fileNameCursor,pMap,initialPosition,scalingFactor),isWrong(false)
+EditingCursor :: EditingCursor(NE::SpriteLoader* pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
+	:Cursor(pSL,fileNameCursor,pMap,initialPosition),isWrong(false)
 {
 	// The size of the tiles and the cursor are the same to have better effect
-	pWrongCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileNameWrongCursor),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED,scalingFactor);
+	pWrongCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileNameWrongCursor),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED);
 
 	LDebug << "EditingCursor created " << initialPosition;
 }
@@ -51,11 +51,11 @@ EditingCursor :: ~EditingCursor(void)
 	LDebug << "EditingCursor deleted";
 }
 
-bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)const
+bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const
 {
 	UVec2 cameraPosition = c.getPosition();
-	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * (static_cast<int>(scalingFactor * TILE_DEFAULT_WIDTH)),
-								 (this->position.y - cameraPosition.y ) * (static_cast<int>(scalingFactor * TILE_DEFAULT_HEIGHT)));
+	IVec2 screenPosition = IVec2((this->position.x - cameraPosition.x ) * TILE_DEFAULT_WIDTH,
+								 (this->position.y - cameraPosition.y ) * TILE_DEFAULT_HEIGHT);
 /*
 	screenPosition.x += Scaler::getOffset().width;
 	screenPosition.y += Scaler::getOffset().height;

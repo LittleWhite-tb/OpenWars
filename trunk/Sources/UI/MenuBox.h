@@ -3,7 +3,7 @@
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
-OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
+OpenAWars is an open turn by turn strategic game ai, const float scalingFactorming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or

@@ -44,10 +44,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View*>& listTiles, const USize2& windowSize, const float scalingFactor)
+TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View*>& listTiles, const USize2& windowSize)
 :windowSize(windowSize)
 {
-	unsigned int barHeight = static_cast<unsigned int>(64 * scalingFactor);
+	unsigned int barHeight = 64;
 	unsigned int maximumX = 0;
 	
 	
@@ -76,7 +76,7 @@ TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, st
 	{
 		int abstractPositionX = (*itTile)->positionX;
 			
-		(*itTile)->positionX = static_cast<int>(scalingFactor * TILE_BAR_XMARGIN) * (1 + (*itTile)->positionX * 2) + static_cast<int>(scalingFactor * 32 * (*itTile)->positionX);
+		(*itTile)->positionX = TILE_BAR_XMARGIN * (1 + (*itTile)->positionX * 2) + 32 * (*itTile)->positionX;
 
 		viewList[abstractPositionX].push_back(*itTile);
 	}
@@ -85,11 +85,11 @@ TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, st
 	pBarCursor = pSL->loadSpriteFromFile("./data/gfx/tilebar_cursor.png");
 
 	// Load the arrows
-	pBarArrows = new AnimatedSprite(pSL->loadSpriteFromFile("./data/gfx/tilebar_arrows.png"),USize2(45,45),300,scalingFactor);
+	pBarArrows = new AnimatedSprite(pSL->loadSpriteFromFile("./data/gfx/tilebar_arrows.png"),USize2(45,45),300);
 
 	// Final settings
 	counterMovementAnim = 0;
-	limit =  (viewList[0][0]->getSprite()->getSize().width + (static_cast<int>(scalingFactor * TILE_BAR_XMARGIN)*2)) * viewList.size();
+	limit =  (viewList[0][0]->getSprite()->getSize().width + TILE_BAR_XMARGIN*2) * viewList.size();
 	positionY = windowSize.height;
 	state = TBS_Closed;
 	currentX = 5;
@@ -116,12 +116,12 @@ TileBar :: ~TileBar(void)
 	LDebug << "TileBar deleted";
 }
 
-void TileBar ::  moveLeft(const float scalingFactor)
+void TileBar ::  moveLeft()
 {
 	if ( state == TBS_Opened )
 	{
 		LDebug << "TileBar :: moveLeft()";
-		counterMovementAnim = static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_WIDTH) + static_cast<unsigned int>(scalingFactor * TILE_BAR_XMARGIN * 2 );
+		counterMovementAnim = TILE_DEFAULT_WIDTH + TILE_BAR_XMARGIN * 2;
 
 		state = TBS_MoveLeft;
 	
@@ -133,13 +133,13 @@ void TileBar ::  moveLeft(const float scalingFactor)
 	}
 }
 
-void TileBar ::  moveRight(const float scalingFactor)
+void TileBar ::  moveRight()
 {
 	if ( state == TBS_Opened )
 	{
 		LDebug << "TileBar :: moveRight()";
 		
-		counterMovementAnim = static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_WIDTH) + static_cast<unsigned int>(scalingFactor * TILE_BAR_XMARGIN * 2);
+		counterMovementAnim = TILE_DEFAULT_WIDTH + TILE_BAR_XMARGIN * 2;
 
 		state = TBS_MoveRight;
 	
@@ -181,7 +181,7 @@ void TileBar :: open(void)
 	}
 }
 
-void TileBar :: move(const ArrowsDirection direction, const float scalingFactor)
+void TileBar :: move(const ArrowsDirection direction)
 {
 	switch(direction)
 	{
@@ -192,10 +192,10 @@ void TileBar :: move(const ArrowsDirection direction, const float scalingFactor)
 			moveDown();
 			break;
 		case AD_LEFT:
-			moveLeft(scalingFactor);
+			moveLeft();
 			break;
 		case AD_RIGHT:
-			moveRight(scalingFactor);
+			moveRight();
 			break;
 		// Remove warnings (we don't mind about the others directions)
 		default:
@@ -213,7 +213,7 @@ void TileBar :: close(void)
 	}
 }
 
-bool TileBar :: draw(const NE::Renderer& r, const unsigned int time, const float scalingFactor)
+bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 {
 	bool isOk = true;
 
@@ -239,17 +239,17 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time, const float
 		{
 			xOffset = (windowSize.width / 2 - spriteWidth / 2) - viewList[viewList.size()-1][0]->positionX;
 		}
-		IVec2 cursorPosition(windowSize.width / 2 - pBarCursor->getSize().width/2, positionY + static_cast<unsigned int>(scalingFactor * TILE_BAR_HEIGHT) / 2 - pBarCursor->getSize().height/2);
+		IVec2 cursorPosition(windowSize.width / 2 - pBarCursor->getSize().width/2, positionY + TILE_BAR_HEIGHT / 2 - pBarCursor->getSize().height/2);
 
 		// Display the Tiles
 		for ( unsigned int i = 0 ; i < viewList.size() ; i++ )	// TILE_NB_DRAWN + 1 because we are drawing one extra tile, to avoid some nasty effect when sliding
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->getSize().height - (static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = viewList[i%viewList.size()][currentY%viewList[i%viewList.size()].size()]->getSprite()->getSize().height - TILE_DEFAULT_HEIGHT;
 
-			IVec2 tilePosition(viewList[i%viewList.size()][0]->positionX, positionY + static_cast<int>(scalingFactor * TILE_BAR_YMARGIN *2));
+			IVec2 tilePosition(viewList[i%viewList.size()][0]->positionX, positionY + TILE_BAR_YMARGIN *2);
 			// Offset, because we are drawing one before the first visible
-			tilePosition.x -= static_cast<int>(scalingFactor * TILE_BAR_XMARGIN *2) + viewList[i%viewList.size()][0]->getSprite()->getSize().width;
+			tilePosition.x -= TILE_BAR_XMARGIN *2 + viewList[i%viewList.size()][0]->getSprite()->getSize().width;
 
 			if ( state == TBS_Opened )
 			{
@@ -288,7 +288,7 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time, const float
 	return isOk;
 }
 
-void TileBar :: update(const unsigned int time, const float scalingFactor)
+void TileBar :: update(const unsigned int time)
 {
 #ifdef VERBOSE
 	LDebug << "TileBar :: update()";
@@ -305,7 +305,7 @@ void TileBar :: update(const unsigned int time, const float scalingFactor)
 			break;
 		case TBS_Opening:
 			positionY-=stepY;
-			if ( positionY <= windowSize.height - static_cast<int>(scalingFactor * 64) )
+			if ( positionY <= windowSize.height - 64 )
 			{
 				state = TBS_Opened;
 			}
@@ -343,7 +343,7 @@ void TileBar :: update(const unsigned int time, const float scalingFactor)
 					{
 						if ( (*itASprites)->positionX < 0 )
 						{
-							(*itASprites)->positionX = (limit - ((static_cast<int>(scalingFactor * TILE_BAR_XMARGIN) + (*itASprites)->getSprite()->getSize().width)));
+							(*itASprites)->positionX = (limit - (TILE_BAR_XMARGIN + (*itASprites)->getSprite()->getSize().width));
 						}
 					}
 				}

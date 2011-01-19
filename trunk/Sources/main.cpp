@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 
 	unsigned int i = 1;
 
-	USize2 winSize(640,480);
+	USize2 winSize(480,320);
 	bool needFullscreen=false;
 	std::string loadMapName= MAP_PATH "maw.map";
 
@@ -128,7 +128,6 @@ int main(int argc, char** argv)
 
 			if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
 			{
-                pNE->setSpriteScaling(2);
 				GameEngine gEngine(pNE);
 					
 				if ( gEngine.init() )

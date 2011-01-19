@@ -36,7 +36,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Vec2.h"
 #include "../Types/Colour.h"
 
-#include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
 
 #include <vector>
@@ -70,10 +69,10 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 	bool errorFlag = true;
     USize2 backgroundSize = pBackgroundUI->getSize();
 
-	IVec2 uiPosition(20, windowSize.height - (backgroundSize.height + static_cast<unsigned int>(20 * Scaler::getYScaleFactor())));
+	IVec2 uiPosition(20, windowSize.height - (backgroundSize.height + 20));
 	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getSize().width / 2) + backgroundSize.width / 2 , uiPosition.y);
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
-	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getSize().height + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
+	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getSize().height + 5);
 
 	errorFlag &= r.drawSurface(uiPosition,*pBackgroundUI);
 	if ( unitsList.size() > 6 )
@@ -96,7 +95,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 	*/
 	for ( unsigned int i = offsetCursorPosition ; i < unitsList.size() && i < offsetCursorPosition+7 ; i++ )
 	{
-		IVec2 unitPosition(static_cast<unsigned int>(40 * Scaler::getXScaleFactor()), uiPosition.y + static_cast<unsigned int>(6 * Scaler::getXScaleFactor()) + (i-offsetCursorPosition) * (unitsList[i].pUnitSprite->getSize().height+1));
+		IVec2 unitPosition(40, uiPosition.y + 6 + (i-offsetCursorPosition) * (unitsList[i].pUnitSprite->getSize().height+1));
 		
 		// Convertion of the price into a string
 		std::string priceString = "0";
@@ -108,8 +107,8 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 			priceString = oss.str();
 		}
 		
-		IVec2 unitPricePosition(backgroundSize.width - (pFont->getSize(priceString).x), unitPosition.y + (static_cast<unsigned int>(6 * Scaler::getXScaleFactor())));
-		IVec2 unitNamePosition(backgroundSize.width - (static_cast<unsigned int>(60 * Scaler::getXScaleFactor()) + pFont->getSize(unitsList[i].unitName).x) , unitPricePosition.y);
+		IVec2 unitPricePosition(backgroundSize.width - (pFont->getSize(priceString).x), unitPosition.y + 6);
+		IVec2 unitNamePosition(backgroundSize.width - 60 + pFont->getSize(unitsList[i].unitName).x , unitPricePosition.y);
 
 		if ( unitsList[i].unitPrice <= moneyAvailable )
 		{

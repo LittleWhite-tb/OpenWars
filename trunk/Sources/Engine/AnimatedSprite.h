@@ -58,7 +58,7 @@ private:
 	void update(const unsigned int time);
 
 public:
-    AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval, const float scalingFactor);
+    AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
 
 	~AnimatedSprite(void);
 

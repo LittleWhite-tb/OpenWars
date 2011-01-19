@@ -34,25 +34,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval, const float scalingFactor)
+AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval)
     :pSprite(pSprite),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
     USize2 surfaceSize = pSprite->getSize();
-
-	// We scale the size of the sprite surface (since we always apply the scaler on the surface, from the SpriteManager)
-    this->spriteSize.width = static_cast<unsigned int>(spriteSize.width * scalingFactor);
-    this->spriteSize.height = static_cast<unsigned int>(spriteSize.height * scalingFactor);
-
-	// Special cas where the size given by the user is not completely right, or there is only one sprite (no animation)
-	if ( surfaceSize.width < this->spriteSize.width )
-	{
-		surfaceSize.width = surfaceSize.width;
-	}
-
-	if ( surfaceSize.height < this->spriteSize.height )
-	{
-		surfaceSize.height = surfaceSize.height;
-	}
+    this->spriteSize = spriteSize;
 
 	numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 	

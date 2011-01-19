@@ -40,7 +40,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MapEditor :: MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size, const float scalingFactor)
+MapEditor :: MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size)
 	:Map()
 {
 	width = size.x;
@@ -48,7 +48,7 @@ MapEditor :: MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName
 	valid = true;	// By default the map is valid, but maybe just after, we will fail, so invalidate it
 	m_themeName = themeName;
 
-	this->loadGraphics(pSL,scalingFactor);
+	this->loadGraphics(pSL);
 
 	map = new TileType*[this->height];
 	if ( map == NULL )
@@ -101,7 +101,7 @@ MapEditor :: MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName
 	LDebug << "MapEditor created " << size;
 }
 
-bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor)
+bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();
 	// USize2 mapOffset = Scaler::getOffset();
@@ -110,7 +110,7 @@ bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned in
 
 	LDebug << "Map :: draw";
 
-	this->drawTerrain(r,c,time,scalingFactor);
+	this->drawTerrain(r,c,time);
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -121,7 +121,7 @@ bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned in
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - (static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_HEIGHT));
+			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - TILE_DEFAULT_HEIGHT;
 
 			// Apply offset
 			tilePos.y -= yOffset;
@@ -137,7 +137,7 @@ bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned in
 		}
 
 		// To put 0 here, can be a bit dangerous
-		tilePos.y += (static_cast<unsigned int>(scalingFactor * TILE_DEFAULT_HEIGHT));
+		tilePos.y += TILE_DEFAULT_HEIGHT;
 	}
 
 	return bError;

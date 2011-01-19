@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 
 	unsigned int i = 1;
 
-	USize2 winSize(640,480);
+	USize2 winSize(480,320);
 	bool needFullscreen=false;
 	unsigned int mapWidth=MAP_MIN_WIDTH;
 	unsigned int mapHeight=MAP_MIN_HEIGHT;
@@ -206,7 +206,6 @@ int main(int argc, char** argv)
 
 			if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars Editor") )
 			{
-                pNE->setSpriteScaling(2);
 				EditorEngine eEngine(pNE);
 				
 				if ( eEngine.init() )

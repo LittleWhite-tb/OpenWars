@@ -33,7 +33,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
 
-#include "../Utils/Scaler.h"
 #include "../Utils/Logger.h"
 
 #include "../Utils/Exceptions/ConstructionFailedException.h"
@@ -43,7 +42,7 @@ e-mail: lw.demoscene@gmail.com
 MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& windowSize)
 :pCursor(new AnimatedSprite(pSL->loadSpriteFromFile(cursorFileName),USize2(32,32),200)),actualPosition(0),entries(entries)
 {
-	pBackground = pSF->createSpriteFromColour(Colour(0xC0C0C0C0), USize2(150,10 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor())));
+	pBackground = pSF->createSpriteFromColour(Colour(0xC0C0C0C0), USize2(150,10 + TILE_DEFAULT_HEIGHT));
     if ( pBackground == NULL )
     {
         throw ConstructionFailedException("MenuBox");
@@ -71,12 +70,12 @@ MenuBox :: ~MenuBox()
 
 bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
 {
-	static const unsigned int margin = static_cast<unsigned int>(10 * Scaler::getXScaleFactor());
+	static const unsigned int margin = 10;
 	static bool onRight = true;
 	bool bError = true;
 
 	IVec2 position;
-	position.y = static_cast<unsigned int>(50 * Scaler::getYScaleFactor());
+	position.y = 50;
 
 	// Calculate the position dependant on the cursor
 	if ( cursorPosition.x >= MAP_MIN_WIDTH-4 )
@@ -97,7 +96,7 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 		position.x = margin;
 	}
 
-	IVec2 itemPosition(position.x + static_cast<unsigned int>(20 * Scaler::getXScaleFactor()) , position.y + static_cast<unsigned int>(5 * Scaler::getYScaleFactor()));
+	IVec2 itemPosition(position.x + 20 , position.y + 15 );
 
 	for ( unsigned int i = 0 ; i < entries.size() ; i++ )
 	{
@@ -106,7 +105,7 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
         itemPosition.y = itemPosition.y +5;
 		if ( i == actualPosition )
 		{
-			IVec2 cursorPosition(position.x - static_cast<unsigned int>(15 * Scaler::getXScaleFactor()), itemPosition.y);
+			IVec2 cursorPosition(position.x - 15, itemPosition.y);
 			bError &= pCursor->draw(r,cursorPosition,time);
 		}
 		if ( entries[i]->pASprite != NULL )
@@ -114,12 +113,12 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 			bError &= entries[i]->pASprite->draw(r,itemPosition,time);
 		}
 		{
-			IVec2 textPosition(position.x + static_cast<unsigned int>((TILE_DEFAULT_WIDTH + 24) * Scaler::getXScaleFactor()), itemPosition.y + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor() / 2));
+			IVec2 textPosition(position.x + TILE_DEFAULT_WIDTH + 24, itemPosition.y + TILE_DEFAULT_HEIGHT / 2);
 			IVec2 textSize = pFont->getSize(entries[i]->name);
 			textPosition.y -= textSize.y/2;
 			pFont->draw(r,entries[i]->name, textPosition);
 		}
-		itemPosition.y += 10 + static_cast<unsigned int>(TILE_DEFAULT_HEIGHT * Scaler::getYScaleFactor());
+		itemPosition.y += 10 + TILE_DEFAULT_HEIGHT;
 	}
 
 	return bError;

@@ -54,10 +54,10 @@ private:
 	bool setBuilding(const UVec2& position, const TileType type);
 
 public:
-	MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size, const float scalingFactor);
-	MapEditor(NE::SpriteLoader* const pSL, const std::string& fileName, const float scalingFactor):Map(pSL,fileName,scalingFactor) {}
+	MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size);
+	MapEditor(NE::SpriteLoader* const pSL, const std::string& fileName):Map(pSL,fileName) {}
 
-	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time, const float scalingFactor);
+	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 	bool testTile(const UVec2& position, const TileType tileType)const;
 

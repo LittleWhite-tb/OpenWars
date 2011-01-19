@@ -25,7 +25,6 @@ e-mail: lw.demoscene@gmail.com
 #include "SpriteLoader.h"
 
 #include "Sprite.h"
-#include "Scaler.h"
 
 #include "../Utils/Logger.h"
 
@@ -42,7 +41,6 @@ NE::Sprite* NE::SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
 {
     if ( spritesBank.find(fileName) == spritesBank.end() ) // Not found
     {
-    
         Sprite* pSprite = loadSprite(fileName);
         if ( pSprite == NULL )
         {
@@ -50,24 +48,9 @@ NE::Sprite* NE::SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
             return NULL;
         }
         
-        // Now scaling
-        Sprite* pScaledSprite = pScaler->scale(pSprite);
-        if ( pScaledSprite == NULL )
-        {
-            // We keep unscale one
-            spritesBank[fileName] = pSprite;
-        }
-        else if ( pScaledSprite == pSprite )
-        {
-            spritesBank[fileName] = pSprite;
-        }
-        else
-        {
-            spritesBank[fileName] = pScaledSprite;
-            delete pSprite;
-        }
+        spritesBank[fileName] = pSprite;
         
-        return spritesBank[fileName];
+        return pSprite;
     }
     else
     {

@@ -54,7 +54,7 @@ private:
 	std::vector<std::vector<UnitView> > unitsList;		/*<! The units to be displayed in the TileBar */
 
 public:
-	TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize, const float scalingFactor);
+	TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize);
 
 	UnitType getSelected(void)const;
 };

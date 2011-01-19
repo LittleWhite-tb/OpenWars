@@ -144,9 +144,9 @@ bool GameEngine :: load(void)
         // Unit menu
         unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
-		pCBFactory = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits,pNE->getWindow()->getWindowSize());
-		pCBPort = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits,pNE->getWindow()->getWindowSize());
-		pCBAirport = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits,pNE->getWindow()->getWindowSize());
+		pCBFactory = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",factoryUnits, pNE->getWindow()->getWindowSize());
+		pCBPort = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",portUnits, pNE->getWindow()->getWindowSize());
+		pCBAirport = new ConstructBox(pNE->getSpriteLoader(),*pFM,GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/times.ttf",airportUnits, pNE->getWindow()->getWindowSize());
 		pMBMenu = new MenuBox(pNE->getSpriteLoader(),pNE->getSpriteFactory(),*pFM, GFX_PATH "constCursor.png","./data/fonts/times.ttf",menuEntries,pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)

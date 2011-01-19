@@ -88,8 +88,8 @@ private:
 
 	bool valid;								/*!< flag to know if all initialisation goes right */
 
-	void moveLeft(const float scalingFactor);
-	void moveRight(const float scalingFactor);
+	void moveLeft(void);
+	void moveRight(void);
 	void moveUp(void);
 	void moveDown(void);
 
@@ -99,17 +99,17 @@ protected:
 	int currentY;				/*!< index of the actual Tile selected on the Y axis */
 
 public:
-	TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View *>& listTiles, const USize2& windowSize, const float scalingFactor);
+	TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View *>& listTiles, const USize2& windowSize);
 	virtual ~TileBar(void);
 
 	void open(void);
 	void close(void);
 
-	void move(const ArrowsDirection direction,const float scalingFactor);
+	void move(const ArrowsDirection direction);
 
-	bool draw(const NE::Renderer& r, const unsigned int time, const float scalingFactor);
+	bool draw(const NE::Renderer& r, const unsigned int time);
 
-	void update(const unsigned int time, const float scalingFactor);
+	void update(const unsigned int time);
 
 	bool isValid(void)const { return valid; }
 
