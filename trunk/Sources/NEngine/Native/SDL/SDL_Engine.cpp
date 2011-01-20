@@ -75,8 +75,3 @@ bool NE :: SDL_Engine :: stop(void)
 
 	return true;
 }
-
-NE::Sprite* NE::SDL_Engine::loadSpriteFromFile(const std::string& fileName)
-{
-	return pSpriteLoader->loadSpriteFromFile(fileName);
-}

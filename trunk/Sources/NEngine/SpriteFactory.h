@@ -38,7 +38,7 @@ namespace NE
     {
     private: 
 
-        std::map<Colour, Sprite*> spritesBank;
+        std::map<Colour, Sprite*> spritesBank; /*<! Bank of Sprite already created */
 
     protected:
 
@@ -50,5 +50,26 @@ namespace NE
         Sprite* createSpriteFromColour(const Colour& colour, const USize2& spriteSize);
     };
 }
+
+/*! \class NE::SpriteFactory SpriteFactory.h "NEngine/SpriteFactory.h"
+ *  \brief SpriteFactory interface to create Sprites
+ *
+ * The SpriteFactory creates Sprite from a colour and a size
+ * This class use a bank of Sprite to not create to times the same sprite
+ */
+ 
+ /*! \fn virtual NE::Sprite* NE::SpriteFactory::createSprite(const Colour& colour, const USize2& spriteSize)=0;
+  * \brief Create a Sprite from a colour and a size
+  * \param colour The colour of the Sprite
+  * \param spriteSize the size of the Sprite
+  * \return the Sprite created.
+  */
+ 
+ /*! \fn NE::Sprite* NE::SpriteFactory::createSpriteFromColour(const Colour& colour, const USize2& spriteSize);
+  * \brief Create a Sprite from a colour and a size
+  * \param colour The colour of the Sprite
+  * \param spriteSize the size of the Sprite
+  * \return the Sprite created.
+  */
 
 #endif

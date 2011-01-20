@@ -101,10 +101,14 @@ namespace NE
  * \return a pointer to the Window
  */
 
-/*! \fn virtual Sprite* NE::Engine::loadSpriteFromFile(const std::string& fileName)
- * \brief Load a Sprite from a file (using the SpriteLoader)
- * \param fileName the name of the file to load
- * \return a pointer to a Sprite
+/*! \fn virtual NE::SpriteLoader* NE::Engine::getSpriteLoader(void)
+ * \brief Get the SpriteLoader
+ * \return a pointer to the SpriteLoader
+ */
+ 
+ /*! \fn virtual NE::SpriteFactory* NE::Engine::getSpriteFactory(void)
+ * \brief Get the SpriteFactory
+ * \return a pointer to the SpriteFactory
  */
 
 /*! \fn Renderer* NE::Engine::getRenderer(void)

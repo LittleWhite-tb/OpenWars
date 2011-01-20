@@ -41,13 +41,13 @@ namespace NE
 
 		bool init(void);
 		bool stop(void);
-
-		Sprite* loadSpriteFromFile(const std::string& fileName);
 	};
 }
 
 /*! \class NE::SDL_Engine SDL_Engine.h "NEngine/Native/SDL/SDL_Engine.h"
  *  \brief SDL implementation for Engine
  */
+ 
+ /*! \fn 
 
 #endif

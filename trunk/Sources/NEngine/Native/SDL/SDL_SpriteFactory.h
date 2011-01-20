@@ -40,4 +40,10 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_SpriteFactory SDL_SpriteFactory.h "NEngine/Native/SDL/SDL_SpriteFactory.h"
+ *  \brief SpriteFactory implementation for SDL
+ *
+ * The SpriteFactory creates sprite from a colour and a size
+ */
+
 #endif
