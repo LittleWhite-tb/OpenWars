@@ -103,31 +103,31 @@ public:
  *		- Get a Tile
  */
 
-/*! \fn bool Map::loadTileSet(SpriteManager& sm)
+/*! \fn bool Map::loadTileSet(NE::SpriteLoader* const pSL)
  * \brief Load the tiles that the map will use
  * Will use a tile set file to know the settings of each tiles
- * \param sm the SpriteManager to load the sprites.
+ * \param pSL the SpriteLoader to load the sprites.
  * \return true if all goes right
  */
 
-/*! \fn bool Map::loadUnitSet(SpriteManager& sm)
+/*! \fn bool Map::loadUnitSet(NE::SpriteLoader* const pSL)
  * \brief Load the units that the map will use
  * Will use a unit set file to know the settings of each units
- * \param sm the SpriteManager to load the sprites.
+ * \param pSL the SpriteLoader to load the sprites.
  * \return true if all goes right
  */
 
-/*! \fn bool Map::loadGraphics(SpriteManager& sm)
+/*! \fn bool Map::loadGraphics(NE::SpriteLoader* const pSL)
  * \brief Load the tiles that the map will use
  * Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an AnimatedSprite pointer.
- * \param sm the SpriteManager to load the sprites.
+ * \param pSL the SpriteLoader to load the sprites.
  * \return true if all goes right
  */
 
-/*! \fn bool Map::parser(SpriteManager& sm, const std::string& fileName)
+/*! \fn bool Map::parser(NE::SpriteLoader* const pSL, const std::string& fileName)
  * \brief Map file parser
  * Will parse the information contained in the map. When possible, will check if the information are correct
- * \param sm the sprite manager to load the sprites used by the map
+ * \param pSL the SpriteLoader to load the sprites used by the map
  * \param fileName the name of the file to load
  * \return true if all goes right
  */
@@ -140,10 +140,10 @@ public:
  * \return true if all goes right
  */
 
-/*! \fn Map::Map(SpriteManager& sm, const std::string& fileName)
+/*! \fn Map::Map(NE::SpriteLoader* const pSL, const std::string& fileName)
  * Will call the parser
  * If you need to check if the map is correct (and you should), please use isValidMap()
- * \param sm the sprite manager to load the sprites used by the map
+ * \param pSL the SpriteLoader to load the sprites used by the map
  * \param fileName the name of the file to load
  */
 

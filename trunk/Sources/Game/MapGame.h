@@ -82,9 +82,9 @@ public:
  * the setTile function (to get logical unit in the unitMap)
  */
 
-/*! \fn MapGame::MapGame(SpriteManager& sm, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable)
+/*! \fn MapGame::MapGame(NE::SpriteLoader* const pSL, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable)
  * Load the map
- * \param sm the SpriteManager to load the sprites
+ * \param pSL the SpriteLoader to load the sprites
  * \param fileName the name of the file for the map to load
  * \param fileNameHighlight the name of the sprite to load for highlighting the cells
  * \param fileNameAttackable the name of the sprite to load for attackable cells

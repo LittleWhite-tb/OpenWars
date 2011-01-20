@@ -38,7 +38,7 @@ namespace NE
     {
     private: 
 
-        std::map<Colour, Sprite*> spritesBank; /*<! Bank of Sprite already created */
+        std::map<std::pair<USize2, Colour>, Sprite*> spritesBank; /*<! Bank of Sprite already created */
 
     protected:
 
@@ -50,6 +50,8 @@ namespace NE
         Sprite* createSpriteFromColour(const Colour& colour, const USize2& spriteSize);
     };
 }
+
+bool operator< (const std::pair<USize2, Colour>& p1, const std::pair<USize2, Colour>& p2);
 
 /*! \class NE::SpriteFactory SpriteFactory.h "NEngine/SpriteFactory.h"
  *  \brief SpriteFactory interface to create Sprites

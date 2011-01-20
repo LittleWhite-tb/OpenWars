@@ -51,7 +51,7 @@ class TileBarUnits : public TileBar
 {
 private:
 
-	std::vector<std::vector<UnitView> > unitsList;		/*<! The units to be displayed in the TileBar */
+	std::vector<std::vector<UnitView> > unitsList;		/*!< The units to be displayed in the TileBar */
 
 public:
 	TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize);
@@ -84,9 +84,10 @@ public:
  *
  */
 
-/*! \fn TileBarUnits::TileBarUnits(SpriteManager& sm, std::vector<UnitView*>& listTiles, const USize2& windowSize)
+/*! \fn TileBarUnits::TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize)
  * \brief Create a TileBar with units
- * \param sm the sprite manager to load the sprites used by the map
+ * \param pSL the SpriteLoader to load the sprites used by the map
+ * \param pSF the SpriteFactory to create Sprite on the fly
  * \param listTiles The list of units to display in the TileBar
  * \param windowSize the size of the window (used as reference to place the TileBar)
  */

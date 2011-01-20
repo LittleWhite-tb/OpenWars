@@ -122,4 +122,9 @@ public:
  * \return the IVec2 on the line
  */
 
+/*! \fn USize2 LineParser::getUSize2(void)const
+ * \brief Read a USize2 on the line
+ * \return the USize2 on the line
+ */
+
 #endif

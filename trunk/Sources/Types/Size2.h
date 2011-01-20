@@ -61,6 +61,17 @@ std::ostream& operator<< (std::ostream& o, const Size2<T>& s)
 	return o;
 }
 
+template <typename T>
+bool operator< (const Size2<T>& s1, const Size2<T>& s2)
+{
+    if ( s1.width < s2.width && s1.height < s2.height )
+    {
+        return true;
+    }
+    
+    return false;
+}
+
 typedef Size2<int> ISize2;
 typedef Size2<unsigned int> USize2;
 

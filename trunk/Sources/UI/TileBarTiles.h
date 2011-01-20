@@ -51,7 +51,7 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSizeconst);
+	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSize);
 
 	TileType getSelected(void)const;
 };
@@ -81,9 +81,10 @@ public:
  *
  */
 
-/*! \fn TileBarTiles::TileBarTiles(SpriteManager& sm, std::vector<TileView*>& listTiles, const USize2& windowSize)
+/*! \fn TileBarTiles::TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSize)
  * Create a TileBar with tiles
- * \param sm the sprite manager to load the sprites used by the map
+ * \param pSL the SpriteLoader to load the sprites used by the map
+ * \param pSF the SpriteFactory to create some Sprite
  * \param listTiles The list of tiles to display in the TileBar
  * \param windowSize the size of the window (used as reference to place the TileBar)
  */

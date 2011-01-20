@@ -44,7 +44,6 @@ namespace NE
 		virtual USize2 getSize(void)const=0;
 
 		friend class Renderer;
-		friend class Scaler;
         
         // To have only the sprite loader able to delete a Sprite
         friend class SpriteLoader;

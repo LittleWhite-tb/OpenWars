@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../Engine.h"
 
-
-
 namespace NE
 {
 	class Sprite;
@@ -47,7 +45,5 @@ namespace NE
 /*! \class NE::SDL_Engine SDL_Engine.h "NEngine/Native/SDL/SDL_Engine.h"
  *  \brief SDL implementation for Engine
  */
- 
- /*! \fn 
 
 #endif

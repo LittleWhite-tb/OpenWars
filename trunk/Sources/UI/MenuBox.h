@@ -90,8 +90,9 @@ public:
  * The background is constructed on the fly, so it needs special precaution.
  */
 
-/*! \fn MenuBox::MenuBox(SpriteManager& sm, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize)
- * \param sm The sprite manager to load the sprites
+/*! \fn MenuBox::MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize)
+ * \param pSL The SpriteLoader to load the sprites
+ * \param pSF The SpriteFactory to load the sprites
  * \param fm The font manager to load the fonts
  * \param cursorFileName the file to load for the cursor
  * \param fontFileName the font to load for the texts

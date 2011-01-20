@@ -61,8 +61,8 @@ public:
  * In this state the user will know that he can't put the tile on the map
  */
 
-/*! \fn EditingCursor::EditingCursor(SpriteManager& sm, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
- * \param sm The SpriteManager to use to load the sprites
+/*! \fn EditingCursor::EditingCursor(NE::SpriteLoader* const pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
+ * \param pSL The SpriteLoader to use to load the sprites
  * \param fileNameCursor the name of the file to load for the cursor sprite (normal mode)
  * \param fileNameWrongCursor the name of the file to load for the wrong cursor sprite
  * \param pMap A pointer on the Map to use

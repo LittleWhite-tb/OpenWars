@@ -170,9 +170,10 @@ public:
  * \brief Change the Y dimension of the TileBar 
  */
 
-/*! \fn TileBar::TileBar(SpriteManager& sm, std::vector<View *>& listTiles, const USize2& windowSize)
+/*! \fn TileBar::TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View *>& listTiles, const USize2& windowSize)
  * Will create the surface for the Bar and load the bar cursor and Tiles
- * \param sm The SpriteManager to use to load the images
+ * \param pSL The SpriteLoader to use to load the images
+ * \param pSF The SpriteFactory to create Sprite
  * \param listTiles The list of tiles to display in the TileBar
  * \param windowSize the size of the window (used as reference to place the TileBar)
  */

@@ -79,9 +79,9 @@ public:
  * - Draw
  */
 
-/*! \fn Cursor::Cursor(SpriteManager& sm, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition)
+/*! \fn Cursor::Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition)
  * Load the sprite to use for the Cursor and place the cursor to a initial position.
- * \param sm The SpriteManager to use to load the sprite for the cursor
+ * \param pSL The SpriteLoader to use to load the sprite for the cursor
  * \param fileName The name of the file to load
  * \param pMap A pointer on the Map to use
  * \param initialPosition The initial position of the cursor

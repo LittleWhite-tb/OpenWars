@@ -163,16 +163,16 @@ public:
  * \param type the type of building (if HQ, setHQ is called)
  */
 
-/*! \fn MapEditor::MapEditor(SpriteManager& sm, const std::string& themeName, const UVec2& size)
+/*! \fn MapEditor::MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size)
  * \brief Create an empty map, with only T_Plain
- * \param sm the sprite manager to load the sprites used by the map
+ * \param pSL the SpriteLoader to load the sprites used by the map
  * \param themeName the name of the theme to load
  * \param size the size of the map wanted
  */
 
-/*! \fn MapEditor::MapEditor(SpriteManager& sm, const std::string& fileName)
+/*! \fn MapEditor::MapEditor(NE::SpriteLoader* const pSL, const std::string& fileName)
  * \brief Load the map to edit it.
- * \param sm the sprite manager to load the sprites used by the map
+ * \param pSL the SpriteLoader to load the sprites used by the map
  * \param fileName the name of the file to load
  */
 

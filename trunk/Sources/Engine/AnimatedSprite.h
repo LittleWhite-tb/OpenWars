@@ -91,14 +91,11 @@ public:
  * \param time the actual time
  */
 
-/*! \fn AnimatedSprite::AnimatedSprite(SpriteManager& sm, const std::string& fileName, const unsigned int width, const unsigned int height, const unsigned int msInterval, const bool needScaling)
- * Load the sprite set, using the SpriteManager
- * \param sm the sprite manager to use to load the image
- * \param fileName the file to load
- * \param width of the sprite
- * \param height of the sprite
+/*! \fn AnimatedSprite::AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
+ * Do an animation using a Sprite. The animated sprite size is given by spriteSize.
+ * \param pSprite the Sprite to use for the animation
+ * \param spriteSize the size of the sprite
  * \param msInterval interval between two sprite in milliseconds
- * \param needScaling if some scaling operation has to be done on this sprite 
  */
 
 /*! \fn AnimatedSprite::~AnimatedSprite(void)
@@ -110,14 +107,9 @@ public:
  * \param time the actual time
  */
 
-/*! \fn int AnimatedSprite::getWidth(void)const
- * \brief Get the width
- * \return returns the width of the sprite
- */
-
-/*! \fn int AnimatedSprite::getHeight(void)const
- * \brief Get the height
- * \return returns the height of the sprite
+/*! \fn USize2 AnimatedSprite::getSize(void)const
+ * \brief Get the size of the animated sprite
+ * \return returns the size of the animated sprite
  */
 
 /*! \fn unsigned int AnimatedSprite::getInterval(void)const

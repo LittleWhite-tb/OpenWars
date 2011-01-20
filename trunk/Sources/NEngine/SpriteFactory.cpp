@@ -30,7 +30,7 @@ e-mail: lw.demoscene@gmail.com
 
 NE::SpriteFactory :: ~SpriteFactory(void)
 {
-    for( std::map<Colour, NE::Sprite*>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
+    for( std::map<std::pair<USize2, Colour>, NE::Sprite*>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
 	{
 		delete (itSprite->second);
 	}
@@ -39,7 +39,8 @@ NE::SpriteFactory :: ~SpriteFactory(void)
 
 NE::Sprite* NE::SpriteFactory::createSpriteFromColour(const Colour& colour, const USize2& spriteSize)
 {
-    if ( spritesBank.find(colour) == spritesBank.end() ) // Not found
+    std::pair<USize2, Colour> requiredPair(spriteSize,colour);
+    if ( spritesBank.find(requiredPair) == spritesBank.end() ) // Not found
     {
         Sprite* pSprite = createSprite(colour,spriteSize);
         if ( pSprite == NULL )
@@ -48,11 +49,20 @@ NE::Sprite* NE::SpriteFactory::createSpriteFromColour(const Colour& colour, cons
             return NULL;
         }
         
-        spritesBank[colour] = pSprite;
+        spritesBank[requiredPair] = pSprite;
         return pSprite;
     }
     else
     {
-        return spritesBank[colour];
+        return spritesBank[requiredPair];
     }
+}
+
+bool operator< (const std::pair<USize2, Colour>& p1, const std::pair<USize2, Colour>& p2)
+{
+    if ( p1.second < p2.second && p1.first < p2.first )
+    {
+        return true;
+    }
+    return false;
 }
