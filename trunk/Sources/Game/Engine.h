@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-namespace NE { class Engine; }
+namespace NE { class NEngine; }
 
 class FontManager;
 
@@ -37,7 +37,7 @@ class Keyboard;
 class Engine
 {
 protected:
-	NE::Engine* pNE;            /*!< Native engine to use in the Engine */
+	NE::NEngine* pNE;            /*!< Native engine to use in the Engine */
 
 	FontManager* pFM;			/*!< The font manager for the editor */
 
@@ -46,7 +46,7 @@ protected:
 	Keyboard* pKB;				/*!< The keyboard for user access */
 
 public:
-	Engine(NE::Engine* const pNE);
+	Engine(NE::NEngine* const pNE);
 	virtual ~Engine(void);
 
 	virtual bool init(void);

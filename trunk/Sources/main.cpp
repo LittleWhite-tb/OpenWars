@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "NEngine/Engine.h"
+#include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
 #include "NEngine/Native/SDL/SDL_Engine.h"
 
@@ -104,7 +104,7 @@ int main(int argc, char** argv)
 	}
 
 	// Starting the native engine
-	NE::Engine* pNE = new NE::SDL_Engine();
+	NE::NEngine* pNE = new NE::SDL_Engine();
 	if ( pNE->init()  == false )
 	{
 		return 1;

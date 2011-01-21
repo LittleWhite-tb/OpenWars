@@ -59,7 +59,7 @@ private:
 	bool load(void);
 
 public:
-	EditorEngine(NE::Engine* const pNE);
+	EditorEngine(NE::NEngine* const pNE);
 	~EditorEngine(void);
 
 	bool init(void);

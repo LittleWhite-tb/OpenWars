@@ -1,6 +1,3 @@
-#ifndef __NE_SDL_INPUT_H__
-#define __NE_SDL_INPUT_H__
-
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -25,30 +22,37 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../Input.h"
+#include "NEngine.h"
 
-namespace NE
+#include "InputManager.h"
+
+#include "../Utils/Logger.h"
+
+bool NE :: NEngine :: init(void)
 {
-	class SDL_Input : public Input
-	{
-	private:
+	bool bError = true;
 
-		int nbKeys;					/*!< The number of keys repertoried in the array */
-		unsigned char* pKeys;		/*!< Array of keys state */
+	pInputManager = new InputManager();
+    if ( pInputManager == NULL )
+    {
+        LError << "Fail to allocate the InputManager";
+        bError = false;
+    }
+    else
+    {
+        bError &= this->initAPI();
+    }
 
-		void update(void);
-
-	public:
-		SDL_Input(void):Input() { this->update(); }
-		~SDL_Input(void) {}
-
-		Input::ArrowsDirection getDirection(void);
-		Input::Buttons getButtons(void);
-	};
+	return bError;
 }
 
-/*! \class NE::SDL_Input SDL_Input.h "NEngine/Native/SDL/SDL_Input.h"
- *  \brief SDL implementation for Input (keyboard)
- */
+bool NE :: NEngine :: stop(void)
+{
+	bool bError = true;
 
-#endif
+	bError &= this->stopAPI();
+
+	delete pInputManager;
+
+	return bError;
+}

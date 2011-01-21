@@ -1,5 +1,5 @@
-#ifndef __NE_ENGINE_H__
-#define __NE_ENGINE_H__
+#ifndef __NE_NENGINE_H__
+#define __NE_NENGINE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -31,30 +31,33 @@ namespace NE
 {
 	class Window;
 	class Renderer;
-	class Input;
+	class InputManager;
 	class Time;
 
 	class Sprite;
 	class SpriteLoader;
 	class SpriteFactory;
     
-	class Engine
+	class NEngine
 	{
 	protected:
 		Window* pWin;					/*!< Window used by the Engine */
 		Renderer* pRenderer;			/*!< Renderer used by the Engine */
-		Input* pInput;					/*!< Input used by the Engine */
+		InputManager* pInputManager;	/*!< InputManager used by the Engine */
 		Time* pTime;					/*!< Time used by the Engine */
 
 		SpriteLoader* pSpriteLoader;	/*!< SpriteLoader used by the Engine */
 		SpriteFactory* pSpriteFactory;	/*!< SpriteFactory used by the Engine */
+
+        virtual bool initAPI(void)=0;
+		virtual bool stopAPI(void)=0;
         
 	public:
-		Engine(void) {}
-		virtual ~Engine(void) {}
+		NEngine(void) {}
+		virtual ~NEngine(void) {}
 
-		virtual bool init(void)=0;
-		virtual bool stop(void)=0;
+		bool init(void);
+		bool stop(void);
 
 		Window* getWindow(void) { return pWin; }
 		// void setWindow(Window* const pWin) { this->pWin = pWin; }
@@ -65,7 +68,7 @@ namespace NE
 		Renderer* getRenderer(void) { return pRenderer; }
 		// void setRenderer(Renderer* const pRenderer) { this->pRenderer = pRenderer; }
 
-		Input* getInput(void) { return pInput; }
+		InputManager* getInputManager(void) { return pInputManager; }
 		// void setInput(Input* const pInput) { this->pInput = pInput; }
 
 		Time* getTime(void) { return pTime; }

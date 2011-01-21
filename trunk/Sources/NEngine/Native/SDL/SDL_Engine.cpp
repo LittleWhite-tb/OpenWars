@@ -28,7 +28,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "SDL_Window.h"
 #include "SDL_Renderer.h"
-#include "SDL_Input.h"
+#include "SDL_Keyboard.h"
+#include "SDL_Joy.h"
 #include "SDL_Time.h"
 #include "SDL_Sprite.h"
 #include "SDL_SpriteLoader.h"
@@ -36,7 +37,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../../Utils/Logger.h"
 
-bool NE :: SDL_Engine :: init(void)
+bool NE :: SDL_Engine :: initAPI(void)
 {
 	if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
 	{
@@ -47,25 +48,26 @@ bool NE :: SDL_Engine :: init(void)
 	pWin = new NE::SDL_Window();
 	pRenderer = new NE::SDL_Renderer(pWin);
 	pTime = new NE::SDL_Time();
-	pInput = new NE::SDL_Input();
 	pSpriteLoader = new NE::SDL_SpriteLoader();
 	pSpriteFactory = new NE::SDL_SpriteFactory();
 
-	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pInput == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL )
+	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL )
 	{
 		LError << "Fail to allocate memory for SDL_Engine components";
 		return false;
 	}
     
+    pInputManager->registerController(new SDL_Keyboard());
+    pInputManager->registerController(new SDL_Joy());
+    
 	LDebug << "Native Engine SDL started";
 	return true;
 }
 
-bool NE :: SDL_Engine :: stop(void)
+bool NE :: SDL_Engine :: stopAPI(void)
 {
 	delete pSpriteLoader; pSpriteLoader = NULL;
 	delete pTime; pTime = NULL;
-	delete pInput; pInput = NULL;
 	delete pRenderer; pRenderer = NULL;
 	delete pWin; pWin = NULL;
 

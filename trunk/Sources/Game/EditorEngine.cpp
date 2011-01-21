@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditorEngine.h"
 
-#include "../NEngine/Engine.h"
+#include "../NEngine/NEngine.h"
 #include "../NEngine/Window.h"
 #include "../NEngine/Renderer.h"
 
@@ -48,7 +48,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 
-EditorEngine :: EditorEngine(NE::Engine* const pNE)
+EditorEngine :: EditorEngine(NE::NEngine* const pNE)
 :Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
 {
 	LDebug << "EditorEngine constructed";

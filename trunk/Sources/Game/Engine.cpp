@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../NEngine/Engine.h"
+#include "../NEngine/NEngine.h"
 
 #include "../Engine/ResourcesManager/FontManager.h"
 
@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-Engine::Engine(NE::Engine* const pNE)
+Engine::Engine(NE::NEngine* const pNE)
 :pNE(pNE),pFM(NULL),pVT(NULL),pKB(NULL)
 {
 	assert(pNE);

@@ -24,7 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameEngine.h"
 
-#include "../NEngine/Engine.h"
+#include "../NEngine/NEngine.h"
 #include "../NEngine/Window.h"
 #include "../NEngine/Renderer.h"
 #include "../NEngine/SpriteLoader.h"
@@ -46,7 +46,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
-GameEngine :: GameEngine(NE::Engine* const pNE)
+GameEngine :: GameEngine(NE::NEngine* const pNE)
 :Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";
