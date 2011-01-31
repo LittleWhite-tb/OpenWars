@@ -28,6 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/SpriteFactory.h"
 #include "../NEngine/Sprite.h"
 #include "../NEngine/Renderer.h"
+#include "../NEngine/InputManager.h"
 
 #include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/AnimatedSprite.h"
@@ -124,17 +125,17 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 	return bError;
 }
 
-void MenuBox ::update(const ArrowsDirection kd)
+void MenuBox ::update(const NE::InputManager::ArrowsDirection kd)
 {
 	switch (kd)
 	{
-		case AD_DOWN:
+		case NE::InputManager::AD_DOWN:
 			if ( actualPosition < entries.size()-1 )
 			{
 				actualPosition++;
 			}
 			break;
-		case AD_UP:
+		case NE::InputManager::AD_UP:
 			if ( actualPosition > 0 )
 			{
 				actualPosition--;

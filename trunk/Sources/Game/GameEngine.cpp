@@ -28,6 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Window.h"
 #include "../NEngine/Renderer.h"
 #include "../NEngine/SpriteLoader.h"
+#include "../NEngine/InputManager.h"
 
 #include "MapGame.h"
 #include "Cursor.h"
@@ -37,8 +38,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../UI/MenuBox.h"
 
 #include "../Engine/VTime.h"
-
-#include "../Engine/Controls/Keyboard.h"
 
 #include "../Types/Colour.h"
 
@@ -153,7 +152,7 @@ bool GameEngine :: load(void)
 	{
 		LError << cfe.what();
 		return false;
-	}
+    }
 
 	return true;
 }
@@ -182,7 +181,7 @@ bool GameEngine :: load(const std::string& mapName)
 
 bool GameEngine :: run(void)
 {
-	while ( pKB->isEscapePressed() == 0 && pNE->getWindow()->needWindowClosure() == 0 && m_userQuit == false )
+	while ( pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == 0 && m_userQuit == false )
 	{
 		// Drawing part
 		pNE->getRenderer()->clearScreen(Colour(0,0,0));
@@ -234,15 +233,18 @@ bool GameEngine :: run(void)
 		// Update part
 		if ( pVT->canUpdate() )
 		{
+            NE::InputManager::ArrowsDirection direction = pNE->getInputManager()->getDirectionsPressed();
+            NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();
+            
 			pCam->update(*pC,*pMap);
-			pKB->update();
+			pNE->getInputManager()->update();
 
 			switch ( gState )
 			{
 				case GS_VISU:
 					{
-						pC->move(pKB->getDirectionPressed());
-						if ( pKB->isKey(SDLK_SPACE) )
+						pC->move(direction);
+						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
 							UnitType currentUT = pMap->getUnitType(pC->getPosition());
 							if ( currentUT == UT_NO_UNIT )
@@ -281,8 +283,8 @@ bool GameEngine :: run(void)
 					break;
 				case GS_FACTORY:
 					{
-						pCBFactory->update(pKB->getDirectionPressed());
-						if ( pKB->isKey(SDLK_SPACE) )
+						pCBFactory->update(direction);
+						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
 							pMap->setTile(pC->getPosition(),pCBFactory->getUnitSelected());
 							this->gState = GS_VISU;
@@ -291,8 +293,8 @@ bool GameEngine :: run(void)
 					break;
 				case GS_PORT:
 					{
-						pCBPort->update(pKB->getDirectionPressed());
-						if ( pKB->isKey(SDLK_SPACE) )
+						pCBPort->update(direction);
+						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
 							pMap->setTile(pC->getPosition(),pCBPort->getUnitSelected());
 							this->gState = GS_VISU;
@@ -301,8 +303,8 @@ bool GameEngine :: run(void)
 					break;
 				case GS_AIRPORT:
 					{
-						pCBAirport->update(pKB->getDirectionPressed());
-						if ( pKB->isKey(SDLK_SPACE) )
+						pCBAirport->update(direction);
+						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
 							pMap->setTile(pC->getPosition(),pCBAirport->getUnitSelected());
 							this->gState = GS_VISU;
@@ -311,8 +313,8 @@ bool GameEngine :: run(void)
 					break;
 				case GS_MENU:
 					{
-						pMBMenu->update(pKB->getDirectionPressed());
-						if ( pKB->isKey(SDLK_SPACE) )
+						pMBMenu->update(direction);
+						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
 							// Check what is in 
 							switch (pMBMenu->getActualEntry())
@@ -331,7 +333,7 @@ bool GameEngine :: run(void)
 								break;
 							}
 						}
-						else if ( pKB->isKey(SDLK_z) )
+						else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 						{
 							this->gState = GS_VISU;
 						}
@@ -339,8 +341,8 @@ bool GameEngine :: run(void)
 					break;
                 case GS_SELECT:
                     {
-                        pMBMenu->update(pKB->getDirectionPressed());
-						if ( pKB->isKey(SDLK_SPACE) )
+                        pMBMenu->update(direction);
+						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
                             // Check what is in 
 							switch (pMBMenu->getActualEntry())
@@ -365,7 +367,7 @@ bool GameEngine :: run(void)
 								break;
 							}
                         }
-                        else if ( pKB->isKey(SDLK_z) )
+                        else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 						{
 							this->gState = GS_VISU;
 						}
@@ -373,8 +375,8 @@ bool GameEngine :: run(void)
                     break;
                 case GS_MOVE:
                     {
-                        pC->move(pKB->getDirectionPressed());
-                        if ( pKB->isKey(SDLK_SPACE) )
+                        pC->move(direction);
+                        if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
                             if ( this->pMap->move(selectedUnitPosition, pC->getPosition()) )
                             {
@@ -382,7 +384,7 @@ bool GameEngine :: run(void)
                                 this->gState = GS_VISU;
                             }
                         }
-                        else if ( pKB->isKey(SDLK_z) )
+                        else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 						{
                             pMap->clearHighlight();
 							this->gState = GS_SELECT;

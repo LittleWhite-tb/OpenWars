@@ -32,7 +32,6 @@ namespace NE { class NEngine; }
 class FontManager;
 
 class VTime;
-class Keyboard;
 
 class Engine
 {
@@ -42,8 +41,6 @@ protected:
 	FontManager* pFM;			/*!< The font manager for the editor */
 
 	VTime* pVT;					/*!< The virtual time for synchronisation */
-
-	Keyboard* pKB;				/*!< The keyboard for user access */
 
 public:
 	Engine(NE::NEngine* const pNE);

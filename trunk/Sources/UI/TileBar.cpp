@@ -181,20 +181,20 @@ void TileBar :: open(void)
 	}
 }
 
-void TileBar :: move(const ArrowsDirection direction)
+void TileBar :: move(const NE::InputManager::ArrowsDirection direction)
 {
 	switch(direction)
 	{
-		case AD_UP:
+		case NE::InputManager::AD_UP:
 			moveUp();
 			break;
-		case AD_DOWN:
+		case NE::InputManager::AD_DOWN:
 			moveDown();
 			break;
-		case AD_LEFT:
+		case NE::InputManager::AD_LEFT:
 			moveLeft();
 			break;
-		case AD_RIGHT:
+		case NE::InputManager::AD_RIGHT:
 			moveRight();
 			break;
 		// Remove warnings (we don't mind about the others directions)

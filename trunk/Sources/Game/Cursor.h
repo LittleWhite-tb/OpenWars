@@ -27,7 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../Engine/Controls/Keyboard.h"
+#include "../NEngine/InputManager.h"
+
 #include "../Game/Tile.h"
 #include "../Types/Vec2.h"
 
@@ -62,7 +63,7 @@ public:
 
 	UVec2 getPosition()const { return position; }
 
-	bool move(const ArrowsDirection ad);
+	bool move(const NE::InputManager::ArrowsDirection ad);
 	bool move(const UVec2& newPosition);
 
 	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
@@ -105,7 +106,7 @@ public:
  * \return The position
  */
 
-/*! \fn bool Cursor::move(const ArrowsDirection ad)
+/*! \fn bool Cursor::move(const NE::ArrowsDirection ad)
  * \brief Move to the next position
  * Will move to the next position ( step of 1 ) depending on the direction
  * \param ad The direction where to move

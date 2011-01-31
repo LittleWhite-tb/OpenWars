@@ -29,9 +29,9 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <utility>
 
-#include "../Game/Tile.h"
+#include "../NEngine/InputManager.h"
 
-#include "../Engine/Controls/Keyboard.h"
+#include "../Game/Tile.h"
 
 #include "../Types/Vec2.h"
 #include "../Types/Size2.h"
@@ -105,7 +105,7 @@ public:
 	void open(void);
 	void close(void);
 
-	void move(const ArrowsDirection direction);
+	void move(const NE::InputManager::ArrowsDirection direction);
 
 	bool draw(const NE::Renderer& r, const unsigned int time);
 

@@ -28,8 +28,9 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <vector>
 
+#include "../NEngine/InputManager.h"
+
 #include "../Engine/AnimatedSprite.h"
-#include "../Engine/Controls/Keyboard.h"
 
 #include "../Types/Vec2.h"
 
@@ -76,7 +77,7 @@ public:
 
 	bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);
 
-	void update(const ArrowsDirection kd);
+	void update(const NE::InputManager::ArrowsDirection kd);
 
 	MenuEntry getActualEntry(void) { return entries[actualPosition]->entry; }
     

@@ -35,6 +35,7 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_SpriteLoader.h"
 #include "SDL_SpriteFactory.h"
 
+#include "../../Exceptions/InputNotFoundException.h"
 #include "../../../Utils/Logger.h"
 
 bool NE :: SDL_Engine :: initAPI(void)
@@ -58,7 +59,21 @@ bool NE :: SDL_Engine :: initAPI(void)
 	}
     
     pInputManager->registerController(new SDL_Keyboard());
-    pInputManager->registerController(new SDL_Joy());
+    
+    SDL_Joy* pJoystick;
+    try
+    {
+         pJoystick = new SDL_Joy();
+    }
+    catch  (InputNotFoundException& infe)
+    {
+        LWarning << "No joystick found" << infe.what();
+    }
+    
+    if ( pJoystick != NULL )
+    {
+        pInputManager->registerController(pJoystick);
+    }
     
 	LDebug << "Native Engine SDL started";
 	return true;

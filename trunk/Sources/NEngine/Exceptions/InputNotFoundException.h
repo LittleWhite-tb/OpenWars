@@ -1,3 +1,6 @@
+#ifndef __INPUTNOTFOUNDEXCEPTION_H__
+#define __INPUTNOTFOUNDEXCEPTION_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,44 +25,34 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Engine.h"
+#include <string>
 
-#include <cassert>
-
-#include "../NEngine/NEngine.h"
-
-#include "../Engine/ResourcesManager/FontManager.h"
-
-#include "../Engine/VTime.h"
-
-#include "../Utils/Logger.h"
-
-Engine::Engine(NE::NEngine* const pNE)
-:pNE(pNE),pFM(NULL),pVT(NULL)
+class InputNotFoundException : public std::exception
 {
-	assert(pNE);
-}
+private:
+	std::string message;	/*!< Message to display */
 
-Engine :: ~Engine(void)
-{
-	delete pVT;
-	delete pFM;
-}
+public:
+	InputNotFoundException(const std::string& userMessage):message(std::string("Input not found: '") + userMessage + std::string("'")) {}
+    virtual ~InputNotFoundException(void)throw() {}
 
-bool Engine :: init()
-{
-	pFM = new FontManager();
-
-	pVT = new VTime(60,10);
-
-	if ( pFM == NULL || pVT == NULL )
+	virtual const char* what() const throw()
 	{
-		// THe memory will be cleaned by the destructor
-		return false;
+		return message.c_str();
 	}
+};
 
-	LDebug << "EditorEngine init'd";
+/*! \class InputNotFoundException InputNotFoundException.h "Utils/Exceptions/InputNotFoundException.h"
+ *  \brief Exception for Input not found
+ */
 
-	return true;
-}
+/*! \fn InputNotFoundException::InputNotFoundException(const std::string& userMessage)
+ * Create a message of the format: "Failed to open 'USER_MESSAGE'"
+ * \param userMessage message from the user to display
+ */
 
+/*! \fn virtual const char* InputNotFoundException::what()const throw()
+ * \return the error message
+ */
+
+#endif

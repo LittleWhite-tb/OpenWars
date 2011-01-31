@@ -28,9 +28,9 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <string>
 
-#include "../Game/Unit.h"
+#include "../NEngine/InputManager.h"
 
-#include "../Engine/Controls/Keyboard.h"
+#include "../Game/Unit.h"
 
 #include "../Types/Size2.h"
 
@@ -79,7 +79,7 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
 
 	bool draw(const NE::Renderer& r, const unsigned int moneyAvailable);
 
-	void update(const ArrowsDirection kd);
+	void update(const NE::InputManager::ArrowsDirection kd);
 
 	UnitType getUnitSelected(void)const;
 };

@@ -43,7 +43,6 @@ class EditingCursor;
 class MapEditor;
 
 class VTime;
-class Keyboard;
 
 class EditorEngine : public Engine
 {

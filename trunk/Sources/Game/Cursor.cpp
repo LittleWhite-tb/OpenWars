@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/SpriteLoader.h"
 
 #include "../Engine/AnimatedSprite.h"
-#include "../Engine/Controls/Keyboard.h"
+#include "../NEngine/InputManager.h"
 #include "../Utils/Logger.h"
 #include "Camera.h"
 #include "../globals.h"
@@ -73,17 +73,17 @@ TileType Cursor :: getTileTypeUnderCursor(void)const
 	return pMap->getTileType(this->position);
 }
 
-bool Cursor :: move(const ArrowsDirection ad)
+bool Cursor :: move(const NE::InputManager::ArrowsDirection ad)
 {
 	UVec2 newPosition = this->position;
 
 	// The conditions are here to allow the user to go in a direction, even if the cursor is already on the bound of the other direction
 	switch(ad)
 	{
-	case AD_UP:
+	case NE::InputManager::AD_UP:
 		newPosition.y--;
 		break;
-	case AD_UPRIGHT:
+	case NE::InputManager::AD_UPRIGHT:
 		if ( position.y > 0 )
 		{
 			newPosition.y--;
@@ -95,10 +95,10 @@ bool Cursor :: move(const ArrowsDirection ad)
 		}
 
 		break;
-	case AD_RIGHT:
+	case NE::InputManager::AD_RIGHT:
 		newPosition.x++;
 		break;
-	case AD_RIGHTDOWN:
+	case NE::InputManager::AD_RIGHTDOWN:
 		if ( position.x < pMap->getWidth()-1 )
 		{
 			newPosition.x++;
@@ -110,10 +110,10 @@ bool Cursor :: move(const ArrowsDirection ad)
 		}
 
 		break;
-	case AD_DOWN:
+	case NE::InputManager::AD_DOWN:
 		newPosition.y++;
 		break;
-	case AD_DOWNLEFT:
+	case NE::InputManager::AD_DOWNLEFT:
 		if ( position.y < pMap->getHeight()-1 )
 		{
 			newPosition.y++;
@@ -124,10 +124,10 @@ bool Cursor :: move(const ArrowsDirection ad)
 			newPosition.x--;
 		}
 		break;
-	case AD_LEFT:
+	case NE::InputManager::AD_LEFT:
 		newPosition.x--;
 		break;
-	case AD_LEFTUP:
+	case NE::InputManager::AD_LEFTUP:
 		if ( position.x > 0 )
 		{
 			newPosition.x--;
@@ -138,7 +138,7 @@ bool Cursor :: move(const ArrowsDirection ad)
 			newPosition.y--;
 		}
 		break;
-	case AD_NONE:
+	case NE::InputManager::AD_NONE:
 		return true;
 		break;
 	}

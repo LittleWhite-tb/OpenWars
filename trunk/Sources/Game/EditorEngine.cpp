@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/NEngine.h"
 #include "../NEngine/Window.h"
 #include "../NEngine/Renderer.h"
+#include "../NEngine/InputManager.h"
 
 #include "../Engine/VTime.h"
 
@@ -39,8 +40,6 @@ e-mail: lw.demoscene@gmail.com
 #include "MapEditor.h"
 #include "EditingCursor.h"
 #include "Camera.h"
-
-#include "../Engine/Controls/Keyboard.h"
 
 #include "../Types/Colour.h"
 
@@ -247,7 +246,7 @@ bool EditorEngine :: run(void)
 {
 	bool isUnit = false;
 
-	while ( pKB->isEscapePressed() == 0 && pNE->getWindow()->needWindowClosure() == false )
+	while ( pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == false )
 	{
 		// Drawing part
 		pNE->getRenderer()->clearScreen(Colour(0,0,0));
@@ -268,10 +267,13 @@ bool EditorEngine :: run(void)
 		// Update part
 		if ( pVT->canUpdate() )
 		{
+            NE::InputManager::ArrowsDirection direction = pNE->getInputManager()->getDirectionsPressed();
+            NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();
+            
 			pCam->update(*pEC,*pMap);
-			pKB->update();
+			pNE->getInputManager()->update();
 
-			if ( (pKB->isKey('w') || pKB->isKey('W')) )
+			if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A )
 			{
 				pBuildingTB->open();
 				if ( pUnitTB->isOpened() )
@@ -280,7 +282,7 @@ bool EditorEngine :: run(void)
 				}
 			}
 
-			if ( (pKB->isKey('q') || pKB->isKey('Q')) )
+			if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 			{
 				pUnitTB->open();
 				if ( pBuildingTB->isOpened() )
@@ -289,7 +291,7 @@ bool EditorEngine :: run(void)
 				}
 			}
 
-			if ( pKB->isKey(SDLK_SPACE) && pBuildingTB->isOpened()  )
+			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pBuildingTB->isOpened()  )
 			{
 				pBuildingTB->close();
 				isUnit = false;
@@ -298,7 +300,7 @@ bool EditorEngine :: run(void)
 										  pMap->getTile(pBuildingTB->getSelected()).name);
 			}
 			
-			if ( pKB->isKey(SDLK_SPACE) && pUnitTB->isOpened()  )
+			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pUnitTB->isOpened()  )
 			{
 				pUnitTB->close();
 				isUnit = true;
@@ -309,19 +311,19 @@ bool EditorEngine :: run(void)
 
 			if ( pBuildingTB->isOpened() )
 			{
-				pBuildingTB->move(pKB->getDirectionPressed());
+				pBuildingTB->move(direction);
 			}
 			else if ( pUnitTB->isOpened() )
 			{
-				pUnitTB->move(pKB->getDirectionPressed());
+				pUnitTB->move(direction);
 			}
 			else if ( pUnitTB->isClosed() && pBuildingTB->isClosed() )
 			{
-				pEC->move(pKB->getDirectionPressed());
+				pEC->move(direction);
 				
 				if ( isUnit )
 				{
-					if ( pKB->isKey(SDLK_SPACE) )
+					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 					{
 						pMap->setTile(pEC->getPosition(),pUnitTB->getSelected());
 					}
@@ -330,7 +332,7 @@ bool EditorEngine :: run(void)
 				}
 				else
 				{
-					if ( pKB->isKey(SDLK_SPACE) )
+					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 					{
 						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected());
 					}

@@ -27,6 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/SpriteLoader.h"
 #include "../NEngine/Sprite.h"
 #include "../NEngine/Renderer.h"
+#include "../NEngine/InputManager.h"
 
 #include "../Engine/ResourcesManager/FontManager.h"
 
@@ -127,11 +128,11 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 	return errorFlag;
 }
 
-void ConstructBox :: update(const ArrowsDirection kd)
+void ConstructBox :: update(const NE::InputManager::ArrowsDirection kd)
 {
 	switch (kd)
 	{
-		case AD_UP:
+		case NE::InputManager::AD_UP:
 			if ( actualPosition > 0 )
 			{
 				actualPosition--;
@@ -142,7 +143,7 @@ void ConstructBox :: update(const ArrowsDirection kd)
 				}
 			}
 			break;
-		case AD_DOWN:
+		case NE::InputManager::AD_DOWN:
 			if ( actualPosition < unitsList.size()-1 )
 			{
 				actualPosition++;

@@ -4,10 +4,16 @@
 
 #include "../../Input.h"
 
+#include "../../Exceptions/InputNotFoundException.h"
 #include "../../../Utils/Logger.h"
 
 NE::SDL_Joy :: SDL_Joy():Input(),m_pJoy(SDL_JoystickOpen(0))
 {
+    if ( m_pJoy == NULL )
+    {
+        throw InputNotFoundException("SDL Joystick");
+    }
+    
 	// Desabling the event on the joystick
 	SDL_JoystickEventState(SDL_DISABLE);
 
