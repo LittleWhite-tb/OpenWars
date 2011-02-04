@@ -25,8 +25,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileBar.h"
 
-#include <SDL/SDL.h>
-
 #include <vector>
 #include <utility>
 #include <cassert>

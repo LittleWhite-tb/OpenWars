@@ -48,8 +48,8 @@ ConstructBox :: ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const
 							 :pBackgroundUI(pSL->loadSpriteFromFile(backgroundFileName)),pCursor(pSL->loadSpriteFromFile(cursorFileName)),
 							 pUpArrow(pSL->loadSpriteFromFile(upArrowFileName)), pDownArrow(pSL->loadSpriteFromFile(downArrowFileName)),windowSize(windowSize),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
 {
-	SDL_Color white = {255,255,255,255};
-	SDL_Color grey = {64,64,64,255};
+	Colour white(255,255,255,255);
+	Colour grey (64,64,64,255);
 
 	pFont = new Font(fm,fontFileName,22,white);
 	pFontGrey = new Font(fm,fontFileName,22,grey);

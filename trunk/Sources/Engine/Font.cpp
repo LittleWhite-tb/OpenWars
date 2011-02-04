@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 
-Font :: Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour)
+Font :: Font(FontManager& fm, const std::string& fileName, const int size, const Colour& colour)
 	:colour(colour)
 {
 	pFont = fm.getFont(fileName,size);
@@ -73,7 +73,9 @@ bool Font :: draw(const NE::Renderer& r, const std::string& text, const IVec2& p
 
 	LDebug << "Font :: draw @" << position;
 
-	SDL_Surface* pTmpSurface = TTF_RenderText_Solid(pFont, text.c_str(), colour); 
+    SDL_Colour c = { colour.r, colour.g, colour.b };
+
+	SDL_Surface* pTmpSurface = TTF_RenderText_Solid(pFont, text.c_str(), c); 
 
 	if ( pTmpSurface == NULL )
 	{

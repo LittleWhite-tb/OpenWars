@@ -35,11 +35,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 #include "../Types/Vec2.h"
+#include "../Types/Colour.h"
 
 TileViewer :: TileViewer(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
 :windowSize(windowSize)
 {
-	SDL_Color white = {255,255,255,255};
+	Colour white(255,255,255,255);
 
 	pBackground = pSL->loadSpriteFromFile(fileNameBackground);
 	pFont = new Font(fm,fileNameFont,16,white);

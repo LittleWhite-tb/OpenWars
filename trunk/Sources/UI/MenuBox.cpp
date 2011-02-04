@@ -50,7 +50,7 @@ MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, Fo
 		return;
     }
 
-	SDL_Colour red={255,0,0,255};
+	Colour red(255,0,0,255);
 
 	windowXPosition = windowSize.width;
 	

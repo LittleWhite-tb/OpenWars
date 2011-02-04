@@ -30,6 +30,7 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "../Types/Vec2.h"
+#include "../Types/Colour.h"
 
 class FontManager;
 namespace NE { class Renderer; }
@@ -43,16 +44,16 @@ private:
 	void operator= (const Font& s);
 
 	TTF_Font* pFont;			/*!< the font */
-	SDL_Color colour;			/*!< the colour */
+	Colour colour;			/*!< the colour */
 
 public:
-	Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour);
+	Font(FontManager& fm, const std::string& fileName, const int size, const Colour& colour);
 	~Font(void);
 
 	IVec2 getSize(const std::string& text);
 
-	SDL_Colour getColour(void)const { return colour; }
-	void setColour(const SDL_Colour& newColour) { colour = newColour; }
+	Colour getColour(void)const { return colour; }
+	void setColour(const Colour& newColour) { colour = newColour; }
 
 	bool draw(const NE::Renderer& r, const std::string& text, const IVec2& position);
 };

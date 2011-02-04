@@ -36,8 +36,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Vec2.h"
 #include "../Types/Size2.h"
 
-struct SDL_Surface;
-
 namespace NE { class SpriteLoader; }
 namespace NE { class SpriteFactory; }
 namespace NE { class Renderer; }
