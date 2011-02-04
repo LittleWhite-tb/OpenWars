@@ -25,9 +25,13 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+namespace NE { class Time; }
+
 class VTime
 {
 private:
+
+    NE::Time* pNativeTime;
 
 	unsigned int time;					/*!< The virtual time */
 	unsigned int lastDrawTime;			/*!< The last update of the virtual time (drawing synchro) */
@@ -38,7 +42,7 @@ private:
 
 	void update(void);
 public:
-	VTime(const unsigned int nbFPS, const unsigned int updateNbFPS);
+	VTime(NE::Time* const pNativeTime, const unsigned int nbFPS, const unsigned int updateNbFPS);
 
 	void waitNextFrame(void);
 

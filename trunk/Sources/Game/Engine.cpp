@@ -50,7 +50,7 @@ bool Engine :: init()
 {
 	pFM = new FontManager();
 
-	pVT = new VTime(60,10);
+	pVT = new VTime(pNE->getTime(),60,10);
 
 	if ( pFM == NULL || pVT == NULL )
 	{

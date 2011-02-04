@@ -24,26 +24,26 @@ e-mail: lw.demoscene@gmail.com
 
 #include "VTime.h"
 
-#include <SDL/SDL.h>
+#include "../NEngine/Time.h"
 
 #include "../Utils/Logger.h"
 
-VTime :: VTime(const unsigned int nbFPS, const unsigned int updateNbFPS)
-:time(0),lastDrawTime(0),lastUpdateTime(0),msSecondsBetweenTwoFrame(1000/nbFPS),msSecondsBetweenTwoUpdate(1000/updateNbFPS)
+VTime :: VTime(NE::Time* const pNativeTime, const unsigned int nbFPS, const unsigned int updateNbFPS)
+:pNativeTime(pNativeTime),time(0),lastDrawTime(0),lastUpdateTime(0),msSecondsBetweenTwoFrame(1000/nbFPS),msSecondsBetweenTwoUpdate(1000/updateNbFPS)
 {
 }
 
 void VTime :: update(void) 
 { 
 	time++;
-	lastDrawTime = SDL_GetTicks();
+	lastDrawTime = pNativeTime->getTime();
 }
 
 void VTime :: waitNextFrame()
 {
 	static bool isFirst = true;
 
-	int timeEllapsed = SDL_GetTicks() - lastDrawTime;
+	int timeEllapsed = pNativeTime->getTime() - lastDrawTime;
 	int timeToWait = msSecondsBetweenTwoFrame - timeEllapsed;
 
 	if ( timeToWait < 6 )
@@ -59,7 +59,7 @@ void VTime :: waitNextFrame()
 	}
 	else
 	{
-		SDL_Delay(timeToWait);
+		pNativeTime->delay(timeToWait);
 	}
 
 	this->update();
@@ -67,11 +67,11 @@ void VTime :: waitNextFrame()
 
 bool VTime :: canUpdate(void)
 {
-	int timeEllapsed = SDL_GetTicks() - lastUpdateTime;
+	int timeEllapsed = pNativeTime->getTime() - lastUpdateTime;
 
 	if ( static_cast<int>(msSecondsBetweenTwoUpdate) < timeEllapsed )
 	{
-		lastUpdateTime = SDL_GetTicks();
+		lastUpdateTime = pNativeTime->getTime();
 		return true;
 	}
 	else
