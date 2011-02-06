@@ -88,9 +88,8 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
  * The ContructBox show a list of unit with name and price that we can build
  */
 
-/*! \fn ConstructBox::ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
+/*! \fn ConstructBox::ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
  * \param pSL the SpriteLoader to load the sprites
- * \param fm the FontManager to load the fonts
  * \param backgroundFileName the path to the sprite to load for the background
  * \param cursorFileName the path to the sprite to load for the cursor
  * \param upArrowFileName the path to the sprite to load for the up arrow
@@ -110,7 +109,7 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
  * \return true if all goes right
  */
 
-/*! \fn void ConstructBox::update(const ArrowsDirection kd)
+/*! \fn void ConstructBox::update(const NE::InputManager::ArrowsDirection kd)
  * \brief Update the construct box
  * Move the cursor following the keys pressed
  * \param kd the key direction pressed

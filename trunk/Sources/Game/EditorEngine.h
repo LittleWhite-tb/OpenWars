@@ -90,7 +90,7 @@ public:
  * \return true if all goes fine
  */
 
-/*! \fn EditorEngine::EditorEngine(NE::Engine* const pNE)
+/*! \fn EditorEngine::EditorEngine(NE::NEngine* const pNE)
  * \param pNE pointer of the Native Engine to user
  */
 

@@ -52,7 +52,7 @@ namespace NE
 	};
 }
 
-/*! \class Keyboard Keyboard.h "Engine/Controls/Keyboard.h"
+/*! \class NE::SDL_Keyboard SDL_Keyboard.h "NEngine/Native/SDL/SDL_Keyboard.h"
  *  \brief Handle the pressed keys
  *
  * Can check the following:
@@ -60,43 +60,38 @@ namespace NE
  *              - Which direction is pressed ( by checking the arrows keys )
  */
 
-/*! \enum ArrowsDirection
- * Identify the direction on which one the user wants to go
- * The diagonals are handled
- */
-
-/* \fn unsigned char Keyboard::isKey(unsigned int key)
+/*! \fn unsigned char NE::SDL_Keyboard::isKey(unsigned int key)
  * \brief Check the specified key
  * \param key the key to check
  * \return 0 if the key is not pressed
  */
 
-/* \fn Keyboard::Keyboard(void)
+/*! \fn NE::SDL_Keyboard::SDL_Keyboard(void)
  * \brief Basic constructor
  * Call the update function to have an array ready
  */
 
-/* \fn Keyboard::~Keyboard(void)
+/*! \fn NE::SDL_Keyboard::~SDL_Keyboard(void)
  * \brief Basic destructor
  * Do nothing because the array get is an internal SDL array
  */
 
-/* \fn InputManager::ArrowsDirection Keyboard::getDirectionsPressed(void)const
+/*! \fn InputManager::ArrowsDirection NE::SDL_Keyboard::getDirectionsPressed(void)const
  * \brief Check which direction the user wants to go
  * The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions.
  * \return the direction
  */
 
-/* \fn bool Keyboard::needEscape(void)
+/*! \fn bool NE::SDL_Keyboard::needEscape(void)
  * \brief Check if the user pressed the keys to escape
  * This function is checking the escape kee
  * \return true if the program should escape
  */
 
-/* \fn InputManager::Buttons Keyboard::getButtonsState(void)
+/*! \fn InputManager::Buttons NE::SDL_Keyboard::getButtonsState(void)
  */
 
-/* \fn void Keyboard::update(void)
+/*! \fn void NE::SDL_Keyboard::update(void)
  * \brief Update the keys array
  */
 

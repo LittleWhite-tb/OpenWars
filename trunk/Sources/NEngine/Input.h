@@ -17,29 +17,29 @@ namespace NE
 	};
 }
 
-/*! \class Input Input.h "Engine/Controls/Input.h"
+/*! \class NE::Input Input.h "NEngine/Native/SDL/Input.h"
  *  \brief Interface for the different Input
  */
 
-/* \fn virtual Input::~Input()
+/*! \fn virtual NE::Input::~Input()
  */
 
-/* \fn virtual InputManager::ArrowsDirection Input::getDirectionsPressed(void)const=0
+/*! \fn virtual InputManager::ArrowsDirection NE::Input::getDirectionsPressed(void)const=0
  * \brief Gets the directions
  * \return the directions pressed
  */
 
-/* \fn virtual InputManager::Buttons Input::getButtonsState(void)=0
+/*! \fn virtual InputManager::Buttons NE::Input::getButtonsState(void)=0
  * \brief Gets the buttons pressed
  * \return the buttons pressed
  */
 
-/* \fn virtual bool Input::needEscape(void)=0
+/*! \fn virtual bool NE::Input::needEscape(void)=0
  * \brief Get if the escape sequence is pressed
  * \return true if the escape sequenced has been pressed
  */
 
-/* \fn virtual void Input::update(void)=0
+/*! \fn virtual void NE::Input::update(void)=0
  * \brief update the buttons states
  */
 

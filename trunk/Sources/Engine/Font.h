@@ -58,40 +58,28 @@ public:
 };
 
 /*! \class Font Font.h "Engine/Font.h"
- *  \brief Class for fonts
+ *  \brief Bitmap font
  *
- *	The Font can:
- *		- Get the size of a text
- *		- Change the colour used to display the font
- *		- Draw
  */
 
-/*! \fn Font::Font(FontManager& fm, const std::string& fileName, const int size, const SDL_Color& colour)
- * Load the font, using the FontManager with the size specified
- * \param fm The FontManager to use to load the font
- * \param fileName The file to load
- * \param size The size wanted for the font
- * \param colour The drawing colour
+/*! \fn Font::Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
+ * \param pSprite the Sprite to use as source
+ * \param letterSize the size of one letter
+ * \param startingLetter the letter with which one the bitmap is starting
  */
 
 /*! \fn Font::~Font(void)
  */
+ 
+ /*! \fn USize2 Font::getLetterSize(void)
+  * \brief Get the size of one letter
+  * \return the size of one letter
+  */
 
-/*! \fn IVec2 Font::getSize(const std::string& text)
- * \brief Get the size of the surface that will be created when text is passed
- * Return the size of the surface created for the text passed
- * \param text The text to simulate to get the size
+/*! \fn USize2 Font::getStringSize(const std::string& string)
+ * \brief Get the size of the text when using this Font
+ * \param string The text to calculate the size
  * \return the size of the surface to render the text
- */
-
-/*! \fn SDL_Colour Font::getColour(void)const
- * \brief Get the colour of the font
- * \return the colour
- */
-
-/*! \fn void Font::setColour(const SDL_Colour& newColour)
- * \brief Set the colour of the font
- * \param newColour the new colour for the font
  */
 
 /*! \fn bool Font::draw(const NE::Renderer& r, const std::string& text, const IVec2& position)

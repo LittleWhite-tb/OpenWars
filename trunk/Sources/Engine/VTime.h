@@ -31,7 +31,7 @@ class VTime
 {
 private:
 
-    NE::Time* pNativeTime;
+    NE::Time* pNativeTime;              /*!< Pointer on the native Time to use */
 
 	unsigned int time;					/*!< The virtual time */
 	unsigned int lastDrawTime;			/*!< The last update of the virtual time (drawing synchro) */
@@ -67,8 +67,9 @@ public:
  * Will increment the virtual time, and update the lastDrawTime variable
  */
 
-/*! \fn VTime::VTime(const unsigned int nbFPS, const unsigned int updateNbFPS)
+/*! \fn VTime::VTime(NE::Time* const pNativeTime, const unsigned int nbFPS, const unsigned int updateNbFPS)
  * Assign the different frequencies
+ * \param pNativeTime Time to use
  * \param nbFPS The number of FPS between two frames
  * \param updateNbFPS The number of FPS between two updates
  */

@@ -29,4 +29,42 @@ namespace NE
 	};
 }
 
+/*! \class NE::SDL_Joy SDL_Joy.h "NEngine/Native/SDL/SDL_Joy.h"
+ *  \brief Handle the joystick
+ *
+ * Can check the following:
+ *              - If a special sequence is pressed (to escape)
+ *              - Which direction is pressed
+ *              - Which buttons are pressed
+ */
+
+/*! \fn NE::SDL_Joy::SDL_Joy(void)
+ * \brief Basic constructor
+ * Call the update function to have an array ready
+ */
+
+/*! \fn NE::SDL_Joy::~SDL_Joy(void)
+ * \brief Basic destructor
+ * Do nothing because the array get is an internal SDL array
+ */
+
+/*! \fn InputManager::ArrowsDirection NE::SDL_Joy::getDirectionsPressed(void)const
+ * \brief Check which direction the user wants to go
+ * The function is checking the arrow keys and determine which direction the user wants to go. The check allows diagonals directions.
+ * \return the direction
+ */
+
+/*! \fn bool NE::SDL_Joy::needEscape(void)
+ * \brief Check if the user pressed the keys to escape
+ * This function is checking the escape kee
+ * \return true if the program should escape
+ */
+
+/*! \fn InputManager::Buttons NE::SDL_Joy::getButtonsState(void)
+ */
+
+/*! \fn void NE::SDL_Joy::update(void)
+ * \brief Update the keys array
+ */
+
 #endif

@@ -74,10 +74,9 @@ public:
  *		- Change the tile
  */
 
-/*! \fn TileViewer::TileViewer(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
+/*! \fn TileViewer::TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
  * Will load the font and the background
  * \param pSL The SpriteLoader to use to load the background
- * \param fm The FontManager to use to load the font
  * \param fileNameBackground The file for the background
  * \param fileNameFont The file for the font
  * \param windowSize the size of the window (used as reference to place the viewer)

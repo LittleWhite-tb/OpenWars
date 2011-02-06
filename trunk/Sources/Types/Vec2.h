@@ -41,7 +41,6 @@ struct Vec2
 		\param y the value on the y axis
 	*/
 	Vec2(const T& x, const T& y):x(x),y(y) {}
-    Vec2(const Vec2<T>& v):x(v.x),y(v.y) {}
     
     bool operator==(const Vec2<T>& v)const
     {

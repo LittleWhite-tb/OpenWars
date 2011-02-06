@@ -106,7 +106,7 @@ public:
  * \return The position
  */
 
-/*! \fn bool Cursor::move(const NE::ArrowsDirection ad)
+/*! \fn bool Cursor::move(const NE::InputManager::ArrowsDirection ad)
  * \brief Move to the next position
  * Will move to the next position ( step of 1 ) depending on the direction
  * \param ad The direction where to move

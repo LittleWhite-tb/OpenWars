@@ -56,7 +56,7 @@ public:
  *	The engine should at least implement a init and a run function.
  */
 
-/*! \fn Engine::Engine(NE::Engine* const pNE);
+/*! \fn Engine::Engine(NE::NEngine* const pNE);
  * \param pNE pointer of the Native Engine to user
  */
 

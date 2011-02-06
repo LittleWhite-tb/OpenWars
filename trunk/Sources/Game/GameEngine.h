@@ -101,7 +101,7 @@ public:
  * \return true if all goes fine
  */
 
-/*! \fn GameEngine::GameEngine(NE::Engine* const pNE)
+/*! \fn GameEngine::GameEngine(NE::NEngine* const pNE)
  * \param pNE pointer of the Native Engine to user
  */
 

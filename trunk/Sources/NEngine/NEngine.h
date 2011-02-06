@@ -76,55 +76,65 @@ namespace NE
 	};
 }
 
-/*! \class NE::Engine Engine.h "NEngine/Engine.h"
- *  \brief Engine interface
+/*! \class NE::NEngine Engine.h "NEngine/Engine.h"
+ *  \brief NEngine interface
  *
  * The Engine class gives an interface to implement new platform specific engine used by the game.
  * The Engine generally contains a Window, a Renderer, a SpriteLoader but also Input and Time.
  */
 
-/*! \fn NE::Engine::Engine(void)
+/*! \fn NE::NEngine::NEngine(void)
  */
 
-/*! \fn virtual NE::Engine::~Engine(void)
+/*! \fn virtual NE::NEngine::~NEngine(void)
+ */
+ 
+/*! \fn virtual bool NE::NEngine::initAPI(void)=0
+ * Init the API (internal)
+ * \return true if all goes right
+ */
+ 
+ /*! \fn virtual bool NE::NEngine::stopAPI(void)=0
+ * Stop the API (internal)
+ * \return true if all goes right
  */
 
-/*! \fn virtual bool NE::Engine::init(void)=0
+/*! \fn virtual bool NE::NEngine::init(void)=0
  * \brief Start the engine (and all sub API used)
  * \return true if all goes right
  */
 
-/*! \fn virtual bool NE::Engine::stop(void)=0
+/*! \fn virtual bool NE::NEngine::stop(void)=0
  * \brief Stop the engine (and all sub API used)
  * \return true if all goes right
  */
 
-/*! \fn Window* NE::Engine::getWindow(void)
+/*! \fn Window* NE::NEngine::getWindow(void)
  * \brief Get the Window used by the Engine
  * \return a pointer to the Window
  */
 
-/*! \fn virtual NE::SpriteLoader* NE::Engine::getSpriteLoader(void)
+/*! \fn virtual NE::SpriteLoader* NE::NEngine::getSpriteLoader(void)
  * \brief Get the SpriteLoader
  * \return a pointer to the SpriteLoader
  */
  
- /*! \fn virtual NE::SpriteFactory* NE::Engine::getSpriteFactory(void)
+ /*! \fn virtual NE::SpriteFactory* NE::NEngine::getSpriteFactory(void)
  * \brief Get the SpriteFactory
  * \return a pointer to the SpriteFactory
  */
 
-/*! \fn Renderer* NE::Engine::getRenderer(void)
+/*! \fn Renderer* NE::NEngine::getRenderer(void)
  * \brief Get the Renderer used by the Engine
  * \return a pointer to the Renderer
  */
 
-/*! \fn Input* NE::Engine::getInput(void)
- * \brief Get the Input used by the Engine
- * \return a pointer to the Input
+/*! \fn Input* NE::NEngine::getInputManager(void)
+ * \brief Get the InputManager used by the Engine
+ * \return a pointer to the InputManager
  */
 
-/*! \fn Time* NE::Engine::getTime(void)
+/*! \fn Time* NE::NEngine::getTime(void)
  * \brief Get the Time used by the Engine
  * \return a pointer to the Time
  */
