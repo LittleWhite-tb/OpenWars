@@ -25,35 +25,34 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <SDL/SDL_ttf.h>
-
 #include <string>
 
 #include "../Types/Vec2.h"
+#include "../Types/Size2.h"
 #include "../Types/Colour.h"
 
-class FontManager;
 namespace NE { class Renderer; }
+namespace NE { class Sprite; }
 
 class Font
 {
 private:
 
+    NE::Sprite* pSprite;
+    
+    USize2 letterSize;
+    unsigned char startingLetter;
+
 	// Disallow the copy
 	Font(const Font& s);
 	void operator= (const Font& s);
 
-	TTF_Font* pFont;			/*!< the font */
-	Colour colour;			/*!< the colour */
-
 public:
-	Font(FontManager& fm, const std::string& fileName, const int size, const Colour& colour);
+	Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter);
 	~Font(void);
 
-	IVec2 getSize(const std::string& text);
-
-	Colour getColour(void)const { return colour; }
-	void setColour(const Colour& newColour) { colour = newColour; }
+	USize2 getLetterSize(void) { return letterSize; }
+	USize2 getStringSize(const std::string& string);
 
 	bool draw(const NE::Renderer& r, const std::string& text, const IVec2& position);
 };

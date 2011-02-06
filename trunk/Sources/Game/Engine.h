@@ -29,16 +29,12 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class NEngine; }
 
-class FontManager;
-
 class VTime;
 
 class Engine
 {
 protected:
 	NE::NEngine* pNE;            /*!< Native engine to use in the Engine */
-
-	FontManager* pFM;			/*!< The font manager for the editor */
 
 	VTime* pVT;					/*!< The virtual time for synchronisation */
 

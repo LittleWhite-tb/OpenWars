@@ -28,7 +28,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/SpriteLoader.h"
 #include "../NEngine/Renderer.h"
 
-#include "../Engine/ResourcesManager/FontManager.h"
 #include "../NEngine/Sprite.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
@@ -37,13 +36,13 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Vec2.h"
 #include "../Types/Colour.h"
 
-TileViewer :: TileViewer(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
+TileViewer :: TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
 :windowSize(windowSize)
 {
 	Colour white(255,255,255,255);
 
 	pBackground = pSL->loadSpriteFromFile(fileNameBackground);
-	pFont = new Font(fm,fileNameFont,16,white);
+	pFont = new Font(pSL->loadSpriteFromFile(fileNameFont),USize2(16,16),' ');
     
     USize2 backgroundSize = pBackground->getSize();
 	position = IVec2(windowSize.width - backgroundSize.width - 10, windowSize.height - backgroundSize.height - 10);
@@ -75,11 +74,11 @@ bool TileViewer :: draw(const NE::Renderer& r)
 	bool error = true;
     USize2 backgroundSize = pBackground->getSize();
 
-	IVec2 titleSize = pFont->getSize(title);
-	IVec2 nameSize = pFont->getSize(tileName);
-	IVec2 titlePosition((position.x + (backgroundSize.width - titleSize.x)/2) , position.y - titleSize.y/2);
+	USize2 titleSize = pFont->getStringSize(title);
+	USize2 nameSize = pFont->getStringSize(tileName);
+	IVec2 titlePosition((position.x + static_cast<int>(backgroundSize.width - titleSize.width)/2) , static_cast<int>(position.y - titleSize.height)/2);
 	IVec2 tilePosition(position.x + (backgroundSize.width - pTileSprite->getSize().width)/2 , position.y + (backgroundSize.height - pTileSprite->getSize().height)/2);
-	IVec2 namePosition(position.x + (backgroundSize.width - nameSize.x)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
+	IVec2 namePosition(position.x + static_cast<int>(backgroundSize.width - nameSize.width)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
 
 	LDebug << "TileViewer draw";
 

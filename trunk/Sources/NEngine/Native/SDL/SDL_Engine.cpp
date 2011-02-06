@@ -68,6 +68,7 @@ bool NE :: SDL_Engine :: initAPI(void)
     catch  (InputNotFoundException& infe)
     {
         LWarning << "No joystick found" << infe.what();
+        pJoystick = NULL;
     }
     
     if ( pJoystick != NULL )

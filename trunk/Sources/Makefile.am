@@ -5,7 +5,6 @@ OpenAWars_Editor_SOURCES = 	NEngine/Window.h NEngine/Renderer.cpp NEngine/Render
 				Engine/AnimatedSprite.cpp Engine/AnimatedSprite.h \
 				Engine/VTime.cpp Engine/VTime.h \
 				Engine/Font.cpp Engine/Font.h \
-				Engine/ResourcesManager/FontManager.cpp Engine/ResourcesManager/FontManager.h \
 				Game/Tile.cpp Game/Tile.h Game/Map.cpp Game/Map.h Game/MapEditor.cpp Game/MapEditor.h \
 				Game/Cursor.cpp Game/Cursor.h Game/EditingCursor.cpp Game/EditingCursor.h \
 				Game/Camera.cpp Game/Camera.h \
@@ -24,7 +23,6 @@ OpenAWars_SOURCES = 		NEngine/Window.h NEngine/Renderer.cpp NEngine/Renderer.h N
 				Engine/AnimatedSprite.cpp Engine/AnimatedSprite.h \
 				Engine/VTime.cpp Engine/VTime.h \
 				Engine/Font.cpp Engine/Font.h \
-				Engine/ResourcesManager/FontManager.cpp Engine/ResourcesManager/FontManager.h \
 				Game/Tile.cpp Game/Tile.h Game/Map.cpp Game/Map.h Game/MapGame.cpp Game/MapGame.h \
 				Game/Cursor.cpp Game/Cursor.h \
 				Game/Camera.cpp Game/Camera.h \

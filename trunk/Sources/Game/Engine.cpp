@@ -28,14 +28,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../NEngine/NEngine.h"
 
-#include "../Engine/ResourcesManager/FontManager.h"
-
 #include "../Engine/VTime.h"
 
 #include "../Utils/Logger.h"
 
 Engine::Engine(NE::NEngine* const pNE)
-:pNE(pNE),pFM(NULL),pVT(NULL)
+:pNE(pNE),pVT(NULL)
 {
 	assert(pNE);
 }
@@ -43,18 +41,15 @@ Engine::Engine(NE::NEngine* const pNE)
 Engine :: ~Engine(void)
 {
 	delete pVT;
-	delete pFM;
 }
 
 bool Engine :: init()
 {
-	pFM = new FontManager();
-
 	pVT = new VTime(pNE->getTime(),60,10);
 
-	if ( pFM == NULL || pVT == NULL )
+	if ( pVT == NULL )
 	{
-		// THe memory will be cleaned by the destructor
+		// The memory will be cleaned by the destructor
 		return false;
 	}
 

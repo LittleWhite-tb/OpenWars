@@ -36,9 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class SpriteLoader; }
 namespace NE { class Sprite; }
-class FontManager;
 namespace NE { class Renderer; }
-
 
 class AnimatedSprite;
 class Font;
@@ -73,7 +71,7 @@ private:
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+	ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize);
 	~ConstructBox(void);
 

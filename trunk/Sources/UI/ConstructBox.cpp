@@ -29,8 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Renderer.h"
 #include "../NEngine/InputManager.h"
 
-#include "../Engine/ResourcesManager/FontManager.h"
-
 #include "../Engine/Font.h"
 #include "../Engine/AnimatedSprite.h"
 
@@ -43,7 +41,7 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <sstream>
 
-ConstructBox :: ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
+ConstructBox :: ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
 							 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
 							 :pBackgroundUI(pSL->loadSpriteFromFile(backgroundFileName)),pCursor(pSL->loadSpriteFromFile(cursorFileName)),
 							 pUpArrow(pSL->loadSpriteFromFile(upArrowFileName)), pDownArrow(pSL->loadSpriteFromFile(downArrowFileName)),windowSize(windowSize),unitsList(unitsList),actualPosition(0),offsetCursorPosition(0)
@@ -51,8 +49,8 @@ ConstructBox :: ConstructBox(NE::SpriteLoader* const pSL, FontManager& fm, const
 	Colour white(255,255,255,255);
 	Colour grey (64,64,64,255);
 
-	pFont = new Font(fm,fontFileName,22,white);
-	pFontGrey = new Font(fm,fontFileName,22,grey);
+	pFont = new Font(pSL->loadSpriteFromFile(fontFileName),USize2(16,16),' ');
+	pFontGrey = new Font(pSL->loadSpriteFromFile(fontFileName),USize2(16,16),' ');
 
 	LDebug << "Construc Box created";
 }
@@ -108,8 +106,8 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 			priceString = oss.str();
 		}
 		
-		IVec2 unitPricePosition(backgroundSize.width - (pFont->getSize(priceString).x), unitPosition.y + 6);
-		IVec2 unitNamePosition(backgroundSize.width - 60 + pFont->getSize(unitsList[i].unitName).x , unitPricePosition.y);
+		IVec2 unitPricePosition(backgroundSize.width - (pFont->getStringSize(priceString).width), unitPosition.y + 6);
+		IVec2 unitNamePosition(backgroundSize.width - (60 + pFont->getStringSize(unitsList[i].unitName).width) , unitPricePosition.y);
 
 		if ( unitsList[i].unitPrice <= moneyAvailable )
 		{

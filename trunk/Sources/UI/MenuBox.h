@@ -37,7 +37,6 @@ e-mail: lw.demoscene@gmail.com
 namespace NE { class SpriteLoader; }
 namespace NE { class SpriteFactory; }
 namespace NE { class Sprite; }
-class FontManager;
 namespace NE { class Renderer; }
 class Font;
 
@@ -72,7 +71,7 @@ private:
 	std::vector<MenuView*> entries;    /*!< entries in the UI */
 
 public:
-	MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize);
+	MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize);
 	~MenuBox(void);
 
 	bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);

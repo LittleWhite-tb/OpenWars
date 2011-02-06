@@ -24,68 +24,61 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Font.h"
 
-#include <SDL/SDL_ttf.h>
-
 #include <string>
+#include <cassert>
 
-#include "../NEngine/Native/SDL/SDL_Sprite.h"
+#include "../NEngine/Sprite.h"
 #include "../NEngine/Renderer.h"
 
-#include "ResourcesManager/FontManager.h"
+#include "../Types/Size2.h"
+#include "../Types/Rect.h"
 
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ConstructionFailedException.h"
 
-Font :: Font(FontManager& fm, const std::string& fileName, const int size, const Colour& colour)
-	:colour(colour)
+Font :: Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
+	:pSprite(pSprite),letterSize(letterSize),startingLetter(startingLetter)
 {
-	pFont = fm.getFont(fileName,size);
-	if ( pFont == NULL )
-	{
-		throw ConstructionFailedException("Font");
-	}
-
-	LDebug << "Font created from file (" << fileName.c_str() << ")";
+    assert(pSprite);
 }
 
 Font :: ~Font(void)
 {
-	LDebug << "Font deleted";
 }
 
-IVec2 Font :: getSize(const std::string& text)
+USize2 Font::getStringSize(const std::string& string)
 {
-	IVec2 size;
+	USize2 size;
+    
+    size.height = letterSize.height;
+    size.width = string.size()*letterSize.width/2;
 
-	LDebug << "Font :: getSize( " << text.c_str() << ")";
-
-	if ( TTF_SizeText(pFont,text.c_str(),&size.x,&size.y) != 0 )
-	{
-		LWarning << "getSize failed -> " << TTF_GetError();
-	}
+	LDebug << "Font :: getStringSize( " << string.c_str() << ")";
 
 	return size;
 }
 
 bool Font :: draw(const NE::Renderer& r, const std::string& text, const IVec2& position)
 {
-	bool error = false;
+	bool noError = true;
+    Rect rectLetter(IVec2(0,0),letterSize);
+    unsigned int numberLetterWidth = pSprite->getSize().width / letterSize.width;
+    IVec2 drawPosition(position);
 
 	LDebug << "Font :: draw @" << position;
 
-    SDL_Colour c = { colour.r, colour.g, colour.b };
+    for ( unsigned int i = 0 ; i < text.size() && noError ; i++ )
+    {
+        unsigned char actualLetter = text.at(i) - startingLetter;
+        unsigned line = actualLetter / numberLetterWidth;
+        unsigned col = actualLetter % numberLetterWidth;
+        
+        rectLetter.position = IVec2(col * letterSize.width , line * letterSize.height);
+        
+        noError &= r.drawSurface(drawPosition,*pSprite,rectLetter);
+        
+        drawPosition.x += letterSize.width/2;
+    }
 
-	SDL_Surface* pTmpSurface = TTF_RenderText_Solid(pFont, text.c_str(), c); 
-
-	if ( pTmpSurface == NULL )
-	{
-		LWarning << "Fail to generate texture for the font -> " << TTF_GetError();
-		return false;
-	}
-
-    error = r.drawSurface(position,*(new NE::SDL_Sprite(pTmpSurface)));
-
-	SDL_FreeSurface(pTmpSurface);
-
-	return error;
+	return noError;
 }

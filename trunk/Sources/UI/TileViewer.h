@@ -32,7 +32,6 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class SpriteLoader; }
 namespace NE { class Sprite; }
-class FontManager;
 namespace NE { class Renderer; }
 class Font;
 
@@ -53,7 +52,7 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	TileViewer(NE::SpriteLoader* const pSL, FontManager& fm, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
+	TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
 	~TileViewer(void);
 
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }

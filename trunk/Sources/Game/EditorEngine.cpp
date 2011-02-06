@@ -194,7 +194,7 @@ bool EditorEngine :: load(void)
 	{
 		pUnitTB = new TileBarUnits(pNE->getSpriteLoader(),pNE->getSpriteFactory(),unitTiles,pNE->getWindow()->getWindowSize());
 		pBuildingTB = new TileBarTiles(pNE->getSpriteLoader(),pNE->getSpriteFactory(),buildingTiles,pNE->getWindow()->getWindowSize());
-		pTileViewer = new TileViewer(pNE->getSpriteLoader(),*pFM,"./data/gfx/UI_Background.png","./data/fonts/times.ttf",pNE->getWindow()->getWindowSize());
+		pTileViewer = new TileViewer(pNE->getSpriteLoader(),"./data/gfx/UI_Background.png","./data/fonts/font.png",pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
 	{

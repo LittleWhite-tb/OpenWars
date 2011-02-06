@@ -30,7 +30,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Renderer.h"
 #include "../NEngine/InputManager.h"
 
-#include "../Engine/ResourcesManager/FontManager.h"
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
 
@@ -40,7 +39,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, FontManager& fm, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& windowSize)
+MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& windowSize)
 :pCursor(new AnimatedSprite(pSL->loadSpriteFromFile(cursorFileName),USize2(32,32),200)),actualPosition(0),entries(entries)
 {
 	pBackground = pSF->createSpriteFromColour(Colour(0xC0C0C0C0), USize2(150,10 + TILE_DEFAULT_HEIGHT));
@@ -50,11 +49,9 @@ MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, Fo
 		return;
     }
 
-	Colour red(255,0,0,255);
-
 	windowXPosition = windowSize.width;
 	
-	pFont = new Font(fm,fontFileName,18,red);
+	pFont = new Font(pSL->loadSpriteFromFile(fontFileName),USize2(16,16),' ');
 }
 
 MenuBox :: ~MenuBox()
@@ -115,8 +112,8 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 		}
 		{
 			IVec2 textPosition(position.x + TILE_DEFAULT_WIDTH + 24, itemPosition.y + TILE_DEFAULT_HEIGHT / 2);
-			IVec2 textSize = pFont->getSize(entries[i]->name);
-			textPosition.y -= textSize.y/2;
+			USize2 textSize = pFont->getStringSize(entries[i]->name);
+			textPosition.y -= textSize.height/2;
 			pFont->draw(r,entries[i]->name, textPosition);
 		}
 		itemPosition.y += 10 + TILE_DEFAULT_HEIGHT;
