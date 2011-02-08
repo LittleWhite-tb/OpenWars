@@ -18,10 +18,6 @@ AC_SEARCH_LIBS(SDL_Init, SDL, [], [
 AC_SEARCH_LIBS(IMG_Init, SDL_image, [], [
 	AC_MSG_ERROR([SDL_image is needed for this project])
 ])
-AC_SEARCH_LIBS(TTF_Init, SDL_ttf, [], [
-	AC_MSG_ERROR([SDL_ttf is needed for this project])
-])
-
 
 # Checks for header files.
 AC_PATH_X

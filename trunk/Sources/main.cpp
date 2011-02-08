@@ -27,7 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
 
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
@@ -121,11 +120,6 @@ int main(int argc, char** argv)
 		}
 		else
 		{
-			if ( TTF_Init() != 0 )
-			{
-				LError << "Fail to init the SDL_tff " << TTF_GetError() << ")";
-			}
-
 			if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
 			{
 				GameEngine gEngine(pNE);
@@ -144,8 +138,6 @@ int main(int argc, char** argv)
 				pNE->getWindow()->destroyWindow();
 			}
 
-			// Stopping SDL_ttf
-			TTF_Quit();
 			// Bye bye SDL_image
 			IMG_Quit();
 		}

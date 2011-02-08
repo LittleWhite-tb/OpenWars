@@ -187,7 +187,7 @@ public:
  * \brief Start closing animation
  */
 
-/*! \fn void TileBar::move(const ArrowsDirection direction)
+/*! \fn void TileBar::move(const NE::InputManager::ArrowsDirection direction)
  * \brief Move the TileBar following the direction pressed
  * \param direction the direction to move to
  */
