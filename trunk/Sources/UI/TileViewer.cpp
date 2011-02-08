@@ -76,7 +76,7 @@ bool TileViewer :: draw(const NE::Renderer& r)
 
 	USize2 titleSize = pFont->getStringSize(title);
 	USize2 nameSize = pFont->getStringSize(tileName);
-	IVec2 titlePosition((position.x + static_cast<int>(backgroundSize.width - titleSize.width)/2) , static_cast<int>(position.y - titleSize.height)/2);
+	IVec2 titlePosition((position.x + static_cast<int>(backgroundSize.width - titleSize.width)/2), position.y);
 	IVec2 tilePosition(position.x + (backgroundSize.width - pTileSprite->getSize().width)/2 , position.y + (backgroundSize.height - pTileSprite->getSize().height)/2);
 	IVec2 namePosition(position.x + static_cast<int>(backgroundSize.width - nameSize.width)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
 

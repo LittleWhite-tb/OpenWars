@@ -35,7 +35,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-#include "../Utils/Exceptions/ConstructionFailedException.h"
+#include "../NEngine/Exceptions/ConstructionFailedException.h"
 
 #include "../globals.h"
 

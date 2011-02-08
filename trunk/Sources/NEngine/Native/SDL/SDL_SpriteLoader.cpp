@@ -28,7 +28,6 @@ e-mail: lw.demoscene@gmail.com
 #include <SDL/SDL_image.h>
 
 #include <string>
-#include <fstream>
 
 #include "SDL_Sprite.h"
 

@@ -45,7 +45,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-#include "../Utils/Exceptions/ConstructionFailedException.h"
+#include "../NEngine/Exceptions/ConstructionFailedException.h"
 
 EditorEngine :: EditorEngine(NE::NEngine* const pNE)
 :Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)

@@ -32,10 +32,12 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_Joy.h"
 #include "SDL_Time.h"
 #include "SDL_Sprite.h"
-#include "SDL_SpriteLoader.h"
+// #include "SDL_SpriteLoader.h"
+#include "SDL_SpriteLoaderSDLI.h"
 #include "SDL_SpriteFactory.h"
 
 #include "../../Exceptions/InputNotFoundException.h"
+#include "../../Exceptions/ConstructionFailedException.h"
 #include "../../../Utils/Logger.h"
 
 bool NE :: SDL_Engine :: initAPI(void)
@@ -49,7 +51,17 @@ bool NE :: SDL_Engine :: initAPI(void)
 	pWin = new NE::SDL_Window();
 	pRenderer = new NE::SDL_Renderer(pWin);
 	pTime = new NE::SDL_Time();
-	pSpriteLoader = new NE::SDL_SpriteLoader();
+    
+    try
+    {
+        pSpriteLoader = new NE::SDL_SpriteLoaderSDLI(SDL_SpriteLoaderSDLI::PNG);
+    }
+    catch ( ConstructionFailedException cfe )
+    {
+        LError << cfe.what();
+        pSpriteLoader = NULL;
+    }
+    
 	pSpriteFactory = new NE::SDL_SpriteFactory();
 
 	if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL )

@@ -34,7 +34,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Rect.h"
 
 #include "../Utils/Logger.h"
-#include "../Utils/Exceptions/ConstructionFailedException.h"
+#include "../NEngine/Exceptions/ConstructionFailedException.h"
 
 Font :: Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
 	:pSprite(pSprite),letterSize(letterSize),startingLetter(startingLetter)

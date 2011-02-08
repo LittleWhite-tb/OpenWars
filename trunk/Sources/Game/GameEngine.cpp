@@ -42,7 +42,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Colour.h"
 
 #include "../Utils/Logger.h"
-#include "../Utils/Exceptions/ConstructionFailedException.h"
+#include "../NEngine/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
 GameEngine :: GameEngine(NE::NEngine* const pNE)

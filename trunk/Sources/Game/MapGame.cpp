@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-#include "../Utils/Exceptions/ConstructionFailedException.h"
+#include "../NEngine/Exceptions/ConstructionFailedException.h"
 #include "../globals.h"
 
 MapGame :: MapGame(NE::SpriteLoader* const pSL, const std::string& fileName,const std::string& fileNameHighlight, const std::string& fileNameAttackable):Map(pSL,fileName),pHighlightSprite(NULL),pAttackableSprite(NULL)

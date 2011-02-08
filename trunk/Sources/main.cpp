@@ -24,9 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 #include <sstream>
-
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
+#include <cstring>
 
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
@@ -110,37 +108,23 @@ int main(int argc, char** argv)
 	}
 
 	{
-		int flags = IMG_INIT_PNG;
-		int initIMG = IMG_Init(flags);
+        if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
+        {
+            GameEngine gEngine(pNE);
+                
+            if ( gEngine.init() )
+            {
+                bool engineLoadingState = false;
 
-		// Starting SDL_image and SDL_ttf
-		if ( (initIMG & flags) != flags )
-		{
-			LError << "Fail to init the SDL_image with PNG support (" << IMG_GetError() << ")";
-		}
-		else
-		{
-			if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
-			{
-				GameEngine gEngine(pNE);
-					
-				if ( gEngine.init() )
-				{
-					bool engineLoadingState = false;
+                engineLoadingState = gEngine.load(loadMapName);
+                if ( engineLoadingState )
+                {
+                    gEngine.run();
+                }
+            }
 
-					engineLoadingState = gEngine.load(loadMapName);
-					if ( engineLoadingState )
-					{
-						gEngine.run();
-					}
-				}
-
-				pNE->getWindow()->destroyWindow();
-			}
-
-			// Bye bye SDL_image
-			IMG_Quit();
-		}
+            pNE->getWindow()->destroyWindow();
+        }
 	}
 
 	// Stopping the Native Engine
