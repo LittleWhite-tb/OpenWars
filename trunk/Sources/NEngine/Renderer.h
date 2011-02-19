@@ -51,6 +51,7 @@ namespace NE
 		virtual bool clearScreen(const Colour& colour)=0;
 
 		virtual bool drawRect(const Rect& tile, const Colour& colour)const=0;
+        
 		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface)const=0;
 		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Colour& mask)const=0;
 		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect)const=0;
