@@ -34,7 +34,13 @@ namespace NE
 	class SDL_Window : public Window
 	{
 	private:
+        SDL_Surface* pNativeWindow;
+    
 		unsigned int getFlags(const bool isFullscreen, const bool isOpenGL)const;
+        
+    protected:
+    
+        void* getNativeWindow(void)const { return pNativeWindow; }
 
 	public:
 		static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */

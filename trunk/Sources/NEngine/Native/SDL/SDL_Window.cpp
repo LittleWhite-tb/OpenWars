@@ -45,7 +45,7 @@ int sdlQuitEventFilter(const SDL_Event* pEvent)
 
 NE :: SDL_Window :: ~SDL_Window(void)
 {
-	if ( pWindow != NULL )
+	if ( pNativeWindow != NULL )
 	{
 		LWarning << "The window is not properly cleared";
 	}
@@ -95,12 +95,11 @@ bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned shor
 
 	LDebug << "SDL_Window :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << ")";
 
-	pWindow = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
+	pNativeWindow = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
 
-	if ( pWindow != NULL )
+	if ( pNativeWindow != NULL )
 	{
-		SDL_Surface* pSDLWindow = (SDL_Surface*)this->pWindow;
-		LDebug << "Obtained: " << pSDLWindow->w << "x" << pSDLWindow->h << "x" << pSDLWindow->format->BitsPerPixel;
+		LDebug << "Obtained: " << pNativeWindow->w << "x" << pNativeWindow->h << "x" << pNativeWindow->format->BitsPerPixel;
 
 		// Set additionnal settings
 		SDL_WM_SetCaption(windowName.c_str(), windowIcon.c_str());
@@ -131,12 +130,10 @@ void NE :: SDL_Window :: destroyWindow(void)
 
 USize2 NE :: SDL_Window :: getWindowSize(void)const
 {
-	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->pWindow);
-	return USize2(pSDLWindow->w,pSDLWindow->h);
+	return USize2(pNativeWindow->w,pNativeWindow->h);
 }
 
 int NE :: SDL_Window :: getBitsPerPixel(void)const
 {
-	SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->pWindow);
-	return pSDLWindow->format->BitsPerPixel;
+	return pNativeWindow->format->BitsPerPixel;
 }

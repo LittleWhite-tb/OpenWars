@@ -34,12 +34,13 @@ namespace NE
 	class Sprite
 	{
 	protected:
-		void* pData;		/*!< The pointer on the native Sprite */
+		// void* pData;		/*!< The pointer on the native Sprite */
+        virtual void* getNativeSprite(void)const=0;
     
         virtual ~Sprite(void) {}
         
 	public:
-		Sprite(void* pData):pData(pData) {}
+		Sprite(void) {}
 
 		virtual USize2 getSize(void)const=0;
 

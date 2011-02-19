@@ -28,11 +28,10 @@ e-mail: lw.demoscene@gmail.com
 
 NE :: SDL_Sprite :: ~SDL_Sprite(void)
 {
-	SDL_FreeSurface((SDL_Surface*)this->pData);
+	SDL_FreeSurface(this->pSurface);
 }
 
 USize2 NE :: SDL_Sprite :: getSize(void)const
 {
-	SDL_Surface* pSurface = (SDL_Surface*)this->pData;
 	return USize2(pSurface->w,pSurface->h);
 }

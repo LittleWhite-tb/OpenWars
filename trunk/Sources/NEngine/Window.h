@@ -35,7 +35,9 @@ namespace NE
 	{
 	protected:
 
-		void* pWindow;	/*!< The pointer on the native window */
+		// void* pWindow;	/*!< The pointer on the native window */
+        
+        virtual void* getNativeWindow(void)const = 0;
 
 	public:
 		Window(void) {};
