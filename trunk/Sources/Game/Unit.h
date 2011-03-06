@@ -31,193 +31,225 @@ class AnimatedSprite;
 
 enum UnitType
 {
-	UT_NO_UNIT = -1,
+    UT_NO_UNIT = -1,
 
-	// Red
-	// Ground units
-	UT_R_INFANTRY=0,
-	UT_R_BAZOOKA,
-	UT_R_RECON,
-	UT_R_TANK,
-	UT_R_TANKM,
-	UT_R_NEOTANK,
-	UT_R_APC,
-	UT_R_ARTILLERY,
-	UT_R_ROCKETS,
-	UT_R_ANTIAIR,
-	UT_R_MISSILES,				// Anti air long range
+    // Red
+    // Ground units
+    UT_R_INFANTRY=0,
+    UT_R_BAZOOKA,
+    UT_R_RECON,
+    UT_R_TANK,
+    UT_R_TANKM,
+    UT_R_NEOTANK,
+    UT_R_APC,
+    UT_R_ARTILLERY,
+    UT_R_ROCKETS,
+    UT_R_ANTIAIR,
+    UT_R_MISSILES,              // Anti air long range
 
-	// Navy units
-	UT_R_LANDER,
-	UT_R_SUB,
-	UT_R_BOMBERSHIP,
-	UT_R_CRUISER,
+    // Navy units
+    UT_R_LANDER,
+    UT_R_SUB,
+    UT_R_BOMBERSHIP,
+    UT_R_CRUISER,
 
-	// Air Units
-	UT_R_TCOPTER,				// Transport copter
-	UT_R_COPTER,
-	UT_R_FIGHTER,
-	UT_R_BOMBER,
+    // Air Units
+    UT_R_TCOPTER,               // Transport copter
+    UT_R_COPTER,
+    UT_R_FIGHTER,
+    UT_R_BOMBER,
 
-	// Blue units
-	// Ground units
-	UT_B_INFANTRY,
-	UT_B_BAZOOKA,
-	UT_B_RECON,
-	UT_B_TANK,
-	UT_B_TANKM,
-	UT_B_NEOTANK,
-	UT_B_APC,
-	UT_B_ARTILLERY,
-	UT_B_ROCKETS,
-	UT_B_ANTIAIR,
-	UT_B_MISSILES,				// Anti air long range
+    // Blue units
+    // Ground units
+    UT_B_INFANTRY,
+    UT_B_BAZOOKA,
+    UT_B_RECON,
+    UT_B_TANK,
+    UT_B_TANKM,
+    UT_B_NEOTANK,
+    UT_B_APC,
+    UT_B_ARTILLERY,
+    UT_B_ROCKETS,
+    UT_B_ANTIAIR,
+    UT_B_MISSILES,              // Anti air long range
 
-	// Navy units
-	UT_B_LANDER,
-	UT_B_SUB,
-	UT_B_BOMBERSHIP,
-	UT_B_CRUISER,
+    // Navy units
+    UT_B_LANDER,
+    UT_B_SUB,
+    UT_B_BOMBERSHIP,
+    UT_B_CRUISER,
 
-	// Air Units
-	UT_B_TCOPTER,				// Transport copter
-	UT_B_COPTER,
-	UT_B_FIGHTER,
-	UT_B_BOMBER,
+    // Air Units
+    UT_B_TCOPTER,               // Transport copter
+    UT_B_COPTER,
+    UT_B_FIGHTER,
+    UT_B_BOMBER,
 
-	// Green
-	// Ground units
-	UT_G_INFANTRY,
-	UT_G_BAZOOKA,
-	UT_G_RECON,
-	UT_G_TANK,
-	UT_G_TANKM,
-	UT_G_NEOTANK,
-	UT_G_APC,
-	UT_G_ARTILLERY,
-	UT_G_ROCKETS,
-	UT_G_ANTIAIR,
-	UT_G_MISSILES,				// Anti air long range
+    // Green
+    // Ground units
+    UT_G_INFANTRY,
+    UT_G_BAZOOKA,
+    UT_G_RECON,
+    UT_G_TANK,
+    UT_G_TANKM,
+    UT_G_NEOTANK,
+    UT_G_APC,
+    UT_G_ARTILLERY,
+    UT_G_ROCKETS,
+    UT_G_ANTIAIR,
+    UT_G_MISSILES,              // Anti air long range
 
-	// Navy units
-	UT_G_LANDER,
-	UT_G_SUB,
-	UT_G_BOMBERSHIP,
-	UT_G_CRUISER,
+    // Navy units
+    UT_G_LANDER,
+    UT_G_SUB,
+    UT_G_BOMBERSHIP,
+    UT_G_CRUISER,
 
-	// Air Units
-	UT_G_TCOPTER,				// Transport copter
-	UT_G_COPTER,
-	UT_G_FIGHTER,
-	UT_G_BOMBER,
+    // Air Units
+    UT_G_TCOPTER,               // Transport copter
+    UT_G_COPTER,
+    UT_G_FIGHTER,
+    UT_G_BOMBER,
 
-	// Yellow
-	// Ground units
-	UT_Y_INFANTRY,
-	UT_Y_BAZOOKA,
-	UT_Y_RECON,
-	UT_Y_TANK,
-	UT_Y_TANKM,
-	UT_Y_NEOTANK,
-	UT_Y_APC,
-	UT_Y_ARTILLERY,
-	UT_Y_ROCKETS,
-	UT_Y_ANTIAIR,
-	UT_Y_MISSILES,				// Anti air long range
+    // Yellow
+    // Ground units
+    UT_Y_INFANTRY,
+    UT_Y_BAZOOKA,
+    UT_Y_RECON,
+    UT_Y_TANK,
+    UT_Y_TANKM,
+    UT_Y_NEOTANK,
+    UT_Y_APC,
+    UT_Y_ARTILLERY,
+    UT_Y_ROCKETS,
+    UT_Y_ANTIAIR,
+    UT_Y_MISSILES,              // Anti air long range
 
-	// Navy units
-	UT_Y_LANDER,
-	UT_Y_SUB,
-	UT_Y_BOMBERSHIP,
-	UT_Y_CRUISER,
+    // Navy units
+    UT_Y_LANDER,
+    UT_Y_SUB,
+    UT_Y_BOMBERSHIP,
+    UT_Y_CRUISER,
 
-	// Air Units
-	UT_Y_TCOPTER,				// Transport copter
-	UT_Y_COPTER,
-	UT_Y_FIGHTER,
-	UT_Y_BOMBER,
+    // Air Units
+    UT_Y_TCOPTER,               // Transport copter
+    UT_Y_COPTER,
+    UT_Y_FIGHTER,
+    UT_Y_BOMBER,
 
-	UT_END_LIST					// Stopper
+    UT_END_LIST                 // Stopper
 };
 
 enum UnitFaction
 {
-	UF_RED,
-	UF_BLUE,
-	UF_GREEN,
-	UF_YELLOW,
+    UF_RED,
+    UF_BLUE,
+    UF_GREEN,
+    UF_YELLOW,
 };
 
 UnitFaction FactionFactory(UnitType ut);
 
 struct UnitTemplate
 {
-	AnimatedSprite* pASprite;		/*!< Sprite of the unit */
-	std::string name;				/*!< Name to display for the unit */
+    AnimatedSprite* pASprite;       /*!< Sprite of the unit */
+    std::string name;               /*!< Name to display for the unit */
 
-	unsigned int category;			/*!< The category of the unit */
-	unsigned targetCategory;		/*!< The attackable category */
+    unsigned int category;          /*!< The category of the unit */
+    unsigned targetCategory;        /*!< The attackable category */
 
-	unsigned int movement;			/*!< The movement possibility */
-	unsigned int fuel;				/*!< The remaining fuel */
-	unsigned int fuelConsumption;	/*!< The fuel consumption per day */
-	unsigned int ammo;				/*!< The remaining ammo */
+    unsigned int movement;          /*!< The movement possibility */
+    unsigned int fuel;              /*!< The remaining fuel */
+    unsigned int fuelConsumption;   /*!< The fuel consumption per day */
+    unsigned int ammo;              /*!< The remaining ammo */
 
-	unsigned int life;				/*!< The life */
+    unsigned int life;              /*!< The life */
 
-	unsigned int price;				/*!< Price */
+    unsigned int price;             /*!< Price */
 
-	static const unsigned int UC_NONE = 0;		/*!< No unit attackable */
-	static const unsigned int UC_LAND = 1;		/*!< Land units are attackable */
-	static const unsigned int UC_NAVY = 2;		/*!< Navy units are attackable */
-	static const unsigned int UC_AIR = 4;		/*!< Air units are attackable */
+    static const unsigned int UC_NONE = 0;      /*!< No unit attackable */
+    static const unsigned int UC_LAND = 1;      /*!< Land units are attackable */
+    static const unsigned int UC_NAVY = 2;      /*!< Navy units are attackable */
+    static const unsigned int UC_AIR = 4;       /*!< Air units are attackable */
 
-	UnitTemplate(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0),price(0){}
-	
-	UnitTemplate(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)
-		:pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life),price(price) {}
+    UnitTemplate(void):pASprite(NULL),name(),category(UC_LAND),targetCategory(UC_LAND),movement(0),fuel(0),ammo(0),life(0),price(0){}
 
-	UnitTemplate (const UnitTemplate& u)
-		:pASprite(u.pASprite),
-		name(u.name),
-		category(u.category),
-		targetCategory(u.targetCategory),
-		movement(u.movement),
-		fuel(u.fuel),
-		fuelConsumption(u.fuelConsumption),
-		ammo(u.ammo),
-		life(u.life),
-		price(u.price){}
+    UnitTemplate(AnimatedSprite* const pASprite, const std::string& name, const unsigned int category, const unsigned int targetCategory, const unsigned int movement, const unsigned int fuel, const unsigned int fuelConsumption, const unsigned int ammo, const unsigned int life, const unsigned int price)
+        :pASprite(pASprite),name(name),category(category),targetCategory(targetCategory),movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),ammo(ammo),life(life),price(price) {}
 
-	const UnitTemplate& operator=(const UnitTemplate& u)
-	{
-		this->pASprite = u.pASprite;
-		this->name = u.name;
-		this->category = u.category;
-		this->targetCategory = u.targetCategory;
-		this->movement = u.movement;
-		this->fuel = u.fuel;
-		this->fuelConsumption = u.fuelConsumption;
-		this->ammo = u.ammo;
-		this->life = u.life;
-		this->price = u.price;
+    UnitTemplate (const UnitTemplate& u)
+        :pASprite(u.pASprite),
+        name(u.name),
+        category(u.category),
+        targetCategory(u.targetCategory),
+        movement(u.movement),
+        fuel(u.fuel),
+        fuelConsumption(u.fuelConsumption),
+        ammo(u.ammo),
+        life(u.life),
+        price(u.price){}
 
-		return *this;
-	}
+    const UnitTemplate& operator=(const UnitTemplate& u)
+    {
+        this->pASprite = u.pASprite;
+        this->name = u.name;
+        this->category = u.category;
+        this->targetCategory = u.targetCategory;
+        this->movement = u.movement;
+        this->fuel = u.fuel;
+        this->fuelConsumption = u.fuelConsumption;
+        this->ammo = u.ammo;
+        this->life = u.life;
+        this->price = u.price;
+
+        return *this;
+    }
 };
 
 struct Unit
 {
-	UnitType type;					/*!< Type of the unit */
+    UnitType type;                  /*!< Type of the unit */
 
-	unsigned int fuel;				/*!< The remaining fuel */
-	unsigned int ammo;				/*!< The remaining ammo */
+    unsigned int fuel;              /*!< The remaining fuel */
+    unsigned int ammo;              /*!< The remaining ammo */
 
-	unsigned int life;				/*!< The life */
+    unsigned int life;              /*!< The life */
 
     bool enabled;                   /*!< If the unit is enabled (can be moved) */
 
-	Unit(const UnitType ut,const UnitTemplate& uTemp):type(ut),fuel(uTemp.fuel),ammo(uTemp.ammo),life(uTemp.life),enabled(false) {}
+    Unit(const UnitType ut,const UnitTemplate& uTemp):type(ut),fuel(uTemp.fuel),ammo(uTemp.ammo),life(uTemp.life),enabled(false) {}
+};
+
+struct UnitProperties
+{
+    unsigned int category;          /*!< The category of the unit */
+    unsigned targetCategory;        /*!< The attackable category */
+
+    unsigned int movement;          /*!< The movement possibility */
+    unsigned int fuel;              /*!< The remaining fuel */
+    unsigned int fuelConsumption;   /*!< The fuel consumption per day */
+    unsigned int ammo;              /*!< The remaining ammo */
+
+    unsigned int life;              /*!< The life */
+
+    unsigned int price;             /*!< Price */
+
+    UnitProperties(void)
+                   :category(0),targetCategory(0),
+                   movement(0),fuel(0),fuelConsumption(0),
+                   ammo(0),life(0),price(0) {}
+
+    UnitProperties(const unsigned int category,
+                   const unsigned int targetCategory,
+                   const unsigned int movement,
+                   unsigned int fuel,
+                   unsigned int fuelConsumption,
+                   unsigned int ammo,
+                   unsigned int life,
+                   unsigned int price)
+                   :category(category),targetCategory(targetCategory),
+                   movement(movement),fuel(fuel),fuelConsumption(fuelConsumption),
+                   ammo(ammo),life(life),price(price) {}
 };
 
 /*! \struct UnitTemplate Unit.h "Game/Unit.h"
@@ -225,14 +257,14 @@ struct Unit
  *
  * Structure to contain the unit information (loaded from files)
  * Keeps the following:
- *		- The category of the unit
- *		- The category of the attackable unit
- *		- The movement possibility
- *		- The fuel
- *		- The fuel consumption per day
- *		- The ammo
- *		- The life of the unit
- *		- The price
+ *      - The category of the unit
+ *      - The category of the attackable unit
+ *      - The movement possibility
+ *      - The fuel
+ *      - The fuel consumption per day
+ *      - The ammo
+ *      - The life of the unit
+ *      - The price
  */
 
 /*! \fn UnitTemplate::UnitTemplate(void)
@@ -247,7 +279,7 @@ struct Unit
  * \param movement the movement possible
  * \param fuel the actual fuel level
  * \param fuelConsumption the fuel consumption per day
- * \param ammo the remaining ammo	  
+ * \param ammo the remaining ammo
  * \param life the maximum life for this unit
  * \param price the price of the unit
  */
@@ -263,13 +295,13 @@ struct Unit
 /*! \struct Unit Unit.h "Game/Unit.h"
  *  \brief Unit struct
  *
- * Logical unit in the game. 
+ * Logical unit in the game.
  * Cotains:
- *		- The enum to characterise the unit (id)
- *		- The fuel
- *		- The ammo
- *		- The life of the unit
- *		- if the unit is enabled
+ *      - The enum to characterise the unit (id)
+ *      - The fuel
+ *      - The ammo
+ *      - The life of the unit
+ *      - if the unit is enabled
  */
 
 /*! \fn Unit::Unit(const UnitType ut,const UnitTemplate& uTemp)
