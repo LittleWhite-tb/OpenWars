@@ -35,18 +35,33 @@ e-mail: lw.demoscene@gmail.com
 
 NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
 {
-	SDL_Surface* pSurface = IMG_Load(fileName.c_str());
-	if ( pSurface != NULL )
-	{
-		NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
-		if ( pSprite == NULL )
-		{
-			LError << "Fail to allocate memory for a SDL_Sprite";
-		}
+    SDL_Surface* pSurface = SDL_LoadBMP(fileName.c_str());
+    if ( pSurface != NULL )
+    {
+        // We optimise the texture to match the Screen surface
+        SDL_Surface* pOptimisedSurface = SDL_DisplayFormat(pSurface);
+        if ( pOptimisedSurface != NULL )
+        {
+            // We clean old surface
+            SDL_FreeSurface(pSurface);
 
-		return pSprite;
-	}
+            // We replace the pointer to the new optimised surface
+            pSurface = pOptimisedSurface;
+        }
+        else
+        {
+            LError << "Fail to optimise sprite '" << fileName << "'";
+        }
 
-	LError << "Fail to load a sprite from file: " << SDL_GetError();
-	return NULL;
+        NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
+        if ( pSprite == NULL )
+        {
+            LError << "Fail to allocate memory for a SDL_Sprite";
+        }
+
+        return pSprite;
+    }
+
+    LError << "Fail to load a sprite from file: " << SDL_GetError();
+    return NULL;
 }
