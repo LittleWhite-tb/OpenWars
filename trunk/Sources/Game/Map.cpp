@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -34,253 +34,77 @@ e-mail: lw.demoscene@gmail.com
 #include "Tile.h"
 #include "Unit.h"
 
-#include "../NEngine/SpriteLoader.h"
-#include "../Engine/AnimatedSprite.h"
+#include "NEngine/SpriteLoader.h"
+#include "Engine/AnimatedSprite.h"
 
 #include "Camera.h"
 
-#include "../Types/Vec2.h"
+#include "Engine/Theme.h"
+#include "Game/Library.h"
+#include "Game/Params.h"
 
-#include "../Utils/LineParser.h"
-#include "../Utils/Logger.h"
+#include "Types/Vec2.h"
 
-#include "../NEngine/Exceptions/ConstructionFailedException.h"
-#include "../Utils/Exceptions/FileNotOpenedException.h"
+#include "Utils/LineParser.h"
+#include "Utils/Logger.h"
 
-#include "../globals.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
+#include "Utils/Exceptions/FileNotOpenedException.h"
 
-Map :: Map(NE::SpriteLoader* const pSL, const std::string& fileName)
-	:width(0),height(0),map(NULL),valid(false)
+#include "globals.h"
+
+Map :: Map(const Library<Theme>* const pThemes)
+	:pThemes(pThemes),themeName("classic"),width(0),height(0),valid(false)
 {
-	valid = this->parser(pSL,fileName);
-
-	LDebug << "Map '" << fileName.c_str() << "' created";
 }
 
 Map :: ~Map(void)
 {
-	// Delete the Tile sprites used by the map
-	for ( std::map<TileType, Tile>::iterator itTile = tilesSet.begin() ; itTile != tilesSet.end() ; ++itTile)
-	{
-		delete itTile->second.pASprite;
-	}
-	tilesSet.clear();
-
-	// Delete the Unit sprite used by the map
-	for ( std::map<UnitType, UnitTemplate>::iterator itUnit = unitsSet.begin() ; itUnit != unitsSet.end() ; ++itUnit)
-	{
-		delete itUnit->second.pASprite;
-	}
-	unitsSet.clear();
-
-	// Delete the unit map
-	for ( unsigned int y = 0 ; y < this->height ; y++ )
-	{
-		delete[] unitViewMap[y];
-	}
-
-	delete[] unitViewMap;
-
-	// Delete the map
-	for ( unsigned int y = 0 ; y < this->height ; y++ )
-	{
-		delete[] map[y];
-	}
-
-	delete[] map;
-
 	LDebug << "Map deleted";
 }
 
-bool Map :: loadTileSet(NE::SpriteLoader* const pSL)
+bool Map :: allocateMemory(const USize2& size)
 {
-	LDebug << "Map :: loadTileSet ( " << m_themeName.c_str() << ")";
-
-	// Need reading of the file
-	std::string tileSetPath = TILESET_PATH + m_themeName + std::string(".oawts");
-
-	try
+	// Allocation tile map
+	tileMap.resize(size.height);
+	for ( unsigned int y = 0 ; y < size.height ; y++ )
 	{
-		LineParser lp(tileSetPath);
-
-		for ( unsigned int i = TT_Plain ; i < TT_Invalid ; i++ )
-		{
-			unsigned int idTile = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			if ( i != idTile )
-			{
-				LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
-			}
-			std::string name = lp.getLine();
-			lp.readNextLine();
-			std::string spriteName = lp.getLine();
-			lp.readNextLine();
-			USize2 spriteSize = lp.getUSize2();
-			lp.readNextLine();
-			int spriteDuration = lp.getInt();
-			lp.readNextLine();
-			unsigned char defence = static_cast<unsigned char>(lp.getInt());
-			lp.readNextLine();
-			bool isRoad = lp.getBool();
-			lp.readNextLine();
-			bool isBridge = lp.getBool();
-			lp.readNextLine();
-			bool isRiver = lp.getBool();
-			lp.readNextLine();
-			bool isSea = lp.getBool();
-			lp.readNextLine();
-			bool isBeach = lp.getBool();
-			lp.readNextLine();
-			bool isBuilding = lp.getBool();
-			lp.readNextLine();
-			bool isHQ = lp.getBool();
-			lp.readNextLine();
-			bool needBackground = lp.getBool();
-			lp.readNextLine();
-			unsigned char cityLife = static_cast<unsigned char>(lp.getInt());
-			lp.readNextLine();
-
-			try
-			{
-
-				tilesSet[static_cast<TileType>(idTile)] = Tile(new AnimatedSprite(pSL->loadSpriteFromFile(GFX_TILES_PATH + m_themeName + std::string("/") + spriteName), spriteSize, spriteDuration),
-					name,
-					defence,
-					isRoad,
-					isBridge,
-					isRiver,
-					isSea,
-					isBeach,
-					isBuilding,isHQ,
-					needBackground,
-					cityLife);
-			}
-			catch (ConstructionFailedException& cfe)
-			{
-				LError << cfe.what();
-				return false;
-			}
-		}
+		tileMap[y].resize(size.width);
 	}
-	catch (FileNotOpenedException fnoe)
+
+	// Allocation of the unit map
+	unitMap.resize(size.height);
+	for ( unsigned int y = 0 ; y < size.height; y++ )
 	{
-		LError << fnoe.what();
-		return false;
+		unitMap[y].resize(size.width);
 	}
 
 	return true;
 }
 
-bool Map :: loadUnitSet(NE::SpriteLoader* const pSL)
+bool Map :: load(const std::string& fileName)
 {
-	LDebug << "Map :: loadUnitSet ( " << m_themeName.c_str() << ")";
-
-	// Need reading of the file
-	std::string unitSetPath = UNITSET_PATH + m_themeName + std::string(".oawus");
-
-	try
-	{
-		LineParser lp(unitSetPath);
-
-		for ( unsigned int i = UT_R_INFANTRY ; i < UT_END_LIST ; i++ )
-		{
-			unsigned int idTile = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			if ( i != idTile )
-			{
-				LWarning << "The tileset does not have sprite is good orger -> Received: " << idTile << " ; Expected: " << i;
-			}
-			std::string name = lp.getLine();
-			lp.readNextLine();
-			std::string spriteName = lp.getLine();
-			lp.readNextLine();
-			USize2 spriteSize = lp.getUSize2();
-			lp.readNextLine();
-			int spriteDuration = lp.getInt();
-			lp.readNextLine();
-			unsigned int category = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int targetCategory = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int movement = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int fuel = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int fuelConsumption = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int ammo = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int maxLife = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-			unsigned int price = static_cast<unsigned int>(lp.getInt());
-			lp.readNextLine();
-
-			try
-			{
-
-				unitsSet[static_cast<UnitType>(idTile)] = UnitTemplate(new AnimatedSprite(pSL->loadSpriteFromFile(GFX_UNITS_PATH + m_themeName + std::string("/") + spriteName), spriteSize, spriteDuration),
-					name,
-					category,
-					targetCategory,
-					movement,
-					fuel,
-					fuelConsumption,
-					ammo,
-					maxLife,price
-					);
-			}
-			catch (ConstructionFailedException& cfe)
-			{
-				LError << cfe.what();
-				return false;
-			}
-		}
-	}
-	catch (FileNotOpenedException fnoe)
-	{
-		LError << fnoe.what();
-		return false;
-	}
-
-	return true;
-}
-
-bool Map :: loadGraphics(NE::SpriteLoader* const pSL)
-{
-	LDebug << "Map :: loadGraphics";
-
-	if ( loadTileSet(pSL) == false || loadUnitSet(pSL) == false )
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool Map :: parser(NE::SpriteLoader* const pSL, const std::string& fileName)
-{
-	std::string theme = "";
 	unsigned int mapLineCounter = 0;
 	unsigned int unitMapLineCounter = 0;
 	bool error = false;
 
 	LineParser lp(fileName);
 
-	LDebug << "Map :: parser '" << fileName.c_str() << "'";
+	LDebug << "Map :: load '" << fileName.c_str() << "'";
 
 	do
 	{
 		if ( lp.getLineNumber() == 1 )
 		{
-			m_themeName = lp.getLine();
-
-			LDebug << "Theme: " << m_themeName.c_str();
-
-			if ( loadGraphics(pSL) == false )
+			themeName = lp.getLine();
+			
+			if ( !pThemes->exists(themeName) )
 			{
-				LError << "Error to load the graphics";
+				LError << "Map is asking for a theme not found";
 				error = true;
 			}
+
+			LDebug << "Theme: " << themeName.c_str();
 		}
 		else if ( lp.getLineNumber() == 2 )
 		{
@@ -291,44 +115,7 @@ bool Map :: parser(NE::SpriteLoader* const pSL, const std::string& fileName)
 
 			if ( this->width != 0 || this->height != 0 )	// If it looks correct (we can add a maximum size... to be safer)
 			{
-				map = new TileType*[this->height];
-				if ( map == NULL )
-				{
-					LError << "Error to allocate memory for the map! (at height)";
-					error = true;
-				}
-				else
-				{
-					for ( unsigned int y = 0 ; y < this->height ; y++ )
-					{
-						map[y] = new TileType[this->width];
-						if ( map[y] == NULL )
-						{
-							LError << "Error to allocate memory for the map! (at width (" << y << "))";
-							error = true;
-						}
-					}
-				}
-
-				// Allocation of the unit map
-				unitViewMap = new UnitType*[this->height];
-				if ( unitViewMap == NULL )
-				{
-					LError << "Error to allocate memory for the unitMap! (at height)";
-					error = true;
-				}
-				else
-				{
-					for ( unsigned int y = 0 ; y < this->height ; y++ )
-					{
-						unitViewMap[y] = new UnitType[this->width];
-						if ( unitViewMap[y] == NULL )
-						{
-							LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
-							error = true;
-						}
-					}
-				}
+				this->allocateMemory(USize2(width,height));
 			}
 			else
 			{
@@ -339,23 +126,23 @@ bool Map :: parser(NE::SpriteLoader* const pSL, const std::string& fileName)
 		else if ( lp.getLineNumber() >= 3 && lp.getLineNumber() < 3 + this->height ) // For all lines representating the map
 		{
 			std::stringstream ss(lp.getLine());
-			int tileType = -1;
+			int tileID = -1;
 
 			mapLineCounter++;
 
 			// We are reading one line, by one
 			for ( unsigned int x = 0 ; x < this->width ; x++ )
 			{
-				ss >> tileType;
-				if ( tileType != -1 )
+				ss >> tileID;
+				if ( tileID != -1 )
 				{
-					if ( tileType < TT_END_LIST )
+					if ( pThemes->get(themeName)->containsTile(tileID) )
 					{
-						map[lp.getLineNumber()-3][x] = static_cast<TileType>(tileType);
+						tileMap[lp.getLineNumber()-3][x] = pThemes->get(themeName)->getTile(tileID);
 					}
 					else
 					{
-						LWarning << "Data in the map invalid (" << tileType << ")";
+						LWarning << "Tile data in the map invalid (" << tileID << ") at position " << x << ";" << lp.getLineNumber()-3;
 						error = true;
 					}	
 				}
@@ -369,23 +156,27 @@ bool Map :: parser(NE::SpriteLoader* const pSL, const std::string& fileName)
 		else if ( lp.getLineNumber() >= 3+this->height && lp.getLineNumber() < 3+this->height*2 )	// For the unit map
 		{
 			std::stringstream ss(lp.getLine());
-			int unitType = -42;
+			int unitID = -42;
 
 			unitMapLineCounter++;
 
 			// We are reading one line, by one
 			for ( unsigned int x = 0 ; x < this->width ; x++ )
 			{
-				ss >> unitType;
-				if ( unitType != -42 )
+				ss >> unitID;
+				if ( unitID != -42 )
 				{
-					if ( unitType < UT_END_LIST )
+					if ( unitID == -1 )
 					{
-						unitViewMap[lp.getLineNumber()-(3+this->height)][x] = static_cast<UnitType>(unitType);
+						unitMap[lp.getLineNumber()-(3+this->height)][x] = Unit();
+					}
+					else if ( pThemes->get(themeName)->containsUnit(unitID) )
+					{
+						unitMap[lp.getLineNumber()-(3+this->height)][x] = Unit(pThemes->get(themeName)->getUnit(unitID));
 					}
 					else
 					{
-						LWarning << "Data in the map invalid (" << unitType << ")";
+						LWarning << "Data in the map invalid (" << unitID << ")";
 						error = true;
 					}	
 				}
@@ -419,21 +210,21 @@ bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned i
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - TILE_DEFAULT_HEIGHT;
+			unsigned int yOffset = tileMap[y][x]->getSprite()->getSize().height - TILE_DEFAULT_HEIGHT;
 
 			// Draw the background sprite ( Plain )
-			if ( tilesSet[map[y][x]].needBackground )
+			if ( tileMap[y][x]->getParams()->getAs<bool>("needBackground",false) )
 			{
-				bResult &= tilesSet[TT_Plain].pASprite->draw(r,tilePos,0);
+				bResult &= pThemes->get(themeName)->getTile("Plain")->getSprite()->draw(r,tilePos,0);
 			}
 
 			// Apply offset
 			tilePos.y -= yOffset;
 
-			bResult &= tilesSet[map[y][x]].pASprite->draw(r,tilePos,time);
+			bResult &= tileMap[y][x]->getSprite()->draw(r,tilePos,time);
 			
 			// Move on the right
-			tilePos.x += tilesSet[map[y][x]].pASprite->getSize().width;
+			tilePos.x += tileMap[y][x]->getSprite()->getSize().width;
 
 			// Remove offset ( to not affect other sprite )
 			tilePos.y += yOffset;
@@ -445,24 +236,8 @@ bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned i
 	return true;
 }
 
-TileType Map :: getTileType(const UVec2& position)const
-{
-#ifdef VERBOSE
-	LDebug << "Map :: getTileType " << position;
-#endif
 
-	if ( position.x < this->width && position.y < this->height )
-	{
-		// The [] operator is not const...
-		return map[position.y][position.x];
-	}
-	else
-	{
-		return TT_Invalid;
-	}
-}
-
-Tile Map :: getTile(const UVec2& position)const
+const Tile* Map :: getTile(const UVec2& position)const
 {
 #ifdef VERBOSE
 	LDebug << "Map :: getTile " << position;
@@ -470,103 +245,15 @@ Tile Map :: getTile(const UVec2& position)const
 
  	if ( position.x < this->width && position.y < this->height )
 	{
-		// The [] operator is not const...
-		return tilesSet.find(map[position.y][position.x])->second;
+		return tileMap[position.y][position.x];
 	}
 	else
-	{
-		return Tile();
-	}
-}
-
-Tile Map :: getTile(const TileType& tt)const
-{
-#ifdef VERBOSE
-	LDebug << "Map :: getTile " << tt;
-#endif
-	std::map<TileType, Tile>::const_iterator it = tilesSet.find(tt);
-
- 	if ( it != tilesSet.end() )
-	{
-		// The [] operator is not const...
-		return it->second;;
-	}
-	else
-	{
-		return Tile();
-	}
-}
-
-UnitType Map :: getUnitType(const UVec2& position)const
-{
-#ifdef VERBOSE
-	LDebug << "Map :: getUnit " << position;
-#endif
-
-	if ( position.x < this->width && position.y < this->height )
-	{
-		return unitViewMap[position.y][position.x];
-	}
-	else
-	{
-		return UT_NO_UNIT;
-	}
-}
-
-UnitTemplate Map :: getUnitTemplate(const UVec2& position)const
-{
-#ifdef VERBOSE
-	LDebug << "Map :: getUnit " << position;
-#endif
-
-	if ( position.x < this->width && position.y < this->height )
-	{
-		return unitsSet.find(unitViewMap[position.y][position.x])->second;
-	}
-	else
-	{
-		return UnitTemplate();
-	}
-}
-
-UnitTemplate Map :: getUnitTemplate(const UnitType ut)const
-{
-#ifdef VERBOSE
-	LDebug << "Map :: getUnit " << ut;
-#endif
-	std::map<UnitType, UnitTemplate>::const_iterator it = unitsSet.find(ut);
-
- 	if ( it != unitsSet.end() )
-	{
-		// The [] operator is not const...
-		return it->second;;
-	}
-	else
-	{
-		return UnitTemplate();
-	}
-}
-
-AnimatedSprite* Map :: getAssociatedSprite(const TileType type)
-{
-	if ( tilesSet.find(type) == tilesSet.end() )
 	{
 		return NULL;
 	}
-
-	return tilesSet[type].pASprite;
 }
 
-AnimatedSprite* Map :: getAssociatedSprite(const UnitType type)
-{
-	if ( unitsSet.find(type) == unitsSet.end() )
-	{
-		return NULL;
-	}
-
-	return unitsSet[type].pASprite;
-}
-
+/*
 bool Map :: testTile(const UVec2& position, const UnitType unitType)const
 {
 	TileType tileType = this->getTileType(position);
@@ -715,6 +402,31 @@ bool Map :: testTile(const UVec2& position, const UnitType unitType)const
 			assert(0);
 			break;
 	}
+
+	return true;
+}
+*/
+
+bool Map :: isValidPosition(const UVec2& position)
+{
+	if ( position.x < this->width && position.y < this->height )
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Map :: testTile(const UVec2& position, const Tile* pTile)
+{
+	// TODO
+
+	return true;
+}
+
+bool Map :: testTile(const UVec2& position, const UnitTemplate* pUnitTemplate)
+{
+	// TODO
 
 	return true;
 }

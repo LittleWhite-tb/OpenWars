@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,6 +26,7 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 // Folders path
+#define THEME_PATH		"./data/themes/"			/*!< Path to defaut theme folder */
 #define TILESET_PATH	"./data/tilesets/"		/*!< Path to the default tile set folder */
 #define UNITSET_PATH	"./data/unitsets/"		/*!< Path to the default unit set folder */
 #define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */

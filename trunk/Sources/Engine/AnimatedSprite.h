@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,14 +27,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
+#include <string>
+
 #include "../Types/Vec2.h"
 #include "../Types/Size2.h"
 #include "../Types/Rect.h"
 
 namespace NE { class Renderer; }
+namespace NE { class SpriteLoader; }
 namespace NE { class Sprite; }
 
-class Colour;
+struct Colour;
 
 class AnimatedSprite
 {
@@ -59,6 +62,7 @@ private:
 
 public:
     AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
+	AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval);
 
 	~AnimatedSprite(void);
 

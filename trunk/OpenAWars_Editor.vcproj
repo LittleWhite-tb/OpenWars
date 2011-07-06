@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="OpenAWars_Editor"
 	ProjectGUID="{C7C6200F-34B2-49D1-9687-A6BD0FBC3B89}"
 	RootNamespace="OpenAWars_Editor"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include; Sources"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EDITOR"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include; Sources"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;EDITOR"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -192,7 +192,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include; Sources"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;EDITOR;SDL_ENGINE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -212,7 +212,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib SDL_ttf.lib"
+				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib libxml2.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -268,7 +268,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include; Sources"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;EDITOR;SDL_ENGINE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -323,387 +323,513 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="NEngine"
 			>
 			<File
-				RelativePath=".\Sources\globals.h"
+				RelativePath=".\Sources\NEngine\Input.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\main_editor.cpp"
+				RelativePath=".\Sources\NEngine\InputManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\main_editor.h"
+				RelativePath=".\Sources\NEngine\InputManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\NEngine.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\NEngine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Renderer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Renderer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Sound.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\SoundLoader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Sprite.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\SpriteFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\SpriteFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\SpriteLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\SpriteLoader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Time.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Window.h"
 				>
 			</File>
 			<Filter
-				Name="Engine"
+				Name="Native"
 				>
-				<File
-					RelativePath=".\Sources\Engine\AnimatedSprite.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\AnimatedSprite.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\Font.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\Font.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\Sprite.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\Sprite.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\VTime.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Engine\VTime.h"
-					>
-				</File>
 				<Filter
-					Name="Controls"
+					Name="SDL"
 					>
 					<File
-						RelativePath=".\Sources\Engine\Controls\Keyboard.cpp"
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Engine.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Sources\Engine\Controls\Keyboard.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ResourcesManager"
-					>
-					<File
-						RelativePath=".\Sources\Engine\ResourcesManager\FontManager.cpp"
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Engine.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Sources\Engine\ResourcesManager\FontManager.h"
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Joy.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Sources\Engine\ResourcesManager\SpriteManager.cpp"
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Joy.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Sources\Engine\ResourcesManager\SpriteManager.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Utils"
-				>
-				<File
-					RelativePath=".\Sources\Utils\LineParser.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\LineParser.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Logger.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Logger.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Logger_template.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Scaler.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Scaler.h"
-					>
-				</File>
-				<Filter
-					Name="Exceptions"
-					>
-					<File
-						RelativePath=".\Sources\Utils\Exceptions\ConstructionFailedException.h"
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Keyboard.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Sources\Utils\Exceptions\FileNotOpenedException.h"
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Keyboard.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Renderer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Renderer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SoundLoader.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SoundLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Sprite.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Sprite.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoader.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoaderSDLI.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoaderSDLI.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Time.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Time.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Window.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Native\SDL\SDL_Window.h"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Game"
+				Name="Exceptions"
 				>
 				<File
-					RelativePath=".\Sources\Game\Camera.cpp"
+					RelativePath=".\Sources\NEngine\Exceptions\ConstructionFailedException.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Game\Camera.h"
+					RelativePath=".\Sources\NEngine\Exceptions\FileNotFoundException.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Game\Cursor.cpp"
+					RelativePath=".\Sources\NEngine\Exceptions\InputNotFoundException.h"
 					>
 				</File>
-				<File
-					RelativePath=".\Sources\Game\Cursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\EditingCursor.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\EditingCursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\EditorEngine.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\EditorEngine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Engine.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Engine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\MapEditor.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\MapEditor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Tile.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Tile.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Unit.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Unit.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Types"
-				>
-				<File
-					RelativePath=".\Sources\Types\Colour.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Types\Colour.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Types\Rect.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Types\Size2.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Types\Vec2.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="UI"
-				>
-				<File
-					RelativePath=".\Sources\UI\TileBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileBar.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileBarTiles.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileBarTiles.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileBarUnits.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileBarUnits.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileViewer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\UI\TileViewer.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="NEngine"
-				>
-				<File
-					RelativePath=".\Sources\NEngine\Engine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Input.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Renderer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Sound.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\SoundLoader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Sprite.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\SpriteLoader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Time.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\NEngine\Window.h"
-					>
-				</File>
-				<Filter
-					Name="Native"
-					>
-					<Filter
-						Name="SDL"
-						>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Engine.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Engine.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Input.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Input.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Renderer.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Renderer.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SoundLoader.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SoundLoader.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Sprite.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Sprite.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoader.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_SpriteLoader.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Time.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Time.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Window.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Sources\NEngine\Native\SDL\SDL_Window.h"
-							>
-						</File>
-					</Filter>
-				</Filter>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Utils"
+			>
+			<File
+				RelativePath=".\Sources\Utils\LineParser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Utils\LineParser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Utils\Logger.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Utils\Logger.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Utils\Logger_template.hpp"
+				>
+			</File>
+			<Filter
+				Name="Exceptions"
+				>
+				<File
+					RelativePath=".\Sources\Utils\Exceptions\FileNotOpenedException.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Exceptions\ParamsException.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Exceptions\TileException.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Utils\Exceptions\XMLException.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Engine"
+			>
+			<File
+				RelativePath=".\Sources\Engine\AnimatedSprite.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\AnimatedSprite.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Font.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Theme.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Theme.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\VTime.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\VTime.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Game"
+			>
+			<File
+				RelativePath=".\Sources\Game\Camera.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Camera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Cursor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Cursor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\EditingCursor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\EditingCursor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\EditorEngine.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\EditorEngine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Engine.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Engine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\GameEngine.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\GameEngine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Library.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Library.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Map.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\MapEditor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\MapEditor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\MapGame.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\MapGame.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Params.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Params.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Tile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Tile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Unit.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\Unit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\UnitTemplate.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\UnitTemplate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\UnitTemplateFactionList.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\UnitTemplateFactionList.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Types"
+			>
+			<File
+				RelativePath=".\Sources\Types\Colour.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Types\Colour.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Types\Rect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Types\Size2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Types\Vec2.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="UI"
+			>
+			<File
+				RelativePath=".\Sources\UI\ConstructBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\ConstructBox.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\MenuBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\MenuBox.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileBarTiles.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileBarTiles.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileBarUnits.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileBarUnits.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileViewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\TileViewer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\UIType.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="XML"
+			>
+			<File
+				RelativePath=".\Sources\XML\XMLListReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\XML\XMLListReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\XML\XMLObjectReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\XML\XMLObjectReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\XML\XMLObjectReader_template.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\XML\XMLReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\XML\XMLReader.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\Sources\globals.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources\main_editor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources\main_editor.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -2,7 +2,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -25,16 +25,16 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileViewer.h"
 
-#include "../NEngine/SpriteLoader.h"
-#include "../NEngine/Renderer.h"
+#include "NEngine/SpriteLoader.h"
+#include "NEngine/Renderer.h"
 
-#include "../NEngine/Sprite.h"
-#include "../Engine/AnimatedSprite.h"
-#include "../Engine/Font.h"
+#include "NEngine/Sprite.h"
+#include "Engine/AnimatedSprite.h"
+#include "Engine/Font.h"
 
-#include "../Utils/Logger.h"
-#include "../Types/Vec2.h"
-#include "../Types/Colour.h"
+#include "Utils/Logger.h"
+#include "Types/Vec2.h"
+#include "Types/Colour.h"
 
 TileViewer :: TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
 :windowSize(windowSize)
@@ -52,7 +52,7 @@ TileViewer :: TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNam
 	LDebug << "TileViewer created";
 }
 
-TileViewer :: ~TileViewer(void)
+TileViewer :: ~TileViewer()
 {
 	LDebug << "TileViewer deleted";
 

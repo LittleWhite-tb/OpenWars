@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -79,7 +79,7 @@ bool NE :: SDL_Engine :: initAPI(void)
     }
     catch  (InputNotFoundException& infe)
     {
-        LWarning << "No joystick found" << infe.what();
+        LWarning << "No joystick found " << infe.what();
         pJoystick = NULL;
     }
     

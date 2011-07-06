@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,6 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <iostream>
 
+#include "Vec2.h"
+
 template <typename T>
 struct Size2
 {
@@ -41,6 +43,9 @@ struct Size2
 		\param height the value for the height
 	*/
 	Size2(const T& width, const T& height):width(width),height(height) {}
+
+	template <typename U>
+	Size2(const Vec2<U>& size):width(size.x),height(size.y) {}
     
     bool operator==(const Size2<T>& s)const
     {
@@ -79,6 +84,10 @@ typedef Size2<unsigned int> USize2;
  *  \brief 2D Size structure
  *
  *  2D size containing two fileds (width and height).
+ */
+
+/*! \fn Size2 :: Size2(const Vec2<U>& size)
+ *	\brief Converts a Vec2 to Size2
  */
 
 /*! \fn bool Size2::operator==(const Size2<T>& s)const

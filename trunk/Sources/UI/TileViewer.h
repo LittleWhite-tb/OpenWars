@@ -5,7 +5,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,16 +26,17 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../Game/Tile.h"
+#include "Game/Tile.h"
 
-#include "../Types/Vec2.h"
+#include "Types/Size2.h"
+#include "Types/Vec2.h"
 
 namespace NE { class SpriteLoader; }
 namespace NE { class Sprite; }
 namespace NE { class Renderer; }
-class Font;
 
 class AnimatedSprite;
+class Font;
 
 class TileViewer
 {
@@ -43,7 +44,7 @@ private:
 
 	Font* pFont;				/*!< the font to use */
 	NE::Sprite* pBackground;		/*!< the sprite for the background */
-	 AnimatedSprite* pTileSprite;	/*!< the tile to display in the UI */
+	AnimatedSprite* pTileSprite;	/*!< the tile to display in the UI */
 
 	std::string title;				/*!< the title to display */
 	std::string tileName;			/*!< the name for the tile to display */
@@ -53,7 +54,7 @@ private:
 
 public:
 	TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
-	~TileViewer(void);
+	~TileViewer();
 
 	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
 

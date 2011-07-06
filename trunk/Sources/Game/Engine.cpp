@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,11 +26,15 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../NEngine/NEngine.h"
+#include "NEngine/NEngine.h"
 
-#include "../Engine/VTime.h"
+#include "Engine/Theme.h"
+#include "Engine/VTime.h"
 
-#include "../Utils/Logger.h"
+#include "XML/XMLListReader.h"
+
+#include "Utils/Logger.h"
+#include "Utils/Exceptions/XMLException.h"
 
 Engine::Engine(NE::NEngine* const pNE)
 :pNE(pNE),pVT(NULL)
@@ -49,12 +53,51 @@ bool Engine :: init()
 
 	if ( pVT == NULL )
 	{
-		// The memory will be cleaned by the destructor
+		LError << "Fail to allocate memory for Virtual Time";
 		return false;
 	}
 
-	LDebug << "EditorEngine init'd";
+	LDebug << "Engine init'd";
 
 	return true;
 }
 
+void Engine :: loadTheme(const std::string& themeName)
+{
+	Theme* pTheme = new Theme(themeName);
+	if ( pTheme == NULL )
+	{
+		LError << "Fail to allocate Theme";
+		throw std::bad_alloc("Fail to allocate Theme");
+	}
+
+	if ( pTheme->load(pNE->getSpriteLoader()) == false )
+	{
+		throw EngineException("Failed to load the theme (" + themeName+ ")");
+	}
+	else
+	{
+		themeLibrary.add(pTheme->getName(),pTheme);
+	}
+}
+
+void Engine :: loadThemeList(const std::string& listPath)
+{
+	try
+	{
+		std::list<std::string> paths;
+		XMLListReader xmlReader = XMLListReader(listPath);
+
+		xmlReader.parse("theme",&paths);
+
+		for ( std::list<std::string>::const_iterator itPath = paths.begin() ; itPath != paths.end() ; ++itPath )
+		{
+			loadTheme(*itPath);
+		}
+	}
+	catch ( XMLParsingFailedException& xmle )
+	{
+		(void)xmle;
+		throw EngineException("Fail to open list of theme paths '" + listPath + "'");
+	}
+}

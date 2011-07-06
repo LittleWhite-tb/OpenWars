@@ -3,7 +3,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,16 +26,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditorEngine.h"
 
-#include "../NEngine/NEngine.h"
-#include "../NEngine/Window.h"
-#include "../NEngine/Renderer.h"
-#include "../NEngine/InputManager.h"
+#include "NEngine/NEngine.h"
+#include "NEngine/Window.h"
+#include "NEngine/Renderer.h"
+#include "NEngine/InputManager.h"
 
-#include "../Engine/VTime.h"
+#include "Engine/Theme.h"
+#include "Engine/VTime.h"
 
-#include "../UI/TileBarUnits.h"
-#include "../UI/TileBarTiles.h"
-#include "../UI/TileViewer.h"
+#include "UI/TileBarUnits.h"
+#include "UI/TileBarTiles.h"
+#include "UI/TileViewer.h"
 
 #include "MapEditor.h"
 #include "EditingCursor.h"
@@ -46,6 +47,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 
 #include "../NEngine/Exceptions/ConstructionFailedException.h"
+#include "../NEngine/Exceptions/FileNotFoundException.h"
 
 EditorEngine :: EditorEngine(NE::NEngine* const pNE)
 :Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
@@ -53,7 +55,7 @@ EditorEngine :: EditorEngine(NE::NEngine* const pNE)
 	LDebug << "EditorEngine constructed";
 }
 
-EditorEngine :: ~EditorEngine(void)
+EditorEngine :: ~EditorEngine()
 {
 	delete pCam;
 	delete pEC;
@@ -73,121 +75,36 @@ bool EditorEngine :: load(void)
 	// Prepare the data to put in the TileBar for building
 	std::vector<TileView*> buildingTiles;
 	{
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Plain),TT_Plain,0));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Tree),TT_Tree,1));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Mountain_1),TT_Mountain_1,2));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Sea),TT_Sea,3));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_River_H),TT_River_H,4));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Beach_T),TT_Beach_T,5));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Reef),TT_Reef,6));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Road_H),TT_Road_H,7));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Bridge_H),TT_Bridge_H,8));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Red_HQ),TT_Red_HQ,9));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Blue_HQ),TT_Blue_HQ,9));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Green_HQ),TT_Green_HQ,9));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Yellow_HQ),TT_Yellow_HQ,9));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Red_HQ),TT_Red_HQ,9));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Red_City),TT_Red_City,10));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Blue_City),TT_Blue_City,10));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Green_City),TT_Green_City,10));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Yellow_City),TT_Yellow_City,10));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Neutral_City),TT_Neutral_City,10));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Red_Factory),TT_Red_Factory,11));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Blue_Factory),TT_Blue_Factory,11));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Green_Factory),TT_Green_Factory,11));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Yellow_Factory),TT_Yellow_Factory,11));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Neutral_Factory),TT_Neutral_Factory,11));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Red_Port),TT_Red_Port,12));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Blue_Port),TT_Blue_Port,12));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Green_Port),TT_Green_Port,12));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Yellow_Port),TT_Yellow_Port,12));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Neutral_Port),TT_Neutral_Port,12));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Red_Airport),TT_Red_Airport,13));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Blue_Airport),TT_Blue_Airport,13));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Green_Airport),TT_Green_Airport,13));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Yellow_Airport),TT_Yellow_Airport,13));
-		buildingTiles.push_back(new TileView(pMap->getAssociatedSprite(TT_Neutral_Airport),TT_Neutral_Airport,13));
+		std::list<const Tile* > tilesList;
+		pMap->getTheme()->getTilesList(&tilesList);
+
+		for ( std::list < const Tile* >::const_iterator itPTile = tilesList.begin() ;
+			  itPTile != tilesList.end() ; ++itPTile )
+		{
+			if ( (*itPTile)->getMenuEntry() != -1 )
+			{
+				buildingTiles.push_back(new TileView(*itPTile, (*itPTile)->getMenuEntry()));
+			}
+		}
 	}
 
 	// Prepare the list of units in the TileBar for Units
 	std::vector<UnitView*> unitTiles;
 	{
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_INFANTRY),UT_R_INFANTRY,0));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_INFANTRY),UT_G_INFANTRY,0));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_INFANTRY),UT_B_INFANTRY,0));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_INFANTRY),UT_Y_INFANTRY,0));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_BAZOOKA),UT_R_BAZOOKA,1));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_BAZOOKA),UT_G_BAZOOKA,1));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_BAZOOKA),UT_B_BAZOOKA,1));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_BAZOOKA),UT_Y_BAZOOKA,1));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_RECON),UT_R_RECON,2));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_RECON),UT_G_RECON,2));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_RECON),UT_B_RECON,2));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_RECON),UT_Y_RECON,2));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_APC),UT_R_APC,3));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_APC),UT_G_APC,3));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_APC),UT_B_APC,3));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_APC),UT_Y_APC,3));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_TANK),UT_R_TANK,4));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_TANK),UT_G_TANK,4));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_TANK),UT_B_TANK,4));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_TANK),UT_Y_TANK,4));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_TANKM),UT_R_TANKM,5));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_TANKM),UT_G_TANKM,5));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_TANKM),UT_B_TANKM,5));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_TANKM),UT_Y_TANKM,5));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_NEOTANK),UT_R_NEOTANK,6));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_NEOTANK),UT_G_NEOTANK,6));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_NEOTANK),UT_B_NEOTANK,6));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_NEOTANK),UT_Y_NEOTANK,6));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_ARTILLERY),UT_R_ARTILLERY,7));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_ARTILLERY),UT_G_ARTILLERY,7));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_ARTILLERY),UT_B_ARTILLERY,7));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_ARTILLERY),UT_Y_ARTILLERY,7));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_ROCKETS),UT_R_ROCKETS,8));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_ROCKETS),UT_G_ROCKETS,8));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_ROCKETS),UT_B_ROCKETS,8));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_ROCKETS),UT_Y_ROCKETS,8));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_ANTIAIR),UT_R_ANTIAIR,9));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_ANTIAIR),UT_G_ANTIAIR,9));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_ANTIAIR),UT_B_ANTIAIR,9));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_ANTIAIR),UT_Y_ANTIAIR,9));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_MISSILES),UT_R_MISSILES,10));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_MISSILES),UT_G_MISSILES,10));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_MISSILES),UT_B_MISSILES,10));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_MISSILES),UT_Y_MISSILES,10));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_TCOPTER),UT_R_TCOPTER,11));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_TCOPTER),UT_G_TCOPTER,11));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_TCOPTER),UT_B_TCOPTER,11));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_TCOPTER),UT_Y_TCOPTER,11));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_COPTER),UT_R_COPTER,12));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_COPTER),UT_G_COPTER,12));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_COPTER),UT_B_COPTER,12));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_COPTER),UT_Y_COPTER,12));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_FIGHTER),UT_R_FIGHTER,13));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_FIGHTER),UT_G_FIGHTER,13));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_FIGHTER),UT_B_FIGHTER,13));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_FIGHTER),UT_Y_FIGHTER,13));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_BOMBER),UT_R_BOMBER,14));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_BOMBER),UT_G_BOMBER,14));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_BOMBER),UT_B_BOMBER,14));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_BOMBER),UT_Y_BOMBER,14));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_LANDER),UT_R_LANDER,15));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_LANDER),UT_G_LANDER,15));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_LANDER),UT_B_LANDER,15));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_LANDER),UT_Y_LANDER,15));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_CRUISER),UT_R_CRUISER,16));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_CRUISER),UT_G_CRUISER,16));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_CRUISER),UT_B_CRUISER,16));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_CRUISER),UT_Y_CRUISER,16));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_BOMBERSHIP),UT_R_BOMBERSHIP,17));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_BOMBERSHIP),UT_G_BOMBERSHIP,17));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_BOMBERSHIP),UT_B_BOMBERSHIP,17));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_BOMBERSHIP),UT_Y_BOMBERSHIP,17));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_R_SUB),UT_R_SUB,18));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_G_SUB),UT_G_SUB,18));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_B_SUB),UT_B_SUB,18));
-		unitTiles.push_back(new UnitView(pMap->getAssociatedSprite(UT_Y_SUB),UT_Y_SUB,18));
+		std::list<const UnitTemplateFactionList* > unitsList;
+		pMap->getTheme()->getUnitsList(&unitsList);
+	
+		unsigned int unitCounter = 0;
+		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
+			  itPUnit != unitsList.end() ; ++itPUnit )
+		{
+			for ( unsigned int i = 0 ; i < (*itPUnit)->getNumberFaction() ; i++ )
+			{
+				unitTiles.push_back(new UnitView((*itPUnit)->get(i),unitCounter));
+			}
+
+			unitCounter++;
+		}
 	}
 
 	try
@@ -202,38 +119,46 @@ bool EditorEngine :: load(void)
 		return false;
 	}
 					
-	pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
-		pMap->getTile(pBuildingTB->getSelected()).name);
+	pTileViewer->setTile(pBuildingTB->getSelected()->getSprite(), 
+		pBuildingTB->getSelected()->getName());
 
 	return true;
 }
 
-bool EditorEngine :: init(void)
+bool EditorEngine :: load(const UVec2& mapSize)
 {
-	bool error = true;
+	pMap = new MapEditor(&themeLibrary,mapSize);
+	if ( pMap == NULL )
+	{
+		LError << "Fail to allocate memory for MapEditor";
+		return false;
+	}
 
-	error = Engine::init();
-
-	LDebug << "EditorEngine init'd";
-
-	return error;
-}
-
-
-bool EditorEngine :: load(const std::string& themeName, const UVec2& mapSize)
-{
-	pMap = new MapEditor(pNE->getSpriteLoader(), themeName , mapSize);
 	if ( !pMap->isValidMap() )
 	{
 		return false;
 	}
 
-	return this->load();
+	try
+	{
+		return this->load();
+	}
+	catch ( FileNotFoundException& fnfe )
+	{
+		return false;
+	}
 }
 
 bool EditorEngine :: load(const std::string& mapName)
 {
-	pMap = new MapEditor(pNE->getSpriteLoader(), mapName);
+	pMap = new MapEditor(&themeLibrary);
+	if ( pMap == NULL )
+	{
+		LError << "Fail to allocate memory for MapEditor";
+		return false;
+	}
+
+	pMap->load(mapName);
 	if ( !pMap->isValidMap() )
 	{
 		return false;
@@ -296,8 +221,8 @@ bool EditorEngine :: run(void)
 				pBuildingTB->close();
 				isUnit = false;
 				pTileViewer->setTitle("Element");
-				pTileViewer->setTile(pMap->getAssociatedSprite(pBuildingTB->getSelected()), 
-										  pMap->getTile(pBuildingTB->getSelected()).name);
+				pTileViewer->setTile(pBuildingTB->getSelected()->getSprite(), 
+										  pBuildingTB->getSelected()->getName());
 			}
 			
 			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pUnitTB->isOpened()  )
@@ -305,8 +230,8 @@ bool EditorEngine :: run(void)
 				pUnitTB->close();
 				isUnit = true;
 				pTileViewer->setTitle("Unit");
-				pTileViewer->setTile(pMap->getAssociatedSprite(pUnitTB->getSelected()), 
-											pMap->getUnitTemplate(pUnitTB->getSelected()).name);
+				pTileViewer->setTile(pUnitTB->getSelected()->getSprite(), 
+										  pUnitTB->getSelected()->getName());
 			}
 
 			if ( pBuildingTB->isOpened() )
@@ -325,7 +250,7 @@ bool EditorEngine :: run(void)
 				{
 					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 					{
-						pMap->setTile(pEC->getPosition(),pUnitTB->getSelected());
+						pMap->setTile(pEC->getPosition(),pUnitTB->getSelected()->getName());
 					}
 
 					pEC->setIsWrong(!pMap->Map::testTile(pEC->getPosition(),pUnitTB->getSelected()));
@@ -334,7 +259,7 @@ bool EditorEngine :: run(void)
 				{
 					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 					{
-						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected());
+						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected()->getName());
 					}
 					pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pBuildingTB->getSelected()));
 				}
@@ -368,7 +293,7 @@ void EditorEngine :: saveMap(const std::string& fileName)
 {
 	pMap->save(fileName);
 }
-
+/*
 bool EditorEngine :: setTile(const UVec2& position, const UnitType unitType)
 {
     bool bError = true;
@@ -378,5 +303,5 @@ bool EditorEngine :: setTile(const UVec2& position, const UnitType unitType)
 
     return bError;
 }
-
+*/
 #endif

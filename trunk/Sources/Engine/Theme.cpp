@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -24,6 +24,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Theme.h"
 
+#include <list>
+#include <algorithm>
 #include <cassert>
 
 #include "../NEngine/SpriteLoader.h"
@@ -31,130 +33,150 @@ e-mail: lw.demoscene@gmail.com
 
 #include "AnimatedSprite.h"
 
+#include "../XML/XMLObjectReader.h"
+
+#include "NEngine/Exceptions/FileNotFoundException.h"
 #include "../Utils/Exceptions/FileNotOpenedException.h"
+#include "../Utils/Exceptions/XMLException.h"
 #include "../Utils/LineParser.h"
 #include "../Utils/Logger.h"
 
+#include "globals.h"
+
 Theme :: ~Theme(void)
 {
-    for ( std::map<UIType, AnimatedSprite*>::iterator itPASprite = ui.begin() ; itPASprite != ui.end() ; ++itPASprite )
-    {
-        // Since if we have a NULL value ... the next one will not be init at all
-        if ( itPASprite->second == NULL )
-        {
-            break;
-        }
-
-        delete itPASprite->second;
-    }
-
-    for ( std::map<UnitType, AnimatedSprite*>::iterator itPASprite = units.begin() ; itPASprite != units.end() ; ++itPASprite )
-    {
-        // Since if we have a NULL value ... the next one will not be init at all
-        if ( itPASprite->second == NULL )
-        {
-            break;
-        }
-
-        delete itPASprite->second;
-    }
-
-    for ( std::map<TileType, AnimatedSprite*>::iterator itPASprite = tiles.begin() ; itPASprite != tiles.end() ; ++itPASprite )
-    {
-        // Since if we have a NULL value ... the next one will not be init at all
-        if ( itPASprite->second == NULL )
-        {
-            break;
-        }
-
-        delete itPASprite->second;
-    }
-}
-
-AnimatedSprite* Theme :: loadFromThemeFile(NE::SpriteLoader* const pSL, LineParser& lpTiles, const std::string& subFolder, const int number, int* pSpriteID)
-{
-    bool notAtEnd = true;
-
-    int tileID = lpTiles.getInt();
-    if ( tileID >= number )
-    {
-        LError << "ID not corresponding to any tile (Max expected: " << number << " Received: " << tileID << ")";
-        return NULL;
-    }
-
-    *pSpriteID = tileID;
-
-    notAtEnd &= lpTiles.readNextLine();
-    std::string tilePath = lpTiles.getLine();
-    notAtEnd &= lpTiles.readNextLine();
-    USize2 spriteSize = lpTiles.getUSize2();
-    notAtEnd &= lpTiles.readNextLine();
-    int timeAnimation = lpTiles.getInt();
-    notAtEnd &= lpTiles.readNextLine();
-
-    NE::Sprite* pSprite = pSL->loadSpriteFromFile(subFolder + tilePath);
-    if ( pSprite == NULL )
-    {
-        LError << "Fail to load the sprite: '" << tilePath << "'";
-        return NULL;
-    }
-
-    if ( notAtEnd == false )
-    {
-        LError << "End of file unexpected";
-        return NULL;
-    }
-
-    AnimatedSprite* pASprite = new AnimatedSprite(pSprite,spriteSize,timeAnimation);
-    if ( pASprite == NULL )
-    {
-        LError << "Fail to allocate memory for AnimatedSprite in loadTiles";
-    }
-
-    return pASprite;
 }
 
 bool Theme :: load(NE::SpriteLoader* const pSL)
 {
     bool bResult = true;
 
-    try
-    {
-        LineParser lpTiles("data/themes/"+name+"/tiles.thm");
-        LineParser lpUnits("data/themes/"+name+"/units.thm");
-        LineParser lpUI("data/themes/"+name+"/ui.thm");
+	try
+	{
+		// Tiles
+		{
+			XMLObjectReader xmlReader(THEME_PATH + name+"/tiles.xml");
+			bResult &= xmlReader.parse<Tile>("tile",&tiles, pSL, GFX_TILES_PATH + name + "/");
+		}
 
-        bResult &= loadSprites<TileType>(pSL,lpTiles,"data/themes/"+name+"/tiles/",tiles,TT_END_LIST);
-        bResult &= loadSprites<UnitType>(pSL,lpUnits,"data/themes/"+name+"/units/",units,UT_END_LIST);
-        bResult &= loadSprites<UIType>(pSL,lpUI,"data/themes/"+name+"/ui/",ui,UIT_END_LIST);
-    }
-    catch ( FileNotOpenedException fnoe )
-    {
-        return false;
-    }
+		{
+			XMLObjectReader xmlReader(THEME_PATH +name+"/units.xml");
+			bResult &= xmlReader.parse<UnitTemplate>("unit",&units, pSL, GFX_UNITS_PATH + name + "/");
+		}
+	}
+	catch ( XMLParsingFailedException xmlpfe )
+	{
+		LError << xmlpfe.what();
+		return false;
+	}
+	catch ( FileNotFoundException fnfe )
+	{
+		LError << fnfe.what();
+		return false;
+	}
 
-    return bResult;
+	return bResult;
 }
 
-AnimatedSprite* Theme :: getTile(const TileType tType)
+bool Theme :: containsTile(unsigned int id)const
 {
-    assert(tType != TT_Invalid &&  tType != TT_END_LIST);
+	std::list<const Tile*> tilesList;
+	tiles.getValues(&tilesList);
 
-    return tiles[tType];
+	for ( std::list<const Tile*>::const_iterator itTile = tilesList.begin() ; itTile != tilesList.end() ; ++itTile )
+	{
+		if ( (*itTile)->getID() == id )
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
-AnimatedSprite* Theme :: getUnit(const UnitType uType)
+bool Theme :: containsTile(const std::string& tileName)const
 {
-    assert(uType != UT_NO_UNIT &&  uType != UT_END_LIST);
-
-    return units[uType];
+	return tiles.exists(tileName);
 }
 
-AnimatedSprite* Theme :: getUI(const UIType uiType)
+const Tile* Theme :: getTile(unsigned int id)const
 {
-    assert(uiType < UIT_END_LIST);
+	std::list<const Tile*> tilesList;
+	tiles.getValues(&tilesList);
 
-    return ui[uiType];
+	for ( std::list<const Tile*>::const_iterator itTile = tilesList.begin() ; itTile != tilesList.end() ; ++itTile )
+	{
+		if ( (*itTile)->getID() == id )
+		{
+			return *itTile;
+		}
+	}
+
+	assert(false); // Invalid ID;
+	return NULL;
 }
 
+const Tile* Theme :: getTile(const std::string& tileName)const
+{
+	return tiles.get(tileName);
+}
+
+void Theme :: getTilesList(std::list< const Tile* >* pTilesList)const
+{
+	tiles.getValues<Tile>(pTilesList);
+}
+
+bool Theme :: containsUnit(unsigned int id)const
+{
+	std::list<const UnitTemplateFactionList*> unitsList;
+	units.getValues<UnitTemplate>(&unitsList);
+
+	for ( std::list<const UnitTemplateFactionList*>::const_iterator itUnit = unitsList.begin() ; itUnit != unitsList.end() ; ++itUnit )
+	{
+		for ( unsigned int i = 0 ; i < (*itUnit)->getNumberFaction() ; i++ )
+		{
+			if ( (*itUnit)->get(i)->getID() == id )
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool Theme :: containsUnit(const std::string& unitName)const
+{
+	return units.exists(unitName);
+}
+
+const UnitTemplate* Theme :: getUnit(unsigned int id)const
+{
+	std::list<const UnitTemplateFactionList*> unitsList;
+	units.getValues<UnitTemplate>(&unitsList);
+
+	for ( std::list<const UnitTemplateFactionList*>::const_iterator itUnit = unitsList.begin() ; itUnit != unitsList.end() ; ++itUnit )
+	{
+		for ( unsigned int i = 0 ; i < (*itUnit)->getNumberFaction() ; i++ )
+		{
+			if ( (*itUnit)->get(i)->getID() == id )
+			{
+				return (*itUnit)->get(i);
+			}
+		}
+	}
+
+	assert(false); // Invalid ID;
+	return NULL;
+}
+
+const UnitTemplate* Theme :: getUnit(const std::string& unitName, const unsigned int faction)const
+{
+	return units.get(unitName)->get(faction);
+}
+
+void Theme :: getUnitsList(std::list< const UnitTemplateFactionList* >* pUnitsList)const
+{
+	units.getValues<UnitTemplate>(pUnitsList);
+}
 

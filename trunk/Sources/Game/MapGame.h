@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -36,9 +36,12 @@ namespace NE { class SpriteLoader; }
 namespace NE { class Sprite; }
 
 class Camera;
+class Theme;
 
 class MapGame : public Map
 {
+
+/*
     struct TileEffect
     {
         bool isHighlight;
@@ -47,31 +50,27 @@ class MapGame : public Map
         TileEffect():isHighlight(false),isAttackable(false) {}
         void clear(void) { isHighlight = false ; isAttackable = false; }
     };
-    
-private:
-	Unit*** unitMap;			/*!< Map of units logical information */
-    TileEffect** effectMap;     /*!< Map containing information for the additionnal effect */
-    
-    NE::Sprite* pHighlightSprite;   /*!< Sprite used for highlighting the map */
-    NE::Sprite* pAttackableSprite;  /*!< Sprite used for highlighting where the player can attack the map */
+*/ 
+
+private:    
 
 public:
-	MapGame(NE::SpriteLoader* const pSL, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable);
+	MapGame(const Library<Theme>* const pThemes);
 	~MapGame();
 
 	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 	void enableUnits(void);
 
-	bool setTile(const UVec2& position, const UnitType unitType);
+	bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 	const Unit* getUnit(const UVec2& position);
 
     bool move(const UVec2& origPosition, const UVec2& destPosition);
     
-    void setMoveHighlight(const UVec2& origPosition, const UnitType ut, const int movement);
-    void setAttackableHighLight(const UVec2& origPosition);
-    
-    void clearHighlight(void);
+    //void setMoveHighlight(const UVec2& origPosition, const Unit& ut, const int movement);
+    //void setAttackableHighLight(const UVec2& origPosition);
+    //
+    //void clearHighlight(void);
 };
 
 /*! \class MapGame MapGame.h "Game/MapGame.h"
@@ -82,12 +81,8 @@ public:
  * the setTile function (to get logical unit in the unitMap)
  */
 
-/*! \fn MapGame::MapGame(NE::SpriteLoader* const pSL, const std::string& fileName, const std::string& fileNameHighlight, const std::string& fileNameAttackable)
- * Load the map
- * \param pSL the SpriteLoader to load the sprites
- * \param fileName the name of the file for the map to load
- * \param fileNameHighlight the name of the sprite to load for highlighting the cells
- * \param fileNameAttackable the name of the sprite to load for attackable cells
+/*! \fn MapGame::MapGame(const Library<Theme>* const pThemes)
+ * \param pThemes Library of themes available
  */		
 
 /*! \fn MapGame::~MapGame()
@@ -105,12 +100,13 @@ public:
  * \brief Enable all units in the map
  */
 
-/*! \fn bool MapGame::setTile(const UVec2& position, const UnitType unitType)
+/*! \fn bool MapGame::setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
  * \brief Set the Unit at the position
  * Will overwrite the Unit previously contained on the map by the new one.
  * The new Unit is selected following the internal logic of the editor.
  * \param position the position where to change the tile
- * \param unitType the type of the new unit
+ * \param unitName the name of the unit
+ *	\param faction
  * \return true if all goes right
  */
 

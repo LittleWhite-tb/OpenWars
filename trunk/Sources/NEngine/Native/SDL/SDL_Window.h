@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -46,7 +46,7 @@ namespace NE
 		static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
 
 
-		SDL_Window(void):Window() {}
+		SDL_Window(void):Window(),pNativeWindow(NULL) {}
 		~SDL_Window(void);
 
 		bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false);

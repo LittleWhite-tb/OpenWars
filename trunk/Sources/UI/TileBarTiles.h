@@ -5,7 +5,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileBar.h"
 
-#include "../Game/Tile.h"
+#include "Game/Tile.h"
 
 namespace NE { class SpriteLoader; }
 namespace NE { class SpriteFactory; }
@@ -38,12 +38,12 @@ class AnimatedSprite;
 class TileView : public View
 {	
 private:
-	TileType type;							/*!< The type of the Tile */					
+	const Tile* pTile;							/*!< The type of the Tile */					
 
 public:
-	TileView(AnimatedSprite* pASprite, const TileType type, const int positionX):View(pASprite,positionX),type(type) {}
+	TileView(const Tile* const pTile, unsigned int positionX):View(pTile->getSprite(),positionX),pTile(pTile) {}
 
-	TileType getType()const { return type; }
+	const Tile* getTile()const { return pTile; }
 };
 
 class TileBarTiles : public TileBar
@@ -53,7 +53,7 @@ private:
 public:
 	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSize);
 
-	TileType getSelected(void)const;
+	const Tile* getSelected(void)const;
 };
 
 /*! \struct TileView TileBarTiles.h "Game/TileBarTiles.h"
@@ -62,16 +62,15 @@ public:
  * Used to give a structure usable in the TileBar to contain Tile
  */
 
-/*! \fn TileView::TileView(AnimatedSprite* pASprite, const TileType type, const int positionX)
+/*! \fn TileView::TileView(const Tile* const pTile, unsigned int positionX)
  * \brief Will fill the class with the params
- * \param pASprite the AnimatedSprite to dislay
- * \param type the type of the Tile
+ * \param pTile the Tile to keep
  * \param positionX the position in the TileBar
  */
 
-/*! \fn TileType TileView::getType()const
- * \brief Return the TileType kept
- * \return the TileType
+/*! \fn const Tile* TileView::getTile()const
+ * \brief Return the Tile kept
+ * \return the pointer of the Tile
  */
 
 /*! \class TileBarTiles TileBarTiles.h "UI/TileBarTiles.h"
@@ -89,9 +88,9 @@ public:
  * \param windowSize the size of the window (used as reference to place the TileBar)
  */
 
-/*! \fn TileType TileBarTiles::getSelected(void)const
- * \brief Get the TileType selected
- * \return the TileType selected in the Bar
+/*! \fn const Tile* TileBarTiles::getSelected(void)const
+ * \brief Get the Tile selected
+ * \return the pointer of the Tile selected in the Bar
  */
 
 #endif

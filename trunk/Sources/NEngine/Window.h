@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -66,6 +66,10 @@ namespace NE
  */
 
 /*! \fn virtual NE::Window::~Window(void)
+ */
+
+/*! \fn virtual void* NE::Window::getNativeWindow(void)const = 0;
+ *	\brief
  */
 
 /*! \fn virtual bool NE::Window::createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0

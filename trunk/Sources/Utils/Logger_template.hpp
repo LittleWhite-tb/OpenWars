@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -43,7 +43,7 @@ Logger& Logger :: operator<< (const T& message)
 #elif defined(__WIN32__) || defined(WIN) || defined(WIN32)
 				SetConsoleTextAttribute(GetStdHandle(STD_ERROR_HANDLE),14);
 				std::cout << message;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
 #else
 				std::cout << message;
 #endif
@@ -53,9 +53,9 @@ Logger& Logger :: operator<< (const T& message)
 #if defined(linux) || defined(__linux) || defined(__linux__)
 				std::cerr << "\033[31m" << message << "\033[0m";
 #elif defined(__WIN32__) || defined(WIN) || defined(WIN32)
-				SetConsoleTextAttribute(GetStdHandle(STD_ERROR_HANDLE),4);
+				SetConsoleTextAttribute(GetStdHandle(STD_ERROR_HANDLE),12);
 				std::cerr << message;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
 #else
 				std::cerr << message;
 #endif

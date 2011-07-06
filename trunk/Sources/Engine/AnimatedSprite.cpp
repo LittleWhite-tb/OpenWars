@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,6 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include <cassert>
 
 #include "../NEngine/Renderer.h"
+#include "../NEngine/SpriteLoader.h"
 #include "../NEngine/Sprite.h"
 
 #include "../Types/Colour.h"
@@ -43,6 +44,21 @@ AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, 
 	numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 	
 	LDebug << "AnimatedSprite (" << spriteSize << ") Nb Animation: " << numberAnimation;
+}
+
+AnimatedSprite :: AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval)
+	:animationCounter(0),lastUpdate(0),msInterval(msInterval)
+{
+	assert(pSL);
+
+	this->pSprite = pSL->loadSpriteFromFile(fileName);
+	this->spriteSize = spriteSize;
+
+	USize2 surfaceSize = pSprite->getSize();
+
+	numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
+	
+	LDebug << "AnimatedSprite (" << fileName << ") Nb Animation: " << numberAnimation;
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)

@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,61 +26,84 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include <string>
+#include <vector>
 #include <map>
 
 #include "Tile.h"
 #include "Unit.h"
 
-#include "../Types/Vec2.h"
+#include "Types/Size2.h"
+#include "Types/Vec2.h"
+
+#include "Engine/Theme.h"
+#include "Game/Library.h"
 
 namespace NE { class Renderer; }
-class Camera;
 namespace NE { class SpriteLoader; }
+
+class Camera;
 class AnimatedSprite;
 
 class Map
 {
 protected:
 
-	std::map<TileType, Tile>tilesSet;						/*!< Set of tile to use with this map */
-	std::map<UnitType, UnitTemplate>unitsSet;					/*!< Set of tile to use with this map */
+	const Library<Theme>* pThemes;
+	std::string themeName;
 
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
 
-	std::string m_themeName;	/*!< Name of the theme to use */
-
-	TileType** map;					/*!< 2D Array representating the map */
-	UnitType** unitViewMap;				/*!< 2D Array representating the unit on the map */
+	std::vector < std::vector < const Tile* > > tileMap;	/*!< 2D Array representating the map */
+	std::vector < std::vector < Unit > > unitMap;	/*!< 2D Array representating the unit on the map */
 
 	bool valid;					/*!< if the map is loaded properly */
 
-	Map(void) {};
+	bool allocateMemory(const USize2& size);
 
-	bool loadTileSet(NE::SpriteLoader* const pSL);
-	bool loadUnitSet(NE::SpriteLoader* const pSL);
-	bool loadGraphics(NE::SpriteLoader* const pSL);
-
-	bool parser(NE::SpriteLoader* const pSL, const std::string& fileName);
+	bool parser(const std::string& fileName);
 
 	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
+	bool isValidPosition(const UVec2& position);
+
 public:
-	Map(NE::SpriteLoader* const pSL, const std::string& fileName);
+	Map(const Library<Theme>* const pThemes);
 	virtual ~Map(void);
 
+	virtual bool load(const std::string& fileName);
 	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)=0;
 
-	virtual bool setTile(const UVec2& position, const UnitType unitType)=0;
+	const Tile* getTile(const UVec2& position)const;
+	virtual bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction)=0;
+
+	bool testTile(const UVec2& position, const Tile* pTile);
+	bool testTile(const UVec2& position, const UnitTemplate* pUnitTemplate);
     
 	bool isValidMap(void)const { return valid; }
 
 	unsigned int getWidth(void)const { return width; }
 	unsigned int getHeight(void)const { return height; }
 
-	Tile getTile(const UVec2& position)const;
-	Tile getTile(const TileType& tt)const;
+	const Theme* getTheme(void)const { return pThemes->get(themeName); }
 
+/*
+	template <typename T>
+	const T& get(const UVec2& position)const
+	{
+		if ( position.x < this->width && position.y < this->height )
+		{
+			// The [] operator is not const...
+			return pTileMap[position.y][position.x];
+		}
+		else
+		{
+			return Tile();
+		}
+	}
+*/
+
+/*
 	TileType getTileType(const UVec2& position)const;
 	UnitType getUnitType(const UVec2& position)const;
 
@@ -89,8 +112,9 @@ public:
 
 	AnimatedSprite* getAssociatedSprite(const TileType type);
 	AnimatedSprite* getAssociatedSprite(const UnitType type);
-    
+
 	bool testTile(const UVec2& position, const UnitType unitType)const;
+*/
 };
 
 /*! \class Map Map.h "Game/Map.h"

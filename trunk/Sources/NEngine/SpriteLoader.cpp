@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,6 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Sprite.h"
 
+#include "NEngine/Exceptions/FileNotFoundException.h"
+
 #include "../Utils/Logger.h"
 
 NE::SpriteLoader :: ~SpriteLoader(void)
@@ -44,8 +46,9 @@ NE::Sprite* NE::SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
         Sprite* pSprite = loadSprite(fileName);
         if ( pSprite == NULL )
         {
-            LError << "NE::SpriteLoader (Fail to load the Sprite ('" << fileName << "')";
-            return NULL;
+            LError << "NE::SpriteLoader (Fail to load the Sprite ('" << fileName << "'))";
+			throw FileNotFoundException(fileName);
+            // return NULL;
         }
         
         spritesBank[fileName] = pSprite;

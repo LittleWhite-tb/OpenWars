@@ -5,7 +5,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -50,19 +50,17 @@ private:
 	bool setBeach(const UVec2& position);
 	bool setRiver(const UVec2& position);
 	bool setBridge(const UVec2& position);
-	bool setHQ(const UVec2& position, const TileType type);
-	bool setBuilding(const UVec2& position, const TileType type);
+	bool setHQ(const UVec2& position, const std::string& hqName);
+	bool setBuilding(const UVec2& position, const std::string& buildingName);
 
 public:
-	MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size);
-	MapEditor(NE::SpriteLoader* const pSL, const std::string& fileName):Map(pSL,fileName) {}
+	MapEditor(const Library<Theme>* const pThemes, const UVec2& size);
+	MapEditor(const Library<Theme>* const pThemes):Map(pThemes) {}
 
 	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
-	bool testTile(const UVec2& position, const TileType tileType)const;
-
-	bool setTile(const UVec2& position, const TileType tileType);
-	bool setTile(const UVec2& position, const UnitType unitType);
+	bool setTile(const UVec2& position, const std::string& tileName);
+	bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 
 	bool save(const std::string& fileName);
 };
@@ -163,17 +161,14 @@ public:
  * \param type the type of building (if HQ, setHQ is called)
  */
 
-/*! \fn MapEditor::MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size)
- * \brief Create an empty map, with only T_Plain
- * \param pSL the SpriteLoader to load the sprites used by the map
- * \param themeName the name of the theme to load
+/*! \fn MapEditor::MapEditor(const Library<Theme>* const pThemes, const UVec2& size)
+ * \brief Create an empty map filled with first tile available (id 0)
+ * \param pThemes Library of themes available
  * \param size the size of the map wanted
  */
 
-/*! \fn MapEditor::MapEditor(NE::SpriteLoader* const pSL, const std::string& fileName)
- * \brief Load the map to edit it.
- * \param pSL the SpriteLoader to load the sprites used by the map
- * \param fileName the name of the file to load
+/*! \fn MapEditor::MapEditor(const Library<Theme>* const pThemes)
+ * \param pThemes Library of themes available
  */
 
 /*! \fn bool MapEditor::draw(const NE::Renderer& r, const Camera& c, const unsigned int time)

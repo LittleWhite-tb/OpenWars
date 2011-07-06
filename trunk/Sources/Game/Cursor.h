@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,17 +27,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../NEngine/InputManager.h"
+#include "NEngine/InputManager.h"
 
-#include "../Game/Tile.h"
-#include "../Types/Vec2.h"
+#include "Game/Tile.h"
+#include "Types/Vec2.h"
 
+namespace NE { class Renderer; }
+namespace NE { class SpriteLoader; }
+
+class AnimatedSprite;
 class Map;
 class Camera;
-struct Tile;
-
-namespace NE { class SpriteLoader; }
-class AnimatedSprite;
 
 class Cursor
 {
@@ -58,8 +58,7 @@ public:
 	Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
 	virtual ~Cursor(void);
 
-	Tile getTileUnderCursor(void)const;
-	TileType getTileTypeUnderCursor(void)const;
+	const Tile* getTileUnderCursor(void)const;
 
 	UVec2 getPosition()const { return position; }
 

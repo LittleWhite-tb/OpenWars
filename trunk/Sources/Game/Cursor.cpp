@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -63,14 +63,9 @@ Cursor :: ~Cursor(void)
 	LDebug << "Cursor deleted";
 }
 
-Tile Cursor :: getTileUnderCursor(void)const
+const Tile* Cursor :: getTileUnderCursor(void)const
 {
 	return pMap->getTile(this->position);
-}
-
-TileType Cursor :: getTileTypeUnderCursor(void)const
-{
-	return pMap->getTileType(this->position);
 }
 
 bool Cursor :: move(const NE::InputManager::ArrowsDirection ad)

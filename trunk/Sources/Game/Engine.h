@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,6 +27,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "Library.h"
+#include "Engine/Theme.h"
+
 namespace NE { class NEngine; }
 
 class VTime;
@@ -35,6 +38,7 @@ class Engine
 {
 protected:
 	NE::NEngine* pNE;            /*!< Native engine to use in the Engine */
+	Library<Theme> themeLibrary;				/*!< Sprites Theme */
 
 	VTime* pVT;					/*!< The virtual time for synchronisation */
 
@@ -44,9 +48,26 @@ public:
 
 	virtual bool init(void);
 
+	void loadTheme(const std::string& themeName);
+	void loadThemeList(const std::string& listPath);
 	virtual bool load(const std::string& mapName)=0;
 
 	virtual bool run(void)=0;
+};
+
+class EngineException : public std::exception
+{
+private:
+	std::string message;	/*!< error message to display */
+
+public:
+	EngineException(const std::string& userMessage):message(std::string("Game Engine failed: '") + userMessage + std::string("'")) {}
+    virtual ~EngineException(void)throw() {}
+
+	virtual const char* what() const throw()
+	{
+		return message.c_str();
+	}
 };
 
 /*! \class Engine Engine.h "Engine/Engine.h"
@@ -74,9 +95,34 @@ public:
  * \return true if all goes fine
  */
 
+/*! \fn void Engine::loadTheme(const std::string& themeName)
+ * \brief Load the theme called themeName
+ * \param themeName
+ * Can throw EngineException if something goes wrong
+ */
+
+/*! \fn virtual bool Engine::loadThemeList(const std::string& listPath);
+ * \brief Load the themes from a XML list
+ * \param listPath name of the file to read, containing the list of themes
+ * Can throw EngineException if something goes wrong
+ */
+
 /*! \fn virtual bool Engine::run(void)=0
  * \brief Start the main loop
  * \return true if all goes fine
+ */
+
+/*! \class EngineException EngineException.h "Game/Engine.h"
+ *  \brief Exception related to engine failure
+ */
+
+/*! \fn EngineException::EngineException(const std::string& userMessage)
+ * Create a message of the format: "Game Engine failed: 'USER_MESSAGE'"
+ * \param userMessage the message from user to display
+ */
+
+/*! \fn virtual const char* EngineException::what()const throw()
+ * \return the error message
  */
 
 #endif

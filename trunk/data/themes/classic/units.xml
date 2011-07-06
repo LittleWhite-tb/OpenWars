@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<units>
+	<unit id='0' classId='0' faction='0'>	
+		<internalName>INFANTRY</internalName>
+		<name>Inftry</name>
+		<filename>r_infantry.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>
+		<isBoat>0</isBoat>
+		<isFlight>0</isFlight>
+		
+		<canAttackGround>1</canAttackGround>
+		<canAttackBoat>0</canAttackBoat>
+		<canAttackFlight>0</canAttackFlight>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>3</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>1</fuelConsumption>
+		<ammo>3</ammo>
+		
+		<life>10</life>
+		
+		<price>1000</price>
+	</unit>
+	
+	<unit id='1' classId='0' faction='0'>	
+		<internalName>BAZOOKA</internalName>
+		<name>Mech</name>
+		<filename>r_bazooka.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>2</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>1</fuelConsumption>
+		<ammo>3</ammo>
+		
+		<life>10</life>
+		
+		<price>3000</price>
+	</unit>
+	
+	<unit id='2' classId='1' faction='0'>	
+		<internalName>RECON</internalName>
+		<name>Recon</name>
+		<filename>r_recon.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>6</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>4000</price>
+	</unit>
+	
+	<unit id='3' classId='1' faction='0'>	
+		<internalName>TANK</internalName>
+		<name>Tank</name>
+		<filename>r_tank.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>5</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>7000</price>
+	</unit>
+	
+	<unit id='4' classId='1' faction='0'>	
+		<internalName>TANKM</internalName>
+		<name>Md Tank</name>
+		<filename>r_tankm.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>4</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>3</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>16000</price>
+	</unit>
+	
+	<unit id='5' classId='1' faction='0'>	
+		<internalName>NEOTANK</internalName>
+		<name>Neo</name>
+		<filename>r_neo.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>5</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>4</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>22000</price>
+	</unit>
+	
+	<unit id='6' classId='1' faction='0'>	
+		<internalName>APC</internalName>
+		<name>APC</name>
+		<filename>r_apc.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		
+		<movement>4</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>0</ammo>
+		
+		<life>10</life>
+		
+		<price>5000</price>
+	</unit>
+	
+	<unit id='7' classId='1' faction='0'>	
+		<internalName>ARTILLERY</internalName>
+		<name>Artly</name>
+		<filename>r_artillery.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		<canAttackBoat>1</canAttackBoat>
+		
+		<range>
+			<min>2</min>
+			<max>4</max>
+		</range>
+		
+		<movement>3</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>5000</price>
+	</unit>
+	
+	<unit id='8' classId='1' faction='0'>	
+		<internalName>ROCKETS</internalName>
+		<name>Rckts</name>
+		<filename>r_rockets.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackGround>1</canAttackGround>
+		<canAttackBoat>1</canAttackBoat>
+		
+		<range>
+			<min>3</min>
+			<max>6</max>
+		</range>
+		
+		<movement>3</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>15000</price>
+	</unit>
+	
+	<unit id='9' classId='1' faction='0'>	
+		<internalName>ANTIAIR</internalName>
+		<name>A-air</name>
+		<filename>r_aair.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackFlight>1</canAttackFlight>
+		
+		<range>
+			<min>1</min>
+			<max>1</max>
+		</range>
+		
+		<movement>5</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>8000</price>
+	</unit>
+	
+	<unit id='10' classId='1' faction='0'>	
+		<internalName>MISSILES</internalName>
+		<name>Mssls</name>
+		<filename>r_missiles.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isGround>1</isGround>		
+		<canAttackFlight>1</canAttackFlight>
+		
+		<range>
+			<min>3</min>
+			<max>6</max>
+		</range>
+		
+		<movement>5</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>12000</price>
+	</unit>
+	
+	<unit id='11' classId='2' faction='0'>	
+		<internalName>LANDER</internalName>
+		<name>Lndr</name>
+		<filename>r_lander.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isBoat>1</isBoat>		
+		
+		<movement>3</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>0</ammo>
+		
+		<life>10</life>
+		
+		<price>12000</price>
+	</unit>
+	
+	<unit id='12' classId='3' faction='0'>	
+		<internalName>SUB</internalName>
+		<name>Sub</name>
+		<filename>r_sub.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isBoat>1</isBoat>	
+		<canAttackBoat>1</canAttackBoat>
+		
+		<movement>3</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>3</ammo>
+		
+		<life>10</life>
+		
+		<price>20000</price>
+	</unit>
+	
+	<unit id='13' classId='4' faction='0'>	
+		<internalName>BOMBERSHIP</internalName>
+		<name>BShp</name>
+		<filename>r_bship.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isBoat>1</isBoat>	
+		<canAttackGround>1</canAttackGround>
+		<canAttackBoat>1</canAttackBoat>
+		
+		<movement>4</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>28000</price>
+	</unit>
+	
+	<unit id='14' classId='5' faction='0'>	
+		<internalName>CRUISER</internalName>
+		<name>Crsr</name>
+		<filename>r_cruiser.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isBoat>1</isBoat>	
+		<canAttackBoat>1</canAttackBoat>
+		<canAttackFlight>1</canAttackFlight>
+		
+		<movement>4</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>2</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>18000</price>
+	</unit>
+	
+	<unit id='15' classId='6' faction='0'>	
+		<internalName>TCOPTER</internalName>
+		<name>T Cptr</name>
+		<filename>r_tcopter.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isFlight>1</isFlight>	
+		
+		<movement>6</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>5</fuelConsumption>
+		<ammo>0</ammo>
+		
+		<life>10</life>
+		
+		<price>5000</price>
+	</unit>
+	
+	<unit id='16' classId='6' faction='0'>	
+		<internalName>COPTER</internalName>
+		<name>B Cptr</name>
+		<filename>r_copter.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isFlight>1</isFlight>
+		<canAttackGround>1</canAttackGround>
+		<canAttackFlight>1</canAttackFlight>
+		
+		<movement>6</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>5</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>9000</price>
+	</unit>
+	
+	<unit id='17' classId='7' faction='0'>	
+		<internalName>FIGHTER</internalName>
+		<name>Fghtr</name>
+		<filename>r_fighter.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isFlight>1</isFlight>
+		<canAttackFlight>1</canAttackFlight>
+		
+		<movement>7</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>5</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>20000</price>
+	</unit>
+	
+	<unit id='18' classId='7' faction='0'>	
+		<internalName>BOMBER</internalName>
+		<name>Bmbr</name>
+		<filename>r_bomber.png</filename>
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<!-- <animationTime>200</animationTime> -->
+		<isFlight>1</isFlight>
+		<canAttackGround>1</canAttackGround>
+		<canAttackBoat>1</canAttackBoat>
+		
+		<movement>7</movement>
+		<fuel>99</fuel>
+		<fuelConsumption>5</fuelConsumption>
+		<ammo>5</ammo>
+		
+		<life>10</life>
+		
+		<price>22000</price>
+	</unit>
+</units>

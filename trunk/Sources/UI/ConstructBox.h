@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -43,13 +43,13 @@ class Font;
 
 struct ConstructUnitView
 {
-	UnitType unitType;				/*!< Unit type */
+	const UnitTemplate* pUnitTemplate;				/*!< Unit type */
 	AnimatedSprite* pUnitSprite;	/*!< sprite for the unit */
 	std::string unitName;			/*!< name of the unit */
 	unsigned int unitPrice;			/*!< price of the unit */
 
-	ConstructUnitView(const UnitType unitType, AnimatedSprite* const pUnitSprite, const std::string& unitName, const unsigned int unitPrice)
-		:unitType(unitType),pUnitSprite(pUnitSprite),unitName(unitName),unitPrice(unitPrice) {}
+	ConstructUnitView(const UnitTemplate* pUnitTemplate, AnimatedSprite* const pUnitSprite, const std::string& unitName, const unsigned int unitPrice)
+		:pUnitTemplate(pUnitTemplate),pUnitSprite(pUnitSprite),unitName(unitName),unitPrice(unitPrice) {}
 };
 
 class ConstructBox
@@ -79,7 +79,7 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
 
 	void update(const NE::InputManager::ArrowsDirection kd);
 
-	UnitType getUnitSelected(void)const;
+	const UnitTemplate* getUnitSelected(void)const;
 };
 
 /*! \class ConstructBox ConstructBox.h "UI/ConstructBox.h"

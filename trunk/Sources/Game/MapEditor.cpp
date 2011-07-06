@@ -3,7 +3,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -30,71 +30,34 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../NEngine/SpriteLoader.h"
+#include "NEngine/SpriteLoader.h"
 
-#include "../Game/Camera.h"
+#include "Engine/AnimatedSprite.h"
+#include "Engine/Theme.h"
+#include "Game/Params.h"
+
+#include "Game/Params.h"
+#include "Game/Camera.h"
 #include "Tile.h"
 #include "Unit.h"
 
-#include "../Utils/Logger.h"
+#include "Utils/Logger.h"
 
-#include "../globals.h"
+#include "globals.h"
 
-MapEditor :: MapEditor(NE::SpriteLoader* const pSL, const std::string& themeName, const UVec2& size)
-	:Map()
+MapEditor :: MapEditor(const Library<Theme>* const pThemes, const UVec2& size)
+	:Map(pThemes)
 {
 	width = size.x;
 	height = size.y;
 	valid = true;	// By default the map is valid, but maybe just after, we will fail, so invalidate it
-	m_themeName = themeName;
 
-	this->loadGraphics(pSL);
-
-	map = new TileType*[this->height];
-	if ( map == NULL )
+	this->allocateMemory(size);
+	for ( unsigned int y = 0 ; y < size.y ; y++ )
 	{
-		LError << "Error to allocate memory for the map! (at height)";
-		valid = false;
-	}
-	else
-	{
-		for ( unsigned int y = 0 ; y < this->height ; y++ )
+		for ( unsigned int x = 0 ; x < size.x ; x++ )
 		{
-			map[y] = new TileType[this->width];
-			if ( map[y] == NULL )
-			{
-				LError << "Error to allocate memory for the map! (at width (" << y << "))";
-				valid = false;
-			}
-		}
-	}
-
-	// Unit map allocation
-	unitViewMap = new UnitType*[this->height];
-	if ( unitViewMap == NULL )
-	{
-		LError << "Error to allocate memory for the unitMap! (at height)";
-		valid = false;
-	}
-	else
-	{
-		for ( unsigned int y = 0 ; y < this->height ; y++ )
-		{
-			unitViewMap[y] = new UnitType[this->width];
-			if ( unitViewMap[y] == NULL )
-			{
-				LError << "Error to allocate memory for the unitMap! (at width (" << y << "))";
-				valid = false;
-			}
-		}
-	}
-
-	for ( unsigned int y = 0 ; y < this->height ; y++ )
-	{
-		for ( unsigned int x = 0 ; x < this->width ; x++ )
-		{
-			map[y][x] = TT_Plain;
-			unitViewMap[y][x] = UT_NO_UNIT;		// Default is not unit
+			tileMap[y][x] = pThemes->get(themeName)->getTile(0);
 		}
 	}
 
@@ -121,16 +84,16 @@ bool MapEditor :: draw(const NE::Renderer& r, const Camera& c, const unsigned in
 		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
 		{
 			// Calculation of the offset for sprite with higher size than normal Tile (e.g.: Mountains)
-			unsigned int yOffset = tilesSet[map[y][x]].pASprite->getSize().height - TILE_DEFAULT_HEIGHT;
+			unsigned int yOffset = tileMap[y][x]->getSprite()->getSize().height - TILE_DEFAULT_HEIGHT;
 
 			// Apply offset
 			tilePos.y -= yOffset;
 
-			if ( unitViewMap[y][x] != UT_NO_UNIT )	// If we have a unit
+			if ( unitMap[y][x].state != US_NO_UNIT )	// If we have a unit
 			{
-                bError &= unitsSet[unitViewMap[y][x]].pASprite->draw(r,tilePos,time);
+                bError &= unitMap[y][x].getSprite()->draw(r,tilePos,time);
 			}
-			tilePos.x += tilesSet[map[y][x]].pASprite->getSize().width;
+			tilePos.x += tileMap[y][x]->getSprite()->getSize().width;
 
 			// Remove offset ( to not affect other sprite )
 			tilePos.y += yOffset;
@@ -157,29 +120,32 @@ void MapEditor :: checkCoherencyAround(const UVec2& position)
 	checkCoherency(UVec2(position.x+1,position.y-1)); // Up Right
 
 	// Check if the unit that was here can stay or not
+	/*
+	TODO back this line
 	if ( this->Map::testTile(position,this->getUnitType(position)) == false )
 	{
 		// If not, removing it
-		this->setTile(position,UT_NO_UNIT);
+		unitMap[position.y][position.x].state = US_NO_UNIT;
 	}
+	*/
 }
 
 void MapEditor :: checkCoherency(const UVec2& position)
 {
 	// We check the type
-	if ( this->getTileType(position) != TT_Invalid )
+	if ( isValidPosition(position) )
 	{
-		if ( this->getTile(position).isRoad )	// For road, we have to count the number of road.
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isRoad",false) )	// For road, we have to count the number of road.
 		{
 			checkCoherencyForRoad(position);
 		}
 		
-		if ( this->getTile(position).isSea )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isSea",false) )
 		{
 			checkCoherencyForSee(position);
 		}
 		
-		if ( this->getTile(position).isRiver )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isRiver",false) )
 		{
 			checkCoherencyForRiver(position);
 		}
@@ -196,28 +162,36 @@ void MapEditor :: checkCoherencyForRoad(const UVec2& position)
 	bool onUp = false;
 	bool onDown = false;
 		
-	if ( this->getTile(UVec2(position.x-1,position.y)).isRoad || this->getTile(UVec2(position.x-1,position.y)).isBridge || this->getTile(UVec2(position.x-1,position.y)).isHQ )	// Left
+	if ( this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isRoad",false) || 
+		this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isBridge",false) || 
+		this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isHQ",false) )	// Left
 	{
 		nbRoadAround++;
 		isHorizontalRoad = true;
 		onLeft = true;
 	}
 	
-	if ( this->getTile(UVec2(position.x+1,position.y)).isRoad || this->getTile(UVec2(position.x+1,position.y)).isBridge || this->getTile(UVec2(position.x+1,position.y)).isHQ ) // Right
+	if ( this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isRoad",false) || 
+		this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isBridge",false) || 
+		this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isHQ",false) ) // Right
 	{
 		nbRoadAround++;
 		isHorizontalRoad = true;
 		onRight = true;
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y-1)).isRoad || this->getTile(UVec2(position.x,position.y-1)).isBridge || this->getTile(UVec2(position.x,position.y-1)).isHQ ) // Up
+	if ( this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isRoad",false) || 
+		this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isBridge",false) || 
+		this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isHQ",false) ) // Up
 	{
 		nbRoadAround++;
 		isVerticalRoad = true;
 		onUp = true;
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y+1)).isRoad || this->getTile(UVec2(position.x,position.y+1)).isBridge || this->getTile(UVec2(position.x,position.y+1)).isHQ ) // Down
+	if ( this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isRoad",false) || 
+		this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isBridge",false) || 
+		this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isHQ",false) ) // Down
 	{
 		nbRoadAround++;
 		isVerticalRoad = true;
@@ -227,74 +201,74 @@ void MapEditor :: checkCoherencyForRoad(const UVec2& position)
 	switch(nbRoadAround)
 	{
 		case 0:
-			this->map[position.y][position.x] = TT_Road_H;	// The default one
+			this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_H");	// The default one
 			break;
 		case 1:
 			if ( isVerticalRoad )
 			{
-				this->map[position.y][position.x] = TT_Road_V;	// The default one
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_V");	// The default one
 			}
 			else if ( isHorizontalRoad )
 			{
-				this->map[position.y][position.x] = TT_Road_H;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_H");
 			}
 			break;
 		case 2: // Can be a line or a corner
 			// Line case
 			if ( isVerticalRoad && !isHorizontalRoad )
 			{
-				this->map[position.y][position.x] = TT_Road_V;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_V");
 			}
 
 			if ( isHorizontalRoad && !isVerticalRoad )
 			{
-				this->map[position.y][position.x] = TT_Road_H;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_H");
 			}
 
 			if ( onLeft && onUp )
 			{
-				this->map[position.y][position.x] = TT_Road_TL;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_TL");
 			}
 
 			if ( onRight && onUp )
 			{
-				this->map[position.y][position.x] = TT_Road_TR;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_TR");
 			}
 
 			if ( onLeft && onDown )
 			{
-				this->map[position.y][position.x] = TT_Road_BL;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_BL");
 			}
 
 			if ( onRight && onDown )
 			{
-				this->map[position.y][position.x] = TT_Road_BR;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_BR");
 			}
 			break;
 
 		case 3: // Will be a T
 			if ( onLeft && onRight && onUp )
 			{
-				this->map[position.y][position.x] = TT_Road_T_T;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_T_T");
 			}
 
 			if ( onLeft && onRight && onDown )
 			{
-				this->map[position.y][position.x] = TT_Road_T_B;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_T_B");
 			}
 
 			if ( onUp && onDown && onLeft )
 			{
-				this->map[position.y][position.x] = TT_Road_T_L;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_T_L");
 			}
 
 			if ( onUp && onDown && onRight )
 			{
-				this->map[position.y][position.x] = TT_Road_T_R;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_T_R");
 			}
 			break;
 		case 4:
-			this->map[position.y][position.x] = TT_Road_X;
+			this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_X");
 			break;
 	}
 }
@@ -312,7 +286,7 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 	bool onUpRight = false;
 	bool onDownLeft = false;
 	bool onDownRight = false;
-	bool isBeach = this->getTile(position).isBeach;
+	bool isBeach = this->getTile(position)->getParams()->getAs<bool>("isBeach",false);
 	bool beachOnLeft = false;
 	bool beachOnRight = false;
 	bool beachOnDown = false;
@@ -320,76 +294,84 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 	unsigned char nbSeeDiagonal = 0;
 		
 	// Check the 8 tiles around and set the flags
-	if ( this->getTile(UVec2(position.x-1,position.y)).isSea || this->getTile(UVec2(position.x-1,position.y)).isBridge )	// Left
+	if ( this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isBridge",false) )	// Left
 	{
 		nbSeeAround++;
 		isHorizontalSee = true;
 		onLeft = true;
 
-		if ( this->getTile(UVec2(position.x-1,position.y)).isBeach )
+		if ( this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isBeach",false) )
 		{
 			beachOnLeft = true;
 		}
 	}
 	
-	if ( this->getTile(UVec2(position.x+1,position.y)).isSea || this->getTile(UVec2(position.x+1,position.y)).isBridge ) // Right
+	if ( this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isBridge",false) ) // Right
 	{
 		nbSeeAround++;
 		isHorizontalSee = true;
 		onRight = true;
 
-		if ( this->getTile(UVec2(position.x+1,position.y)).isBeach )
+		if ( this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isBeach",false) )
 		{
 			beachOnRight = true;
 		}
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y-1)).isSea || this->getTile(UVec2(position.x,position.y-1)).isBridge ) // Up
+	if ( this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isBridge",false) ) // Up
 	{
 		nbSeeAround++;
 		isVerticalSee = true;
 		onUp = true;
 
-		if ( this->getTile(UVec2(position.x,position.y-1)).isBeach )
+		if ( this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isBeach",false) )
 		{
 			beachOnUp = true;
 		}
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y+1)).isSea || this->getTile(UVec2(position.x,position.y+1)).isBridge ) // Down
+	if ( this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isBridge",false) ) // Down
 	{
 		nbSeeAround++;
 		isVerticalSee = true;
 		onDown = true;
 
-		if ( this->getTile(UVec2(position.x,position.y+1)).isBeach )
+		if ( this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isBeach",false) )
 		{
 			beachOnDown = true;
 		}
 	}
 
-	if ( this->getTile(UVec2(position.x-1,position.y-1)).isSea || this->getTile(UVec2(position.x-1,position.y-1)).isBridge ) // Up Left
+	if ( this->getTile(UVec2(position.x-1,position.y-1))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x-1,position.y-1))->getParams()->getAs<bool>("isBridge",false) ) // Up Left
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
 		onUpLeft = true;
 	}
 
-	if ( this->getTile(UVec2(position.x+1,position.y-1)).isSea || this->getTile(UVec2(position.x+1,position.y-1)).isBridge ) // Up Right
+	if ( this->getTile(UVec2(position.x+1,position.y-1))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x+1,position.y-1))->getParams()->getAs<bool>("isBridge",false) ) // Up Right
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
 		onUpRight = true;
 	}
 
-	if ( this->getTile(UVec2(position.x-1,position.y+1)).isSea || this->getTile(UVec2(position.x-1,position.y+1)).isBridge ) // Down Left
+	if ( this->getTile(UVec2(position.x-1,position.y+1))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x-1,position.y+1))->getParams()->getAs<bool>("isBridge",false) ) // Down Left
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
 		onDownLeft = true;
 	}
 
-	if ( this->getTile(UVec2(position.x+1,position.y+1)).isSea || this->getTile(UVec2(position.x+1,position.y+1)).isBridge ) // Down Right
+	if ( this->getTile(UVec2(position.x+1,position.y+1))->getParams()->getAs<bool>("isSea",false) || 
+		this->getTile(UVec2(position.x+1,position.y+1))->getParams()->getAs<bool>("isBridge",false) ) // Down Right
 	{
 		// nbSeeAround++;
 		nbSeeDiagonal++;
@@ -401,7 +383,7 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 	{
 		case 0:
 			// Diagonals are not important here
-			this->map[position.y][position.x] = TT_Coast;	// The default one
+			this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast");	// The default one
 			break;
 		case 1:
 			// Diagonals are not important here
@@ -409,44 +391,44 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 			{
 				if ( isBeach )
 				{
-					this->map[position.y][position.x] = TT_Beach_ER;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_ER");
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_ER;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_ER");
 				}
 			}
 			else if ( onRight )
 			{
 				if ( isBeach )
 				{
-					this->map[position.y][position.x] = TT_Beach_EL;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_EL");
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_EL;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_EL");
 				}
 			}
 			else if ( onUp )
 			{
 				if ( isBeach )
 				{
-					this->map[position.y][position.x] = TT_Beach_EB;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_EB");
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_EB;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_EB");
 				}
 			}
 			else if ( onDown )
 			{
 				if ( isBeach )
 				{
-					this->map[position.y][position.x] = TT_Beach_ET;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_ET");
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_ET;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_ET");
 				}
 			}
 			break;
@@ -454,12 +436,12 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 			// Line case
 			if ( isVerticalSee && !isHorizontalSee )
 			{
-				this->map[position.y][position.x] = TT_Coast_V;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_V");
 			}
 
 			if ( isHorizontalSee && !isVerticalSee )
 			{
-				this->map[position.y][position.x] = TT_Coast_H;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_H");
 			}
 
 			// Corners
@@ -469,28 +451,28 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 				{
 					if ( isBeach )
 					{
-						this->map[position.y][position.x] = TT_Beach_BR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BR");
 						if ( beachOnUp )
 						{
-							this->map[position.y][position.x] = TT_Beach_BR_T;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BR_T");
 						}
 						else if ( beachOnLeft )
 						{
-							this->map[position.y][position.x] = TT_Beach_BR_L;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BR_L");
 						}
 						if ( beachOnUp && beachOnLeft )
 						{
-							this->map[position.y][position.x] = TT_Beach_BR_2;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BR_2");
 						}
 					}
 					else
 					{
-						this->map[position.y][position.x] = TT_Coast_BR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_BR");
 					}
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_RBR;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_RBR");
 				}
 			}
 
@@ -500,28 +482,28 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 				{
 					if ( isBeach )
 					{
-						this->map[position.y][position.x] = TT_Beach_BL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BL");
 						if ( beachOnUp )
 						{
-							this->map[position.y][position.x] = TT_Beach_BL_T;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BL_T");
 						}
 						else if ( beachOnRight )
 						{
-							this->map[position.y][position.x] = TT_Beach_BL_R;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BL_R");
 						}
 						if ( beachOnUp && beachOnRight )
 						{
-							this->map[position.y][position.x] = TT_Beach_BL_2;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_BL_2");
 						}
 					}
 					else
 					{
-						this->map[position.y][position.x] = TT_Coast_BL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_BL");
 					}					
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_RBL;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_RBL");
 				}
 			}
 
@@ -531,28 +513,28 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 				{
 					if ( isBeach )
 					{
-						this->map[position.y][position.x] = TT_Beach_TR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TR");
 						if ( beachOnDown )
 						{
-							this->map[position.y][position.x] = TT_Beach_TR_B;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TR_B");
 						}
 						else if ( beachOnLeft )
 						{
-							this->map[position.y][position.x] = TT_Beach_TR_L;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TR_L");
 						}
 						if ( beachOnDown && beachOnLeft )
 						{
-							this->map[position.y][position.x] = TT_Beach_TR_2;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TR_2");
 						}
 					}
 					else
 					{
-						this->map[position.y][position.x] = TT_Coast_TR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_TR");
 					}
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_RTR;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_RTR");
 				}
 			}
 
@@ -562,28 +544,28 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 				{
 					if ( isBeach )
 					{
-						this->map[position.y][position.x] = TT_Beach_TL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TL");
 						if ( beachOnDown )
 						{
-							this->map[position.y][position.x] = TT_Beach_TL_B;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TL_B");
 						}
 						else if ( beachOnRight )
 						{
-							this->map[position.y][position.x] = TT_Beach_TL_R;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TL_R");
 						}
 						if ( beachOnDown && beachOnRight )
 						{
-							this->map[position.y][position.x] = TT_Beach_TL_2;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_TL_2");
 						}
 					}
 					else
 					{
-						this->map[position.y][position.x] = TT_Coast_TL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_TL");
 					}
 				}
 				else
 				{
-					this->map[position.y][position.x] = TT_Coast_RTL;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_RTL");
 				}
 			}
 
@@ -592,46 +574,46 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 		case 3: // Can be a T, or a corner 
 			if ( onLeft && onRight && onUp )
 			{
-				this->map[position.y][position.x] = TT_Coast_T_B;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_B");
 
 				if ( nbSeeDiagonal >= 1 )
 				{
 					if ( onUpLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_BR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_BR");
 					}
 					
 					if ( onUpRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_BL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_BL");
 					}	
 
 					if ( onUpLeft && onUpRight )
 					{
 						if ( isBeach )
 						{
-							this->map[position.y][position.x] = TT_Beach_B;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_B");
 							if ( beachOnLeft )
 							{
-								this->map[position.y][position.x] = TT_Beach_B_L;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_B_L");
 							}
 							else if ( beachOnRight )
 							{
-								this->map[position.y][position.x] = TT_Beach_B_R;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_B_R");
 							}
 							if ( beachOnRight && beachOnLeft )
 							{
-								this->map[position.y][position.x] = TT_Beach_B_2;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_B_2");
 							}
 						}
 						else
 						{
-							this->map[position.y][position.x] = TT_Coast_B;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_B");
 						}
 
-						if ( this->getTileType(UVec2(position.x,position.y+1)) == TT_River_V && this->getTileType(UVec2(position.x,position.y+2)) == TT_River_V )
+						if ( this->getTile(UVec2(position.x,position.y+1)) == pThemes->get(themeName)->getTile("River_V") && this->getTile(UVec2(position.x,position.y+2)) == pThemes->get(themeName)->getTile("River_V") )
 						{
-							this->map[position.y][position.x] = TT_River_See_B;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_B");
 						}
 					}
 				}
@@ -639,46 +621,46 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 
 			if ( onLeft && onRight && onDown )
 			{
-				this->map[position.y][position.x] = TT_Coast_T_T;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_T");
 
 				if ( nbSeeDiagonal >= 1 )
 				{
 					if ( onDownLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_TR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_TR");
 					}
 					
 					if ( onDownRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_TL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_TL");
 					}	
 
 					if ( onDownLeft && onDownRight )
 					{
 						if ( isBeach )
 						{
-							this->map[position.y][position.x] = TT_Beach_T;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_T");
 							if ( beachOnLeft )
 							{
-								this->map[position.y][position.x] = TT_Beach_T_L;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_T_L");
 							}
 							else if ( beachOnRight )
 							{
-								this->map[position.y][position.x] = TT_Beach_T_R;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_T_R");
 							}
 							if ( beachOnRight && beachOnLeft )
 							{
-								this->map[position.y][position.x] = TT_Beach_T_2;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_T_2");
 							}
 						}
 						else
 						{
-							this->map[position.y][position.x] = TT_Coast_T;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T");
 						}
 
-						if ( this->getTileType(UVec2(position.x,position.y-1)) == TT_River_V && this->getTileType(UVec2(position.x,position.y-2)) == TT_River_V )
+						if ( this->getTile(UVec2(position.x,position.y-1)) == pThemes->get(themeName)->getTile("River_V") && this->getTile(UVec2(position.x,position.y-2)) == pThemes->get(themeName)->getTile("River_V") )
 						{
-							this->map[position.y][position.x] = TT_River_See_T;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_T");
 						}
 					}
 				}
@@ -686,46 +668,46 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 
 			if ( onUp && onDown && onLeft )
 			{
-				this->map[position.y][position.x] = TT_Coast_T_R;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_R");
 
 				if ( nbSeeDiagonal >= 1 )
 				{
 					if ( onUpLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_RB;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_RB");
 					}
 					
 					if ( onDownLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_RT;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_RT");
 					}	
 
 					if ( onUpLeft && onDownLeft )
 					{
 						if ( isBeach )
 						{
-							this->map[position.y][position.x] = TT_Beach_R;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_R");
 							if ( beachOnUp )
 							{
-								this->map[position.y][position.x] = TT_Beach_R_T;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_R_T");
 							}
 							else if ( beachOnDown )
 							{
-								this->map[position.y][position.x] = TT_Beach_R_B;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_R_B");
 							}
 							if ( beachOnUp && beachOnDown )
 							{
-								this->map[position.y][position.x] = TT_Beach_R_2;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_R_2");
 							}
 						}
 						else
 						{
-							this->map[position.y][position.x] = TT_Coast_R;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_R");
 						}
 
-						if ( this->getTileType(UVec2(position.x+1,position.y)) == TT_River_H && this->getTileType(UVec2(position.x+2,position.y)) == TT_River_H )
+						if ( this->getTile(UVec2(position.x+1,position.y)) == pThemes->get(themeName)->getTile("River_H") && this->getTile(UVec2(position.x+2,position.y)) == pThemes->get(themeName)->getTile("River_H") )
 						{
-							this->map[position.y][position.x] = TT_River_See_R;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_R");
 						}
 					}
 				}
@@ -733,46 +715,46 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 
 			if ( onUp && onDown && onRight )
 			{
-				this->map[position.y][position.x] = TT_Coast_T_L;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_L");
 
 				if ( nbSeeDiagonal >= 1 )
 				{
 					if ( onUpRight)
 					{
-						this->map[position.y][position.x] = TT_Coast_T_LB;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_LB");
 					}
 					
 					if ( onDownRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_T_LT;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_T_LT");
 					}	
 
 					if ( onDownRight && onUpRight )
 					{
 						if ( isBeach )
 						{
-							this->map[position.y][position.x] = TT_Beach_L;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_L");
 							if ( beachOnUp )
 							{
-								this->map[position.y][position.x] = TT_Beach_L_T;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_L_T");
 							}
 							else if ( beachOnDown )
 							{
-								this->map[position.y][position.x] = TT_Beach_L_B;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_L_B");
 							}
 							if ( beachOnUp && beachOnDown )
 							{
-								this->map[position.y][position.x] = TT_Beach_L_2;
+								this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_L_2");
 							}
 						}
 						else
 						{
-							this->map[position.y][position.x] = TT_Coast_L;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_L");
 						}
 
-						if ( this->getTileType(UVec2(position.x-1,position.y)) == TT_River_H && this->getTileType(UVec2(position.x-2,position.y)) == TT_River_H )
+						if ( this->getTile(UVec2(position.x-1,position.y)) == pThemes->get(themeName)->getTile("River_H") && this->getTile(UVec2(position.x-2,position.y)) == pThemes->get(themeName)->getTile("River_H") )
 						{
-							this->map[position.y][position.x] = TT_River_See_L;
+							this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_L");
 						}
 					}
 				}
@@ -784,72 +766,72 @@ void MapEditor :: checkCoherencyForSee(const UVec2& position)
 			switch(nbSeeDiagonal)
 			{
 				case 0:
-					this->map[position.y][position.x] = TT_Coast_X;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_X");
 					break;
 				case 1:
 					if ( onUpLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_XBR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XBR");
 					}
 					if ( onUpRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_XBL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XBL");
 					}
 					if ( onDownLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_XTR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XTR");
 					}
 					if ( onDownRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_XTL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XTL");
 					}
 					break;
 				case 2:
 					if ( onUpLeft && onUpRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_XB;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XB");
 					}
 					if ( onUpLeft && onDownLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_XR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XR");
 					}
 					if ( onDownLeft && onDownRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_XT;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XT");
 					}
 					if ( onDownRight && onUpRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_XL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XL");
 					}
 					if ( onDownRight && onUpLeft )
 					{
-						this->map[position.y][position.x] = TT_Coast_XBLTR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XBLTR");
 					}
 					if ( onDownLeft && onUpRight )
 					{
-						this->map[position.y][position.x] = TT_Coast_XTLBR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Coast_XTLBR");
 					}
 					break;
 				case 3:
 					if ( onDownRight && onUpRight && onUpLeft )
 					{
-						this->map[position.y][position.x] = TT_Sea_BL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Sea_BL");
 					}
 					if ( onUpRight && onUpLeft && onDownLeft )
 					{
-						this->map[position.y][position.x] = TT_Sea_BR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Sea_BR");
 					}
 					if ( onUpLeft && onDownLeft && onDownRight )
 					{
-						this->map[position.y][position.x] = TT_Sea_TR;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Sea_TR");
 					}
 					if ( onDownLeft && onDownRight && onUpRight )
 					{
-						this->map[position.y][position.x] = TT_Sea_TL;
+						this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Sea_TL");
 					}
 					break;
 				case 4:
-					this->map[position.y][position.x] = TT_Sea;
+					this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Sea");
 					break;
 
 				default:
@@ -874,28 +856,28 @@ void MapEditor :: checkCoherencyForRiver(const UVec2& position)
 	bool onUp = false;
 	bool onDown = false;
 		
-	if ( this->getTile(UVec2(position.x-1,position.y)).isRiver || this->getTile(UVec2(position.x-1,position.y)).isBridge )	// Left
+	if ( this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isRiver",false) || this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isBridge",false) )	// Left
 	{
 		nbRiverAround++;
 		isHorizontalRiver = true;
 		onLeft = true;
 	}
 	
-	if ( this->getTile(UVec2(position.x+1,position.y)).isRiver || this->getTile(UVec2(position.x+1,position.y)).isBridge ) // Right
+	if ( this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isRiver",false) || this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isBridge",false) ) // Right
 	{
 		nbRiverAround++;
 		isHorizontalRiver = true;
 		onRight = true;
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y-1)).isRiver || this->getTile(UVec2(position.x,position.y-1)).isBridge ) // Up
+	if ( this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isRiver",false) || this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isBridge",false) ) // Up
 	{
 		nbRiverAround++;
 		isVerticalRiver = true;
 		onUp = true;
 	}
 
-	if ( this->getTile(UVec2(position.x,position.y+1)).isRiver || this->getTile(UVec2(position.x,position.y+1)).isBridge ) // Down
+	if ( this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isRiver",false) || this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isBridge",false) ) // Down
 	{
 		nbRiverAround++;
 		isVerticalRiver = true;
@@ -905,95 +887,111 @@ void MapEditor :: checkCoherencyForRiver(const UVec2& position)
 	switch(nbRiverAround)
 	{
 		case 0:
-			this->map[position.y][position.x] = TT_River_H;	// The default one
+			this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_H");	// The default one
 			break;
 		case 1:
 			if ( isVerticalRiver )
 			{
-				this->map[position.y][position.x] = TT_River_V;	// The default one
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_V");	// The default one
 			}
 			else if ( isHorizontalRiver )
 			{
-				this->map[position.y][position.x] = TT_River_H;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_H");
 			}
 
 			// Test for the river to see tiles
-			if ( onLeft && this->getTile(UVec2(position.x,position.y-1)).isSea && this->getTile(UVec2(position.x,position.y+1)).isSea && this->getTile(UVec2(position.x+1,position.y)).isSea && this->getTile(UVec2(position.x+1,position.y+1)).isSea && this->getTile(UVec2(position.x+1,position.y-1)).isSea )
+			if ( onLeft && this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y+1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y-1))->getParams()->getAs<bool>("isSea",false) )
 			{
-				this->map[position.y][position.x] = TT_River_See_L;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_L");
 			}
 
-			if ( onRight && this->getTile(UVec2(position.x,position.y-1)).isSea && this->getTile(UVec2(position.x,position.y+1)).isSea && this->getTile(UVec2(position.x-1,position.y)).isSea && this->getTile(UVec2(position.x-1,position.y+1)).isSea && this->getTile(UVec2(position.x-1,position.y-1)).isSea )
+			if ( onRight && this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isSea",false) &&
+				this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x-1,position.y+1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x-1,position.y-1))->getParams()->getAs<bool>("isSea",false) )
 			{
-				this->map[position.y][position.x] = TT_River_See_R;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_R");
 			}
 
-			if ( onDown && this->getTile(UVec2(position.x-1,position.y)).isSea && this->getTile(UVec2(position.x+1,position.y)).isSea && this->getTile(UVec2(position.x,position.y-1)).isSea && this->getTile(UVec2(position.x+1,position.y-1)).isSea && this->getTile(UVec2(position.x-1,position.y-1)).isSea )
+			if ( onDown && this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y-1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x-1,position.y-1))->getParams()->getAs<bool>("isSea",false) )
 			{
-				this->map[position.y][position.x] = TT_River_See_B;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_B");
 			}
 
-			if ( onUp && this->getTile(UVec2(position.x-1,position.y)).isSea && this->getTile(UVec2(position.x+1,position.y)).isSea && this->getTile(UVec2(position.x,position.y+1)).isSea && this->getTile(UVec2(position.x+1,position.y+1)).isSea && this->getTile(UVec2(position.x-1,position.y+1)).isSea )
+			if ( onUp && this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x+1,position.y+1))->getParams()->getAs<bool>("isSea",false) && 
+				this->getTile(UVec2(position.x-1,position.y+1))->getParams()->getAs<bool>("isSea",false) )
 			{
-				this->map[position.y][position.x] = TT_River_See_T;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_See_T");
 			}
 			break;
 		case 2: // Can be a line or a corner
 			// Line case
 			if ( isVerticalRiver && !isHorizontalRiver )
 			{
-				this->map[position.y][position.x] = TT_River_V;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_V");
 			}
 
 			if ( isHorizontalRiver && !isVerticalRiver )
 			{
-				this->map[position.y][position.x] = TT_River_H;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_H");
 			}
 
 			if ( onLeft && onUp )
 			{
-				this->map[position.y][position.x] = TT_River_BR;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_BR");
 			}
 
 			if ( onRight && onUp )
 			{
-				this->map[position.y][position.x] = TT_River_BL;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_BL");
 			}
 
 			if ( onLeft && onDown )
 			{
-				this->map[position.y][position.x] = TT_River_TR;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_TR");
 			}
 
 			if ( onRight && onDown )
 			{
-				this->map[position.y][position.x] = TT_River_TL;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_TL");
 			}
 			break;
 
 		case 3: // Will be a T
 			if ( onLeft && onRight && onUp )
 			{
-				this->map[position.y][position.x] = TT_River_T_B;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_T_B");
 			}
 
 			if ( onLeft && onRight && onDown )
 			{
-				this->map[position.y][position.x] = TT_River_T_T;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_T_T");
 			}
 
 			if ( onUp && onDown && onLeft )
 			{
-				this->map[position.y][position.x] = TT_River_T_R;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_T_R");
 			}
 
 			if ( onUp && onDown && onRight )
 			{
-				this->map[position.y][position.x] = TT_River_T_L;
+				this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_T_L");
 			}
 			break;
 		case 4:
-			this->map[position.y][position.x] = TT_River_X;
+			this->tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_X");
 			break;
 	}
 }
@@ -1001,7 +999,7 @@ void MapEditor :: checkCoherencyForRiver(const UVec2& position)
 bool MapEditor :: setPlain(const UVec2& position)
 {
 	// The plain will be set on the actual tile, in any case
-	map[position.y][position.x] = TT_Plain;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Plain");
 
 	checkCoherencyAround(position);
 
@@ -1011,7 +1009,7 @@ bool MapEditor :: setPlain(const UVec2& position)
 bool MapEditor :: setTree(const UVec2& position)
 {
 	// The tree will be set on the actual tile, in any case
-	map[position.y][position.x] = TT_Tree;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Tree");
 
 	checkCoherencyAround(position);
 
@@ -1021,7 +1019,7 @@ bool MapEditor :: setTree(const UVec2& position)
 bool MapEditor :: setMountain(const UVec2& position)
 {
 	// The tree will be set on the actual tile, in any case
-	map[position.y][position.x] = TT_Mountain_2;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Mountain_2");
 
 	checkCoherencyAround(position);
 
@@ -1030,13 +1028,13 @@ bool MapEditor :: setMountain(const UVec2& position)
 
 bool MapEditor :: setRoad(const UVec2& position)
 {
-	if (this->getTileType(position) == TT_River_H || this->getTileType(position) == TT_River_V)
+	if (this->getTile(position) == pThemes->get(themeName)->getTile("River_H") || this->getTile(position) == pThemes->get(themeName)->getTile("River_V") )
 	{
 		// We use the function setBridge, because, the function has all the logic needed (I don"t want to rewrite it ;))
 		return setBridge(position);
 	}
 
-	map[position.y][position.x] = TT_Road_H;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Road_H");
 
 	checkCoherencyForRoad(position);
 	checkCoherencyAround(position);
@@ -1046,7 +1044,7 @@ bool MapEditor :: setRoad(const UVec2& position)
 
 bool MapEditor :: setSea(const UVec2& position)
 {
-	map[position.y][position.x] = TT_Sea;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("TT_Sea");
 
 	checkCoherencyForSee(position);
 	checkCoherencyAround(position);
@@ -1056,7 +1054,7 @@ bool MapEditor :: setSea(const UVec2& position)
 
 bool MapEditor :: setReef(const UVec2& position)
 {
-	map[position.y][position.x] = TT_Reef;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Reef");
 
 	//checkCoherencyForSee(position);
 	//checkCoherencyAround(position);
@@ -1066,7 +1064,7 @@ bool MapEditor :: setReef(const UVec2& position)
 
 bool MapEditor :: setBeach(const UVec2& position)
 {
-	map[position.y][position.x] = TT_Beach_B;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Beach_B");
 
 	checkCoherencyForSee(position);
 	checkCoherencyAround(position);
@@ -1076,7 +1074,7 @@ bool MapEditor :: setBeach(const UVec2& position)
 
 bool MapEditor :: setRiver(const UVec2& position)
 {
-	map[position.y][position.x] = TT_River_H;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("River_H");
 
 	checkCoherencyForRiver(position);
 	checkCoherencyAround(position);
@@ -1086,43 +1084,43 @@ bool MapEditor :: setRiver(const UVec2& position)
 
 bool MapEditor :: setBridge(const UVec2& position)
 {
-	switch(this->getTileType(position))
+	std::string tileName = this->getTile(position)->getInternalName();
+	if ( tileName == "River_V" )
 	{
-		// Rivers
-		case TT_River_V:
-			map[position.y][position.x] = TT_Bridge_H;
-			break;
-		case TT_River_H:
-			map[position.y][position.x] = TT_Bridge_V;
-			break;
-		// Sees
-		case TT_Coast_V:
-		case TT_Coast_L:
-		case TT_Coast_R:
-			map[position.y][position.x] = TT_Bridge_H;
-			break;
-		case TT_Coast_H:
-		case TT_Coast_B:
-		case TT_Coast_T:
-			map[position.y][position.x] = TT_Bridge_V;
-			break;
-		case TT_Sea:
-			if ( this->getTile(UVec2(position.x-1,position.y)).isBridge || this->getTile(UVec2(position.x+1,position.y)).isBridge )
+		tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Bridge_H");
+	}
+	else if ( tileName == "River_H" )
+	{
+		tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Bridge_V");
+	}
+	else if ( tileName == "Coast_V" || tileName == "Coast_L" || tileName == "Coast_R" )
+	{
+		tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Bridge_H");
+	}
+	else if ( tileName == "Coast_H" || tileName == "Coast_B" || tileName == "Coast_T" )
+	{
+		tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Bridge_V");
+	}
+	else if ( tileName == "Sea" )
+	{
+			if ( this->getTile(UVec2(position.x-1,position.y))->getParams()->getAs<bool>("isBridge",false) || 
+				this->getTile(UVec2(position.x+1,position.y))->getParams()->getAs<bool>("isBridge",false) )
 			{
-				map[position.y][position.x] = TT_Bridge_H;
+				tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Bridge_H");
 			}
-			else if ( this->getTile(UVec2(position.x,position.y-1)).isBridge || this->getTile(UVec2(position.x,position.y+1)).isBridge )
+			else if ( this->getTile(UVec2(position.x,position.y-1))->getParams()->getAs<bool>("isBridge",false) || 
+				this->getTile(UVec2(position.x,position.y+1))->getParams()->getAs<bool>("isBridge",false) )
 			{
-				map[position.y][position.x] = TT_Bridge_V;
+				tileMap[position.y][position.x] = pThemes->get(themeName)->getTile("Bridge_V");
 			}
 			else
 			{
 				assert(0);	// If we are here, it's because the test function is wrong
 			}
-			break;
-		default:
-			assert(0);	// If we are here, it's because the test function is wrong
-			break;
+	}
+	else
+	{
+		assert(0);	// If we are here, it's because the test function is wrong
 	}
 
 	checkCoherencyAround(position);
@@ -1130,12 +1128,12 @@ bool MapEditor :: setBridge(const UVec2& position)
 	return true;
 }
 
-bool MapEditor :: setHQ(const UVec2& position, const TileType type)
+bool MapEditor :: setHQ(const UVec2& position, const std::string& hqName)
 {
-	assert(type == TT_Green_HQ ||
-		type == TT_Red_HQ ||
-		type == TT_Blue_HQ ||
-		type == TT_Yellow_HQ );
+	assert(hqName == "TT_Green_HQ" ||
+		hqName == "TT_Red_HQ" ||
+		hqName == "TT_Blue_HQ" ||
+		hqName == "TT_Yellow_HQ" );
 
 	// For each lines
 	for ( unsigned int y = 0 ; y < this->height ; y++ )
@@ -1143,118 +1141,119 @@ bool MapEditor :: setHQ(const UVec2& position, const TileType type)
 		// For each columns
 		for ( unsigned int x = 0 ; x < this->width ; x++ )
 		{
-			if ( map[y][x] == type )
+			if ( tileMap[y][x]->getName() == hqName )
 			{
-				map[y][x] = TT_Plain;
+				tileMap[y][x] = pThemes->get(themeName)->getTile(0);
 			}
 		}
 	}
 
-	map[position.y][position.x] = type;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile(hqName);
 
 	checkCoherencyAround(position);
 
 	return true;
 }
 
-bool MapEditor :: setBuilding(const UVec2& position, const TileType type)
+bool MapEditor :: setBuilding(const UVec2& position, const std::string& buildingName)
 {
-	if ( type == TT_Green_HQ ||
-		type == TT_Red_HQ ||
-		type == TT_Blue_HQ ||
-		type == TT_Yellow_HQ )
+	if ( buildingName == "TT_Green_HQ" ||
+		buildingName == "TT_Red_HQ" ||
+		buildingName == "TT_Blue_HQ" ||
+		buildingName == "TT_Yellow_HQ" )
 	{
-		return setHQ(position,type);
+		return setHQ(position,buildingName);
 	}
 
-	map[position.y][position.x] = type;
+	tileMap[position.y][position.x] = pThemes->get(themeName)->getTile(buildingName);
 
 	checkCoherencyAround(position);
 
 	return true;
 }
 
-bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
+bool MapEditor :: setTile(const UVec2& position, const std::string& tileName)
 {
 	// Extra protections
 	assert(position.x < this->width);
 	assert(position.y < this->height);
 
-	LDebug << "Map :: setTile " << position << " Tile: " << tileType;
+	LDebug << "Map :: setTile " << position << " Tile: " << tileName;
 
-	if ( this->testTile(position,tileType) == false )
+	if ( this->testTile(position,pThemes->get(themeName)->getTile(tileName)) == false )
 	{
 		return false;
 	}
 
 	// Check if the tile below is the same // or one equivalent
-	TileType tmpType = this->getTileType(position);
-	Tile tmpTile = this->getTile(position);
-	if ( tileType == tmpType )
+	if ( tileMap[position.y][position.x]->getID() == tileMap[position.y][position.x]->getID() )
 		return true;
 	
-	if ( tilesSet[tileType].isRoad == true )
-		if ( tmpTile.isRoad == true )
+	if ( pThemes->get(themeName)->getTile(tileName)->getParams()->getAs<bool>("isRoad",false) == true )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isRoad",false) == true )
 			return true;
 	
 /*
 	Test a bit too difficult to not restrict user
 
-	if ( tilesSet[tileType].isSea == true )
-		if ( tmpTile.isSea == true )
+	if ( pThemes->get(themeName)->getTile(tileName)->getParams()->getAs<bool>("isSea",false) == true )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isSea",false) == true )
 			return true;
 	
-	if ( tilesSet[tileType].isBeach ==  true )
-		if ( tmpTile.isBeach == true )
+	if ( pThemes->get(themeName)->getTile(tileName)->getParams()->getAs<bool>("isBeach",false) ==  true )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isBeach",false) == true )
 			return true;
 */
-	if ( tilesSet[tileType].isRiver == true )
-		if ( tmpTile.isRiver == true )
+	if ( pThemes->get(themeName)->getTile(tileName)->getParams()->getAs<bool>("isRiver",false) == true )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isRiver",false) == true )
 			return true;
 	
-	if ( tilesSet[tileType].isBridge == true )
-		if ( tmpTile.isBridge == true )
+	if ( pThemes->get(themeName)->getTile(tileName)->getParams()->getAs<bool>("isBridge",false) == true )
+		if ( tileMap[position.y][position.x]->getParams()->getAs<bool>("isBridge",false) == true )
 			return true;
 
-	switch ( tileType )
+	std::string name = this->getTile(position)->getInternalName();
+	if ( name == "Plain" )
 	{
-	case TT_Plain:
 		return setPlain(position);
-		break;
-	case TT_Tree:
+	}
+	else if ( name == "Tree" )
+	{
 		return setTree(position);
-		break;
-	case TT_Mountain_1:
-	case TT_Mountain_2:
+	}
+	else if ( name == "Montain_1" || name == "Montain_2" )
+	{
 		return setMountain(position);
-		break;
-	case TT_Road_H:
+	}
+	else if ( name == "Road_H" )
+	{
 		return setRoad(position);
-		break;
-	case TT_Sea:
+	}
+	else if ( name == "Sea" )
+	{
 		return setSea(position);
-		break;
-	case TT_Reef:
+	}
+	else if ( name == "Reef" )
+	{
 		return setReef(position);
-		break;
-	case TT_Beach_T:
+	}
+	else if ( name == "Beach_T" )
+	{
 		return setBeach(position);
-		break;
-	case TT_River_H:
+	}
+	else if ( name == "River_H" )
+	{
 		return setRiver(position);
-		break;
-	case TT_Bridge_H:
+	}
+	else if ( name == "Bridge_H" )
+	{
 		return setBridge(position);
-		break;
-	// Remove warnings
-	default:
-		break;
 	}
 
 	// For buildings
-	if ( tilesSet[tileType].isBuilding )
+	if ( pThemes->get(themeName)->getTile(tileName)->getParams()->getAs<bool>("isBuilding",false) == true )
 	{
-		return setBuilding(position,tileType);
+		return setBuilding(position,tileName);
 	}
 
 	assert(0);	// All cases have to be handled
@@ -1262,24 +1261,26 @@ bool MapEditor :: setTile(const UVec2& position, const TileType tileType)
 	return false;
 }
 
-bool MapEditor :: setTile(const UVec2& position, const UnitType unitType)
+
+bool MapEditor :: setUnit(const UVec2& position, const std::string& unitName, unsigned int faction)
 {
 	// Extra protections
 	assert(position.x < this->width);
 	assert(position.y < this->height);
 
-	LDebug << "Map :: setTile " << position << " Tile: " << unitType;
-
-	if ( this->Map::testTile(position,unitType) == false )
+	LDebug << "Map :: setUnit" << position << " Unit: " << unitName;
+/*
+	if ( this->Map::testUnit(position,unitName) == false )
 	{
 		return false;
 	}
-
-	unitViewMap[position.y][position.x] = unitType;
+*/
+	unitMap[position.y][position.x] = pThemes->get(themeName)->getUnit(unitName,faction);
 
 	return true;
 }
 
+/*
 bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 {
 	switch ( tileType )
@@ -1408,7 +1409,7 @@ bool MapEditor :: testTile(const UVec2& position, const TileType tileType)const
 
 	return true;
 }
-
+*/
 bool MapEditor :: save(const std::string& fileName)
 {
 	std::ofstream file;
@@ -1429,7 +1430,7 @@ bool MapEditor :: save(const std::string& fileName)
 	// Now we can start to save the data
 
 	// Name of the theme
-	file << m_themeName << std::endl;
+	file << pThemes->get(themeName)->getName() << std::endl;
 
 	// The size 'width height'
 	file << this->width << " " << this->height << std::endl;
@@ -1446,7 +1447,7 @@ bool MapEditor :: save(const std::string& fileName)
 			{
 				file << " ";
 			}
-			file << map[y][x];
+			file << tileMap[y][x]->getID();
 		}
 
 		file << std::endl;
@@ -1464,7 +1465,14 @@ bool MapEditor :: save(const std::string& fileName)
 			{
 				file << " ";
 			}
-			file << unitViewMap[y][x];
+			if ( unitMap[y][x].state != US_NO_UNIT )
+			{
+				file << unitMap[y][x].getID();
+			}
+			else
+			{
+				file << -1;
+			}
 		}
 
 		file << std::endl;

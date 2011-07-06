@@ -5,7 +5,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -38,13 +38,13 @@ class AnimatedSprite;
 class UnitView : public View
 {
 protected:
-	UnitType type;							/*!< The type of the Unit */
+	const UnitTemplate* pUnit;							/*!< */
 
 public:
 
-	UnitView(AnimatedSprite* pASprite, const UnitType type, const int positionX):View(pASprite,positionX),type(type) {}
+	UnitView(const UnitTemplate* const pUnit, const int positionX):View(pUnit->getSprite(),positionX),pUnit(pUnit) {}
 
-	UnitType getType()const { return type; }
+	const UnitTemplate* getUnit()const { return pUnit; }
 };
 
 class TileBarUnits : public TileBar
@@ -56,7 +56,7 @@ private:
 public:
 	TileBarUnits(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<UnitView*>& listTiles, const USize2& windowSize);
 
-	UnitType getSelected(void)const;
+	const UnitTemplate* getSelected(void)const;
 };
 
 /*! \class UnitView TileBarUnits.h "Game/TileBarUnits.h"
@@ -65,15 +65,14 @@ public:
  * Used to give a structure usable in the TileBar to contain Unit
  */
 
-/*! \fn UnitView::UnitView(AnimatedSprite* pASprite, const UnitType type, const int positionX)
+/*! \fn UnitView::UnitView(const UnitTemplate* const pUnit, const int positionX)
  * Will fill the structure with the params
- * \param pASprite the AnimatedSprite to dislay
- * \param type the type of the Unit
+ * \param pUnit pointer to the unit to display
  * \param positionX the position in the TileBar
  */
 
-/*! \fn UnitType UnitView::getType()const
- * \brief Return the UnitType kept
+/*! \fn const UnitTemplate* UnitView::getUnit()const
+ * \brief Return the unit kept
  * \return the UnitType
  */
 
@@ -92,9 +91,9 @@ public:
  * \param windowSize the size of the window (used as reference to place the TileBar)
  */
 
-/*! \fn UnitType TileBarUnits::getSelected(void)const
- * \brief Get the UnitType selected
- * \return the UnitType selected in the Bar
+/*! \fn const UnitTemplate* TileBarUnits::getSelected(void)const
+ * \brief Get the unit selected
+ * \return the pointer to the unit selected in the Bar
  */
 
 #endif

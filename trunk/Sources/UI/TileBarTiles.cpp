@@ -3,7 +3,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -39,15 +39,15 @@ TileBarTiles :: TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* con
 	
 }
 
-TileType TileBarTiles :: getSelected(void)const
+const Tile* TileBarTiles :: getSelected(void)const
 {
 	if ( viewList[currentX].size() == 1 )
 	{
-		return dynamic_cast<TileView*>(viewList[currentX][0])->getType();
+		return dynamic_cast<TileView*>(viewList[currentX][0])->getTile();
 	}
 	else
 	{
-		return dynamic_cast<TileView*>(viewList[currentX][currentY%viewList[currentX].size()])->getType();
+		return dynamic_cast<TileView*>(viewList[currentX][currentY%viewList[currentX].size()])->getTile();
 	}
 }
 

@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -24,4 +24,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Unit.h"
 
-#include <cassert>
+#include "UnitTemplate.h"
+
+Unit :: Unit(const UnitTemplate* pUTemplate)
+	:pUnitTemplate(pUTemplate),
+	 faction(pUTemplate->getFaction()),
+	 fuel(pUTemplate->getFuel()),ammo(pUTemplate->getAmmo()),life(pUTemplate->getLife()),state(US_ACTIVE)
+{
+}

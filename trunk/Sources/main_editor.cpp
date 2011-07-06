@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -188,25 +188,33 @@ int main(int argc, char** argv)
 	{
         if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars Editor") )
         {
-            EditorEngine eEngine(pNE);
-            
-            if ( eEngine.init() )
-            {
-                bool engineLoadingState = false;
-                if ( !loadMapName.empty() )
-                {
-                    engineLoadingState = eEngine.load(loadMapName);
-                }
-                else
-                {
-                    engineLoadingState = eEngine.load(themeName,UVec2(mapWidth, mapHeight));
-                }
-                if ( engineLoadingState )
-                {
-                    eEngine.run();
-                    eEngine.saveMap(mapName);
-                }
-            }
+			try
+			{
+				EditorEngine eEngine(pNE);
+	            
+				if ( eEngine.init() )
+				{
+					bool engineLoadingState = true;
+					if ( !loadMapName.empty() )
+					{
+						engineLoadingState = eEngine.load(loadMapName);
+					}
+					else
+					{
+						eEngine.loadTheme(themeName);
+						engineLoadingState &= eEngine.load(UVec2(mapWidth, mapHeight));
+					}
+					if ( engineLoadingState )
+					{
+						eEngine.run();
+						eEngine.saveMap(mapName);
+					}
+				}
+			}
+			catch ( EngineException& ee )
+			{
+				LError << ee.what();
+			}
 
             pNE->getWindow()->destroyWindow();
         }

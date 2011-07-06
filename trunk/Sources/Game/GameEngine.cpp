@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010  Alexandre LAURENT
+Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -34,16 +34,18 @@ e-mail: lw.demoscene@gmail.com
 #include "Cursor.h"
 #include "Camera.h"
 
-#include "../UI/ConstructBox.h"
-#include "../UI/MenuBox.h"
+#include "UI/ConstructBox.h"
+#include "UI/MenuBox.h"
 
-#include "../Engine/VTime.h"
+#include "Engine/Theme.h"
+#include "Engine/VTime.h"
 
-#include "../Types/Colour.h"
+#include "Types/Colour.h"
 
-#include "../Utils/Logger.h"
-#include "../NEngine/Exceptions/ConstructionFailedException.h"
-#include "../globals.h"
+#include "Utils/Logger.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
+#include "globals.h"
 
 GameEngine :: GameEngine(NE::NEngine* const pNE)
 :Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
@@ -84,54 +86,54 @@ bool GameEngine :: load(void)
 	// Prepare the data to put in the Construction Box for the Factory
 	std::vector<ConstructUnitView> factoryUnits;
 	{
-		UnitTemplate u = pMap->getUnitTemplate(UT_R_INFANTRY);
-		factoryUnits.push_back(ConstructUnitView(UT_R_INFANTRY,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_BAZOOKA);
-		factoryUnits.push_back(ConstructUnitView(UT_R_BAZOOKA,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_RECON);
-		factoryUnits.push_back(ConstructUnitView(UT_R_RECON,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_TANK);
-		factoryUnits.push_back(ConstructUnitView(UT_R_TANK,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_TANKM);
-		factoryUnits.push_back(ConstructUnitView(UT_R_TANKM,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_NEOTANK);
-		factoryUnits.push_back(ConstructUnitView(UT_R_NEOTANK,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_APC);
-		factoryUnits.push_back(ConstructUnitView(UT_R_APC,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_ARTILLERY);
-		factoryUnits.push_back(ConstructUnitView(UT_R_ARTILLERY,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_ROCKETS);
-		factoryUnits.push_back(ConstructUnitView(UT_R_ROCKETS,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_ANTIAIR);
-		factoryUnits.push_back(ConstructUnitView(UT_R_ANTIAIR,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_MISSILES);
-		factoryUnits.push_back(ConstructUnitView(UT_R_MISSILES,u.pASprite,u.name,u.price));
+		const UnitTemplate* pU = pMap->getTheme()->getUnit("INFANTRY",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("BAZOOKA",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("RECON",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("TANK",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("TANKM",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("NEOTANK",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("APC",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("ARTILLERY",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("ROCKETS",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("ANTIAIR",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("MISSILES",0);
+		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
 	}
 
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> portUnits;
 	{
-		UnitTemplate u = pMap->getUnitTemplate(UT_R_BOMBERSHIP);
-		portUnits.push_back(ConstructUnitView(UT_R_BOMBERSHIP,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_CRUISER);
-		portUnits.push_back(ConstructUnitView(UT_R_CRUISER,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_LANDER);
-		portUnits.push_back(ConstructUnitView(UT_R_LANDER,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_SUB);
-		portUnits.push_back(ConstructUnitView(UT_R_SUB,u.pASprite,u.name,u.price));		
+		const UnitTemplate* pU = pMap->getTheme()->getUnit("BOMBERSHIP",0);
+		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("CRUISER",0);
+		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("LANDER",0);
+		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("SUB",0);
+		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));		
 	}
 
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> airportUnits;
 	{
-		UnitTemplate u = pMap->getUnitTemplate(UT_R_FIGHTER);
-		airportUnits.push_back(ConstructUnitView(UT_R_FIGHTER,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_BOMBER);
-		airportUnits.push_back(ConstructUnitView(UT_R_BOMBER,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_COPTER);
-		airportUnits.push_back(ConstructUnitView(UT_R_COPTER,u.pASprite,u.name,u.price));
-		u = pMap->getUnitTemplate(UT_R_TCOPTER);
-		airportUnits.push_back(ConstructUnitView(UT_R_TCOPTER,u.pASprite,u.name,u.price));		
+		const UnitTemplate* pU = pMap->getTheme()->getUnit("FIGHTER",0);
+		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("BOMBER",0);
+		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("COPTER",0);
+		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		pU = pMap->getTheme()->getUnit("TCOPTER",0);
+		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));		
 	}
 	
 	try
@@ -170,13 +172,26 @@ bool GameEngine :: init(void)
 
 bool GameEngine :: load(const std::string& mapName)
 {
-	pMap = new MapGame(pNE->getSpriteLoader(), mapName, GFX_PATH "highlight.png",GFX_PATH "highlightAttack.png");
-	if ( !pMap->isValidMap() )
+	pMap = new MapGame(&themeLibrary);
+	if ( pMap == NULL )
+	{
+		LError << "Fail to allocate memory for Map";
+		return false;
+	}
+
+	if ( pMap->load(mapName) == false )
 	{
 		return false;
 	}
 
-	return this->load();
+	try
+	{
+		return this->load();
+	}
+	catch ( FileNotFoundException& fnfe )
+	{
+		return false;
+	}
 }
 
 bool GameEngine :: run(void)
@@ -246,18 +261,18 @@ bool GameEngine :: run(void)
 						pC->move(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							UnitType currentUT = pMap->getUnitType(pC->getPosition());
-							if ( currentUT == UT_NO_UNIT )
+							const Unit* currentUT = pMap->getUnit(pC->getPosition());
+							if ( currentUT == NULL )
 							{
-								if ( pC->getTileTypeUnderCursor() == TT_Red_Factory )
+								if ( pC->getTileUnderCursor()->getName() == "TT_Red_Factory" )
 								{
 									this->gState = GS_FACTORY;
 								}
-								else if ( pC->getTileTypeUnderCursor() == TT_Red_Airport )
+								else if ( pC->getTileUnderCursor()->getName() == "TT_Red_Airport" )
 								{
 									this->gState = GS_AIRPORT;
 								}
-								else if ( pC->getTileTypeUnderCursor() == TT_Red_Port )
+								else if ( pC->getTileUnderCursor()->getName() == "TT_Red_Port" )
 								{
 									this->gState = GS_PORT;
 								}
@@ -267,7 +282,7 @@ bool GameEngine :: run(void)
 									this->gState = GS_MENU;
 								}
 							}
-							else if ( !pMap->getUnit(pC->getPosition())->enabled )
+							else if ( !pMap->getUnit(pC->getPosition())->state == US_ACTIVE )
 							{
                                 pMBMenu->setMenus(menuEntries);
 								this->gState = GS_MENU;
@@ -286,7 +301,7 @@ bool GameEngine :: run(void)
 						pCBFactory->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setTile(pC->getPosition(),pCBFactory->getUnitSelected());
+							pMap->setUnit(pC->getPosition(),pCBFactory->getUnitSelected()->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}
@@ -296,7 +311,7 @@ bool GameEngine :: run(void)
 						pCBPort->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setTile(pC->getPosition(),pCBPort->getUnitSelected());
+							pMap->setUnit(pC->getPosition(),pCBPort->getUnitSelected()->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}
@@ -306,7 +321,7 @@ bool GameEngine :: run(void)
 						pCBAirport->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setTile(pC->getPosition(),pCBAirport->getUnitSelected());
+							pMap->setUnit(pC->getPosition(),pCBAirport->getUnitSelected()->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}
@@ -355,12 +370,12 @@ bool GameEngine :: run(void)
                                     
                                     // If the unit has not enough fuel ... we will move the unit only of the distance possible with the fuel
                                     const Unit* pUnitSelected = pMap->getUnit(selectedUnitPosition);
-                                    int movement = pMap->getUnitTemplate(pUnitSelected->type).movement;
-                                    if ( pUnitSelected->fuel < pMap->getUnitTemplate(pUnitSelected->type).movement)
+                                    unsigned int movement = pUnitSelected->getTemplate()->getMovement();
+									if ( pUnitSelected->fuel < movement)
                                     {
                                         movement = pUnitSelected->fuel;
                                     }
-                                    pMap->setMoveHighlight(selectedUnitPosition,pUnitSelected->type,movement);
+                                    // pMap->setMoveHighlight(selectedUnitPosition,*pUnitSelected,movement);
                                     
 									this->gState = GS_MOVE;
 								}
@@ -380,13 +395,13 @@ bool GameEngine :: run(void)
 						{
                             if ( this->pMap->move(selectedUnitPosition, pC->getPosition()) )
                             {
-                                pMap->clearHighlight();
+                                // pMap->clearHighlight();
                                 this->gState = GS_VISU;
                             }
                         }
                         else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 						{
-                            pMap->clearHighlight();
+                            // pMap->clearHighlight();
 							this->gState = GS_SELECT;
 						}
                     }
