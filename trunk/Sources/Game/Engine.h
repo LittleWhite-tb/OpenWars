@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "Library.h"
+#include "Engine/Library.h"
 #include "Engine/Theme.h"
 
 namespace NE { class NEngine; }

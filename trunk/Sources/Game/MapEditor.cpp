@@ -34,9 +34,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
-#include "Game/Params.h"
+#include "Engine/Params.h"
 
-#include "Game/Params.h"
+#include "Engine/Params.h"
 #include "Game/Camera.h"
 #include "Tile.h"
 #include "Unit.h"

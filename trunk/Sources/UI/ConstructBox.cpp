@@ -24,18 +24,20 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ConstructBox.h"
 
-#include "../NEngine/SpriteLoader.h"
-#include "../NEngine/Sprite.h"
-#include "../NEngine/Renderer.h"
-#include "../NEngine/InputManager.h"
+#include "NEngine/SpriteLoader.h"
+#include "NEngine/Sprite.h"
+#include "NEngine/Renderer.h"
+#include "NEngine/InputManager.h"
 
-#include "../Engine/Font.h"
-#include "../Engine/AnimatedSprite.h"
+#include "Engine/Font.h"
+#include "Engine/AnimatedSprite.h"
 
-#include "../Types/Vec2.h"
-#include "../Types/Colour.h"
+#include "Game/UnitTemplateFactionList.h"
 
-#include "../Utils/Logger.h"
+#include "Types/Vec2.h"
+#include "Types/Colour.h"
+
+#include "Utils/Logger.h"
 
 #include <vector>
 #include <string>
@@ -63,7 +65,7 @@ ConstructBox :: ~ConstructBox(void)
 	LDebug << "Construc Box delete";
 }
 
-bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailable)
+bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable)
 {
 	bool errorFlag = true;
     USize2 backgroundSize = pBackgroundUI->getSize();
@@ -94,31 +96,31 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int moneyAvailab
 	*/
 	for ( unsigned int i = offsetCursorPosition ; i < unitsList.size() && i < offsetCursorPosition+7 ; i++ )
 	{
-		IVec2 unitPosition(40, uiPosition.y + 6 + (i-offsetCursorPosition) * (unitsList[i].pUnitSprite->getSize().height+1));
+		IVec2 unitPosition(40, uiPosition.y + 6 + (i-offsetCursorPosition) * (unitsList[i].pListUnitTemplate->get(faction)->getSprite()->getSize().height+1));
 		
 		// Convertion of the price into a string
 		std::string priceString = "0";
 		{
 			std::ostringstream oss;
 
-			oss << unitsList[i].unitPrice;
+			oss << unitsList[i].pListUnitTemplate->get(faction)->getPrice();
 
 			priceString = oss.str();
 		}
 		
 		IVec2 unitPricePosition(backgroundSize.width - (pFont->getStringSize(priceString).width), unitPosition.y + 6);
-		IVec2 unitNamePosition(backgroundSize.width - (60 + pFont->getStringSize(unitsList[i].unitName).width) , unitPricePosition.y);
+		IVec2 unitNamePosition(backgroundSize.width - (60 + pFont->getStringSize(unitsList[i].pListUnitTemplate->get(faction)->getName()).width) , unitPricePosition.y);
 
-		if ( unitsList[i].unitPrice <= moneyAvailable )
+		if ( unitsList[i].pListUnitTemplate->get(faction)->getPrice() <= moneyAvailable )
 		{
-			errorFlag &= unitsList[i].pUnitSprite->draw(r,unitPosition);
-			errorFlag &= pFont->draw(r,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= unitsList[i].pListUnitTemplate->get(faction)->getSprite()->draw(r,unitPosition);
+			errorFlag &= pFont->draw(r,unitsList[i].pListUnitTemplate->get(faction)->getName(),unitNamePosition);
 			errorFlag &= pFont->draw(r,priceString,unitPricePosition);
 		}
 		else
 		{
-			errorFlag &= unitsList[i].pUnitSprite->draw(r,unitPosition,Colour(128,128,128,255));
-			errorFlag &= pFontGrey->draw(r,unitsList[i].unitName,unitNamePosition);
+			errorFlag &= unitsList[i].pListUnitTemplate->get(faction)->getSprite()->draw(r,unitPosition,Colour(128,128,128,255));
+			errorFlag &= pFontGrey->draw(r,unitsList[i].pListUnitTemplate->get(faction)->getName(),unitNamePosition);
 			errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
 		}
 	}
@@ -155,7 +157,7 @@ void ConstructBox :: update(const NE::InputManager::ArrowsDirection kd)
 	}
 }
 
-const UnitTemplate* ConstructBox :: getUnitSelected(void)const
+const UnitTemplate* ConstructBox :: getUnitSelected(const unsigned int faction)const
 {
-	return unitsList[actualPosition].pUnitTemplate;
+	return unitsList[actualPosition].pListUnitTemplate->get(faction);
 }

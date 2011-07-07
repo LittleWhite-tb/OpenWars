@@ -40,8 +40,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Camera.h"
 
 #include "Engine/Theme.h"
-#include "Game/Library.h"
-#include "Game/Params.h"
+#include "Engine/Library.h"
+#include "Engine/Params.h"
 
 #include "Types/Vec2.h"
 

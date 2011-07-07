@@ -24,7 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UnitTemplate.h"
 
-#include "Game/Params.h"
+#include "Engine/Params.h"
 
 #include "Engine/AnimatedSprite.h"
 

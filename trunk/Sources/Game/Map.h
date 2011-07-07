@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Types/Vec2.h"
 
 #include "Engine/Theme.h"
-#include "Game/Library.h"
+#include "Engine/Library.h"
 
 namespace NE { class Renderer; }
 namespace NE { class SpriteLoader; }

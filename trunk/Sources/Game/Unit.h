@@ -50,7 +50,7 @@ private:
 	const UnitTemplate* pUnitTemplate;	/*!< */
 
 public:
-	unsigned char faction;			/*!< */
+	unsigned short faction;			/*!< */
 
     unsigned int fuel;              /*!< The remaining fuel */
     unsigned int ammo;              /*!< The remaining ammo */

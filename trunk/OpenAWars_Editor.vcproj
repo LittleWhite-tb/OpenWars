@@ -566,6 +566,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Sources\Engine\Library.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Library.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Params.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\Params.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Sources\Engine\Theme.cpp"
 				>
 			</File>
@@ -634,14 +650,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\Game\Library.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Library.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Sources\Game\Map.cpp"
 				>
 			</File>
@@ -663,14 +671,6 @@
 			</File>
 			<File
 				RelativePath=".\Sources\Game\MapGame.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Params.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Params.h"
 				>
 			</File>
 			<File

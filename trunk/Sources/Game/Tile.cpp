@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include <algorithm>
 #include <cassert>
 
-#include "Params.h"
+#include "Engine/Params.h"
 
 #include "Engine/AnimatedSprite.h"
 

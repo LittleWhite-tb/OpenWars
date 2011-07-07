@@ -31,8 +31,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/SpriteLoader.h"
 
-#include "Game/Library.h"
-#include "Game/Params.h"
+#include "Engine/Library.h"
+#include "Engine/Params.h"
 
 #include "Utils/Logger.h"
 

@@ -40,16 +40,14 @@ namespace NE { class Renderer; }
 
 class AnimatedSprite;
 class Font;
+class UnitTemplateFactionList;
 
 struct ConstructUnitView
 {
-	const UnitTemplate* pUnitTemplate;				/*!< Unit type */
-	AnimatedSprite* pUnitSprite;	/*!< sprite for the unit */
-	std::string unitName;			/*!< name of the unit */
-	unsigned int unitPrice;			/*!< price of the unit */
+	const UnitTemplateFactionList* pListUnitTemplate;				/*!< Unit type */
 
-	ConstructUnitView(const UnitTemplate* pUnitTemplate, AnimatedSprite* const pUnitSprite, const std::string& unitName, const unsigned int unitPrice)
-		:pUnitTemplate(pUnitTemplate),pUnitSprite(pUnitSprite),unitName(unitName),unitPrice(unitPrice) {}
+	ConstructUnitView(const UnitTemplateFactionList* pListUnitTemplate)
+		:pListUnitTemplate(pListUnitTemplate) {}
 };
 
 class ConstructBox
@@ -75,11 +73,13 @@ public:
 const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize);
 	~ConstructBox(void);
 
-	bool draw(const NE::Renderer& r, const unsigned int moneyAvailable);
+	void add(const UnitTemplateFactionList* pListUnitTemplate);
+
+	bool draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable);
 
 	void update(const NE::InputManager::ArrowsDirection kd);
 
-	const UnitTemplate* getUnitSelected(void)const;
+	const UnitTemplate* getUnitSelected(const unsigned int faction)const;
 };
 
 /*! \class ConstructBox ConstructBox.h "UI/ConstructBox.h"

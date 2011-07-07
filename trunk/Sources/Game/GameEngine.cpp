@@ -38,6 +38,7 @@ e-mail: lw.demoscene@gmail.com
 #include "UI/MenuBox.h"
 
 #include "Engine/Theme.h"
+#include "Engine/Params.h"
 #include "Engine/VTime.h"
 
 #include "Types/Colour.h"
@@ -83,57 +84,46 @@ bool GameEngine :: load(void)
 	pC = new Cursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png",pMap,UVec2(5,5));
 	pCam = new Camera();
 
+	std::list<const UnitTemplateFactionList* > unitsList;
+	pMap->getTheme()->getUnitsList(&unitsList);
+
 	// Prepare the data to put in the Construction Box for the Factory
 	std::vector<ConstructUnitView> factoryUnits;
 	{
-		const UnitTemplate* pU = pMap->getTheme()->getUnit("INFANTRY",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("BAZOOKA",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("RECON",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("TANK",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("TANKM",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("NEOTANK",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("APC",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("ARTILLERY",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("ROCKETS",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("ANTIAIR",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("MISSILES",0);
-		factoryUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
+		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
+			  itPUnit != unitsList.end() ; ++itPUnit )
+		{
+			if ( (*itPUnit)->get(0)->getParams()->getAs<bool>("isGround",false) == true )
+			{
+				factoryUnits.push_back(ConstructUnitView(*itPUnit));
+			}
+		}
 	}
 
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> portUnits;
 	{
-		const UnitTemplate* pU = pMap->getTheme()->getUnit("BOMBERSHIP",0);
-		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("CRUISER",0);
-		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("LANDER",0);
-		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("SUB",0);
-		portUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));		
+		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
+			  itPUnit != unitsList.end() ; ++itPUnit )
+		{
+			if ( (*itPUnit)->get(0)->getParams()->getAs<bool>("isBoat",false) == true )
+			{
+				portUnits.push_back(ConstructUnitView(*itPUnit));
+			}
+		}
 	}
 
 	// Prepare the data to put in the Construction Box for the Port
 	std::vector<ConstructUnitView> airportUnits;
 	{
-		const UnitTemplate* pU = pMap->getTheme()->getUnit("FIGHTER",0);
-		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("BOMBER",0);
-		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("COPTER",0);
-		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));
-		pU = pMap->getTheme()->getUnit("TCOPTER",0);
-		airportUnits.push_back(ConstructUnitView(pU,pU->getSprite(),pU->getName(),pU->getPrice()));		
+		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
+			  itPUnit != unitsList.end() ; ++itPUnit )
+		{
+			if ( (*itPUnit)->get(0)->getParams()->getAs<bool>("isFlight",false) == true )
+			{
+				airportUnits.push_back(ConstructUnitView(*itPUnit));
+			}
+		}
 	}
 	
 	try
@@ -212,17 +202,17 @@ bool GameEngine :: run(void)
 				break;
 			case GS_FACTORY:
 				{
-					pCBFactory->draw(*pNE->getRenderer(),5000);
+					pCBFactory->draw(*pNE->getRenderer(),0,5000);
 				}
 				break;
 			case GS_PORT:
 				{
-					pCBPort->draw(*pNE->getRenderer(),5000);
+					pCBPort->draw(*pNE->getRenderer(),0,5000);
 				}
 				break;
 			case GS_AIRPORT:
 				{
-					pCBAirport->draw(*pNE->getRenderer(),5000);
+					pCBAirport->draw(*pNE->getRenderer(),0,5000);
 				}
 				break;
             case GS_SELECT:
@@ -301,7 +291,7 @@ bool GameEngine :: run(void)
 						pCBFactory->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setUnit(pC->getPosition(),pCBFactory->getUnitSelected()->getName(),0);
+							pMap->setUnit(pC->getPosition(),pCBFactory->getUnitSelected(0)->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}
@@ -311,7 +301,7 @@ bool GameEngine :: run(void)
 						pCBPort->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setUnit(pC->getPosition(),pCBPort->getUnitSelected()->getName(),0);
+							pMap->setUnit(pC->getPosition(),pCBPort->getUnitSelected(0)->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}
@@ -321,7 +311,7 @@ bool GameEngine :: run(void)
 						pCBAirport->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setUnit(pC->getPosition(),pCBAirport->getUnitSelected()->getName(),0);
+							pMap->setUnit(pC->getPosition(),pCBAirport->getUnitSelected(0)->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}

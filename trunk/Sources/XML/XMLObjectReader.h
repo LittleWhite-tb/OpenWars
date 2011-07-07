@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../Game/Library.h"
+#include "Engine/Library.h"
 
 namespace NE { class SpriteLoader; }
 

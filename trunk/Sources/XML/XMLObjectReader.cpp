@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <cassert>
 
-#include "Game/Params.h"
+#include "Engine/Params.h"
 
 #include "Utils/Logger.h"
 #include "Utils/Exceptions/XMLException.h"
