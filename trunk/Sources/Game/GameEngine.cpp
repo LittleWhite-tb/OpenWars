@@ -49,7 +49,7 @@ e-mail: lw.demoscene@gmail.com
 #include "globals.h"
 
 GameEngine :: GameEngine(NE::NEngine* const pNE)
-:Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pCBFactory(NULL),pCBPort(NULL),pCBAirport(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
+:Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";
 }
@@ -68,9 +68,10 @@ GameEngine :: ~GameEngine(void)
     
 	delete pMBMenu;
 
-	delete pCBAirport;
-	delete pCBPort;
-	delete pCBFactory;
+	for ( std::map<std::string, ConstructBox*>::iterator itPCB = constructionBoxes.begin() ; itPCB != constructionBoxes.end() ; ++itPCB )
+	{
+		delete itPCB->second;
+	}
 
 	delete pCam;
 	delete pC;
@@ -84,44 +85,42 @@ bool GameEngine :: load(void)
 	pC = new Cursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png",pMap,UVec2(5,5));
 	pCam = new Camera();
 
+	std::list<const Tile* > tilesList;
+	pMap->getTheme()->getTilesList(&tilesList);
+
 	std::list<const UnitTemplateFactionList* > unitsList;
 	pMap->getTheme()->getUnitsList(&unitsList);
 
-	// Prepare the data to put in the Construction Box for the Factory
-	std::vector<ConstructUnitView> factoryUnits;
+	// Construct all the contruction boxes needed by going throw the tile list
+	for ( std::list < const Tile* >::const_iterator itPTile = tilesList.begin() ;
+				itPTile != tilesList.end() ; ++itPTile )
 	{
-		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
-			  itPUnit != unitsList.end() ; ++itPUnit )
+		const Params* tileParams = (*itPTile)->getParams();
+		// For each unique producer name (if existing)
+		if ( tileParams->exists("producerName") && 
+			 constructionBoxes.find(tileParams->get("producerName")) == constructionBoxes.end() )
 		{
-			if ( (*itPUnit)->get(0)->getParams()->getAs<bool>("isGround",false) == true )
-			{
-				factoryUnits.push_back(ConstructUnitView(*itPUnit));
-			}
+			constructionBoxes[tileParams->get("producerName")] = new ConstructBox(pNE->getSpriteLoader(),GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/font.png",pNE->getWindow()->getWindowSize());
 		}
 	}
 
-	// Prepare the data to put in the Construction Box for the Port
-	std::vector<ConstructUnitView> portUnits;
-	{
-		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
+	// For each unit, we get the tile indicated where the unit is produced
+	// If not existing, the loading fails
+	for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
 			  itPUnit != unitsList.end() ; ++itPUnit )
-		{
-			if ( (*itPUnit)->get(0)->getParams()->getAs<bool>("isBoat",false) == true )
-			{
-				portUnits.push_back(ConstructUnitView(*itPUnit));
-			}
-		}
-	}
+	{
+		const Params* unitParams = (*itPUnit)->get(0)->getParams();
 
-	// Prepare the data to put in the Construction Box for the Port
-	std::vector<ConstructUnitView> airportUnits;
-	{
-		for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
-			  itPUnit != unitsList.end() ; ++itPUnit )
+		if ( unitParams->exists("producedIn") )
 		{
-			if ( (*itPUnit)->get(0)->getParams()->getAs<bool>("isFlight",false) == true )
+			if ( constructionBoxes.find(unitParams->get("producedIn")) != constructionBoxes.end() )
 			{
-				airportUnits.push_back(ConstructUnitView(*itPUnit));
+				constructionBoxes[unitParams->get("producedIn")]->add(*itPUnit);
+			}
+			else
+			{
+				LError << "A unit is producable in a tile (producer) not existing -> '" << (*itPUnit)->get(0)->getParams()->get("producedIn") << "'";
+				return false;
 			}
 		}
 	}
@@ -135,9 +134,6 @@ bool GameEngine :: load(void)
         // Unit menu
         unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
-		pCBFactory = new ConstructBox(pNE->getSpriteLoader(),GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/font.png",factoryUnits, pNE->getWindow()->getWindowSize());
-		pCBPort = new ConstructBox(pNE->getSpriteLoader(),GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/font.png",portUnits, pNE->getWindow()->getWindowSize());
-		pCBAirport = new ConstructBox(pNE->getSpriteLoader(),GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/font.png",airportUnits, pNE->getWindow()->getWindowSize());
 		pMBMenu = new MenuBox(pNE->getSpriteLoader(),pNE->getSpriteFactory(), GFX_PATH "constCursor.png","./data/fonts/font.png",menuEntries,pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
@@ -200,19 +196,25 @@ bool GameEngine :: run(void)
 					pC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
 				}
 				break;
-			case GS_FACTORY:
+			case GS_CONSTRUCTION:
 				{
-					pCBFactory->draw(*pNE->getRenderer(),0,5000);
-				}
-				break;
-			case GS_PORT:
-				{
-					pCBPort->draw(*pNE->getRenderer(),0,5000);
-				}
-				break;
-			case GS_AIRPORT:
-				{
-					pCBAirport->draw(*pNE->getRenderer(),0,5000);
+					// Some protections
+					if ( !pC->getTileUnderCursor()->getParams()->exists("producerName") )
+					{
+						LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
+						gState = GS_VISU;
+						break;
+					}
+
+					if ( constructionBoxes.find(pC->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
+					{
+						LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
+						gState = GS_VISU;
+						break;
+					}
+					
+					// We can draw it
+					constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pNE->getRenderer(),0,5000);
 				}
 				break;
             case GS_SELECT:
@@ -254,17 +256,9 @@ bool GameEngine :: run(void)
 							const Unit* currentUT = pMap->getUnit(pC->getPosition());
 							if ( currentUT == NULL )
 							{
-								if ( pC->getTileUnderCursor()->getName() == "TT_Red_Factory" )
+								if ( pC->getTileUnderCursor()->getParams()->exists("producerName") )
 								{
-									this->gState = GS_FACTORY;
-								}
-								else if ( pC->getTileUnderCursor()->getName() == "TT_Red_Airport" )
-								{
-									this->gState = GS_AIRPORT;
-								}
-								else if ( pC->getTileUnderCursor()->getName() == "TT_Red_Port" )
-								{
-									this->gState = GS_PORT;
+									this->gState = GS_CONSTRUCTION;
 								}
 								else
 								{
@@ -286,32 +280,27 @@ bool GameEngine :: run(void)
 						}
 					}
 					break;
-				case GS_FACTORY:
-					{
-						pCBFactory->update(direction);
-						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+				case GS_CONSTRUCTION:
+					{	
+						if ( !pC->getTileUnderCursor()->getParams()->exists("producerName") )
 						{
-							pMap->setUnit(pC->getPosition(),pCBFactory->getUnitSelected(0)->getName(),0);
-							this->gState = GS_VISU;
+							LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
+							gState = GS_VISU;
+							break;
 						}
-					}
-					break;
-				case GS_PORT:
-					{
-						pCBPort->update(direction);
-						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+
+						if ( constructionBoxes.find(pC->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
 						{
-							pMap->setUnit(pC->getPosition(),pCBPort->getUnitSelected(0)->getName(),0);
-							this->gState = GS_VISU;
+							LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
+							gState = GS_VISU;
+							break;
 						}
-					}
-					break;
-				case GS_AIRPORT:
-					{
-						pCBAirport->update(direction);
+						
+						// We can draw it
+						constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->update(direction);
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
-							pMap->setUnit(pC->getPosition(),pCBAirport->getUnitSelected(0)->getName(),0);
+							pMap->setUnit(pC->getPosition(),constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(0)->getName(),0);
 							this->gState = GS_VISU;
 						}
 					}

@@ -17,6 +17,8 @@
 		<canAttackBoat>0</canAttackBoat>
 		<canAttackFlight>0</canAttackFlight>
 		
+		<producedIn>Factory</producedIn>
+		
 		<range>
 			<min>1</min>
 			<max>1</max>
@@ -43,6 +45,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
 		<canAttackGround>1</canAttackGround>
+		
+		<producedIn>Factory</producedIn>
 		
 		<range>
 			<min>1</min>
@@ -71,6 +75,8 @@
 		<isGround>1</isGround>		
 		<canAttackGround>1</canAttackGround>
 		
+		<producedIn>Factory</producedIn>
+		
 		<range>
 			<min>1</min>
 			<max>1</max>
@@ -97,6 +103,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
 		<canAttackGround>1</canAttackGround>
+		
+		<producedIn>Factory</producedIn>
 		
 		<range>
 			<min>1</min>
@@ -125,6 +133,8 @@
 		<isGround>1</isGround>		
 		<canAttackGround>1</canAttackGround>
 		
+		<producedIn>Factory</producedIn>
+		
 		<range>
 			<min>1</min>
 			<max>1</max>
@@ -151,6 +161,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
 		<canAttackGround>1</canAttackGround>
+		
+		<producedIn>Factory</producedIn>
 		
 		<range>
 			<min>1</min>
@@ -200,6 +212,8 @@
 		<canAttackGround>1</canAttackGround>
 		<canAttackBoat>1</canAttackBoat>
 		
+		<producedIn>Factory</producedIn>
+		
 		<range>
 			<min>2</min>
 			<max>4</max>
@@ -228,6 +242,8 @@
 		<canAttackGround>1</canAttackGround>
 		<canAttackBoat>1</canAttackBoat>
 		
+		<producedIn>Factory</producedIn>
+		
 		<range>
 			<min>3</min>
 			<max>6</max>
@@ -254,6 +270,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
 		<canAttackFlight>1</canAttackFlight>
+		
+		<producedIn>Factory</producedIn>
 		
 		<range>
 			<min>1</min>
@@ -282,6 +300,8 @@
 		<isGround>1</isGround>		
 		<canAttackFlight>1</canAttackFlight>
 		
+		<producedIn>Factory</producedIn>
+		
 		<range>
 			<min>3</min>
 			<max>6</max>
@@ -308,6 +328,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isBoat>1</isBoat>		
 		
+		<producedIn>Port</producedIn>
+		
 		<movement>3</movement>
 		<fuel>99</fuel>
 		<fuelConsumption>2</fuelConsumption>
@@ -329,6 +351,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isBoat>1</isBoat>	
 		<canAttackBoat>1</canAttackBoat>
+		
+		<producedIn>Port</producedIn>
 		
 		<movement>3</movement>
 		<fuel>99</fuel>
@@ -353,6 +377,8 @@
 		<canAttackGround>1</canAttackGround>
 		<canAttackBoat>1</canAttackBoat>
 		
+		<producedIn>Port</producedIn>
+		
 		<movement>4</movement>
 		<fuel>99</fuel>
 		<fuelConsumption>2</fuelConsumption>
@@ -376,6 +402,8 @@
 		<canAttackBoat>1</canAttackBoat>
 		<canAttackFlight>1</canAttackFlight>
 		
+		<producedIn>Port</producedIn>
+		
 		<movement>4</movement>
 		<fuel>99</fuel>
 		<fuelConsumption>2</fuelConsumption>
@@ -396,6 +424,8 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<isFlight>1</isFlight>	
+		
+		<producedIn>Airport</producedIn>
 		
 		<movement>6</movement>
 		<fuel>99</fuel>
@@ -420,6 +450,8 @@
 		<canAttackGround>1</canAttackGround>
 		<canAttackFlight>1</canAttackFlight>
 		
+		<producedIn>Airport</producedIn>
+		
 		<movement>6</movement>
 		<fuel>99</fuel>
 		<fuelConsumption>5</fuelConsumption>
@@ -441,6 +473,8 @@
 		<!-- <animationTime>200</animationTime> -->
 		<isFlight>1</isFlight>
 		<canAttackFlight>1</canAttackFlight>
+		
+		<producedIn>Airport</producedIn>
 		
 		<movement>7</movement>
 		<fuel>99</fuel>
@@ -464,6 +498,8 @@
 		<isFlight>1</isFlight>
 		<canAttackGround>1</canAttackGround>
 		<canAttackBoat>1</canAttackBoat>
+		
+		<producedIn>Airport</producedIn>
 		
 		<movement>7</movement>
 		<fuel>99</fuel>

@@ -42,14 +42,6 @@ class AnimatedSprite;
 class Font;
 class UnitTemplateFactionList;
 
-struct ConstructUnitView
-{
-	const UnitTemplateFactionList* pListUnitTemplate;				/*!< Unit type */
-
-	ConstructUnitView(const UnitTemplateFactionList* pListUnitTemplate)
-		:pListUnitTemplate(pListUnitTemplate) {}
-};
-
 class ConstructBox
 {
 private:
@@ -64,13 +56,13 @@ private:
 
 	USize2 windowSize;								/*!< Size of the window where to draw the UI */
 
-	std::vector<ConstructUnitView> unitsList;		/*!< list of units */
+	std::vector<const UnitTemplateFactionList*> unitsList;		/*!< list of units */
 	unsigned int actualPosition;					/*!< actual position of the cursor */
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
 	ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
-const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize);
+const std::string& downArrowFileName, const std::string& fontFileName, const USize2& windowSize);
 	~ConstructBox(void);
 
 	void add(const UnitTemplateFactionList* pListUnitTemplate);
@@ -81,12 +73,6 @@ const std::string& downArrowFileName, const std::string& fontFileName, const std
 
 	const UnitTemplate* getUnitSelected(const unsigned int faction)const;
 };
-
-/*! \class ConstructBox ConstructBox.h "UI/ConstructBox.h"
- *  \brief User interface for the ordering unit production
- *
- * The ContructBox show a list of unit with name and price that we can build
- */
 
 /*! \fn ConstructBox::ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
  * \param pSL the SpriteLoader to load the sprites

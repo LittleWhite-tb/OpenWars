@@ -44,9 +44,7 @@ class GameEngine : public Engine
 	enum GameState
 	{
 		GS_VISU,
-		GS_FACTORY,
-		GS_PORT,
-		GS_AIRPORT,
+		GS_CONSTRUCTION,
 		GS_SELECT,
 		GS_MENU,
         
@@ -60,9 +58,7 @@ private:
 	Camera* pCam;				/*!< The camera */
 
 	// UI
-	ConstructBox* pCBFactory;	/*!< Construct box for factories */
-	ConstructBox* pCBPort;		/*!< Construct box for ports */
-	ConstructBox* pCBAirport;	/*!< Construct box for airports */
+	std::map<std::string, ConstructBox*> constructionBoxes;	/*!< Library of construct box determined by their names */
     
     std::vector<MenuView*> menuEntries;  /*!< Entries in the menu */
     std::vector<MenuView*> unitMenuEntries; /*!< Entries for unit selection */
