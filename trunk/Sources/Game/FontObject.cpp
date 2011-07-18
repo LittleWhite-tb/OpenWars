@@ -31,7 +31,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ParamsException.h"
-#include "../Utils/Exceptions/TileException.h"
 
 #include <cassert>
 
@@ -48,7 +47,7 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
 	{
 		if ( !pParams->exists(neededParameters[i]) )
 		{
-			throw MissingParameterTileException(neededParameters[i]);
+			throw MissingParameterException(neededParameters[i]);
 		}
 	}
 
@@ -73,7 +72,7 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
 	{
 		LError << "The force list is not matching the requested parameters";
 		LError << "Parameter '" << pnfpe.what() << "' not found";
-		throw MissingParameterTileException("unknown");
+		throw MissingParameterException("unknown");
 	}
 }
 

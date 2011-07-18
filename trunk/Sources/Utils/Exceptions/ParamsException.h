@@ -57,6 +57,21 @@ public:
 	}
 };
 
+class MissingParameterException : public std::exception
+{
+private:
+	std::string message;	/*!< error message to display */
+
+public:
+	MissingParameterException(const std::string& parameterName):message(std::string("Missing parameter '") + parameterName + std::string("' to construct the Tile")) {}
+    virtual ~MissingParameterException (void)throw() {}
+
+	virtual const char* what() const throw()
+	{
+		return message.c_str();
+	}
+};
+
 /*! \class ParameterNotFoundParamsException ParameterNotFoundParamsException.h "Utils/Exceptions/ParameterNotFoundParamsException.h"
  *  \brief Exception for parameters not found when requested
  */
@@ -81,6 +96,20 @@ public:
  */
 
 /*! \fn virtual const char* InvalidConvertionParamsException::what()const throw()
+ * \return the error message
+ */
+
+
+/*! \class MissingParameterException MissingParameterException.h "Utils/Exceptions/ParamsException.h"
+ *  \brief Exception for missing requested parameters
+ */
+
+/*! \fn MissingParameterException::MissingParameterException(const std::string& parameterName)
+ * Create a message of the format: "Missing parameter 'PARAMETER_NAME' to construct the Tile"
+ * \param parameterName the parameter name missing
+ */
+
+/*! \fn virtual const char* MissingParameterException::what()const throw()
  * \return the error message
  */
 

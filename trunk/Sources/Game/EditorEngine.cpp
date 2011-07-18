@@ -31,11 +31,13 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "NEngine/InputManager.h"
 
+#include "Game/Tile.h"
+#include "Game/UnitTemplate.h"
+
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
 
-#include "UI/TileBarUnits.h"
-#include "UI/TileBarTiles.h"
+#include "UI/TileBar.h"
 #include "UI/TileViewer.h"
 
 #include "MapEditor.h"
@@ -72,8 +74,19 @@ bool EditorEngine :: load(void)
 	pEC = new EditingCursor(pMap,UVec2(5,5));
 	pCam = new Camera();
 
+	try
+	{
+		pUnitTB = new TileBar<const UnitTemplate*>(pNE->getSpriteFactory(),pMap->getTheme(),pNE->getWindow()->getWindowSize());
+		pBuildingTB = new TileBar<const Tile*>(pNE->getSpriteFactory(),pMap->getTheme(),pNE->getWindow()->getWindowSize());
+		pTileViewer = new TileViewer(pMap->getTheme(),pNE->getWindow()->getWindowSize());
+	}
+	catch (ConstructionFailedException& cfe)
+	{
+		LError << cfe.what();
+		return false;
+	}
+
 	// Prepare the data to put in the TileBar for building
-	std::vector<TileView*> buildingTiles;
 	{
 		std::list<const Tile* > tilesList;
 		pMap->getTheme()->getTilesList(&tilesList);
@@ -83,13 +96,12 @@ bool EditorEngine :: load(void)
 		{
 			if ( (*itPTile)->getMenuEntry() != -1 )
 			{
-				buildingTiles.push_back(new TileView(*itPTile, (*itPTile)->getMenuEntry()));
+				pBuildingTB->add(*itPTile, (*itPTile)->getMenuEntry());
 			}
 		}
 	}
 
 	// Prepare the list of units in the TileBar for Units
-	std::vector<UnitView*> unitTiles;
 	{
 		std::list<const UnitTemplateFactionList* > unitsList;
 		pMap->getTheme()->getUnitsList(&unitsList);
@@ -100,24 +112,12 @@ bool EditorEngine :: load(void)
 		{
 			for ( unsigned int i = 0 ; i < (*itPUnit)->getNumberFaction() ; i++ )
 			{
-				unitTiles.push_back(new UnitView((*itPUnit)->get(i),unitCounter));
+				pUnitTB->add((*itPUnit)->get(i),unitCounter);
 			}
 
 			unitCounter++;
 		}
-	}
-
-	try
-	{
-		pUnitTB = new TileBarUnits(pNE->getSpriteFactory(),pMap->getTheme(),unitTiles,pNE->getWindow()->getWindowSize());
-		pBuildingTB = new TileBarTiles(pNE->getSpriteFactory(),pMap->getTheme(),buildingTiles,pNE->getWindow()->getWindowSize());
-		pTileViewer = new TileViewer(pMap->getTheme(),pNE->getWindow()->getWindowSize());
-	}
-	catch (ConstructionFailedException& cfe)
-	{
-		LError << cfe.what();
-		return false;
-	}
+	}	
 					
 	pTileViewer->setTile(pBuildingTB->getSelected());
 

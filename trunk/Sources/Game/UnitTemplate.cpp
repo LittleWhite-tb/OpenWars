@@ -32,7 +32,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ParamsException.h"
-#include "../Utils/Exceptions/TileException.h"
 
 const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-faction",
 														"internalName", "name", "filename", "size_x", "size_y", 
@@ -49,7 +48,7 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
 	{
 		if ( !pParams->exists(neededParameters[i]) )
 		{
-			throw MissingParameterTileException(neededParameters[i]);
+			throw MissingParameterException(neededParameters[i]);
 		}
 	}
 
@@ -85,7 +84,7 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
 	{
 		LError << "The force list is not matching the requested parameters";
 		LError << "Parameter '" << pnfpe.what() << "' not found";
-		throw MissingParameterTileException("unknown");
+		throw MissingParameterException("unknown");
 	}
 }
 

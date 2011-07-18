@@ -30,12 +30,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Unit.h"
 
+#include "UI/TileBar.h"
+
 #include "../Types/Vec2.h"
 
 class FontManager;
 
-class TileBarTiles;
-class TileBarUnits;
 class TileViewer;
 
 class Camera;
@@ -47,8 +47,8 @@ class VTime;
 class EditorEngine : public Engine
 {
 private:
-	TileBarTiles* pBuildingTB;	/*!< The tile bar for buildings */
-	TileBarUnits* pUnitTB;		/*!< The tile bar for units*/
+	TileBar<const Tile*>* pBuildingTB;			/*!< The tile bar for buildings */
+	TileBar<const UnitTemplate*>* pUnitTB;		/*!< The tile bar for units*/
 	TileViewer* pTileViewer;	/*!< The tile viewer */
 
 	MapEditor* pMap;			/*!< The map to use */

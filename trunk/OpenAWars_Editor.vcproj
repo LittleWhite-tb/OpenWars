@@ -541,10 +541,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Utils\Exceptions\TileException.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Sources\Utils\Exceptions\XMLException.h"
 					>
 				</File>
@@ -767,22 +763,6 @@
 			</File>
 			<File
 				RelativePath=".\Sources\UI\TileBar.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\UI\TileBarTiles.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\UI\TileBarTiles.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\UI\TileBarUnits.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\UI\TileBarUnits.h"
 				>
 			</File>
 			<File

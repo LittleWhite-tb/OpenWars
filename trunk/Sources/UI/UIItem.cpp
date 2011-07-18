@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Params.h"
 #include "Engine/AnimatedSprite.h"
 
-#include "Utils/Exceptions/TileException.h"
+#include "Utils/Exceptions/ParamsException.h"
 #include "Utils/Logger.h"
 
 const std::string UIItem::neededParameters[] = { "internalName", "filename" };
@@ -42,7 +42,7 @@ UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string
 	{
 		if ( !pParams->exists(neededParameters[i]) )
 		{
-			throw MissingParameterTileException(neededParameters[i]);
+			throw MissingParameterException(neededParameters[i]);
 		}
 	}
 
@@ -65,7 +65,7 @@ UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string
 	{
 		LError << "The force list is not matching the requested parameters";
 		LError << "Parameter '" << pnfpe.what() << "' not found";
-		throw MissingParameterTileException("unknown");
+		throw MissingParameterException("unknown");
 	}
 }
 
