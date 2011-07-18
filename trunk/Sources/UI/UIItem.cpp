@@ -22,26 +22,21 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Tile.h"
+#include "UIItem.h"
 
-#include <cassert>
-
+#include "NEngine/SpriteLoader.h"
+#include "NEngine/Sprite.h"
 #include "Engine/Params.h"
-
 #include "Engine/AnimatedSprite.h"
 
-#include "../Utils/Logger.h"
-#include "../Utils/Exceptions/ParamsException.h"
-#include "../Utils/Exceptions/TileException.h"
+#include "Utils/Exceptions/TileException.h"
+#include "Utils/Logger.h"
 
-const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
+const std::string UIItem::neededParameters[] = { "internalName", "filename" };
 
-Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
 	:pParams(pParams)
 {
-	assert(pParams);
-	assert(pSL);
-
 	// Check if the important nodes are present
 	for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
 	{
@@ -54,30 +49,27 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
 	try
 	{
 		this->internalName = pParams->get("internalName");
-		this->name = pParams->get("name");
-		this->id = pParams->getAs<unsigned int>("tile-id");
-		this->menuEntry = pParams->getAs<short int>("tile-menu");
+		NE::Sprite* pSprite = pSL->loadSpriteFromFile(folderPath + pParams->get("filename"));	// Will throw an exception if a problem occured
 
-		UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
-						 pParams->getAs<unsigned int>("size_y"));
+		UVec2 spriteSize(pParams->getAs<unsigned int>("size_x",pSprite->getSize().width),
+						 pParams->getAs<unsigned int>("size_y",pSprite->getSize().height));
 		
-		this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+		this->pSprite = new AnimatedSprite(pSprite,spriteSize,pParams->getAs<unsigned int>("animationTime",200));
 		if ( this->pSprite == NULL )
 		{
-			LError << "Fail to allocate memory for AnimatedSprite for Tile";
+			LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
 			throw std::bad_alloc("AnimatedSprite allocation failed");
 		}
-
-		this->defence = pParams->getAs<unsigned int>("defence");	
 	}
-	catch ( ParameterNotFoundParamsException )
+	catch ( ParameterNotFoundParamsException& pnfpe)
 	{
 		LError << "The force list is not matching the requested parameters";
+		LError << "Parameter '" << pnfpe.what() << "' not found";
 		throw MissingParameterTileException("unknown");
 	}
 }
-	
-Tile :: ~Tile()
+
+UIItem :: ~UIItem()
 {
 	delete pSprite;
 	delete pParams;

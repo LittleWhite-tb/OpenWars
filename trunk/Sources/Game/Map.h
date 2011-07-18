@@ -78,7 +78,7 @@ public:
 	virtual bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction)=0;
 
 	bool testTile(const UVec2& position, const Tile* pTile);
-	bool testTile(const UVec2& position, const UnitTemplate* pUnitTemplate);
+	bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
     
 	bool isValidMap(void)const { return valid; }
 

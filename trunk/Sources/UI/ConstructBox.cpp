@@ -24,11 +24,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ConstructBox.h"
 
-#include "NEngine/SpriteLoader.h"
-#include "NEngine/Sprite.h"
 #include "NEngine/Renderer.h"
 #include "NEngine/InputManager.h"
 
+#include "Engine/Theme.h"
 #include "Engine/Font.h"
 #include "Engine/AnimatedSprite.h"
 
@@ -43,25 +42,24 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <sstream>
 
-ConstructBox :: ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
-							 const std::string& downArrowFileName, const std::string& fontFileName, const USize2& windowSize)
-							 :pBackgroundUI(pSL->loadSpriteFromFile(backgroundFileName)),pCursor(pSL->loadSpriteFromFile(cursorFileName)),
-							 pUpArrow(pSL->loadSpriteFromFile(upArrowFileName)), pDownArrow(pSL->loadSpriteFromFile(downArrowFileName)),windowSize(windowSize),actualPosition(0),offsetCursorPosition(0)
+ConstructBox :: ConstructBox(const Theme* pTheme, const USize2& windowSize)
+	:pBackgroundUI(pTheme->getUIItem("ConstructionBackground")->getSprite()),
+	 pCursor(pTheme->getUIItem("ConstructionBackground")->getSprite()),
+	 pUpArrow(pTheme->getUIItem("upArrow")->getSprite()),
+	 pDownArrow(pTheme->getUIItem("downArrow")->getSprite()),
+	 windowSize(windowSize),actualPosition(0),offsetCursorPosition(0)
 {
 	Colour white(255,255,255,255);
 	Colour grey (64,64,64,255);
 
-	pFont = new Font(pSL->loadSpriteFromFile(fontFileName),USize2(16,16),' ');
-	pFontGrey = new Font(pSL->loadSpriteFromFile(fontFileName),USize2(16,16),' ');
+	pFont = pTheme->getFontObject("classic")->getFont();
+	pFontGrey = pTheme->getFontObject("classic")->getFont();
 
 	LDebug << "Construc Box created";
 }
 
 ConstructBox :: ~ConstructBox(void)
 {
-	delete pFontGrey;
-	delete pFont;
-
 	LDebug << "Construc Box delete";
 }
 
@@ -70,7 +68,7 @@ void ConstructBox :: add(const UnitTemplateFactionList* pListUnitTemplate)
 	unitsList.push_back(pListUnitTemplate);
 }
 
-bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable)
+bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time)
 {
 	bool errorFlag = true;
     USize2 backgroundSize = pBackgroundUI->getSize();
@@ -80,21 +78,21 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, con
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
 	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getSize().height + 5);
 
-	errorFlag &= r.drawSurface(uiPosition,*pBackgroundUI);
+	errorFlag &= pBackgroundUI->draw(r,uiPosition,time);
 	if ( unitsList.size() > 6 )
 	{
 		if ( offsetCursorPosition > 0 )
 		{
-            errorFlag &= r.drawSurface(upArrowPosition,*pUpArrow);
+            errorFlag &= pUpArrow->draw(r,upArrowPosition,time);
 		}
 		
 		if ( offsetCursorPosition < 4 )
 		{
-            errorFlag &= r.drawSurface(downArrowPosition,*pDownArrow);
+            errorFlag &= pDownArrow->draw(r,downArrowPosition,time);
 		}
 	}
 
-    errorFlag &= r.drawSurface(cursorPosition,*pCursor);
+    errorFlag &= pCursor->draw(r,cursorPosition,time);
 
 	/**
 		Offset cursor make the list behaving in the way that until the cursor is not down, we are displaying the first of the list

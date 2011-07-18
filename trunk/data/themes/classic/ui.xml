@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<uiItems>
+	<uiItem>
+		<internalName>ConstructionBackground</internalName>
+		<filename>constBackground.png</filename>
+		<!--
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<animationTime>200</animationTime>
+		-->
+	</uiItem>
+	<uiItem>
+		<internalName>cursor</internalName>
+		<filename>cursor.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>cursorWrong</internalName>
+		<filename>cursor_wrong.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>tileBarArrows</internalName>
+		<filename>tilebar_arrows.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>tileBarCursor</internalName>
+		<filename>tilebar_cursor.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>UIBackground</internalName>
+		<filename>UI_Background.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>downArrow</internalName>
+		<filename>downArrow.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>upArrow</internalName>
+		<filename>upArrow.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>endTurnIcon</internalName>
+		<filename>endTurnIcon.png</filename>
+	</uiItem>
+</uiItems>

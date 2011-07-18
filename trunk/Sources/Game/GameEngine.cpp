@@ -55,17 +55,7 @@ GameEngine :: GameEngine(NE::NEngine* const pNE)
 }
 
 GameEngine :: ~GameEngine(void)
-{
-    for ( std::vector<MenuView*>::iterator itMenuView = menuEntries.begin() ; itMenuView != menuEntries.end() ; ++itMenuView )
-    {
-        delete *itMenuView;
-    }
-    
-    for ( std::vector<MenuView*>::iterator itMenuView = unitMenuEntries.begin() ; itMenuView != unitMenuEntries.end() ; ++itMenuView )
-    {
-        delete *itMenuView;
-    }
-    
+{    
 	delete pMBMenu;
 
 	for ( std::map<std::string, ConstructBox*>::iterator itPCB = constructionBoxes.begin() ; itPCB != constructionBoxes.end() ; ++itPCB )
@@ -82,7 +72,7 @@ GameEngine :: ~GameEngine(void)
 
 bool GameEngine :: load(void)
 {
-	pC = new Cursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png",pMap,UVec2(5,5));
+	pC = new Cursor(pMap,UVec2(5,5));
 	pCam = new Camera();
 
 	std::list<const Tile* > tilesList;
@@ -100,7 +90,7 @@ bool GameEngine :: load(void)
 		if ( tileParams->exists("producerName") && 
 			 constructionBoxes.find(tileParams->get("producerName")) == constructionBoxes.end() )
 		{
-			constructionBoxes[tileParams->get("producerName")] = new ConstructBox(pNE->getSpriteLoader(),GFX_PATH "constBackground.png",GFX_PATH "constCursor.png",GFX_PATH "upArrow.png",GFX_PATH "downArrow.png", "./data/fonts/font.png",pNE->getWindow()->getWindowSize());
+			constructionBoxes[tileParams->get("producerName")] = new ConstructBox(pMap->getTheme(),pNE->getWindow()->getWindowSize());
 		}
 	}
 
@@ -127,14 +117,18 @@ bool GameEngine :: load(void)
 	
 	try
 	{
-		// Prepare the data for the basic menu
-        menuEntries.push_back(new MenuView("End turn",ME_EndTurn,new AnimatedSprite(pNE->getSpriteLoader()->loadSpriteFromFile(GFX_PATH "endTurnIcon.png"),USize2(32,32),200)));
-        menuEntries.push_back(new MenuView("Quit",ME_Quit,NULL));
-        
         // Unit menu
-        unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
+        // unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
 
-		pMBMenu = new MenuBox(pNE->getSpriteLoader(),pNE->getSpriteFactory(), GFX_PATH "constCursor.png","./data/fonts/font.png",menuEntries,pNE->getWindow()->getWindowSize());
+		pMBMenu = new MenuBox(pNE->getSpriteFactory(),pMap->getTheme(),pNE->getWindow()->getWindowSize());
+		if ( pMBMenu == NULL )
+		{
+			LError << "Fail to allocate MenuBox";
+			throw std::bad_alloc("MenuBox allocation failed");
+		}
+
+		pMBMenu->add("EndTurnAction",pMap->getTheme()->getUIItem("endTurnIcon")->getSprite(),"End turn");
+		pMBMenu->add("QuitAction",NULL,"Quit");
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -173,6 +167,12 @@ bool GameEngine :: load(const std::string& mapName)
 	try
 	{
 		return this->load();
+	}
+	catch ( LibraryException le )
+	{
+		LError << le.what();
+		LError << "The XML files have missing elements needed by the game";
+		return false;
 	}
 	catch ( FileNotFoundException& fnfe )
 	{
@@ -214,7 +214,7 @@ bool GameEngine :: run(void)
 					}
 					
 					// We can draw it
-					constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pNE->getRenderer(),0,5000);
+					constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pNE->getRenderer(),0,5000,pVT->getTime());
 				}
 				break;
             case GS_SELECT:
@@ -262,18 +262,18 @@ bool GameEngine :: run(void)
 								}
 								else
 								{
-                                    pMBMenu->setMenus(menuEntries);
+                                    // pMBMenu->setMenus(menuEntries);
 									this->gState = GS_MENU;
 								}
 							}
 							else if ( !pMap->getUnit(pC->getPosition())->state == US_ACTIVE )
 							{
-                                pMBMenu->setMenus(menuEntries);
+                                // pMBMenu->setMenus(menuEntries);
 								this->gState = GS_MENU;
 							}
 							else
 							{
-                                pMBMenu->setMenus(unitMenuEntries);
+                                // pMBMenu->setMenus(unitMenuEntries);
                                 this->gState = GS_SELECT;
                             }
 							
@@ -311,20 +311,19 @@ bool GameEngine :: run(void)
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
 							// Check what is in 
-							switch (pMBMenu->getActualEntry())
+							std::string menuSelection = pMBMenu->getSelectedActionName();
+							if ( menuSelection == "EndTurnAction" )
 							{
-								case (ME_EndTurn):
-								{
-									// ToDo Change turn.
-									this->pMap->enableUnits();
-									this->gState = GS_VISU;
-								}
-								break;
-								case (ME_Quit):
-								{
-									m_userQuit = true;
-								}
-								break;
+								this->pMap->enableUnits();
+								this->gState = GS_VISU;
+							}
+							else if ( menuSelection == "QuitAction" )
+							{
+								m_userQuit = true;
+							}
+							else
+							{
+								LWarning << "Not implemented action '" << menuSelection << "' in GS_MENU state";
 							}
 						}
 						else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
@@ -339,6 +338,7 @@ bool GameEngine :: run(void)
 						if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 						{
                             // Check what is in 
+							/*
 							switch (pMBMenu->getActualEntry())
 							{
 								case (ME_Move):
@@ -360,6 +360,7 @@ bool GameEngine :: run(void)
 								}
 								break;
 							}
+							*/
                         }
                         else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 						{

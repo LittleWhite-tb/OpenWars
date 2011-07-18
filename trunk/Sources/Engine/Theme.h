@@ -33,7 +33,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/Tile.h"
 #include "Game/UnitTemplate.h"
 #include "Game/UnitTemplateFactionList.h"
-#include "UI/UIType.h"
+#include "UI/UIItem.h"
+#include "Game/FontObject.h"
 
 namespace NE { class SpriteLoader; }
 
@@ -43,9 +44,10 @@ private:
 
     std::string name;		/*!< */
 
-	Library<Tile> tiles;			/*!< */
-	Library<UnitTemplate> units;	/*!< */
-	// Library<UIObject>
+	Library<Tile> tiles;				/*!< */
+	Library<UnitTemplate> units;		/*!< */
+	Library<UIItem> uiItems;			/*!< */
+	Library<FontObject> fontsObject;	/*!< */
 
 public:
 	Theme() {}
@@ -66,7 +68,13 @@ public:
 	const UnitTemplate* getUnit(const std::string& unitName, const unsigned int faction)const;
 	void getUnitsList(std::list< const UnitTemplateFactionList* >* pUnitsList)const;
 
-    // AnimatedSprite* getUI(const UIType uType);
+	bool containsUIItem(const std::string& uiName)const;
+	const UIItem* getUIItem(const std::string& uiName)const;
+	void getUIITemsList(std::list< const UIItem* >* pUIItemsList)const;
+
+	bool containsFontObject(const std::string& fontName)const;
+	const FontObject* getFontObject(const std::string& fontName)const;
+	void getFontObjectList(std::list< const FontObject* >* pFontsObjectsList)const;
 
     const std::string& getName()const { return name; }
 };

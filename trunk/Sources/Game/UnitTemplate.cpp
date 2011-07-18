@@ -24,6 +24,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UnitTemplate.h"
 
+#include <cassert>
+
 #include "Engine/Params.h"
 
 #include "Engine/AnimatedSprite.h"
@@ -32,8 +34,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Exceptions/ParamsException.h"
 #include "../Utils/Exceptions/TileException.h"
 
-#include "globals.h"
-
 const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-faction",
 														"internalName", "name", "filename", "size_x", "size_y", 
 														"movement", "fuel", "fuelConsumption", "life", "price" };
@@ -41,6 +41,9 @@ const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-faction"
 UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
 	:pParams(pParams)
 {
+	assert(pParams);
+	assert(pSL);
+
 	// Check if the important nodes are present
 	for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
 	{

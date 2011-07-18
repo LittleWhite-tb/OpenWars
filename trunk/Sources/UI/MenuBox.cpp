@@ -32,6 +32,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
+#include "../Engine/Theme.h"
 
 #include "../Utils/Logger.h"
 
@@ -39,8 +40,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../globals.h"
 
-MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& windowSize)
-:pCursor(new AnimatedSprite(pSL->loadSpriteFromFile(cursorFileName),USize2(32,32),200)),actualPosition(0),entries(entries)
+MenuBox :: MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& windowSize)
+	:pCursor(pTheme->getUIItem("cursor")->getSprite()),actualPosition(0)
 {
 	pBackground = pSF->createSpriteFromColour(Colour(0xC0C0C0C0), USize2(150,10 + TILE_DEFAULT_HEIGHT));
     if ( pBackground == NULL )
@@ -51,20 +52,14 @@ MenuBox :: MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, co
 
 	windowXPosition = windowSize.width;
 	
-	pFont = new Font(pSL->loadSpriteFromFile(fontFileName),USize2(16,16),' ');
+	pFont = pTheme->getFontObject("classic")->getFont();
 }
 
-MenuBox :: ~MenuBox()
+void MenuBox :: add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName)
 {
-/*
-	for (std::vector<MenuView>::iterator itEntry = pEntries->begin() ; itEntry != pEntries->end() ; ++itEntry)
-	{
-		delete itEntry->pASprite;
-	}
-*/
-    delete pFont;
-	delete pCursor;
+	entries.push_back(MenuBox::MenuItem(actionName, pSprite, displayName));
 }
+
 
 bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
 {
@@ -106,15 +101,15 @@ bool MenuBox :: draw(const NE::Renderer& r, const UVec2& cursorPosition, const u
 			IVec2 cursorPosition(position.x - 15, itemPosition.y);
 			bError &= pCursor->draw(r,cursorPosition,time);
 		}
-		if ( entries[i]->pASprite != NULL )
+		if ( entries[i].pASprite != NULL )
 		{
-			bError &= entries[i]->pASprite->draw(r,itemPosition,time);
+			bError &= entries[i].pASprite->draw(r,itemPosition,time);
 		}
 		{
 			IVec2 textPosition(position.x + TILE_DEFAULT_WIDTH + 24, itemPosition.y + TILE_DEFAULT_HEIGHT / 2);
-			USize2 textSize = pFont->getStringSize(entries[i]->name);
+			USize2 textSize = pFont->getStringSize(entries[i].displayName);
 			textPosition.y -= textSize.height/2;
-			pFont->draw(r,entries[i]->name, textPosition);
+			pFont->draw(r,entries[i].displayName, textPosition);
 		}
 		itemPosition.y += 10 + TILE_DEFAULT_HEIGHT;
 	}

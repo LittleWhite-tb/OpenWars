@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __LIBRARYEXCEPTION_H__
+#define __LIBRARYEXCEPTION_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,31 +25,33 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include <string>
 
-#include "NEngine/SpriteFactory.h"
-
-#include "Engine/Theme.h"
-#include "Engine/AnimatedSprite.h"
-
-#include "Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<UnitView*>& listTiles, const USize2& windowSize)
-:TileBar(pSF,pTheme,reinterpret_cast<std::vector<View*>& >(listTiles),windowSize)
+class LibraryException : public std::exception
 {
-	
-}
+private:
+	std::string message;	/*!< Message to display */
 
-const UnitTemplate* TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
+public:
+	LibraryException(const std::string& userMessage):message(userMessage) {}
+    virtual ~LibraryException(void)throw() {}
+
+	virtual const char* what() const throw()
 	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getUnit();
+		return message.c_str();
 	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getUnit();
-	}
-}
+};
+
+/*! \class LibraryException LibraryException.h "Utils/Exceptions/LibraryException.h"
+ *  \brief Exception when library class failed
+ */
+
+/*! \fn LibraryException::LibraryException(const std::string& userMessage)
+ * \param userMessage message to display
+ */
+
+/*! \fn virtual const char* LibraryException::what()const throw()
+ * \return the error message
+ */
 
 #endif

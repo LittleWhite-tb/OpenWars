@@ -33,7 +33,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Types/Vec2.h"
 
 namespace NE { class Renderer; }
-namespace NE { class SpriteLoader; }
 
 class AnimatedSprite;
 class Map;
@@ -55,7 +54,7 @@ protected:
 
 public:
 
-	Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition);
+	Cursor(const Map* const pMap, const UVec2& initialPosition);
 	virtual ~Cursor(void);
 
 	const Tile* getTileUnderCursor(void)const;

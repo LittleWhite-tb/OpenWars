@@ -27,18 +27,13 @@ e-mail: lw.demoscene@gmail.com
 
 // Folders path
 #define THEME_PATH		"./data/themes/"			/*!< Path to defaut theme folder */
-#define TILESET_PATH	"./data/tilesets/"		/*!< Path to the default tile set folder */
-#define UNITSET_PATH	"./data/unitsets/"		/*!< Path to the default unit set folder */
 #define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */
-#define GFX_PATH	"./data/gfx/"				/*!< Path to the default tiles graphics files folder */
 #define GFX_TILES_PATH	"./data/gfx/tiles/"		/*!< Path to the default tiles graphics files folder */
 #define GFX_UNITS_PATH	"./data/gfx/units/"		/*!< Path to the default units graphics files folder */
+#define GFX_UI_PATH	"./data/gfx/ui/"		/*!< Path to the default ui graphics files folder */
+#define GFX_FONTS_PATH	"./data/gfx/fonts/"		/*!< Path to the default fonts files folder */
 #define SFX_PATH	"./data/sfx/"				/*!< Path to the default sounds folder */
 
-// Animations speed
-#define NORMAL_SPEED	200						/*!< Default speed for normal animation */
-#define SEE_SPEED		300						/*!< Default speed for the see animations */
-#define BUILDING_SPEED	150						/*!< Default speed for animation of buildings */
 #define CURSOR_SPEED	400						/*!< Default speed for animation of the cursor */
 
 // Sprite default size (will be used to determine the scaling factor)

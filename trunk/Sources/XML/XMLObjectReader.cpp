@@ -55,11 +55,11 @@ bool XMLObjectReader :: parseAttributes(xmlNodePtr xmlNode, Params* const pParam
 		if ( node->type == XML_ATTRIBUTE_NODE )
 		{
 			std::string attrName = std::string((const char*)xmlNode->name) + std::string("-") + std::string((const char*)node->name);
-			LDebug << "Attribute detected '" << attrName << "'";
+			// LDebug << "Attribute detected '" << attrName << "'";
 
 			if ( node->children && node->children->type == XML_TEXT_NODE && node->children->content && !node->children->next )
 			{
-				LDebug << "Captured: " << std::string((char*)node->children->content) << " for '" << attrName << "'";
+				// LDebug << "Captured: " << std::string((char*)node->children->content) << " for '" << attrName << "'";
 				pParams->add(attrName,std::string((char*)node->children->content));
 			}
 		}
@@ -82,7 +82,7 @@ bool XMLObjectReader :: parseNodes(xmlNodePtr xmlNode, Params* const pParams, co
 			{
 				nodeName = previousNodes + std::string("_") + nodeName;
 			}
-			LDebug << "Detected '" << nodeName << "'";
+			// LDebug << "Detected '" << nodeName << "'";
 
 			// Attribute
 			if ( node->properties )
@@ -92,15 +92,14 @@ bool XMLObjectReader :: parseNodes(xmlNodePtr xmlNode, Params* const pParams, co
 
 			if ( node->children && node->children->type == XML_TEXT_NODE && node->children->content && !node->children->next )
 			{
-				LDebug << "Captured: " << std::string((char*)node->children->content) << " for '" << nodeName << "'";
+				// LDebug << "Captured: " << std::string((char*)node->children->content) << " for '" << nodeName << "'";
 				pParams->add(nodeName,std::string((char*)node->children->content));
 			}
 
 			if ( node->children )
 			{
 				parseNodes(node->children,pParams,std::string((const char*)node->name));
-			}
-			
+			}	
 		}
 	}
 

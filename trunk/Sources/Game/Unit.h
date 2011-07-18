@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "Types/Vec2.h"
-
 #include "UnitTemplate.h"
 
 namespace NE { class SpriteLoader; }

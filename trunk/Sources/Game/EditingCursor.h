@@ -30,7 +30,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-namespace NE { class SpriteLoader; }
 namespace NE { class Renderer; }
 class AnimatedSprite;
 class Map;
@@ -45,7 +44,7 @@ private:
 	bool isWrong;								/*!< The state of the cursor */
 
 public:
-	EditingCursor(NE::SpriteLoader* const pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition);
+	EditingCursor(const Map* const pMap, const UVec2& initialPosition);
 	~EditingCursor(void);
 
 	bool getIsWrong(void)const { return isWrong; }

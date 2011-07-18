@@ -36,11 +36,11 @@ e-mail: lw.demoscene@gmail.com
 #include "../Types/Vec2.h"
 #include "../Types/Size2.h"
 
-namespace NE { class SpriteLoader; }
 namespace NE { class SpriteFactory; }
 namespace NE { class Renderer; }
 namespace NE { class Sprite; }
 class AnimatedSprite;
+class Theme;
 
 class View
 {
@@ -72,7 +72,7 @@ class TileBar
 
 private:
 	NE::Sprite* pBarSprite;						/*!< The surface for the bar */
-	NE::Sprite* pBarCursor;						/*!< The surface for the cursor */
+	AnimatedSprite* pBarCursor;						/*!< The surface for the cursor */
 	AnimatedSprite* pBarArrows;				/*!< Up / Down arrows */
 
 	int counterMovementAnim;				/*!< counter to know how much to move on the left or right */
@@ -83,8 +83,6 @@ private:
 
 	unsigned int stepX;						/*!< Speed of the animation of the tile bar on the X axis */
 	unsigned int stepY;						/*!< Speed of the animation of the tile bar on the Y axis */
-
-	bool valid;								/*!< flag to know if all initialisation goes right */
 
 	void moveLeft(void);
 	void moveRight(void);
@@ -97,7 +95,7 @@ protected:
 	int currentY;				/*!< index of the actual Tile selected on the Y axis */
 
 public:
-	TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View *>& listTiles, const USize2& windowSize);
+	TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<View *>& listTiles, const USize2& windowSize);
 	virtual ~TileBar(void);
 
 	void open(void);
@@ -108,8 +106,6 @@ public:
 	bool draw(const NE::Renderer& r, const unsigned int time);
 
 	void update(const unsigned int time);
-
-	bool isValid(void)const { return valid; }
 
 	bool isOpened(void)const { if ( state != TBS_Closed && state != TBS_Closing ) return true; else return false; }
 	bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }

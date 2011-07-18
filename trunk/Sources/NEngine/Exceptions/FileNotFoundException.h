@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __FILENOTFOUNDEXCEPTION_H__
+#define __FILENOTFOUNDEXCEPTION_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,31 +25,34 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include <string>
 
-#include "NEngine/SpriteFactory.h"
-
-#include "Engine/Theme.h"
-#include "Engine/AnimatedSprite.h"
-
-#include "Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<UnitView*>& listTiles, const USize2& windowSize)
-:TileBar(pSF,pTheme,reinterpret_cast<std::vector<View*>& >(listTiles),windowSize)
+class FileNotFoundException : public std::exception
 {
-	
-}
+private:
+	std::string message;	/*!< Message to display */
 
-const UnitTemplate* TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
+public:
+	FileNotFoundException(const std::string& fileName):message(std::string("File not found: '") + fileName + std::string("'")) {}
+    virtual ~FileNotFoundException(void)throw() {}
+
+	virtual const char* what() const throw()
 	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getUnit();
+		return message.c_str();
 	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getUnit();
-	}
-}
+};
+
+/*! \class FileNotFoundException FileNotFoundException.h "Utils/Exceptions/FileNotFoundException.h"
+ *  \brief Exception to throw when file is not found
+ */
+
+/*! \fn FileNotFoundException::FileNotFoundException(const std::string& fileName)
+ * Create a message of the format: "Failed to open 'USER_MESSAGE'"
+ * \param fileName name of the file not found
+ */
+
+/*! \fn virtual const char* FileNotFoundException::what()const throw()
+ * \return the error message
+ */
 
 #endif

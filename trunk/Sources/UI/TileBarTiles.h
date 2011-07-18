@@ -33,6 +33,7 @@ e-mail: lw.demoscene@gmail.com
 namespace NE { class SpriteLoader; }
 namespace NE { class SpriteFactory; }
 
+class Theme;
 class AnimatedSprite;
 
 class TileView : public View
@@ -51,7 +52,7 @@ class TileBarTiles : public TileBar
 private:
 
 public:
-	TileBarTiles(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<TileView*>& listTiles, const USize2& windowSize);
+	TileBarTiles(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<TileView*>& listTiles, const USize2& windowSize);
 
 	const Tile* getSelected(void)const;
 };

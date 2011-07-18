@@ -26,19 +26,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Map.h"
 
-#include "../NEngine/SpriteLoader.h"
-
 #include "../Engine/AnimatedSprite.h"
 #include "../NEngine/InputManager.h"
 #include "../Utils/Logger.h"
 #include "Camera.h"
 #include "../globals.h"
 
-Cursor :: Cursor(NE::SpriteLoader* const  pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0)*/)
+Cursor :: Cursor(const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0)*/)
 	:pMap(pMap),position(initialPosition)
 {
 	// The size of the tiles and the cursor are the same to have better effect
-	pCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileName),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED);
+	pCursorSprite = pMap->getTheme()->getUIItem("cursor")->getSprite();
 
 	// Check if the position entered is correct
 	if ( position.x >= pMap->getWidth() )
@@ -58,8 +56,6 @@ Cursor :: Cursor(NE::SpriteLoader* const  pSL, const std::string& fileName, cons
 
 Cursor :: ~Cursor(void)
 {
-	delete pCursorSprite;
-
 	LDebug << "Cursor deleted";
 }
 

@@ -59,11 +59,8 @@ private:
 
 	// UI
 	std::map<std::string, ConstructBox*> constructionBoxes;	/*!< Library of construct box determined by their names */
-    
-    std::vector<MenuView*> menuEntries;  /*!< Entries in the menu */
-    std::vector<MenuView*> unitMenuEntries; /*!< Entries for unit selection */
 
-	MenuBox* pMBMenu;				/*!< menu for the user */
+	MenuBox* pMBMenu;			/*!< menu for the user */
 
 	GameState gState;			/*!< Actual state of the game */
     UVec2 selectedUnitPosition; /*!< Position of the unit selected (the one to move or to control) */

@@ -31,19 +31,22 @@ e-mail: lw.demoscene@gmail.com
 #include "Types/Size2.h"
 #include "Types/Vec2.h"
 
-namespace NE { class SpriteLoader; }
 namespace NE { class Sprite; }
 namespace NE { class Renderer; }
 
+class Theme;
 class AnimatedSprite;
 class Font;
+
+class Tile;
+class UnitTemplate;
 
 class TileViewer
 {
 private:
 
 	Font* pFont;				/*!< the font to use */
-	NE::Sprite* pBackground;		/*!< the sprite for the background */
+	AnimatedSprite* pBackground;		/*!< the sprite for the background */
 	AnimatedSprite* pTileSprite;	/*!< the tile to display in the UI */
 
 	std::string title;				/*!< the title to display */
@@ -53,17 +56,18 @@ private:
 	IVec2 position;					/*!< the UI position */
 
 public:
-	TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize);
+	TileViewer(const Theme* pTheme, const USize2& windowSize);
 	~TileViewer();
 
-	void setTile(AnimatedSprite* const pTileSprite, const std::string tileName) { this->pTileSprite = pTileSprite; this->tileName = tileName; }
+	void setTile(const Tile* pTile);
+	void setTile(const UnitTemplate* pUnitTemplate);
 
 	void setTitle(const std::string& title) { this->title = title; }
 
 	void putOnLeft(void);
 	void putOnRight(void);
 
-	bool draw(const NE::Renderer& r);
+	bool draw(const NE::Renderer& r, const unsigned int time);
 };
 
 /*! \class TileViewer TileViewer.h "Engine/TileViewer.h"
@@ -71,7 +75,7 @@ public:
  *
  *	We can:
  *		- Change the title
- *		- Change the positio ( on left or right of the screen )
+ *		- Change the position ( on left or right of the screen )
  *		- Change the tile
  */
 

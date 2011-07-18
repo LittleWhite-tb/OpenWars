@@ -39,28 +39,23 @@ namespace NE { class SpriteFactory; }
 namespace NE { class Sprite; }
 namespace NE { class Renderer; }
 class Font;
-
-enum MenuEntry
-{
-    ME_Move,
-    
-	ME_EndTurn,
-	ME_Quit,
-};
-
-struct MenuView
-{
-	std::string name;			/*!< name to display */
-	MenuEntry entry;			/*!< id of the entry */
-	AnimatedSprite* pASprite;	/*!< sprite to display */
-
-	MenuView(const std::string& name, const MenuEntry entry, AnimatedSprite* const pASprite):name(name),entry(entry),pASprite(pASprite) {}
-    ~MenuView() { delete pASprite; }
-};
+class Theme;
 
 class MenuBox
 {
+	struct MenuItem
+	{
+		std::string actionName;			/*!< id of the entry */
+		std::string displayName;			/*!< name to display */
+		AnimatedSprite* pASprite;	/*!< sprite to display */
+
+		MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)
+			:actionName(actionName),displayName(displayName),pASprite(pASprite) {}
+	};
+
 private:
+
+
 	NE::Sprite* pBackground;				/*!< background for the UI (generated on the fly by the constructor) */
 	AnimatedSprite* pCursor;			/*!< cursor */
 	Font* pFont;						/*!< font for the texts */
@@ -68,19 +63,18 @@ private:
 	unsigned int windowXPosition;		/*!< Window width */
 	unsigned int actualPosition;		/*!< actual position of the cursor */
 
-	std::vector<MenuView*> entries;    /*!< entries in the UI */
+	std::vector<MenuItem> entries;    /*!< entries in the UI */
 
 public:
-	MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize);
-	~MenuBox(void);
+	MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize);
+
+	void add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName);
 
 	bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);
 
 	void update(const NE::InputManager::ArrowsDirection kd);
 
-	MenuEntry getActualEntry(void) { return entries[actualPosition]->entry; }
-    
-    void setMenus(std::vector<MenuView*> newEntries) { entries = newEntries; }
+	const std::string& getSelectedActionName(void) { return entries[actualPosition].actionName; }
 };
 
 /*! \class MenuBox MenuBox.h "UI/MenuBox.h"

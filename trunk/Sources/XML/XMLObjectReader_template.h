@@ -39,7 +39,7 @@ e-mail: lw.demoscene@gmail.com
 template <typename T>
 bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary, NE::SpriteLoader* pSL, const std::string& folderPath)
 {
-	LDebug << "Started XMLReader parsing";
+	// LDebug << "Started XMLReader parsing";
 
 	xmlNodePtr xmlRoot = xmlDocGetRootElement(xmlFile);
 	if ( xmlRoot == NULL )
@@ -48,7 +48,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
 		return false;
 	}
 
-	std::cout << "Root is: " << xmlRoot->name << std::endl;
+	// LDebug << "Root is: " << xmlRoot->name;
 
 	bool bResult = true;
 	xmlNodePtr node;
@@ -84,7 +84,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
 
 						pLibrary->add(pInstance->getInternalName(),pInstance);
 					}
-					LDebug << "Finished '" << typeid(T).name() << "' parsing";
+					// LDebug << "Finished '" << typeid(T).name() << "' parsing";
 				}
 				else
 				{
@@ -98,7 +98,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
 		}
 	}
 
-	LDebug << "Finished XMLReader parsing";
+	// LDebug << "Finished XMLReader parsing";
 
 	return bResult;
 }

@@ -34,6 +34,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/UnitTemplateFactionList.h"
 
 #include "Utils/Logger.h"
+#include "Utils/Exceptions/LibraryException.h"
 
 template <typename T>
 class Library
@@ -69,8 +70,8 @@ public:
 		
 		if (itT == entries.end())
 		{
-			return NULL;	
-		}// ToDO throw exception ?
+			throw LibraryException("Element '" + name + "' not found");
+		}
 		
 		return itT->second;
 	}

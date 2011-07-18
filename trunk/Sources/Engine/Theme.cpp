@@ -59,9 +59,22 @@ bool Theme :: load(NE::SpriteLoader* const pSL)
 			bResult &= xmlReader.parse<Tile>("tile",&tiles, pSL, GFX_TILES_PATH + name + "/");
 		}
 
+		// Units
 		{
 			XMLObjectReader xmlReader(THEME_PATH +name+"/units.xml");
 			bResult &= xmlReader.parse<UnitTemplate>("unit",&units, pSL, GFX_UNITS_PATH + name + "/");
+		}
+
+		// UIItems
+		{
+			XMLObjectReader xmlReader(THEME_PATH + name + "/ui.xml");
+			bResult &= xmlReader.parse<UIItem>("uiItem",&uiItems,pSL,GFX_UI_PATH + name + "/");
+		}
+
+		// Fonts
+		{
+			XMLObjectReader xmlReader(THEME_PATH + name + "/fonts.xml");
+			bResult &= xmlReader.parse<FontObject>("font",&fontsObject,pSL,GFX_FONTS_PATH + name + "/");
 		}
 	}
 	catch ( XMLParsingFailedException xmlpfe )
@@ -180,3 +193,33 @@ void Theme :: getUnitsList(std::list< const UnitTemplateFactionList* >* pUnitsLi
 	units.getValues<UnitTemplate>(pUnitsList);
 }
 
+
+bool Theme :: containsUIItem(const std::string& uiName)const
+{
+	return uiItems.exists(uiName);
+}
+
+const UIItem* Theme :: getUIItem(const std::string& uiName)const
+{
+	return uiItems.get(uiName);
+}
+
+void Theme :: getUIITemsList(std::list< const UIItem* >* pUIItemsList)const
+{
+	uiItems.getValues<UIItem>(pUIItemsList);
+}
+
+bool Theme :: containsFontObject(const std::string& fontName)const
+{
+	return fontsObject.exists(fontName);
+}
+
+const FontObject* Theme :: getFontObject(const std::string& fontName)const
+{
+	return fontsObject.get(fontName);
+}
+
+void Theme :: getFontObjectList(std::list< const FontObject* >* pFontsObjectsList)const
+{
+	fontsObject.getValues<FontObject>(pFontsObjectsList);
+}

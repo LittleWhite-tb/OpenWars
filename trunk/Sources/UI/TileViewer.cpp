@@ -25,24 +25,27 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileViewer.h"
 
-#include "NEngine/SpriteLoader.h"
 #include "NEngine/Renderer.h"
-
 #include "NEngine/Sprite.h"
+
+#include "Engine/Theme.h"
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Font.h"
+
+#include "Game/Tile.h"
+#include "Game/UnitTemplate.h"
 
 #include "Utils/Logger.h"
 #include "Types/Vec2.h"
 #include "Types/Colour.h"
 
-TileViewer :: TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
+TileViewer :: TileViewer(const Theme* pTheme, const USize2& windowSize)
 :windowSize(windowSize)
 {
 	Colour white(255,255,255,255);
 
-	pBackground = pSL->loadSpriteFromFile(fileNameBackground);
-	pFont = new Font(pSL->loadSpriteFromFile(fileNameFont),USize2(16,16),' ');
+	pBackground = pTheme->getUIItem("UIBackground")->getSprite();
+	pFont = pTheme->getFontObject("classic")->getFont();
     
     USize2 backgroundSize = pBackground->getSize();
 	position = IVec2(windowSize.width - backgroundSize.width - 10, windowSize.height - backgroundSize.height - 10);
@@ -55,8 +58,26 @@ TileViewer :: TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNam
 TileViewer :: ~TileViewer()
 {
 	LDebug << "TileViewer deleted";
+}
 
-	delete pFont;
+void TileViewer :: setTile(const Tile* pTile)
+{
+	assert(pTile);
+
+	this->pTileSprite = pTile->getSprite();
+	this->tileName = pTile->getName();
+
+	this->title = "Element";
+}
+
+void TileViewer :: setTile(const UnitTemplate* pUnitTemplate)
+{
+	assert(pUnitTemplate);
+
+	this->pTileSprite = pUnitTemplate->getSprite();
+	this->tileName = pUnitTemplate->getName();
+
+	this->title = "Unit";
 }
 
 void TileViewer :: putOnLeft(void)
@@ -69,7 +90,7 @@ void TileViewer :: putOnRight(void)
 	position.x = windowSize.width - pBackground->getSize().width - 10;
 }
 
-bool TileViewer :: draw(const NE::Renderer& r)
+bool TileViewer :: draw(const NE::Renderer& r, const unsigned int time)
 {
 	bool error = true;
     USize2 backgroundSize = pBackground->getSize();
@@ -82,7 +103,7 @@ bool TileViewer :: draw(const NE::Renderer& r)
 
 	LDebug << "TileViewer draw";
 
-	error &= r.drawSurface(position,*pBackground);
+	error &= pBackground->draw(r,position,time);
 	error &= pFont->draw(r,title,titlePosition);
 	error &= pTileSprite->draw(r,tilePosition,0);
 	error &= pFont->draw(r,tileName,namePosition);

@@ -34,10 +34,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Size2.h"
 
-namespace NE { class SpriteLoader; }
-namespace NE { class Sprite; }
 namespace NE { class Renderer; }
 
+class Theme;
 class AnimatedSprite;
 class Font;
 class UnitTemplateFactionList;
@@ -46,10 +45,10 @@ class ConstructBox
 {
 private:
 
-	NE::Sprite* pBackgroundUI;							/*!< sprite for the background */
-	NE::Sprite* pCursor;								/*!< sprite for the cursor */
-	NE::Sprite* pUpArrow;								/*!< sprite for the up arrow */
-	NE::Sprite* pDownArrow;								/*!< sprite for the down arrow */
+	AnimatedSprite* pBackgroundUI;							/*!< sprite for the background */
+	AnimatedSprite* pCursor;								/*!< sprite for the cursor */
+	AnimatedSprite* pUpArrow;								/*!< sprite for the up arrow */
+	AnimatedSprite* pDownArrow;								/*!< sprite for the down arrow */
 
 	Font* pFont;									/*!< Font used for the texts */
 	Font* pFontGrey;								/*!< Font used for the texts when no enough money (in grey)*/
@@ -61,13 +60,12 @@ private:
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,
-const std::string& downArrowFileName, const std::string& fontFileName, const USize2& windowSize);
+	ConstructBox(const Theme* pTheme, const USize2& windowSize);
 	~ConstructBox(void);
 
 	void add(const UnitTemplateFactionList* pListUnitTemplate);
 
-	bool draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable);
+	bool draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time);
 
 	void update(const NE::InputManager::ArrowsDirection kd);
 

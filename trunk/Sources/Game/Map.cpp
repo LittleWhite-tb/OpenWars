@@ -424,7 +424,7 @@ bool Map :: testTile(const UVec2& position, const Tile* pTile)
 	return true;
 }
 
-bool Map :: testTile(const UVec2& position, const UnitTemplate* pUnitTemplate)
+bool Map :: testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)
 {
 	// TODO
 

@@ -25,29 +25,29 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditingCursor.h"
 
-#include "../NEngine/SpriteLoader.h"
+#include "Engine/AnimatedSprite.h"
+#include "Engine/Theme.h"
 
-#include "../Engine/AnimatedSprite.h"
-
+#include "Map.h"
 #include "Camera.h"
+
+#include "UI/UIItem.h"
 
 #include "../Utils/Logger.h"
 
 #include "../globals.h"
 
-EditingCursor :: EditingCursor(NE::SpriteLoader* pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
-	:Cursor(pSL,fileNameCursor,pMap,initialPosition),isWrong(false)
+EditingCursor :: EditingCursor(const Map* const pMap, const UVec2& initialPosition)
+	:Cursor(pMap,initialPosition),isWrong(false)
 {
 	// The size of the tiles and the cursor are the same to have better effect
-	pWrongCursorSprite = new AnimatedSprite(pSL->loadSpriteFromFile(fileNameWrongCursor),USize2(TILE_DEFAULT_WIDTH, TILE_DEFAULT_HEIGHT), CURSOR_SPEED);
+	pWrongCursorSprite = pMap->getTheme()->getUIItem("cursorWrong")->getSprite();
 
 	LDebug << "EditingCursor created " << initialPosition;
 }
 
 EditingCursor :: ~EditingCursor(void)
 {
-	delete pWrongCursorSprite;
-
 	LDebug << "EditingCursor deleted";
 }
 

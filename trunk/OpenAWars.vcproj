@@ -472,7 +472,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\UI\UIType.h"
+				RelativePath=".\Sources\UI\UIItem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\UIItem.h"
 				>
 			</File>
 		</Filter>
@@ -717,6 +721,14 @@
 			</File>
 			<File
 				RelativePath=".\Sources\Game\Engine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\FontObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\FontObject.h"
 				>
 			</File>
 			<File

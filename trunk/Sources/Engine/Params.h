@@ -29,7 +29,8 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <sstream>
 
-#include "../Utils/Exceptions/ParamsException.h"
+#include "Utils/Logger.h"
+#include "Utils/Exceptions/ParamsException.h"
 
 class Params
 {
@@ -55,6 +56,18 @@ public:
 		ss >> value;
 
 		return value;
+	}
+
+	template <>
+	char getAs<char>(const std::string& name)const
+	{
+		std::string charString(this->get(name)); // Can throw ParameterNotFoundParamsException
+		if ( charString.size() != 1 )
+		{
+			throw InvalidConvertionParamsException(name);
+		}
+
+		return charString[0];
 	}
 
 	template <typename T>

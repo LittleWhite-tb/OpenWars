@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __UIITEM_H__
+#define __UIITEM_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,31 +25,35 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include <string>
 
-#include "NEngine/SpriteFactory.h"
+namespace NE { class SpriteLoader; }
 
-#include "Engine/Theme.h"
-#include "Engine/AnimatedSprite.h"
+class AnimatedSprite;
+class Params;
 
-#include "Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<UnitView*>& listTiles, const USize2& windowSize)
-:TileBar(pSF,pTheme,reinterpret_cast<std::vector<View*>& >(listTiles),windowSize)
+class UIItem
 {
-	
-}
+private:
 
-const UnitTemplate* TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getUnit();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getUnit();
-	}
-}
+	std::string internalName;				/*!< Name to display */
+	AnimatedSprite* pSprite;				/*!< */
+
+	Params* pParams;				/*!< Rest of the information for this unit */
+
+	static const std::string neededParameters[];	/*!< List of parameters needed for the constructor */
+
+public:
+
+	UIItem():pParams(NULL) {};
+	UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
+	~UIItem();
+
+	const std::string& getInternalName()const { return internalName; }
+
+	AnimatedSprite* getSprite()const { return pSprite; }
+
+	const Params* const getParams() { return pParams; }
+};
 
 #endif

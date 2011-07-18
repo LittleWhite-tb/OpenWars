@@ -29,20 +29,20 @@ e-mail: lw.demoscene@gmail.com
 #include <utility>
 #include <cassert>
 
-#include "../NEngine/Sprite.h"
-#include "../NEngine/SpriteLoader.h"
-#include "../NEngine/SpriteFactory.h"
-#include "../NEngine/Renderer.h"
+#include "NEngine/Sprite.h"
+#include "NEngine/SpriteFactory.h"
+#include "NEngine/Renderer.h"
 
-#include "../Engine/AnimatedSprite.h"
-#include "../Game/Tile.h"
-#include "../Utils/Logger.h"
+#include "Engine/AnimatedSprite.h"
+#include "Engine/Theme.h"
+#include "Game/Tile.h"
+#include "Utils/Logger.h"
 
-#include "../NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
 
-#include "../globals.h"
+#include "globals.h"
 
-TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, std::vector<View*>& listTiles, const USize2& windowSize)
+TileBar :: TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<View*>& listTiles, const USize2& windowSize)
 :windowSize(windowSize)
 {
 	unsigned int barHeight = 64;
@@ -80,10 +80,10 @@ TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, st
 	}
 
 	// Load the cursor
-	pBarCursor = pSL->loadSpriteFromFile("./data/gfx/tilebar_cursor.png");
+	pBarCursor = pTheme->getUIItem("tileBarCursor")->getSprite();
 
 	// Load the arrows
-	pBarArrows = new AnimatedSprite(pSL->loadSpriteFromFile("./data/gfx/tilebar_arrows.png"),USize2(45,45),300);
+	pBarArrows = pTheme->getUIItem("tileBarArrows")->getSprite();
 
 	// Final settings
 	counterMovementAnim = 0;
@@ -101,8 +101,6 @@ TileBar :: TileBar(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, st
 
 TileBar :: ~TileBar(void)
 {
-	delete pBarArrows;
-
 	for ( std::vector<std::vector<View*> >::const_iterator itListView = viewList.begin() ; itListView != viewList.end() ; ++itListView )
 	{
 		for ( std::vector<View*>::const_iterator itPView = itListView->begin() ; itPView != itListView->end() ; ++itPView )
@@ -275,7 +273,7 @@ bool TileBar :: draw(const NE::Renderer& r, const unsigned int time)
 		}
 
 		// Draw the cursor
-		isOk &= r.drawSurface(cursorPosition,*pBarCursor);
+		isOk &= pBarCursor->draw(r,cursorPosition,time);
 		// Draw the arrow if needed
 		if ( viewList[currentX].size() > 1 && state == TBS_Opened )
 		{

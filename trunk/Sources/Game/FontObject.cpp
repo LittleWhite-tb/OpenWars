@@ -22,21 +22,22 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Tile.h"
+#include "FontObject.h"
 
-#include <cassert>
+#include "NEngine/SpriteLoader.h"
 
 #include "Engine/Params.h"
-
-#include "Engine/AnimatedSprite.h"
+#include "Engine/Font.h"
 
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ParamsException.h"
 #include "../Utils/Exceptions/TileException.h"
 
-const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
+#include <cassert>
 
-Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+const std::string FontObject::neededParameters[] = { "font-startingLetter", "internalName", "filename", "charSize_x", "charSize_y" };
+
+FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
 	:pParams(pParams)
 {
 	assert(pParams);
@@ -54,31 +55,30 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
 	try
 	{
 		this->internalName = pParams->get("internalName");
-		this->name = pParams->get("name");
-		this->id = pParams->getAs<unsigned int>("tile-id");
-		this->menuEntry = pParams->getAs<short int>("tile-menu");
 
-		UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
-						 pParams->getAs<unsigned int>("size_y"));
+		UVec2 letterSize(pParams->getAs<unsigned int>("charSize_x"),
+						 pParams->getAs<unsigned int>("charSize_y"));
 		
-		this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
-		if ( this->pSprite == NULL )
+		this->pFont = new Font(
+								pSL->loadSpriteFromFile(folderPath + pParams->get("filename")),
+								letterSize,
+								pParams->getAs<char>("font-startingLetter"));
+		if ( this->pFont == NULL )
 		{
-			LError << "Fail to allocate memory for AnimatedSprite for Tile";
-			throw std::bad_alloc("AnimatedSprite allocation failed");
+			LError << "Fail to allocate memory for Font for FontObject";
+			throw std::bad_alloc("Font allocation failed");
 		}
-
-		this->defence = pParams->getAs<unsigned int>("defence");	
 	}
-	catch ( ParameterNotFoundParamsException )
+	catch ( ParameterNotFoundParamsException& pnfpe)
 	{
 		LError << "The force list is not matching the requested parameters";
+		LError << "Parameter '" << pnfpe.what() << "' not found";
 		throw MissingParameterTileException("unknown");
 	}
 }
-	
-Tile :: ~Tile()
+
+FontObject :: ~FontObject()
 {
-	delete pSprite;
+	delete pFont;
 	delete pParams;
 }

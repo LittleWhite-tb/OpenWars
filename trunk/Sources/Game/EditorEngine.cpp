@@ -69,7 +69,7 @@ EditorEngine :: ~EditorEngine()
 
 bool EditorEngine :: load(void)
 {
-	pEC = new EditingCursor(pNE->getSpriteLoader(),"./data/gfx/cursor.png","./data/gfx/cursor_wrong.png",pMap,UVec2(5,5));
+	pEC = new EditingCursor(pMap,UVec2(5,5));
 	pCam = new Camera();
 
 	// Prepare the data to put in the TileBar for building
@@ -109,9 +109,9 @@ bool EditorEngine :: load(void)
 
 	try
 	{
-		pUnitTB = new TileBarUnits(pNE->getSpriteLoader(),pNE->getSpriteFactory(),unitTiles,pNE->getWindow()->getWindowSize());
-		pBuildingTB = new TileBarTiles(pNE->getSpriteLoader(),pNE->getSpriteFactory(),buildingTiles,pNE->getWindow()->getWindowSize());
-		pTileViewer = new TileViewer(pNE->getSpriteLoader(),"./data/gfx/UI_Background.png","./data/fonts/font.png",pNE->getWindow()->getWindowSize());
+		pUnitTB = new TileBarUnits(pNE->getSpriteFactory(),pMap->getTheme(),unitTiles,pNE->getWindow()->getWindowSize());
+		pBuildingTB = new TileBarTiles(pNE->getSpriteFactory(),pMap->getTheme(),buildingTiles,pNE->getWindow()->getWindowSize());
+		pTileViewer = new TileViewer(pMap->getTheme(),pNE->getWindow()->getWindowSize());
 	}
 	catch (ConstructionFailedException& cfe)
 	{
@@ -119,8 +119,7 @@ bool EditorEngine :: load(void)
 		return false;
 	}
 					
-	pTileViewer->setTile(pBuildingTB->getSelected()->getSprite(), 
-		pBuildingTB->getSelected()->getName());
+	pTileViewer->setTile(pBuildingTB->getSelected());
 
 	return true;
 }
@@ -181,7 +180,7 @@ bool EditorEngine :: run(void)
 
 		if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
 		{
-			pTileViewer->draw(*pNE->getRenderer());
+			pTileViewer->draw(*pNE->getRenderer(),pVT->getTime());
 		}
 
 		pUnitTB->draw(*pNE->getRenderer(),0);
@@ -220,18 +219,14 @@ bool EditorEngine :: run(void)
 			{
 				pBuildingTB->close();
 				isUnit = false;
-				pTileViewer->setTitle("Element");
-				pTileViewer->setTile(pBuildingTB->getSelected()->getSprite(), 
-										  pBuildingTB->getSelected()->getName());
+				pTileViewer->setTile(pBuildingTB->getSelected());
 			}
 			
 			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pUnitTB->isOpened()  )
 			{
 				pUnitTB->close();
 				isUnit = true;
-				pTileViewer->setTitle("Unit");
-				pTileViewer->setTile(pUnitTB->getSelected()->getSprite(), 
-										  pUnitTB->getSelected()->getName());
+				pTileViewer->setTile(pUnitTB->getSelected());
 			}
 
 			if ( pBuildingTB->isOpened() )
@@ -250,16 +245,16 @@ bool EditorEngine :: run(void)
 				{
 					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 					{
-						pMap->setTile(pEC->getPosition(),pUnitTB->getSelected()->getName());
+						pMap->setUnit(pEC->getPosition(),pUnitTB->getSelected()->getInternalName(),0);
 					}
 
-					pEC->setIsWrong(!pMap->Map::testTile(pEC->getPosition(),pUnitTB->getSelected()));
+					pEC->setIsWrong(!pMap->Map::testUnit(pEC->getPosition(),pUnitTB->getSelected()));
 				}
 				else
 				{
 					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
 					{
-						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected()->getName());
+						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected()->getInternalName());
 					}
 					pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pBuildingTB->getSelected()));
 				}

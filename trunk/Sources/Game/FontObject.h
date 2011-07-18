@@ -1,4 +1,5 @@
-#ifdef EDITOR
+#ifndef __FONTOBJECT_H__
+#define __FONTOBJECT_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -24,31 +25,33 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "TileBarUnits.h"
+#include <string>
 
-#include "NEngine/SpriteFactory.h"
+namespace NE { class SpriteLoader; }
 
-#include "Engine/Theme.h"
-#include "Engine/AnimatedSprite.h"
+class Font;
+class Params;
 
-#include "Utils/Logger.h"
-
-TileBarUnits :: TileBarUnits(NE::SpriteFactory* const pSF, const Theme* pTheme, std::vector<UnitView*>& listTiles, const USize2& windowSize)
-:TileBar(pSF,pTheme,reinterpret_cast<std::vector<View*>& >(listTiles),windowSize)
+class FontObject
 {
-	
-}
+private:
 
-const UnitTemplate* TileBarUnits :: getSelected(void)const
-{
-	if ( viewList[currentX].size() == 1 )
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][0])->getUnit();
-	}
-	else
-	{
-		return dynamic_cast<UnitView*>(viewList[currentX][currentY%viewList[currentX].size()])->getUnit();
-	}
-}
+	std::string internalName;
+	Font* pFont;
+
+	Params* pParams;
+
+	static const std::string neededParameters[];
+
+public:
+	FontObject();
+	FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
+	~FontObject();
+
+	const std::string& getInternalName()const { return internalName; }
+	Font* getFont()const { return pFont; }
+
+	const Params* const getParams()const { return pParams; }
+};
 
 #endif
