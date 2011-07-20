@@ -40,7 +40,7 @@ class TileViewer;
 
 class Camera;
 class EditingCursor;
-class MapEditor;
+class Map;
 
 class VTime;
 
@@ -51,7 +51,7 @@ private:
 	TileBar<const UnitTemplate*>* pUnitTB;		/*!< The tile bar for units*/
 	TileViewer* pTileViewer;	/*!< The tile viewer */
 
-	MapEditor* pMap;			/*!< The map to use */
+	Map* pMap;			/*!< The map to use */
 	EditingCursor* pEC;			/*!< The cursor */	
 	Camera* pCam;				/*!< The camera */
 

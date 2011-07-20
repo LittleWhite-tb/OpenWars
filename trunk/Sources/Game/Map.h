@@ -46,10 +46,33 @@ class AnimatedSprite;
 
 class Map
 {
+private:
+	void checkCoherencyAround(const UVec2& position);
+	void checkCoherency(const UVec2& position);
+	void checkCoherencyForRoad(const UVec2& position);
+	void checkCoherencyForSee(const UVec2& position);
+	void checkCoherencyForRiver(const UVec2& position);
+
+	bool setPlain(const UVec2& position);
+	bool setTree(const UVec2& position);
+	bool setMountain(const UVec2& position);
+	bool setRoad(const UVec2& position);
+	bool setSea(const UVec2& position);
+	bool setReef(const UVec2& position);
+	bool setBeach(const UVec2& position);
+	bool setRiver(const UVec2& position);
+	bool setBridge(const UVec2& position);
+	bool setHQ(const UVec2& position, const std::string& hqName);
+	bool setBuilding(const UVec2& position, const std::string& buildingName);
+
+	bool allocateMemory(const USize2& size);
+
+	std::vector < std::vector < const Tile* > >* getTilesMap() { return &tileMap; }
+	std::vector < std::vector < Unit > >* getUnitsMap() { return &unitMap; }
+
 protected:
 
-	const Library<Theme>* pThemes;
-	std::string themeName;
+	const Theme* pTheme;
 
 	unsigned int width;			/*!< Width (in tile) of the map */
 	unsigned int height;		/*!< Height (in tile) of the map */
@@ -57,35 +80,39 @@ protected:
 	std::vector < std::vector < const Tile* > > tileMap;	/*!< 2D Array representating the map */
 	std::vector < std::vector < Unit > > unitMap;	/*!< 2D Array representating the unit on the map */
 
-	bool valid;					/*!< if the map is loaded properly */
-
-	bool allocateMemory(const USize2& size);
-
-	bool parser(const std::string& fileName);
-
 	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 	bool isValidPosition(const UVec2& position);
 
 public:
-	Map(const Library<Theme>* const pThemes);
+	Map(const Theme* const pTheme);
 	virtual ~Map(void);
 
-	virtual bool load(const std::string& fileName);
-	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)=0;
+	const std::vector < std::vector < const Tile* > >* constTilesMap()const { return &tileMap; }
+	const std::vector < std::vector < Unit > >* constUnitsMap()const { return &unitMap; }
+
+	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 	const Tile* getTile(const UVec2& position)const;
-	virtual bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction)=0;
+	bool setTile(const UVec2& position, const std::string& tileName);
+
+	const Unit* getUnit(const UVec2& position);
+	bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 
 	bool testTile(const UVec2& position, const Tile* pTile);
 	bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
-    
-	bool isValidMap(void)const { return valid; }
+
+	bool move(const UVec2& origPosition, const UVec2& destPosition);
+
+	void enableUnits(void);
 
 	unsigned int getWidth(void)const { return width; }
 	unsigned int getHeight(void)const { return height; }
 
-	const Theme* getTheme(void)const { return pThemes->get(themeName); }
+	const Theme* getTheme(void)const { return pTheme; }
+
+	friend class MapLoader;
+	friend class MapFactory;
 
 /*
 	template <typename T>

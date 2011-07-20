@@ -728,19 +728,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\Game\MapEditor.cpp"
+				RelativePath=".\Sources\Game\MapFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\Game\MapEditor.h"
+				RelativePath=".\Sources\Game\MapFactory.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\Game\MapGame.cpp"
+				RelativePath=".\Sources\Game\MapLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\Game\MapGame.h"
+				RelativePath=".\Sources\Game\MapLoader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\MapSaver.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\MapSaver.h"
 				>
 			</File>
 			<File

@@ -30,7 +30,8 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/SpriteLoader.h"
 #include "../NEngine/InputManager.h"
 
-#include "MapGame.h"
+#include "Game/MapLoader.h"
+#include "Map.h"
 #include "Cursor.h"
 #include "Camera.h"
 
@@ -152,14 +153,8 @@ bool GameEngine :: init(void)
 
 bool GameEngine :: load(const std::string& mapName)
 {
-	pMap = new MapGame(&themeLibrary);
+	pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
 	if ( pMap == NULL )
-	{
-		LError << "Fail to allocate memory for Map";
-		return false;
-	}
-
-	if ( pMap->load(mapName) == false )
 	{
 		return false;
 	}

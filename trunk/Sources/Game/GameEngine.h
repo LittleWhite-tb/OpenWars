@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class MapGame;
+class Map;
 class Cursor;
 class Camera;
 
@@ -53,7 +53,7 @@ class GameEngine : public Engine
 
 private:
 
-	MapGame* pMap;				/*!< The map to use */
+	Map* pMap;				/*!< The map to use */
 	Cursor* pC;					/*!< The cursor */
 	Camera* pCam;				/*!< The camera */
 

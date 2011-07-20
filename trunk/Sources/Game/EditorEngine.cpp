@@ -33,6 +33,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/Tile.h"
 #include "Game/UnitTemplate.h"
+#include "Game/MapLoader.h"
+#include "Game/MapFactory.h"
+#include "Game/MapSaver.h"
 
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
@@ -40,7 +43,7 @@ e-mail: lw.demoscene@gmail.com
 #include "UI/TileBar.h"
 #include "UI/TileViewer.h"
 
-#include "MapEditor.h"
+#include "Game/Map.h"
 #include "EditingCursor.h"
 #include "Camera.h"
 
@@ -126,14 +129,8 @@ bool EditorEngine :: load(void)
 
 bool EditorEngine :: load(const UVec2& mapSize)
 {
-	pMap = new MapEditor(&themeLibrary,mapSize);
+	pMap = MapFactory::createEmptyMap(themeLibrary.get("classic"),mapSize);
 	if ( pMap == NULL )
-	{
-		LError << "Fail to allocate memory for MapEditor";
-		return false;
-	}
-
-	if ( !pMap->isValidMap() )
 	{
 		return false;
 	}
@@ -150,20 +147,20 @@ bool EditorEngine :: load(const UVec2& mapSize)
 
 bool EditorEngine :: load(const std::string& mapName)
 {
-	pMap = new MapEditor(&themeLibrary);
+	pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
 	if ( pMap == NULL )
 	{
-		LError << "Fail to allocate memory for MapEditor";
 		return false;
 	}
 
-	pMap->load(mapName);
-	if ( !pMap->isValidMap() )
+	try
+	{
+		return this->load();
+	}
+	catch ( FileNotFoundException& fnfe )
 	{
 		return false;
 	}
-
-	return this->load();
 }
 
 bool EditorEngine :: run(void)
@@ -286,7 +283,7 @@ bool EditorEngine :: run(void)
 
 void EditorEngine :: saveMap(const std::string& fileName)
 {
-	pMap->save(fileName);
+	MapSaver::saveMapToFile(fileName,*pMap);
 }
 /*
 bool EditorEngine :: setTile(const UVec2& position, const UnitType unitType)
