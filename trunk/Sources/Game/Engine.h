@@ -34,11 +34,21 @@ namespace NE { class NEngine; }
 
 class VTime;
 
+class Map;
+class Camera;
+
 class Engine
 {
+private:
+
+	virtual bool load()=0;
+
 protected:
 	NE::NEngine* pNE;            /*!< Native engine to use in the Engine */
 	Library<Theme> themeLibrary;				/*!< Sprites Theme */
+
+	Map* pMap;
+	Camera* pCam;				/*!< The camera */
 
 	VTime* pVT;					/*!< The virtual time for synchronisation */
 
@@ -50,7 +60,7 @@ public:
 
 	void loadTheme(const std::string& themeName);
 	void loadThemeList(const std::string& listPath);
-	virtual bool load(const std::string& mapName)=0;
+	bool load(const std::string& mapName);
 
 	virtual bool run(void)=0;
 };

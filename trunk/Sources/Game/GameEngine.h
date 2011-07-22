@@ -31,9 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class Map;
 class Cursor;
-class Camera;
 
 struct MenuView;
 class MenuBox;
@@ -53,9 +51,7 @@ class GameEngine : public Engine
 
 private:
 
-	Map* pMap;				/*!< The map to use */
 	Cursor* pC;					/*!< The cursor */
-	Camera* pCam;				/*!< The camera */
 
 	// UI
 	std::map<std::string, ConstructBox*> constructionBoxes;	/*!< Library of construct box determined by their names */
@@ -67,7 +63,6 @@ private:
 
 	bool m_userQuit;			/*!< If the user wants to quit, this variable will be true */
 
-
 	bool load(void);
 
 public:
@@ -75,9 +70,6 @@ public:
 	~GameEngine();
 
 	bool init(void);
-
-	bool load(const std::string& mapName);
-
 	bool run(void);
 };
 

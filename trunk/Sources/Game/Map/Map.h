@@ -29,8 +29,8 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <map>
 
-#include "Tile.h"
-#include "Unit.h"
+#include "Game/Tile.h"
+#include "Game/Unit.h"
 
 #include "Types/Size2.h"
 #include "Types/Vec2.h"
@@ -43,27 +43,14 @@ namespace NE { class SpriteLoader; }
 
 class Camera;
 class AnimatedSprite;
+class MapIntegrityChecker;
 
 class Map
 {
 private:
-	void checkCoherencyAround(const UVec2& position);
-	void checkCoherency(const UVec2& position);
-	void checkCoherencyForRoad(const UVec2& position);
-	void checkCoherencyForSee(const UVec2& position);
-	void checkCoherencyForRiver(const UVec2& position);
+	MapIntegrityChecker* pIntegrityChecker;
 
-	bool setPlain(const UVec2& position);
-	bool setTree(const UVec2& position);
-	bool setMountain(const UVec2& position);
-	bool setRoad(const UVec2& position);
-	bool setSea(const UVec2& position);
-	bool setReef(const UVec2& position);
-	bool setBeach(const UVec2& position);
-	bool setRiver(const UVec2& position);
-	bool setBridge(const UVec2& position);
-	bool setHQ(const UVec2& position, const std::string& hqName);
-	bool setBuilding(const UVec2& position, const std::string& buildingName);
+	void checkCoherency(const UVec2& position);
 
 	bool allocateMemory(const USize2& size);
 
@@ -81,8 +68,6 @@ protected:
 	std::vector < std::vector < Unit > > unitMap;	/*!< 2D Array representating the unit on the map */
 
 	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
-
-	bool isValidPosition(const UVec2& position);
 
 public:
 	Map(const Theme* const pTheme);
@@ -110,6 +95,8 @@ public:
 	unsigned int getHeight(void)const { return height; }
 
 	const Theme* getTheme(void)const { return pTheme; }
+
+	bool isValidPosition(const UVec2& position)const;
 
 	friend class MapLoader;
 	friend class MapFactory;

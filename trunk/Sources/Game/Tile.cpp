@@ -33,7 +33,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ParamsException.h"
 
-const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
+const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "coherency", "size_x", "size_y", "defence" };
 
 Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
 	:pParams(pParams)

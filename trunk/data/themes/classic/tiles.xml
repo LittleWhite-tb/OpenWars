@@ -4,6 +4,7 @@
 		<internalName>Plain</internalName>
 		<name>Plaine</name>
 		<filename>plain.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -18,6 +19,7 @@
 		<internalName>Tree</internalName>
 		<name>Foret</name>
 		<filename>tree.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -32,10 +34,12 @@
 		<internalName>Mountain_1</internalName>
 		<name>Mtgn</name>
 		<filename>mountain1.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
 		</size>
+		<isMountain>1</isMountain>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>4</defence>
 		<!-- By default, all others are set to 0 -->
@@ -45,10 +49,12 @@
 		<internalName>Mountain_2</internalName>
 		<name>Mtgn</name>
 		<filename>mountain2.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>42</y>
 		</size>
+		<isMountain>1</isMountain>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>4</defence>
 		<!-- By default, all others are set to 0 -->
@@ -58,6 +64,7 @@
 		<internalName>Beach_TL</internalName>
 		<name>Plage</name>
 		<filename>beach_tl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -73,6 +80,7 @@
 		<internalName>Beach_TL_R</internalName>
 		<name>Plage</name>
 		<filename>beach_tl_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -88,6 +96,7 @@
 		<internalName>Beach_TL_B</internalName>
 		<name>Plage</name>
 		<filename>beach_tl_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -103,6 +112,7 @@
 		<internalName>Beach_TL_2</internalName>
 		<name>Plage</name>
 		<filename>beach_tl_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -118,6 +128,7 @@
 		<internalName>Beach_TR</internalName>
 		<name>Plage</name>
 		<filename>beach_tr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -133,6 +144,7 @@
 		<internalName>Beach_TR_B</internalName>
 		<name>Plage</name>
 		<filename>beach_tr_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -148,6 +160,7 @@
 		<internalName>Beach_TR_L</internalName>
 		<name>Plage</name>
 		<filename>beach_tr_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -163,6 +176,7 @@
 		<internalName>Beach_TR_2</internalName>
 		<name>Plage</name>
 		<filename>beach_tr_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -178,6 +192,7 @@
 		<internalName>Beach_BL</internalName>
 		<name>Plage</name>
 		<filename>beach_bl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -193,6 +208,7 @@
 		<internalName>Beach_BL_T</internalName>
 		<name>Plage</name>
 		<filename>beach_bl_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -208,6 +224,7 @@
 		<internalName>Beach_BL_R</internalName>
 		<name>Plage</name>
 		<filename>beach_bl_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -223,6 +240,7 @@
 		<internalName>Beach_BL_2</internalName>
 		<name>Plage</name>
 		<filename>beach_bl_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -238,6 +256,7 @@
 		<internalName>Beach_BR</internalName>
 		<name>Plage</name>
 		<filename>beach_br.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -253,6 +272,7 @@
 		<internalName>Beach_BR_L</internalName>
 		<name>Plage</name>
 		<filename>beach_br_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -268,6 +288,7 @@
 		<internalName>Beach_BR_T</internalName>
 		<name>Plage</name>
 		<filename>beach_br_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -283,6 +304,7 @@
 		<internalName>Beach_BR_2</internalName>
 		<name>Plage</name>
 		<filename>beach_br_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -298,6 +320,7 @@
 		<internalName>Beach_EL</internalName>
 		<name>Plage</name>
 		<filename>beach_el.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -313,6 +336,7 @@
 		<internalName>Beach_ER</internalName>
 		<name>Plage</name>
 		<filename>beach_er.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -328,6 +352,7 @@
 		<internalName>Beach_ET</internalName>
 		<name>Plage</name>
 		<filename>beach_et.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -343,6 +368,7 @@
 		<internalName>Beach_EB</internalName>
 		<name>Plage</name>
 		<filename>beach_eb.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -358,6 +384,7 @@
 		<internalName>Beach_L</internalName>
 		<name>Plage</name>
 		<filename>beach_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -373,6 +400,7 @@
 		<internalName>Beach_L_T</internalName>
 		<name>Plage</name>
 		<filename>beach_l_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -388,6 +416,7 @@
 		<internalName>Beach_L_B</internalName>
 		<name>Plage</name>
 		<filename>beach_l_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -403,6 +432,7 @@
 		<internalName>Beach_L_2</internalName>
 		<name>Plage</name>
 		<filename>beach_l_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -418,6 +448,7 @@
 		<internalName>Beach_R</internalName>
 		<name>Plage</name>
 		<filename>beach_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -433,6 +464,7 @@
 		<internalName>Beach_R_T</internalName>
 		<name>Plage</name>
 		<filename>beach_r_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -448,6 +480,7 @@
 		<internalName>Beach_R_B</internalName>
 		<name>Plage</name>
 		<filename>beach_r_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -463,6 +496,7 @@
 		<internalName>Beach_R_2</internalName>
 		<name>Plage</name>
 		<filename>beach_r_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -478,6 +512,7 @@
 		<internalName>Beach_T</internalName>
 		<name>Plage</name>
 		<filename>beach_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -493,6 +528,7 @@
 		<internalName>Beach_T_L</internalName>
 		<name>Plage</name>
 		<filename>beach_t_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -508,6 +544,7 @@
 		<internalName>Beach_T_R</internalName>
 		<name>Plage</name>
 		<filename>beach_t_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -523,6 +560,7 @@
 		<internalName>Beach_T_2</internalName>
 		<name>Plage</name>
 		<filename>beach_t_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -538,6 +576,7 @@
 		<internalName>Beach_B</internalName>
 		<name>Plage</name>
 		<filename>beach_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -553,6 +592,7 @@
 		<internalName>Beach_B_R</internalName>
 		<name>Plage</name>
 		<filename>beach_b_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -568,6 +608,7 @@
 		<internalName>Beach_B_L</internalName>
 		<name>Plage</name>
 		<filename>beach_b_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -583,6 +624,7 @@
 		<internalName>Beach_B_2</internalName>
 		<name>Plage</name>
 		<filename>beach_b_2.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -598,6 +640,7 @@
 		<internalName>Bridge_H</internalName>
 		<name>Pont</name>
 		<filename>bridge_h.png</filename>
+		<coherency>BridgeChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -612,6 +655,7 @@
 	<internalName>Bridge_V</internalName>
 		<name>Pont</name>
 		<filename>bridge_v.png</filename>
+		<coherency>BridgeChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -626,6 +670,7 @@
 		<internalName>River_H</internalName>
 		<name>Riv.</name>
 		<filename>river_h.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -640,6 +685,7 @@
 		<internalName>River_V</internalName>
 		<name>Riv.</name>
 		<filename>river_v.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -654,6 +700,7 @@
 		<internalName>River_T_L</internalName>
 		<name>Riv.</name>
 		<filename>river_t_l.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -668,6 +715,7 @@
 		<internalName>River_T_R</internalName>
 		<name>Riv.</name>
 		<filename>river_t_r.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -682,6 +730,7 @@
 		<internalName>River_T_T</internalName>
 		<name>Riv.</name>
 		<filename>river_t_t.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -696,6 +745,7 @@
 		<internalName>River_T_B</internalName>
 		<name>Riv.</name>
 		<filename>river_t_b.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -710,6 +760,7 @@
 		<internalName>River_TL</internalName>
 		<name>Riv.</name>
 		<filename>river_tl.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -724,6 +775,7 @@
 		<internalName>River_TR</internalName>
 		<name>Riv.</name>
 		<filename>river_tr.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -738,6 +790,7 @@
 		<internalName>River_BL</internalName>
 		<name>Riv.</name>
 		<filename>river_bl.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -752,6 +805,7 @@
 		<internalName>River_BR</internalName>
 		<name>Riv.</name>
 		<filename>river_br.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -766,6 +820,7 @@
 		<internalName>River_See_T</internalName>
 		<name>Riv.</name>
 		<filename>river2see_t.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -780,6 +835,7 @@
 		<internalName>River_See_B</internalName>
 		<name>Riv.</name>
 		<filename>river2see_b.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -794,6 +850,7 @@
 		<internalName>River_See_L</internalName>
 		<name>Riv.</name>
 		<filename>river2see_l.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -808,6 +865,7 @@
 		<internalName>River_See_R</internalName>
 		<name>Riv.</name>
 		<filename>river2see_r.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -822,6 +880,7 @@
 		<internalName>River_X</internalName>
 		<name>Riv.</name>
 		<filename>river_x.png</filename>
+		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -836,6 +895,7 @@
 		<internalName>Road_H</internalName>
 		<name>Route</name>
 		<filename>road_h.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -850,6 +910,7 @@
 		<internalName>Road_V</internalName>
 		<name>Route</name>
 		<filename>road_v.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -864,6 +925,7 @@
 		<internalName>Road_TL</internalName>
 		<name>Route</name>
 		<filename>road_tl.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -878,6 +940,7 @@
 		<internalName>Road_TR</internalName>
 		<name>Route</name>
 		<filename>road_tr.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -892,6 +955,7 @@
 		<internalName>Road_BL</internalName>
 		<name>Route</name>
 		<filename>road_bl.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -906,6 +970,7 @@
 		<internalName>Road_BR</internalName>
 		<name>Route</name>
 		<filename>road_br.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -920,6 +985,7 @@
 		<internalName>Road_T_L</internalName>
 		<name>Route</name>
 		<filename>road_t_l.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -934,6 +1000,7 @@
 		<internalName>Road_T_B</internalName>
 		<name>Route</name>
 		<filename>road_t_b.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -948,6 +1015,7 @@
 		<internalName>Road_T_R</internalName>
 		<name>Route</name>
 		<filename>road_t_r.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -962,6 +1030,7 @@
 		<internalName>Road_T_T</internalName>
 		<name>Route</name>
 		<filename>road_t_t.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -976,6 +1045,7 @@
 		<internalName>Road_X</internalName>
 		<name>Route</name>
 		<filename>road_x.png</filename>
+		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -990,6 +1060,7 @@
 		<internalName>Red_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>r_hq.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1007,6 +1078,7 @@
 		<internalName>Red_Factory</internalName>
 		<name>Base</name>
 		<filename>r_factory.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1024,6 +1096,7 @@
 		<internalName>Red_Port</internalName>
 		<name>Port</name>
 		<filename>r_port.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1041,6 +1114,7 @@
 		<internalName>Red_Airport</internalName>
 		<name>Aero.</name>
 		<filename>r_airport.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1058,6 +1132,7 @@
 		<internalName>Red_City</internalName>
 		<name>Ville</name>
 		<filename>r_city.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1074,6 +1149,7 @@
 		<internalName>Blue_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>b_hq.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1091,6 +1167,7 @@
 		<internalName>Blue_Factory</internalName>
 		<name>Base</name>
 		<filename>b_factory.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1108,6 +1185,7 @@
 		<internalName>Blue_Port</internalName>
 		<name>Port</name>
 		<filename>b_port.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1125,6 +1203,7 @@
 		<internalName>Blue_Airport</internalName>
 		<name>Aero.</name>
 		<filename>b_airport.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1142,6 +1221,7 @@
 		<internalName>Blue_City</internalName>
 		<name>Ville</name>
 		<filename>b_city.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1158,6 +1238,7 @@
 		<internalName>Green_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>g_hq.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1175,6 +1256,7 @@
 		<internalName>Green_Factory</internalName>
 		<name>Base</name>
 		<filename>g_factory.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1192,6 +1274,7 @@
 		<internalName>Green_Port</internalName>
 		<name>Port</name>
 		<filename>g_port.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1209,6 +1292,7 @@
 		<internalName>Green_Airport</internalName>
 		<name>Aero.</name>
 		<filename>g_airport.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1226,6 +1310,7 @@
 		<internalName>Green_City</internalName>
 		<name>Ville</name>
 		<filename>g_city.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1242,6 +1327,7 @@
 		<internalName>Yellow_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>y_hq.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1259,6 +1345,7 @@
 		<internalName>Yellow_Factory</internalName>
 		<name>Base</name>
 		<filename>y_factory.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1276,6 +1363,7 @@
 		<internalName>Yellow_Port</internalName>
 		<name>Port</name>
 		<filename>y_port.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1293,6 +1381,7 @@
 		<internalName>Yellow_Airport</internalName>
 		<name>Aero.</name>
 		<filename>y_airport.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1310,6 +1399,7 @@
 		<internalName>Yellow_City</internalName>
 		<name>Ville</name>
 		<filename>y_city.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1327,6 +1417,7 @@
 		<internalName>Neutral_HQ</internalName>
 		<name>Ville</name>
 		<filename>n_city.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1343,6 +1434,7 @@
 		<internalName>Neutral_Factory</internalName>
 		<name>Base</name>
 		<filename>n_factory.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1359,6 +1451,7 @@
 		<internalName>Neutral_Port</internalName>
 		<name>Port</name>
 		<filename>n_port.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1375,6 +1468,7 @@
 		<internalName>Neutral_Airport</internalName>
 		<name>Aero.</name>
 		<filename>n_airport.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1391,6 +1485,7 @@
 		<internalName>Neutral_City</internalName>
 		<name>Ville</name>
 		<filename>n_city.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1407,6 +1502,7 @@
 		<internalName>Sea</internalName>
 		<name>Mer</name>
 		<filename>sea.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1421,6 +1517,7 @@
 		<internalName>Sea_TL</internalName>
 		<name>Mer</name>
 		<filename>sea_tl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1435,6 +1532,7 @@
 		<internalName>Sea_TR</internalName>
 		<name>Mer</name>
 		<filename>sea_tr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1449,6 +1547,7 @@
 		<internalName>Sea_BL</internalName>
 		<name>Mer</name>
 		<filename>sea_bl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1463,6 +1562,7 @@
 		<internalName>Sea_BR</internalName>
 		<name>Mer</name>
 		<filename>sea_br.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1477,6 +1577,7 @@
 		<internalName>Reef</internalName>
 		<name>Récif</name>
 		<filename>reef.png</filename>
+		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1484,6 +1585,7 @@
 		<!-- <animationTime>200</animationTime> -->
 		<defence>1</defence>
 		<isSea>1</isSea>
+		<isReef>1</isReef>
 		<!-- By default, all others are set to 0 -->
 	</tile>
 	
@@ -1491,6 +1593,7 @@
 		<internalName>Coast</internalName>
 		<name>Mer</name>
 		<filename>coast.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1506,6 +1609,7 @@
 		<internalName>Coast_ET</internalName>
 		<name>Mer</name>
 		<filename>coast_et.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1520,6 +1624,7 @@
 		<internalName>Coast_EB</internalName>
 		<name>Mer</name>
 		<filename>coast_eb.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1534,6 +1639,7 @@
 		<internalName>Coast_EL</internalName>
 		<name>Mer</name>
 		<filename>coast_el.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1548,6 +1654,7 @@
 		<internalName>Coast_ER</internalName>
 		<name>Mer</name>
 		<filename>coast_er.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1562,6 +1669,7 @@
 		<internalName>Coast_TL</internalName>
 		<name>Mer</name>
 		<filename>coast_tl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1576,6 +1684,7 @@
 		<internalName>Coast_TR</internalName>
 		<name>Mer</name>
 		<filename>coast_tr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1590,6 +1699,7 @@
 		<internalName>Coast_BL</internalName>
 		<name>Mer</name>
 		<filename>coast_bl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1604,6 +1714,7 @@
 		<internalName>Coast_BR</internalName>
 		<name>Mer</name>
 		<filename>coast_br.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1618,6 +1729,7 @@
 		<internalName>Coast_RBL</internalName>
 		<name>Mer</name>
 		<filename>coast_rbl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1632,6 +1744,7 @@
 		<internalName>Coast_RBR</internalName>
 		<name>Mer</name>
 		<filename>coast_rbr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1646,6 +1759,7 @@
 		<internalName>Coast_RTR</internalName>
 		<name>Mer</name>
 		<filename>coast_rtr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1660,6 +1774,7 @@
 		<internalName>Coast_RTL</internalName>
 		<name>Mer</name>
 		<filename>coast_rtl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1674,6 +1789,7 @@
 		<internalName>Coast_L</internalName>
 		<name>Mer</name>
 		<filename>coast_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1688,6 +1804,7 @@
 		<internalName>Coast_R</internalName>
 		<name>Mer</name>
 		<filename>coast_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1702,6 +1819,7 @@
 		<internalName>Coast_B</internalName>
 		<name>Mer</name>
 		<filename>coast_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1716,6 +1834,7 @@
 		<internalName>Coast_T</internalName>
 		<name>Mer</name>
 		<filename>coast_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1730,6 +1849,7 @@
 		<internalName>Coast_H</internalName>
 		<name>Mer</name>
 		<filename>coast_h.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1744,6 +1864,7 @@
 		<internalName>Coast_V</internalName>
 		<name>Mer</name>
 		<filename>coast_v.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1758,6 +1879,7 @@
 		<internalName>Coast_T_L</internalName>
 		<name>Mer</name>
 		<filename>coast_t_l.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1772,6 +1894,7 @@
 		<internalName>Coast_T_B</internalName>
 		<name>Mer</name>
 		<filename>coast_t_b.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1786,6 +1909,7 @@
 		<internalName>Coast_T_R</internalName>
 		<name>Mer</name>
 		<filename>coast_t_r.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1800,6 +1924,7 @@
 		<internalName>Coast_T_T</internalName>
 		<name>Mer</name>
 		<filename>coast_t_t.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1814,6 +1939,7 @@
 		<internalName>Coast_T_TL</internalName>
 		<name>Mer</name>
 		<filename>coast_t_tl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1828,6 +1954,7 @@
 		<internalName>Coast_T_TR</internalName>
 		<name>Mer</name>
 		<filename>coast_t_tr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1842,6 +1969,7 @@
 		<internalName>Coast_T_BL</internalName>
 		<name>Mer</name>
 		<filename>coast_t_bl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1856,6 +1984,7 @@
 		<internalName>Coast_T_BR</internalName>
 		<name>Mer</name>
 		<filename>coast_t_br.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1870,6 +1999,7 @@
 		<internalName>Coast_T_LT</internalName>
 		<name>Mer</name>
 		<filename>coast_t_lt.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1884,6 +2014,7 @@
 		<internalName>Coast_T_RT</internalName>
 		<name>Mer</name>
 		<filename>coast_t_rt.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1898,6 +2029,7 @@
 		<internalName>Coast_T_LB</internalName>
 		<name>Mer</name>
 		<filename>coast_t_lb.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1912,6 +2044,7 @@
 		<internalName>Coast_T_RB</internalName>
 		<name>Mer</name>
 		<filename>coast_t_rb.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1926,6 +2059,7 @@
 		<internalName>Coast_X</internalName>
 		<name>Mer</name>
 		<filename>coast_x.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1940,6 +2074,7 @@
 		<internalName>Coast_XL</internalName>
 		<name>Mer</name>
 		<filename>coast_xl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1954,6 +2089,7 @@
 		<internalName>Coast_XR</internalName>
 		<name>Mer</name>
 		<filename>coast_xr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1968,6 +2104,7 @@
 		<internalName>Coast_XB</internalName>
 		<name>Mer</name>
 		<filename>coast_xb.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1982,6 +2119,7 @@
 		<internalName>Coast_XT</internalName>
 		<name>Mer</name>
 		<filename>coast_xt.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1996,6 +2134,7 @@
 		<internalName>Coast_XTL</internalName>
 		<name>Mer</name>
 		<filename>coast_xtl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -2010,6 +2149,7 @@
 		<internalName>Coast_XTR</internalName>
 		<name>Mer</name>
 		<filename>coast_xtr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -2024,6 +2164,7 @@
 		<internalName>Coast_XBL</internalName>
 		<name>Mer</name>
 		<filename>coast_xbl.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -2038,6 +2179,7 @@
 		<internalName>Coast_XBR</internalName>
 		<name>Mer</name>
 		<filename>coast_xbr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -2052,6 +2194,7 @@
 		<internalName>Coast_XTLBR</internalName>
 		<name>Mer</name>
 		<filename>coast_xtlbr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -2066,6 +2209,7 @@
 		<internalName>Coast_XBLTR</internalName>
 		<name>Mer</name>
 		<filename>coast_xbltr.png</filename>
+		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>

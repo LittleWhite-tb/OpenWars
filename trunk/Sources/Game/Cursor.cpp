@@ -24,7 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Cursor.h"
 
-#include "Map.h"
+#include "Game/Map/Map.h"
 
 #include "../Engine/AnimatedSprite.h"
 #include "../NEngine/InputManager.h"

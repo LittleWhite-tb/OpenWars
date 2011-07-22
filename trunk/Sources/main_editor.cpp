@@ -57,8 +57,8 @@ int main(int argc, char** argv)
 
 	USize2 winSize(480,320);
 	bool needFullscreen=false;
-	unsigned int mapWidth=MAP_MIN_WIDTH;
-	unsigned int mapHeight=MAP_MIN_HEIGHT;
+	unsigned int mapWidth=15;
+	unsigned int mapHeight=14;
 	std::string loadMapName="";
 	std::string mapName="save.map";
 	std::string themeName="classic";
@@ -188,32 +188,41 @@ int main(int argc, char** argv)
 	{
         if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars Editor") )
         {
-			try
+			EditorEngine* pEEngine = new EditorEngine(pNE);
+			if ( pEEngine == NULL )
 			{
-				EditorEngine eEngine(pNE);
-	            
-				if ( eEngine.init() )
+				LError << "Fail to allocate memory for pEEngine";
+			}
+			else
+			{
+				try
 				{
-					bool engineLoadingState = true;
-					if ( !loadMapName.empty() )
+					
+					if ( pEEngine->init() )
 					{
-						engineLoadingState = eEngine.load(loadMapName);
-					}
-					else
-					{
-						eEngine.loadTheme(themeName);
-						engineLoadingState &= eEngine.load(UVec2(mapWidth, mapHeight));
-					}
-					if ( engineLoadingState )
-					{
-						eEngine.run();
-						eEngine.saveMap(mapName);
+						bool engineLoadingState = true;
+						if ( !loadMapName.empty() )
+						{
+							engineLoadingState = pEEngine->Engine::load(loadMapName);
+						}
+						else
+						{
+							pEEngine->loadTheme(themeName);
+							engineLoadingState &= pEEngine->load(UVec2(mapWidth, mapHeight));
+						}
+						if ( engineLoadingState )
+						{
+							pEEngine->run();
+							pEEngine->saveMap(mapName);
+						}
 					}
 				}
-			}
-			catch ( EngineException& ee )
-			{
-				LError << ee.what();
+				catch ( EngineException& ee )
+				{
+					LError << ee.what();
+				}
+
+				delete pEEngine;
 			}
 
             pNE->getWindow()->destroyWindow();

@@ -27,9 +27,14 @@ e-mail: lw.demoscene@gmail.com
 #include <cassert>
 
 #include "NEngine/NEngine.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
 
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
+
+#include "Game/Map/Map.h"
+#include "Game/Map/MapLoader.h"
+#include "Game/Camera.h"
 
 #include "XML/XMLListReader.h"
 
@@ -37,13 +42,16 @@ e-mail: lw.demoscene@gmail.com
 #include "Utils/Exceptions/XMLException.h"
 
 Engine::Engine(NE::NEngine* const pNE)
-:pNE(pNE),pVT(NULL)
+:pNE(pNE),pVT(NULL),pMap(NULL),pCam(NULL)
 {
 	assert(pNE);
 }
 
 Engine :: ~Engine(void)
 {
+	delete pCam;
+	delete pMap;
+
 	delete pVT;
 }
 
@@ -51,9 +59,16 @@ bool Engine :: init()
 {
 	pVT = new VTime(pNE->getTime(),60,10);
 
+	pCam = new Camera();
+
 	if ( pVT == NULL )
 	{
 		LError << "Fail to allocate memory for Virtual Time";
+		return false;
+	}
+	if ( pCam == NULL )
+	{
+		LError << "Fail to allocate memory for Camera";
 		return false;
 	}
 
@@ -99,5 +114,29 @@ void Engine :: loadThemeList(const std::string& listPath)
 	{
 		(void)xmle;
 		throw EngineException("Fail to open list of theme paths '" + listPath + "'");
+	}
+}
+
+bool Engine :: load(const std::string& mapName)
+{
+	pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
+	if ( pMap == NULL )
+	{
+		return false;
+	}
+
+	try
+	{
+		return this->load();
+	}
+	catch ( LibraryException& le )
+	{
+		LError << le.what();
+		LError << "The XML files have missing elements needed by the game";
+		return false;
+	}
+	catch ( FileNotFoundException& fnfe )
+	{
+		return false;
 	}
 }

@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 // Folders path
-#define THEME_PATH		"./data/themes/"			/*!< Path to defaut theme folder */
+#define THEME_PATH		"./data/themes/"			/*!< Path to default theme folder */
 #define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */
 #define GFX_TILES_PATH	"./data/gfx/tiles/"		/*!< Path to the default tiles graphics files folder */
 #define GFX_UNITS_PATH	"./data/gfx/units/"		/*!< Path to the default units graphics files folder */
@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 #define CURSOR_SPEED	400						/*!< Default speed for animation of the cursor */
 
-// Sprite default size (will be used to determine the scaling factor)
+// Sprite default size
 #define TILE_DEFAULT_WIDTH	32					/*!< Default width of the tiles */
 #define TILE_DEFAULT_HEIGHT	32					/*!< Default height of the tiles */
 #define MAP_MIN_WIDTH			15				/*!< Minimum number of tiles on the map for x axis */

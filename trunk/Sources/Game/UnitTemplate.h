@@ -80,7 +80,7 @@ public:
 	unsigned int getLife()const { return life; }
 	unsigned int getPrice()const { return price; }
 
-	const Params* const getParams() { return pParams; }
+	const Params* const getParams()const { return pParams; }
 };
 
 /*! \class UnitTemplate UnitTemplate.h "Game/UnitTemplate.h"

@@ -33,9 +33,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/Tile.h"
 #include "Game/UnitTemplate.h"
-#include "Game/MapLoader.h"
-#include "Game/MapFactory.h"
-#include "Game/MapSaver.h"
+#include "Game/Map/Map.h"
+#include "Game/Map/MapLoader.h"
+#include "Game/Map/MapFactory.h"
+#include "Game/Map/MapSaver.h"
 
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
@@ -43,7 +44,6 @@ e-mail: lw.demoscene@gmail.com
 #include "UI/TileBar.h"
 #include "UI/TileViewer.h"
 
-#include "Game/Map.h"
 #include "EditingCursor.h"
 #include "Camera.h"
 
@@ -55,16 +55,14 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Exceptions/FileNotFoundException.h"
 
 EditorEngine :: EditorEngine(NE::NEngine* const pNE)
-:Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pMap(NULL),pEC(NULL),pCam(NULL)
+:Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pEC(NULL)
 {
 	LDebug << "EditorEngine constructed";
 }
 
 EditorEngine :: ~EditorEngine()
 {
-	delete pCam;
 	delete pEC;
-	delete pMap;
 	delete pTileViewer;
 	delete pUnitTB;
 	delete pBuildingTB;
@@ -75,7 +73,6 @@ EditorEngine :: ~EditorEngine()
 bool EditorEngine :: load(void)
 {
 	pEC = new EditingCursor(pMap,UVec2(5,5));
-	pCam = new Camera();
 
 	try
 	{
@@ -130,24 +127,6 @@ bool EditorEngine :: load(void)
 bool EditorEngine :: load(const UVec2& mapSize)
 {
 	pMap = MapFactory::createEmptyMap(themeLibrary.get("classic"),mapSize);
-	if ( pMap == NULL )
-	{
-		return false;
-	}
-
-	try
-	{
-		return this->load();
-	}
-	catch ( FileNotFoundException& fnfe )
-	{
-		return false;
-	}
-}
-
-bool EditorEngine :: load(const std::string& mapName)
-{
-	pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
 	if ( pMap == NULL )
 	{
 		return false;
@@ -285,15 +264,5 @@ void EditorEngine :: saveMap(const std::string& fileName)
 {
 	MapSaver::saveMapToFile(fileName,*pMap);
 }
-/*
-bool EditorEngine :: setTile(const UVec2& position, const UnitType unitType)
-{
-    bool bError = true;
-    
-    // We place the unit
-	bError &= dynamic_cast<Map*>(this)->setTile(position,unitType);
 
-    return bError;
-}
-*/
 #endif

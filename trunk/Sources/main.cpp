@@ -110,16 +110,19 @@ int main(int argc, char** argv)
 	{
         if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
         {
-            GameEngine gEngine(pNE);
-                
-            if ( gEngine.init() )
+            GameEngine* pGEngine = new GameEngine(pNE);
+			if ( pGEngine == NULL )
+			{
+				LError << "Fail to allocate GameEngine";
+			}
+            else if ( pGEngine->init() )
             {
                 bool engineLoadingState = false;
 
 				try
 				{
-					gEngine.loadThemeList(THEME_PATH "themeList.xml");
-					engineLoadingState = gEngine.load(loadMapName);
+					pGEngine->loadThemeList(THEME_PATH "themeList.xml");
+					engineLoadingState = pGEngine->Engine::load(loadMapName);
 				}
 				catch ( EngineException& ee )
 				{
@@ -129,9 +132,11 @@ int main(int argc, char** argv)
                 
                 if ( engineLoadingState )
                 {
-                    gEngine.run();
+                    pGEngine->run();
                 }
             }
+
+			delete pGEngine;
 
             pNE->getWindow()->destroyWindow();
         }

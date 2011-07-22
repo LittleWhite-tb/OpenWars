@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine/Library.h"
 
-#include "Game/Map.h"
+#include "Game/Map/Map.h"
 
 #include "Utils/LineParser.h"
 #include "Utils/Logger.h"

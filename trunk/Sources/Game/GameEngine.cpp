@@ -30,8 +30,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/SpriteLoader.h"
 #include "../NEngine/InputManager.h"
 
-#include "Game/MapLoader.h"
-#include "Map.h"
+#include "Game/Map/Map.h"
 #include "Cursor.h"
 #include "Camera.h"
 
@@ -50,7 +49,7 @@ e-mail: lw.demoscene@gmail.com
 #include "globals.h"
 
 GameEngine :: GameEngine(NE::NEngine* const pNE)
-:Engine(pNE),pMap(NULL),pC(NULL),pCam(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
+:Engine(pNE),pC(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
 {
 	LDebug << "GameEngine constructed";
 }
@@ -64,9 +63,7 @@ GameEngine :: ~GameEngine(void)
 		delete itPCB->second;
 	}
 
-	delete pCam;
 	delete pC;
-	delete pMap;
 
 	LDebug << "GameEngine deleted";
 }
@@ -74,7 +71,6 @@ GameEngine :: ~GameEngine(void)
 bool GameEngine :: load(void)
 {
 	pC = new Cursor(pMap,UVec2(5,5));
-	pCam = new Camera();
 
 	std::list<const Tile* > tilesList;
 	pMap->getTheme()->getTilesList(&tilesList);
@@ -149,30 +145,6 @@ bool GameEngine :: init(void)
 	LDebug << "GameEngine init'd";
 
 	return error;
-}
-
-bool GameEngine :: load(const std::string& mapName)
-{
-	pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
-	if ( pMap == NULL )
-	{
-		return false;
-	}
-
-	try
-	{
-		return this->load();
-	}
-	catch ( LibraryException le )
-	{
-		LError << le.what();
-		LError << "The XML files have missing elements needed by the game";
-		return false;
-	}
-	catch ( FileNotFoundException& fnfe )
-	{
-		return false;
-	}
 }
 
 bool GameEngine :: run(void)

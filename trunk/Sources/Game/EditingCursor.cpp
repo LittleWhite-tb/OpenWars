@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
 
-#include "Map.h"
+#include "Game/Map/Map.h"
 #include "Camera.h"
 
 #include "UI/UIItem.h"

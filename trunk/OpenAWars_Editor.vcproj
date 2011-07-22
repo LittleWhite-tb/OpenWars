@@ -658,38 +658,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Sources\Game\Map.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Map.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\MapFactory.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\MapFactory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\MapLoader.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\MapLoader.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\MapSaver.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\MapSaver.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Sources\Game\Tile.cpp"
 				>
 			</File>
@@ -721,6 +689,58 @@
 				RelativePath=".\Sources\Game\UnitTemplateFactionList.h"
 				>
 			</File>
+			<Filter
+				Name="Map"
+				>
+				<File
+					RelativePath=".\Sources\Game\Map\ClassicMapIntegrityChecker.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\ClassicMapIntegrityChecker.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\Map.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\Map.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapIntegrityChecker.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapIntegrityChecker.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapLoader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapLoader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapSaver.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\Game\Map\MapSaver.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Types"

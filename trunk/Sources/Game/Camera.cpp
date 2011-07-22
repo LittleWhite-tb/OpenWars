@@ -22,7 +22,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Map.h"
+#include "Game/Map/Map.h"
 #include "Camera.h"
 
 #include "Cursor.h"

@@ -38,9 +38,7 @@ class FontManager;
 
 class TileViewer;
 
-class Camera;
 class EditingCursor;
-class Map;
 
 class VTime;
 
@@ -51,9 +49,7 @@ private:
 	TileBar<const UnitTemplate*>* pUnitTB;		/*!< The tile bar for units*/
 	TileViewer* pTileViewer;	/*!< The tile viewer */
 
-	Map* pMap;			/*!< The map to use */
 	EditingCursor* pEC;			/*!< The cursor */	
-	Camera* pCam;				/*!< The camera */
 
 	bool load(void);
 
@@ -62,7 +58,6 @@ public:
 	~EditorEngine();
 
 	bool load(const UVec2& mapSize);
-	bool load(const std::string& mapName);
 
 	bool run(void);
 

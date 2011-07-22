@@ -24,7 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MapFactory.h"
 
-#include "Game/Map.h"
+#include "Game/Map/Map.h"
 
 #include "Utils/Logger.h"
 

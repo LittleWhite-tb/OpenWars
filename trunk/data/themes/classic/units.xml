@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <units>
-	<unit id='0' classId='0' faction='0'>	
+	<unit id='0' classId='0' faction='0'>	<!-- classId of -100 is a restricted value and should not be used -->
 		<internalName>INFANTRY</internalName>
 		<name>Inftry</name>
 		<filename>r_infantry.png</filename>
