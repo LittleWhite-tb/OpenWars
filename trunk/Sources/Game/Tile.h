@@ -40,43 +40,43 @@ class Tile
 {
 private:
 
-	std::string internalName;
-	std::string name;
-	unsigned int id;
-	short int menuEntry;
+    std::string internalName;
+    std::string name;
+    unsigned int id;
+    short int menuEntry;
 
-	AnimatedSprite* pSprite;
-	UVec2 size;
+    AnimatedSprite* pSprite;
+    UVec2 size;
 
-	unsigned int defence;
+    unsigned int defence;
 
-	Params* pParams;		/*!< All others parameters that can be optional */
+    Params* pParams;        /*!< All others parameters that can be optional */
 
-	static const std::string neededParameters[];
+    static const std::string neededParameters[];
 
-	Tile(const Tile& tile) { (void)tile; }
-	Tile& operator=(const Tile& tile) { (void)tile; }
+    Tile(const Tile& tile) { (void)tile; }
+    Tile& operator=(const Tile& tile) { (void)tile; return *this; }
 
 public:
 
-	Tile():pParams(NULL) {};
-	Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
-	~Tile();
+    Tile():pParams(NULL) {};
+    Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
+    ~Tile();
 
-	bool operator==(const Tile& tile)const
-	{
-		return tile.getInternalName() == this->internalName;
-	}
+    bool operator==(const Tile& tile)const
+    {
+        return tile.getInternalName() == this->internalName;
+    }
 
-	const std::string& getInternalName()const { return internalName; }
-	const std::string& getName()const { return name; }
-	unsigned int getID()const { return id; }
-	short int getMenuEntry()const { return menuEntry; }
-	AnimatedSprite* getSprite()const { return pSprite; }
-	const UVec2& getSize()const { return size; }
-	const unsigned int getDefence()const { return defence; }
+    const std::string& getInternalName()const { return internalName; }
+    const std::string& getName()const { return name; }
+    unsigned int getID()const { return id; }
+    short int getMenuEntry()const { return menuEntry; }
+    AnimatedSprite* getSprite()const { return pSprite; }
+    const UVec2& getSize()const { return size; }
+    unsigned int getDefence()const { return defence; }
 
-	const Params* const getParams()const { return pParams; }
+    const Params* getParams()const { return pParams; }
 };
 
 /*! \enum TileType
@@ -91,48 +91,48 @@ public:
  */
 
 /*! \fn Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
- *	\param pParams the information to create the Tile
- *	\param pSL pointer to the SpriteLoader to use
- *	\param folderPath path where to load the sprites
+ *  \param pParams the information to create the Tile
+ *  \param pSL pointer to the SpriteLoader to use
+ *  \param folderPath path where to load the sprites
  */
 
 /*! \fn Tile :: ~Tile()
  */
 
 /*! \fn bool Tile :: operator==(const Tile& tile)const
- *	\brief fast tile check using the internal name
+ *  \brief fast tile check using the internal name
  */
 
 /*! \fn const std::string& Tile :: getInternalName()const
- *	\return
+ *  \return
  */
 
 /*! \fn const std::string& Tile :: getName()const
- *	\return
+ *  \return
  */
 
 /*! \fn unsigned int Tile :: getID()const
- *	\return
+ *  \return
  */
 
 /*! \fn short int Tile :: getMenuEntry()const
- *	\return
+ *  \return
  */
 
 /*! \fn AnimatedSprite* Tile :: getSprite()const
- *	\return
+ *  \return
  */
 
 /*! \fn const UVec2& Tile :: getSize()const
- *	\return
+ *  \return
  */
 
 /*! \fn const unsigned int Tile :: getDefence()const
- *	\return
+ *  \return
  */
 
 /*! \fn const Params* const Tile :: getParams()const
- *	\return
+ *  \return
  */
 
 #endif

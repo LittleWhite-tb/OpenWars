@@ -25,31 +25,31 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../Types/Size2.h"
+#include "Types/Size2.h"
 
 struct Colour;
 
 namespace NE
 {
-	class Sprite
-	{
-	protected:
-		// void* pData;		/*!< The pointer on the native Sprite */
+    class Sprite
+    {
+    protected:
+        // void* pData;     /*!< The pointer on the native Sprite */
         virtual void* getNativeSprite(void)const=0;
-    
+
         virtual ~Sprite(void) {}
-        
-	public:
-		Sprite(void) {}
 
-		virtual USize2 getSize(void)const=0;
+    public:
+        Sprite(void) {}
 
-		friend class Renderer;
-        
+        virtual USize2 getSize(void)const=0;
+
+        friend class Renderer;
+
         // To have only the sprite loader able to delete a Sprite
         friend class SpriteLoader;
         friend class SpriteFactory;
-	};
+    };
 }
 
 /*! \class NE::Sprite Sprite.h "NEngine/Sprite.h"
@@ -66,7 +66,7 @@ namespace NE
  */
 
 /*! \fn virtual void* NE::Sprite::getNativeSprite(void)const = 0;
- *	\brief
+ *  \brief
  */
 
 /*! \fn virtual USize2 NE::Sprite::getSize(void)const=0

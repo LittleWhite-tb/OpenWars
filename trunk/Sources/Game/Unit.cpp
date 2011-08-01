@@ -27,8 +27,8 @@ e-mail: lw.demoscene@gmail.com
 #include "UnitTemplate.h"
 
 Unit :: Unit(const UnitTemplate* pUTemplate)
-	:pUnitTemplate(pUTemplate),
-	 faction(pUTemplate->getFaction()),
-	 fuel(pUTemplate->getFuel()),ammo(pUTemplate->getAmmo()),life(pUTemplate->getLife()),state(US_ACTIVE)
+    :pUnitTemplate(pUTemplate),
+     faction(pUTemplate->getFaction()),
+     fuel(pUTemplate->getFuel()),ammo(pUTemplate->getAmmo()),life(pUTemplate->getLife()),state(US_ACTIVE)
 {
 }

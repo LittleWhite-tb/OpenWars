@@ -30,32 +30,32 @@ e-mail: lw.demoscene@gmail.com
 
 Map* MapFactory :: createEmptyMap(const Theme* pTheme, const USize2& size)
 {
-	Map* pMap = new Map(pTheme);
+    Map* pMap = new Map(pTheme);
 
-	if ( pMap == NULL )
-	{
-		LError << "Failed to allocate Map memory";
-		throw std::bad_alloc("Map allocation failed");
-	}
+    if ( pMap == NULL )
+    {
+        LError << "Failed to allocate Map memory";
+        throw std::bad_alloc();
+    }
 
-	pMap->allocateMemory(size);
+    pMap->allocateMemory(size);
 
-	std::vector < std::vector < const Tile* > >* pTilesMap = NULL;
-	pTilesMap = pMap->getTilesMap();
-	if ( pTilesMap == NULL )
-	{
-		LError << "Error while getting the tile board";
-		delete pMap;
-		return NULL;
-	}
+    std::vector < std::vector < const Tile* > >* pTilesMap = NULL;
+    pTilesMap = pMap->getTilesMap();
+    if ( pTilesMap == NULL )
+    {
+        LError << "Error while getting the tile board";
+        delete pMap;
+        return NULL;
+    }
 
-	for ( unsigned int y = 0 ; y < size.height ; y++ )
-	{
-		for ( unsigned int x = 0 ; x < size.width ; x++ )
-		{
-			(*pTilesMap)[y][x] = pTheme->getTile(0);
-		}
-	}
+    for ( unsigned int y = 0 ; y < size.height ; y++ )
+    {
+        for ( unsigned int x = 0 ; x < size.width ; x++ )
+        {
+            (*pTilesMap)[y][x] = pTheme->getTile(0);
+        }
+    }
 
-	return pMap;
+    return pMap;
 }

@@ -4,14 +4,13 @@
 		<internalName>Plain</internalName>
 		<name>Plaine</name>
 		<filename>plain.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>1</defence>
-		<isRoad>1</isRoad>
+		<!-- <coherency>SimpleChecker</coherency> (default, the tile is set) --> 
 		<!-- By default, all others are set to 0 -->
 	</tile>
 	
@@ -19,7 +18,6 @@
 		<internalName>Tree</internalName>
 		<name>Foret</name>
 		<filename>tree.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -34,7 +32,6 @@
 		<internalName>Mountain_1</internalName>
 		<name>Mtgn</name>
 		<filename>mountain1.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -49,7 +46,6 @@
 		<internalName>Mountain_2</internalName>
 		<name>Mtgn</name>
 		<filename>mountain2.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>42</y>
@@ -1060,7 +1056,6 @@
 		<internalName>Red_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>r_hq.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1078,7 +1073,6 @@
 		<internalName>Red_Factory</internalName>
 		<name>Base</name>
 		<filename>r_factory.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1096,7 +1090,6 @@
 		<internalName>Red_Port</internalName>
 		<name>Port</name>
 		<filename>r_port.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1114,7 +1107,6 @@
 		<internalName>Red_Airport</internalName>
 		<name>Aero.</name>
 		<filename>r_airport.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1132,7 +1124,6 @@
 		<internalName>Red_City</internalName>
 		<name>Ville</name>
 		<filename>r_city.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1149,7 +1140,6 @@
 		<internalName>Blue_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>b_hq.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1167,7 +1157,6 @@
 		<internalName>Blue_Factory</internalName>
 		<name>Base</name>
 		<filename>b_factory.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1185,7 +1174,6 @@
 		<internalName>Blue_Port</internalName>
 		<name>Port</name>
 		<filename>b_port.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1203,7 +1191,6 @@
 		<internalName>Blue_Airport</internalName>
 		<name>Aero.</name>
 		<filename>b_airport.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1221,7 +1208,6 @@
 		<internalName>Blue_City</internalName>
 		<name>Ville</name>
 		<filename>b_city.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1238,7 +1224,6 @@
 		<internalName>Green_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>g_hq.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1256,7 +1241,6 @@
 		<internalName>Green_Factory</internalName>
 		<name>Base</name>
 		<filename>g_factory.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1274,7 +1258,6 @@
 		<internalName>Green_Port</internalName>
 		<name>Port</name>
 		<filename>g_port.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1292,7 +1275,6 @@
 		<internalName>Green_Airport</internalName>
 		<name>Aero.</name>
 		<filename>g_airport.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1310,7 +1292,6 @@
 		<internalName>Green_City</internalName>
 		<name>Ville</name>
 		<filename>g_city.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1327,7 +1308,6 @@
 		<internalName>Yellow_HQ</internalName>
 		<name>Q.G.</name>
 		<filename>y_hq.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1345,7 +1325,6 @@
 		<internalName>Yellow_Factory</internalName>
 		<name>Base</name>
 		<filename>y_factory.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1363,7 +1342,6 @@
 		<internalName>Yellow_Port</internalName>
 		<name>Port</name>
 		<filename>y_port.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1381,7 +1359,6 @@
 		<internalName>Yellow_Airport</internalName>
 		<name>Aero.</name>
 		<filename>y_airport.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1399,7 +1376,6 @@
 		<internalName>Yellow_City</internalName>
 		<name>Ville</name>
 		<filename>y_city.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1417,7 +1393,6 @@
 		<internalName>Neutral_HQ</internalName>
 		<name>Ville</name>
 		<filename>n_city.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1434,7 +1409,6 @@
 		<internalName>Neutral_Factory</internalName>
 		<name>Base</name>
 		<filename>n_factory.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1451,7 +1425,6 @@
 		<internalName>Neutral_Port</internalName>
 		<name>Port</name>
 		<filename>n_port.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1468,7 +1441,6 @@
 		<internalName>Neutral_Airport</internalName>
 		<name>Aero.</name>
 		<filename>n_airport.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1485,7 +1457,6 @@
 		<internalName>Neutral_City</internalName>
 		<name>Ville</name>
 		<filename>n_city.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1577,7 +1548,6 @@
 		<internalName>Reef</internalName>
 		<name>Récif</name>
 		<filename>reef.png</filename>
-		<coherency>SimpleChecker</coherency>
 		<size>
 			<x>32</x>
 			<y>32</y>

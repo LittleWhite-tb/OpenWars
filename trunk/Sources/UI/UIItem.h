@@ -36,24 +36,53 @@ class UIItem
 {
 private:
 
-	std::string internalName;				/*!< Name to display */
-	AnimatedSprite* pSprite;				/*!< */
+    std::string internalName;               /*!< Name to display */
+    AnimatedSprite* pSprite;                /*!< */
 
-	Params* pParams;				/*!< Rest of the information for this unit */
+    Params* pParams;                /*!< Rest of the information for this unit */
 
-	static const std::string neededParameters[];	/*!< List of parameters needed for the constructor */
+    static const std::string neededParameters[];    /*!< List of parameters needed for the constructor */
 
 public:
 
-	UIItem():pParams(NULL) {};
-	UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
-	~UIItem();
+    UIItem():pParams(NULL) {};
+    UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
+    ~UIItem();
 
-	const std::string& getInternalName()const { return internalName; }
+    const std::string& getInternalName()const { return internalName; }
 
-	AnimatedSprite* getSprite()const { return pSprite; }
+    AnimatedSprite* getSprite()const { return pSprite; }
 
-	const Params* const getParams() { return pParams; }
+    const Params* getParams() { return pParams; }
 };
+
+/*! \class UIItem UIItem.h "Game/UIItem.h"
+ *  \brief Item for the UserInterface used by the Theme
+ */
+
+/*! \fn UIItem :: UIItem()
+ */
+
+/*! \fn UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+ *  Loads a UIItem from Params
+ *  \param pParams the parameters list for the FontObject
+ *  \param pSL the SpriteLoader to use to load the font sprite
+ *  \param folderPath the folder where to load the file
+ */
+
+/*! \fn UIItem :: ~UIItem()
+ */
+
+/*! \fn const std::string& UIItem :: getInternalName()const
+ *  \return
+ */
+
+/*! \fn AnimatedSprite* UIItem :: getSprite()const
+ *  \return
+ */
+
+/*! \fn const Params* UIItem :: getParams()const
+ *  \return
+ */
 
 #endif

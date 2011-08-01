@@ -35,105 +35,105 @@ e-mail: lw.demoscene@gmail.com
 class Params
 {
 private:
-	
-	std::map < std::string, std::string > params;	/*!< */
+
+    std::map < std::string, std::string > params;   /*!< */
 
 public:
 
-	void add(const std::string& name, const std::string& value);
-	void remove(const std::string& name);
+    void add(const std::string& name, const std::string& value);
+    void remove(const std::string& name);
 
-	bool exists(const std::string& name)const;
+    bool exists(const std::string& name)const;
 
-	const std::string& get(const std::string& name)const;
+    const std::string& get(const std::string& name)const;
 
-	template <typename T>
-	T getAs(const std::string& name)const
-	{
-		std::stringstream ss (this->get(name));	// Can throw ParameterNotFoundParamsException
-		T value;
+    template <typename T>
+    T getAs(const std::string& name)const
+    {
+        std::stringstream ss (this->get(name)); // Can throw ParameterNotFoundParamsException
+        T value;
 
-		ss >> value;
+        ss >> value;
 
-		return value;
-	}
+        return value;
+    }
 
-	template <>
-	char getAs<char>(const std::string& name)const
-	{
-		std::string charString(this->get(name)); // Can throw ParameterNotFoundParamsException
-		if ( charString.size() != 1 )
-		{
-			throw InvalidConvertionParamsException(name);
-		}
+    template <char>
+    char getAs(const std::string& name)const
+    {
+        std::string charString(this->get(name)); // Can throw ParameterNotFoundParamsException
+        if ( charString.size() != 1 )
+        {
+            throw InvalidConvertionParamsException(name);
+        }
 
-		return charString[0];
-	}
+        return charString[0];
+    }
 
-	template <typename T>
-	T getAs(const std::string& name, const T defaultValue)const
-	{
-		std::string valueString;
-		try
-		{
-			valueString = this->get(name);
-		}
-		catch (ParameterNotFoundParamsException& )
-		{
-			return defaultValue;
-		}
+    template <typename T>
+    T getAs(const std::string& name, const T defaultValue)const
+    {
+        std::string valueString;
+        try
+        {
+            valueString = this->get(name);
+        }
+        catch (ParameterNotFoundParamsException& )
+        {
+            return defaultValue;
+        }
 
-		std::stringstream ss(valueString);
-		T value;
+        std::stringstream ss(valueString);
+        T value;
 
-		ss >> value;
+        ss >> value;
 
-		return value;
-	}
+        return value;
+    }
 };
 
 /*! \class Params Params.h "Game/Params.h"
  *  \brief A list of values identified by a name
- *	The values are kept as string but can easily be converted
+ *  The values are kept as string but can easily be converted
  */
 
 /*! \fn void Params :: add(const std::string& name, const std::string& value)
- *	\brief Adds a new value corresponding to name
- *	\param name
- *	\param value
+ *  \brief Adds a new value corresponding to name
+ *  \param name
+ *  \param value
  */
 
 /*! \fn void Params :: remove(const std::string& name);
- *	\brief Removes the value corresponding to name
- *	\param name
+ *  \brief Removes the value corresponding to name
+ *  \param name
  */
 
 /*! \fn bool Params :: exists(const std::string& name)const;
- *	\brief Checks if a value named name exists
- *	\param name
- *	\return true if a value named name exists
+ *  \brief Checks if a value named name exists
+ *  \param name
+ *  \return true if a value named name exists
  */
 
 /*! \fn const std::string& Params :: get(const std::string& name)const;
- *	\brief Gets the value named name
- *	\param name
- *	\return
- *	No convertion is done, the value is returned as it is
- *	ParameterNotFoundParamsException is thrown if the name is not found
+ *  \brief Gets the value named name
+ *  \param name
+ *  \return
+ *  No convertion is done, the value is returned as it is
+ *  ParameterNotFoundParamsException is thrown if the name is not found
  */
 
 /*! \fn T Params :: getAs(const std::string& name)const
- *	\brief Gets the value named name
- *	\param name
- *	\return
- *	ParameterNotFoundParamsException is thrown if the name is not found
+ *  \brief Gets the value named name
+ *  \param name
+ *  \return
+ *  ParameterNotFoundParamsException is thrown if the name is not found
  */
 
 /*! \fn T Params :: getAs(const std::string& name, const T defaultValue)const
- *	\brief Gets the value named name
- *	\param name
- *	\param defaultValue
- *	\return if the name is not found, the defaultValue is returned
+ *  \brief Gets the value named name
+ *  \param name
+ *  \param defaultValue
+ *  \return if the name is not found, the defaultValue is returned
  */
 
 #endif

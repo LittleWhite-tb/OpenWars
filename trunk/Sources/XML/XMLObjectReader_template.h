@@ -39,68 +39,68 @@ e-mail: lw.demoscene@gmail.com
 template <typename T>
 bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary, NE::SpriteLoader* pSL, const std::string& folderPath)
 {
-	// LDebug << "Started XMLReader parsing";
+    // LDebug << "Started XMLReader parsing";
 
-	xmlNodePtr xmlRoot = xmlDocGetRootElement(xmlFile);
-	if ( xmlRoot == NULL )
-	{
-		LError << "XML file does not have a root node";
-		return false;
-	}
+    xmlNodePtr xmlRoot = xmlDocGetRootElement(xmlFile);
+    if ( xmlRoot == NULL )
+    {
+        LError << "XML file does not have a root node";
+        return false;
+    }
 
-	// LDebug << "Root is: " << xmlRoot->name;
+    // LDebug << "Root is: " << xmlRoot->name;
 
-	bool bResult = true;
-	xmlNodePtr node;
-	for ( node = xmlRoot->children ; node ; node = node->next )
-	{
-		if (node->type == XML_ELEMENT_NODE)
-		{
-			if ( xmlStrcmp((const xmlChar *)nodeName.c_str(),node->name) == 0 )
-			{
-				if ( node->children )
-				{
-					Params* pParams = new Params();
-					if ( pParams == NULL )
-					{
-						LError << "Fail to allocate memory for Params";
-						throw std::bad_alloc("Params allocation failed");
-					}
+    bool bResult = true;
+    xmlNodePtr node;
+    for ( node = xmlRoot->children ; node ; node = node->next )
+    {
+        if (node->type == XML_ELEMENT_NODE)
+        {
+            if ( xmlStrcmp((const xmlChar *)nodeName.c_str(),node->name) == 0 )
+            {
+                if ( node->children )
+                {
+                    Params* pParams = new Params();
+                    if ( pParams == NULL )
+                    {
+                        LError << "Fail to allocate memory for Params";
+                        throw std::bad_alloc();
+                    }
 
-					if ( node->properties )
-					{
-						bResult &= parseAttributes(node,pParams);
-					}
+                    if ( node->properties )
+                    {
+                        bResult &= parseAttributes(node,pParams);
+                    }
 
-					bResult &= parseNodes(node->children,pParams,"");
-					if ( bResult == true )
-					{
-						T* pInstance = new T(pParams,pSL,folderPath);
-						if ( pInstance == NULL )
-						{
-							LError << "Fail to allocate memory for " << typeid(T).name();
-							throw std::bad_alloc((std::string(typeid(T).name()) + std::string("allocation failed")).c_str());
-						}
+                    bResult &= parseNodes(node->children,pParams,"");
+                    if ( bResult == true )
+                    {
+                        T* pInstance = new T(pParams,pSL,folderPath);
+                        if ( pInstance == NULL )
+                        {
+                            LError << "Fail to allocate memory for " << typeid(T).name();
+                            throw std::bad_alloc();
+                        }
 
-						pLibrary->add(pInstance->getInternalName(),pInstance);
-					}
-					// LDebug << "Finished '" << typeid(T).name() << "' parsing";
-				}
-				else
-				{
-					LError << typeid(T).name() <<  " node is empty -> ignored";
-				}
-			}
-			else
-			{
-				LError << "File contain an invalid node '" << node->name << "' -> Ignored";
-			}
-		}
-	}
+                        pLibrary->add(pInstance->getInternalName(),pInstance);
+                    }
+                    // LDebug << "Finished '" << typeid(T).name() << "' parsing";
+                }
+                else
+                {
+                    LError << typeid(T).name() <<  " node is empty -> ignored";
+                }
+            }
+            else
+            {
+                LError << "File contain an invalid node '" << node->name << "' -> Ignored";
+            }
+        }
+    }
 
-	// LDebug << "Finished XMLReader parsing";
+    // LDebug << "Finished XMLReader parsing";
 
-	return bResult;
+    return bResult;
 }
 
 #endif

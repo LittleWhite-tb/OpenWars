@@ -36,7 +36,20 @@ private:
 
 public:
 
-	static Map* createEmptyMap(const Theme* pTheme, const USize2& size);
+    static Map* createEmptyMap(const Theme* pTheme, const USize2& size);
 };
+
+/*! \class MapFactory MapFactory.h "Game/Map/MapFactory.h"
+ *  \brief Class to build a map from scratch
+ */
+
+/*! \fn static Map* MapFactory::createEmptyMap(const Theme* pTheme, const USize2& size)
+ *  \brief build an empty map
+ *  \param pTheme pointer to the theme to use
+ *  \param size the size of the map
+ *  \return returns a pointer on the Map or NULL if something failed.
+ *  \throw std::bad_alloc when the machine does not have enough memory
+ *  Tile at ID 0 of the Theme is used to fill the map
+ */
 
 #endif

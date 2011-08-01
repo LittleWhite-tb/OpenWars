@@ -48,97 +48,91 @@ class MapIntegrityChecker;
 class Map
 {
 private:
-	MapIntegrityChecker* pIntegrityChecker;
+    MapIntegrityChecker* pIntegrityChecker;
 
-	void checkCoherency(const UVec2& position);
+    void checkCoherency(const UVec2& position, const Tile* pTileToPut);
 
-	bool allocateMemory(const USize2& size);
+    bool allocateMemory(const USize2& size);
 
-	std::vector < std::vector < const Tile* > >* getTilesMap() { return &tileMap; }
-	std::vector < std::vector < Unit > >* getUnitsMap() { return &unitMap; }
+    std::vector < std::vector < const Tile* > >* getTilesMap() { return &tileMap; }
+    std::vector < std::vector < Unit > >* getUnitsMap() { return &unitMap; }
 
 protected:
 
-	const Theme* pTheme;
+    const Theme* pTheme;
 
-	unsigned int width;			/*!< Width (in tile) of the map */
-	unsigned int height;		/*!< Height (in tile) of the map */
+    unsigned int width;         /*!< Width (in tile) of the map */
+    unsigned int height;        /*!< Height (in tile) of the map */
 
-	std::vector < std::vector < const Tile* > > tileMap;	/*!< 2D Array representating the map */
-	std::vector < std::vector < Unit > > unitMap;	/*!< 2D Array representating the unit on the map */
+    std::vector < std::vector < const Tile* > > tileMap;    /*!< 2D Array representating the map */
+    std::vector < std::vector < Unit > > unitMap;   /*!< 2D Array representating the unit on the map */
 
-	bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
+    bool drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
 public:
-	Map(const Theme* const pTheme);
-	virtual ~Map(void);
+    Map(const Theme* const pTheme);
+    virtual ~Map(void);
 
-	const std::vector < std::vector < const Tile* > >* constTilesMap()const { return &tileMap; }
-	const std::vector < std::vector < Unit > >* constUnitsMap()const { return &unitMap; }
+    const std::vector < std::vector < const Tile* > >* constTilesMap()const { return &tileMap; }
+    const std::vector < std::vector < Unit > >* constUnitsMap()const { return &unitMap; }
 
-	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
+    bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 
-	const Tile* getTile(const UVec2& position)const;
-	bool setTile(const UVec2& position, const std::string& tileName);
+    const Tile* getTile(const UVec2& position)const;
+    bool setTile(const UVec2& position, const std::string& tileName);
 
-	const Unit* getUnit(const UVec2& position);
-	bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
+    const Unit* getUnit(const UVec2& position);
+    bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 
-	bool testTile(const UVec2& position, const Tile* pTile);
-	bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
+    bool testTile(const UVec2& position, const Tile* pTile);
+    bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
 
-	bool move(const UVec2& origPosition, const UVec2& destPosition);
+    bool move(const UVec2& origPosition, const UVec2& destPosition);
 
-	void enableUnits(void);
+    void enableUnits(void);
 
-	unsigned int getWidth(void)const { return width; }
-	unsigned int getHeight(void)const { return height; }
+    unsigned int getWidth(void)const { return width; }
+    unsigned int getHeight(void)const { return height; }
 
-	const Theme* getTheme(void)const { return pTheme; }
+    const Theme* getTheme(void)const { return pTheme; }
 
-	bool isValidPosition(const UVec2& position)const;
+    bool isValidPosition(const UVec2& position)const;
 
-	friend class MapLoader;
-	friend class MapFactory;
+    friend class MapLoader;
+    friend class MapFactory;
 
 /*
-	template <typename T>
-	const T& get(const UVec2& position)const
-	{
-		if ( position.x < this->width && position.y < this->height )
-		{
-			// The [] operator is not const...
-			return pTileMap[position.y][position.x];
-		}
-		else
-		{
-			return Tile();
-		}
-	}
+    template <typename T>
+    const T& get(const UVec2& position)const
+    {
+        if ( position.x < this->width && position.y < this->height )
+        {
+            // The [] operator is not const...
+            return pTileMap[position.y][position.x];
+        }
+        else
+        {
+            return Tile();
+        }
+    }
 */
 
 /*
-	TileType getTileType(const UVec2& position)const;
-	UnitType getUnitType(const UVec2& position)const;
+    TileType getTileType(const UVec2& position)const;
+    UnitType getUnitType(const UVec2& position)const;
 
-	UnitTemplate getUnitTemplate(const UVec2& position)const;
-	UnitTemplate getUnitTemplate(const UnitType ut)const;
+    UnitTemplate getUnitTemplate(const UVec2& position)const;
+    UnitTemplate getUnitTemplate(const UnitType ut)const;
 
-	AnimatedSprite* getAssociatedSprite(const TileType type);
-	AnimatedSprite* getAssociatedSprite(const UnitType type);
+    AnimatedSprite* getAssociatedSprite(const TileType type);
+    AnimatedSprite* getAssociatedSprite(const UnitType type);
 
-	bool testTile(const UVec2& position, const UnitType unitType)const;
+    bool testTile(const UVec2& position, const UnitType unitType)const;
 */
 };
 
 /*! \class Map Map.h "Game/Map.h"
- *  \brief Map management class
- *
- * Manage the Map for the game.
- * Can do the following:
- *		- Load from file (directly in the constructor, the parsing is done manualy)
- *		- Draw the map
- *		- Get a Tile
+ *  \brief Map data management class
  */
 
 /*! \fn bool Map::loadTileSet(NE::SpriteLoader* const pSL)

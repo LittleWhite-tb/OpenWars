@@ -42,101 +42,101 @@ e-mail: lw.demoscene@gmail.com
 #include "Utils/Exceptions/XMLException.h"
 
 Engine::Engine(NE::NEngine* const pNE)
-:pNE(pNE),pVT(NULL),pMap(NULL),pCam(NULL)
+:pNE(pNE),pMap(NULL),pCam(NULL),pVT(NULL)
 {
-	assert(pNE);
+    assert(pNE);
 }
 
 Engine :: ~Engine(void)
 {
-	delete pCam;
-	delete pMap;
+    delete pCam;
+    delete pMap;
 
-	delete pVT;
+    delete pVT;
 }
 
 bool Engine :: init()
 {
-	pVT = new VTime(pNE->getTime(),60,10);
+    pVT = new VTime(pNE->getTime(),60,10);
 
-	pCam = new Camera();
+    pCam = new Camera();
 
-	if ( pVT == NULL )
-	{
-		LError << "Fail to allocate memory for Virtual Time";
-		return false;
-	}
-	if ( pCam == NULL )
-	{
-		LError << "Fail to allocate memory for Camera";
-		return false;
-	}
+    if ( pVT == NULL )
+    {
+        LError << "Fail to allocate memory for Virtual Time";
+        return false;
+    }
+    if ( pCam == NULL )
+    {
+        LError << "Fail to allocate memory for Camera";
+        return false;
+    }
 
-	LDebug << "Engine init'd";
+    LDebug << "Engine init'd";
 
-	return true;
+    return true;
 }
 
 void Engine :: loadTheme(const std::string& themeName)
 {
-	Theme* pTheme = new Theme(themeName);
-	if ( pTheme == NULL )
-	{
-		LError << "Fail to allocate Theme";
-		throw std::bad_alloc("Fail to allocate Theme");
-	}
+    Theme* pTheme = new Theme(themeName);
+    if ( pTheme == NULL )
+    {
+        LError << "Fail to allocate Theme";
+        throw std::bad_alloc();
+    }
 
-	if ( pTheme->load(pNE->getSpriteLoader()) == false )
-	{
-		throw EngineException("Failed to load the theme (" + themeName+ ")");
-	}
-	else
-	{
-		themeLibrary.add(pTheme->getName(),pTheme);
-	}
+    if ( pTheme->load(pNE->getSpriteLoader()) == false )
+    {
+        throw EngineException("Failed to load the theme (" + themeName+ ")");
+    }
+    else
+    {
+        themeLibrary.add(pTheme->getName(),pTheme);
+    }
 }
 
 void Engine :: loadThemeList(const std::string& listPath)
 {
-	try
-	{
-		std::list<std::string> paths;
-		XMLListReader xmlReader = XMLListReader(listPath);
+    try
+    {
+        std::list<std::string> paths;
+        XMLListReader xmlReader = XMLListReader(listPath);
 
-		xmlReader.parse("theme",&paths);
+        xmlReader.parse("theme",&paths);
 
-		for ( std::list<std::string>::const_iterator itPath = paths.begin() ; itPath != paths.end() ; ++itPath )
-		{
-			loadTheme(*itPath);
-		}
-	}
-	catch ( XMLParsingFailedException& xmle )
-	{
-		(void)xmle;
-		throw EngineException("Fail to open list of theme paths '" + listPath + "'");
-	}
+        for ( std::list<std::string>::const_iterator itPath = paths.begin() ; itPath != paths.end() ; ++itPath )
+        {
+            loadTheme(*itPath);
+        }
+    }
+    catch ( XMLParsingFailedException& xmle )
+    {
+        (void)xmle;
+        throw EngineException("Fail to open list of theme paths '" + listPath + "'");
+    }
 }
 
 bool Engine :: load(const std::string& mapName)
 {
-	pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
-	if ( pMap == NULL )
-	{
-		return false;
-	}
+    pMap = MapLoader::loadMapFromFile(&themeLibrary,mapName);
+    if ( pMap == NULL )
+    {
+        return false;
+    }
 
-	try
-	{
-		return this->load();
-	}
-	catch ( LibraryException& le )
-	{
-		LError << le.what();
-		LError << "The XML files have missing elements needed by the game";
-		return false;
-	}
-	catch ( FileNotFoundException& fnfe )
-	{
-		return false;
-	}
+    try
+    {
+        return this->load();
+    }
+    catch ( LibraryException& le )
+    {
+        LError << le.what();
+        LError << "The XML files have missing elements needed by the game";
+        return false;
+    }
+    catch ( FileNotFoundException& fnfe )
+    {
+        return false;
+    }
 }

@@ -38,12 +38,13 @@ class ClassicMapIntegrityChecker : public MapIntegrityChecker
 private:
 
 public:
-	ClassicMapIntegrityChecker(const Map* pMap);
+    ClassicMapIntegrityChecker(const Map* pMap);
+    ~ClassicMapIntegrityChecker() {}
 
-	void addChecker(const std::string& name);
+    void addChecker(const std::string& name);
 
-	bool testTile(const UVec2& position, const Tile* pTile);
-	bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
+    bool testTile(const UVec2& position, const Tile* pTile);
+    bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
 };
 
 #endif

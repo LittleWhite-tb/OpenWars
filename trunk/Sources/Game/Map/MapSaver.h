@@ -32,7 +32,18 @@ class Map;
 class MapSaver
 {
 public:
-	static bool saveMapToFile(const std::string& fileName, const Map& map);
+    static bool saveMapToFile(const std::string& fileName, const Map& map);
 };
+
+/*! \class MapSaver MapSaver.h "Game/Map/MapSaver.h"
+ *  \brief Class to save a map in a file
+ */
+
+/*! \fn static bool MapSaver::saveMapToFile(const std::string& fileName, const Map& map)
+ *  \brief save the map in a file
+ *  \param fileName the name of the file where to write the map
+ *  \param map the map to save
+ *  \return true if all goes right ; false if the file could not be open
+ */
 
 #endif

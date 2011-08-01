@@ -37,47 +37,47 @@ e-mail: lw.demoscene@gmail.com
 const std::string FontObject::neededParameters[] = { "font-startingLetter", "internalName", "filename", "charSize_x", "charSize_y" };
 
 FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
-	:pParams(pParams)
+    :pParams(pParams)
 {
-	assert(pParams);
-	assert(pSL);
+    assert(pParams);
+    assert(pSL);
 
-	// Check if the important nodes are present
-	for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
-	{
-		if ( !pParams->exists(neededParameters[i]) )
-		{
-			throw MissingParameterException(neededParameters[i]);
-		}
-	}
+    // Check if the important nodes are present
+    for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
+    {
+        if ( !pParams->exists(neededParameters[i]) )
+        {
+            throw MissingParameterException(neededParameters[i]);
+        }
+    }
 
-	try
-	{
-		this->internalName = pParams->get("internalName");
+    try
+    {
+        this->internalName = pParams->get("internalName");
 
-		UVec2 letterSize(pParams->getAs<unsigned int>("charSize_x"),
-						 pParams->getAs<unsigned int>("charSize_y"));
-		
-		this->pFont = new Font(
-								pSL->loadSpriteFromFile(folderPath + pParams->get("filename")),
-								letterSize,
-								pParams->getAs<char>("font-startingLetter"));
-		if ( this->pFont == NULL )
-		{
-			LError << "Fail to allocate memory for Font for FontObject";
-			throw std::bad_alloc("Font allocation failed");
-		}
-	}
-	catch ( ParameterNotFoundParamsException& pnfpe)
-	{
-		LError << "The force list is not matching the requested parameters";
-		LError << "Parameter '" << pnfpe.what() << "' not found";
-		throw MissingParameterException("unknown");
-	}
+        UVec2 letterSize(pParams->getAs<unsigned int>("charSize_x"),
+                         pParams->getAs<unsigned int>("charSize_y"));
+
+        this->pFont = new Font(
+                                pSL->loadSpriteFromFile(folderPath + pParams->get("filename")),
+                                letterSize,
+                                pParams->getAs<char>("font-startingLetter"));
+        if ( this->pFont == NULL )
+        {
+            LError << "Fail to allocate memory for Font for FontObject";
+            throw std::bad_alloc();
+        }
+    }
+    catch ( ParameterNotFoundParamsException& pnfpe)
+    {
+        LError << "The force list is not matching the requested parameters";
+        LError << "Parameter '" << pnfpe.what() << "' not found";
+        throw MissingParameterException("unknown");
+    }
 }
 
 FontObject :: ~FontObject()
 {
-	delete pFont;
-	delete pParams;
+    delete pFont;
+    delete pParams;
 }

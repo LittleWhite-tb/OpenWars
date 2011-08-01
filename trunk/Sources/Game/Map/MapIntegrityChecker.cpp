@@ -29,13 +29,37 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/Map/Map.h"
 #include "Game/Tile.h"
 
-const Tile* MapIntegrityChecker :: checkCoherency(const UVec2& position)
+MapIntegrityChecker :: MapIntegrityChecker(const Map* pMap)
+    :pMap(pMap)
 {
-	// We check the type
-	if ( pMap->isValidPosition(position) )
-	{
-		return coherencyCheckers[ pMap->getTile(position)->getParams()->get("coherency") ](pMap,position);
-	}
 
-	return NULL;
+}
+
+ MapIntegrityChecker :: ~MapIntegrityChecker()
+ {
+
+ }
+
+const Tile* MapIntegrityChecker :: checkCoherency(const UVec2& position, const Tile* pTile)
+{
+    // We check the type
+    if ( pMap->isValidPosition(position) )
+    {
+        const Tile* pTileToCheck = pTile;
+        if ( pTileToCheck == NULL )
+        {
+            pTileToCheck = pMap->getTile(position);
+        }
+
+        if ( pTileToCheck->getParams()->exists("coherency") )
+        {
+            return coherencyCheckers[ pTileToCheck->getParams()->get("coherency") ](pMap,position);
+        }
+        else
+        {
+            return pTileToCheck;
+        }
+    }
+
+    return NULL;
 }

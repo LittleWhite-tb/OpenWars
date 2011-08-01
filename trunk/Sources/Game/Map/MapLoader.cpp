@@ -35,133 +35,133 @@ e-mail: lw.demoscene@gmail.com
 
 Map* MapLoader :: loadMapFromFile(const Library<Theme>* const pThemes, const std::string& fileName)
 {
-	std::string themeName = "classic";
-	Map* pMap = NULL;
-	std::vector < std::vector < const Tile* > >* pTilesMap = NULL;
-	std::vector < std::vector < Unit > >* pUnitsMap = NULL;
-	unsigned int mapLineCounter = 0;
-	unsigned int unitMapLineCounter = 0;
-	USize2 size;
-	bool error = false;
+    std::string themeName = "classic";
+    Map* pMap = NULL;
+    std::vector < std::vector < const Tile* > >* pTilesMap = NULL;
+    std::vector < std::vector < Unit > >* pUnitsMap = NULL;
+    unsigned int mapLineCounter = 0;
+    unsigned int unitMapLineCounter = 0;
+    USize2 size;
+    bool error = false;
 
-	LineParser lp(fileName);
+    LineParser lp(fileName);
 
-	LDebug << "MapLoader::loadMapFromFile '" << fileName.c_str() << "'";
+    LDebug << "MapLoader::loadMapFromFile '" << fileName.c_str() << "'";
 
-	do
-	{
-		if ( lp.getLineNumber() == 1 )
-		{
-			themeName = lp.getLine();
-			
-			if ( !pThemes->exists(themeName) )
-			{
-				LError << "Map is asking for a theme not found";
-				error = true;
-			}
+    do
+    {
+        if ( lp.getLineNumber() == 1 )
+        {
+            themeName = lp.getLine();
 
-			pMap = new Map(pThemes->get(themeName));
-			if ( pMap == NULL )
-			{
-				LError << "Failed to allocate Map memory";
-				throw std::bad_alloc("Map allocation failed");
-			}
+            if ( !pThemes->exists(themeName) )
+            {
+                LError << "Map is asking for a theme not found";
+                error = true;
+            }
 
-			LDebug << "Theme: " << themeName.c_str();
-			
-		}
-		else if ( lp.getLineNumber() == 2 )
-		{
-			size = lp.getUSize2();
+            pMap = new Map(pThemes->get(themeName));
+            if ( pMap == NULL )
+            {
+                LError << "Failed to allocate Map memory";
+                throw std::bad_alloc();
+            }
 
-			if ( size.width != 0 || size.height != 0 )	// If it looks correct (we can add a maximum size... to be safer)
-			{
-				pMap->allocateMemory(size);
-				pTilesMap = pMap->getTilesMap();
-				pUnitsMap = pMap->getUnitsMap();
-				if ( pTilesMap == NULL || pUnitsMap == NULL )
-				{
-					LError << "Error while getting the Map boards";
-					error = true;
-				}
-			}
-			else
-			{
-				LError << "Size of the map not valid (" << size << ")";
-				error = true;
-			}
-		}
-		else if ( lp.getLineNumber() >= 3 && lp.getLineNumber() < 3 + size.height ) // For all lines representating the map
-		{
-			std::stringstream ss(lp.getLine());
-			int tileID = -1;
+            LDebug << "Theme: " << themeName.c_str();
 
-			mapLineCounter++;
+        }
+        else if ( lp.getLineNumber() == 2 )
+        {
+            size = lp.getUSize2();
 
-			// We are reading one line, by one
-			for ( unsigned int x = 0 ; x < size.width ; x++ )
-			{
-				ss >> tileID;
-				if ( tileID != -1 )
-				{
-					if ( pThemes->get(themeName)->containsTile(tileID) )
-					{
-						(*pTilesMap)[lp.getLineNumber()-3][x] = pThemes->get(themeName)->getTile(tileID);
-					}
-					else
-					{
-						LWarning << "Tile data in the map invalid (" << tileID << ") at position " << x << ";" << lp.getLineNumber()-3;
-						error = true;
-					}	
-				}
-				else
-				{
-					LError << "Fail to read the tile type @ " << x << ";" << lp.getLineNumber()-3;
-					error = true;
-				}
-			}
-		}
-		else if ( lp.getLineNumber() >= 3+size.height && lp.getLineNumber() < 3+size.height*2 )	// For the unit map
-		{
-			std::stringstream ss(lp.getLine());
-			int unitID = -42;
+            if ( size.width != 0 || size.height != 0 )  // If it looks correct (we can add a maximum size... to be safer)
+            {
+                pMap->allocateMemory(size);
+                pTilesMap = pMap->getTilesMap();
+                pUnitsMap = pMap->getUnitsMap();
+                if ( pTilesMap == NULL || pUnitsMap == NULL )
+                {
+                    LError << "Error while getting the Map boards";
+                    error = true;
+                }
+            }
+            else
+            {
+                LError << "Size of the map not valid (" << size << ")";
+                error = true;
+            }
+        }
+        else if ( lp.getLineNumber() >= 3 && lp.getLineNumber() < 3 + size.height ) // For all lines representating the map
+        {
+            std::stringstream ss(lp.getLine());
+            int tileID = -1;
 
-			unitMapLineCounter++;
+            mapLineCounter++;
 
-			// We are reading one line, by one
-			for ( unsigned int x = 0 ; x < size.width ; x++ )
-			{
-				ss >> unitID;
-				if ( unitID != -42 )
-				{
-					if ( unitID == -1 )
-					{
-						(*pUnitsMap)[lp.getLineNumber()-(3+size.height)][x] = Unit();
-					}
-					else if ( pThemes->get(themeName)->containsUnit(unitID) )
-					{
-						(*pUnitsMap)[lp.getLineNumber()-(3+size.height)][x] = Unit(pThemes->get(themeName)->getUnit(unitID));
-					}
-					else
-					{
-						LWarning << "Data in the map invalid (" << unitID << ")";
-						error = true;
-					}	
-				}
-				else
-				{
-					LError << "Fail to read the tile type @ " << x << ";" << lp.getLineNumber()-(3+size.height);
-					error = true;
-				}
-			}
-		}
-	}while(error != true && lp.readNextLine());
+            // We are reading one line, by one
+            for ( unsigned int x = 0 ; x < size.width ; x++ )
+            {
+                ss >> tileID;
+                if ( tileID != -1 )
+                {
+                    if ( pThemes->get(themeName)->containsTile(tileID) )
+                    {
+                        (*pTilesMap)[lp.getLineNumber()-3][x] = pThemes->get(themeName)->getTile(tileID);
+                    }
+                    else
+                    {
+                        LWarning << "Tile data in the map invalid (" << tileID << ") at position " << x << ";" << lp.getLineNumber()-3;
+                        error = true;
+                    }
+                }
+                else
+                {
+                    LError << "Fail to read the tile type @ " << x << ";" << lp.getLineNumber()-3;
+                    error = true;
+                }
+            }
+        }
+        else if ( lp.getLineNumber() >= 3+size.height && lp.getLineNumber() < 3+size.height*2 ) // For the unit map
+        {
+            std::stringstream ss(lp.getLine());
+            int unitID = -42;
 
-	if ( error == true )
-	{
-		delete pMap;
-		return NULL;
-	}
+            unitMapLineCounter++;
 
-	return pMap;
+            // We are reading one line, by one
+            for ( unsigned int x = 0 ; x < size.width ; x++ )
+            {
+                ss >> unitID;
+                if ( unitID != -42 )
+                {
+                    if ( unitID == -1 )
+                    {
+                        (*pUnitsMap)[lp.getLineNumber()-(3+size.height)][x] = Unit();
+                    }
+                    else if ( pThemes->get(themeName)->containsUnit(unitID) )
+                    {
+                        (*pUnitsMap)[lp.getLineNumber()-(3+size.height)][x] = Unit(pThemes->get(themeName)->getUnit(unitID));
+                    }
+                    else
+                    {
+                        LWarning << "Data in the map invalid (" << unitID << ")";
+                        error = true;
+                    }
+                }
+                else
+                {
+                    LError << "Fail to read the tile type @ " << x << ";" << lp.getLineNumber()-(3+size.height);
+                    error = true;
+                }
+            }
+        }
+    }while(error != true && lp.readNextLine());
+
+    if ( error == true )
+    {
+        delete pMap;
+        return NULL;
+    }
+
+    return pMap;
 }

@@ -38,15 +38,15 @@ class UnitTemplate
 {
 private:
 
-	std::string internalName;		/*!< */
-	std::string name;				/*!< Name to display */
-	unsigned int id;				/*!< */
+    std::string internalName;       /*!< */
+    std::string name;               /*!< Name to display */
+    unsigned int id;                /*!< */
 
-	AnimatedSprite* pSprite;		/*!< */
-	UVec2 size;
+    AnimatedSprite* pSprite;        /*!< */
+    UVec2 size;
 
-	unsigned short int faction;		/*!< */
-	
+    unsigned short int faction;     /*!< */
+
     unsigned int movement;          /*!< The movement possibility */
     unsigned int fuel;              /*!< The remaining fuel */
     unsigned int fuelConsumption;   /*!< The fuel consumption per day */
@@ -56,95 +56,95 @@ private:
 
     unsigned int price;             /*!< Price */
 
-	Params* pParams;				/*!< Rest of the information for this unit */
+    Params* pParams;                /*!< Rest of the information for this unit */
 
-	static const std::string neededParameters[];	/*!< List of parameters needed for the constructor */
+    static const std::string neededParameters[];    /*!< List of parameters needed for the constructor */
 
 public:
-	UnitTemplate():pParams(NULL) {};
-	UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
-	~UnitTemplate();
+    UnitTemplate():pParams(NULL) {};
+    UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
+    ~UnitTemplate();
 
-	unsigned int getID()const { return id; }
-	const std::string& getInternalName()const { return internalName; }
-	const std::string& getName()const { return name; }
-	
-	AnimatedSprite* getSprite()const { return pSprite; }
+    unsigned int getID()const { return id; }
+        const std::string& getInternalName()const { return internalName; }
+    const std::string& getName()const { return name; }
 
-	unsigned short int getFaction()const { return faction; }
+    AnimatedSprite* getSprite()const { return pSprite; }
 
-	unsigned int getMovement()const { return movement; }
-	unsigned int getFuel()const { return fuel; }
-	unsigned int getFuelConsumption()const { return fuelConsumption; }
-	unsigned int getAmmo()const { return ammo; }
-	unsigned int getLife()const { return life; }
-	unsigned int getPrice()const { return price; }
+    unsigned short int getFaction()const { return faction; }
 
-	const Params* const getParams()const { return pParams; }
+    unsigned int getMovement()const { return movement; }
+    unsigned int getFuel()const { return fuel; }
+    unsigned int getFuelConsumption()const { return fuelConsumption; }
+    unsigned int getAmmo()const { return ammo; }
+    unsigned int getLife()const { return life; }
+    unsigned int getPrice()const { return price; }
+
+    const Params* getParams()const { return pParams; }
 };
 
 /*! \class UnitTemplate UnitTemplate.h "Game/UnitTemplate.h"
  *  \brief UnitTemplate keeping all the information loaded for units
  */
 
-/*!	\fn UnitTemplate :: UnitTemplate()
+/*! \fn UnitTemplate :: UnitTemplate()
  */
 
-/*!	\fn UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
- *	\param pParams the parameters where to get the information for this unit template
- *	\param pSL a pointer to the sprite loader to use
- *	\param folderPath the folder where to load data
+/*! \fn UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+ *  \param pParams the parameters where to get the information for this unit template
+ *  \param pSL a pointer to the sprite loader to use
+ *  \param folderPath the folder where to load data
  */
 
-/*!	\fn UnitTemplate :: ~UnitTemplate()
+/*! \fn UnitTemplate :: ~UnitTemplate()
  */
 
-/*!	\fn unsigned int UnitTemplate :: getID()const
- *	\return
+/*! \fn unsigned int UnitTemplate :: getID()const
+ *  \return
  */
 
-/*!	\fn const std::string& UnitTemplate :: getInternalName()const
- *	\return
+/*! \fn const std::string& UnitTemplate :: getInternalName()const
+ *  \return
  */
 
-/*!	\fn const std::string& UnitTemplate :: getName()const
- *	\return
- */
-	
-/*!	\fn AnimatedSprite* UnitTemplate :: getSprite()const
- *	\return
+/*! \fn const std::string& UnitTemplate :: getName()const
+ *  \return
  */
 
-/*!	\fn unsigned short int UnitTemplate :: getFaction()const
- *	\return
+/*! \fn AnimatedSprite* UnitTemplate :: getSprite()const
+ *  \return
  */
 
-/*!	\fn unsigned int UnitTemplate :: getMovement()const
- *	\return
+/*! \fn unsigned short int UnitTemplate :: getFaction()const
+ *  \return
  */
 
-/*!	\fn unsigned int UnitTemplate :: getFuel()const
- *	\return
+/*! \fn unsigned int UnitTemplate :: getMovement()const
+ *  \return
  */
 
-/*!	\fn unsigned int UnitTemplate :: getFuelConsumption()const
- *	\return
+/*! \fn unsigned int UnitTemplate :: getFuel()const
+ *  \return
  */
 
-/*!	\fn unsigned int UnitTemplate :: getAmmo()const
- *	\return
+/*! \fn unsigned int UnitTemplate :: getFuelConsumption()const
+ *  \return
  */
 
-/*!	\fn unsigned int UnitTemplate :: getLife()const
- *	\return
+/*! \fn unsigned int UnitTemplate :: getAmmo()const
+ *  \return
  */
 
-/*!	\fn unsigned int UnitTemplate :: getPrice()const
- *	\return
+/*! \fn unsigned int UnitTemplate :: getLife()const
+ *  \return
  */
 
-/*!	\fn const Params* const UnitTemplate :: getParams()
- *	\return
+/*! \fn unsigned int UnitTemplate :: getPrice()const
+ *  \return
+ */
+
+/*! \fn const Params* const UnitTemplate :: getParams()
+ *  \return
  */
 
 #endif

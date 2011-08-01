@@ -33,51 +33,51 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ParamsException.h"
 
-const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "coherency", "size_x", "size_y", "defence" };
+const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
 
 Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
-	:pParams(pParams)
+    :pParams(pParams)
 {
-	assert(pParams);
-	assert(pSL);
+    assert(pParams);
+    assert(pSL);
 
-	// Check if the important nodes are present
-	for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
-	{
-		if ( !pParams->exists(neededParameters[i]) )
-		{
-			throw MissingParameterException(neededParameters[i]);
-		}
-	}
+    // Check if the important nodes are present
+    for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
+    {
+        if ( !pParams->exists(neededParameters[i]) )
+        {
+            throw MissingParameterException(neededParameters[i]);
+        }
+    }
 
-	try
-	{
-		this->internalName = pParams->get("internalName");
-		this->name = pParams->get("name");
-		this->id = pParams->getAs<unsigned int>("tile-id");
-		this->menuEntry = pParams->getAs<short int>("tile-menu");
+    try
+    {
+        this->internalName = pParams->get("internalName");
+        this->name = pParams->get("name");
+        this->id = pParams->getAs<unsigned int>("tile-id");
+        this->menuEntry = pParams->getAs<short int>("tile-menu");
 
-		UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
-						 pParams->getAs<unsigned int>("size_y"));
-		
-		this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
-		if ( this->pSprite == NULL )
-		{
-			LError << "Fail to allocate memory for AnimatedSprite for Tile";
-			throw std::bad_alloc("AnimatedSprite allocation failed");
-		}
+        UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
+                         pParams->getAs<unsigned int>("size_y"));
 
-		this->defence = pParams->getAs<unsigned int>("defence");	
-	}
-	catch ( ParameterNotFoundParamsException )
-	{
-		LError << "The force list is not matching the requested parameters";
-		throw MissingParameterException("unknown");
-	}
+        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        if ( this->pSprite == NULL )
+        {
+            LError << "Fail to allocate memory for AnimatedSprite for Tile";
+            throw std::bad_alloc();
+        }
+
+        this->defence = pParams->getAs<unsigned int>("defence");
+    }
+    catch ( ParameterNotFoundParamsException )
+    {
+        LError << "The force list is not matching the requested parameters";
+        throw MissingParameterException("unknown");
+    }
 }
-	
+
 Tile :: ~Tile()
 {
-	delete pSprite;
-	delete pParams;
+    delete pSprite;
+    delete pParams;
 }

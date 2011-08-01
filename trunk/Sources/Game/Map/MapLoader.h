@@ -36,9 +36,20 @@ class Map;
 class MapLoader
 {
 public:
-	static Map* loadMapFromFile(const Library<Theme>* const pThemes, const std::string& fileName);
+    static Map* loadMapFromFile(const Library<Theme>* const pThemes, const std::string& fileName);
 };
 
-// The class does not keep the maps in memory since we would like to modify them
+/*! \class MapSaver MapSaver.h "Game/Map/MapSaver.h"
+ *  \brief Class to load a map from a file
+ *  the class does not keep the maps in memory (caching) since we would like to modify them during the game time
+ */
+
+/*! \fn static Map* MapLoader::loadMapFromFile(const Library<Theme>* const pThemes, const std::string& fileName);
+ *  \brief load the map from a file
+ *  \param pThemes the Library of themes usable for the map
+ *  \param fileName the name of the file to load
+ *  \return returns a pointer to the map. Can be NULL if the loading failed.
+ *  \throw std::bad_alloc if there is no enough memory to load the Map
+ */
 
 #endif

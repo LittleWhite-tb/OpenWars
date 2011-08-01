@@ -33,22 +33,22 @@ namespace NE { class SpriteLoader; }
 
 enum UnitState
 {
-	US_NO_UNIT,
-	US_ACTIVE,
-	US_MOVED,
-	US_DONE,
+    US_NO_UNIT,
+    US_ACTIVE,
+    US_MOVED,
+    US_DONE,
 };
 
 /**
-	Unit is a class used to handle the unit instances on the map.
+    Unit is a class used to handle the unit instances on the map.
 */
 class Unit
 {
 private:
-	const UnitTemplate* pUnitTemplate;	/*!< */
+    const UnitTemplate* pUnitTemplate;  /*!< */
 
 public:
-	unsigned short faction;			/*!< */
+    unsigned short faction;         /*!< */
 
     unsigned int fuel;              /*!< The remaining fuel */
     unsigned int ammo;              /*!< The remaining ammo */
@@ -57,13 +57,13 @@ public:
 
     UnitState state;                /*!< If the unit is enabled (can be moved) */
 
-	Unit():state(US_NO_UNIT) {};
-	Unit(const UnitTemplate* pUnitTemplate);
+    Unit():state(US_NO_UNIT) {};
+    Unit(const UnitTemplate* pUnitTemplate);
 
-	const std::string& getName()const { return pUnitTemplate->getName(); }
-	unsigned int getID()const { return pUnitTemplate->getID(); }
-	AnimatedSprite* getSprite()const { return pUnitTemplate->getSprite(); }
-	const UnitTemplate* const getTemplate()const { return pUnitTemplate; }
+    const std::string& getName()const { return pUnitTemplate->getName(); }
+    unsigned int getID()const { return pUnitTemplate->getID(); }
+    AnimatedSprite* getSprite()const { return pUnitTemplate->getSprite(); }
+    const UnitTemplate* getTemplate()const { return pUnitTemplate; }
 };
 
 /*! \enum UnitState
@@ -74,27 +74,27 @@ public:
  *  \brief unit on the map controlled by the player
  */
 
-/*!	\fn Unit :: Unit()
+/*! \fn Unit :: Unit()
  */
 
-/*!	\fn Unit :: Unit(const UnitTemplate* pUnitTemplate)
- *	\param pUnitTemplate pointer to the unit template to use to get initial information
+/*! \fn Unit :: Unit(const UnitTemplate* pUnitTemplate)
+ *  \param pUnitTemplate pointer to the unit template to use to get initial information
  */
 
-/*!	\fn const std::string& Unit :: getName()const
- *	\return
+/*! \fn const std::string& Unit :: getName()const
+ *  \return
  */
 
-/*!	\fn unsigned int Unit :: getID()const
- *	\return
+/*! \fn unsigned int Unit :: getID()const
+ *  \return
  */
 
-/*!	\fn AnimatedSprite* const Unit :: getSprite()const
- *	\return
+/*! \fn AnimatedSprite* const Unit :: getSprite()const
+ *  \return
  */
 
-/*!	\fn const UnitTemplate* const Unit :: getTemplate()const
- *	\return
+/*! \fn const UnitTemplate* const Unit :: getTemplate()const
+ *  \return
  */
 
 #endif

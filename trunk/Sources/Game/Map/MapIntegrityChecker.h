@@ -36,25 +36,60 @@ class UnitTemplate;
 
 class MapIntegrityChecker
 {
-	typedef const Tile* (*checker) (const Map* pMap, const UVec2& position);
+    typedef const Tile* (*checker) (const Map* pMap, const UVec2& position);
 
 private:
 
 protected:
-	const Map* pMap;
+    const Map* pMap;
 
-	std::map<std::string, checker> coherencyCheckers;
+    std::map<std::string, checker> coherencyCheckers;
 
 public:
-	MapIntegrityChecker(const Map* pMap):pMap(pMap) {}
-	virtual ~MapIntegrityChecker() {}
+    MapIntegrityChecker(const Map* pMap);
+    virtual ~MapIntegrityChecker();
 
-	virtual void addChecker(const std::string& name)=0;
+    virtual void addChecker(const std::string& name)=0;
 
-	const Tile* checkCoherency(const UVec2& position);
+    const Tile* checkCoherency(const UVec2& position, const Tile* pTile = NULL);
 
-	virtual bool testTile(const UVec2& position, const Tile* pTile)=0;
-	virtual bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)=0;
+    virtual bool testTile(const UVec2& position, const Tile* pTile)=0;
+    virtual bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)=0;
 };
+
+/*! \class MapSaver MapSaver.h "Game/Map/MapSaver.h"
+ *  \brief base class for Map integrity checking
+ */
+
+/*! \fn MapIntegrityChecker::MapIntegrityChecker(const Map* pMap);
+ *  \param pMap pointer to the map to check
+ */
+
+/*! \fn MapIntegrityChecker::~MapIntegrityChecker();
+ */
+
+/*! \fn virtual void MapIntegrityChecker::addChecker(const std::string& name)=0;
+ *  \brief Adds a integrity checker in the list of checkers to use to check integrity.
+ *  \param name the name of the checker
+ *  This new integrity checker will be called by the checkCoherency function when a tile refers to a checker with this name
+ */
+
+/*! \fn const Tile* MapIntegrityChecker::checkCoherency(const UVec2& position, const Tile* pTile = NULL)
+ *  \brief Check the coherency of the map for this position
+ *  \param position the position to check
+ *  \param pTile pointer to the Tile to put on the map at this position
+ */
+
+/*! \fn virtual bool MapIntegrityChecker::testTile(const UVec2& position, const Tile* pTile)=0;
+ *  \brief Test if a tile can be put at this position
+ *  \param position the position to check
+ *  \param pTile pointer to the Tile to put on the map at this position
+ */
+
+/*! \fn virtual bool MapIntegrityChecker::testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)=0;
+ *  \brief Test if a unit can be put at this position
+ *  \param position the position to check
+ *  \param pUnitTemplate pointer to the UnitTemplate to put on the map at this position
+ */
 
 #endif

@@ -33,63 +33,63 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "../Utils/Exceptions/ParamsException.h"
 
-const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-faction",
-														"internalName", "name", "filename", "size_x", "size_y", 
-														"movement", "fuel", "fuelConsumption", "life", "price" };
+const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
+                                                        "internalName", "name", "filename", "size_x", "size_y",
+                                                        "movement", "fuel", "fuelConsumption", "life", "price" };
 
 UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
-	:pParams(pParams)
+    :pParams(pParams)
 {
-	assert(pParams);
-	assert(pSL);
+    assert(pParams);
+    assert(pSL);
 
-	// Check if the important nodes are present
-	for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
-	{
-		if ( !pParams->exists(neededParameters[i]) )
-		{
-			throw MissingParameterException(neededParameters[i]);
-		}
-	}
+    // Check if the important nodes are present
+    for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
+    {
+        if ( !pParams->exists(neededParameters[i]) )
+        {
+            throw MissingParameterException(neededParameters[i]);
+        }
+    }
 
-	try
-	{
-		this->id = pParams->getAs<unsigned int>("unit-id");
-		this->faction = pParams->getAs<short int>("unit-faction");
-		
-		this->internalName = pParams->get("internalName");
-		this->name = pParams->get("name");
+    try
+    {
+        this->id = pParams->getAs<unsigned int>("unit-id");
+        this->faction = pParams->getAs<short int>("unit-faction");
 
-		UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
-						 pParams->getAs<unsigned int>("size_y"));
-		
-		this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
-		if ( this->pSprite == NULL )
-		{
-			LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
-			throw std::bad_alloc("AnimatedSprite allocation failed");
-		}
+        this->internalName = pParams->get("internalName");
+        this->name = pParams->get("name");
 
-		this->size.x = pParams->getAs<unsigned int>("size_x");
-		this->size.y = pParams->getAs<unsigned int>("size_y");
-		
-		this->movement = pParams->getAs<unsigned int>("movement");
-		this->fuel = pParams->getAs<unsigned int>("fuel");
-		this->fuelConsumption = pParams->getAs<unsigned int>("fuelConsumption");
-		this->ammo = pParams->getAs<unsigned int>("ammo",0);
-		this->life = pParams->getAs<unsigned int>("life",10);
-		this->price = pParams->getAs<unsigned int>("price");
-	}
-	catch ( ParameterNotFoundParamsException& pnfpe)
-	{
-		LError << "The force list is not matching the requested parameters";
-		LError << "Parameter '" << pnfpe.what() << "' not found";
-		throw MissingParameterException("unknown");
-	}
+        UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
+                         pParams->getAs<unsigned int>("size_y"));
+
+        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        if ( this->pSprite == NULL )
+        {
+            LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
+            throw std::bad_alloc();
+        }
+
+        this->size.x = pParams->getAs<unsigned int>("size_x");
+        this->size.y = pParams->getAs<unsigned int>("size_y");
+
+        this->movement = pParams->getAs<unsigned int>("movement");
+        this->fuel = pParams->getAs<unsigned int>("fuel");
+        this->fuelConsumption = pParams->getAs<unsigned int>("fuelConsumption");
+        this->ammo = pParams->getAs<unsigned int>("ammo",0);
+        this->life = pParams->getAs<unsigned int>("life",10);
+        this->price = pParams->getAs<unsigned int>("price");
+    }
+    catch ( ParameterNotFoundParamsException& pnfpe)
+    {
+        LError << "The force list is not matching the requested parameters";
+        LError << "Parameter '" << pnfpe.what() << "' not found";
+        throw MissingParameterException("unknown");
+    }
 }
 
 UnitTemplate :: ~UnitTemplate()
 {
-	delete pSprite;
-	delete pParams;
+    delete pSprite;
+    delete pParams;
 }

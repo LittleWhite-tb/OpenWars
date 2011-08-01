@@ -35,42 +35,42 @@ e-mail: lw.demoscene@gmail.com
 const std::string UIItem::neededParameters[] = { "internalName", "filename" };
 
 UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
-	:pParams(pParams)
+    :pParams(pParams)
 {
-	// Check if the important nodes are present
-	for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
-	{
-		if ( !pParams->exists(neededParameters[i]) )
-		{
-			throw MissingParameterException(neededParameters[i]);
-		}
-	}
+    // Check if the important nodes are present
+    for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
+    {
+        if ( !pParams->exists(neededParameters[i]) )
+        {
+            throw MissingParameterException(neededParameters[i]);
+        }
+    }
 
-	try
-	{
-		this->internalName = pParams->get("internalName");
-		NE::Sprite* pSprite = pSL->loadSpriteFromFile(folderPath + pParams->get("filename"));	// Will throw an exception if a problem occured
+    try
+    {
+        this->internalName = pParams->get("internalName");
+        NE::Sprite* pSprite = pSL->loadSpriteFromFile(folderPath + pParams->get("filename"));   // Will throw an exception if a problem occured
 
-		UVec2 spriteSize(pParams->getAs<unsigned int>("size_x",pSprite->getSize().width),
-						 pParams->getAs<unsigned int>("size_y",pSprite->getSize().height));
-		
-		this->pSprite = new AnimatedSprite(pSprite,spriteSize,pParams->getAs<unsigned int>("animationTime",200));
-		if ( this->pSprite == NULL )
-		{
-			LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
-			throw std::bad_alloc("AnimatedSprite allocation failed");
-		}
-	}
-	catch ( ParameterNotFoundParamsException& pnfpe)
-	{
-		LError << "The force list is not matching the requested parameters";
-		LError << "Parameter '" << pnfpe.what() << "' not found";
-		throw MissingParameterException("unknown");
-	}
+        UVec2 spriteSize(pParams->getAs<unsigned int>("size_x",pSprite->getSize().width),
+                         pParams->getAs<unsigned int>("size_y",pSprite->getSize().height));
+
+        this->pSprite = new AnimatedSprite(pSprite,spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        if ( this->pSprite == NULL )
+        {
+            LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
+            throw std::bad_alloc();
+        }
+    }
+    catch ( ParameterNotFoundParamsException& pnfpe)
+    {
+        LError << "The force list is not matching the requested parameters";
+        LError << "Parameter '" << pnfpe.what() << "' not found";
+        throw MissingParameterException("unknown");
+    }
 }
 
 UIItem :: ~UIItem()
 {
-	delete pSprite;
-	delete pParams;
+    delete pSprite;
+    delete pParams;
 }

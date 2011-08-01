@@ -19,6 +19,22 @@ AC_SEARCH_LIBS(IMG_Init, SDL_image, [], [
 	AC_MSG_ERROR([SDL_image is needed for this project])
 ])
 
+#AC_SEARCH_LIBS(xmlParseFile, xml2, [], [
+#	AC_MSG_ERROR([xml2 is needed for this project])
+#])
+
+PKG_CHECK_MODULES(LIBXML, [libxml-2.0 >= 2.6.0], , [
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+You must have libxml2 >= 2.6.0 development headers installed to build.
+])])
+
+AC_SUBST(LIBXML_CFLAGS)
+AC_SUBST(LIBXML_LIBS)
+
+CPPFLAGS="$CPPFLAGS $LIBXML_CFLAGS"
+LIBS="$LIBS $LIBXML_LIBS"
+
 # Checks for header files.
 AC_PATH_X
 AC_FUNC_ALLOCA
@@ -40,7 +56,7 @@ AC_CHECK_TYPES([ptrdiff_t])
 # Checks for library functions.
 AC_FUNC_MALLOC
 
-CPPFLAGS=" -Wall -Wextra"
+CPPFLAGS="$CPPFLAGS -Wall -Wextra"
 
 AC_CONFIG_FILES([
         Makefile

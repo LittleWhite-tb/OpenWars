@@ -332,8 +332,8 @@ bool Map :: setTile(const UVec2& position, const std::string& tileName)
 			}
 		}
 
-		tileMap[position.y][position.x] = pTileToPut;
-		this->checkCoherency(position);
+		this->checkCoherency(position,pTileToPut);
+		// tileMap[position.y][position.x] = pTileToPut;
 		
 		const Unit* pUnit = this->getUnit(position);
 		if ( pUnit && pUnit->state != US_NO_UNIT && this->testUnit(position,this->getUnit(position)->getTemplate()) == false )
@@ -348,13 +348,18 @@ bool Map :: setTile(const UVec2& position, const std::string& tileName)
 	return false;
 }
 
-void Map :: checkCoherency(const UVec2& position)
+void Map :: checkCoherency(const UVec2& position, const Tile* pTileToPut)
 {
 	const Tile* pNewTile = NULL;
-	pNewTile = pIntegrityChecker->checkCoherency(position);
+	pNewTile = pIntegrityChecker->checkCoherency(position,pTileToPut);
 	if ( pNewTile != NULL )
 	{
 		tileMap[position.y][position.x] = pNewTile;
+	}
+	else
+	{
+		// No change on tile, so no need to check around
+		return;
 	}
 
 	pNewTile = pIntegrityChecker->checkCoherency(UVec2(position.x-1,position.y)); // Left
@@ -394,7 +399,7 @@ void Map :: checkCoherency(const UVec2& position)
 		tileMap[position.y+1][position.x+1] = pNewTile;
 	}
 
-	pNewTile = pIntegrityChecker->checkCoherency(UVec2(position.x-1,position.y-11)); // Up left
+	pNewTile = pIntegrityChecker->checkCoherency(UVec2(position.x-1,position.y-1)); // Up left
 	if ( pNewTile != NULL )
 	{
 		tileMap[position.y-1][position.x-1] = pNewTile;

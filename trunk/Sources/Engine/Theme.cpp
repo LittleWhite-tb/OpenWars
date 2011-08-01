@@ -28,18 +28,20 @@ e-mail: lw.demoscene@gmail.com
 #include <algorithm>
 #include <cassert>
 
-#include "../NEngine/SpriteLoader.h"
-#include "../NEngine/Sprite.h"
+#include "NEngine/SpriteLoader.h"
+#include "NEngine/Sprite.h"
 
+#include "Engine/Library.h"
 #include "AnimatedSprite.h"
+#include "Game/Tile.h"
 
-#include "../XML/XMLObjectReader.h"
+#include "XML/XMLObjectReader.h"
 
 #include "NEngine/Exceptions/FileNotFoundException.h"
-#include "../Utils/Exceptions/FileNotOpenedException.h"
-#include "../Utils/Exceptions/XMLException.h"
-#include "../Utils/LineParser.h"
-#include "../Utils/Logger.h"
+#include "Utils/Exceptions/FileNotOpenedException.h"
+#include "Utils/Exceptions/XMLException.h"
+#include "Utils/LineParser.h"
+#include "Utils/Logger.h"
 
 #include "globals.h"
 
@@ -51,175 +53,175 @@ bool Theme :: load(NE::SpriteLoader* const pSL)
 {
     bool bResult = true;
 
-	try
-	{
-		// Tiles
-		{
-			XMLObjectReader xmlReader(THEME_PATH + name+"/tiles.xml");
-			bResult &= xmlReader.parse<Tile>("tile",&tiles, pSL, GFX_TILES_PATH + name + "/");
-		}
+    try
+    {
+        // Tiles
+        {
+            XMLObjectReader xmlReader(THEME_PATH + name+"/tiles.xml");
+            bResult &= xmlReader.parse<Tile>("tile",&tiles, pSL, GFX_TILES_PATH + name + "/");
+        }
 
-		// Units
-		{
-			XMLObjectReader xmlReader(THEME_PATH +name+"/units.xml");
-			bResult &= xmlReader.parse<UnitTemplate>("unit",&units, pSL, GFX_UNITS_PATH + name + "/");
-		}
+        // Units
+        {
+            XMLObjectReader xmlReader(THEME_PATH +name+"/units.xml");
+            bResult &= xmlReader.parse<UnitTemplate>("unit",&units, pSL, GFX_UNITS_PATH + name + "/");
+        }
 
-		// UIItems
-		{
-			XMLObjectReader xmlReader(THEME_PATH + name + "/ui.xml");
-			bResult &= xmlReader.parse<UIItem>("uiItem",&uiItems,pSL,GFX_UI_PATH + name + "/");
-		}
+        // UIItems
+        {
+            XMLObjectReader xmlReader(THEME_PATH + name + "/ui.xml");
+            bResult &= xmlReader.parse<UIItem>("uiItem",&uiItems,pSL,GFX_UI_PATH + name + "/");
+        }
 
-		// Fonts
-		{
-			XMLObjectReader xmlReader(THEME_PATH + name + "/fonts.xml");
-			bResult &= xmlReader.parse<FontObject>("font",&fontsObject,pSL,GFX_FONTS_PATH + name + "/");
-		}
-	}
-	catch ( XMLParsingFailedException xmlpfe )
-	{
-		LError << xmlpfe.what();
-		return false;
-	}
-	catch ( FileNotFoundException fnfe )
-	{
-		LError << fnfe.what();
-		return false;
-	}
+        // Fonts
+        {
+            XMLObjectReader xmlReader(THEME_PATH + name + "/fonts.xml");
+            bResult &= xmlReader.parse<FontObject>("font",&fontsObject,pSL,GFX_FONTS_PATH + name + "/");
+        }
+    }
+    catch ( XMLParsingFailedException xmlpfe )
+    {
+        LError << xmlpfe.what();
+        return false;
+    }
+    catch ( FileNotFoundException fnfe )
+    {
+        LError << fnfe.what();
+        return false;
+    }
 
-	return bResult;
+    return bResult;
 }
 
 bool Theme :: containsTile(unsigned int id)const
 {
-	std::list<const Tile*> tilesList;
-	tiles.getValues(&tilesList);
+    std::list<const Tile*> tilesList;
+    tiles.getValues(&tilesList);
 
-	for ( std::list<const Tile*>::const_iterator itTile = tilesList.begin() ; itTile != tilesList.end() ; ++itTile )
-	{
-		if ( (*itTile)->getID() == id )
-		{
-			return true;
-		}
-	}
+    for ( std::list<const Tile*>::const_iterator itTile = tilesList.begin() ; itTile != tilesList.end() ; ++itTile )
+    {
+        if ( (*itTile)->getID() == id )
+        {
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
 
 bool Theme :: containsTile(const std::string& tileName)const
 {
-	return tiles.exists(tileName);
+    return tiles.exists(tileName);
 }
 
 const Tile* Theme :: getTile(unsigned int id)const
 {
-	std::list<const Tile*> tilesList;
-	tiles.getValues(&tilesList);
+    std::list<const Tile*> tilesList;
+    tiles.getValues(&tilesList);
 
-	for ( std::list<const Tile*>::const_iterator itTile = tilesList.begin() ; itTile != tilesList.end() ; ++itTile )
-	{
-		if ( (*itTile)->getID() == id )
-		{
-			return *itTile;
-		}
-	}
+    for ( std::list<const Tile*>::const_iterator itTile = tilesList.begin() ; itTile != tilesList.end() ; ++itTile )
+    {
+        if ( (*itTile)->getID() == id )
+        {
+            return *itTile;
+        }
+    }
 
-	assert(false); // Invalid ID;
-	return NULL;
+    assert(false); // Invalid ID;
+    return NULL;
 }
 
 const Tile* Theme :: getTile(const std::string& tileName)const
 {
-	return tiles.get(tileName);
+    return tiles.get(tileName);
 }
 
 void Theme :: getTilesList(std::list< const Tile* >* pTilesList)const
 {
-	tiles.getValues<Tile>(pTilesList);
+    tiles.getValues(pTilesList);
 }
 
 bool Theme :: containsUnit(unsigned int id)const
 {
-	std::list<const UnitTemplateFactionList*> unitsList;
-	units.getValues<UnitTemplate>(&unitsList);
+    std::list<const UnitTemplateFactionList*> unitsList;
+    units.getValues(&unitsList);
 
-	for ( std::list<const UnitTemplateFactionList*>::const_iterator itUnit = unitsList.begin() ; itUnit != unitsList.end() ; ++itUnit )
-	{
-		for ( unsigned int i = 0 ; i < (*itUnit)->getNumberFaction() ; i++ )
-		{
-			if ( (*itUnit)->get(i)->getID() == id )
-			{
-				return true;
-			}
-		}
-	}
+    for ( std::list<const UnitTemplateFactionList*>::const_iterator itUnit = unitsList.begin() ; itUnit != unitsList.end() ; ++itUnit )
+    {
+        for ( unsigned int i = 0 ; i < (*itUnit)->getNumberFaction() ; i++ )
+        {
+            if ( (*itUnit)->get(i)->getID() == id )
+            {
+                return true;
+            }
+        }
+    }
 
-	return false;
+    return false;
 }
 
 bool Theme :: containsUnit(const std::string& unitName)const
 {
-	return units.exists(unitName);
+    return units.exists(unitName);
 }
 
 const UnitTemplate* Theme :: getUnit(unsigned int id)const
 {
-	std::list<const UnitTemplateFactionList*> unitsList;
-	units.getValues<UnitTemplate>(&unitsList);
+    std::list<const UnitTemplateFactionList*> unitsList;
+    units.getValues(&unitsList);
 
-	for ( std::list<const UnitTemplateFactionList*>::const_iterator itUnit = unitsList.begin() ; itUnit != unitsList.end() ; ++itUnit )
-	{
-		for ( unsigned int i = 0 ; i < (*itUnit)->getNumberFaction() ; i++ )
-		{
-			if ( (*itUnit)->get(i)->getID() == id )
-			{
-				return (*itUnit)->get(i);
-			}
-		}
-	}
+    for ( std::list<const UnitTemplateFactionList*>::const_iterator itUnit = unitsList.begin() ; itUnit != unitsList.end() ; ++itUnit )
+    {
+        for ( unsigned int i = 0 ; i < (*itUnit)->getNumberFaction() ; i++ )
+        {
+            if ( (*itUnit)->get(i)->getID() == id )
+            {
+                return (*itUnit)->get(i);
+            }
+        }
+    }
 
-	assert(false); // Invalid ID;
-	return NULL;
+    assert(false); // Invalid ID;
+    return NULL;
 }
 
 const UnitTemplate* Theme :: getUnit(const std::string& unitName, const unsigned int faction)const
 {
-	return units.get(unitName)->get(faction);
+    return units.get(unitName)->get(faction);
 }
 
 void Theme :: getUnitsList(std::list< const UnitTemplateFactionList* >* pUnitsList)const
 {
-	units.getValues<UnitTemplate>(pUnitsList);
+    units.getValues(pUnitsList);
 }
 
 
 bool Theme :: containsUIItem(const std::string& uiName)const
 {
-	return uiItems.exists(uiName);
+    return uiItems.exists(uiName);
 }
 
 const UIItem* Theme :: getUIItem(const std::string& uiName)const
 {
-	return uiItems.get(uiName);
+    return uiItems.get(uiName);
 }
 
 void Theme :: getUIITemsList(std::list< const UIItem* >* pUIItemsList)const
 {
-	uiItems.getValues<UIItem>(pUIItemsList);
+    uiItems.getValues(pUIItemsList);
 }
 
 bool Theme :: containsFontObject(const std::string& fontName)const
 {
-	return fontsObject.exists(fontName);
+    return fontsObject.exists(fontName);
 }
 
 const FontObject* Theme :: getFontObject(const std::string& fontName)const
 {
-	return fontsObject.get(fontName);
+    return fontsObject.get(fontName);
 }
 
 void Theme :: getFontObjectList(std::list< const FontObject* >* pFontsObjectsList)const
 {
-	fontsObject.getValues<FontObject>(pFontsObjectsList);
+    fontsObject.getValues(pFontsObjectsList);
 }

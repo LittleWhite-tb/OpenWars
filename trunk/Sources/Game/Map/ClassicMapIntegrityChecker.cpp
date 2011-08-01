@@ -34,17 +34,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Utils/Logger.h"
 
-const Tile* simpleChecker(const Map* pMap, const UVec2& position)
-{
-	assert(pMap);
-
-	return NULL;	// No change
-}
-
 const Tile* seaChecker(const Map* pMap, const UVec2& position)
 {
 	assert(pMap);
-	if ( pMap->isValidPosition(position) )
+	if ( pMap->isValidPosition(position) /*&& pMap->getTile(position)->getParams()->getAs<bool>("isSea",false)*/ )
 	{
 		unsigned char nbSeeAround = 0;
 		bool isVerticalSee = false;
@@ -648,7 +641,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 const Tile* bridgeChecker(const Map* pMap, const UVec2& position)
 {
 	assert(pMap);
-	if ( pMap->isValidPosition(position) )
+	if ( pMap->isValidPosition(position) && pMap->getTile(position)->getParams()->getAs<bool>("isBridge",false) == false )
 	{
 		std::string tileName = pMap->getTile(position)->getInternalName();
 		if ( tileName == "River_V" )
@@ -701,7 +694,7 @@ const Tile* bridgeChecker(const Map* pMap, const UVec2& position)
 const Tile* riverChecker(const Map* pMap, const UVec2& position)
 {
 	assert(pMap);
-	if ( pMap->isValidPosition(position) )
+	if ( pMap->isValidPosition(position) /*&& pMap->getTile(position)->getParams()->getAs<bool>("isRiver",false)*/ )
 	{
 		unsigned char nbRiverAround = 0;
 		bool isVerticalRiver = false;
@@ -875,7 +868,7 @@ const Tile* riverChecker(const Map* pMap, const UVec2& position)
 const Tile* roadChecker(const Map* pMap, const UVec2& position)
 {
 	assert(pMap);
-	if ( pMap->isValidPosition(position) )
+	if ( pMap->isValidPosition(position) /*&& pMap->getTile(position)->getParams()->getAs<bool>("isRoad",false)*/ )
 	{
 		unsigned char nbRoadAround = 0;
 		bool isVerticalRoad = false;
@@ -1017,7 +1010,6 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 
 ClassicMapIntegrityChecker :: ClassicMapIntegrityChecker(const Map* pMap):MapIntegrityChecker(pMap) 
 {
-	coherencyCheckers["SimpleChecker"] = &simpleChecker;
 	coherencyCheckers["SeaChecker"] = &seaChecker;
 	coherencyCheckers["BridgeChecker"] = &bridgeChecker;
 	coherencyCheckers["RiverChecker"] = &riverChecker;
@@ -1119,19 +1111,21 @@ bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* p
 			{
 				return true;
 			}
-
-			// Test is a bridge is around this position (so, the user wants to continue the bridge)
-			const Tile* pTileL = pMap->getTile(UVec2(position.x-1,position.y)); // Left
-			const Tile* pTileT = pMap->getTile(UVec2(position.x,position.y-1)); // Top
-			const Tile* pTileR = pMap->getTile(UVec2(position.x+1,position.y)); // Right
-			const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
-
-			if ( (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) || 
-				 (pTileR && pTileR->getParams()->getAs<bool>("isBridge",false)) || 
-				 (pTileT && pTileT->getParams()->getAs<bool>("isBridge",false)) || 
-				 (pTileB && pTileB->getParams()->getAs<bool>("isBridge",false)) )
+			else if ( pMap->getTile(position)->getParams()->getAs<bool>("isSea",false) )
 			{
-				return true;
+				// Test is a bridge is around this position (so, the user wants to continue the bridge)
+				const Tile* pTileL = pMap->getTile(UVec2(position.x-1,position.y)); // Left
+				const Tile* pTileT = pMap->getTile(UVec2(position.x,position.y-1)); // Top
+				const Tile* pTileR = pMap->getTile(UVec2(position.x+1,position.y)); // Right
+				const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
+
+				if ( (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) || 
+					 (pTileR && pTileR->getParams()->getAs<bool>("isBridge",false)) || 
+					 (pTileT && pTileT->getParams()->getAs<bool>("isBridge",false)) || 
+					 (pTileB && pTileB->getParams()->getAs<bool>("isBridge",false)) )
+				{
+					return true;
+				}
 			}
 
 			return false;
@@ -1159,13 +1153,13 @@ bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTem
 		return false;
 	}
 
-	if ( !pUnitTemplate->getParams()->exists("classId") )
+	if ( !pUnitTemplate->getParams()->exists("unit-classId") )
 	{
 		LWarning << "An unit template does not have a classId";
 		return false;
 	}
 
-	int unitClassId = pUnitTemplate->getParams()->getAs<int>("classId",-100);
+	int unitClassId = pUnitTemplate->getParams()->getAs<int>("unit-classId",-100);
 	if ( unitClassId == -100 )
 	{
 		LWarning << "An unit template does not have a valide classId (value of -100)";

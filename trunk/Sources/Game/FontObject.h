@@ -36,22 +36,51 @@ class FontObject
 {
 private:
 
-	std::string internalName;
-	Font* pFont;
+    std::string internalName;
+    Font* pFont;
 
-	Params* pParams;
+    Params* pParams;
 
-	static const std::string neededParameters[];
+    static const std::string neededParameters[];
 
 public:
-	FontObject();
-	FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
-	~FontObject();
+    FontObject();
+    FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath);
+    ~FontObject();
 
-	const std::string& getInternalName()const { return internalName; }
-	Font* getFont()const { return pFont; }
+    const std::string& getInternalName()const { return internalName; }
+    Font* getFont()const { return pFont; }
 
-	const Params* const getParams()const { return pParams; }
+    const Params* getParams()const { return pParams; }
 };
+
+/*! \class FontObject FontObject.h "Game/FontObject.h"
+ *  \brief Font used by the Theme
+ */
+
+/*! \fn FontObject :: FontObject()
+ */
+
+/*! \fn FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+ *  Loads a FontObject from Params
+ *  \param pParams the parameters list for the FontObject
+ *  \param pSL the SpriteLoader to use to load the font sprite
+ *  \param folderPath the folder where to load the file
+ */
+
+/*! \fn FontObject :: ~FontObject()
+ */
+
+/*! \fn const std::string& FontObject :: getInternalName()const
+ *  \return
+ */
+
+/*! \fn Font* FontObject :: getFont()const
+ *  \return
+ */
+
+/*! \fn const Params* FontObject :: getParams()const
+ *  \return
+ */
 
 #endif
