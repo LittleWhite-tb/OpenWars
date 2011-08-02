@@ -58,8 +58,8 @@ public:
         return value;
     }
 
-    template <char>
-    char getAs(const std::string& name)const
+    template <>
+    char getAs<char>(const std::string& name)const
     {
         std::string charString(this->get(name)); // Can throw ParameterNotFoundParamsException
         if ( charString.size() != 1 )

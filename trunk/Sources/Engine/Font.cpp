@@ -53,8 +53,6 @@ USize2 Font::getStringSize(const std::string& string)
     size.height = letterSize.height;
     size.width = string.size()*letterSize.width/2;
 
-	LDebug << "Font :: getStringSize( " << string.c_str() << ")";
-
 	return size;
 }
 
@@ -64,8 +62,6 @@ bool Font :: draw(const NE::Renderer& r, const std::string& text, const IVec2& p
     Rect rectLetter(IVec2(0,0),letterSize);
     unsigned int numberLetterWidth = pSprite->getSize().width / letterSize.width;
     IVec2 drawPosition(position);
-
-	LDebug << "Font :: draw @" << position;
 
     for ( unsigned int i = 0 ; i < text.size() && noError ; i++ )
     {

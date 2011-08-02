@@ -1111,7 +1111,7 @@ bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* p
 			{
 				return true;
 			}
-			else if ( pMap->getTile(position)->getParams()->getAs<bool>("isSea",false) )
+			else if ( internalTileName == "Sea" )
 			{
 				// Test is a bridge is around this position (so, the user wants to continue the bridge)
 				const Tile* pTileL = pMap->getTile(UVec2(position.x-1,position.y)); // Left

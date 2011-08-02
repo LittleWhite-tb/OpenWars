@@ -35,17 +35,14 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "../NEngine/InputManager.h"
 
-#include "Engine/AnimatedSprite.h"
-#include "Engine/Theme.h"
-#include "Game/Tile.h"
-#include "Utils/Logger.h"
-
 #include "../Types/Vec2.h"
 #include "../Types/Size2.h"
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
 #include "globals.h"
+
+class Theme;
 
 template <typename T>
 class TileBar
@@ -83,67 +80,14 @@ private:
     USize2 windowSize;                      /*!< The size of the window where the bar is */
     TileBarState state;                     /*!< The actual animation state of the bar */
 
-    unsigned int stepX;                     /*!< Speed of the animation of the tile bar on the X axis */
+    int stepX;                     /*!< Speed of the animation of the tile bar on the X axis */
     unsigned int stepY;                     /*!< Speed of the animation of the tile bar on the Y axis */
 
-    void moveLeft(void)
-    {
-        if ( state == TBS_Opened )
-        {
-            LDebug << "TileBar :: moveLeft()";
-            movementOffsetX = -(TILE_DEFAULT_WIDTH + borderSize * 2);
 
-            state = TBS_MoveLeft;
-
-            currentX--;
-            /*
-            if ( currentX < 0 )
-            {
-                currentX = viewList.size() - 1;
-            }
-            */
-        }
-    }
-
-    void moveRight(void)
-    {
-        if ( state == TBS_Opened )
-        {
-            LDebug << "TileBar :: moveRight()";
-
-            movementOffsetX = TILE_DEFAULT_WIDTH + borderSize * 2;
-
-            state = TBS_MoveRight;
-
-            currentX++;
-            /*
-            if ( currentX >= static_cast<int>(viewList.size()) )
-            {
-                currentX = 0;
-            }
-            */
-        }
-    }
-
-    void moveUp(void)
-    {
-        if ( state == TBS_Opened )
-        {
-            LDebug << "TileBar :: moveUp()";
-
-            currentY++;
-        }
-    }
-
-    void moveDown(void)
-    {
-        if ( state == TBS_Opened )
-        {
-            LDebug << "TileBar :: moveDown()";
-
-            currentY--;
-        }
-    }
+    void moveLeft(void);
+    void moveRight(void);
+    void moveUp(void);
+    void moveDown(void);
 
 
 protected:
@@ -152,239 +96,25 @@ protected:
     int currentY;               /*!< index of the actual Tile selected on the Y axis */
 
 public:
-    TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& windowSize)
-        :windowSize(windowSize)
-    {
-        unsigned int barHeight = 64;
+    TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& windowSize);
 
-        pBarSprite = pSF->createSpriteFromColour(Colour(0x00000080),USize2(windowSize.width,barHeight));
-        if ( pBarSprite == NULL )
-        {
-            ConstructionFailedException("TileBar");
-            return;
-        }
+    void add(const T& item, unsigned int positionX);
 
-        // Load the cursor
-        pBarCursor = pTheme->getUIItem("tileBarCursor")->getSprite();
+    void open(void);
+    void close(void);
 
-        // Load the arrows
-        pBarArrows = pTheme->getUIItem("tileBarArrows")->getSprite();
+    void move(const NE::InputManager::ArrowsDirection direction);
 
-        // Final settings
-        movementOffsetX = 0;
-        positionY = windowSize.height;
-        state = TBS_Closed;
-        currentX = 0;
-        currentY = 0;
-        // Speed
-        stepX = windowSize.width / 80;
-        stepY = windowSize.height / 60;
-
-        LDebug << "TileBar created";
-    }
-
-    void add(const T& item, unsigned int positionX)
-    {
-        if ( viewList.size() <= positionX )
-        {
-            viewList.resize(positionX+1);
-        }
-
-        viewList[positionX].push_back(ItemView(item,TILE_BAR_XMARGIN * (1 + positionX * 2) + 32 * positionX));
-
-        limit = item->getSprite()->getSize().width + TILE_BAR_XMARGIN*2 * viewList.size();
-        currentX = viewList.size()/2;
-        borderSize = (windowSize.width - totalTileShown * viewList[positionX][0].item->getSprite()->getSize().width) / totalTileShown;
-    }
-
-    void open(void)
-    {
-        if ( state == TBS_Closed )
-        {
-            LDebug << "TileBar :: open()";
-
-            state = TBS_Opening;
-        }
-    }
-
-    void close(void)
-    {
-        if ( state == TBS_Opened )
-        {
-            LDebug << "TileBar :: close()";
-
-            state = TBS_Closing;
-        }
-    }
-
-    void move(const NE::InputManager::ArrowsDirection direction)
-    {
-        switch(direction)
-        {
-            case NE::InputManager::AD_UP:
-                moveUp();
-                break;
-            case NE::InputManager::AD_DOWN:
-                moveDown();
-                break;
-            case NE::InputManager::AD_LEFT:
-                moveLeft();
-                break;
-            case NE::InputManager::AD_RIGHT:
-                moveRight();
-                break;
-            // Remove warnings (we don't mind about the others directions)
-            default:
-                break;
-        }
-    }
-
-    bool draw(const NE::Renderer& r, const unsigned int time)
-    {
-        bool isOk = true;
-
-        IVec2 barPosition(0 ,positionY);
-
-        if ( state != TBS_Closed )
-        {
-            isOk &= r.drawSurface(barPosition,*pBarSprite);
-        }
-
-        if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
-        {
-            IVec2 cursorPosition(windowSize.width / 2 - pBarCursor->getSize().width/2+3,
-                                 positionY + TILE_BAR_HEIGHT / 2 - pBarCursor->getSize().height/2);
-
-            // From the first tile to show on left; to the
-
-            for ( int i = 0 ; i < totalTileShown ; i++ )
-            {
-                int indexX = (currentX-nbShownAroundSelected + i);
-                if ( indexX < 0 )
-                {
-                    indexX = viewList.size() - abs(indexX);
-                }
-                indexX = indexX % viewList.size();
-
-                int yOffset = viewList[indexX][currentY%viewList[indexX].size()].item->getSprite()->getSize().height - TILE_DEFAULT_HEIGHT;
-                IVec2 tilePosition((i*2+1) * borderSize + i * viewList[0][0].item->getSprite()->getSize().width + movementOffsetX, positionY + TILE_BAR_YMARGIN *2 - yOffset);
-
-                viewList[indexX][currentY % viewList[indexX].size()].item->getSprite()->draw(r,tilePosition,time);
-            }
-
-            // Need to draw an additionnal sprite on the right
-            if ( state == TBS_MoveRight )
-            {
-                int indexX = (currentX-nbShownAroundSelected - 1);
-                if ( indexX < 0 )
-                {
-                    indexX = viewList.size() - abs(indexX);
-                }
-                indexX = indexX % viewList.size();
-                int yOffset = viewList[indexX][currentY%viewList[indexX].size()].item->getSprite()->getSize().height - TILE_DEFAULT_HEIGHT;
-                IVec2 tilePosition(movementOffsetX - viewList[indexX][0].item->getSprite()->getSize().width - borderSize, positionY + TILE_BAR_YMARGIN *2 - yOffset);
-
-                viewList[indexX][currentY % viewList[indexX].size()].item->getSprite()->draw(r,tilePosition,time);
-            }
-
-            int indexX = currentX-1;
-            if ( indexX < 0 )
-            {
-                indexX = viewList.size() - abs(indexX);
-            }
-            indexX = indexX % viewList.size();
-
-            // Draw the cursor
-            isOk &= pBarCursor->draw(r,cursorPosition,time);
-            // Draw the arrow if needed
-            if ( viewList[indexX].size() > 1 && state == TBS_Opened )
-            {
-                isOk &= pBarArrows->draw(r,cursorPosition);
-            }
-        }
-
-        return isOk;
-    }
-
-    void update(const unsigned int time)
-    {
-        switch (state)
-        {
-            case TBS_Closing:
-                positionY+=stepY;
-                if ( positionY >= windowSize.height )
-                {
-                    state = TBS_Closed;
-                }
-                break;
-            case TBS_Opening:
-                positionY-=stepY;
-                if ( positionY <= windowSize.height - 64 )
-                {
-                    state = TBS_Opened;
-                }
-                break;
-            case TBS_MoveRight:
-                if ( movementOffsetX > static_cast<int>(stepX) )
-                {
-                    movementOffsetX-=stepX;
-                }
-                else
-                {
-                    movementOffsetX-=movementOffsetX;
-                }
-
-                if ( movementOffsetX <= 0 )
-                {
-                    state = TBS_Opened;
-                }
-                break;
-            case TBS_MoveLeft:
-                if ( movementOffsetX < -stepX )
-                {
-                    movementOffsetX+=stepX;
-                }
-                else
-                {
-                    movementOffsetX-=movementOffsetX;
-                }
-
-                if ( movementOffsetX >= 0 )
-                {
-                    state = TBS_Opened;
-                }
-                break;
-            // Remove warnings (static case)
-            case TBS_Opened:
-            case TBS_Closed:
-                break;
-        }
-    }
+    bool draw(const NE::Renderer& r, const unsigned int time);
+    void update(const unsigned int time);
 
     bool isOpened(void)const { if ( state != TBS_Closed && state != TBS_Closing ) return true; else return false; }
     bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }
 
-    T getSelected(void)
-    {
-        int indexX = currentX-1;
-        if ( indexX < 0 )
-        {
-            indexX = viewList.size() - abs(indexX);
-        }
-        indexX = indexX % viewList.size();
-
-        if ( viewList[indexX].size() == 1 )
-        {
-            return viewList[indexX][0].item;
-        }
-        else
-        {
-            return viewList[indexX][currentY%viewList[indexX].size()].item;
-        }
-    }
+    T getSelected(void);
 };
 
-
+#include "TileBar_template.h"
 
 /*! \fn View::View(AnimatedSprite* pASprite, const int positionX)
  * Will fill the class with the params

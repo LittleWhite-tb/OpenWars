@@ -96,8 +96,6 @@ bool Map :: drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned i
 	IVec2 tilePos(0,0/*mapOffset.height*/);
 	bool bResult = true;
 
-	LDebug << "Map :: drawTerrain";
-
 	// The camera is an offset of the Map drawing
 	// For each lines
 	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
@@ -247,8 +245,6 @@ bool Map :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time
 	// USize2 mapOffset = Scaler::getOffset();
 	IVec2 tilePos(0,0/*mapOffset.height*/);
 	bool bError = true;
-
-	LDebug << "Map :: draw";
 
 	this->drawTerrain(r,c,time);
 

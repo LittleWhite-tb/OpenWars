@@ -1,5 +1,5 @@
-#ifndef __BOUH_LIBRARY_H__
-#define __BOUH_LIBRARY_H__
+#ifndef __LIBRARY_H__
+#define __LIBRARY_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**

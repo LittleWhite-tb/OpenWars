@@ -139,8 +139,6 @@ bool Cursor :: move(const NE::InputManager::ArrowsDirection ad)
 
 bool Cursor :: move(const UVec2& newPosition)
 {
-	LDebug << "Cursor :: move to " << newPosition;
-
 	if ( newPosition.x >= pMap->getWidth() || newPosition.y >= pMap->getHeight() )
 	{
 		return false;

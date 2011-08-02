@@ -101,8 +101,6 @@ bool TileViewer :: draw(const NE::Renderer& r, const unsigned int time)
 	IVec2 tilePosition(position.x + (backgroundSize.width - pTileSprite->getSize().width)/2 , position.y + (backgroundSize.height - pTileSprite->getSize().height)/2);
 	IVec2 namePosition(position.x + static_cast<int>(backgroundSize.width - nameSize.width)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
 
-	LDebug << "TileViewer draw";
-
 	error &= pBackground->draw(r,position,time);
 	error &= pFont->draw(r,title,titlePosition);
 	error &= pTileSprite->draw(r,tilePosition,0);
