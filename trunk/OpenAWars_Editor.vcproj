@@ -602,54 +602,6 @@
 			Name="Game"
 			>
 			<File
-				RelativePath=".\Sources\Game\Camera.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Camera.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Cursor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Cursor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\EditingCursor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\EditingCursor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\EditorEngine.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\EditorEngine.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Engine.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Engine.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\FontObject.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\FontObject.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Sources\Game\GameEngine.cpp"
 				>
 			</File>
@@ -657,89 +609,157 @@
 				RelativePath=".\Sources\Game\GameEngine.h"
 				>
 			</File>
-			<File
-				RelativePath=".\Sources\Game\Tile.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Tile.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Unit.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\Unit.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\UnitTemplate.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\UnitTemplate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\UnitTemplateFactionList.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Game\UnitTemplateFactionList.h"
-				>
-			</File>
 			<Filter
-				Name="Map"
+				Name="GameState"
 				>
 				<File
-					RelativePath=".\Sources\Game\Map\ClassicMapIntegrityChecker.cpp"
+					RelativePath=".\Sources\Game\GameState\Editor.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Game\Map\ClassicMapIntegrityChecker.h"
+					RelativePath=".\Sources\Game\GameState\Editor.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Game\Map\Map.cpp"
+					RelativePath=".\Sources\Game\GameState\Game.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\Game\Map\Map.h"
+					RelativePath=".\Sources\Game\GameState\Game.h"
 					>
 				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapFactory.cpp"
+				<Filter
+					Name="GameObjects"
 					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapFactory.h"
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Camera.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Camera.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Cursor.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Cursor.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\FontObject.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\FontObject.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Tile.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Tile.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Unit.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Unit.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\UnitTemplate.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\UnitTemplate.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\UnitTemplateFactionList.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\UnitTemplateFactionList.h"
+						>
+					</File>
+					<Filter
+						Name="Map"
+						>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\ClassicMapIntegrityChecker.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\ClassicMapIntegrityChecker.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\Map.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\Map.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapDrawer.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapDrawer.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapFactory.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapFactory.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapIntegrityChecker.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapIntegrityChecker.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapLoader.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapLoader.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapSaver.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapSaver.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="EditorObjects"
 					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapIntegrityChecker.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapIntegrityChecker.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapLoader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapLoader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapSaver.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Game\Map\MapSaver.h"
-					>
-				</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\EditorObjects\EditingCursor.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\EditorObjects\EditingCursor.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

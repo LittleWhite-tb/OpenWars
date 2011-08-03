@@ -30,7 +30,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Window.h"
 #include "NEngine/Native/SDL/SDL_Engine.h"
 
-#include "Game/EditorEngine.h"
+#include "Game/GameEngine.h"
 
 #include "Types/Vec2.h"
 
@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 	{
         if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars Editor") )
         {
-			EditorEngine* pEEngine = new EditorEngine(pNE);
+			GameEngine* pEEngine = new GameEngine(pNE);
 			if ( pEEngine == NULL )
 			{
 				LError << "Fail to allocate memory for pEEngine";
@@ -201,19 +201,18 @@ int main(int argc, char** argv)
 					if ( pEEngine->init() )
 					{
 						bool engineLoadingState = true;
-						if ( !loadMapName.empty() )
-						{
-							engineLoadingState = pEEngine->Engine::load(loadMapName);
-						}
-						else
-						{
-							pEEngine->loadTheme(themeName);
-							engineLoadingState &= pEEngine->load(UVec2(mapWidth, mapHeight));
-						}
+						//if ( !loadMapName.empty() )
+						//{
+							engineLoadingState = pEEngine->load();
+						//}
+						//else
+						//{
+							// engineLoadingState &= pEEngine->load(UVec2(mapWidth, mapHeight));
+						//}
 						if ( engineLoadingState )
 						{
 							pEEngine->run();
-							pEEngine->saveMap(mapName);
+							// pEEngine->saveMap(mapName);
 						}
 					}
 				}

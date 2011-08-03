@@ -1,6 +1,6 @@
 #ifdef EDITOR
-#ifndef __EDITORENGINE_H__
-#define __EDITORENGINE_H__
+#ifndef __EDITOR_H__
+#define __EDITOR_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Engine.h"
+#include "NEngine/InputManager.h"
 
 #include "Unit.h"
 
@@ -34,32 +34,37 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-class FontManager;
+namespace NE { class NEngine; }
+namespace NE { class Renderer; }
 
 class TileViewer;
 
+class Map;
+class Camera;
 class EditingCursor;
 
-class VTime;
-
-class EditorEngine : public Engine
+class Editor
 {
 private:
+	
+	Map* pMap;
+	Camera* pCamera;
+	EditingCursor* pEC;			/*!< The cursor */	
+
 	TileBar<const Tile*>* pBuildingTB;			/*!< The tile bar for buildings */
 	TileBar<const UnitTemplate*>* pUnitTB;		/*!< The tile bar for units*/
 	TileViewer* pTileViewer;	/*!< The tile viewer */
 
-	EditingCursor* pEC;			/*!< The cursor */	
-
-	bool load(void);
-
 public:
-	EditorEngine(NE::NEngine* const pNE);
-	~EditorEngine();
+	Editor();
+	~Editor();
 
-	bool load(const UVec2& mapSize);
+	bool load(NE::NEngine* pNE);
+	bool loadMap(const Library<Theme>* const pThemes, const std::string& mapName);
+	bool loadMap(const UVec2& mapSize);
 
-	bool run(void);
+	bool draw(NE::Renderer* pRenderer, unsigned int time);
+	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons);
 
 	void saveMap(const std::string& fileName);
 

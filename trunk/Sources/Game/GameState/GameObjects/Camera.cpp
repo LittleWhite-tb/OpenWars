@@ -22,15 +22,14 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Game/Map/Map.h"
-#include "Camera.h"
+#include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/Camera.h"
+#include "Game/GameState/GameObjects/Cursor.h"
 
-#include "Cursor.h"
+#include "Types/Vec2.h"
 
-#include "../Types/Vec2.h"
-
-#include "../Utils/Logger.h"
-#include "../globals.h"
+#include "Utils/Logger.h"
+#include "globals.h"
 
 Camera :: Camera(void)
 	:position(UVec2(0,0))

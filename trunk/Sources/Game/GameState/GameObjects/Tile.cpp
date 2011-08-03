@@ -22,7 +22,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "UnitTemplate.h"
+#include "Tile.h"
 
 #include <cassert>
 
@@ -30,14 +30,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine/AnimatedSprite.h"
 
-#include "../Utils/Logger.h"
-#include "../Utils/Exceptions/ParamsException.h"
+#include "Utils/Logger.h"
+#include "Utils/Exceptions/ParamsException.h"
 
-const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
-                                                        "internalName", "name", "filename", "size_x", "size_y",
-                                                        "movement", "fuel", "fuelConsumption", "life", "price" };
+const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
 
-UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
     :pParams(pParams)
 {
     assert(pParams);
@@ -54,11 +52,10 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
 
     try
     {
-        this->id = pParams->getAs<unsigned int>("unit-id");
-        this->faction = pParams->getAs<short int>("unit-faction");
-
         this->internalName = pParams->get("internalName");
         this->name = pParams->get("name");
+        this->id = pParams->getAs<unsigned int>("tile-id");
+        this->menuEntry = pParams->getAs<short int>("tile-menu");
 
         UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
                          pParams->getAs<unsigned int>("size_y"));
@@ -66,29 +63,20 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
         this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
-            LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
+            LError << "Fail to allocate memory for AnimatedSprite for Tile";
             throw std::bad_alloc();
         }
 
-        this->size.x = pParams->getAs<unsigned int>("size_x");
-        this->size.y = pParams->getAs<unsigned int>("size_y");
-
-        this->movement = pParams->getAs<unsigned int>("movement");
-        this->fuel = pParams->getAs<unsigned int>("fuel");
-        this->fuelConsumption = pParams->getAs<unsigned int>("fuelConsumption");
-        this->ammo = pParams->getAs<unsigned int>("ammo",0);
-        this->life = pParams->getAs<unsigned int>("life",10);
-        this->price = pParams->getAs<unsigned int>("price");
+        this->defence = pParams->getAs<unsigned int>("defence");
     }
-    catch ( ParameterNotFoundParamsException& pnfpe)
+    catch ( ParameterNotFoundParamsException )
     {
         LError << "The force list is not matching the requested parameters";
-        LError << "Parameter '" << pnfpe.what() << "' not found";
         throw MissingParameterException("unknown");
     }
 }
 
-UnitTemplate :: ~UnitTemplate()
+Tile :: ~Tile()
 {
     delete pSprite;
     delete pParams;

@@ -24,341 +24,150 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameEngine.h"
 
-#include "../NEngine/NEngine.h"
-#include "../NEngine/Window.h"
-#include "../NEngine/Renderer.h"
-#include "../NEngine/SpriteLoader.h"
-#include "../NEngine/InputManager.h"
-
-#include "Game/Map/Map.h"
-#include "Cursor.h"
-#include "Camera.h"
-
-#include "UI/ConstructBox.h"
-#include "UI/MenuBox.h"
+#include "NEngine/NEngine.h"
+#include "NEngine/Renderer.h"
+#include "NEngine/Time.h"
 
 #include "Engine/Theme.h"
-#include "Engine/Params.h"
-#include "Engine/VTime.h"
 
-#include "Types/Colour.h"
+#include "Game/GameState/Game.h"
+#include "Game/GameState/Editor.h"
+
+#include "XML/XMLListReader.h"
 
 #include "Utils/Logger.h"
-#include "NEngine/Exceptions/ConstructionFailedException.h"
-#include "NEngine/Exceptions/FileNotFoundException.h"
+#include "Utils/Exceptions/XMLException.h"
+
 #include "globals.h"
 
-GameEngine :: GameEngine(NE::NEngine* const pNE)
-:Engine(pNE),pC(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0),m_userQuit(false)
+GameEngine :: GameEngine(NE::NEngine* pNE)
+	:pNE(pNE),fpsNumber(0),fpsCounter(0),fpsLastUpdateTime(0),lastUpdateTime(0),bIsRunning(true)
 {
-    LDebug << "GameEngine constructed";
+	LDebug << "GameEngine started";
 }
-
-GameEngine :: ~GameEngine(void)
+	
+GameEngine :: ~GameEngine()
 {
-    delete pMBMenu;
-
-    for ( std::map<std::string, ConstructBox*>::iterator itPCB = constructionBoxes.begin() ; itPCB != constructionBoxes.end() ; ++itPCB )
-    {
-        delete itPCB->second;
-    }
-
-    delete pC;
-
-    LDebug << "GameEngine deleted";
-}
-
-bool GameEngine :: load(void)
-{
-    pC = new Cursor(pMap,UVec2(5,5));
-
-    std::list<const Tile* > tilesList;
-    pMap->getTheme()->getTilesList(&tilesList);
-
-    std::list<const UnitTemplateFactionList* > unitsList;
-    pMap->getTheme()->getUnitsList(&unitsList);
-
-    // Construct all the contruction boxes needed by going throw the tile list
-    for ( std::list < const Tile* >::const_iterator itPTile = tilesList.begin() ;
-                itPTile != tilesList.end() ; ++itPTile )
-    {
-        const Params* tileParams = (*itPTile)->getParams();
-        // For each unique producer name (if existing)
-        if ( tileParams->exists("producerName") &&
-             constructionBoxes.find(tileParams->get("producerName")) == constructionBoxes.end() )
-        {
-            constructionBoxes[tileParams->get("producerName")] = new ConstructBox(pMap->getTheme(),pNE->getWindow()->getWindowSize());
-        }
-    }
-
-    // For each unit, we get the tile indicated where the unit is produced
-    // If not existing, the loading fails
-    for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
-              itPUnit != unitsList.end() ; ++itPUnit )
-    {
-        const Params* unitParams = (*itPUnit)->get(0)->getParams();
-
-        if ( unitParams->exists("producedIn") )
-        {
-            if ( constructionBoxes.find(unitParams->get("producedIn")) != constructionBoxes.end() )
-            {
-                constructionBoxes[unitParams->get("producedIn")]->add(*itPUnit);
-            }
-            else
-            {
-                LError << "A unit is producable in a tile (producer) not existing -> '" << (*itPUnit)->get(0)->getParams()->get("producedIn") << "'";
-                return false;
-            }
-        }
-    }
-
-    try
-    {
-        // Unit menu
-        // unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
-
-        pMBMenu = new MenuBox(pNE->getSpriteFactory(),pMap->getTheme(),pNE->getWindow()->getWindowSize());
-        if ( pMBMenu == NULL )
-        {
-            LError << "Fail to allocate MenuBox";
-            throw std::bad_alloc();
-        }
-
-        pMBMenu->add("EndTurnAction",pMap->getTheme()->getUIItem("endTurnIcon")->getSprite(),"End turn");
-        pMBMenu->add("QuitAction",NULL,"Quit");
-    }
-    catch (ConstructionFailedException& cfe)
-    {
-        LError << cfe.what();
-        return false;
-    }
-
-    return true;
+	LDebug << "GameEngine stopped";
 }
 
 bool GameEngine :: init(void)
 {
-    bool error = true;
+#ifdef EDITOR
+	pGame = new Editor();
+#else
+	pGame = new Game();
+#endif
 
-    error = Engine::init();
+	if ( pGame == NULL )
+	{
+		LError << "Fail to allocate memory for game state";
+		return false;
+	}
 
-    LDebug << "GameEngine init'd";
-
-    return error;
+	return true;
 }
 
-bool GameEngine :: run(void)
+void GameEngine :: loadTheme(const std::string& themeName)
 {
-    while ( pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == 0 && m_userQuit == false )
+    Theme* pTheme = new Theme(themeName);
+    if ( pTheme == NULL )
     {
-        // Drawing part
-        pNE->getRenderer()->clearScreen(Colour(0,0,0));
-
-        pMap->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-
-        switch ( gState )
-        {
-            case GS_VISU:
-                {
-                    pC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-                }
-                break;
-            case GS_CONSTRUCTION:
-                {
-                    // Some protections
-                    if ( !pC->getTileUnderCursor()->getParams()->exists("producerName") )
-                    {
-                        LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
-                        gState = GS_VISU;
-                        break;
-                    }
-
-                    if ( constructionBoxes.find(pC->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
-                    {
-                        LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
-                        gState = GS_VISU;
-                        break;
-                    }
-
-                    // We can draw it
-                    constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pNE->getRenderer(),0,5000,pVT->getTime());
-                }
-                break;
-            case GS_SELECT:
-                {
-                    pMBMenu->draw(*pNE->getRenderer(),pC->getPosition(),pVT->getTime());
-                }
-                break;
-            case GS_MOVE:
-                {
-                    // TODO: Display the move map stuff
-                    pC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-                }
-                break;
-            case GS_MENU:
-                {
-                    pMBMenu->draw(*pNE->getRenderer(),pC->getPosition(),pVT->getTime());
-                }
-                break;
-        }
-
-        pNE->getRenderer()->updateWindow();
-
-        // Update part
-        if ( pVT->canUpdate() )
-        {
-            NE::InputManager::ArrowsDirection direction = pNE->getInputManager()->getDirectionsPressed();
-            NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();
-
-            pCam->update(*pC,*pMap);
-            pNE->getInputManager()->update();
-
-            switch ( gState )
-            {
-                case GS_VISU:
-                    {
-                        pC->move(direction);
-                        if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                        {
-                            const Unit* currentUT = pMap->getUnit(pC->getPosition());
-                            if ( currentUT == NULL )
-                            {
-                                if ( pC->getTileUnderCursor()->getParams()->exists("producerName") )
-                                {
-                                    this->gState = GS_CONSTRUCTION;
-                                }
-                                else
-                                {
-                                    // pMBMenu->setMenus(menuEntries);
-                                    this->gState = GS_MENU;
-                                }
-                            }
-                            else if ( !pMap->getUnit(pC->getPosition())->state == US_ACTIVE )
-                            {
-                                // pMBMenu->setMenus(menuEntries);
-                                this->gState = GS_MENU;
-                            }
-                            else
-                            {
-                                // pMBMenu->setMenus(unitMenuEntries);
-                                this->gState = GS_SELECT;
-                            }
-
-                        }
-                    }
-                    break;
-                case GS_CONSTRUCTION:
-                    {
-                        if ( !pC->getTileUnderCursor()->getParams()->exists("producerName") )
-                        {
-                            LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
-                            gState = GS_VISU;
-                            break;
-                        }
-
-                        if ( constructionBoxes.find(pC->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
-                        {
-                            LWarning << "Tile '" << pC->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
-                            gState = GS_VISU;
-                            break;
-                        }
-
-                        // We can draw it
-                        constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->update(direction);
-                        if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                        {
-                            pMap->setUnit(pC->getPosition(),constructionBoxes[pC->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(0)->getName(),0);
-                            this->gState = GS_VISU;
-                        }
-                    }
-                    break;
-                case GS_MENU:
-                    {
-                        pMBMenu->update(direction);
-                        if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                        {
-                            // Check what is in
-                            std::string menuSelection = pMBMenu->getSelectedActionName();
-                            if ( menuSelection == "EndTurnAction" )
-                            {
-                                this->pMap->enableUnits();
-                                this->gState = GS_VISU;
-                            }
-                            else if ( menuSelection == "QuitAction" )
-                            {
-                                m_userQuit = true;
-                            }
-                            else
-                            {
-                                LWarning << "Not implemented action '" << menuSelection << "' in GS_MENU state";
-                            }
-                        }
-                        else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-                        {
-                            this->gState = GS_VISU;
-                        }
-                    }
-                    break;
-                case GS_SELECT:
-                    {
-                        pMBMenu->update(direction);
-                        if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                        {
-                            // Check what is in
-                            /*
-                            switch (pMBMenu->getActualEntry())
-                            {
-                                case (ME_Move):
-                                {
-                                    // ToDo Change turn.
-                                    // this->pMap->moveUnit();
-                                    selectedUnitPosition = pC->getPosition();
-
-                                    // If the unit has not enough fuel ... we will move the unit only of the distance possible with the fuel
-                                    const Unit* pUnitSelected = pMap->getUnit(selectedUnitPosition);
-                                    unsigned int movement = pUnitSelected->getTemplate()->getMovement();
-                                    if ( pUnitSelected->fuel < movement)
-                                    {
-                                        movement = pUnitSelected->fuel;
-                                    }
-                                    // pMap->setMoveHighlight(selectedUnitPosition,*pUnitSelected,movement);
-
-                                    this->gState = GS_MOVE;
-                                }
-                                break;
-                            }
-                            */
-                        }
-                        else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-                        {
-                            this->gState = GS_VISU;
-                        }
-                    }
-                    break;
-                case GS_MOVE:
-                    {
-                        pC->move(direction);
-                        if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                        {
-                            if ( this->pMap->move(selectedUnitPosition, pC->getPosition()) )
-                            {
-                                // pMap->clearHighlight();
-                                this->gState = GS_VISU;
-                            }
-                        }
-                        else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-                        {
-                            // pMap->clearHighlight();
-                            this->gState = GS_SELECT;
-                        }
-                    }
-                    break;
-            }
-        }
-
-        pVT->waitNextFrame();
+        LError << "Fail to allocate Theme";
+        throw std::bad_alloc();
     }
 
-    return true;
+    if ( pTheme->load(pNE->getSpriteLoader()) == false )
+    {
+        throw EngineException("Failed to load the theme (" + themeName+ ")");
+    }
+    else
+    {
+        themeLibrary.add(pTheme->getName(),pTheme);
+    }
 }
 
+void GameEngine :: loadThemeList(const std::string& listPath)
+{
+    try
+    {
+        std::list<std::string> paths;
+        XMLListReader xmlReader = XMLListReader(listPath);
+
+        xmlReader.parse("theme",&paths);
+
+        for ( std::list<std::string>::const_iterator itPath = paths.begin() ; itPath != paths.end() ; ++itPath )
+        {
+            loadTheme(*itPath);
+        }
+    }
+    catch ( XMLParsingFailedException& xmle )
+    {
+        (void)xmle;
+        throw EngineException("Fail to open list of theme paths '" + listPath + "'");
+    }
+}
+
+bool GameEngine :: load(void)
+{
+	bool bResult = true;
+
+	this->loadThemeList(THEME_PATH "themeList.xml");
+	
+#ifdef EDITOR
+	bResult &= pGame->loadMap(USize(15,14));
+#else
+	bResult &= pGame->loadMap(&themeLibrary,MAP_PATH "maw.map");
+#endif
+
+	bResult &= pGame->load(pNE);
+
+	return bResult;
+}
+
+bool GameEngine :: render()
+{
+	pGame->draw(pNE->getRenderer(),pNE->getTime()->getTime());
+
+	if ( pNE->getRenderer()->updateWindow() == false )
+    {
+        LError << "Fail to draw on the screen";
+    }
+
+	return true;
+}
+
+bool GameEngine :: update()
+{
+	pNE->getInputManager()->update();
+
+	NE::InputManager::ArrowsDirection directions =pNE->getInputManager()->getDirectionsPressed();
+    NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();	
+
+	pGame->update(directions,buttons);
+
+	return true;
+}
+
+void GameEngine :: run(void)
+{
+	while ( bIsRunning )
+    {
+        this->render();
+        // This solve a problem in Windows, because the events have to be updated in the same thread than the video.
+		this->update();
+
+		// FPS management
+        fpsCounter++;
+		if ( pNE->getTime()->getTime() - fpsLastUpdateTime > 1000 ) // After one second
+        {
+            fpsNumber= fpsCounter;
+            fpsCounter = 0;
+            fpsLastUpdateTime = pNE->getTime()->getTime();
+
+            std::cout << "FPS: " << fpsNumber << std::endl;
+        }
+
+        lastUpdateTime = pNE->getTime()->getTime();
+    }
+}

@@ -1,3 +1,6 @@
+#ifndef __MAPFACTORY_H__
+#define __MAPFACTORY_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,40 +25,31 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "UnitTemplateFactionList.h"
+#include "Types/Size2.h"
 
-#include "Game/UnitTemplate.h"
+class Map;
+class Theme;
 
-#include "Utils/Logger.h"
-
-UnitTemplateFactionList :: ~UnitTemplateFactionList()
+class MapFactory
 {
-	for ( std::vector<UnitTemplate*>::iterator itPUnitTemplate = unitTemplates.begin() ; itPUnitTemplate != unitTemplates.end() ; ++itPUnitTemplate )
-	{
-		delete (*itPUnitTemplate);
-	}
+private:
 
-	unitTemplates.clear();
-}
+public:
 
-void UnitTemplateFactionList :: add(UnitTemplate* pUnitTemplate)
-{
-	unsigned int faction = pUnitTemplate->getFaction();
-	if ( faction >= unitTemplates.size() )
-	{
-		unitTemplates.resize(faction+1);
-	}
+    static Map* createEmptyMap(const Theme* pTheme, const USize2& size);
+};
 
-	unitTemplates[faction] = pUnitTemplate;
-}
+/*! \class MapFactory MapFactory.h "Game/Map/MapFactory.h"
+ *  \brief Class to build a map from scratch
+ */
 
-UnitTemplate* UnitTemplateFactionList ::  get(unsigned int faction)const
-{
-	if ( faction >= unitTemplates.size() )
-	{
-		LWarning << "UnitTemplate :: trying to get a faction not in the database";
-		return NULL;
-	}
+/*! \fn static Map* MapFactory::createEmptyMap(const Theme* pTheme, const USize2& size)
+ *  \brief build an empty map
+ *  \param pTheme pointer to the theme to use
+ *  \param size the size of the map
+ *  \return returns a pointer on the Map or NULL if something failed.
+ *  \throw std::bad_alloc when the machine does not have enough memory
+ *  Tile at ID 0 of the Theme is used to fill the map
+ */
 
-	return unitTemplates[faction];
-}
+#endif

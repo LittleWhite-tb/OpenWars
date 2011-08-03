@@ -24,7 +24,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "EditorEngine.h"
+#include "Editor.h"
 
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
@@ -37,6 +37,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/Map/MapLoader.h"
 #include "Game/Map/MapFactory.h"
 #include "Game/Map/MapSaver.h"
+#include "Game/Map/MapDrawer.h"
 
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
@@ -54,15 +55,18 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Exceptions/ConstructionFailedException.h"
 #include "../NEngine/Exceptions/FileNotFoundException.h"
 
-EditorEngine :: EditorEngine(NE::NEngine* const pNE)
-:Engine(pNE),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),pEC(NULL)
+Editor :: Editor()
+:pMap(NULL),pCamera(NULL),pEC(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL)
 {
 	LDebug << "EditorEngine constructed";
 }
 
-EditorEngine :: ~EditorEngine()
+Editor :: ~Editor()
 {
 	delete pEC;
+	delete pCamera;
+	delete pMap;
+
 	delete pTileViewer;
 	delete pUnitTB;
 	delete pBuildingTB;
@@ -70,9 +74,15 @@ EditorEngine :: ~EditorEngine()
 	LDebug << "EditorEngine destructed";
 }
 
-bool EditorEngine :: load(void)
+bool EditorEngine :: load(NE::NEngine* pNE)
 {
+	pCamera = new Camera();
 	pEC = new EditingCursor(pMap,UVec2(5,5));
+
+	if ( pCamera == NULL || pEC == NULL )
+	{
+		return false;
+	}
 
 	try
 	{
@@ -124,46 +134,53 @@ bool EditorEngine :: load(void)
 	return true;
 }
 
-bool EditorEngine :: load(const UVec2& mapSize)
+bool Editor :: loadMap(const Library<Theme>* const pThemes, const std::string& mapName)
 {
-	pMap = MapFactory::createEmptyMap(themeLibrary.get("classic"),mapSize);
-	if ( pMap == NULL )
-	{
-		return false;
-	}
+	delete pMap;
 
-	try
-	{
-		return this->load();
-	}
-	catch ( FileNotFoundException& fnfe )
+	pMap = MapLoader::loadMapFromFile(pThemes,mapName);
+	if ( pMap == NULL )
 	{
 		return false;
 	}
 }
 
-bool EditorEngine :: run(void)
+bool Editor :: loadMap(const UVec2& mapSize)
+{
+	delete pMap;
+
+	pMap = MapFactory::createEmptyMap(themeLibrary.get("classic"),mapSize);
+	if ( pMap == NULL )
+	{
+		return false;
+	}
+}
+
+bool EditorEngine :: draw(NE::Renderer* pRenderer, unsigned int time)
+{
+	// Drawing part
+	pNE->getRenderer()->clearScreen(Colour(0,0,0));
+
+	MapDrawer::draw(*pNE->getRenderer(),pMap,*pCam,pVT->getTime());
+	pEC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
+
+	if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
+	{
+		pTileViewer->draw(*pNE->getRenderer(),pVT->getTime());
+	}
+
+	pUnitTB->draw(*pNE->getRenderer(),0);
+	pBuildingTB->draw(*pNE->getRenderer(),0);
+
+	pNE->getRenderer()->updateWindow();
+}
+
+bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons)
 {
 	bool isUnit = false;
 
 	while ( pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == false )
 	{
-		// Drawing part
-		pNE->getRenderer()->clearScreen(Colour(0,0,0));
-
-		pMap->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-		pEC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-
-		if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
-		{
-			pTileViewer->draw(*pNE->getRenderer(),pVT->getTime());
-		}
-
-		pUnitTB->draw(*pNE->getRenderer(),0);
-		pBuildingTB->draw(*pNE->getRenderer(),0);
-
-		pNE->getRenderer()->updateWindow();
-
 		// Update part
 		if ( pVT->canUpdate() )
 		{

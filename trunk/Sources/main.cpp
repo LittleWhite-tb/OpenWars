@@ -117,18 +117,9 @@ int main(int argc, char** argv)
 			}
             else if ( pGEngine->init() )
             {
-                bool engineLoadingState = false;
+                bool engineLoadingState = true;
 
-				try
-				{
-					pGEngine->loadThemeList(THEME_PATH "themeList.xml");
-					engineLoadingState = pGEngine->Engine::load(loadMapName);
-				}
-				catch ( EngineException& ee )
-				{
-					LError << ee.what();
-					engineLoadingState = false;
-				}
+				engineLoadingState &= pGEngine->load();
                 
                 if ( engineLoadingState )
                 {

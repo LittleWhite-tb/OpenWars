@@ -24,13 +24,16 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Cursor.h"
 
-#include "Game/Map/Map.h"
+#include "NEngine/InputManager.h"
 
-#include "../Engine/AnimatedSprite.h"
-#include "../NEngine/InputManager.h"
-#include "../Utils/Logger.h"
-#include "Camera.h"
-#include "../globals.h"
+#include "Engine/AnimatedSprite.h"
+
+#include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/Camera.h"
+
+#include "Utils/Logger.h"
+
+#include "globals.h"
 
 Cursor :: Cursor(const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0)*/)
 	:pMap(pMap),position(initialPosition)

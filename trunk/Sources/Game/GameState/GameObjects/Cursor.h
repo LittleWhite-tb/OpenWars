@@ -29,7 +29,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
-#include "Game/Tile.h"
+#include "Game/GameState/GameObjects/Tile.h"
+
 #include "Types/Vec2.h"
 
 namespace NE { class Renderer; }

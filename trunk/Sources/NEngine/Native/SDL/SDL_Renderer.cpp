@@ -153,13 +153,13 @@ bool NE :: SDL_Renderer :: updateWindow(void)
 {
     SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
 
+	// We are using SDL_Flip since SDL_UpdateRect does not do the job on GP2X
+    // SDL_UpdateRect(pSDLWindow,0,0,0,0);
     if ( SDL_Flip(pSDLWindow) != 0 )
     {
         LError << "Fail to draw on the screen";
         return false;
     }
-    // We are using SDL_Flip since SDL_UpdateRect does not do the job on GP2X
-    // SDL_UpdateRect(pSDLWindow,0,0,0,0);
 
     return true;
 }

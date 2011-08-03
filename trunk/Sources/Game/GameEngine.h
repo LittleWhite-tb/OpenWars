@@ -25,88 +25,77 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Engine.h"
+#include <string>
 
-#include <vector>
+#include "Engine/Library.h"
+#include "Engine/Theme.h"
 
-#include "../Types/Vec2.h"
+namespace NE { class NEngine; }
 
-class Cursor;
+#ifdef EDITOR
+	class Editor;
+#else
+	class Game;
+#endif
 
-struct MenuView;
-class MenuBox;
-class ConstructBox;
-
-class GameEngine : public Engine
+class GameEngine
 {
-	enum GameState
-	{
-		GS_VISU,
-		GS_CONSTRUCTION,
-		GS_SELECT,
-		GS_MENU,
-        
-        GS_MOVE
-	};
-
 private:
+	NE::NEngine* pNE;
 
-	Cursor* pC;					/*!< The cursor */
+	Library<Theme> themeLibrary;				/*!< Sprites Theme */
 
-	// UI
-	std::map<std::string, ConstructBox*> constructionBoxes;	/*!< Library of construct box determined by their names */
+#ifdef EDITOR
+	Editor* pGame;
+#else
+	Game* pGame;
+#endif
 
-	MenuBox* pMBMenu;			/*!< menu for the user */
+	// Time management
+    unsigned fpsNumber;           /*!< the number of fps (update each second)*/
+    unsigned fpsCounter;          /*!< the frame counter */
+    unsigned fpsLastUpdateTime;   /*!< the last update time of the fps number */
 
-	GameState gState;			/*!< Actual state of the game */
-    UVec2 selectedUnitPosition; /*!< Position of the unit selected (the one to move or to control) */
+	unsigned lastUpdateTime;      /*!< the last update time of the loop */
 
-	bool m_userQuit;			/*!< If the user wants to quit, this variable will be true */
 
-	bool load(void);
+    bool bIsRunning;               /*!< if false, the game loop stops */
+
+
+	void loadTheme(const std::string& themeName);
+	void loadThemeList(const std::string& listPath);
+
+protected:
+
+	bool render();
+	bool update();
 
 public:
-	GameEngine(NE::NEngine* const pNE);
+	GameEngine(NE::NEngine* pNE);
 	~GameEngine();
 
 	bool init(void);
-	bool run(void);
+
+    bool load(void);
+
+    void run(void);
+
+    bool isRunning()const { return bIsRunning; }
 };
 
-/*! \class GameEngine GameEngine.h "Game/GameEngine.h"
- *  \brief Engine for the game
- *
- * Manage all the game main loop by using states
- */
+class EngineException : public std::exception
+{
+private:
+	std::string message;	/*!< error message to display */
 
-/*! \fn bool GameEngine::load(void)
- * \brief Load the map, cursor, camera with the associated sprites
- * Will load all needed to set the engine. After you can run the engine.
- * The engine has to be inited.
- * \return true if all goes fine
- */
+public:
+	EngineException(const std::string& userMessage):message(std::string("Game Engine failed: '") + userMessage + std::string("'")) {}
+    virtual ~EngineException(void)throw() {}
 
-/*! \fn GameEngine::GameEngine(NE::NEngine* const pNE)
- * \param pNE pointer of the Native Engine to user
- */
-
-/*! \fn GameEngine::~GameEngine()
- */
-
-/*! \fn bool GameEngine::init()
- * \brief Init the Game Engine
- * \return true if all goes right
- */
-
-/*! \fn bool GameEngine::load(const std::string& mapName)
- * \brief load the Game Engine
- * \param mapName the name of the map to load
- * \return true if all goes right
- */
-
-/*! \fn bool GameEngine::run(void)
- * \brief Start the game main loop
- * \return true if all goes fine
- */
+	virtual const char* what() const throw()
+	{
+		return message.c_str();
+	}
+};
 
 #endif

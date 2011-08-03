@@ -32,8 +32,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <typeinfo>
 
-#include "Game/UnitTemplate.h"
-#include "Game/UnitTemplateFactionList.h"
+#include "Game/GameState/GameObjects/UnitTemplate.h"
+#include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
 
 #include "Utils/Logger.h"
 #include "Utils/Exceptions/LibraryException.h"

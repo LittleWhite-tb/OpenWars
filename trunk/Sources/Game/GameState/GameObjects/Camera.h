@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../Types/Vec2.h"
+#include "Types/Vec2.h"
 
 class Map;
 class Cursor;

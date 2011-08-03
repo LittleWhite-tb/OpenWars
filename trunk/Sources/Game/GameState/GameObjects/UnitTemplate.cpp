@@ -22,21 +22,22 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "FontObject.h"
-
-#include "NEngine/SpriteLoader.h"
-
-#include "Engine/Params.h"
-#include "Engine/Font.h"
-
-#include "../Utils/Logger.h"
-#include "../Utils/Exceptions/ParamsException.h"
+#include "UnitTemplate.h"
 
 #include <cassert>
 
-const std::string FontObject::neededParameters[] = { "font-startingLetter", "internalName", "filename", "charSize_x", "charSize_y" };
+#include "Engine/Params.h"
 
-FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
+#include "Engine/AnimatedSprite.h"
+
+#include "Utils/Logger.h"
+#include "Utils/Exceptions/ParamsException.h"
+
+const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
+                                                        "internalName", "name", "filename", "size_x", "size_y",
+                                                        "movement", "fuel", "fuelConsumption", "life", "price" };
+
+UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
     :pParams(pParams)
 {
     assert(pParams);
@@ -53,20 +54,31 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
 
     try
     {
+        this->id = pParams->getAs<unsigned int>("unit-id");
+        this->faction = pParams->getAs<short int>("unit-faction");
+
         this->internalName = pParams->get("internalName");
+        this->name = pParams->get("name");
 
-        UVec2 letterSize(pParams->getAs<unsigned int>("charSize_x"),
-                         pParams->getAs<unsigned int>("charSize_y"));
+        UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
+                         pParams->getAs<unsigned int>("size_y"));
 
-        this->pFont = new Font(
-                                pSL->loadSpriteFromFile(folderPath + pParams->get("filename")),
-                                letterSize,
-                                pParams->getAs<char>("font-startingLetter"));
-        if ( this->pFont == NULL )
+        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        if ( this->pSprite == NULL )
         {
-            LError << "Fail to allocate memory for Font for FontObject";
+            LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
             throw std::bad_alloc();
         }
+
+        this->size.x = pParams->getAs<unsigned int>("size_x");
+        this->size.y = pParams->getAs<unsigned int>("size_y");
+
+        this->movement = pParams->getAs<unsigned int>("movement");
+        this->fuel = pParams->getAs<unsigned int>("fuel");
+        this->fuelConsumption = pParams->getAs<unsigned int>("fuelConsumption");
+        this->ammo = pParams->getAs<unsigned int>("ammo",0);
+        this->life = pParams->getAs<unsigned int>("life",10);
+        this->price = pParams->getAs<unsigned int>("price");
     }
     catch ( ParameterNotFoundParamsException& pnfpe)
     {
@@ -76,8 +88,8 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
     }
 }
 
-FontObject :: ~FontObject()
+UnitTemplate :: ~UnitTemplate()
 {
-    delete pFont;
+    delete pSprite;
     delete pParams;
 }

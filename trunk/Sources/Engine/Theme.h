@@ -30,11 +30,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Engine/Library.h"
 
-#include "Game/Tile.h"
-#include "Game/UnitTemplate.h"
-#include "Game/UnitTemplateFactionList.h"
+#include "Game/GameState/GameObjects/Tile.h"
+#include "Game/GameState/GameObjects/UnitTemplate.h"
+#include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
+#include "Game/GameState/GameObjects/FontObject.h"
 #include "UI/UIItem.h"
-#include "Game/FontObject.h"
 
 namespace NE { class SpriteLoader; }
 

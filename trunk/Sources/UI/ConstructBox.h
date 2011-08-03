@@ -28,11 +28,11 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <string>
 
-#include "../NEngine/InputManager.h"
+#include "NEngine/InputManager.h"
 
-#include "../Game/Unit.h"
+#include "Game/GameState/GameObjects/Unit.h"
 
-#include "../Types/Size2.h"
+#include "Types/Size2.h"
 
 namespace NE { class Renderer; }
 

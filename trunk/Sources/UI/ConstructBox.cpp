@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Font.h"
 #include "Engine/AnimatedSprite.h"
 
-#include "Game/UnitTemplateFactionList.h"
+#include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
 
 #include "Types/Vec2.h"
 #include "Types/Colour.h"
