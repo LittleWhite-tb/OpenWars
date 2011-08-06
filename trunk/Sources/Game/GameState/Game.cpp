@@ -214,7 +214,7 @@ bool Game :: draw(NE::Renderer* pRenderer, unsigned int time)
 	return true;
 }
 
-bool Game :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons)
+bool Game :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
     pCamera->update(*pCursor,*pMap);
 

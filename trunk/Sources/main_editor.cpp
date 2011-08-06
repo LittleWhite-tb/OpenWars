@@ -62,94 +62,11 @@ int main(int argc, char** argv)
 	std::string loadMapName="";
 	std::string mapName="save.map";
 	std::string themeName="classic";
-
+/*
 	// Check the arguments passed
 	while ( i < static_cast<unsigned int>(argc) )
 	{
-		if ( strcmp(argv[i],"--width") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				std::istringstream iss(argv[i+1]);
-				iss >> winSize.width;
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --width!";
-				return -1;
-			}
-		}
-		else if ( strcmp(argv[i],"--height") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				std::istringstream iss(argv[i+1]);
-				iss >> winSize.height;
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --height!";
-				return -1;
-			}
-		}
-		else if ( strcmp(argv[i],"--fullscreen") == 0 )
-		{
-			needFullscreen = true;
-			i++;
-		}
-		else if ( strcmp(argv[i],"--mapWidth") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				std::istringstream iss(argv[i+1]);
-				iss >> mapWidth;
-				if ( mapWidth < MAP_MIN_WIDTH )
-				{
-					LError << "The width for the map has to be higher or equal to " << MAP_MIN_WIDTH;
-					return -1;
-				}
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --mapWidth!";
-				return -1;
-			}
-		}
-		else if ( strcmp(argv[i],"--mapHeight") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				std::istringstream iss(argv[i+1]);
-				iss >> mapHeight;
-				if ( mapHeight < MAP_MIN_HEIGHT )
-				{
-					LError << "The width for the map has to be higher or equal to " << MAP_MIN_HEIGHT;
-					return -1;
-				}
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --mapHeight!";
-				return -1;
-			}
-		}
-		else if ( strcmp(argv[i],"--load") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				loadMapName = std::string(argv[i+1]);
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --mapName!";
-				return -1;
-			}
-		}
+		
 		else if ( strcmp(argv[i],"--mapName") == 0 )
 		{
 			if ( i+1 < static_cast<unsigned int>(argc) )
@@ -177,7 +94,7 @@ int main(int argc, char** argv)
 			}
 		}
 	}
-
+*/
 	// Starting the native engine
 	NE::NEngine* pNE = new NE::SDL_Engine();
 	if ( pNE->init() == false )

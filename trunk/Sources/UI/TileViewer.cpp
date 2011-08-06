@@ -1,4 +1,3 @@
-#ifdef EDITOR
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -32,8 +31,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Font.h"
 
-#include "Game/Tile.h"
-#include "Game/UnitTemplate.h"
+#include "Game/GameState/GameObjects/Tile.h"
+#include "Game/GameState/GameObjects/UnitTemplate.h"
 
 #include "Utils/Logger.h"
 #include "Types/Vec2.h"
@@ -108,5 +107,3 @@ bool TileViewer :: draw(const NE::Renderer& r, const unsigned int time)
 
 	return error;
 }
-
-#endif

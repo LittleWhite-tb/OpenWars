@@ -26,31 +26,30 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 // Folders path
-#define THEME_PATH		"./data/themes/"			/*!< Path to default theme folder */
-#define MAP_PATH	"./data/maps/"				/*!< Path to the default maps folder */
-#define GFX_TILES_PATH	"./data/gfx/tiles/"		/*!< Path to the default tiles graphics files folder */
-#define GFX_UNITS_PATH	"./data/gfx/units/"		/*!< Path to the default units graphics files folder */
-#define GFX_UI_PATH	"./data/gfx/ui/"		/*!< Path to the default ui graphics files folder */
-#define GFX_FONTS_PATH	"./data/gfx/fonts/"		/*!< Path to the default fonts files folder */
-#define SFX_PATH	"./data/sfx/"				/*!< Path to the default sounds folder */
+const std::string THEME_PATH		= "./data/themes/";			/*!< Path to default theme folder */
+const std::string MAP_PATH			= "./data/maps/";			/*!< Path to the default maps folder */
+const std::string GFX_TILES_PATH	= "./data/gfx/tiles/";		/*!< Path to the default tiles graphics files folder */
+const std::string GFX_UNITS_PATH	= "./data/gfx/units/";		/*!< Path to the default units graphics files folder */
+const std::string GFX_UI_PATH		= "./data/gfx/ui/";			/*!< Path to the default ui graphics files folder */
+const std::string GFX_FONTS_PATH	= "./data/gfx/fonts/";		/*!< Path to the default fonts files folder */
+const std::string SFX_PATH			= "./data/sfx/";			/*!< Path to the default sounds folder */
 
-#define CURSOR_SPEED	400						/*!< Default speed for animation of the cursor */
+const int CURSOR_SPEED			= 400;					/*!< Default speed for animation of the cursor */
 
 // Sprite default size
-#define TILE_DEFAULT_WIDTH	32					/*!< Default width of the tiles */
-#define TILE_DEFAULT_HEIGHT	32					/*!< Default height of the tiles */
-#define MAP_MIN_WIDTH			15				/*!< Minimum number of tiles on the map for x axis */
-#define MAP_MIN_HEIGHT			10				/*!< Minimum number of tiles on the map for y axis */
+const int TILE_DEFAULT_WIDTH	= 32;					/*!< Default width of the tiles */
+const int TILE_DEFAULT_HEIGHT	= 32;					/*!< Default height of the tiles */
+const int MAP_MIN_WIDTH		= 15;					/*!< Minimum number of tiles on the map for x axis */
+const int MAP_MIN_HEIGHT		= 10;					/*!< Minimum number of tiles on the map for y axis */
 
 // For the Camera
-#define BOUND_CAMERA_DISPLACEMENT	2			/*!< The distance with the bound where the camera starts to move */
+const unsigned int BOUND_CAMERA_DISPLACEMENT	= 2;			/*!< The distance with the bound where the camera starts to move */
 
-#ifdef EDITOR
-	// For the TileBar
-	#define TILE_BAR_HEIGHT			64			/*!< The height of the tile bar */
-	#define TILE_BAR_XMARGIN		10			/*!< Margin around the tiles on the x axis */
-	#define TILE_BAR_YMARGIN		8			/*!< Margin around the tiles on the y axis */
-	#define TILE_NB_DRAWN			9			/*!< Number of tiles drawn in the bar */
-#endif
+// Editor
+// For the TileBar
+const int TILE_BAR_HEIGHT		= 64;				/*!< The height of the tile bar */
+const int TILE_BAR_XMARGIN		= 10;				/*!< Margin around the tiles on the x axis */
+const int TILE_BAR_YMARGIN		= 8;				/*!< Margin around the tiles on the y axis */
+const int TILE_NB_DRAWN		= 9;				/*!< Number of tiles drawn in the bar */
 
 #endif

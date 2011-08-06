@@ -1,4 +1,3 @@
-#ifdef EDITOR
 #ifndef __EDITOR_H__
 #define __EDITOR_H__
 
@@ -26,13 +25,16 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include "Game/GameState.h"
+
 #include "NEngine/InputManager.h"
 
-#include "Unit.h"
+#include "Game/GameState/GameObjects/Unit.h"
 
 #include "UI/TileBar.h"
 
-#include "../Types/Vec2.h"
+#include "Types/Size2.h"
+#include "Types/Vec2.h"
 
 namespace NE { class NEngine; }
 namespace NE { class Renderer; }
@@ -43,7 +45,7 @@ class Map;
 class Camera;
 class EditingCursor;
 
-class Editor
+class Editor : public GameState
 {
 private:
 	
@@ -54,6 +56,7 @@ private:
 	TileBar<const Tile*>* pBuildingTB;			/*!< The tile bar for buildings */
 	TileBar<const UnitTemplate*>* pUnitTB;		/*!< The tile bar for units*/
 	TileViewer* pTileViewer;	/*!< The tile viewer */
+	bool isUnitSelected;
 
 public:
 	Editor();
@@ -61,10 +64,10 @@ public:
 
 	bool load(NE::NEngine* pNE);
 	bool loadMap(const Library<Theme>* const pThemes, const std::string& mapName);
-	bool loadMap(const UVec2& mapSize);
+	bool loadMap(const Theme* const pTheme, const USize2& mapSize);
 
 	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons);
+	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 
 	void saveMap(const std::string& fileName);
 
@@ -134,5 +137,4 @@ public:
  * \return true if all goes right
  */
 
-#endif
 #endif

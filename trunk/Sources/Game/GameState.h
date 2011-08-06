@@ -1,3 +1,6 @@
+#ifndef __GAMESTATE_H__
+#define __GAMESTATE_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,38 +25,21 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "SDL_Sprite.h"
+#include "NEngine/InputManager.h"
 
-#include <SDL/SDL.h>
+namespace NE { class NEngine; }
+namespace NE { class Renderer; }
 
-#include "Utils/Logger.h"
-
-NE :: SDL_Sprite :: SDL_Sprite(SDL_Surface* pSprite)
-	:Sprite(),pSurface(pSprite)
+class GameState
 {
-	/*
-	if ( pSprite != NULL )
-	{
-		SDL_Surface* pOptimisedSurface = SDL_DisplayFormat(pSprite);
-		if ( pOptimisedSurface != NULL )
-		{
-			pSurface = pOptimisedSurface;
-		}
-		else
-		{
-			LWarning << "Fail to optimise surface for screen";
-			pSurface = pSprite;
-		}
-	}
-	*/
-}
+private:
 
-NE :: SDL_Sprite :: ~SDL_Sprite(void)
-{
-	SDL_FreeSurface(this->pSurface);
-}
+public:
+	virtual ~GameState() {};
 
-USize2 NE :: SDL_Sprite :: getSize(void)const
-{
-	return USize2(pSurface->w,pSurface->h);
-}
+	virtual bool load(NE::NEngine* pNE)=0;
+	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
+	virtual bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+};
+
+#endif

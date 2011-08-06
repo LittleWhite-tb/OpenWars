@@ -1,3 +1,6 @@
+#ifndef __GAMEOPTION_H__
+#define __GAMEOPTION_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,38 +25,25 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "SDL_Sprite.h"
+#include <string>
 
-#include <SDL/SDL.h>
+#include "Types/Size2.h"
 
-#include "Utils/Logger.h"
-
-NE :: SDL_Sprite :: SDL_Sprite(SDL_Surface* pSprite)
-	:Sprite(),pSurface(pSprite)
+struct GameOption
 {
-	/*
-	if ( pSprite != NULL )
-	{
-		SDL_Surface* pOptimisedSurface = SDL_DisplayFormat(pSprite);
-		if ( pOptimisedSurface != NULL )
-		{
-			pSurface = pOptimisedSurface;
-		}
-		else
-		{
-			LWarning << "Fail to optimise surface for screen";
-			pSurface = pSprite;
-		}
-	}
-	*/
-}
+	USize2 winSize;
+	bool needFullscreen;
 
-NE :: SDL_Sprite :: ~SDL_Sprite(void)
-{
-	SDL_FreeSurface(this->pSurface);
-}
+	std::string loadMapName;
 
-USize2 NE :: SDL_Sprite :: getSize(void)const
-{
-	return USize2(pSurface->w,pSurface->h);
-}
+	bool editorMode;
+	std::string saveMapName;
+	USize2 mapSize;
+
+	std::string themeName;
+	
+
+	GameOption(int argc, char** argv);
+};
+
+#endif

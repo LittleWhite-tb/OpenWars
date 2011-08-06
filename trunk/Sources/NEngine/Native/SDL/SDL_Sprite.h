@@ -45,7 +45,7 @@ namespace NE
         ~SDL_Sprite(void);
         
 	public:
-		SDL_Sprite(SDL_Surface* pSprite):Sprite(),pSurface(pSprite) {}
+		SDL_Sprite(SDL_Surface* pSprite);
 
 		USize2 getSize(void)const;
 	};

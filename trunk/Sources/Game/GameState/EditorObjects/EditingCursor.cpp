@@ -1,4 +1,3 @@
-#ifdef EDITOR
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -28,14 +27,14 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
 
-#include "Game/Map/Map.h"
-#include "Camera.h"
+#include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/Camera.h"
 
 #include "UI/UIItem.h"
 
-#include "../Utils/Logger.h"
+#include "Utils/Logger.h"
 
-#include "../globals.h"
+#include "globals.h"
 
 EditingCursor :: EditingCursor(const Map* const pMap, const UVec2& initialPosition)
 	:Cursor(pMap,initialPosition),isWrong(false)
@@ -69,5 +68,3 @@ bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigne
 		return pCursorSprite->draw(r,screenPosition,time);
 	}
 }
-
-#endif

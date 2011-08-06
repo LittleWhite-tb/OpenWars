@@ -28,6 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <string>
 
+#include "Game/GameState.h"
+
 #include "NEngine/InputManager.h"
 
 #include "Types/Vec2.h"
@@ -46,7 +48,7 @@ struct MenuView;
 class MenuBox;
 class ConstructBox;
 
-class Game
+class Game : public GameState
 {
 	enum GameState
 	{
@@ -80,7 +82,7 @@ public:
 	bool loadMap(const Library<Theme>* const pThemes, const std::string& name);
 	
 	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons);
+	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 };
 
 /*! \class GameEngine GameEngine.h "Game/GameEngine.h"

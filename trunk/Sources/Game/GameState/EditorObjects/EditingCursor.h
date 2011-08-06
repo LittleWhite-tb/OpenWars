@@ -1,4 +1,3 @@
-#ifdef EDITOR
 #ifndef __EDITINGCURSOR_H__
 #define __EDITINGCURSOR_H__
 
@@ -26,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Cursor.h"
+#include "Game/GameState/GameObjects/Cursor.h"
 
 #include <string>
 
@@ -81,5 +80,4 @@ public:
  * \param isWrong true if the cursor has to be wrong
  */
 
-#endif
 #endif

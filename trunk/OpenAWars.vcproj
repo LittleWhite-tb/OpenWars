@@ -671,6 +671,14 @@
 				RelativePath=".\Sources\Game\GameEngine.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Sources\Game\GameState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\GameState.h"
+				>
+			</File>
 			<Filter
 				Name="GameState"
 				>
@@ -856,6 +864,22 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\Sources\ArgumentParser.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources\ArgumentParser.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources\GameOption.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources\GameOption.h"
+			>
+		</File>
 		<File
 			RelativePath=".\Sources\globals.h"
 			>

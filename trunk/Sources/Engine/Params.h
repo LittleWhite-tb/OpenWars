@@ -73,22 +73,19 @@ public:
     template <typename T>
     T getAs(const std::string& name, const T defaultValue)const
     {
-        std::string valueString;
-        try
-        {
-            valueString = this->get(name);
-        }
-        catch (ParameterNotFoundParamsException& )
+		if ( this->exists(name) )
+		{     
+			std::stringstream ss(this->get(name));
+			T value;
+
+			ss >> value;
+
+			return value;
+		}
+        else
         {
             return defaultValue;
         }
-
-        std::stringstream ss(valueString);
-        T value;
-
-        ss >> value;
-
-        return value;
     }
 };
 

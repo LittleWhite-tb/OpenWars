@@ -36,69 +36,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Utils/Logger.h"
 
+#include "GameOption.h"
+
 #include "globals.h"
 
 int main(int argc, char** argv)
 {
-	(void)argc;
-	(void)argv;
-
-	unsigned int i = 1;
-
-	USize2 winSize(480,320);
-	bool needFullscreen=false;
-	std::string loadMapName= MAP_PATH "maw.map";
-
-	// Check the arguments passed
-	while ( i < static_cast<unsigned int>(argc) )
-	{
-		if ( strcmp(argv[i],"--width") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				std::istringstream iss(argv[i+1]);
-				iss >> winSize.width;
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --width!";
-				return -1;
-			}
-		}
-		else if ( strcmp(argv[i],"--height") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				std::istringstream iss(argv[i+1]);
-				iss >> winSize.height;
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --height!";
-				return -1;
-			}
-		}
-		else if ( strcmp(argv[i],"--fullscreen") == 0 )
-		{
-			needFullscreen = true;
-			i++;
-		}
-		else if ( strcmp(argv[i],"--load") == 0 )
-		{
-			if ( i+1 < static_cast<unsigned int>(argc) )
-			{
-				loadMapName = std::string(argv[i+1]);
-				i+=2;
-			}
-			else
-			{
-				LError << "Missing option for --mapName!";
-				return -1;
-			}
-		}
-	}
+	GameOption gameOptions(argc,argv);
 
 	// Starting the native engine
 	NE::NEngine* pNE = new NE::SDL_Engine();
@@ -108,9 +52,9 @@ int main(int argc, char** argv)
 	}
 
 	{
-        if ( pNE->getWindow()->createWindow(winSize,32,needFullscreen,"OpenAWars") )
+        if ( pNE->getWindow()->createWindow(gameOptions.winSize,32,gameOptions.needFullscreen,"OpenAWars") )
         {
-            GameEngine* pGEngine = new GameEngine(pNE);
+            GameEngine* pGEngine = new GameEngine(pNE,&gameOptions);
 			if ( pGEngine == NULL )
 			{
 				LError << "Fail to allocate GameEngine";

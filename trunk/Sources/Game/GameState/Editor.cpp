@@ -1,5 +1,3 @@
-#ifdef EDITOR
-
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -31,13 +29,13 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "NEngine/InputManager.h"
 
-#include "Game/Tile.h"
-#include "Game/UnitTemplate.h"
-#include "Game/Map/Map.h"
-#include "Game/Map/MapLoader.h"
-#include "Game/Map/MapFactory.h"
-#include "Game/Map/MapSaver.h"
-#include "Game/Map/MapDrawer.h"
+#include "Game/GameState/GameObjects/Tile.h"
+#include "Game/GameState/GameObjects/UnitTemplate.h"
+#include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/Map/MapLoader.h"
+#include "Game/GameState/GameObjects/Map/MapFactory.h"
+#include "Game/GameState/GameObjects/Map/MapSaver.h"
+#include "Game/GameState/GameObjects/Map/MapDrawer.h"
 
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
@@ -45,18 +43,18 @@ e-mail: lw.demoscene@gmail.com
 #include "UI/TileBar.h"
 #include "UI/TileViewer.h"
 
-#include "EditingCursor.h"
-#include "Camera.h"
+#include "Game/GameState/EditorObjects/EditingCursor.h"
+#include "Game/GameState/GameObjects/Camera.h"
 
-#include "../Types/Colour.h"
+#include "Types/Colour.h"
 
-#include "../Utils/Logger.h"
+#include "Utils/Logger.h"
 
-#include "../NEngine/Exceptions/ConstructionFailedException.h"
-#include "../NEngine/Exceptions/FileNotFoundException.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
 
 Editor :: Editor()
-:pMap(NULL),pCamera(NULL),pEC(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL)
+:GameState(),pMap(NULL),pCamera(NULL),pEC(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),isUnitSelected(false)
 {
 	LDebug << "EditorEngine constructed";
 }
@@ -74,7 +72,7 @@ Editor :: ~Editor()
 	LDebug << "EditorEngine destructed";
 }
 
-bool EditorEngine :: load(NE::NEngine* pNE)
+bool Editor :: load(NE::NEngine* pNE)
 {
 	pCamera = new Camera();
 	pEC = new EditingCursor(pMap,UVec2(5,5));
@@ -143,143 +141,127 @@ bool Editor :: loadMap(const Library<Theme>* const pThemes, const std::string& m
 	{
 		return false;
 	}
+	
+	return true;
 }
 
-bool Editor :: loadMap(const UVec2& mapSize)
+bool Editor :: loadMap(const Theme* const pTheme, const USize2& mapSize)
 {
 	delete pMap;
 
-	pMap = MapFactory::createEmptyMap(themeLibrary.get("classic"),mapSize);
+	pMap = MapFactory::createEmptyMap(pTheme,mapSize);
 	if ( pMap == NULL )
 	{
 		return false;
-	}
-}
-
-bool EditorEngine :: draw(NE::Renderer* pRenderer, unsigned int time)
-{
-	// Drawing part
-	pNE->getRenderer()->clearScreen(Colour(0,0,0));
-
-	MapDrawer::draw(*pNE->getRenderer(),pMap,*pCam,pVT->getTime());
-	pEC->draw(*pNE->getRenderer(),*pCam,pVT->getTime());
-
-	if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
-	{
-		pTileViewer->draw(*pNE->getRenderer(),pVT->getTime());
-	}
-
-	pUnitTB->draw(*pNE->getRenderer(),0);
-	pBuildingTB->draw(*pNE->getRenderer(),0);
-
-	pNE->getRenderer()->updateWindow();
-}
-
-bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons)
-{
-	bool isUnit = false;
-
-	while ( pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == false )
-	{
-		// Update part
-		if ( pVT->canUpdate() )
-		{
-            NE::InputManager::ArrowsDirection direction = pNE->getInputManager()->getDirectionsPressed();
-            NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();
-            
-			pCam->update(*pEC,*pMap);
-			pNE->getInputManager()->update();
-
-			if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A )
-			{
-				pBuildingTB->open();
-				if ( pUnitTB->isOpened() )
-				{
-					pUnitTB->close();
-				}
-			}
-
-			if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-			{
-				pUnitTB->open();
-				if ( pBuildingTB->isOpened() )
-				{
-					pBuildingTB->close();
-				}
-			}
-
-			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pBuildingTB->isOpened()  )
-			{
-				pBuildingTB->close();
-				isUnit = false;
-				pTileViewer->setTile(pBuildingTB->getSelected());
-			}
-			
-			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pUnitTB->isOpened()  )
-			{
-				pUnitTB->close();
-				isUnit = true;
-				pTileViewer->setTile(pUnitTB->getSelected());
-			}
-
-			if ( pBuildingTB->isOpened() )
-			{
-				pBuildingTB->move(direction);
-			}
-			else if ( pUnitTB->isOpened() )
-			{
-				pUnitTB->move(direction);
-			}
-			else if ( pUnitTB->isClosed() && pBuildingTB->isClosed() )
-			{
-				pEC->move(direction);
-				
-				if ( isUnit )
-				{
-					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-					{
-						pMap->setUnit(pEC->getPosition(),pUnitTB->getSelected()->getInternalName(),0);
-					}
-
-					pEC->setIsWrong(!pMap->Map::testUnit(pEC->getPosition(),pUnitTB->getSelected()));
-				}
-				else
-				{
-					if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-					{
-						pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected()->getInternalName());
-					}
-					pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pBuildingTB->getSelected()));
-				}
-
-				// Check if we have to move the TileViewer
-				if ( pEC->getPosition().y >= 6 )
-				{
-					if ( pEC->getPosition().x <= 2  )
-					{
-						pTileViewer->putOnRight();
-					}
-					else if ( pEC->getPosition().x >= 13 )
-					{
-						pTileViewer->putOnLeft();
-					}
-				}
-			}
-
-			
-			pBuildingTB->update(pVT->getTime());
-			pUnitTB->update(pVT->getTime());
-		}
-
-		pVT->waitNextFrame();
 	}
 
 	return true;
 }
 
-void EditorEngine :: saveMap(const std::string& fileName)
+bool Editor :: draw(NE::Renderer* pRenderer, unsigned int time)
+{
+	// Drawing part
+	MapDrawer::draw(*pRenderer,pMap,*pCamera,time);
+	pEC->draw(*pRenderer,*pCamera,time);
+
+	if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
+	{
+		pTileViewer->draw(*pRenderer,time);
+	}
+
+	pUnitTB->draw(*pRenderer,0);
+	pBuildingTB->draw(*pRenderer,0);
+
+	return true;
+}
+
+bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+{
+	pCamera->update(*pEC,*pMap);
+
+	if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A )
+	{
+		pBuildingTB->open();
+		if ( pUnitTB->isOpened() )
+		{
+			pUnitTB->close();
+		}
+	}
+
+	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+	{
+		pUnitTB->open();
+		if ( pBuildingTB->isOpened() )
+		{
+			pBuildingTB->close();
+		}
+	}
+
+	if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pBuildingTB->isOpened()  )
+	{
+		pBuildingTB->close();
+		isUnitSelected = false;
+		pTileViewer->setTile(pBuildingTB->getSelected());
+	}
+	
+	if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pUnitTB->isOpened()  )
+	{
+		pUnitTB->close();
+		isUnitSelected = true;
+		pTileViewer->setTile(pUnitTB->getSelected());
+	}
+
+	if ( pBuildingTB->isOpened() )
+	{
+		pBuildingTB->move(direction);
+	}
+	else if ( pUnitTB->isOpened() )
+	{
+		pUnitTB->move(direction);
+	}
+	else if ( pUnitTB->isClosed() && pBuildingTB->isClosed() )
+	{
+		pEC->move(direction);
+		
+		if ( isUnitSelected )
+		{
+			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+			{
+				pMap->setUnit(pEC->getPosition(),pUnitTB->getSelected()->getInternalName(),0);
+			}
+
+			pEC->setIsWrong(!pMap->Map::testUnit(pEC->getPosition(),pUnitTB->getSelected()));
+		}
+		else
+		{
+			if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+			{
+				pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected()->getInternalName());
+			}
+			pEC->setIsWrong(!pMap->testTile(pEC->getPosition(),pBuildingTB->getSelected()));
+		}
+
+		// Check if we have to move the TileViewer
+		if ( pEC->getPosition().y >= 6 )
+		{
+			if ( pEC->getPosition().x <= 2  )
+			{
+				pTileViewer->putOnRight();
+			}
+			else if ( pEC->getPosition().x >= 13 )
+			{
+				pTileViewer->putOnLeft();
+			}
+		}
+	}
+
+	pBuildingTB->update(time);
+	pUnitTB->update(time);
+
+	return true;
+}
+
+void Editor :: saveMap(const std::string& fileName)
 {
 	MapSaver::saveMapToFile(fileName,*pMap);
 }
-
-#endif

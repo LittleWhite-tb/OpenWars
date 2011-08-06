@@ -1,4 +1,3 @@
-#ifdef EDITOR
 #ifndef __TILEBAR_H__
 #define __TILEBAR_H__
 
@@ -226,4 +225,3 @@ public:
  */
 
 #endif
-#endif // EDITOR

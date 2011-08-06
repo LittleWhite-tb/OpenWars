@@ -1,4 +1,3 @@
-#ifdef EDITOR
 #ifndef __TILEVIEWER_H__
 #define __TILEVIEWER_H__
 
@@ -26,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Game/Tile.h"
+#include "Game/GameState/GameObjects/Tile.h"
 
 #include "Types/Size2.h"
 #include "Types/Vec2.h"
@@ -115,5 +114,4 @@ public:
  * \return true if all goes right
  */
 
-#endif
 #endif

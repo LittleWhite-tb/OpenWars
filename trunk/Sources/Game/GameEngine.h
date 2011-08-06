@@ -32,24 +32,18 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class NEngine; }
 
-#ifdef EDITOR
-	class Editor;
-#else
-	class Game;
-#endif
+struct GameOption;
+class GameState;
 
 class GameEngine
 {
 private:
 	NE::NEngine* pNE;
+	const GameOption* pGameOptions;
 
 	Library<Theme> themeLibrary;				/*!< Sprites Theme */
 
-#ifdef EDITOR
-	Editor* pGame;
-#else
-	Game* pGame;
-#endif
+	GameState* pGame;
 
 	// Time management
     unsigned fpsNumber;           /*!< the number of fps (update each second)*/
@@ -71,7 +65,7 @@ protected:
 	bool update();
 
 public:
-	GameEngine(NE::NEngine* pNE);
+	GameEngine(NE::NEngine* pNE, const GameOption* pGameOptions);
 	~GameEngine();
 
 	bool init(void);

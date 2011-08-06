@@ -30,7 +30,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
 
-#include "Game/Tile.h"
+#include "Game/GameState/GameObjects/Tile.h"
 
 #include "Utils/Logger.h"
 

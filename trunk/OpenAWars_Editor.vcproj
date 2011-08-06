@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib SDL_ttf.lib"
+				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib SDL_ttf.lib libxml2.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -287,11 +287,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib SDL_ttf.lib"
+				AdditionalDependencies="SDLmain.lib SDL.lib SDL_image.lib libxml2.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -609,6 +609,14 @@
 				RelativePath=".\Sources\Game\GameEngine.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Sources\Game\GameState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Game\GameState.h"
+				>
+			</File>
 			<Filter
 				Name="GameState"
 				>
@@ -862,6 +870,14 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\Sources\ArgumentParser.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources\ArgumentParser.h"
+			>
+		</File>
 		<File
 			RelativePath=".\Sources\globals.h"
 			>
