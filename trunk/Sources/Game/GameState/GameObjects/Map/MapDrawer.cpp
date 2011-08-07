@@ -37,16 +37,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "globals.h"
 
-bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
+bool MapDrawer :: drawTerrain(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
 {
-	assert(pMap);
-
 	UVec2 cameraPosition = c.getPosition();
 	IVec2 tilePos(0,0);
 	bool bError = true;
-
 	const std::vector < std::vector < const Tile* > >& tilesMap = pMap->constTilesMap();
-	const std::vector < std::vector < Unit > >& unitsMap = pMap->constUnitsMap();
 
 	// The camera is an offset of the Map drawing
 	// For each lines
@@ -70,7 +66,36 @@ bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, co
 
 			// Draw terrain
 			bError &= tilesMap[y][x]->getSprite()->draw(r,tilePos,time);
+			
+			// Remove offset ( to not affect other sprite )
+            tilePos.y += yOffset;
+  
+            // Move on the right
+            tilePos.x += tilesMap[y][x]->getSprite()->getSize().width;
+        }
 
+        // To put 0 here, can be a bit dangerous
+        tilePos.y += TILE_DEFAULT_HEIGHT;
+    }
+
+	return bError;
+}
+
+bool MapDrawer :: drawUnits(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
+{
+	UVec2 cameraPosition = c.getPosition();
+	IVec2 tilePos(0,0);
+	bool bError = true;
+	const std::vector < std::vector < Unit > >& unitsMap = pMap->constUnitsMap();
+
+	// The camera is an offset of the Map drawing
+	// For each lines
+	for ( unsigned int y = cameraPosition.y ; y < MAP_MIN_HEIGHT+cameraPosition.y ; y++ )
+	{
+		tilePos.x = 0;//mapOffset.width;
+		// For each columns
+		for ( unsigned int x = cameraPosition.x ; x < MAP_MIN_WIDTH+cameraPosition.x ; x++ )
+		{
 			// Draw unit
 			if ( unitsMap[y][x].state != US_NO_UNIT )	// If we have a unit
 			{
@@ -83,17 +108,26 @@ bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, co
 					bError &= unitsMap[y][x].getSprite()->draw(r,tilePos,Colour(128,128,128,255),0);
                 }
 			}
-
-			// Remove offset ( to not affect other sprite )
-            tilePos.y += yOffset;
-            
+  
             // Move on the right
-            tilePos.x += tilesMap[y][x]->getSprite()->getSize().width;
+            tilePos.x += TILE_DEFAULT_WIDTH;
         }
 
         // To put 0 here, can be a bit dangerous
         tilePos.y += TILE_DEFAULT_HEIGHT;
     }
+
+	return bError;
+}
+
+bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
+{
+	assert(pMap);
+
+	bool bError = true;
+	
+	bError &= MapDrawer::drawTerrain(r,pMap,c,time);
+	bError &= MapDrawer::drawUnits(r,pMap,c,time);
 
     return bError;
 }

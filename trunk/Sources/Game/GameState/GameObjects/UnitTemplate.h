@@ -83,7 +83,7 @@ public:
     const Params* getParams()const { return pParams; }
 };
 
-/*! \class UnitTemplate UnitTemplate.h "Game/UnitTemplate.h"
+/*! \class UnitTemplate UnitTemplate.h "Game/GameState/GameObjects/UnitTemplate.h"
  *  \brief UnitTemplate keeping all the information loaded for units
  */
 
@@ -143,7 +143,7 @@ public:
  *  \return
  */
 
-/*! \fn const Params* const UnitTemplate :: getParams()
+/*! \fn const Params* UnitTemplate :: getParams()const
  *  \return
  */
 

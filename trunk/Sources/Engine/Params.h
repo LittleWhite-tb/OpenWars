@@ -126,6 +126,13 @@ public:
  *  ParameterNotFoundParamsException is thrown if the name is not found
  */
 
+/*! \fn char Params :: getAs<char>(const std::string& name)const
+ *  \brief Gets the value named name
+ *  \param name
+ *  \return
+ *  ParameterNotFoundParamsException is thrown if the name is not found
+ */
+
 /*! \fn T Params :: getAs(const std::string& name, const T defaultValue)const
  *  \brief Gets the value named name
  *  \param name

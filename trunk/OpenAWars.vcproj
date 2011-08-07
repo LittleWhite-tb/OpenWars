@@ -368,6 +368,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Sources\Engine\ThemeLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\Engine\ThemeLoader.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Sources\Engine\VTime.cpp"
 				>
 			</File>

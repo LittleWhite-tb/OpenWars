@@ -48,7 +48,7 @@ class MapIntegrityChecker;
 class Map
 {
 private:
-    MapIntegrityChecker* pIntegrityChecker;
+    MapIntegrityChecker* pIntegrityChecker;									/*!< pointer on the checker to use to keep integrity of the map */
 
     void checkCoherency(const UVec2& position, const Tile* pTileToPut);
 
@@ -59,7 +59,7 @@ private:
 
 protected:
 
-    const Theme* pTheme;
+    const Theme* pTheme;		/*!< Pointer on the theme to use */
 
     unsigned int width;         /*!< Width (in tile) of the map */
     unsigned int height;        /*!< Height (in tile) of the map */
@@ -96,108 +96,81 @@ public:
 
     friend class MapLoader;
     friend class MapFactory;
-
-/*
-    template <typename T>
-    const T& get(const UVec2& position)const
-    {
-        if ( position.x < this->width && position.y < this->height )
-        {
-            // The [] operator is not const...
-            return pTileMap[position.y][position.x];
-        }
-        else
-        {
-            return Tile();
-        }
-    }
-*/
-
-/*
-    TileType getTileType(const UVec2& position)const;
-    UnitType getUnitType(const UVec2& position)const;
-
-    UnitTemplate getUnitTemplate(const UVec2& position)const;
-    UnitTemplate getUnitTemplate(const UnitType ut)const;
-
-    AnimatedSprite* getAssociatedSprite(const TileType type);
-    AnimatedSprite* getAssociatedSprite(const UnitType type);
-
-    bool testTile(const UVec2& position, const UnitType unitType)const;
-*/
 };
 
-/*! \class Map Map.h "Game/Map.h"
+/*! \class Map Map.h "Game/GameState/GameObjects/Map/Map.h"
  *  \brief Map data management class
  */
 
-/*! \fn bool Map::loadTileSet(NE::SpriteLoader* const pSL)
- * \brief Load the tiles that the map will use
- * Will use a tile set file to know the settings of each tiles
- * \param pSL the SpriteLoader to load the sprites.
- * \return true if all goes right
- */
-
-/*! \fn bool Map::loadUnitSet(NE::SpriteLoader* const pSL)
- * \brief Load the units that the map will use
- * Will use a unit set file to know the settings of each units
- * \param pSL the SpriteLoader to load the sprites.
- * \return true if all goes right
- */
-
-/*! \fn bool Map::loadGraphics(NE::SpriteLoader* const pSL)
- * \brief Load the tiles that the map will use
- * Will load all the tiles available for the theme passed by parameter in a std::map in view to associate the TileType to an AnimatedSprite pointer.
- * \param pSL the SpriteLoader to load the sprites.
- * \return true if all goes right
- */
-
-/*! \fn bool Map::parser(NE::SpriteLoader* const pSL, const std::string& fileName)
- * \brief Map file parser
- * Will parse the information contained in the map. When possible, will check if the information are correct
- * \param pSL the SpriteLoader to load the sprites used by the map
- * \param fileName the name of the file to load
- * \return true if all goes right
- */
-
-/*! \fn bool Map::drawTerrain(const NE::Renderer& r, const Camera& c, const unsigned int time)
- * \brief Draw the terrain map
- * \param r the NE::Renderer to use to draw the Map
- * \param c The Camera (used to draw the correct part of the Map)
- * \param time the actual time (for animation)
- * \return true if all goes right
- */
-
-/*! \fn Map::Map(NE::SpriteLoader* const pSL, const std::string& fileName)
- * Will call the parser
- * If you need to check if the map is correct (and you should), please use isValidMap()
- * \param pSL the SpriteLoader to load the sprites used by the map
- * \param fileName the name of the file to load
+/*! \fn Map::Map(const Theme* const pTheme)
+ *	\param pTheme a pointer to the Theme to use
  */
 
 /*! \fn virtual Map::~Map(void)
  */
 
-/*! \fn virtual bool Map::draw(const NE::Renderer& r, const Camera& c, const unsigned int time)=0
- * \brief Draw the map
- * \param r the NE::Renderer to use to draw the Map
- * \param c The Camera (used to draw the correct part of the Map)
- * \param time the actual time (for animation)
- * \return true if all goes right
+/*!	\fn const std::vector < std::vector < const Tile* > >& Map :: constTilesMap()const
+ *	\brief Get the tiles arrays of the Map
+ *	\return the tiles of the Map (as constant data)
  */
 
-/*! \fn virtual bool Map::setTile(const UVec2& position, const UnitType unitType)=0
- * \brief Set the Unit at the position
- * Will overwrite the Unit previously contained on the map by the new one.
- * The new Unit is selected following the internal logic of the editor.
- * \param position the position where to change the tile
- * \param unitType the type of the new unit
- * \return true if all goes right
+/*!	\fn const std::vector < std::vector < Unit > >& Map :: constUnitsMap()const
+ *	\brief Get the units arrays of the Map
+ *	\return the units of the Map (as constant data)
  */
 
-/*! \fn bool Map::isValidMap(void)const
- * \brief Return if the map is valid
- * \return true if the map is valid
+/*! \fn const Tile* Map :: getTile(const UVec2& position)const
+ *	\brief Get the tile at this position
+ *	\param position the position where to get the tile
+ *	\return a pointer to the Tile at this position
+ */
+
+/*! \fn bool Map :: setTile(const UVec2& position, const std::string& tileName);
+ *	\brief Set a tile in the map
+ *	The unit is described by an internal name
+ *	\param position the position where to put the unit
+ *	\param tileName the name in the theme of the tile to put
+ *	\return true if all goes right
+ */
+
+/*! \fn const Unit* Map :: getUnit(const UVec2& position);
+ *	\brief Get the unit at this position
+ *	\param position the position where to get the unit
+ *	\return a pointer to the Unit at this position
+ */
+
+/*! \fn bool Map :: setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
+ *	\brief Set a unit in the map
+ *	The unit is described by an internal name and his faction
+ *	\param position the position where to put the unit
+ *	\param unitName the name in the theme of the unit to put
+ *	\param faction the faction of the unit
+ *	\return true if all goes right
+ */
+
+/*! \fn bool Map::testTile(const UVec2& position, const Tile* pTile)
+ * \brief Test if this unit type can be put at the position
+ * \param position the position where the tile would be put
+ * \param pTile a pointer to the Tile that the user wants to put
+ * \return true if we can set the tile
+ */
+
+/*! \fn bool Map::testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)
+ * \brief Test if this unit type can be put at the position
+ * \param position the position where the tile would be put
+ * \param pUnitTemplate a pointer to the Unit that the user wants to put
+ * \return true if we can set the unit
+ */
+
+/*! \fn bool Map::move(const UVec2& origPosition, const UVec2& destPosition)
+ *	\brief Move a unit on the map
+ *	\param origPosition the position where the unit actually is
+ *	\param destPosition the position where to put the unit
+ *	\return true if the movement is correct
+ */
+
+/*! \fn void Map::enableUnits(void)
+ *	\brief enable all the units present on the map
  */
 
 /*! \fn unsigned int Map::getWidth(void)const
@@ -210,65 +183,15 @@ public:
  * \return height of the map
  */
 
-/*! \fn TileType Map::getTileType(const UVec2& position)const
- * \brief Return the type corresponding to the position
- * The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
- * \param position the position of the Tile to get
- * \return the TileType corresponding to the input position ... TT_Invalid if the position is not valid
+/*! \fn const Theme* Map::getTheme(void)const
+ *	\brief Get the Theme used by the Map
+ *	\return a pointer to the Theme
  */
 
-/*! \fn Tile Map::getTile(const UVec2& position)const
- * \brief Return the tile corresponding to the position
- * The function will check if the position is outside the map. If it is, the Tile returned has for type TT_Invalid
- * \param position the position of the Tile to get
- * \return the Tile corresponding to the input position
- */
-
-/*! \fn Tile Map::getTile(const TileType& tt)const
- * \brief Return the tile corresponding to the TileType
- * \param tt the TileType
- * \return the Tile corresponding to the input TileType
- */
-
-/*! \fn UnitType Map::getUnitType(const UVec2& position)const
- * \brief Return the UnitType corresponding to the position
- * The function will check if the position is outside the map. If it is, NULL is returned
- * \param position the position of the UnitType to get
- * \return the Unit corresponding to the input position or UT_NO_UNIT
- */
-
-/*! \fn UnitTemplate Map::getUnitTemplate(const UVec2& position)const
- * \brief Return the UnitTemplate corresponding to the position
- * The function will check if the position is outside the map. If it is, NULL is returned
- * \param position the position of the Unit to get
- * \return the UnitTemplate corresponding to the input position or NULL
- */
-
-/*! \fn UnitTemplate Map::getUnitTemplate(const UnitType ut)const
- * \brief Return the UnitTemplate corresponding to the UnitType
- * \param ut the UnitType of the Unit to return the position of the Unit to get
- * \return the UnitTemplate corresponding to the input UnitType
- */
-
-/*! \fn AnimatedSprite* Map::getAssociatedSprite(const TileType type)
- * \brief Return the sprite corresponding to the type
- * If the type is not found in the map library, return NULL
- * \param type the type associated to the sprite to return
- * \return the AnimatedSprite pointer associated to the type
- */
-
-/*! \fn AnimatedSprite* Map::getAssociatedSprite(const UnitType type)
- * \brief Return the sprite corresponding to the type
- * If the type is not found in the map library, return NULL
- * \param type the type associated to the sprite to return
- * \return the AnimatedSprite pointer associated to the type
- */
-
-/*! \fn bool Map::testTile(const UVec2& position, const UnitType unitType)const
- * \brief Test if this unit type can be put at the position
- * \param position the position where the tile would be put
- * \param unitType the type of the unit that the user wants to put
- * \return true if we can set the unit
+/*! \fn bool Map::isValidPosition(const UVec2& position)const
+ *	\brief Checks if the position is valid for this map
+ *	\param position the position to check
+ *	\return true if the position is valid (refering to a case)
  */
 
 #endif

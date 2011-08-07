@@ -70,7 +70,7 @@ public:
  * Identifiers to know which state the unit is
  */
 
-/*! \class Unit Unit.h "Game/Unit.h"
+/*! \class Unit Unit.h "Game/GameState/GameObjects/Unit.h"
  *  \brief unit on the map controlled by the player
  */
 

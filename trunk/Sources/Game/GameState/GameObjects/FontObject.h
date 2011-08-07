@@ -54,7 +54,7 @@ public:
     const Params* getParams()const { return pParams; }
 };
 
-/*! \class FontObject FontObject.h "Game/FontObject.h"
+/*! \class FontObject FontObject.h "Game/GameState/GameObjects/FontObject.h"
  *  \brief Font used by the Theme
  */
 

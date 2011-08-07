@@ -47,4 +47,15 @@ public:
     bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
 };
 
+/*! \class ClassicMapIntegrityChecker ClassicMapIntegrityChecker.h "Game/GameState/GameObjects/Map/ClassicMapIntegrityChecker.h"
+ *  \brief Classic integrity checker (to be used only with the classic theme)
+ */
+
+/*!	\fn ClassicMapIntegrityChecker :: ClassicMapIntegrityChecker(const Map* pMap)
+ *	\param pMap pointer on the Map to check
+ */
+
+/*!	\fn ClassicMapIntegrityChecker :: ~ClassicMapIntegrityChecker()
+ */
+
 #endif

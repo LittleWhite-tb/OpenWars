@@ -68,7 +68,7 @@ public:
 	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
-/*! \class Cursor Cursor.h "Game/Cursor.h"
+/*! \class Cursor Cursor.h "Game/GameState/GameObjects/Cursor.h"
  *  \brief Manage the cursor on the Map
  *
  * The cursor is a sprite, not related to the mouse, to allow the user to select unit or to move the Camera
@@ -79,10 +79,8 @@ public:
  * - Draw
  */
 
-/*! \fn Cursor::Cursor(NE::SpriteLoader* const pSL, const std::string& fileName, const Map* const pMap, const UVec2& initialPosition)
- * Load the sprite to use for the Cursor and place the cursor to a initial position.
- * \param pSL The SpriteLoader to use to load the sprite for the cursor
- * \param fileName The name of the file to load
+/*! \fn Cursor::Cursor(const Map* const pMap, const UVec2& initialPosition)
+ * Place the cursor to a initial position.
  * \param pMap A pointer on the Map to use
  * \param initialPosition The initial position of the cursor
  */

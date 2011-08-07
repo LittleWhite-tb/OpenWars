@@ -41,9 +41,9 @@ class MapIntegrityChecker
 private:
 
 protected:
-    const Map* pMap;
+    const Map* pMap;									/*!< Pointer to the map to check */
 
-    std::map<std::string, checker> coherencyCheckers;
+    std::map<std::string, checker> coherencyCheckers;	/*!< Dictionnary of checkers */
 
 public:
     MapIntegrityChecker(const Map* pMap);
@@ -57,7 +57,7 @@ public:
     virtual bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)=0;
 };
 
-/*! \class MapSaver MapSaver.h "Game/Map/MapSaver.h"
+/*! \class MapSaver MapSaver.h "Game/GameState/GameObjects/Map/MapSaver.h"
  *  \brief base class for Map integrity checking
  */
 

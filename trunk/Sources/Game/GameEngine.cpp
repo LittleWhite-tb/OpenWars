@@ -31,6 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "NEngine/Time.h"
 
+#include "Engine/ThemeLoader.h"
 #include "Engine/Theme.h"
 
 #include "Game/GameState/Game.h"
@@ -56,6 +57,8 @@ GameEngine :: GameEngine(NE::NEngine* pNE, const GameOption* pGameOptions)
 	
 GameEngine :: ~GameEngine()
 {
+	delete pGame;
+
 	LDebug << "GameEngine stopped";
 }
 
@@ -79,51 +82,11 @@ bool GameEngine :: init(void)
 	return true;
 }
 
-void GameEngine :: loadTheme(const std::string& themeName)
-{
-    Theme* pTheme = new Theme(themeName);
-    if ( pTheme == NULL )
-    {
-        LError << "Fail to allocate Theme";
-        throw std::bad_alloc();
-    }
-
-    if ( pTheme->load(pNE->getSpriteLoader()) == false )
-    {
-        throw EngineException("Failed to load the theme (" + themeName+ ")");
-    }
-    else
-    {
-        themeLibrary.add(pTheme->getName(),pTheme);
-    }
-}
-
-void GameEngine :: loadThemeList(const std::string& listPath)
-{
-    try
-    {
-        std::list<std::string> paths;
-        XMLListReader xmlReader = XMLListReader(listPath);
-
-        xmlReader.parse("theme",&paths);
-
-        for ( std::list<std::string>::const_iterator itPath = paths.begin() ; itPath != paths.end() ; ++itPath )
-        {
-            loadTheme(*itPath);
-        }
-    }
-    catch ( XMLParsingFailedException& xmle )
-    {
-        (void)xmle;
-        throw EngineException("Fail to open list of theme paths '" + listPath + "'");
-    }
-}
-
 bool GameEngine :: load(void)
 {
 	bool bResult = true;
 
-	this->loadThemeList(THEME_PATH + "themeList.xml");
+	ThemeLoader::loadThemeList(pNE->getSpriteLoader(),THEME_PATH + "themeList.xml",&themeLibrary);
 	
 	if ( pGameOptions->editorMode )
 	{
@@ -171,11 +134,16 @@ void GameEngine :: run(void)
     {
         bResult &= this->render();
         // This solve a problem in Windows, because the events have to be updated in the same thread than the video.
-		bResult &= this->update();
+		unsigned int actualTime = pNE->getTime()->getTime();
+		if ( actualTime - lastUpdateTime > 75 )
+		{
+			bResult &= this->update();
+			lastUpdateTime = pNE->getTime()->getTime();
+		}
 
 		// FPS management
         fpsCounter++;
-		if ( pNE->getTime()->getTime() - fpsLastUpdateTime > 1000 ) // After one second
+		if ( actualTime - fpsLastUpdateTime > 1000 ) // After one second
         {
             fpsNumber= fpsCounter;
             fpsCounter = 0;
@@ -183,7 +151,11 @@ void GameEngine :: run(void)
 
             LDebug << "FPS: " << fpsNumber;
         }
-
-        lastUpdateTime = pNE->getTime()->getTime();
     }
+
+	// If we are in editor, we save the map
+	if ( pGameOptions->editorMode )
+	{
+		dynamic_cast<Editor*>(pGame)->saveMap(pGameOptions->saveMapName);
+	}
 }

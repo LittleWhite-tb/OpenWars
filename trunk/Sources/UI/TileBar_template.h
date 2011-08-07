@@ -302,7 +302,7 @@ void TileBar<T> :: update(const unsigned int time)
 }
 
 template <typename T>
-T TileBar<T> :: getSelected(void)
+T TileBar<T> :: getSelected(void)const
 {
     int indexX = currentX-1;
     if ( indexX < 0 )

@@ -84,16 +84,20 @@ public:
  * The background is constructed on the fly, so it needs special precaution.
  */
 
-/*! \fn MenuBox::MenuBox(NE::SpriteLoader* const pSL, NE::SpriteFactory* const pSF, const std::string& cursorFileName, const std::string& fontFileName, std::vector<MenuView*> entries, const USize2& winSize)
- * \param pSL The SpriteLoader to load the sprites
+/*! \fn MenuBox::MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize)
  * \param pSF The SpriteFactory to load the sprites
- * \param cursorFileName the file to load for the cursor
- * \param fontFileName the font to load for the texts
+ *	\param pTheme a pointer to the Theme to use
  * \param winSize the size of the window (used as reference to place the MenuBox)
- * \param entries the entries to display in the UI
  */
 
 /*! \fn MenuBox::~MenuBox(void)
+ */
+
+/*!	\fn void MenuBox::add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName)
+ *	\brief add an entry in the menu
+ *	\param actionName the name of the action
+ *	\param pSprite a pointer to the sprite to display with this entry
+ *	\param displayName the name to display
  */
 
 /*! \fn bool MenuBox::draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
@@ -110,30 +114,21 @@ public:
  * \param kd the key direction pressed
  */
 
-/*! \fn MenuEntry MenuBox::getActualEntry(void)
- * \brief Get the actual element selected
- * \return The MenuEntry of the element currently selected
+/*! \fn const std::string& MenuBox::getSelectedActionName(void)
+ * \brief Get the actually selected action name
+ * \return The action name actually selected
  */
 
-/*! \fn void MenuBox::setMenus(std::vector<MenuView*> newEntries)
- * \brief Change the menus in the box
- * \param newEntries the new entries to show
- */
-
-/*! \struct MenuView MenuBox.h "UI/MenuBox.h"
- *  \brief MenuView struct
+/*! \struct MenuBox::MenuItem MenuBox.h "UI/MenuBox.h"
+ *  \brief MenuItem struct
  *
  * Used to give a structure usable in the MenuBox to contain an entry
  */
 
-/*! \fn MenuView::MenuView(const std::string& name, const MenuEntry entry, AnimatedSprite* const pASprite)
- * Note: The AnimatedSprite will be deleted by the parent UI
- * \param name the name to display for this entry
- * \param entry the id of the entry
- * \param pASprite the sprite to draw for this entry
- */
-
-/*! \fn MenuView::~MenuView()
+/*! \fn MenuBox::MenuItem::MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)
+ * \param actionName the name of the action
+ * \param pASprite a pointer to the sprite to display
+ * \param displayName the name to display
  */
 
 #endif

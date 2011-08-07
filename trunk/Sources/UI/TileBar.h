@@ -110,24 +110,10 @@ public:
     bool isOpened(void)const { if ( state != TBS_Closed && state != TBS_Closing ) return true; else return false; }
     bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }
 
-    T getSelected(void);
+    T getSelected(void)const;
 };
 
 #include "TileBar_template.h"
-
-/*! \fn View::View(AnimatedSprite* pASprite, const int positionX)
- * Will fill the class with the params
- * \param pASprite the AnimatedSprite to dislay
- * \param positionX the position in the TileBar
- */
-
-/*! \fn virtual View::~View()
- */
-
-/*! \fn AnimatedSprite* View::getSprite(void)
- * \brief Get the sprite to display
- * \return the sprite to display
- */
 
 /*! \class TileBar TileBar.h "UI/TileBar.h"
  *  \brief Display a bar with a list of sprites
@@ -222,6 +208,11 @@ public:
 /*! \fn bool TileBar::isClosed(void)const
  * \brief Get if the Bar is actually closed
  * \return true if the bar is closed
+ */
+
+/*!	\fn T TileBar::getSelected(void)const
+ *	\brief Get the currently selected element
+ *	\return the currently selected element
  */
 
 #endif

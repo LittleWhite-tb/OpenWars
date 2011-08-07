@@ -52,17 +52,14 @@ public:
 	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
-/*! \class EditingCursor EditingCursor.h "Game/EditingCursor.h"
+/*! \class EditingCursor EditingCursor.h "Game/GameState/EditorObjects/EditingCursor.h"
  *  \brief Manage the EditingCursor on the Map
  *
  * The EditingCursor implements the feature to change the sprite to draw when isWrong is true
  * In this state the user will know that he can't put the tile on the map
  */
 
-/*! \fn EditingCursor::EditingCursor(NE::SpriteLoader* const pSL, const std::string& fileNameCursor, const std::string& fileNameWrongCursor, const Map* const pMap, const UVec2& initialPosition)
- * \param pSL The SpriteLoader to use to load the sprites
- * \param fileNameCursor the name of the file to load for the cursor sprite (normal mode)
- * \param fileNameWrongCursor the name of the file to load for the wrong cursor sprite
+/*! \fn EditingCursor::EditingCursor(const Map* const pMap, const UVec2& initialPosition)
  * \param pMap A pointer on the Map to use
  * \param initialPosition The initial position of the cursor
  */

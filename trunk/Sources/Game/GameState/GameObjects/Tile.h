@@ -83,7 +83,7 @@ public:
  * Identifiers to know which Tile it is
  */
 
-/*! \class Tile Tile.h "Game/Tile.h"
+/*! \class Tile Tile.h "Game/GameState/GameObjects/Tile.h"
  *  \brief Tile information
  */
 

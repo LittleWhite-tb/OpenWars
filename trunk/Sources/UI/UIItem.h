@@ -53,7 +53,7 @@ public:
 
     AnimatedSprite* getSprite()const { return pSprite; }
 
-    const Params* getParams() { return pParams; }
+    const Params* getParams()const { return pParams; }
 };
 
 /*! \class UIItem UIItem.h "Game/UIItem.h"

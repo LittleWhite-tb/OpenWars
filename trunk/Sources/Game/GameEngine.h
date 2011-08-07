@@ -55,10 +55,6 @@ private:
 
     bool bIsRunning;               /*!< if false, the game loop stops */
 
-
-	void loadTheme(const std::string& themeName);
-	void loadThemeList(const std::string& listPath);
-
 protected:
 
 	bool render();
@@ -91,5 +87,60 @@ public:
 		return message.c_str();
 	}
 };
+
+/*! \class GameEngine GameEngine.h "Game/GameEngine.h"
+ *  \brief The game engine, managing the state, the library of themes and the main loop
+ */
+
+/*! \fn GameEngine :: GameEngine(NE::NEngine* pNE, const GameOption* pGameOptions)
+ *	\param pNE a pointer to the NEngine
+ *	\param pGameOptions a pointer to the options for the game
+ */
+
+/*!	\fn GameEngine :: ~GameEngine()
+ */
+
+/*!	\fn bool GameEngine :: render()
+ *	\brief Display the game
+ *	\return true if all goes right
+ */
+
+/*!	\fn bool GameEngine :: update()
+ *	\brief Update the game
+ *	\return true if all goes right
+ */
+
+/*!	\fn bool GameEngine :: init(void)
+ *	\return true if all goes right
+ */
+
+/*!	\fn bool GameEngine :: load(void)
+ *	\brief load all the data for the game
+ *	\return true if all goes right
+ */
+
+/*!	\fn void GameEngine :: run(void);
+ *	\brief Enter the main loop
+ *	Will exit the main loop if the user press escape or click on the red cross or if an error occured
+ */
+
+/*!	\fn bool GameEngine :: isRunning()const
+ *	\return true if the GameEngine is running
+ */
+
+
+
+/*! \class EngineException GameEngine.h "Game/GameEngine.h"
+ *  \brief Exception thrown when the GameEngine failed
+ */
+
+/*! \fn EngineException::EngineException(const std::string& userMessage)
+ *	\brief Create a message of the format: "Game Engine failed: ' + userMessage + '"
+ *	\param userMessage the message from the user to display
+ */
+
+/*! \fn virtual const char* EngineException::what()const throw()
+ * \return the error message
+ */
 
 #endif

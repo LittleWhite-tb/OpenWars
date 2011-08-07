@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 
 	// Starting the native engine
 	NE::NEngine* pNE = new NE::SDL_Engine();
-	if ( pNE->init()  == false )
+	if ( pNE->init() == false )
 	{
 		return 1;
 	}
@@ -61,11 +61,7 @@ int main(int argc, char** argv)
 			}
             else if ( pGEngine->init() )
             {
-                bool engineLoadingState = true;
-
-				engineLoadingState &= pGEngine->load();
-                
-                if ( engineLoadingState )
+                if ( pGEngine->load() )
                 {
                     pGEngine->run();
                 }

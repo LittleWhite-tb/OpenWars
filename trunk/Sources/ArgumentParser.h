@@ -86,5 +86,79 @@ public:
 	}
 };
 
+/*! \class ArgumentParser ArgumentParser.h "ArgumentParser.h"
+ *  \brief Class to parse the arguments from the command line
+ */
+
+/*! \fn ArgumentParser :: ArgumentParser(int argc, char** argv)
+ *	\brief Put all the arguments in a list
+ *	\param argc the number of arguments
+ *	\param argv the arguments
+ */
+
+/*!	\fn const std::string& ArgumentParser :: parseArgument(const std::string& shortOptionName, const std::string& longOptionName="")const
+ *	\brief Check if either the short or long argument are present. If one is, return the next argument (the parameter for the argument)
+ *	\param shortOptionName the short name of the argument to search
+ *	\param longOptionName the long name of the argument to search
+ *	\return the argument following the argument found
+ */
+
+/*!	\fn const std::string& ArgumentParser :: getArgument(const std::string& shortOptionName, const std::string& longOptionName="")const
+ *	\brief Get the argument following the option passed
+ *	\param shortOptionName the short name of the argument to search
+ *	\param longOptionName the long name of the argument to search
+ *	\return the argument following the argument found
+ */
+
+/*!	\fn bool ArgumentParser :: isPresent(const std::string& shortOptionName, const std::string& longOptionName="")const
+ *	\brief Check if the option is present
+ *	\param shortOptionName the short name of the argument to search
+ *	\param longOptionName the long name of the argument to search
+ *	\return true if the option if present
+ */
+
+/*!	\fn T ArgumentParser :: getAs(const std::string& shortOptionName, const std::string& longOptionName="")const
+ *	\brief Get the argument as T for the option name given
+ *	\param shortOptionName the short name of the argument to search
+ *	\param longOptionName the long name of the argument to search
+ *	\return returns the argument converted to the type wanted
+ */
+
+
+/*! \class MissingOptionException ArgumentParser.h "ArgumentParser.h"
+ *  \brief Exception thrown when no valid argument is following the option
+ */
+
+/*! \fn MissingOptionException::MissingOptionException()
+ *	\brief Create a message of the format: "The option is found but nothing valid is following it"
+ */
+
+/*! \fn MissingOptionException::MissingOptionException(const std::string& optionName)
+ *	\brief Create a message of the format: "The option + optionName + is found but nothing valid is following it"
+ *	\param optionName the name of the option searched
+ */
+
+/*! \fn virtual const char* MissingOptionException::what()const throw()
+ * \return the error message
+ */
+
+
+/*! \class OptionNotFoundException ArgumentParser.h "ArgumentParser.h"
+ *  \brief Exception thrown when the option wanted is not found
+ */
+
+/*! \fn OptionNotFoundException::OptionNotFoundException()
+ *	\brief Create a message of the format: "The option is not found"
+ */
+
+/*! \fn OptionNotFoundException::OptionNotFoundException(const std::string& shortOptionName, const std::string& longOptionName="")
+ *	\brief Create a message of the format: "The options ( + shortOptionName + ; + longOptionName + ) is not found"
+ *	\param shortOptionName the short name of the option searched
+ *	\param longOptionName the long name of the option searched
+ */
+
+/*! \fn virtual const char* OptionNotFoundException::what()const throw()
+ * \return the error message
+ */
 
 #endif

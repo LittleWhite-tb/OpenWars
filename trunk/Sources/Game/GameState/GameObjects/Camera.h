@@ -49,7 +49,7 @@ public:
 	UVec2 getPosition(void)const { return position; }
 };
 
-/*! \class Camera Camera.h "Game/Camera.h"
+/*! \class Camera Camera.h "Game/GameState/GameObjects/Camera.h"
  *  \brief Manage the camera
  *
  * The camera will create an offset for the cursor, be moved by the cursor, and create offset for the Map drawing

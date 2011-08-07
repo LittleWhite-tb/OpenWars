@@ -33,9 +33,43 @@ class MapDrawer
 {
 private:
 
+	static bool drawTerrain(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
+	static bool drawUnits(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
+
 public:
 
 	static bool draw(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
 };
+
+/*! \class MapDrawer MapDrawer.h "Game/GameState/GameObjects/Map/MapDrawer.h"
+ *  \brief Class to draw the map on screen
+ */
+
+/*! \fn static bool MapDrawer::drawTerrain(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
+ *  \brief draw the terrain of the map
+ *  \param r the renderer to use
+ *  \param pMap a pointer to the map to use
+ *	\param c the camera describing the viewport
+ *	\param time the current time of the game
+ *  \return true if all goes right
+ */
+
+/*! \fn static bool MapDrawer::drawUnits(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
+ *  \brief draw the units of the map
+ *  \param r the renderer to use
+ *  \param pMap a pointer to the map to use
+ *	\param c the camera describing the viewport
+ *	\param time the current time of the game
+ *  \return true if all goes right
+ */
+
+/*! \fn static bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
+ *  \brief draw a map
+ *  \param r the renderer to use
+ *  \param pMap a pointer to the map to use
+ *	\param c the camera describing the viewport
+ *	\param time the current time of the game
+ *  \return true if all goes right
+ */
 
 #endif

@@ -823,6 +823,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>0</defence>
+		<isSea>1</isSea>
 		<isRiver>1</isRiver>
 		<!-- By default, all others are set to 0 -->
 	</tile>
@@ -838,6 +839,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>0</defence>
+		<isSea>1</isSea>
 		<isRiver>1</isRiver>
 		<!-- By default, all others are set to 0 -->
 	</tile>
@@ -853,6 +855,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>0</defence>
+		<isSea>1</isSea>
 		<isRiver>1</isRiver>
 		<!-- By default, all others are set to 0 -->
 	</tile>
@@ -868,6 +871,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>0</defence>
+		<isSea>1</isSea>
 		<isRiver>1</isRiver>
 		<!-- By default, all others are set to 0 -->
 	</tile>

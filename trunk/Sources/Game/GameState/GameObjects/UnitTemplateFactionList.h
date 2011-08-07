@@ -44,7 +44,7 @@ public:
 	unsigned int getNumberFaction()const { return unitTemplates.size(); }
 };
 
-/*! \class UnitTemplateFactionList UnitTemplateFactionList.h "Game/UnitTemplateFactionList.h"
+/*! \class UnitTemplateFactionList UnitTemplateFactionList.h "Game/GameState/GameObjects/UnitTemplateFactionList.h"
  *  \brief List of Unit for each faction
  */
 

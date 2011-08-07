@@ -69,35 +69,31 @@ public:
 	bool draw(const NE::Renderer& r, const unsigned int time);
 };
 
-/*! \class TileViewer TileViewer.h "Engine/TileViewer.h"
+/*! \class TileViewer TileViewer.h "UI/TileViewer.h"
  *  \brief viewer for Tile for the editor to indicate which tile is selected
- *
- *	We can:
- *		- Change the title
- *		- Change the position ( on left or right of the screen )
- *		- Change the tile
  */
 
-/*! \fn TileViewer::TileViewer(NE::SpriteLoader* const pSL, const std::string& fileNameBackground, const std::string& fileNameFont, const USize2& windowSize)
- * Will load the font and the background
- * \param pSL The SpriteLoader to use to load the background
- * \param fileNameBackground The file for the background
- * \param fileNameFont The file for the font
+/*! \fn TileViewer::TileViewer(const Theme* pTheme, const USize2& windowSize)
+ * \param pTheme pointer to the theme to use
  * \param windowSize the size of the window (used as reference to place the viewer)
  */
 
 /*! \fn TileViewer::~TileViewer(void)
  */
 
-/*! \fn void TileViewer::setTile(AnimatedSprite* const pTileSprite, const std::string tileName)
- * \brief Set the tile to display
- * \param pTileSprite the new sprite to display
- * \param tileName the name of the tile to display
+/*! \fn void TileViewer::setTile(const Tile* pTile)
+ * \brief Set a new tile to show
+ * \param pTile pointer on the tile to show
  */
 
-/*! \fn void TileViewer::setTitle(const std::string& title)
- * \brief Set a new title to display
- * \param title the new title
+/*! \fn void TileViewer::setTile(const UnitTemplate* pUnitTemplate)
+ * \brief Set a new unit to show
+ * \param pUnitTemplate pointer to the Unit to show
+ */
+
+/*!	\fn void TileViewer :: setTitle(const std::string& title)
+ *	\brief set a new title
+ *	\param title the new title to display
  */
 
 /*! \fn void TileViewer::putOnLeft(void)
@@ -108,10 +104,11 @@ public:
  * \brief Set the UI on the right of the screen
  */
 
-/*! \fn bool TileViewer::draw(const NE::Renderer& r)
- * draw the UI
- * \param r the NE::Renderer to use to draw the viewer
- * \return true if all goes right
+/*! \fn bool TileViewer::draw(const NE::Renderer& r, const unsigned int time)
+ *	\brief draw the UI
+ *	\param r the NE::Renderer to use to draw the viewer
+ *	\param time the actual time in the game
+ *	\return true if all goes right
  */
 
 #endif

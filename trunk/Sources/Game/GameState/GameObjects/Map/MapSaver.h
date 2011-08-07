@@ -35,7 +35,7 @@ public:
     static bool saveMapToFile(const std::string& fileName, const Map& map);
 };
 
-/*! \class MapSaver MapSaver.h "Game/Map/MapSaver.h"
+/*! \class MapSaver MapSaver.h "Game/GameState/GameObjects/Map/MapSaver.h"
  *  \brief Class to save a map in a file
  */
 

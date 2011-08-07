@@ -85,38 +85,28 @@ public:
 	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 };
 
-/*! \class GameEngine GameEngine.h "Game/GameEngine.h"
- *  \brief Engine for the game
- *
- * Manage all the game main loop by using states
+/*! \class Game Game.h "Game/GameState/Game.h"
+ *  \brief Game state displaying the game
  */
 
-/*! \fn bool GameEngine::load(void)
- * \brief Load the map, cursor, camera with the associated sprites
- * Will load all needed to set the engine. After you can run the engine.
- * The engine has to be inited.
- * \return true if all goes fine
+/*! \fn Game::Game()
  */
 
-/*! \fn GameEngine::GameEngine(NE::NEngine* const pNE)
- * \param pNE pointer of the Native Engine to user
+/*! \fn Game::~Game()
  */
 
-/*! \fn GameEngine::~GameEngine()
- */
-
-/*! \fn bool GameEngine::init()
+/*! \fn bool Game::init()
  * \brief Init the Game Engine
  * \return true if all goes right
  */
 
-/*! \fn bool GameEngine::load(const std::string& mapName)
- * \brief load the Game Engine
+/*! \fn bool Game::loadMap(const std::string& mapName)
+ * \brief load a map in the game
  * \param mapName the name of the map to load
  * \return true if all goes right
  */
 
-/*! \fn bool GameEngine::run(void)
+/*! \fn bool Game::run(void)
  * \brief Start the game main loop
  * \return true if all goes fine
  */

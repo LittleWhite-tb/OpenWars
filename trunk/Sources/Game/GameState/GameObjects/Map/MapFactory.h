@@ -39,7 +39,7 @@ public:
     static Map* createEmptyMap(const Theme* pTheme, const USize2& size);
 };
 
-/*! \class MapFactory MapFactory.h "Game/Map/MapFactory.h"
+/*! \class MapFactory MapFactory.h "Game/GameState/GameObjects/Map/MapFactory.h"
  *  \brief Class to build a map from scratch
  */
 

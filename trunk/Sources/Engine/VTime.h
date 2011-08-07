@@ -60,7 +60,7 @@ public:
 /*! \class VTime VTime.h "Engine/VTime.h"
  *  \brief Virtual Time class
  *
- * Gives an new time, that has to be used with the rest of the program.
+ * Gives an new time, to be used with the rest of the program.
  * The new time gives the posssibility to manage the time, independently of the real time
  * Two frenquencies are defined in the class. The first is used for the drawing synchronisation (often 60FPS), the second for the update.
  */
