@@ -69,7 +69,7 @@ public:
 	bool draw(NE::Renderer* pRenderer, unsigned int time);
 	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 
-	void saveMap(const std::string& fileName);
+	void saveMap(const std::string& fileName)const;
 
 	// bool setTile(const UVec2& position, const UnitType unitType);
 };
@@ -91,14 +91,14 @@ public:
  * \return true if all goes fine
  */
 
-/*! \fn bool Editor::loadMap(const Theme* const pTheme, const UVec2& mapSize)
+/*! \fn bool Editor::loadMap(const Theme* const pTheme, const USize2& mapSize)
  * \brief Load an empty map
  * \param pTheme the theme to use for this new map
  * \param mapSize The size of the empty map
  * \return true if all goes fine
  */
 
-/*! \fn void Editor::saveMap(const std::string& fileName)
+/*! \fn void Editor::saveMap(const std::string& fileName)const
  * \brief Save the map in a file
  * \param fileName the file where to save the map
  * \return true if all goes fine

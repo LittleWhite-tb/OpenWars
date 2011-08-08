@@ -108,6 +108,7 @@ public:
     void update(const unsigned int time);
 
     bool isOpened(void)const { if ( state != TBS_Closed && state != TBS_Closing ) return true; else return false; }
+	bool isOpening(void)const { if ( state == TBS_Opening ) return true; else return false; }
     bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }
 
     T getSelected(void)const;
@@ -172,9 +173,6 @@ public:
  *  \param positionX the position in the tile bar
  */
 
-/*! \fn virtual TileBar::~TileBar(void)
- */
-
 /*! \fn void TileBar::open(void)
  * \brief Start the opening animation of the Bar
  */
@@ -204,6 +202,12 @@ public:
  * \brief Get if the Bar is actually opened
  * \return true if the bar is opened
  */
+
+ /*! \fn bool TileBar::isOpening(void)const
+ * \brief Get if the Bar is actually opening
+ * \return true if the bar is opening
+ */
+
 
 /*! \fn bool TileBar::isClosed(void)const
  * \brief Get if the Bar is actually closed

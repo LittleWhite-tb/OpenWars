@@ -29,7 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/SpriteLoader.h"
 #include "Game/GameEngine.h"
 #include "XML/XMLListReader.h"
-#include "Utils/Exceptions/XMLException.h"
 
 void ThemeLoader :: loadTheme(NE::SpriteLoader* pSpriteLoader, const std::string& themeName, Library<Theme>* pLibrary)
 {
@@ -64,7 +63,7 @@ void ThemeLoader :: loadThemeList(NE::SpriteLoader* pSpriteLoader, const std::st
 			ThemeLoader::loadTheme(pSpriteLoader,*itPath,pLibrary);
         }
     }
-    catch ( XMLParsingFailedException& xmle )
+	catch ( XMLParsingFailedException& xmle )
     {
         (void)xmle;
         throw EngineException("Fail to open list of theme paths '" + listPath + "'");

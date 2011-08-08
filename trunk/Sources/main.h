@@ -26,14 +26,16 @@ e-mail: lw.demoscene@gmail.com
  *
  * \section intro_sec Introduction
  *
- * OpenAWars is a open project trying to recreate the feeling given by Advance Wars (by Nintendo).
+ * OpenAWars is a open project trying to recreate the feeling of the game "Advance Wars" (by Nintendo).
  * This project is using C++ with SDL (SDL, SDL_image).
  * The project tends to be as possible portable and these following platforms should be supported: Windows, Mac, Linux, GP32X, AmigaOS4.
+ * Finally, the aim is to have a game highly customisable
  *
  * \section editor_sec Game
  *
  * This documentation is about the Game part of the whole OpenAWars project.
- * Compared to the Editor branch of the project, some functions are not visible, and don't need to be implemented in the Game code. Otherwise all the features are the same.
+ * The game has actually two game states. The game itself and the editor (from where you can create maps).
+ * All the graphics and tiles/units settings are loaded from XML files. This brings the possibility to easely customise the game. More needs to be done.
  *
  * \section licence_sec	Licence
  *

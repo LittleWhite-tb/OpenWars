@@ -90,9 +90,6 @@ public:
  * \param winSize the size of the window (used as reference to place the MenuBox)
  */
 
-/*! \fn MenuBox::~MenuBox(void)
- */
-
 /*!	\fn void MenuBox::add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName)
  *	\brief add an entry in the menu
  *	\param actionName the name of the action

@@ -1022,7 +1022,7 @@ void ClassicMapIntegrityChecker :: addChecker(const std::string& name)
 	(void)name;
 }
 
-bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* pTile)
+bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* pTile)const
 {
 	// Extra protections
 	assert(pTile);
@@ -1144,7 +1144,7 @@ bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* p
 	return false;
 }
 
-bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)
+bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const
 {
 	assert(pUnitTemplate);
 

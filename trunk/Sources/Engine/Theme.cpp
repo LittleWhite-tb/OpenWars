@@ -39,7 +39,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Exceptions/FileNotFoundException.h"
 #include "Utils/Exceptions/FileNotOpenedException.h"
-#include "Utils/Exceptions/XMLException.h"
 #include "Utils/LineParser.h"
 #include "Utils/Logger.h"
 
@@ -79,7 +78,7 @@ bool Theme :: load(NE::SpriteLoader* const pSL)
             bResult &= xmlReader.parse<FontObject>("font",&fontsObject,pSL,GFX_FONTS_PATH + name + "/");
         }
     }
-    catch ( XMLParsingFailedException xmlpfe )
+	catch ( XMLParsingFailedException xmlpfe )
     {
         LError << xmlpfe.what();
         return false;

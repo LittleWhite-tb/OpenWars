@@ -179,7 +179,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
 {
 	pCamera->update(*pEC,*pMap);
 
-	if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A )
+	if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A && !pUnitTB->isOpening() )
 	{
 		pBuildingTB->open();
 		if ( pUnitTB->isOpened() )
@@ -188,7 +188,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
 		}
 	}
 
-	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B && !pBuildingTB->isOpening() )
 	{
 		pUnitTB->open();
 		if ( pBuildingTB->isOpened() )
@@ -261,7 +261,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
 	return true;
 }
 
-void Editor :: saveMap(const std::string& fileName)
+void Editor :: saveMap(const std::string& fileName)const
 {
 	MapSaver::saveMapToFile(fileName,*pMap);
 }

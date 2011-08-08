@@ -25,21 +25,12 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <string>
+#include "NEngine/Exception.h"
 
-class InputNotFoundException : public std::exception
+class InputNotFoundException : public Exception
 {
-private:
-	std::string message;	/*!< Message to display */
-
 public:
-	InputNotFoundException(const std::string& userMessage):message(std::string("Input not found: '") + userMessage + std::string("'")) {}
-    virtual ~InputNotFoundException(void)throw() {}
-
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
+	InputNotFoundException(const std::string& userMessage):Exception(std::string("Input not found: '") + userMessage + std::string("'")) {}
 };
 
 /*! \class InputNotFoundException InputNotFoundException.h "Utils/Exceptions/InputNotFoundException.h"
@@ -47,12 +38,7 @@ public:
  */
 
 /*! \fn InputNotFoundException::InputNotFoundException(const std::string& userMessage)
- * Create a message of the format: "Failed to open 'USER_MESSAGE'"
  * \param userMessage message from the user to display
- */
-
-/*! \fn virtual const char* InputNotFoundException::what()const throw()
- * \return the error message
  */
 
 #endif

@@ -58,15 +58,16 @@ namespace NE
  * The Sprite class gives an interface to implement new platform specific Sprite functions.
  */
 
-/*! \fn NE::Sprite::Sprite(void* pData)
- * \param pData the pointer on the native sprite data
+/*! \fn NE::Sprite::Sprite(void)
  */
 
 /*! \fn virtual NE::Sprite::~Sprite(void)
  */
 
 /*! \fn virtual void* NE::Sprite::getNativeSprite(void)const = 0;
- *  \brief
+ *	\brief return a pointer to the native sprite handle
+ *	\return a pointer to the native sprite handler
+ *	The use of a void* is done to avoid specific code
  */
 
 /*! \fn virtual USize2 NE::Sprite::getSize(void)const=0

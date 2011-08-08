@@ -76,7 +76,7 @@ namespace NE
 	};
 }
 
-/*! \class NE::NEngine Engine.h "NEngine/Engine.h"
+/*! \class NE::NEngine NEngine.h "NEngine/Engine.h"
  *  \brief NEngine interface
  *
  * The Engine class gives an interface to implement new platform specific engine used by the game.

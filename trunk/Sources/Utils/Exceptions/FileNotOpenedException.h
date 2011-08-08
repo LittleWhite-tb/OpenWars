@@ -25,21 +25,12 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <string>
+#include "NEngine/Exception.h"
 
-class FileNotOpenedException : public std::exception
+class FileNotOpenedException : public Exception
 {
-private:
-	std::string message;	/*!< Message to display */
-
 public:
-	FileNotOpenedException(const std::string& userMessage):message(std::string("Failed to open '") + userMessage + std::string("'")) {}
-    virtual ~FileNotOpenedException(void)throw() {}
-
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
+	FileNotOpenedException(const std::string& userMessage):Exception(std::string("Failed to open '") + userMessage + std::string("'")) {}
 };
 
 /*! \class FileNotOpenedException FileNotOpenedException.h "Utils/Exceptions/FileNotOpenedException.h"
@@ -47,12 +38,7 @@ public:
  */
 
 /*! \fn FileNotOpenedException::FileNotOpenedException(const std::string& userMessage)
- * Create a message of the format: "Failed to open 'USER_MESSAGE'"
  * \param userMessage message from the user to display
- */
-
-/*! \fn virtual const char* FileNotOpenedException::what()const throw()
- * \return the error message
  */
 
 #endif

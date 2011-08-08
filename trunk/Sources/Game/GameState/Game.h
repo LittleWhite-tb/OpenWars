@@ -50,7 +50,7 @@ class ConstructBox;
 
 class Game : public GameState
 {
-	enum GameState
+	enum GState
 	{
 		GS_VISU,
 		GS_CONSTRUCTION,
@@ -71,7 +71,7 @@ private:
 
 	MenuBox* pMBMenu;			/*!< menu for the user */
 
-	GameState gState;			/*!< Actual state of the game */
+	GState gState;			/*!< Actual state of the game */
     UVec2 selectedUnitPosition; /*!< Position of the unit selected (the one to move or to control) */
 
 public:
@@ -89,26 +89,21 @@ public:
  *  \brief Game state displaying the game
  */
 
+/*! \enum Game::GState Game.h "Game/GameState/Game.h"
+ *	\brief enum to know in which state the game is
+ */
+
 /*! \fn Game::Game()
  */
 
 /*! \fn Game::~Game()
  */
 
-/*! \fn bool Game::init()
- * \brief Init the Game Engine
- * \return true if all goes right
- */
-
-/*! \fn bool Game::loadMap(const std::string& mapName)
+/*! \fn bool Game::loadMap(const Library<Theme>* const pThemes, const std::string& name)
  * \brief load a map in the game
- * \param mapName the name of the map to load
+ *	\param pThemes the library of themes available (one will be used by the Map)
+ * \param name the name of the map to load
  * \return true if all goes right
- */
-
-/*! \fn bool Game::run(void)
- * \brief Start the game main loop
- * \return true if all goes fine
  */
 
 #endif

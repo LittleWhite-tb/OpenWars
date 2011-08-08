@@ -72,24 +72,29 @@ public:
 	const UnitTemplate* getUnitSelected(const unsigned int faction)const;
 };
 
-/*! \fn ConstructBox::ConstructBox(NE::SpriteLoader* const pSL, const std::string& backgroundFileName, const std::string& cursorFileName, const std::string& upArrowFileName,const std::string& downArrowFileName, const std::string& fontFileName, const std::vector<ConstructUnitView>& unitsList, const USize2& windowSize)
- * \param pSL the SpriteLoader to load the sprites
- * \param backgroundFileName the path to the sprite to load for the background
- * \param cursorFileName the path to the sprite to load for the cursor
- * \param upArrowFileName the path to the sprite to load for the up arrow
- * \param downArrowFileName the path to the sprite to load for the down arrow
- * \param fontFileName the path to the font to load for the texts
- * \param unitsList the list of units to display
+/*! \class ConstructBox ConstructBox.h "UI/ConstructBox.h"
+ *  \brief User interface to select a unit in a list (to buy it)
+ */
+
+/*! \fn ConstructBox::ConstructBox(const Theme* pTheme, const USize2& windowSize)
+ * \param pTheme a pointer to the Theme to use
  * \param windowSize the size of the window (used to place the ConstructBox)
  */
 
 /*! \fn ConstructBox::~ConstructBox(void)
  */
 
-/*! \fn bool ConstructBox::draw(const NE::Renderer& r, const unsigned int moneyAvailable)
+/*! \fn void ConstructBox::add(const UnitTemplateFactionList* pListUnitTemplate)
+ *	\brief add a new unit in the list of unit that we can construct
+ *	\param pListUnitTemplate the pointer to the new unit to add
+ */
+
+/*! \fn bool ConstructBox::draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time)
  * \brief Draw the construct box
  * \param r the NE::Renderer used to draw
+ *	\param faction the faction to display
  * \param moneyAvailable the money that the user have
+ * \param time the actual time in the game
  * \return true if all goes right
  */
 
@@ -99,22 +104,10 @@ public:
  * \param kd the key direction pressed
  */
 
-/*! \fn UnitType ConstructBox::getUnitSelected(void)const
+/*! \fn UnitTemplate ConstructBox::getUnitSelected(const unsigned int faction)const
  * \brief Get the unit type currently selected
- * \return The unit type of the unit currently selected
- */
-
-/*! \struct ConstructUnitView ConstructBox.h "Game/ConstructBox.h"
- *  \brief ConstructUnitView struct
- *
- * Used to give a structure usable in the ConstructBox to contain Unit
- */
-
-/*! \fn ConstructUnitView::ConstructUnitView(const UnitType unitType, AnimatedSprite* const pUnitSprite, const std::string& unitName, const unsigned int unitPrice)
- * \param unitType type of the unit
- * \param pUnitSprite sprite to use for the unit
- * \param unitName name of the unit
- * \param unitPrice price of the unit
+ *	\param faction the faction of the unit to return
+ * \return a pointer to the unit actually selected
  */
 
 #endif

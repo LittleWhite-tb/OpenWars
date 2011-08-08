@@ -39,7 +39,7 @@ public:
     static Map* loadMapFromFile(const Library<Theme>* const pThemes, const std::string& fileName);
 };
 
-/*! \class MapSaver MapSaver.h "Game/GameState/GameObjects/Map/MapSaver.h"
+/*! \class MapLoader MapLoader.h "Game/GameState/GameObjects/Map/MapLoader.h"
  *  \brief Class to load a map from a file
  *  the class does not keep the maps in memory (caching) since we would like to modify them during the game time
  */

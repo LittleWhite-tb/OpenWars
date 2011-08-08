@@ -115,21 +115,21 @@ bool Map :: isValidPosition(const UVec2& position)const
 	return false;
 }
 
-bool Map :: testTile(const UVec2& position, const Tile* pTile)
+bool Map :: testTile(const UVec2& position, const Tile* pTile)const
 {
 	assert(pTile);
 	
 	return pIntegrityChecker->testTile(position,pTile);
 }
 
-bool Map :: testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)
+bool Map :: testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const
 {
 	assert(pUnitTemplate);
 	
 	return pIntegrityChecker->testUnit(position,pUnitTemplate);
 }
 
-const Unit* Map :: getUnit(const UVec2& position)
+const Unit* Map :: getUnit(const UVec2& position)const
 {
 	if ( isValidPosition(position) )
     {

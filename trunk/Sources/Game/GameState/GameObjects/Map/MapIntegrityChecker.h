@@ -53,11 +53,11 @@ public:
 
     const Tile* checkCoherency(const UVec2& position, const Tile* pTile = NULL);
 
-    virtual bool testTile(const UVec2& position, const Tile* pTile)=0;
-    virtual bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)=0;
+    virtual bool testTile(const UVec2& position, const Tile* pTile)const=0;
+    virtual bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const=0;
 };
 
-/*! \class MapSaver MapSaver.h "Game/GameState/GameObjects/Map/MapSaver.h"
+/*! \class MapIntegrityChecker MapIntegrityChecker.h "Game/GameState/GameObjects/Map/MapIntegrityChecker.h"
  *  \brief base class for Map integrity checking
  */
 
@@ -80,13 +80,13 @@ public:
  *  \param pTile pointer to the Tile to put on the map at this position
  */
 
-/*! \fn virtual bool MapIntegrityChecker::testTile(const UVec2& position, const Tile* pTile)=0;
+/*! \fn virtual bool MapIntegrityChecker::testTile(const UVec2& position, const Tile* pTile)const=0;
  *  \brief Test if a tile can be put at this position
  *  \param position the position to check
  *  \param pTile pointer to the Tile to put on the map at this position
  */
 
-/*! \fn virtual bool MapIntegrityChecker::testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)=0;
+/*! \fn virtual bool MapIntegrityChecker::testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const=0;
  *  \brief Test if a unit can be put at this position
  *  \param position the position to check
  *  \param pUnitTemplate pointer to the UnitTemplate to put on the map at this position

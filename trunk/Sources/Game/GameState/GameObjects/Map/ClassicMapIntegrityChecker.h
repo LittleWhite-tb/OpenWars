@@ -43,8 +43,8 @@ public:
 
     void addChecker(const std::string& name);
 
-    bool testTile(const UVec2& position, const Tile* pTile);
-    bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
+    bool testTile(const UVec2& position, const Tile* pTile)const;
+    bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const;
 };
 
 /*! \class ClassicMapIntegrityChecker ClassicMapIntegrityChecker.h "Game/GameState/GameObjects/Map/ClassicMapIntegrityChecker.h"

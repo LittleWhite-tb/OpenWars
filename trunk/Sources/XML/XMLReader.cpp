@@ -26,8 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <libxml/parser.h>
 
-#include "Utils/Exceptions/XMLException.h"
-
 XMLReader :: XMLReader(const std::string& fileName)
 {
 	this->xmlFile = xmlParseFile(fileName.c_str());

@@ -27,6 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "NEngine/Exception.h"
+
 #include "Engine/Library.h"
 #include "Engine/Theme.h"
 
@@ -73,19 +75,10 @@ public:
     bool isRunning()const { return bIsRunning; }
 };
 
-class EngineException : public std::exception
+class EngineException : public Exception
 {
-private:
-	std::string message;	/*!< error message to display */
-
 public:
-	EngineException(const std::string& userMessage):message(std::string("Game Engine failed: '") + userMessage + std::string("'")) {}
-    virtual ~EngineException(void)throw() {}
-
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
+	EngineException(const std::string& userMessage):Exception(std::string("Game Engine failed: '") + userMessage + std::string("'")) {}
 };
 
 /*! \class GameEngine GameEngine.h "Game/GameEngine.h"
@@ -135,12 +128,7 @@ public:
  */
 
 /*! \fn EngineException::EngineException(const std::string& userMessage)
- *	\brief Create a message of the format: "Game Engine failed: ' + userMessage + '"
  *	\param userMessage the message from the user to display
- */
-
-/*! \fn virtual const char* EngineException::what()const throw()
- * \return the error message
  */
 
 #endif

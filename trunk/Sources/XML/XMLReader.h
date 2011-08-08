@@ -29,6 +29,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "NEngine/Exception.h"
+
 class XMLReader
 {
 protected:
@@ -39,6 +41,12 @@ public:
 
 	XMLReader(const std::string& fileName);
 	virtual ~XMLReader();
+};
+
+class XMLParsingFailedException : public Exception
+{
+public:
+	XMLParsingFailedException(const std::string& fileName):Exception(std::string("Failed to parse '") + fileName + std::string("' XML file (not existing or mal-formatted)")) {}
 };
 
 /*! \class XMLReader XMLReader.h "XML/XMLReader.h"
@@ -53,6 +61,15 @@ public:
 
 /*! \fn virtual XMLReader :: ~XMLReader()
  *	Free the ressource allocated when opening the XML file
+ */
+
+
+/*! \class XMLParsingFailedException XMLReader.h "XML/XMLReader.h"
+ *  \brief Exception for XML parsers
+ */
+
+/*! \fn XMLParsingFailedException::XMLParsingFailedException(const std::string& fileName)
+ * \param fileName the name of the file from where the problem is
  */
 
 #endif

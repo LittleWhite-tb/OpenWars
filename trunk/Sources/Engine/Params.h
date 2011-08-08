@@ -29,8 +29,27 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <sstream>
 
+#include "NEngine/Exception.h"
+
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/ParamsException.h"
+
+class ParameterNotFoundParamsException : public Exception
+{
+public:
+	ParameterNotFoundParamsException(const std::string& paramName):Exception(std::string("Parameter '") + paramName + std::string("' not found")) {}
+};
+
+class InvalidConvertionParamsException : public Exception
+{
+public:
+	InvalidConvertionParamsException(const std::string& paramName):Exception(std::string("Invalid convertion for parameter '") + paramName + std::string("'")) {}
+};
+
+class MissingParameterException : public Exception
+{
+public:
+	MissingParameterException(const std::string& parameterName):Exception(std::string("Missing parameter '") + parameterName + std::string("' to construct the Tile")) {}
+};
 
 class Params
 {
@@ -126,7 +145,7 @@ public:
  *  ParameterNotFoundParamsException is thrown if the name is not found
  */
 
-/*! \fn char Params :: getAs<char>(const std::string& name)const
+/*! \fn char Params :: getAs(const std::string& name)const
  *  \brief Gets the value named name
  *  \param name
  *  \return
@@ -138,6 +157,33 @@ public:
  *  \param name
  *  \param defaultValue
  *  \return if the name is not found, the defaultValue is returned
+ */
+
+
+ /*! \class ParameterNotFoundParamsException Params.h "Game/Params.h"
+ *  \brief Exception for parameters not found when requested
+ */
+
+/*! \fn ParameterNotFoundParamsException::ParameterNotFoundParamsException(const std::string& paramName)
+ * \param paramName the parameter name missing
+ */
+
+
+/*! \class InvalidConvertionParamsException Params.h "Game/Params.h"
+ *  \brief Exception for invalid cast of parameters
+ */
+
+/*! \fn InvalidConvertionParamsException::InvalidConvertionParamsException(const std::string& paramName)
+ * \param paramName the parameter name
+ */
+
+
+/*! \class MissingParameterException Params.h "Game/Params.h"
+ *  \brief Exception for missing requested parameters
+ */
+
+/*! \fn MissingParameterException::MissingParameterException(const std::string& parameterName)
+ * \param parameterName the parameter name missing
  */
 
 #endif

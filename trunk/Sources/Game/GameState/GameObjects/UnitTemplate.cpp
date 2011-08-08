@@ -31,7 +31,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/AnimatedSprite.h"
 
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/ParamsException.h"
 
 const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
                                                         "internalName", "name", "filename", "size_x", "size_y",

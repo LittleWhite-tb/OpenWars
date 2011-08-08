@@ -31,7 +31,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Params.h"
 
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/XMLException.h"
 
 XMLObjectReader :: XMLObjectReader(const std::string& fileName)
 	:XMLReader(fileName)

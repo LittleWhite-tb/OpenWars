@@ -414,14 +414,6 @@
 					RelativePath=".\Sources\Utils\Exceptions\FileNotOpenedException.h"
 					>
 				</File>
-				<File
-					RelativePath=".\Sources\Utils\Exceptions\ParamsException.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Sources\Utils\Exceptions\XMLException.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -495,6 +487,10 @@
 		<Filter
 			Name="NEngine"
 			>
+			<File
+				RelativePath=".\Sources\NEngine\Exception.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Sources\NEngine\Input.h"
 				>

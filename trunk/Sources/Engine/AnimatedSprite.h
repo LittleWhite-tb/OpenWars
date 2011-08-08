@@ -102,6 +102,14 @@ public:
  * \param msInterval interval between two sprite in milliseconds
  */
 
+/*! \fn AnimatedSprite::AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval)
+ *	\brief Create an animation from a file
+ *	\param pSL pointer to the SpriteLoader to use
+ *	\param fileName the file to load as an AnimatedSprite
+ *	\param spriteSize the size of each sprite
+ *	\param msInterval the time between two sprites
+ */
+
 /*! \fn AnimatedSprite::~AnimatedSprite(void)
  */
 

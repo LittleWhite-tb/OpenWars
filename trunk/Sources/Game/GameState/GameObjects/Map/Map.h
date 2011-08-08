@@ -77,11 +77,11 @@ public:
     const Tile* getTile(const UVec2& position)const;
     bool setTile(const UVec2& position, const std::string& tileName);
 
-    const Unit* getUnit(const UVec2& position);
+    const Unit* getUnit(const UVec2& position)const;
     bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 
-    bool testTile(const UVec2& position, const Tile* pTile);
-    bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate);
+    bool testTile(const UVec2& position, const Tile* pTile)const;
+    bool testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const;
 
     bool move(const UVec2& origPosition, const UVec2& destPosition);
 
@@ -133,7 +133,7 @@ public:
  *	\return true if all goes right
  */
 
-/*! \fn const Unit* Map :: getUnit(const UVec2& position);
+/*! \fn const Unit* Map :: getUnit(const UVec2& position)const;
  *	\brief Get the unit at this position
  *	\param position the position where to get the unit
  *	\return a pointer to the Unit at this position
@@ -148,14 +148,14 @@ public:
  *	\return true if all goes right
  */
 
-/*! \fn bool Map::testTile(const UVec2& position, const Tile* pTile)
+/*! \fn bool Map::testTile(const UVec2& position, const Tile* pTile)const
  * \brief Test if this unit type can be put at the position
  * \param position the position where the tile would be put
  * \param pTile a pointer to the Tile that the user wants to put
  * \return true if we can set the tile
  */
 
-/*! \fn bool Map::testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)
+/*! \fn bool Map::testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)const
  * \brief Test if this unit type can be put at the position
  * \param position the position where the tile would be put
  * \param pUnitTemplate a pointer to the Unit that the user wants to put

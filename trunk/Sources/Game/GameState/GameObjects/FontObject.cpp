@@ -30,7 +30,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Font.h"
 
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/ParamsException.h"
 
 #include <cassert>
 

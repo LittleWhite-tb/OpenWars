@@ -1,5 +1,5 @@
-#ifndef __XMLEXCEPTION_H__
-#define __XMLEXCEPTION_H__
+#ifndef __EXCEPTION_H__
+#define __EXCEPTION_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,14 +27,14 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-class XMLParsingFailedException : public std::exception
+class Exception : public std::exception
 {
 private:
-	std::string message;	/*!< error message to display */
+	std::string message;
 
 public:
-	XMLParsingFailedException(const std::string& fileName):message(std::string("Failed to parse '") + fileName + std::string("' XML file (not existing or mal-formatted)")) {}
-    virtual ~XMLParsingFailedException(void)throw() {}
+	Exception(const std::string& userMessage):message(std::string("Exception received (") + userMessage + std::string(")")) {}
+    virtual ~Exception(void)throw() {}
 
 	virtual const char* what() const throw()
 	{
@@ -42,16 +42,16 @@ public:
 	}
 };
 
-/*! \class XMLParsingFailedException XMLParsingFailedException.h "Utils/Exceptions/XMLParsingFailedException.h"
- *  \brief Exception for XML parsers
+/*! \class Exception Exception.h "NEngine/Exception.h"
+ *  \brief Exception base class
  */
 
-/*! \fn XMLParsingFailedException::XMLParsingFailedException(const std::string& fileName)
- * Create a message of the format: "Failed to parse 'FILENAME' XML file (not existing or mal-formatted)"
- * \param fileName the name of the file from where the problem is
+/*! \fn Exception::Exception(const std::string& userMessage)
+ * Create a message of the format: "Exception received (USER_MESSAGE)"
+ * \param userMessage message from the user to display
  */
 
-/*! \fn virtual const char* XMLParsingFailedException::what()const throw()
+/*! \fn virtual const char* Exception::what()const throw()
  * \return the error message
  */
 

@@ -83,7 +83,7 @@ typedef Size2<unsigned int> USize2;
 /*! \struct Size2 Size2.h "Types/Size2.h"
  *  \brief 2D Size structure
  *
- *  2D size containing two fileds (width and height).
+ *  2D size containing two fields (width and height).
  */
 
 /*! \fn Size2 :: Size2(const Vec2<U>& size)

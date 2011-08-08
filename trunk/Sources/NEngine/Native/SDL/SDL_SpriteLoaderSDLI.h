@@ -51,4 +51,8 @@ namespace NE
     };
 }
 
+/*! \class NE::SDL_SpriteLoaderSDLI SDL_SpriteLoaderSDLI.h "NEngine/Native/SDL/SDL_SpriteLoaderSDLI.h"
+ *	\brief SDL_Image implementation for SpriteLoader
+ */
+
 #endif

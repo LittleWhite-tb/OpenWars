@@ -51,20 +51,20 @@ public:
 /*! \fn GameState :: ~GameState()
  */
 
-/*! virtual bool GameState :: load(NE::NEngine* pNE)=0
+/*! \fn virtual bool GameState::load(NE::NEngine* pNE)=0
  *	\brief load the state in memory	
  *	\param pNE a pointer to the NEngine
  *	\return true if all goes right
  */
 
-/*! virtual bool GameState :: draw(NE::Renderer* pRenderer, unsigned int time)=0
+/*! \fn virtual bool GameState::draw(NE::Renderer* pRenderer, unsigned int time)=0
  *	\brief draw the contents of the state on screen
  *	\param pRenderer a pointer to the Renderer
  *	\param time the actual time of game
  *	\return true if all goes right
  */
 
-/*! virtual bool GameState :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+/*! \fn virtual bool GameState::update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0
  *	\brief update the contents of the state
  *	\param direction the direction pressed
  *	\param buttons the buttons pressed

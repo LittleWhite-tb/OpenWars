@@ -40,7 +40,6 @@ e-mail: lw.demoscene@gmail.com
 #include "XML/XMLListReader.h"
 
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/XMLException.h"
 
 #include "GameOption.h"
 

@@ -25,25 +25,13 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <string>
+#include "NEngine/Exception.h"
 
-class ConstructionFailedException : public std::exception
+class ConstructionFailedException : public Exception
 {
-private:
-	std::string message;	/*!< Message to display */
 
 public:
-	//! Exception constructor
-	/*!
-	  \param userMessage message from the user to display
-	*/
-	ConstructionFailedException(const std::string& userMessage):message(std::string("Failed to create class '") + userMessage + std::string("'")) {}
-    virtual ~ConstructionFailedException(void)throw() {}
-
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
+	ConstructionFailedException(const std::string& userMessage):Exception(std::string("Failed to create class '") + userMessage + std::string("'")) {}
 };
 
 /*! \class ConstructionFailedException ConstructionFailedException.h "Utils/Exceptions/ConstructionFailedException.h"
@@ -51,12 +39,7 @@ public:
  */
 
 /*! \fn ConstructionFailedException::ConstructionFailedException(const std::string& userMessage)
- * Create a message of the format: "Failed to create class 'USER_MESSAGE'"
  * \param userMessage message from the user to display
- */
-
-/*! \fn virtual const char* ConstructionFailedException::what()const throw()
- * \return the error message
  */
 
 #endif

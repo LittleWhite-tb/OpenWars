@@ -68,8 +68,10 @@ namespace NE
 /*! \fn virtual NE::Window::~Window(void)
  */
 
-/*! \fn virtual void* NE::Window::getNativeWindow(void)const = 0;
- *	\brief
+/*! \fn virtual void* NE::Window::getNativeWindow(void)const = 0
+ *	\brief return a pointer to the native window handle
+ *	\return a pointer to the native window handler
+ *	The use of a void* is done to avoid specific code
  */
 
 /*! \fn virtual bool NE::Window::createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0

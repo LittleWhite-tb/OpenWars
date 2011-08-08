@@ -29,7 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Params.h"
 #include "Engine/AnimatedSprite.h"
 
-#include "Utils/Exceptions/ParamsException.h"
 #include "Utils/Logger.h"
 
 const std::string UIItem::neededParameters[] = { "internalName", "filename" };

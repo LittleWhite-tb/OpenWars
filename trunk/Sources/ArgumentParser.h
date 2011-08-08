@@ -29,6 +29,8 @@ e-mail: lw.demoscene@gmail.com
 #include <vector>
 #include <sstream>
 
+#include "NEngine/Exception.h"
+
 class ArgumentParser
 {
 private:
@@ -54,36 +56,19 @@ public:
 	}
 };
 
-class MissingOptionException : public std::exception
+class MissingOptionException : public Exception
 {
-private:
-	std::string message;	/*!< error message to display */
-
 public:
-	MissingOptionException():message("The option is found but nothing valid is following it") {}
-	MissingOptionException(const std::string& optionName):message("The option " + optionName + " is found but nothing valid is following it") {}
-    virtual ~MissingOptionException(void)throw() {}
-
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
+	MissingOptionException():Exception("The option is found but nothing valid is following it") {}
+	MissingOptionException(const std::string& optionName):Exception("The option " + optionName + " is found but nothing valid is following it") {}
 };
 
-class OptionNotFoundException : public std::exception
+class OptionNotFoundException : public Exception
 {
-private:
-	std::string message;	/*!< error message to display */
-
 public:
-	OptionNotFoundException():message("The option is not found") {}
-	OptionNotFoundException(const std::string& shortOptionName, const std::string& longOptionName=""):message("The options (" + shortOptionName + ";" + longOptionName + ") is not found") {}
-    virtual ~OptionNotFoundException(void)throw() {}
+	OptionNotFoundException():Exception("The option is not found") {}
+	OptionNotFoundException(const std::string& shortOptionName, const std::string& longOptionName=""):Exception("The options (" + shortOptionName + ";" + longOptionName + ") is not found") {}
 
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
 };
 
 /*! \class ArgumentParser ArgumentParser.h "ArgumentParser.h"
@@ -138,10 +123,6 @@ public:
  *	\param optionName the name of the option searched
  */
 
-/*! \fn virtual const char* MissingOptionException::what()const throw()
- * \return the error message
- */
-
 
 /*! \class OptionNotFoundException ArgumentParser.h "ArgumentParser.h"
  *  \brief Exception thrown when the option wanted is not found
@@ -155,10 +136,6 @@ public:
  *	\brief Create a message of the format: "The options ( + shortOptionName + ; + longOptionName + ) is not found"
  *	\param shortOptionName the short name of the option searched
  *	\param longOptionName the long name of the option searched
- */
-
-/*! \fn virtual const char* OptionNotFoundException::what()const throw()
- * \return the error message
  */
 
 #endif

@@ -31,7 +31,6 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/LibraryException.h"
 
 template <typename T>
 Library<T> :: ~Library()

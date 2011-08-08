@@ -93,11 +93,6 @@ public:
  * \return the Tile of the Map located under the cursor
  */
 
-/*! \fn TileType Cursor::getTileTypeUnderCursor(void)const
- * \brief Get the tile type under the cursor
- * \return the TileType of the Map located under the cursor
- */
-
 /*! \fn UVec2 Cursor::getPosition()const
  * \brief Get the actual position of the cursor
  * \return The position

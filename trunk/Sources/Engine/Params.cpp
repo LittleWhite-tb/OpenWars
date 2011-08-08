@@ -28,7 +28,6 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 #include "Utils/Logger.h"
-#include "Utils/Exceptions/ParamsException.h"
 
 void Params :: add(const std::string& name, const std::string& value)
 {
