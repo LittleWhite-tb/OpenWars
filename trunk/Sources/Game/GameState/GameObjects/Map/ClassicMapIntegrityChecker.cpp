@@ -34,7 +34,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Utils/Logger.h"
 
-const Tile* seaChecker(const Map* pMap, const UVec2& position)
+const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 {
 	assert(pMap);
 	if ( pMap->isValidPosition(position) /*&& pMap->getTile(position)->getParams()->getAs<bool>("isSea",false)*/ )
@@ -50,7 +50,6 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 		bool onUpRight = false;
 		bool onDownLeft = false;
 		bool onDownRight = false;
-		bool isBeach = pMap->getTile(position)->getParams()->getAs<bool>("isBeach",false);
 		bool beachOnLeft = false;
 		bool beachOnRight = false;
 		bool beachOnDown = false;
@@ -248,7 +247,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 					{
 						if ( isBeach )
 						{
-							if ( beachOnUp )
+							if ( beachOnUp && beachOnLeft )
+							{
+								return pMap->getTheme()->getTile("Beach_BR_2");
+							}
+							else if ( beachOnUp )
 							{
 								return pMap->getTheme()->getTile("Beach_BR_T");
 							}
@@ -256,10 +259,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 							{
 								return pMap->getTheme()->getTile("Beach_BR_L");
 							}
-							if ( beachOnUp && beachOnLeft )
-							{
-								return pMap->getTheme()->getTile("Beach_BR_2");
-							}
+							
 							return pMap->getTheme()->getTile("Beach_BR");
 						}
 						else
@@ -279,7 +279,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 					{
 						if ( isBeach )
 						{
-							if ( beachOnUp )
+							if ( beachOnUp && beachOnRight )
+							{
+								return pMap->getTheme()->getTile("Beach_BL_2");
+							}
+							else if ( beachOnUp )
 							{
 								return pMap->getTheme()->getTile("Beach_BL_T");
 							}
@@ -287,10 +291,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 							{
 								return pMap->getTheme()->getTile("Beach_BL_R");
 							}
-							if ( beachOnUp && beachOnRight )
-							{
-								return pMap->getTheme()->getTile("Beach_BL_2");
-							}
+							
 							return pMap->getTheme()->getTile("Beach_BL");
 						}
 						else
@@ -310,8 +311,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 					{
 						if ( isBeach )
 						{
-							
-							if ( beachOnDown )
+							if ( beachOnDown && beachOnLeft )
+							{
+								return pMap->getTheme()->getTile("Beach_TR_2");
+							}
+							else if ( beachOnDown )
 							{
 								return pMap->getTheme()->getTile("Beach_TR_B");
 							}
@@ -319,10 +323,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 							{
 								return pMap->getTheme()->getTile("Beach_TR_L");
 							}
-							if ( beachOnDown && beachOnLeft )
-							{
-								return pMap->getTheme()->getTile("Beach_TR_2");
-							}
+							
 							return pMap->getTheme()->getTile("Beach_TR");
 						}
 						else
@@ -342,8 +343,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 					{
 						if ( isBeach )
 						{
-							
-							if ( beachOnDown )
+							if ( beachOnDown && beachOnRight )
+							{
+								return pMap->getTheme()->getTile("Beach_TL_2");
+							}
+							else if ( beachOnDown )
 							{
 								return pMap->getTheme()->getTile("Beach_TL_B");
 							}
@@ -351,10 +355,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 							{
 								return pMap->getTheme()->getTile("Beach_TL_R");
 							}
-							if ( beachOnDown && beachOnRight )
-							{
-								return pMap->getTheme()->getTile("Beach_TL_2");
-							}
+							
 							return pMap->getTheme()->getTile("Beach_TL");
 						}
 						else
@@ -379,7 +380,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 						{
 							if ( isBeach )
 							{
-								if ( beachOnLeft )
+								if ( beachOnRight && beachOnLeft )
+								{
+									return pMap->getTheme()->getTile("Beach_B_2");
+								}
+								else if ( beachOnLeft )
 								{
 									return pMap->getTheme()->getTile("Beach_B_L");
 								}
@@ -387,10 +392,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 								{
 									return pMap->getTheme()->getTile("Beach_B_R");
 								}
-								if ( beachOnRight && beachOnLeft )
-								{
-									return pMap->getTheme()->getTile("Beach_B_2");
-								}
+								
 								return pMap->getTheme()->getTile("Beach_B");
 							}
 
@@ -426,7 +428,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 						{
 							if ( isBeach )
 							{
-								if ( beachOnLeft )
+								if ( beachOnRight && beachOnLeft )
+								{
+									return pMap->getTheme()->getTile("Beach_T_2");
+								}
+								else if ( beachOnLeft )
 								{
 									return pMap->getTheme()->getTile("Beach_T_L");
 								}
@@ -434,10 +440,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 								{
 									return pMap->getTheme()->getTile("Beach_T_R");
 								}
-								if ( beachOnRight && beachOnLeft )
-								{
-									return pMap->getTheme()->getTile("Beach_T_2");
-								}
+								
 								return pMap->getTheme()->getTile("Beach_T");
 							}
 
@@ -471,7 +474,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 						{
 							if ( isBeach )
 							{
-								if ( beachOnUp )
+								if ( beachOnUp && beachOnDown )
+								{
+									return pMap->getTheme()->getTile("Beach_R_2");
+								}
+								else if ( beachOnUp )
 								{
 									return pMap->getTheme()->getTile("Beach_R_T");
 								}
@@ -479,10 +486,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 								{
 									return pMap->getTheme()->getTile("Beach_R_B");
 								}
-								if ( beachOnUp && beachOnDown )
-								{
-									return pMap->getTheme()->getTile("Beach_R_2");
-								}
+								
 								return pMap->getTheme()->getTile("Beach_R");
 							}
 
@@ -514,7 +518,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 						{
 							if ( isBeach )
 							{
-								if ( beachOnUp )
+								if ( beachOnUp && beachOnDown )
+								{
+									return pMap->getTheme()->getTile("Beach_L_2");
+								}
+								else if ( beachOnUp )
 								{
 									return pMap->getTheme()->getTile("Beach_L_T");
 								}
@@ -522,10 +530,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 								{
 									return pMap->getTheme()->getTile("Beach_L_B");
 								}
-								if ( beachOnUp && beachOnDown )
-								{
-									return pMap->getTheme()->getTile("Beach_L_2");
-								}
+								
 								return pMap->getTheme()->getTile("Beach_L");
 							}
 
@@ -636,6 +641,16 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position)
 	}
 
 	return NULL;
+}
+
+const Tile* seaChecker(const Map* pMap, const UVec2& position)
+{
+	return seaChecker(pMap,position,false);
+}
+
+const Tile* beachChecker(const Map* pMap, const UVec2& position)
+{
+	return seaChecker(pMap,position,true);
 }
 
 const Tile* bridgeChecker(const Map* pMap, const UVec2& position)
@@ -1011,6 +1026,7 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 ClassicMapIntegrityChecker :: ClassicMapIntegrityChecker(const Map* pMap):MapIntegrityChecker(pMap) 
 {
 	coherencyCheckers["SeaChecker"] = &seaChecker;
+	coherencyCheckers["BeachChecker"] = &beachChecker;
 	coherencyCheckers["BridgeChecker"] = &bridgeChecker;
 	coherencyCheckers["RiverChecker"] = &riverChecker;
 	coherencyCheckers["RoadChecker"] = &roadChecker;

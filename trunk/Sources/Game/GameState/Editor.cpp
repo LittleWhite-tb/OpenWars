@@ -179,7 +179,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
 {
 	pCamera->update(*pEC,*pMap);
 
-	if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A && !pUnitTB->isOpening() )
+	if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A )
 	{
 		pBuildingTB->open();
 		if ( pUnitTB->isOpened() )
@@ -188,7 +188,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
 		}
 	}
 
-	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B && !pBuildingTB->isOpening() )
+	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
 	{
 		pUnitTB->open();
 		if ( pBuildingTB->isOpened() )

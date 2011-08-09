@@ -135,23 +135,21 @@ void TileBar<T> :: add(const T& item, unsigned int positionX)
 template <typename T>
 void TileBar<T> :: open(void)
 {
-    if ( state == TBS_Closed )
-    {
-        LDebug << "TileBar :: open()";
+	if ( !this->isOpened() )
+	{
+		LDebug << "TileBar :: open()";
 
         state = TBS_Opening;
-    }
+	}
 }
 
 template <typename T>
 void TileBar<T> :: close(void)
 {
-    if ( state == TBS_Opened )
-    {
-        LDebug << "TileBar :: close()";
+    LDebug << "TileBar :: close()";
 
-        state = TBS_Closing;
-    }
+	movementOffsetX = 0;
+    state = TBS_Closing;
 }
 
 template <typename T>
