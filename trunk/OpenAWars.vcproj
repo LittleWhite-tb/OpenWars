@@ -834,6 +834,50 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="InGameStates"
+					>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\ConstructionIGS.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\ConstructionIGS.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\IdleIGS.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\IdleIGS.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\InGameState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\InGameState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\MenuIGS.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\MenuIGS.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\UnitSelectIGS.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\UnitSelectIGS.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

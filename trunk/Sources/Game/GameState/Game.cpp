@@ -26,13 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
-#include "NEngine/Renderer.h"
-#include "NEngine/SpriteLoader.h"
-#include "NEngine/InputManager.h"
-
-#include "Engine/Theme.h"
-#include "Engine/Params.h"
-#include "Engine/VTime.h"
 
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Map/MapLoader.h"
@@ -40,30 +33,28 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Cursor.h"
 #include "Game/GameState/GameObjects/Camera.h"
 
-#include "UI/ConstructBox.h"
-#include "UI/MenuBox.h"
-
-#include "Types/Colour.h"
+#include "Game/GameState/InGameStates/IdleIGS.h"
+#include "Game/GameState/InGameStates/ConstructionIGS.h"
+#include "Game/GameState/InGameStates/MenuIGS.h"
+#include "Game/GameState/InGameStates/UnitSelectIGS.h"
 
 #include "Utils/Logger.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
-#include "NEngine/Exceptions/FileNotFoundException.h"
 #include "globals.h"
 
 Game :: Game()
-:pMap(NULL),pCamera(NULL),pCursor(NULL),pMBMenu(NULL),gState(GS_VISU),selectedUnitPosition(0,0)
+:pMap(NULL),pCamera(NULL),pCursor(NULL),igState(IGS_Idle)
 {
     LDebug << "GameEngine constructed";
 }
 
 Game :: ~Game(void)
 {
-    delete pMBMenu;
-
-    for ( std::map<std::string, ConstructBox*>::iterator itPCB = constructionBoxes.begin() ; itPCB != constructionBoxes.end() ; ++itPCB )
-    {
-        delete itPCB->second;
-    }
+	for ( std::map<IGState, InGameState*>::iterator itIGS = states.begin() ; itIGS != states.end() ; ++itIGS )
+	{
+		delete itIGS->second;
+	}
+	states.clear();
 
     delete pCursor;
 	delete pCamera;
@@ -82,60 +73,12 @@ bool Game :: load(NE::NEngine* pNE)
 		return false;
 	}
 
-    std::list<const Tile* > tilesList;
-    pMap->getTheme()->getTilesList(&tilesList);
-
-    std::list<const UnitTemplateFactionList* > unitsList;
-    pMap->getTheme()->getUnitsList(&unitsList);
-
-    // Construct all the contruction boxes needed by going throw the tile list
-    for ( std::list < const Tile* >::const_iterator itPTile = tilesList.begin() ;
-                itPTile != tilesList.end() ; ++itPTile )
-    {
-        const Params* tileParams = (*itPTile)->getParams();
-        // For each unique producer name (if existing)
-        if ( tileParams->exists("producerName") &&
-             constructionBoxes.find(tileParams->get("producerName")) == constructionBoxes.end() )
-        {
-            constructionBoxes[tileParams->get("producerName")] = new ConstructBox(pMap->getTheme(),pNE->getWindow()->getWindowSize());
-        }
-    }
-
-    // For each unit, we get the tile indicated where the unit is produced
-    // If not existing, the loading fails
-    for ( std::list < const UnitTemplateFactionList* >::const_iterator itPUnit = unitsList.begin() ;
-              itPUnit != unitsList.end() ; ++itPUnit )
-    {
-        const Params* unitParams = (*itPUnit)->get(0)->getParams();
-
-        if ( unitParams->exists("producedIn") )
-        {
-            if ( constructionBoxes.find(unitParams->get("producedIn")) != constructionBoxes.end() )
-            {
-                constructionBoxes[unitParams->get("producedIn")]->add(*itPUnit);
-            }
-            else
-            {
-                LError << "A unit is producable in a tile (producer) not existing -> '" << (*itPUnit)->get(0)->getParams()->get("producedIn") << "'";
-                return false;
-            }
-        }
-    }
-
     try
     {
-        // Unit menu
-        // unitMenuEntries.push_back(new MenuView("Move",ME_Move,NULL));
-
-        pMBMenu = new MenuBox(pNE->getSpriteFactory(),pMap->getTheme(),pNE->getWindow()->getWindowSize());
-        if ( pMBMenu == NULL )
-        {
-            LError << "Fail to allocate MenuBox";
-            throw std::bad_alloc();
-        }
-
-        pMBMenu->add("EndTurnAction",pMap->getTheme()->getUIItem("endTurnIcon")->getSprite(),"End turn");
-        pMBMenu->add("QuitAction",NULL,"Quit");
+        states[IGS_Idle] = new IdleIGS(pMap,pCamera,pCursor);
+		states[IGS_Construction] = new ConstructionIGS(pMap,pCamera,pCursor);
+		states[IGS_Menu] = new MenuIGS(pMap,pCamera,pCursor,pNE->getSpriteFactory(),pNE->getWindow()->getWindowSize());
+		states[IGS_UnitSelected] = new UnitSelectIGS(pMap,pCamera,pCursor);
     }
     catch (ConstructionFailedException& cfe)
     {
@@ -162,204 +105,26 @@ bool Game :: loadMap(const Library<Theme>* const pThemes,const std::string& name
 
 bool Game :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
+	bool bResult = true;
 	// Drawing part
-	MapDrawer::draw(*pRenderer,pMap,*pCamera,time);
+	bResult &= MapDrawer::draw(*pRenderer,pMap,*pCamera,time);
 
-	switch ( gState )
-    {
-        case GS_VISU:
-            {
-                pCursor->draw(*pRenderer,*pCamera,time);
-            }
-            break;
-        case GS_CONSTRUCTION:
-            {
-                // Some protections
-                if ( !pCursor->getTileUnderCursor()->getParams()->exists("producerName") )
-                {
-                    LWarning << "Tile '" << pCursor->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
-                    gState = GS_VISU;
-                    break;
-                }
+	bResult &= states[igState]->draw(pRenderer,time);
 
-                if ( constructionBoxes.find(pCursor->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
-                {
-                    LWarning << "Tile '" << pCursor->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
-                    gState = GS_VISU;
-                    break;
-                }
-
-                // We can draw it
-                constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pRenderer,0,5000,time);
-            }
-            break;
-        case GS_SELECT:
-            {
-                pMBMenu->draw(*pRenderer,pCursor->getPosition(),time);
-            }
-            break;
-        case GS_MOVE:
-            {
-                // TODO: Display the move map stuff
-                pCursor->draw(*pRenderer,*pCamera,time);
-            }
-            break;
-        case GS_MENU:
-            {
-                pMBMenu->draw(*pRenderer,pCursor->getPosition(),time);
-            }
-            break;
-    }
-
-	return true;
+	return bResult;
 }
 
 bool Game :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
+	(void) time;
+
     pCamera->update(*pCursor,*pMap);
 
-    switch ( gState )
-    {
-        case GS_VISU:
-            {
-                pCursor->move(direction);
-                if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                {
-                    const Unit* currentUT = pMap->getUnit(pCursor->getPosition());
-                    if ( currentUT == NULL )
-                    {
-                        if ( pCursor->getTileUnderCursor()->getParams()->exists("producerName") )
-                        {
-                            this->gState = GS_CONSTRUCTION;
-                        }
-                        else
-                        {
-                            // pMBMenu->setMenus(menuEntries);
-                            this->gState = GS_MENU;
-                        }
-                    }
-                    else if ( !pMap->getUnit(pCursor->getPosition())->state == US_ACTIVE )
-                    {
-                        // pMBMenu->setMenus(menuEntries);
-                        this->gState = GS_MENU;
-                    }
-                    else
-                    {
-                        // pMBMenu->setMenus(unitMenuEntries);
-                        this->gState = GS_SELECT;
-                    }
-
-                }
-            }
-            break;
-        case GS_CONSTRUCTION:
-            {
-                if ( !pCursor->getTileUnderCursor()->getParams()->exists("producerName") )
-                {
-                    LWarning << "Tile '" << pCursor->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
-                    gState = GS_VISU;
-                    break;
-                }
-
-                if ( constructionBoxes.find(pCursor->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
-                {
-                    LWarning << "Tile '" << pCursor->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
-                    gState = GS_VISU;
-                    break;
-                }
-
-                // We can draw it
-                constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->update(direction);
-                if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                {
-                    pMap->setUnit(pCursor->getPosition(),constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(0)->getName(),0);
-                    this->gState = GS_VISU;
-                }
-            }
-            break;
-        case GS_MENU:
-            {
-                pMBMenu->update(direction);
-                if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                {
-                    // Check what is in
-                    std::string menuSelection = pMBMenu->getSelectedActionName();
-                    if ( menuSelection == "EndTurnAction" )
-                    {
-                        this->pMap->enableUnits();
-                        this->gState = GS_VISU;
-                    }
-                    else if ( menuSelection == "QuitAction" )
-                    {
-						// TODO
-                        // m_userQuit = true;
-                    }
-                    else
-                    {
-                        LWarning << "Not implemented action '" << menuSelection << "' in GS_MENU state";
-                    }
-                }
-                else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-                {
-                    this->gState = GS_VISU;
-                }
-            }
-            break;
-        case GS_SELECT:
-            {
-                pMBMenu->update(direction);
-                if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                {
-                    // Check what is in
-                    /*
-                    switch (pMBMenu->getActualEntry())
-                    {
-                        case (ME_Move):
-                        {
-                            // ToDo Change turn.
-                            // this->pMap->moveUnit();
-                            selectedUnitPosition = pC->getPosition();
-
-                            // If the unit has not enough fuel ... we will move the unit only of the distance possible with the fuel
-                            const Unit* pUnitSelected = pMap->getUnit(selectedUnitPosition);
-                            unsigned int movement = pUnitSelected->getTemplate()->getMovement();
-                            if ( pUnitSelected->fuel < movement)
-                            {
-                                movement = pUnitSelected->fuel;
-                            }
-                            // pMap->setMoveHighlight(selectedUnitPosition,*pUnitSelected,movement);
-
-                            this->gState = GS_MOVE;
-                        }
-                        break;
-                    }
-                    */
-                }
-                else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-                {
-                    this->gState = GS_VISU;
-                }
-            }
-            break;
-        case GS_MOVE:
-            {
-                pCursor->move(direction);
-                if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
-                {
-                    if ( this->pMap->move(selectedUnitPosition, pCursor->getPosition()) )
-                    {
-                        // pMap->clearHighlight();
-                        this->gState = GS_VISU;
-                    }
-                }
-                else if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
-                {
-                    // pMap->clearHighlight();
-                    this->gState = GS_SELECT;
-                }
-            }
-            break;
-    }
+	igState = states[igState]->update(direction,buttons,time);
+	if ( igState == IGS_Quit )
+	{
+		return false;
+	}
      
     return true;
 }

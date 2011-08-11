@@ -45,25 +45,28 @@ class MenuBox
 {
 	struct MenuItem
 	{
-		std::string actionName;			/*!< id of the entry */
-		std::string displayName;			/*!< name to display */
+		std::string actionName;		/*!< id of the entry */
+		std::string displayName;	/*!< name to display */
 		AnimatedSprite* pASprite;	/*!< sprite to display */
+		bool enabled;				/*!< true if this entry is displayed */
 
 		MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)
-			:actionName(actionName),displayName(displayName),pASprite(pASprite) {}
+			:actionName(actionName),displayName(displayName),pASprite(pASprite),enabled(true) {}
 	};
 
 private:
 
-
-	NE::Sprite* pBackground;				/*!< background for the UI (generated on the fly by the constructor) */
+	NE::Sprite* pBackground;			/*!< background for the UI (generated on the fly by the constructor) */
 	AnimatedSprite* pCursor;			/*!< cursor */
 	Font* pFont;						/*!< font for the texts */
 
 	unsigned int windowXPosition;		/*!< Window width */
 	unsigned int actualPosition;		/*!< actual position of the cursor */
 
-	std::vector<MenuItem> entries;    /*!< entries in the UI */
+	std::vector<MenuItem> entries;		/*!< entries in the UI */
+
+	unsigned int countNumberValidEntries()const;
+	MenuItem* getEntry(const std::string& entryActionName);
 
 public:
 	MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize);
@@ -74,7 +77,10 @@ public:
 
 	void update(const NE::InputManager::ArrowsDirection kd);
 
-	const std::string& getSelectedActionName(void) { return entries[actualPosition].actionName; }
+	const std::string& getSelectedActionName(void)const;
+
+	void enableEntry(const std::string& entryActionName);
+	void disableEntry(const std::string& entryActionName);
 };
 
 /*! \class MenuBox MenuBox.h "UI/MenuBox.h"
@@ -82,6 +88,17 @@ public:
  *
  * The MenuBox show a little box with multiple entries to let the user select actions
  * The background is constructed on the fly, so it needs special precaution.
+ */
+
+/*! \fn unsigned int MenuBox::countNumberValidEntries()const
+ *	\brief Counts the entries enabled
+ *	\return the number of entries enabled
+ */
+
+/*! \fn	MenuItem* MenuBox::getEntry(const std::string& entryActionName)
+ *	\brief Get the entry identified by the action name entryActionName
+ *	\param entryActionName the name of the entry to find
+ *	\return a pointer to the entry found (NULL if not found)
  */
 
 /*! \fn MenuBox::MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize)
@@ -111,15 +128,26 @@ public:
  * \param kd the key direction pressed
  */
 
-/*! \fn const std::string& MenuBox::getSelectedActionName(void)
+/*! \fn const std::string& MenuBox::getSelectedActionName(void)const
  * \brief Get the actually selected action name
  * \return The action name actually selected
+ */
+
+/*!	\fn void MenuBox::enableEntry(const std::string& entryActionName)
+ *	\brief Enables the entry identified by entryActionName
+ *	\param entryActionName the name of the entry to enable
+ */
+
+/*!	\fn void MenuBox::disableEntry(const std::string& entryActionName)
+ *	\brief Disables the entry identified by entryActionName
+ *	\param entryActionName the name of the entry to disable
  */
 
 /*! \struct MenuBox::MenuItem MenuBox.h "UI/MenuBox.h"
  *  \brief MenuItem struct
  *
  * Used to give a structure usable in the MenuBox to contain an entry
+ * The name of the action is used as an identifier
  */
 
 /*! \fn MenuBox::MenuItem::MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)

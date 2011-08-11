@@ -53,14 +53,12 @@ private:
 	Font* pFont;									/*!< Font used for the texts */
 	Font* pFontGrey;								/*!< Font used for the texts when no enough money (in grey)*/
 
-	USize2 windowSize;								/*!< Size of the window where to draw the UI */
-
 	std::vector<const UnitTemplateFactionList*> unitsList;		/*!< list of units */
 	unsigned int actualPosition;					/*!< actual position of the cursor */
 	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
 
 public:
-	ConstructBox(const Theme* pTheme, const USize2& windowSize);
+	ConstructBox(const Theme* pTheme);
 	~ConstructBox(void);
 
 	void add(const UnitTemplateFactionList* pListUnitTemplate);

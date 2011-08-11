@@ -32,10 +32,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
-#include "Types/Vec2.h"
-
 #include "Engine/Library.h"
 #include "Engine/Theme.h"
+
+#include "Game/GameState/InGameStates/InGameState.h"
 
 namespace NE { class NEngine; }
 namespace NE { class Renderer; }
@@ -44,35 +44,16 @@ class Map;
 class Camera;
 class Cursor;
 
-struct MenuView;
-class MenuBox;
-class ConstructBox;
-
 class Game : public GameState
 {
-	enum GState
-	{
-		GS_VISU,
-		GS_CONSTRUCTION,
-		GS_SELECT,
-		GS_MENU,
-        
-        GS_MOVE
-	};
-
 private:
 
 	Map* pMap;
 	Camera* pCamera;
 	Cursor* pCursor;					/*!< The cursor */
 
-	// UI
-	std::map<std::string, ConstructBox*> constructionBoxes;	/*!< Library of construct box determined by their names */
-
-	MenuBox* pMBMenu;			/*!< menu for the user */
-
-	GState gState;			/*!< Actual state of the game */
-    UVec2 selectedUnitPosition; /*!< Position of the unit selected (the one to move or to control) */
+	IGState igState;
+	std::map<IGState, InGameState*> states;
 
 public:
 	Game();

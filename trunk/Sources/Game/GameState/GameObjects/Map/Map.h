@@ -77,7 +77,7 @@ public:
     const Tile* getTile(const UVec2& position)const;
     bool setTile(const UVec2& position, const std::string& tileName);
 
-    const Unit* getUnit(const UVec2& position)const;
+    Unit* getUnit(const UVec2& position);
     bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 
     bool testTile(const UVec2& position, const Tile* pTile)const;
@@ -133,7 +133,7 @@ public:
  *	\return true if all goes right
  */
 
-/*! \fn const Unit* Map :: getUnit(const UVec2& position)const;
+/*! \fn Unit* Map :: getUnit(const UVec2& position);
  *	\brief Get the unit at this position
  *	\param position the position where to get the unit
  *	\return a pointer to the Unit at this position

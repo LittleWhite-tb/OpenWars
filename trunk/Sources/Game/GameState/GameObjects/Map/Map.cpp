@@ -129,7 +129,7 @@ bool Map :: testUnit(const UVec2& position, const UnitTemplate* pUnitTemplate)co
 	return pIntegrityChecker->testUnit(position,pUnitTemplate);
 }
 
-const Unit* Map :: getUnit(const UVec2& position)const
+Unit* Map :: getUnit(const UVec2& position)
 {
 	if ( isValidPosition(position) )
     {

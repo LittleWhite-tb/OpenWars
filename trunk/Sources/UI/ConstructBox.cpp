@@ -42,12 +42,12 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <sstream>
 
-ConstructBox :: ConstructBox(const Theme* pTheme, const USize2& windowSize)
+ConstructBox :: ConstructBox(const Theme* pTheme)
 	:pBackgroundUI(pTheme->getUIItem("ConstructionBackground")->getSprite()),
 	 pCursor(pTheme->getUIItem("ConstructionBackground")->getSprite()),
 	 pUpArrow(pTheme->getUIItem("upArrow")->getSprite()),
 	 pDownArrow(pTheme->getUIItem("downArrow")->getSprite()),
-	 windowSize(windowSize),actualPosition(0),offsetCursorPosition(0)
+	 actualPosition(0),offsetCursorPosition(0)
 {
 	Colour white(255,255,255,255);
 	Colour grey (64,64,64,255);
@@ -73,7 +73,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, con
 	bool errorFlag = true;
     USize2 backgroundSize = pBackgroundUI->getSize();
 
-	IVec2 uiPosition(20, windowSize.height - (backgroundSize.height + 20));
+	IVec2 uiPosition(20, 20);
 	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getSize().width / 2) + backgroundSize.width / 2 , uiPosition.y);
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
 	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getSize().height + 5);

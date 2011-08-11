@@ -120,9 +120,7 @@ bool GameEngine :: update()
 	NE::InputManager::ArrowsDirection directions =pNE->getInputManager()->getDirectionsPressed();
     NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();	
 
-	pGame->update(directions,buttons,pNE->getTime()->getTime());
-
-	return true;
+	return pGame->update(directions,buttons,pNE->getTime()->getTime());
 }
 
 void GameEngine :: run(void)
