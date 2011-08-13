@@ -32,6 +32,7 @@ namespace NE { class Renderer; }
 class Map;
 class Camera;
 class Cursor;
+class GameInfo;
 
 enum IGState
 {
@@ -49,8 +50,10 @@ protected:
 	const Camera* pCamera;
 	Cursor* pCursor;
 
+	GameInfo* pGameInfo;
+
 public:
-	InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor);
+	InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
 	virtual ~InGameState() {}
 
 	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;

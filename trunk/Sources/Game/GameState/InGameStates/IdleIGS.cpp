@@ -31,9 +31,27 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/Unit.h"
 
+#include "UI/OfficerBox.h"
+
+IdleIGS :: IdleIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, const USize2& winSize)
+	:InGameState(pMap,pCamera,pCursor, pGameInfo) 
+{
+	pOfficerBox = new OfficerBox(pMap->getTheme(),winSize);
+}
+
+IdleIGS :: ~IdleIGS()
+{
+	delete pOfficerBox;
+}
+
 bool IdleIGS::draw(NE::Renderer* pRenderer, unsigned int time)
 {
-	return pCursor->draw(*pRenderer,*pCamera,time);
+	bool bResult = true;
+
+	bResult &= pCursor->draw(*pRenderer,*pCamera,time);
+	bResult &= pOfficerBox->draw(*pRenderer,*pGameInfo,time);
+
+	return bResult;
 }
 
 IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
@@ -69,6 +87,8 @@ IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputMa
 			return IGS_Menu;
 		}
 	}
+
+	pOfficerBox->update(pCursor->getPosition());
 
 	return IGS_Idle;
 }

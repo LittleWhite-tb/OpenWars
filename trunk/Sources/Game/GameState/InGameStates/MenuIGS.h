@@ -45,7 +45,7 @@ private:
 	MenuBox* pUIMenu;
 
 public:
-	MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor,NE::SpriteFactory* const pSF, const USize2& winSize);
+	MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, NE::SpriteFactory* const pSF, const USize2& winSize);
 	~MenuIGS();
 
 	bool draw(NE::Renderer* pRenderer, unsigned int time);

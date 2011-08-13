@@ -30,11 +30,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Cursor.h"
+#include "Game/GameState/GameObjects/GameInfo.h"
 
 #include "UI/ConstructBox.h"
 
-ConstructionIGS :: ConstructionIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor)
-	:InGameState(pMap,pCamera,pCursor)
+ConstructionIGS :: ConstructionIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
+	:InGameState(pMap,pCamera,pCursor,pGameInfo)
 {
 	std::list<const Tile* > tilesList;
     pMap->getTheme()->getTilesList(&tilesList);
@@ -88,7 +89,7 @@ ConstructionIGS :: ~ConstructionIGS()
 bool ConstructionIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
     // We can draw it
-    return constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pRenderer,0,5000,time);
+	return constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pRenderer,pGameInfo->getCurrentFaction(),pGameInfo->getFactionMoney()->getMoney(),time);
 }
 
 IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
@@ -112,7 +113,7 @@ IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, N
     constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->update(direction);
     if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
     {
-        pMap->setUnit(pCursor->getPosition(),constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(0)->getInternalName(),0);
+		pMap->setUnit(pCursor->getPosition(),constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(pGameInfo->getCurrentFaction())->getInternalName(),pGameInfo->getCurrentFaction());
 		pMap->getUnit(pCursor->getPosition())->state=US_DONE;
         return IGS_Idle;
     }

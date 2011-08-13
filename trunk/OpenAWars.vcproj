@@ -436,6 +436,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Sources\UI\OfficerBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\UI\OfficerBox.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Sources\UI\TileBar.h"
 				>
 			</File>
@@ -727,6 +735,22 @@
 					</File>
 					<File
 						RelativePath=".\Sources\Game\GameState\GameObjects\FontObject.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\GameInfo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\GameInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Money.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\GameObjects\Money.h"
 						>
 					</File>
 					<File

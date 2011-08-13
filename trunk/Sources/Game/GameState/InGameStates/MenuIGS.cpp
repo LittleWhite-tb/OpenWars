@@ -33,8 +33,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UI/MenuBox.h"
 
-MenuIGS :: MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor,NE::SpriteFactory* const pSF, const USize2& winSize)
-	:InGameState(pMap,pCamera,pCursor)
+MenuIGS :: MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, NE::SpriteFactory* const pSF, const USize2& winSize)
+	:InGameState(pMap,pCamera,pCursor,pGameInfo)
 {
 	pUIMenu = new MenuBox(pSF,pMap->getTheme(),winSize);
 	if ( pUIMenu == NULL )

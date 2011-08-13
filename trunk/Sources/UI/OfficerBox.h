@@ -1,6 +1,9 @@
+#ifndef __OFFICERBOX_H__
+#define __OFFICERBOX_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
-OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
+OpenAWars is an open turn by turn strategic game ai, const float scalingFactorming to recreate the feeling of advance (famicon) wars (c)
 Copyright (C) 2010-2011  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
@@ -22,29 +25,36 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "UnitSelectIGS.h"
+#include "Types/Vec2.h"
+#include "Types/Size2.h"
 
-UnitSelectIGS :: UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
-	:InGameState(pMap,pCamera,pCursor,pGameInfo)
+namespace NE { class Renderer; }
+
+class Theme;
+class AnimatedSprite;
+class Font;
+
+class GameInfo;
+
+class OfficerBox
 {
+private:
 
-}
+	IVec2 boxPosition;
+	unsigned int leftPosition;
+	unsigned int rightPosition;
 
-UnitSelectIGS :: ~UnitSelectIGS()
-{
-}
+	const Theme* pTheme;
 
-bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
-{
-	return true;
-}
+public:
+	OfficerBox(const Theme* pTheme, const USize2& windowSize);
+	~OfficerBox();
 
-IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
-{
-	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
-	{
-		return IGS_Idle;
-	}
+	void putOnLeft();
+	void putOnRight();
 
-	return IGS_UnitSelected;
-}
+	bool draw(const NE::Renderer& r, const GameInfo& gameInfo, const unsigned int time);
+	void update(const UVec2& cursorPosition);
+};
+
+#endif

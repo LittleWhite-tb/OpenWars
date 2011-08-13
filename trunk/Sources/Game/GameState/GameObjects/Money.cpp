@@ -22,29 +22,28 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "UnitSelectIGS.h"
+#include "Money.h"
 
-UnitSelectIGS :: UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
-	:InGameState(pMap,pCamera,pCursor,pGameInfo)
+#include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/UnitTemplate.h"
+
+void getCapital(const Map* pMap, unsigned int faction)
 {
+	assert(pMap);
 
+	assert(false); // TODO
 }
 
-UnitSelectIGS :: ~UnitSelectIGS()
+bool Money :: buy(const UnitTemplate* pUnit)
 {
-}
+	assert(pUnit);
 
-bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
-{
-	return true;
-}
-
-IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
-{
-	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
+	unsigned int moneyRequired = pUnit->getPrice();
+	if ( moneyRequired > this->money )
 	{
-		return IGS_Idle;
+		return false;
 	}
 
-	return IGS_UnitSelected;
+	this->money -= moneyRequired;
+	return true;
 }

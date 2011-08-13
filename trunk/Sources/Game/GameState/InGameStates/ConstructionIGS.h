@@ -45,7 +45,7 @@ private:
 	std::map<std::string, ConstructBox*> constructionBoxes;	/*!< Library of construct box determined by their names */
 
 public:
-	ConstructionIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor);
+	ConstructionIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
 	~ConstructionIGS();
 
 	bool draw(NE::Renderer* pRenderer, unsigned int time);

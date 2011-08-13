@@ -26,8 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-InGameState :: InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor)
-	:pMap(pMap),pCamera(pCamera),pCursor(pCursor)
+InGameState :: InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
+	:pMap(pMap),pCamera(pCamera),pCursor(pCursor),pGameInfo(pGameInfo)
 {
 	assert(pMap);
 	assert(pCamera);

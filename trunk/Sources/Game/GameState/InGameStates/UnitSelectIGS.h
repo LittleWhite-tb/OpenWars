@@ -39,7 +39,7 @@ class UnitSelectIGS : public InGameState
 private:
 
 public:
-	UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor);
+	UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
 	~UnitSelectIGS();
 
 	bool draw(NE::Renderer* pRenderer, unsigned int time);

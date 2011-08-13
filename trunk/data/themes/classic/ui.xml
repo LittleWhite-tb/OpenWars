@@ -43,4 +43,8 @@
 		<internalName>endTurnIcon</internalName>
 		<filename>endTurnIcon.png</filename>
 	</uiItem>
+	<uiItem>
+		<internalName>andyOfficerBox</internalName>
+		<filename>Andy_OfficerBox.png</filename>
+	</uiItem>
 </uiItems>

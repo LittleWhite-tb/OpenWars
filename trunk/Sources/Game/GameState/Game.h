@@ -35,6 +35,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Library.h"
 #include "Engine/Theme.h"
 
+#include "Game/GameState/GameObjects/GameInfo.h"
 #include "Game/GameState/InGameStates/InGameState.h"
 
 namespace NE { class NEngine; }
@@ -51,6 +52,7 @@ private:
 	Map* pMap;
 	Camera* pCamera;
 	Cursor* pCursor;					/*!< The cursor */
+	GameInfo gameInfo;
 
 	IGState igState;
 	std::map<IGState, InGameState*> states;

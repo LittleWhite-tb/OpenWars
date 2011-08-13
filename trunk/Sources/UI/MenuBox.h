@@ -34,9 +34,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Types/Vec2.h"
 
-namespace NE { class SpriteLoader; }
 namespace NE { class SpriteFactory; }
-namespace NE { class Sprite; }
 namespace NE { class Renderer; }
 class Font;
 class Theme;

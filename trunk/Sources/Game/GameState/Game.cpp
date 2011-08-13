@@ -43,7 +43,7 @@ e-mail: lw.demoscene@gmail.com
 #include "globals.h"
 
 Game :: Game()
-:pMap(NULL),pCamera(NULL),pCursor(NULL),igState(IGS_Idle)
+:pMap(NULL),pCamera(NULL),pCursor(NULL),gameInfo(GameInfo(2,0)),igState(IGS_Idle)
 {
     LDebug << "GameEngine constructed";
 }
@@ -75,10 +75,10 @@ bool Game :: load(NE::NEngine* pNE)
 
     try
     {
-        states[IGS_Idle] = new IdleIGS(pMap,pCamera,pCursor);
-		states[IGS_Construction] = new ConstructionIGS(pMap,pCamera,pCursor);
-		states[IGS_Menu] = new MenuIGS(pMap,pCamera,pCursor,pNE->getSpriteFactory(),pNE->getWindow()->getWindowSize());
-		states[IGS_UnitSelected] = new UnitSelectIGS(pMap,pCamera,pCursor);
+        states[IGS_Idle] = new IdleIGS(pMap,pCamera,pCursor,&gameInfo,pNE->getWindow()->getWindowSize());
+		states[IGS_Construction] = new ConstructionIGS(pMap,pCamera,pCursor,&gameInfo);
+		states[IGS_Menu] = new MenuIGS(pMap,pCamera,pCursor,&gameInfo,pNE->getSpriteFactory(),pNE->getWindow()->getWindowSize());
+		states[IGS_UnitSelected] = new UnitSelectIGS(pMap,pCamera,pCursor,&gameInfo);
     }
     catch (ConstructionFailedException& cfe)
     {

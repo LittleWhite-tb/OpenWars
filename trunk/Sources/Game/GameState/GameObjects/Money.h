@@ -1,3 +1,6 @@
+#ifndef __MONEY_H__
+#define __MONEY_H__
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,29 +25,21 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "UnitSelectIGS.h"
+class Map;
+class UnitTemplate;
 
-UnitSelectIGS :: UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
-	:InGameState(pMap,pCamera,pCursor,pGameInfo)
+class Money
 {
+private:
+	unsigned int money;
 
-}
+public:
+	Money(unsigned int money):money(money) {}
 
-UnitSelectIGS :: ~UnitSelectIGS()
-{
-}
+	unsigned int getMoney()const { return money; }
 
-bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
-{
-	return true;
-}
+	void getCapital(const Map* pMap, unsigned int faction);
+	bool buy(const UnitTemplate* pUnit);
+};
 
-IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
-{
-	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
-	{
-		return IGS_Idle;
-	}
-
-	return IGS_UnitSelected;
-}
+#endif
