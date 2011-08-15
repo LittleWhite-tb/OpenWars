@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Params.h"
 
 #include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/Map/MapDrawer.h"
 #include "Game/GameState/GameObjects/Cursor.h"
 
 #include "UI/MenuBox.h"
@@ -54,7 +55,12 @@ MenuIGS :: ~MenuIGS()
 
 bool MenuIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
-	return pUIMenu->draw(*pRenderer,pCursor->getPosition(),time);
+	bool bResult = true;
+
+	bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
+	bResult &= pUIMenu->draw(*pRenderer,pCursor->getPosition(),time);
+
+	return bResult;
 }
 
 IGState MenuIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)

@@ -85,18 +85,31 @@ bool GameEngine :: load(void)
 {
 	bool bResult = true;
 
-	ThemeLoader::loadThemeList(pNE->getSpriteLoader(),THEME_PATH + "themeList.xml",&themeLibrary);
-	
-	if ( pGameOptions->editorMode )
+	try
 	{
-		bResult &= dynamic_cast<Editor*>(pGame)->loadMap(themeLibrary.get(pGameOptions->themeName),pGameOptions->mapSize);
-	}
-	else
-	{
-		bResult &= bResult &= dynamic_cast<Game*>(pGame)->loadMap(&themeLibrary,pGameOptions->loadMapName);
-	}
+		ThemeLoader::loadThemeList(pNE->getSpriteLoader(),THEME_PATH + "themeList.xml",&themeLibrary);
+		
+		if ( pGameOptions->editorMode )
+		{
+			bResult &= dynamic_cast<Editor*>(pGame)->loadMap(themeLibrary.get(pGameOptions->themeName),pGameOptions->mapSize);
+		}
+		else
+		{
+			bResult &= bResult &= dynamic_cast<Game*>(pGame)->loadMap(&themeLibrary,pGameOptions->loadMapName);
+		}
 
-	bResult &= pGame->load(pNE);
+		bResult &= pGame->load(pNE);
+	}
+	catch (LibraryException& le)
+	{
+		LError << le.what();
+		return false;
+	}
+	catch (EngineException& ee)
+	{
+		LError << ee.what();
+		return false;
+	}
 
 	return bResult;
 }

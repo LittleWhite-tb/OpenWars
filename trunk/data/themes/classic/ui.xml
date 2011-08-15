@@ -12,6 +12,10 @@
 		-->
 	</uiItem>
 	<uiItem>
+		<internalName>ConstructionCursor</internalName>
+		<filename>constCursor.png</filename>
+	</uiItem>
+	<uiItem>
 		<internalName>cursor</internalName>
 		<filename>cursor.png</filename>
 	</uiItem>
@@ -42,6 +46,16 @@
 	<uiItem>
 		<internalName>endTurnIcon</internalName>
 		<filename>endTurnIcon.png</filename>
+	</uiItem>
+	<uiItem>
+		<internalName>AttackMark</internalName>
+		<filename>attackMark.png</filename>
+		
+		<size>
+			<x>32</x>
+			<y>32</y>
+		</size>
+		<animationTime>200</animationTime>
 	</uiItem>
 	<uiItem>
 		<internalName>andyOfficerBox</internalName>

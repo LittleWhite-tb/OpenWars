@@ -24,6 +24,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Unit.h"
 
+#include "Engine/Params.h"
+
 #include "UnitTemplate.h"
 
 Unit :: Unit(const UnitTemplate* pUTemplate)
@@ -31,4 +33,15 @@ Unit :: Unit(const UnitTemplate* pUTemplate)
      faction(pUTemplate->getFaction()),
      fuel(pUTemplate->getFuel()),ammo(pUTemplate->getAmmo()),life(pUTemplate->getLife()),state(US_ACTIVE)
 {
+}
+
+unsigned int Unit :: getPossibleMovementLength()const
+{
+	unsigned int movementLength = this->getTemplate()->getParams()->getAs<unsigned int>("movement",0);
+	if ( movementLength > this->fuel  )
+	{
+		movementLength = this->fuel;
+	}
+
+	return movementLength;
 }

@@ -1,5 +1,5 @@
-#ifndef __INGAMESTATE_H__
-#define __INGAMESTATE_H__
+#ifndef __MAPMARKER_HPP__
+#define __MAPMARKER_HPP__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,41 +25,37 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "NEngine/InputManager.h"
+#include <vector>
+
+#include "Types/Vec2.h"
 
 namespace NE { class Renderer; }
 
+class AnimatedSprite;
 class Map;
 class Camera;
-class Cursor;
-class GameInfo;
+class UnitTemplate;
 
-enum IGState
-{
-	IGS_Idle,
-	IGS_AttackMap,
-	IGS_Menu,
-	IGS_Construction,
-	IGS_UnitSelected,
-	IGS_Quit
-};
-
-class InGameState
+class MapMarker
 {
 protected:
-	Map* pMap;
-	const Camera* pCamera;
-	Cursor* pCursor;
 
-	GameInfo* pGameInfo;
+	const Map* pMap;
+
+	AnimatedSprite* pMarkerSprite;
+
+	std::vector<std::vector<int>> marks;
+
+	void setMarksInRange(const UVec2& position, unsigned int minRange, unsigned int maxRange);
 
 public:
-	InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
-	virtual ~InGameState() {}
+	MapMarker(const Map* pMap, AnimatedSprite* pMarkerSprite);
+	virtual ~MapMarker() {}
 
-	virtual void init() {};
-	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
-	virtual IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+	virtual void clear();
+	virtual void setMarksForUnitAt(const UVec2& position)=0;
+
+	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 };
 
 #endif

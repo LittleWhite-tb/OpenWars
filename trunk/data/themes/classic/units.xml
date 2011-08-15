@@ -216,7 +216,7 @@
 		
 		<range>
 			<min>2</min>
-			<max>4</max>
+			<max>3</max>
 		</range>
 		
 		<movement>3</movement>

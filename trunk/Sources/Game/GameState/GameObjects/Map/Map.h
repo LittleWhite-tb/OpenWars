@@ -78,6 +78,7 @@ public:
     bool setTile(const UVec2& position, const std::string& tileName);
 
     Unit* getUnit(const UVec2& position);
+    const Unit* getUnit(const UVec2& position)const;
     bool setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
 
     bool testTile(const UVec2& position, const Tile* pTile)const;

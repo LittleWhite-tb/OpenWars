@@ -1,5 +1,5 @@
-#ifndef __INGAMESTATE_H__
-#define __INGAMESTATE_H__
+#ifndef __ATTACKMAPIGS_H__
+#define __ATTACKMAPIGS_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,41 +25,30 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include "InGameState.h"
+
 #include "NEngine/InputManager.h"
 
 namespace NE { class Renderer; }
 
 class Map;
+class GlobalAttackMapMarker;
 class Camera;
 class Cursor;
-class GameInfo;
 
-enum IGState
+class AttackMapIGS : public InGameState
 {
-	IGS_Idle,
-	IGS_AttackMap,
-	IGS_Menu,
-	IGS_Construction,
-	IGS_UnitSelected,
-	IGS_Quit
-};
+private:
 
-class InGameState
-{
-protected:
-	Map* pMap;
-	const Camera* pCamera;
-	Cursor* pCursor;
-
-	GameInfo* pGameInfo;
+	GlobalAttackMapMarker* pMapMarker;
 
 public:
-	InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
-	virtual ~InGameState() {}
+	AttackMapIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
+	~AttackMapIGS();
 
-	virtual void init() {};
-	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
-	virtual IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+	void init();
+	bool draw(NE::Renderer* pRenderer, unsigned int time);
+	IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 };
 
 #endif

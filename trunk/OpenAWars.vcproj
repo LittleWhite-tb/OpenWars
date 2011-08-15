@@ -844,6 +844,42 @@
 							RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapSaver.h"
 							>
 						</File>
+						<Filter
+							Name="MapMarker"
+							>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\AttackMapMarker.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\AttackMapMarker.h"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\GlobalAttackMapMarker.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\GlobalAttackMapMarker.h"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\MapMarker.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\MapMarker.h"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\MovementMapMarker.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\MovementMapMarker.hpp"
+								>
+							</File>
+						</Filter>
 					</Filter>
 				</Filter>
 				<Filter
@@ -861,6 +897,14 @@
 				<Filter
 					Name="InGameStates"
 					>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\AttackMapIGS.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\Game\GameState\InGameStates\AttackMapIGS.h"
+						>
+					</File>
 					<File
 						RelativePath=".\Sources\Game\GameState\InGameStates\ConstructionIGS.cpp"
 						>

@@ -44,7 +44,7 @@ e-mail: lw.demoscene@gmail.com
 
 ConstructBox :: ConstructBox(const Theme* pTheme)
 	:pBackgroundUI(pTheme->getUIItem("ConstructionBackground")->getSprite()),
-	 pCursor(pTheme->getUIItem("ConstructionBackground")->getSprite()),
+	 pCursor(pTheme->getUIItem("ConstructionCursor")->getSprite()),
 	 pUpArrow(pTheme->getUIItem("upArrow")->getSprite()),
 	 pDownArrow(pTheme->getUIItem("downArrow")->getSprite()),
 	 actualPosition(0),offsetCursorPosition(0)
@@ -76,7 +76,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, con
 	IVec2 uiPosition(20, 20);
 	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getSize().width / 2) + backgroundSize.width / 2 , uiPosition.y);
 	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
-	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * pCursor->getSize().height + 5);
+	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * (pCursor->getSize().height+1) + 5);
 
 	errorFlag &= pBackgroundUI->draw(r,uiPosition,time);
 	if ( unitsList.size() > 6 )

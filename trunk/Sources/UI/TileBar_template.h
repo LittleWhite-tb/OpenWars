@@ -246,6 +246,7 @@ bool TileBar<T> :: draw(const NE::Renderer& r, const unsigned int time)
 template <typename T>
 void TileBar<T> :: update(const unsigned int time)
 {
+	(void) time;
     switch (state)
     {
         case TBS_Closing:

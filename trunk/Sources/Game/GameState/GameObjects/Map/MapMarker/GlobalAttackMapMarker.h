@@ -1,5 +1,5 @@
-#ifndef __INGAMESTATE_H__
-#define __INGAMESTATE_H__
+#ifndef __GLOBALATTACKMAPMARKER_H__
+#define __GLOBALATTACKMAPMARKER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,41 +25,20 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "NEngine/InputManager.h"
+#include "MapMarker.h"
 
-namespace NE { class Renderer; }
+class Theme;
 
-class Map;
-class Camera;
-class Cursor;
-class GameInfo;
-
-enum IGState
+class GlobalAttackMapMarker : public MapMarker
 {
-	IGS_Idle,
-	IGS_AttackMap,
-	IGS_Menu,
-	IGS_Construction,
-	IGS_UnitSelected,
-	IGS_Quit
-};
+private:
 
-class InGameState
-{
-protected:
-	Map* pMap;
-	const Camera* pCamera;
-	Cursor* pCursor;
-
-	GameInfo* pGameInfo;
+	void setMarksRecursively(const UVec2& position, const UnitTemplate* pUnitTemplate, int movement, bool firstCall=false);
 
 public:
-	InGameState(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
-	virtual ~InGameState() {}
+	GlobalAttackMapMarker(const Map* pMap, const Theme* pTheme);
 
-	virtual void init() {};
-	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
-	virtual IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+	void setMarksForUnitAt(const UVec2& position);
 };
 
 #endif

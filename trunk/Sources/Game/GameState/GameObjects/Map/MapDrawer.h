@@ -33,12 +33,10 @@ class MapDrawer
 {
 private:
 
-	static bool drawTerrain(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
-	static bool drawUnits(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
-
 public:
 
-	static bool draw(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
+	static bool drawTerrain(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
+	static bool drawUnits(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time);
 };
 
 /*! \class MapDrawer MapDrawer.h "Game/GameState/GameObjects/Map/MapDrawer.h"

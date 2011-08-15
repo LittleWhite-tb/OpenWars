@@ -26,6 +26,7 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include <iostream>
+#include <cmath>
 
 template <typename T>
 struct Vec2
@@ -61,6 +62,33 @@ std::ostream& operator<< (std::ostream& o, const Vec2<T>& v)
 	return o;
 }
 
+template <typename T>
+T distance(const Vec2<T>& v1, const Vec2<T>& v2)
+{
+	T dx=0;
+	T dy=0;
+
+	if ( v2.x < v1.x )
+	{
+		dx = v1.x - v2.x;
+	}
+	else
+	{
+		dx = v2.x - v1.x;
+	}
+
+	if ( v2.y < v1.y )
+	{
+		dy = v1.y - v2.y;
+	}
+	else
+	{
+		dy = v2.y - v1.y;
+	}
+
+	return dx + dy;
+}
+
 typedef Vec2<int> IVec2;
 typedef Vec2<unsigned int> UVec2;
 
@@ -79,6 +107,13 @@ typedef Vec2<unsigned int> UVec2;
 	\param o the stream where to send the output
 	\param v the vector to send
 	\return the stream (to loop)
+*/
+
+/*! \fn T distance(const Vec2<T>& v1, const Vec2<T>& v2)
+	\brief Calculates the distance between two points
+	\param v1 the first point
+	\param v2 the second point
+	\return the distance
 */
 
 #endif

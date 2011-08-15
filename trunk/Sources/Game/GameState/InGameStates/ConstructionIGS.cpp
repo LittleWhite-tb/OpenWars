@@ -113,8 +113,13 @@ IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, N
     constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->update(direction);
     if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
     {
-		pMap->setUnit(pCursor->getPosition(),constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(pGameInfo->getCurrentFaction())->getInternalName(),pGameInfo->getCurrentFaction());
-		pMap->getUnit(pCursor->getPosition())->state=US_DONE;
+		const std::string& unitInternalName = constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(pGameInfo->getCurrentFaction())->getInternalName();
+		if ( pGameInfo->getFactionMoney()->buy(pMap->getTheme()->getUnit(unitInternalName,pGameInfo->getCurrentFaction())))
+		{
+			pMap->setUnit(pCursor->getPosition(),unitInternalName,pGameInfo->getCurrentFaction());
+			pMap->getUnit(pCursor->getPosition())->state=US_DONE;
+		}
+		
         return IGS_Idle;
     }
 	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )

@@ -60,7 +60,7 @@ const T* Library<T> :: get(const std::string& name)const
 
     if (itT == entries.end())
     {
-        throw LibraryException("Element '" + name + "' not found");
+        throw LibraryException("Element '" + name + "' not found in Library<" + typeid(T).name() + ">");
     }
 
     return itT->second;

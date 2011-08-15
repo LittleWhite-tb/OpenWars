@@ -160,19 +160,21 @@ bool Editor :: loadMap(const Theme* const pTheme, const USize2& mapSize)
 
 bool Editor :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
+	bool bResult = true;
 	// Drawing part
-	MapDrawer::draw(*pRenderer,pMap,*pCamera,time);
-	pEC->draw(*pRenderer,*pCamera,time);
+	bResult &= MapDrawer::drawTerrain(*pRenderer,pMap,*pCamera,time);
+	bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
+	bResult &= pEC->draw(*pRenderer,*pCamera,time);
 
 	if ( pBuildingTB->isClosed() && pUnitTB->isClosed() )
 	{
-		pTileViewer->draw(*pRenderer,time);
+		bResult &= pTileViewer->draw(*pRenderer,time);
 	}
 
-	pUnitTB->draw(*pRenderer,0);
-	pBuildingTB->draw(*pRenderer,0);
+	bResult &= pUnitTB->draw(*pRenderer,0);
+	bResult &= pBuildingTB->draw(*pRenderer,0);
 
-	return true;
+	return bResult;
 }
 
 bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)

@@ -22,35 +22,50 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "UnitSelectIGS.h"
+#include "AttackMapIGS.h"
 
+#include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Map/MapDrawer.h"
+#include "Game/GameState/GameObjects/Map/MapMarker/GlobalAttackMapMarker.h"
+#include "Game/GameState/GameObjects/Cursor.h"
 
-UnitSelectIGS :: UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
-	:InGameState(pMap,pCamera,pCursor,pGameInfo)
+AttackMapIGS :: AttackMapIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
+:InGameState(pMap,pCamera,pCursor,pGameInfo)
 {
-
+	pMapMarker = new GlobalAttackMapMarker(pMap,pMap->getTheme());
 }
 
-UnitSelectIGS :: ~UnitSelectIGS()
+AttackMapIGS :: ~AttackMapIGS()
 {
+	delete pMapMarker;
 }
 
-bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
+void AttackMapIGS :: init()
+{
+	pMapMarker->setMarksForUnitAt(pCursor->getPosition());
+}
+
+bool AttackMapIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
 	bool bResult = true;
-	
+
+	bResult &= pMapMarker->draw(*pRenderer,*pCamera,time);
 	bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
 
 	return bResult;
 }
 
-IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+IGState AttackMapIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
-	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
+	(void) direction;
+	(void) time;
+
+	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+	{
+		return IGS_AttackMap;
+	}
+	else
 	{
 		return IGS_Idle;
 	}
-
-	return IGS_UnitSelected;
 }

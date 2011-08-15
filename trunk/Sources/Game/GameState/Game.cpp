@@ -37,13 +37,14 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/InGameStates/ConstructionIGS.h"
 #include "Game/GameState/InGameStates/MenuIGS.h"
 #include "Game/GameState/InGameStates/UnitSelectIGS.h"
+#include "Game/GameState/InGameStates/AttackMapIGS.h"
 
 #include "Utils/Logger.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 #include "globals.h"
 
 Game :: Game()
-:pMap(NULL),pCamera(NULL),pCursor(NULL),gameInfo(GameInfo(2,0)),igState(IGS_Idle)
+:pMap(NULL),pCamera(NULL),pCursor(NULL),gameInfo(GameInfo(2,10000)),igState(IGS_Idle)
 {
     LDebug << "GameEngine constructed";
 }
@@ -79,6 +80,7 @@ bool Game :: load(NE::NEngine* pNE)
 		states[IGS_Construction] = new ConstructionIGS(pMap,pCamera,pCursor,&gameInfo);
 		states[IGS_Menu] = new MenuIGS(pMap,pCamera,pCursor,&gameInfo,pNE->getSpriteFactory(),pNE->getWindow()->getWindowSize());
 		states[IGS_UnitSelected] = new UnitSelectIGS(pMap,pCamera,pCursor,&gameInfo);
+		states[IGS_AttackMap] = new AttackMapIGS(pMap,pCamera,pCursor,&gameInfo);
     }
     catch (ConstructionFailedException& cfe)
     {
@@ -107,7 +109,7 @@ bool Game :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
 	bool bResult = true;
 	// Drawing part
-	bResult &= MapDrawer::draw(*pRenderer,pMap,*pCamera,time);
+	bResult &= MapDrawer::drawTerrain(*pRenderer,pMap,*pCamera,time);
 
 	bResult &= states[igState]->draw(pRenderer,time);
 
@@ -120,7 +122,12 @@ bool Game :: update(NE::InputManager::ArrowsDirection direction, NE::InputManage
 
     pCamera->update(*pCursor,*pMap);
 
+	IGState oldIGState = igState;
 	igState = states[igState]->update(direction,buttons,time);
+	if ( oldIGState != igState ) // New state, make transition by initialising the new state
+	{
+		states[igState]->init();
+	}
 	if ( igState == IGS_Quit )
 	{
 		return false;

@@ -120,6 +120,7 @@ bool MapDrawer :: drawUnits(const NE::Renderer& r, const Map* pMap, const Camera
 	return bError;
 }
 
+/*
 bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
 {
 	assert(pMap);
@@ -131,3 +132,4 @@ bool MapDrawer::draw(const NE::Renderer& r, const Map* pMap, const Camera& c, co
 
     return bError;
 }
+*/

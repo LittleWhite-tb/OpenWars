@@ -64,6 +64,7 @@ public:
     unsigned int getID()const { return pUnitTemplate->getID(); }
     AnimatedSprite* getSprite()const { return pUnitTemplate->getSprite(); }
     const UnitTemplate* getTemplate()const { return pUnitTemplate; }
+	unsigned int getPossibleMovementLength()const;
 };
 
 /*! \enum UnitState

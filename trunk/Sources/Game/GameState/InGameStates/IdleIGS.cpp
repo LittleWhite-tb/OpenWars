@@ -27,6 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Engine/Params.h"
 
 #include "Game/GameState/GameObjects/Map/Map.h"
+#include "Game/GameState/GameObjects/Map/MapDrawer.h"
 #include "Game/GameState/GameObjects/Cursor.h"
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/Unit.h"
@@ -48,6 +49,7 @@ bool IdleIGS::draw(NE::Renderer* pRenderer, unsigned int time)
 {
 	bool bResult = true;
 
+	bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
 	bResult &= pCursor->draw(*pRenderer,*pCamera,time);
 	bResult &= pOfficerBox->draw(*pRenderer,*pGameInfo,time);
 
@@ -85,6 +87,13 @@ IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputMa
 		else if ( pUnit->state == US_DONE )
 		{
 			return IGS_Menu;
+		}
+	}
+	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+    {
+		if ( pMap->getUnit(pCursor->getPosition())->state != US_NO_UNIT )
+		{
+			return IGS_AttackMap;
 		}
 	}
 

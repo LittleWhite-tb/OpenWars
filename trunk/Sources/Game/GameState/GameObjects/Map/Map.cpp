@@ -141,6 +141,18 @@ Unit* Map :: getUnit(const UVec2& position)
     }
 }
 
+const Unit* Map :: getUnit(const UVec2& position)const
+{
+	if ( isValidPosition(position) )
+    {
+            return &unitMap[position.y][position.x];
+    }
+    else
+    {
+            return NULL;
+    }
+}
+
 void Map :: enableUnits(void)
 {
     for ( unsigned int y = 0 ; y < height ; y++ )
