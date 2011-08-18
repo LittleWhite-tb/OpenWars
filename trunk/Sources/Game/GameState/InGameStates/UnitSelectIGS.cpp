@@ -24,31 +24,58 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UnitSelectIGS.h"
 
+#include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Map/MapDrawer.h"
+#include "Game/GameState/GameObjects/Map/MapMarker/MovementMapMarker.h"
+#include "Game/GameState/GameObjects/Cursor.h"
 
 UnitSelectIGS :: UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
 	:InGameState(pMap,pCamera,pCursor,pGameInfo)
 {
-
+	pMovementMarker = new MovementMapMarker(pMap);
 }
 
 UnitSelectIGS :: ~UnitSelectIGS()
 {
+	delete pMovementMarker;
+}
+
+void UnitSelectIGS :: init()
+{
+	pMovementMarker->setMarksForUnitAt(pCursor->getPosition());
+	originalUnitPosition = pCursor->getPosition();
 }
 
 bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 {
 	bool bResult = true;
 	
+	bResult &= pMovementMarker->draw(*pRenderer,*pCamera,time);
 	bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
+	bResult &= pCursor->draw(*pRenderer,*pCamera,time);
 
 	return bResult;
 }
 
 IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
+	pCursor->move(direction);
+
+	// Moving unit
+	if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X &&
+		 pMovementMarker->isMarked(pCursor->getPosition()) == true ) // We move only if we are going on a valid tile
+	{
+		if ( pMap->move(originalUnitPosition,pCursor->getPosition()) == false )
+		{
+			return IGS_UnitSelected;
+		}
+		return IGS_Idle; // TODO -> New state
+	}
+
+	// Cancelling
 	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
 	{
+		pCursor->move(originalUnitPosition);
 		return IGS_Idle;
 	}
 

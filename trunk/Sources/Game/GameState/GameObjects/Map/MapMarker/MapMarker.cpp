@@ -71,6 +71,41 @@ void MapMarker :: clear()
 	}
 }
 
+bool MapMarker :: isMarked(const UVec2& position)const
+{
+	if ( pMap->isValidPosition(position) == false )
+	{
+		return false;
+	}
+	if ( marks[position.y][position.x] != -1 )
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void MapMarker :: setMarksForUnitAt(const UVec2& position)
+{
+	this->clear();
+
+	if ( pMap->isValidPosition(position) == false )
+	{
+		LWarning << "Passing invalid position to GlobalAttackMapMarker :: setMarks";
+		return;
+	}
+
+	const Unit* pUnit = pMap->getUnit(position);
+
+	if ( pUnit == NULL )
+	{
+		LWarning << "No unit at: " << position << " for GlobalAttackMapMarker :: setMarks";
+		return;
+	}
+
+	this->setMarks(position,pUnit);
+}
+
 bool MapMarker :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)
 {
 	UVec2 cameraPosition = c.getPosition();

@@ -31,10 +31,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Utils/Logger.h"
 
-GlobalAttackMapMarker :: GlobalAttackMapMarker(const Map* pMap, const Theme* pTheme)
-	:MapMarker(pMap,pTheme->getUIItem("AttackMark")->getSprite())
+GlobalAttackMapMarker :: GlobalAttackMapMarker(const Map* pMap)
+	:MapMarker(pMap,pMap->getTheme()->getUIItem("AttackMark")->getSprite())
 {
-	assert(pTheme);
 }
 
 void GlobalAttackMapMarker :: setMarksRecursively(const UVec2& position, const UnitTemplate* pUnitTemplate, int movement, bool firstCall)
@@ -83,24 +82,8 @@ void GlobalAttackMapMarker :: setMarksRecursively(const UVec2& position, const U
 	}
 }
 
-void GlobalAttackMapMarker :: setMarksForUnitAt(const UVec2& position)
+void GlobalAttackMapMarker :: setMarks(const UVec2& position, const Unit* pUnit)
 {
-	this->clear();
-
-	if ( pMap->isValidPosition(position) == false )
-	{
-		LWarning << "Passing invalid position to GlobalAttackMapMarker :: setMarks";
-		return;
-	}
-
-	const Unit* pUnit = pMap->getUnit(position);
-
-	if ( pUnit == NULL )
-	{
-		LWarning << "No unit at: " << position << " for GlobalAttackMapMarker :: setMarks";
-		return;
-	}
-
 	unsigned int minAttack = pUnit->getTemplate()->getParams()->getAs<unsigned int>("range_min",0);
 	unsigned int maxAttack = pUnit->getTemplate()->getParams()->getAs<unsigned int>("range_max",0);
 	if ( minAttack == 0 && maxAttack == 0 ) // This unit does not attack

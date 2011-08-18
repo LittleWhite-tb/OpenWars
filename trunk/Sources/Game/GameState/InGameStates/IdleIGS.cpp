@@ -80,11 +80,12 @@ IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputMa
 				return IGS_Menu;
 			}
 		}
+
 		if ( pUnit->state == US_ACTIVE )
 		{
 			return IGS_UnitSelected;
 		}
-		else if ( pUnit->state == US_DONE )
+		else
 		{
 			return IGS_Menu;
 		}

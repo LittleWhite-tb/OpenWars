@@ -32,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 AttackMapIGS :: AttackMapIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo)
 :InGameState(pMap,pCamera,pCursor,pGameInfo)
 {
-	pMapMarker = new GlobalAttackMapMarker(pMap,pMap->getTheme());
+	pMapMarker = new GlobalAttackMapMarker(pMap);
 }
 
 AttackMapIGS :: ~AttackMapIGS()

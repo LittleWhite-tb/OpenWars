@@ -34,7 +34,7 @@ namespace NE { class Renderer; }
 class AnimatedSprite;
 class Map;
 class Camera;
-class UnitTemplate;
+class Unit;
 
 class MapMarker
 {
@@ -46,6 +46,7 @@ protected:
 
 	std::vector<std::vector<int>> marks;
 
+	virtual void setMarks(const UVec2& position, const Unit* pUnit)=0;
 	void setMarksInRange(const UVec2& position, unsigned int minRange, unsigned int maxRange);
 
 public:
@@ -53,7 +54,8 @@ public:
 	virtual ~MapMarker() {}
 
 	virtual void clear();
-	virtual void setMarksForUnitAt(const UVec2& position)=0;
+	bool isMarked(const UVec2& position)const;
+	void setMarksForUnitAt(const UVec2& position);
 
 	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 };

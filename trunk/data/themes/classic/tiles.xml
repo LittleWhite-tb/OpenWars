@@ -25,6 +25,7 @@
 		<!-- <animationTime>200</animationTime> -->
 		<defence>2</defence>
 		<needBackground>1</needBackground>
+		<vehiculeMovementCost>2</vehiculeMovementCost>
 		<!-- By default, all others are set to 0 -->
 	</tile>
 	
@@ -39,6 +40,7 @@
 		<isMountain>1</isMountain>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>4</defence>
+		<movementCost>2</movementCost>
 		<!-- By default, all others are set to 0 -->
 	</tile>
 	
@@ -53,6 +55,7 @@
 		<isMountain>1</isMountain>
 		<!-- <animationTime>200</animationTime> -->
 		<defence>4</defence>
+		<movementCost>2</movementCost>
 		<!-- By default, all others are set to 0 -->
 	</tile>
 	

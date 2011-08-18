@@ -1,5 +1,5 @@
-#ifndef __UNITSELECTIGS_H__
-#define __UNITSELECTIGS_H__
+#ifndef __MOVEMENTMAPMARKER_H__
+#define __MOVEMENTMAPMARKER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,32 +25,23 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "InGameState.h"
+#include "MapMarker.h"
 
-#include "NEngine/InputManager.h"
-
-#include "Types/Vec2.h"
-
-namespace NE { class Renderer; }
-
+class Theme;
 class Map;
-class MovementMapMarker;
-class Cursor;
+class Unit;
+class UnitTemplate;
 
-class UnitSelectIGS : public InGameState
+class MovementMapMarker : public MapMarker
 {
 private:
-	MovementMapMarker* pMovementMarker;
-	UVec2 originalUnitPosition;
+	void setMarksRecursively(const UVec2& position, const UnitTemplate* pUnitTemplate, int movement, bool firstCall=false);
+
+protected:
+	void setMarks(const UVec2& position, const Unit* pUnit);
 
 public:
-	UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
-	~UnitSelectIGS();
-
-	void init();
-	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
-
+	MovementMapMarker(const Map* pMap);
 };
 
 #endif

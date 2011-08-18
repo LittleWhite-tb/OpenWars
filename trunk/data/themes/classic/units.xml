@@ -102,6 +102,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
+		<isVehicule>1</isVehicule>
 		<canAttackGround>1</canAttackGround>
 		
 		<producedIn>Factory</producedIn>
@@ -111,7 +112,7 @@
 			<max>1</max>
 		</range>
 		
-		<movement>5</movement>
+		<movement>6</movement>
 		<fuel>99</fuel>
 		<fuelConsumption>2</fuelConsumption>
 		<ammo>5</ammo>
@@ -130,7 +131,8 @@
 			<y>32</y>
 		</size>
 		<!-- <animationTime>200</animationTime> -->
-		<isGround>1</isGround>		
+		<isGround>1</isGround>
+		<isVehicule>1</isVehicule>		
 		<canAttackGround>1</canAttackGround>
 		
 		<producedIn>Factory</producedIn>
@@ -159,7 +161,8 @@
 			<y>32</y>
 		</size>
 		<!-- <animationTime>200</animationTime> -->
-		<isGround>1</isGround>		
+		<isGround>1</isGround>	
+		<isVehicule>1</isVehicule>
 		<canAttackGround>1</canAttackGround>
 		
 		<producedIn>Factory</producedIn>
@@ -188,6 +191,7 @@
 			<y>32</y>
 		</size>
 		<!-- <animationTime>200</animationTime> -->
+		<isVehicule>1</isVehicule>
 		
 		<movement>4</movement>
 		<fuel>99</fuel>
@@ -209,6 +213,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
+		<isVehicule>1</isVehicule>
 		<canAttackGround>1</canAttackGround>
 		<canAttackBoat>1</canAttackBoat>
 		
@@ -239,6 +244,7 @@
 		</size>
 		<!-- <animationTime>200</animationTime> -->
 		<isGround>1</isGround>		
+		<isVehicule>1</isVehicule>
 		<canAttackGround>1</canAttackGround>
 		<canAttackBoat>1</canAttackBoat>
 		
@@ -268,7 +274,8 @@
 			<y>32</y>
 		</size>
 		<!-- <animationTime>200</animationTime> -->
-		<isGround>1</isGround>		
+		<isGround>1</isGround>	
+		<isVehicule>1</isVehicule>
 		<canAttackFlight>1</canAttackFlight>
 		
 		<producedIn>Factory</producedIn>
@@ -297,7 +304,8 @@
 			<y>32</y>
 		</size>
 		<!-- <animationTime>200</animationTime> -->
-		<isGround>1</isGround>		
+		<isGround>1</isGround>	
+		<isVehicule>1</isVehicule>
 		<canAttackFlight>1</canAttackFlight>
 		
 		<producedIn>Factory</producedIn>

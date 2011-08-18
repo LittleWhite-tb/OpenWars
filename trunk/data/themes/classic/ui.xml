@@ -58,6 +58,10 @@
 		<animationTime>200</animationTime>
 	</uiItem>
 	<uiItem>
+		<internalName>MoveMark</internalName>
+		<filename>moveMark.png</filename>
+	</uiItem>
+	<uiItem>
 		<internalName>andyOfficerBox</internalName>
 		<filename>Andy_OfficerBox.png</filename>
 	</uiItem>

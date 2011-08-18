@@ -28,6 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include "MapMarker.h"
 
 class Theme;
+class UnitTemplate;
 
 class GlobalAttackMapMarker : public MapMarker
 {
@@ -35,10 +36,12 @@ private:
 
 	void setMarksRecursively(const UVec2& position, const UnitTemplate* pUnitTemplate, int movement, bool firstCall=false);
 
-public:
-	GlobalAttackMapMarker(const Map* pMap, const Theme* pTheme);
+protected:
 
-	void setMarksForUnitAt(const UVec2& position);
+	void setMarks(const UVec2& position, const Unit* pUnit);
+
+public:
+	GlobalAttackMapMarker(const Map* pMap);
 };
 
 #endif

@@ -876,7 +876,7 @@
 								>
 							</File>
 							<File
-								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\MovementMapMarker.hpp"
+								RelativePath=".\Sources\Game\GameState\GameObjects\Map\MapMarker\MovementMapMarker.h"
 								>
 							</File>
 						</Filter>
