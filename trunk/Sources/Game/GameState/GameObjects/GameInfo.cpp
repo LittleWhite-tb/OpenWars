@@ -26,53 +26,61 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "Game/GameState/GameObjects/Map/Map.h"
+
 GameInfo :: GameInfo(unsigned int nbFaction, unsigned int initialMoneyAmount)
-	:factionMoney(nbFaction,Money(initialMoneyAmount)),currentFaction(0),numberFaction(nbFaction)
+    :factionMoney(nbFaction,Money(initialMoneyAmount)),currentFaction(0),numberFaction(nbFaction)
 {
 }
 
 GameInfo :: GameInfo(unsigned int nbFaction, const std::vector<unsigned int>& initialMoneyAmount)
-	:currentFaction(0),numberFaction(nbFaction)
+    :currentFaction(0),numberFaction(nbFaction)
 {
-	assert(nbFaction == initialMoneyAmount.size());
+    assert(nbFaction == initialMoneyAmount.size());
 
-	for ( unsigned int i = 0 ; i < nbFaction ; i++ )
-	{
-		factionMoney.push_back(Money(initialMoneyAmount[i]));
-	}
+    for ( unsigned int i = 0 ; i < nbFaction ; i++ )
+    {
+        factionMoney.push_back(Money(initialMoneyAmount[i]));
+    }
 }
 
 unsigned int GameInfo :: getCurrentFaction()const
 {
-	return currentFaction;
+    return currentFaction;
 }
 
 unsigned int GameInfo :: getNbFaction()const
 {
-	return numberFaction;
+    return numberFaction;
 }
 
 Money* GameInfo :: getFactionMoney()
 {
-	return &factionMoney[currentFaction%numberFaction];
+    return &factionMoney[currentFaction%numberFaction];
 }
 
 unsigned int GameInfo :: getFactionMoney()const
 {
-	return getFactionMoney(currentFaction%numberFaction);
+    return getFactionMoney(currentFaction%numberFaction);
 }
 
 unsigned int GameInfo :: getFactionMoney(unsigned int faction)const
 {
-	return factionMoney[faction].getMoney();
+    return factionMoney[faction].getMoney();
 }
 
 unsigned int GameInfo :: getNumberTurn()const
 {
-	return currentFaction / numberFaction + 1;
+    return currentFaction / numberFaction + 1;
 }
 
-void GameInfo :: nextFaction()
+void GameInfo :: nextFaction(Map* pMap)
 {
-	currentFaction++;
+    currentFaction++;
+    currentFaction = currentFaction % numberFaction;
+
+    // Give money
+    factionMoney[currentFaction].collectCapital(pMap,currentFaction);
+
+    pMap->enableUnits();
 }

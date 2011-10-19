@@ -46,114 +46,114 @@ e-mail: lw.demoscene@gmail.com
 #include "globals.h"
 
 GameEngine :: GameEngine(NE::NEngine* pNE, const GameOption* pGameOptions)
-	:pNE(pNE),pGameOptions(pGameOptions),fpsNumber(0),fpsCounter(0),fpsLastUpdateTime(0),lastUpdateTime(0),bIsRunning(true)
+    :pNE(pNE),pGameOptions(pGameOptions),fpsNumber(0),fpsCounter(0),fpsLastUpdateTime(0),lastUpdateTime(0),bIsRunning(true)
 {
-	assert(pNE);
-	assert(pGameOptions);
+    assert(pNE);
+    assert(pGameOptions);
 
-	LDebug << "GameEngine started";
+    LDebug << "GameEngine started";
 }
-	
+
 GameEngine :: ~GameEngine()
 {
-	delete pGame;
+    delete pGame;
 
-	LDebug << "GameEngine stopped";
+    LDebug << "GameEngine stopped";
 }
 
 bool GameEngine :: init(void)
 {
-	if ( pGameOptions->editorMode )
-	{
-		pGame = new Editor();
-	}
-	else
-	{
-		pGame = new Game();
-	}
+    if ( pGameOptions->editorMode )
+    {
+        pGame = new Editor();
+    }
+    else
+    {
+        pGame = new Game();
+    }
 
-	if ( pGame == NULL )
-	{
-		LError << "Fail to allocate memory for game state";
-		return false;
-	}
+    if ( pGame == NULL )
+    {
+        LError << "Fail to allocate memory for game state";
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 bool GameEngine :: load(void)
 {
-	bool bResult = true;
+    bool bResult = true;
 
-	try
-	{
-		ThemeLoader::loadThemeList(pNE->getSpriteLoader(),THEME_PATH + "themeList.xml",&themeLibrary);
-		
-		if ( pGameOptions->editorMode )
-		{
-			bResult &= dynamic_cast<Editor*>(pGame)->loadMap(themeLibrary.get(pGameOptions->themeName),pGameOptions->mapSize);
-		}
-		else
-		{
-			bResult &= bResult &= dynamic_cast<Game*>(pGame)->loadMap(&themeLibrary,pGameOptions->loadMapName);
-		}
+    try
+    {
+        ThemeLoader::loadThemeList(pNE->getSpriteLoader(),THEME_PATH + "themeList.xml",&themeLibrary);
 
-		bResult &= pGame->load(pNE);
-	}
-	catch (LibraryException& le)
-	{
-		LError << le.what();
-		return false;
-	}
-	catch (EngineException& ee)
-	{
-		LError << ee.what();
-		return false;
-	}
+        if ( pGameOptions->editorMode )
+        {
+            bResult &= dynamic_cast<Editor*>(pGame)->loadMap(themeLibrary.get(pGameOptions->themeName),pGameOptions->mapSize);
+        }
+        else
+        {
+            bResult &= dynamic_cast<Game*>(pGame)->loadMap(&themeLibrary,pGameOptions->loadMapName);
+        }
 
-	return bResult;
+        bResult &= pGame->load(pNE);
+    }
+    catch (LibraryException& le)
+    {
+        LError << le.what();
+        return false;
+    }
+    catch (EngineException& ee)
+    {
+        LError << ee.what();
+        return false;
+    }
+
+    return bResult;
 }
 
 bool GameEngine :: render()
 {
-	pGame->draw(pNE->getRenderer(),pNE->getTime()->getTime());
+    pGame->draw(pNE->getRenderer(),pNE->getTime()->getTime());
 
-	if ( pNE->getRenderer()->updateWindow() == false )
-	{
-		LError << "Fail to draw on the screen";
-	}
+    if ( pNE->getRenderer()->updateWindow() == false )
+    {
+        LError << "Fail to draw on the screen";
+    }
 
-	return true;
+    return true;
 }
 
 bool GameEngine :: update()
 {
-	pNE->getInputManager()->update();
+    pNE->getInputManager()->update();
 
-	NE::InputManager::ArrowsDirection directions =pNE->getInputManager()->getDirectionsPressed();
-    NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();	
+    NE::InputManager::ArrowsDirection directions =pNE->getInputManager()->getDirectionsPressed();
+    NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();
 
-	return pGame->update(directions,buttons,pNE->getTime()->getTime());
+    return pGame->update(directions,buttons,pNE->getTime()->getTime());
 }
 
 void GameEngine :: run(void)
 {
-	bool bResult = true;
+    bool bResult = true;
 
-	while ( bIsRunning && pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == false && bResult == true )
+    while ( bIsRunning && pNE->getInputManager()->needEscape() == false && pNE->getWindow()->needWindowClosure() == false && bResult == true )
     {
         bResult &= this->render();
         // This solve a problem in Windows, because the events have to be updated in the same thread than the video.
-		unsigned int actualTime = pNE->getTime()->getTime();
-		if ( actualTime - lastUpdateTime > 75 )
-		{
-			bResult &= this->update();
-			lastUpdateTime = pNE->getTime()->getTime();
-		}
+        unsigned int actualTime = pNE->getTime()->getTime();
+        if ( actualTime - lastUpdateTime > 75 )
+        {
+            bResult &= this->update();
+            lastUpdateTime = pNE->getTime()->getTime();
+        }
 
-		// FPS management
+        // FPS management
         fpsCounter++;
-		if ( actualTime - fpsLastUpdateTime > 1000 ) // After one second
+        if ( actualTime - fpsLastUpdateTime > 1000 ) // After one second
         {
             fpsNumber= fpsCounter;
             fpsCounter = 0;
@@ -163,9 +163,9 @@ void GameEngine :: run(void)
         }
     }
 
-	// If we are in editor, we save the map
-	if ( pGameOptions->editorMode )
-	{
-		dynamic_cast<Editor*>(pGame)->saveMap(pGameOptions->saveMapName);
-	}
+    // If we are in editor, we save the map
+    if ( pGameOptions->editorMode )
+    {
+        dynamic_cast<Editor*>(pGame)->saveMap(pGameOptions->saveMapName);
+    }
 }

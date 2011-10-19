@@ -37,7 +37,7 @@ UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string
     :pParams(pParams)
 {
     // Check if the important nodes are present
-    for ( int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
+    for ( unsigned int i = 0 ; i < sizeof(neededParameters) / sizeof(std::string) ; i++ )
     {
         if ( !pParams->exists(neededParameters[i]) )
         {

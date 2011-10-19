@@ -124,14 +124,15 @@ bool Game :: update(NE::InputManager::ArrowsDirection direction, NE::InputManage
 
 	IGState oldIGState = igState;
 	igState = states[igState]->update(direction,buttons,time);
-	if ( oldIGState != igState ) // New state, make transition by initialising the new state
-	{
-		states[igState]->init();
-	}
 	if ( igState == IGS_Quit )
 	{
 		return false;
 	}
+	if ( oldIGState != igState ) // New state, make transition by initialising the new state
+	{
+		states[igState]->init();
+	}
+	
      
     return true;
 }

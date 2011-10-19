@@ -39,6 +39,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Utils/Logger.h"
 
+class LibraryException : public Exception
+{
+public:
+    LibraryException(const std::string& userMessage):Exception(userMessage) {}
+};
+
 template <typename T>
 class Library
 {
@@ -126,12 +132,6 @@ public:
     }
 };
 
-class LibraryException : public Exception
-{
-public:
-	LibraryException(const std::string& userMessage):Exception(userMessage) {}
-};
-
 /*! \class Library Library.h "Game/Library.h"
  *  \brief Contains elements indexed using a name
  */
@@ -164,7 +164,7 @@ public:
 
 /*! \class Library<UnitTemplate> Library.h "Game/Library.h"
  *  \brief Contains UnitTemplateFactionList indexed using a name.
- *	Each unit can be inserted multiple times making new faction
+ *  Each unit can be inserted multiple times making new faction
  */
 
 /*! \fn Library<UnitTemplate> :: ~Library()

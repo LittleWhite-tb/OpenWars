@@ -36,19 +36,19 @@ e-mail: lw.demoscene@gmail.com
 class ParameterNotFoundParamsException : public Exception
 {
 public:
-	ParameterNotFoundParamsException(const std::string& paramName):Exception(std::string("Parameter '") + paramName + std::string("' not found")) {}
+    ParameterNotFoundParamsException(const std::string& paramName):Exception(std::string("Parameter '") + paramName + std::string("' not found")) {}
 };
 
 class InvalidConvertionParamsException : public Exception
 {
 public:
-	InvalidConvertionParamsException(const std::string& paramName):Exception(std::string("Invalid convertion for parameter '") + paramName + std::string("'")) {}
+    InvalidConvertionParamsException(const std::string& paramName):Exception(std::string("Invalid convertion for parameter '") + paramName + std::string("'")) {}
 };
 
 class MissingParameterException : public Exception
 {
 public:
-	MissingParameterException(const std::string& parameterName):Exception(std::string("Missing parameter '") + parameterName + std::string("' to construct the Tile")) {}
+    MissingParameterException(const std::string& parameterName):Exception(std::string("Missing parameter '") + parameterName + std::string("' to construct the Tile")) {}
 };
 
 class Params
@@ -92,15 +92,15 @@ public:
     template <typename T>
     T getAs(const std::string& name, const T defaultValue)const
     {
-		if ( this->exists(name) )
-		{     
-			std::stringstream ss(this->get(name));
-			T value;
+        if ( this->exists(name) )
+        {
+            std::stringstream ss(this->get(name));
+            T value;
 
-			ss >> value;
+            ss >> value;
 
-			return value;
-		}
+            return value;
+        }
         else
         {
             return defaultValue;

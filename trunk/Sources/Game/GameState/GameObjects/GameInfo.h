@@ -33,26 +33,26 @@ class GameInfo
 {
 private:
 
-	std::vector<Money> factionMoney;
+    std::vector<Money> factionMoney;
 
-	unsigned int currentFaction;
-	unsigned int numberFaction;
+    unsigned int currentFaction;
+    unsigned int numberFaction;
 
 public:
 
-	GameInfo(unsigned int nbFaction, unsigned int initialMoneyAmount);
-	GameInfo(unsigned int nbFaction, const std::vector<unsigned int>& initialMoneyAmount);
+    GameInfo(unsigned int nbFaction, unsigned int initialMoneyAmount);
+    GameInfo(unsigned int nbFaction, const std::vector<unsigned int>& initialMoneyAmount);
 
-	unsigned int getCurrentFaction()const;
-	unsigned int getNbFaction()const;
+    unsigned int getCurrentFaction()const;
+    unsigned int getNbFaction()const;
 
-	Money* getFactionMoney();
-	unsigned int getFactionMoney()const;
-	unsigned int getFactionMoney(unsigned int faction)const;
+    Money* getFactionMoney();
+    unsigned int getFactionMoney()const;
+    unsigned int getFactionMoney(unsigned int faction)const;
 
-	unsigned int getNumberTurn()const;
+    unsigned int getNumberTurn()const;
 
-	void nextFaction();
+    void nextFaction(Map* pMap);
 };
 
 #endif

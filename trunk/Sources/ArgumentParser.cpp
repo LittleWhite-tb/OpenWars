@@ -28,73 +28,71 @@ e-mail: lw.demoscene@gmail.com
 
 ArgumentParser :: ArgumentParser(int argc, char** argv)
 {
-	assert(argv);
+    assert(argv);
 
-	for ( int i = 1 ; i < argc ; i++ )	// Start at 1 to skip the program name
-	{
-		assert(argv[i]); // We have a huge problem here, since it should not occur at all
-		args.push_back(std::string(argv[i]));
-	}
+    for ( int i = 1 ; i < argc ; i++ )  // Start at 1 to skip the program name
+    {
+        assert(argv[i]); // We have a huge problem here, since it should not occur at all
+        args.push_back(std::string(argv[i]));
+    }
 }
 
 const std::string& ArgumentParser :: parseArgument(const std::string& shortOptionName, const std::string& longOptionName)const
 {
-	unsigned int i = 0;
-	std::string optionAvailable = "";
+    unsigned int i = 0;
+    std::string optionAvailable = "";
 
-	for(i = 0 ; i < args.size() ; i++ )
-	{
-		if ( args[i] == shortOptionName )
-		{
-			optionAvailable = shortOptionName;
-			break;	// Ends the research when we have it
-		}
-		else if ( args[i] == longOptionName )
-		{
-			optionAvailable = longOptionName;
-			break;	// Ends the research when we have it
-		}
-	}
-	
-	// Check if the option is in the arguments
-	if ( i == args.size() )
-	{
-		throw OptionNotFoundException(shortOptionName,longOptionName);
-	}
-	else
-	{
-		if ( i+1 >= args.size() || args[i+1][0] == '-' )	// If we have nothing after, of if the next argument is an option
-		{
-			throw MissingOptionException(optionAvailable);
-		}
-		else
-		{
-			return args[i+1];
-		}
-	}
+    for(i = 0 ; i < args.size() ; i++ )
+    {
+        if ( args[i] == shortOptionName )
+        {
+            optionAvailable = shortOptionName;
+            break;  // Ends the research when we have it
+        }
+        else if ( args[i] == longOptionName )
+        {
+            optionAvailable = longOptionName;
+            break;  // Ends the research when we have it
+        }
+    }
+
+    // Check if the option is in the arguments
+    if ( i == args.size() )
+    {
+        throw OptionNotFoundException(shortOptionName,longOptionName);
+    }
+    else
+    {
+        if ( i+1 >= args.size() || args[i+1][0] == '-' )    // If we have nothing after, of if the next argument is an option
+        {
+            throw MissingOptionException(optionAvailable);
+        }
+        else
+        {
+            return args[i+1];
+        }
+    }
 }
 
 const std::string& ArgumentParser :: getArgument(const std::string& shortOptionName, const std::string& longOptionName)const
 {
-	return this->parseArgument(shortOptionName, longOptionName);
+    return this->parseArgument(shortOptionName, longOptionName);
 }
 
 bool ArgumentParser :: isPresent(const std::string& shortOptionName, const std::string& longOptionName)const
 {
-	try
-	{
-		this->parseArgument(shortOptionName, longOptionName);
-	}
-	catch ( OptionNotFoundException& onfe )
-	{
-		(onfe);
-		 return false;
-	}
-	catch ( MissingOptionException& moe )
-	{
-		(moe);
-		// We don't mind ; we are just catching it to not see it in a higher level
-	}
-	
-	return true;
+    try
+    {
+        this->parseArgument(shortOptionName, longOptionName);
+    }
+    catch ( OptionNotFoundException& )
+    {
+        return false;
+    }
+    catch ( MissingOptionException& )
+    {
+        // We don't mind ; we are just catching it to not see it in a higher level
+    }
+
+    return true;
 }

@@ -24,26 +24,50 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Money.h"
 
+#include "Engine/Params.h"
+
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/UnitTemplate.h"
 
-void getCapital(const Map* pMap, unsigned int faction)
+unsigned int Money :: getCapital(const Map* pMap, unsigned int faction)const
 {
-	assert(pMap);
+    assert(pMap);
 
-	assert(false); // TODO
+    unsigned int capital = 0;
+
+    const std::vector < std::vector < const Tile* > >& tiles = pMap->constTilesMap();
+    for ( unsigned int y = 0 ; y < tiles.size() ; y++ )
+    {
+        for ( unsigned int x = 0 ; x < tiles[y].size(); x++ )
+        {
+            if ( tiles[y][x]->getParams()->getAs<bool>("isBuilding",false) == true && 
+				 tiles[y][x]->getParams()->getAs<unsigned int>("faction") == faction )
+            {
+                capital += 1000;
+            }
+        }
+    }
+
+    return capital;
+}
+
+void Money :: collectCapital(const Map* pMap, unsigned int faction)
+{
+    assert(pMap);
+
+    this->money += getCapital(pMap,faction);
 }
 
 bool Money :: buy(const UnitTemplate* pUnit)
 {
-	assert(pUnit);
+    assert(pUnit);
 
-	unsigned int moneyRequired = pUnit->getPrice();
-	if ( moneyRequired > this->money )
-	{
-		return false;
-	}
+    unsigned int moneyRequired = pUnit->getPrice();
+    if ( moneyRequired > this->money )
+    {
+        return false;
+    }
 
-	this->money -= moneyRequired;
-	return true;
+    this->money -= moneyRequired;
+    return true;
 }

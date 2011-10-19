@@ -31,73 +31,73 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Map/Map.h"
 
 MovementMapMarker :: MovementMapMarker(const Map* pMap)
-	:MapMarker(pMap,pMap->getTheme()->getUIItem("MoveMark")->getSprite())
+    :MapMarker(pMap,pMap->getTheme()->getUIItem("MoveMark")->getSprite())
 {
 }
 
 void MovementMapMarker :: setMarksRecursively(const UVec2& position, const UnitTemplate* pUnitTemplate, int movement, bool firstCall)
 {
-	unsigned int movementCost = pMap->getTile(position)->getParams()->getAs<unsigned int>("movementCost",1);
-	if ( pUnitTemplate->getParams()->getAs<bool>("isVehicule",false) )
-	{
-		movementCost = pMap->getTile(position)->getParams()->getAs<unsigned int>("vehiculeMovementCost",1);
-	}
+    int movementCost = pMap->getTile(position)->getParams()->getAs<int>("movementCost",1);
+    if ( pUnitTemplate->getParams()->getAs<bool>("isVehicule",false) )
+    {
+        movementCost = pMap->getTile(position)->getParams()->getAs<unsigned int>("vehiculeMovementCost",1);
+    }
 
-	if ( pMap->isValidPosition(position) == false )
-	{
-		return;
-	}
-	if ( movement+1 < movementCost )
-	{
-		return;
-	}
-	if ( marks[position.y][position.x] != -1 && marks[position.y][position.x] > movement ) // This position have been already proceed
-	{
-		return;
-	}
-	if ( pMap->testUnit(position,pUnitTemplate) == false )
-	{
-		return;
-	}
+    if ( pMap->isValidPosition(position) == false )
+    {
+        return;
+    }
+    if ( movement+1 < movementCost )
+    {
+        return;
+    }
+    if ( marks[position.y][position.x] != -1 && marks[position.y][position.x] > movement ) // This position have been already proceed
+    {
+        return;
+    }
+    if ( pMap->testUnit(position,pUnitTemplate) == false )
+    {
+        return;
+    }
 
-	marks[position.y][position.x] = movement;
+    marks[position.y][position.x] = movement;
 
-	// Checks if the unit can move here // or if there is already a unit here
-	// In this case, we don't have to continue the process, since we can't move here
-	if ( !firstCall && (pMap->getUnit(position)->state != US_NO_UNIT && pMap->getUnit(position)->faction != pUnitTemplate->getFaction()) )
-	{
-		return;
-	}
+    // Checks if the unit can move here // or if there is already a unit here
+    // In this case, we don't have to continue the process, since we can't move here
+    if ( !firstCall && (pMap->getUnit(position)->state != US_NO_UNIT && pMap->getUnit(position)->faction != pUnitTemplate->getFaction()) )
+    {
+        return;
+    }
 
-	// Check if we can move the unit here, and if the we no unit at this place
-	{
-		UVec2 positionLeft(position.x-1,position.y);
-		setMarksRecursively(positionLeft,pUnitTemplate,movement-movementCost);
-	}
+    // Check if we can move the unit here, and if the we no unit at this place
+    {
+        UVec2 positionLeft(position.x-1,position.y);
+        setMarksRecursively(positionLeft,pUnitTemplate,movement-movementCost);
+    }
 
-	{
-		UVec2 positionRight(position.x+1,position.y);
-		setMarksRecursively(positionRight,pUnitTemplate,movement-movementCost);
-	}
+    {
+        UVec2 positionRight(position.x+1,position.y);
+        setMarksRecursively(positionRight,pUnitTemplate,movement-movementCost);
+    }
 
-	{
-		UVec2 positionUp(position.x,position.y-1);
-		setMarksRecursively(positionUp,pUnitTemplate,movement-movementCost);
-	}
+    {
+        UVec2 positionUp(position.x,position.y-1);
+        setMarksRecursively(positionUp,pUnitTemplate,movement-movementCost);
+    }
 
-	{
-		UVec2 positionDown(position.x,position.y+1);
-		setMarksRecursively(positionDown,pUnitTemplate,movement-movementCost);
-	}
+    {
+        UVec2 positionDown(position.x,position.y+1);
+        setMarksRecursively(positionDown,pUnitTemplate,movement-movementCost);
+    }
 }
 
 void MovementMapMarker :: setMarks(const UVec2& position, const Unit* pUnit)
 {
-	unsigned int movement = pUnit->getPossibleMovementLength();
-	if (movement == 0)
-	{
-		return;
-	}
+    unsigned int movement = pUnit->getPossibleMovementLength();
+    if (movement == 0)
+    {
+        return;
+    }
 
-	this->setMarksRecursively(position,pUnit->getTemplate(),movement, true);
+    this->setMarksRecursively(position,pUnit->getTemplate(),movement, true);
 }

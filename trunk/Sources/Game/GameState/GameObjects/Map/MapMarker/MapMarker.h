@@ -40,24 +40,24 @@ class MapMarker
 {
 protected:
 
-	const Map* pMap;
+    const Map* pMap;
 
-	AnimatedSprite* pMarkerSprite;
+    AnimatedSprite* pMarkerSprite;
 
-	std::vector<std::vector<int>> marks;
+    std::vector<std::vector<int> > marks;
 
-	virtual void setMarks(const UVec2& position, const Unit* pUnit)=0;
-	void setMarksInRange(const UVec2& position, unsigned int minRange, unsigned int maxRange);
+    virtual void setMarks(const UVec2& position, const Unit* pUnit)=0;
+    void setMarksInRange(const UVec2& position, unsigned int minRange, unsigned int maxRange);
 
 public:
-	MapMarker(const Map* pMap, AnimatedSprite* pMarkerSprite);
-	virtual ~MapMarker() {}
+    MapMarker(const Map* pMap, AnimatedSprite* pMarkerSprite);
+    virtual ~MapMarker() {}
 
-	virtual void clear();
-	bool isMarked(const UVec2& position)const;
-	void setMarksForUnitAt(const UVec2& position);
+    virtual void clear();
+    bool isMarked(const UVec2& position)const;
+    void setMarksForUnitAt(const UVec2& position);
 
-	bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
+    bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time);
 };
 
 #endif

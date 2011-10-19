@@ -31,15 +31,16 @@ class UnitTemplate;
 class Money
 {
 private:
-	unsigned int money;
+    unsigned int money;
 
 public:
-	Money(unsigned int money):money(money) {}
+    Money(unsigned int money):money(money) {}
 
-	unsigned int getMoney()const { return money; }
+    unsigned int getMoney()const { return money; }
 
-	void getCapital(const Map* pMap, unsigned int faction);
-	bool buy(const UnitTemplate* pUnit);
+    unsigned int getCapital(const Map* pMap, unsigned int faction)const;
+    void collectCapital(const Map* pMap, unsigned int faction);
+    bool buy(const UnitTemplate* pUnit);
 };
 
 #endif
