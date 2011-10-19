@@ -1,0 +1,25 @@
+#summary GNU/Linux compilation.
+#labels Documentation,Linux,Compilation
+
+= Creating the configure script =
+
+
+This first step will create the configure scripts for your machine.
+{{{
+aclocal
+autoconf
+automake --add-missings -c
+}}}
+
+
+= Compiling the project =
+
+
+Once the configure files are ready, you can use the script to generate the Makefiles.
+{{{
+./configure
+}}}
+Then, you can use the normal Makefile compilation process:
+{{{
+make
+}}}
