@@ -8,7 +8,7 @@ This first step will create the configure scripts for your machine.
 {{{
 aclocal
 autoconf
-automake --add-missings -c
+automake --add-missing -c
 }}}
 
 
