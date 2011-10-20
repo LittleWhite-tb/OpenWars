@@ -59,12 +59,47 @@ private:
 
 public:
 
-    void add(const std::string& name, const std::string& value);
-    void remove(const std::string& name);
+    void add(const std::string& name, const std::string& value)
+    {
+        if ( this->exists(name) )
+        {
+            LWarning << "Params will overwrite key '" << name << "'";
+        }
 
-    bool exists(const std::string& name)const;
+        params[name] = value;
+    }
 
-    const std::string& get(const std::string& name)const;
+    void remove(const std::string& name)
+    {
+        if ( this->exists(name) )
+        {
+            params.erase(name);
+        }
+        // else silently ignored
+    }
+
+    bool exists(const std::string& name)const
+    {
+        if ( params.find(name) != params.end() )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    const std::string& get(const std::string& name)const
+    {
+        std::map < std::string, std::string >::const_iterator itParam = params.find(name);
+        if ( itParam == params.end() )
+        {
+            throw ParameterNotFoundParamsException(name);
+        }
+
+        return itParam->second;
+    }
+
 
     template <typename T>
     T getAs(const std::string& name)const
@@ -77,17 +112,8 @@ public:
         return value;
     }
 
-    template <>
-    char getAs<char>(const std::string& name)const
-    {
-        std::string charString(this->get(name)); // Can throw ParameterNotFoundParamsException
-        if ( charString.size() != 1 )
-        {
-            throw InvalidConvertionParamsException(name);
-        }
+    // char getAs<char>(const std::string& name)const;
 
-        return charString[0];
-    }
 
     template <typename T>
     T getAs(const std::string& name, const T defaultValue)const
@@ -107,6 +133,8 @@ public:
         }
     }
 };
+
+#include "Params_template.h"
 
 /*! \class Params Params.h "Game/Params.h"
  *  \brief A list of values identified by a name

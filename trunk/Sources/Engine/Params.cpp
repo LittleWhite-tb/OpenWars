@@ -31,40 +31,40 @@ e-mail: lw.demoscene@gmail.com
 
 void Params :: add(const std::string& name, const std::string& value)
 {
-	if ( this->exists(name) )
-	{
-		LWarning << "Params will overwrite key '" << name << "'";
-	}
+    if ( this->exists(name) )
+    {
+        LWarning << "Params will overwrite key '" << name << "'";
+    }
 
-	params[name] = value;
+    params[name] = value;
 }
 
 void Params :: remove(const std::string& name)
 {
-	if ( this->exists(name) )
-	{
-		params.erase(name);
-	}
-	// else silently ignored
+    if ( this->exists(name) )
+    {
+        params.erase(name);
+    }
+    // else silently ignored
 }
 
 bool Params :: exists(const std::string& name)const
 {
-	if ( params.find(name) != params.end() )
-	{
-		return true;
-	}
+    if ( params.find(name) != params.end() )
+    {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 const std::string& Params :: get(const std::string& name)const
 {
-	std::map < std::string, std::string >::const_iterator itParam = params.find(name);
-	if ( itParam == params.end() )
-	{
-		throw ParameterNotFoundParamsException(name);
-	}
+    std::map < std::string, std::string >::const_iterator itParam = params.find(name);
+    if ( itParam == params.end() )
+    {
+        throw ParameterNotFoundParamsException(name);
+    }
 
-	return itParam->second;
+    return itParam->second;
 }

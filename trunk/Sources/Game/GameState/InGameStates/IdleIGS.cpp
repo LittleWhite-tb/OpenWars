@@ -31,74 +31,78 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Cursor.h"
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/Unit.h"
+#include "Game/GameState/GameObjects/GameInfo.h"
 
 #include "UI/OfficerBox.h"
 
 IdleIGS :: IdleIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, const USize2& winSize)
-	:InGameState(pMap,pCamera,pCursor, pGameInfo) 
+    :InGameState(pMap,pCamera,pCursor, pGameInfo)
 {
-	pOfficerBox = new OfficerBox(pMap->getTheme(),winSize);
+    pOfficerBox = new OfficerBox(pMap->getTheme(),winSize);
 }
 
 IdleIGS :: ~IdleIGS()
 {
-	delete pOfficerBox;
+    delete pOfficerBox;
 }
 
 bool IdleIGS::draw(NE::Renderer* pRenderer, unsigned int time)
 {
-	bool bResult = true;
+    bool bResult = true;
 
-	bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
-	bResult &= pCursor->draw(*pRenderer,*pCamera,time);
-	bResult &= pOfficerBox->draw(*pRenderer,*pGameInfo,time);
+    bResult &= MapDrawer::drawUnits(*pRenderer,pMap,*pCamera,time);
+    bResult &= pCursor->draw(*pRenderer,*pCamera,time);
+    bResult &= pOfficerBox->draw(*pRenderer,*pGameInfo,time);
 
-	return bResult;
+    return bResult;
 }
 
 IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
-	(void) time;
+    (void) time;
 
-	pCursor->move(direction);
+    pCursor->move(direction);
 
-	if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+    if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
     {
-		// Get the information under the cursor
-		const Tile* pTile = pMap->getTile(pCursor->getPosition());
-		const Unit* pUnit = pMap->getUnit(pCursor->getPosition());
+        // Get the information under the cursor
+        const Tile* pTile = pMap->getTile(pCursor->getPosition());
+        const Unit* pUnit = pMap->getUnit(pCursor->getPosition());
 
-		// if ( pUnit->faction == actualFaction ) // TODO
-		if ( pUnit->state == US_NO_UNIT )
-		{
-			if ( pTile->getParams()->exists("producerName") )	// We are on a building able to produce units
-			{
-				return IGS_Construction;
-			}
-			else
-			{
-				return IGS_Menu;
-			}
-		}
+        // if ( pUnit->faction == actualFaction ) // TODO
+        if ( pUnit->state == US_NO_UNIT )
+        {
+            if ( pTile->getParams()->exists("producerName") )   // We are on a building able to produce units
+            {
+                if ( pTile->getParams()->getAs<unsigned int>("faction") == pGameInfo->getCurrentFaction() )
+                {
+                    return IGS_Construction;
+                }
+            }
+            else
+            {
+                return IGS_Menu;
+            }
+        }
 
-		if ( pUnit->state == US_ACTIVE )
-		{
-			return IGS_UnitSelected;
-		}
-		else
-		{
-			return IGS_Menu;
-		}
-	}
-	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+        if ( pUnit->state == US_ACTIVE )
+        {
+            return IGS_UnitSelected;
+        }
+        else
+        {
+            return IGS_Menu;
+        }
+    }
+    if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
     {
-		if ( pMap->getUnit(pCursor->getPosition())->state != US_NO_UNIT )
-		{
-			return IGS_AttackMap;
-		}
-	}
+        if ( pMap->getUnit(pCursor->getPosition())->state != US_NO_UNIT )
+        {
+            return IGS_AttackMap;
+        }
+    }
 
-	pOfficerBox->update(pCursor->getPosition());
+    pOfficerBox->update(pCursor->getPosition());
 
-	return IGS_Idle;
+    return IGS_Idle;
 }

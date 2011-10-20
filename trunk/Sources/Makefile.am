@@ -4,7 +4,6 @@ __top_builddir__OpenAWars_SOURCES = 		NEngine/Window.h NEngine/Renderer.cpp NEng
 				NEngine/Exceptions/ConstructionFailedException.h NEngine/Exceptions/FileNotFoundException.h NEngine/Exceptions/InputNotFoundException.h \
 				Types/Colour.cpp Types/Colour.h \
 				Engine/Library.h Engine/Library_template.h \
-				Engine/Params.cpp Engine/Params.h \
 				Engine/Theme.cpp Engine/Theme.h	Engine/ThemeLoader.cpp Engine/ThemeLoader.h \
 				Engine/VTime.cpp Engine/VTime.h \
 				Engine/AnimatedSprite.cpp Engine/AnimatedSprite.h \
