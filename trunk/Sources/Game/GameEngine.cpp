@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
 #include "NEngine/Renderer.h"
+#include "NEngine/SpriteLoader.h"
 #include "NEngine/Time.h"
 
 #include "Engine/ThemeLoader.h"
@@ -63,6 +64,8 @@ GameEngine :: ~GameEngine()
 
 bool GameEngine :: init(void)
 {
+    pNE->getSpriteLoader()->setTransparancyColour(Colour(255,0,222));
+
     if ( pGameOptions->editorMode )
     {
         pGame = new Editor();

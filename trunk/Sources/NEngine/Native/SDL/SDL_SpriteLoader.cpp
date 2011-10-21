@@ -45,6 +45,13 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
             // We clean old surface
             SDL_FreeSurface(pSurface);
 
+            // We set the color
+            Uint32 colorkey = SDL_MapRGB(pOptimisedSurface->format, m_transparancyColour.r, m_transparancyColour.g, m_transparancyColour.b);
+            if ( SDL_SetColorKey(pOptimisedSurface, SDL_RLEACCEL | SDL_SRCCOLORKEY, colorkey ) == -1 )
+            {
+                LWarning << "Fail to set transparancy to '" << fileName << "'";
+            }
+
             // We replace the pointer to the new optimised surface
             pSurface = pOptimisedSurface;
         }

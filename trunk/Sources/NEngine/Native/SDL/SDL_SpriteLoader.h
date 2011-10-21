@@ -25,19 +25,19 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../SpriteLoader.h"
+#include "NEngine/SpriteLoader.h"
 
 #include <string>
 
 namespace NE
 {
-	class Sprite;
+    class Sprite;
 
-	class SDL_SpriteLoader : public SpriteLoader
-	{
+    class SDL_SpriteLoader : public SpriteLoader
+    {
     protected:
         Sprite* loadSprite(const std::string& fileName);
-	};
+    };
 }
 
 /*! \class NE::SDL_SpriteLoader SDL_SpriteLoader.h "NEngine/Native/SDL/SDL_SpriteLoader.h"

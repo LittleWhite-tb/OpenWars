@@ -50,21 +50,43 @@ NE :: SDL_SpriteLoaderSDLI :: ~SDL_SpriteLoaderSDLI(void)
 {
     IMG_Quit();
 }
-        
+
 NE :: Sprite* NE :: SDL_SpriteLoaderSDLI :: loadSprite(const std::string& fileName)
 {
     SDL_Surface* pSurface = IMG_Load(fileName.c_str());
-	if ( pSurface != NULL )
-	{
-		NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
-		if ( pSprite == NULL )
-		{
-			LError << "Fail to allocate memory for a SDL_Sprite";
-		}
+    if ( pSurface != NULL )
+    {
+        // We optimise the texture to match the Screen surface
+        SDL_Surface* pOptimisedSurface = SDL_DisplayFormat(pSurface);
+        if ( pOptimisedSurface != NULL )
+        {
+            // We clean old surface
+            SDL_FreeSurface(pSurface);
 
-		return pSprite;
-	}
+            // We set the color
+            Uint32 colorkey = SDL_MapRGB(pOptimisedSurface->format, m_transparancyColour.r, m_transparancyColour.g, m_transparancyColour.b);
+            if ( SDL_SetColorKey(pOptimisedSurface, SDL_RLEACCEL | SDL_SRCCOLORKEY, colorkey ) == -1 )
+            {
+                LWarning << "Fail to set transparancy to '" << fileName << "'";
+            }
 
-	LError << "Fail to load a sprite from file: " << IMG_GetError();
-	return NULL;
+            // We replace the pointer to the new optimised surface
+            pSurface = pOptimisedSurface;
+        }
+        else
+        {
+            LError << "Fail to optimise sprite '" << fileName << "'";
+        }
+
+        NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
+        if ( pSprite == NULL )
+        {
+            LError << "Fail to allocate memory for a SDL_Sprite";
+        }
+
+        return pSprite;
+    }
+
+    LError << "Fail to load a sprite from file: " << IMG_GetError();
+    return NULL;
 }

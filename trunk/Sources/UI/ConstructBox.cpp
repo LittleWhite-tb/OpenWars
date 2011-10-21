@@ -43,124 +43,130 @@ e-mail: lw.demoscene@gmail.com
 #include <sstream>
 
 ConstructBox :: ConstructBox(const Theme* pTheme)
-	:pBackgroundUI(pTheme->getUIItem("ConstructionBackground")->getSprite()),
-	 pCursor(pTheme->getUIItem("ConstructionCursor")->getSprite()),
-	 pUpArrow(pTheme->getUIItem("upArrow")->getSprite()),
-	 pDownArrow(pTheme->getUIItem("downArrow")->getSprite()),
-	 actualPosition(0),offsetCursorPosition(0)
+    :pBackgroundUI(pTheme->getUIItem("ConstructionBackground")->getSprite()),
+     pCursor(pTheme->getUIItem("ConstructionCursor")->getSprite()),
+     pUpArrow(pTheme->getUIItem("upArrow")->getSprite()),
+     pDownArrow(pTheme->getUIItem("downArrow")->getSprite()),
+     actualPosition(0),offsetCursorPosition(0)
 {
-	Colour white(255,255,255,255);
-	Colour grey (64,64,64,255);
+    Colour white(255,255,255,255);
+    Colour grey (64,64,64,255);
 
-	pFont = pTheme->getFontObject("classic")->getFont();
-	pFontGrey = pTheme->getFontObject("classic")->getFont();
+    pFont = pTheme->getFontObject("classic")->getFont();
+    pFontGrey = pTheme->getFontObject("classic")->getFont();
 
-	LDebug << "Construc Box created";
+    LDebug << "Construc Box created";
 }
 
 ConstructBox :: ~ConstructBox(void)
 {
-	LDebug << "Construc Box delete";
+    LDebug << "Construc Box delete";
 }
 
 void ConstructBox :: add(const UnitTemplateFactionList* pListUnitTemplate)
 {
-	unitsList.push_back(pListUnitTemplate);
+    unitsList.push_back(pListUnitTemplate);
 }
 
 bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time)
 {
-	bool errorFlag = true;
+    bool errorFlag = true;
     USize2 backgroundSize = pBackgroundUI->getSize();
 
-	IVec2 uiPosition(20, 20);
-	IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getSize().width / 2) + backgroundSize.width / 2 , uiPosition.y);
-	IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
-	IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * (pCursor->getSize().height+1) + 5);
+    if ( unitsList.size() > 0 && faction >= unitsList[0]->getNumberFaction() )
+    {
+        LWarning << "Try to draw a faction not available";
+        return true;
+    }
 
-	errorFlag &= pBackgroundUI->draw(r,uiPosition,time);
-	if ( unitsList.size() > 6 )
-	{
-		if ( offsetCursorPosition > 0 )
-		{
+    IVec2 uiPosition(20, 20);
+    IVec2 upArrowPosition(uiPosition.x - (pUpArrow->getSize().width / 2) + backgroundSize.width / 2 , uiPosition.y);
+    IVec2 downArrowPosition(upArrowPosition.x, upArrowPosition.y + backgroundSize.height - pDownArrow->getSize().height);
+    IVec2 cursorPosition(0, uiPosition.y + (actualPosition-offsetCursorPosition) * (pCursor->getSize().height+1) + 5);
+
+    errorFlag &= pBackgroundUI->draw(r,uiPosition,time);
+    if ( unitsList.size() > 6 )
+    {
+        if ( offsetCursorPosition > 0 )
+        {
             errorFlag &= pUpArrow->draw(r,upArrowPosition,time);
-		}
-		
-		if ( offsetCursorPosition < 4 )
-		{
+        }
+
+        if ( offsetCursorPosition < 4 )
+        {
             errorFlag &= pDownArrow->draw(r,downArrowPosition,time);
-		}
-	}
+        }
+    }
 
     errorFlag &= pCursor->draw(r,cursorPosition,time);
 
-	/**
-		Offset cursor make the list behaving in the way that until the cursor is not down, we are displaying the first of the list
-	*/
-	for ( unsigned int i = offsetCursorPosition ; i < unitsList.size() && i < offsetCursorPosition+7 ; i++ )
-	{
-		IVec2 unitPosition(40, uiPosition.y + 6 + (i-offsetCursorPosition) * (unitsList[i]->get(faction)->getSprite()->getSize().height+1));
-		
-		// Convertion of the price into a string
-		std::string priceString = "0";
-		{
-			std::ostringstream oss;
+    /**
+        Offset cursor make the list behaving in the way that until the cursor is not down, we are displaying the first of the list
+    */
+    for ( unsigned int i = offsetCursorPosition ; i < unitsList.size() && i < offsetCursorPosition+7 ; i++ )
+    {
+        IVec2 unitPosition(40, uiPosition.y + 6 + (i-offsetCursorPosition) * (unitsList[i]->get(faction)->getSprite()->getSize().height+1));
 
-			oss << unitsList[i]->get(faction)->getPrice();
+        // Convertion of the price into a string
+        std::string priceString = "0";
+        {
+            std::ostringstream oss;
 
-			priceString = oss.str();
-		}
-		
-		IVec2 unitPricePosition(backgroundSize.width - (pFont->getStringSize(priceString).width), unitPosition.y + 6);
-		IVec2 unitNamePosition(backgroundSize.width - (60 + pFont->getStringSize(unitsList[i]->get(faction)->getName()).width) , unitPricePosition.y);
+            oss << unitsList[i]->get(faction)->getPrice();
 
-		if ( unitsList[i]->get(faction)->getPrice() <= moneyAvailable )
-		{
-			errorFlag &= unitsList[i]->get(faction)->getSprite()->draw(r,unitPosition);
-			errorFlag &= pFont->draw(r,unitsList[i]->get(faction)->getName(),unitNamePosition);
-			errorFlag &= pFont->draw(r,priceString,unitPricePosition);
-		}
-		else
-		{
-			errorFlag &= unitsList[i]->get(faction)->getSprite()->draw(r,unitPosition,Colour(128,128,128,255));
-			errorFlag &= pFontGrey->draw(r,unitsList[i]->get(faction)->getName(),unitNamePosition);
-			errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
-		}
-	}
+            priceString = oss.str();
+        }
 
-	return errorFlag;
+        IVec2 unitPricePosition(backgroundSize.width - (pFont->getStringSize(priceString).width), unitPosition.y + 6);
+        IVec2 unitNamePosition(backgroundSize.width - (60 + pFont->getStringSize(unitsList[i]->get(faction)->getName()).width) , unitPricePosition.y);
+
+        if ( unitsList[i]->get(faction)->getPrice() <= moneyAvailable )
+        {
+            errorFlag &= unitsList[i]->get(faction)->getSprite()->draw(r,unitPosition);
+            errorFlag &= pFont->draw(r,unitsList[i]->get(faction)->getName(),unitNamePosition);
+            errorFlag &= pFont->draw(r,priceString,unitPricePosition);
+        }
+        else
+        {
+            errorFlag &= unitsList[i]->get(faction)->getSprite()->draw(r,unitPosition,Colour(128,128,128,255));
+            errorFlag &= pFontGrey->draw(r,unitsList[i]->get(faction)->getName(),unitNamePosition);
+            errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
+        }
+    }
+
+    return errorFlag;
 }
 
 void ConstructBox :: update(const NE::InputManager::ArrowsDirection kd)
 {
-	switch (kd)
-	{
-		case NE::InputManager::AD_UP:
-			if ( actualPosition > 0 )
-			{
-				actualPosition--;
-				// Check to know if we have to move the list up
-				if ( offsetCursorPosition > 0 && actualPosition < unitsList.size() - 6 )
-				{
-					offsetCursorPosition--;
-				}
-			}
-			break;
-		case NE::InputManager::AD_DOWN:
-			if ( actualPosition < unitsList.size()-1 )
-			{
-				actualPosition++;
-				// Check to know if we have to move the list down
-				if ( actualPosition > 5 && actualPosition < unitsList.size() - 1 && offsetCursorPosition < 4 )
-				{
-					offsetCursorPosition++;
-				}
-			}
-			break;
-	}
+    switch (kd)
+    {
+        case NE::InputManager::AD_UP:
+            if ( actualPosition > 0 )
+            {
+                actualPosition--;
+                // Check to know if we have to move the list up
+                if ( offsetCursorPosition > 0 && actualPosition < unitsList.size() - 6 )
+                {
+                    offsetCursorPosition--;
+                }
+            }
+            break;
+        case NE::InputManager::AD_DOWN:
+            if ( actualPosition < unitsList.size()-1 )
+            {
+                actualPosition++;
+                // Check to know if we have to move the list down
+                if ( actualPosition > 5 && actualPosition < unitsList.size() - 1 && offsetCursorPosition < 4 )
+                {
+                    offsetCursorPosition++;
+                }
+            }
+            break;
+    }
 }
 
 const UnitTemplate* ConstructBox :: getUnitSelected(const unsigned int faction)const
 {
-	return unitsList[actualPosition]->get(faction);
+    return unitsList[actualPosition]->get(faction);
 }

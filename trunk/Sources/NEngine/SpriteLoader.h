@@ -28,24 +28,31 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <string>
 
+#include "Types/Colour.h"
+
 namespace NE
 {
-	class Sprite;
+    class Sprite;
 
-	class SpriteLoader
-	{
+    class SpriteLoader
+    {
     private:
-    
-        std::map<std::string, Sprite*> spritesBank;  /*!< Bank saving the Sprite loaded */
-        
-    protected:
-        virtual Sprite* loadSprite(const std::string& fileName)=0;
-        
-	public:
-		virtual ~SpriteLoader(void);
 
-		Sprite* loadSpriteFromFile(const std::string& fileName);
-	};
+        std::map<std::string, Sprite*> spritesBank;  /*!< Bank saving the Sprite loaded */
+
+    protected:
+        Colour m_transparancyColour;
+
+        virtual Sprite* loadSprite(const std::string& fileName)=0;
+
+    public:
+        virtual ~SpriteLoader(void);
+
+        Sprite* loadSpriteFromFile(const std::string& fileName);
+
+        void setTransparancyColour(const Colour& transparancyColour) { m_transparancyColour = transparancyColour; }
+        const Colour& getTransparancyColour() { return m_transparancyColour; }
+    };
 }
 
 /*! \class NE::SpriteLoader SpriteLoader.h "NEngine/SpriteLoader.h"
