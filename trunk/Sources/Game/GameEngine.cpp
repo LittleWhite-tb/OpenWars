@@ -64,7 +64,7 @@ GameEngine :: ~GameEngine()
 
 bool GameEngine :: init(void)
 {
-    pNE->getSpriteLoader()->setTransparancyColour(Colour(255,0,222));
+    pNE->getSpriteLoader()->setTransparancyColour(Colour(255,0,255));
 
     if ( pGameOptions->editorMode )
     {

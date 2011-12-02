@@ -59,47 +59,10 @@ private:
 
 public:
 
-    void add(const std::string& name, const std::string& value)
-    {
-        if ( this->exists(name) )
-        {
-            LWarning << "Params will overwrite key '" << name << "'";
-        }
-
-        params[name] = value;
-    }
-
-    void remove(const std::string& name)
-    {
-        if ( this->exists(name) )
-        {
-            params.erase(name);
-        }
-        // else silently ignored
-    }
-
-    bool exists(const std::string& name)const
-    {
-        if ( params.find(name) != params.end() )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    const std::string& get(const std::string& name)const
-    {
-        std::map < std::string, std::string >::const_iterator itParam = params.find(name);
-        if ( itParam == params.end() )
-        {
-            throw ParameterNotFoundParamsException(name);
-        }
-
-        return itParam->second;
-    }
-
+    void add(const std::string& name, const std::string& value);
+    void remove(const std::string& name);
+    bool exists(const std::string& name)const;
+    const std::string& get(const std::string& name)const;
 
     template <typename T>
     T getAs(const std::string& name)const

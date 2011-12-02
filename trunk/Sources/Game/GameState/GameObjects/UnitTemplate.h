@@ -43,6 +43,7 @@ private:
     unsigned int id;                /*!< */
 
     AnimatedSprite* pSprite;        /*!< */
+    AnimatedSprite* pSpriteGreyed;        /*!< */
     UVec2 size;
 
     unsigned short int faction;     /*!< */
@@ -70,6 +71,7 @@ public:
     const std::string& getName()const { return name; }
 
     AnimatedSprite* getSprite()const { return pSprite; }
+    AnimatedSprite* getSpriteGreyed()const { return pSpriteGreyed; }
 
     unsigned short int getFaction()const { return faction; }
 

@@ -105,7 +105,7 @@ bool MapDrawer :: drawUnits(const NE::Renderer& r, const Map* pMap, const Camera
                 }
                 else
                 {
-					bError &= unitsMap[y][x].getSprite()->draw(r,tilePos,Colour(128,128,128,255),0);
+					bError &= unitsMap[y][x].getSpriteGreyed()->draw(r,tilePos,time);
                 }
 			}
   

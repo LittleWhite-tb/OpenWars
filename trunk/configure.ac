@@ -56,7 +56,7 @@ AC_CHECK_TYPES([ptrdiff_t])
 # Checks for library functions.
 AC_FUNC_MALLOC
 
-CPPFLAGS="$CPPFLAGS -Wall -Wextra"
+CPPFLAGS="$CPPFLAGS -Wall -Wextra -D_DEBUG"
 
 AC_CONFIG_FILES([
         Makefile

@@ -128,7 +128,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, con
         }
         else
         {
-            errorFlag &= unitsList[i]->get(faction)->getSprite()->draw(r,unitPosition,Colour(128,128,128,255));
+            errorFlag &= unitsList[i]->get(faction)->getSpriteGreyed()->draw(r,unitPosition);
             errorFlag &= pFontGrey->draw(r,unitsList[i]->get(faction)->getName(),unitNamePosition);
             errorFlag &= pFontGrey->draw(r,priceString,unitPricePosition);
         }

@@ -33,7 +33,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Utils/Logger.h"
 
 const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
-                                                        "internalName", "name", "filename", "size_x", "size_y",
+                                                        "internalName", "name", "sprite_filename", "sprite_greyed", "size_x", "size_y",
                                                         "movement", "fuel", "fuelConsumption", "life", "price" };
 
 UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const std::string& folderPath)
@@ -62,10 +62,17 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
         UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
                          pParams->getAs<unsigned int>("size_y"));
 
-        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
             LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
+            throw std::bad_alloc();
+        }
+
+        this->pSpriteGreyed = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_greyed"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        if ( this->pSpriteGreyed == NULL )
+        {
+            LError << "Fail to allocate memory for greyed AnimatedSprite for UnitTemplate";
             throw std::bad_alloc();
         }
 

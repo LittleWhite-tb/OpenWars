@@ -3,7 +3,7 @@
 	<tile id='0' menu='0'>
 		<internalName>Plain</internalName>
 		<name>Plaine</name>
-		<filename>plain.png</filename>
+		<filename>plain.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -17,7 +17,7 @@
 	<tile id='1' menu='1'>
 		<internalName>Tree</internalName>
 		<name>Foret</name>
-		<filename>tree.png</filename>
+		<filename>tree.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -32,7 +32,7 @@
 	<tile id='2' menu='2'>
 		<internalName>Mountain_1</internalName>
 		<name>Mtgn</name>
-		<filename>mountain1.png</filename>
+		<filename>mountain1.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -47,7 +47,7 @@
 	<tile id='3' menu='-1'>
 		<internalName>Mountain_2</internalName>
 		<name>Mtgn</name>
-		<filename>mountain2.png</filename>
+		<filename>mountain2.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>42</y>
@@ -62,7 +62,7 @@
 	<tile id='4' menu='-1'>
 		<internalName>Beach_TL</internalName>
 		<name>Plage</name>
-		<filename>beach_tl.png</filename>
+		<filename>beach_tl.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -78,7 +78,7 @@
 	<tile id='5' menu='-1'>
 		<internalName>Beach_TL_R</internalName>
 		<name>Plage</name>
-		<filename>beach_tl_r.png</filename>
+		<filename>beach_tl_r.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -94,7 +94,7 @@
 	<tile id='6' menu='-1'>
 		<internalName>Beach_TL_B</internalName>
 		<name>Plage</name>
-		<filename>beach_tl_b.png</filename>
+		<filename>beach_tl_b.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -110,7 +110,7 @@
 	<tile id='7' menu='-1'>
 		<internalName>Beach_TL_2</internalName>
 		<name>Plage</name>
-		<filename>beach_tl_2.png</filename>
+		<filename>beach_tl_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -126,7 +126,7 @@
 	<tile id='8' menu='-1'>
 		<internalName>Beach_TR</internalName>
 		<name>Plage</name>
-		<filename>beach_tr.png</filename>
+		<filename>beach_tr.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -142,7 +142,7 @@
 	<tile id='9' menu='-1'>
 		<internalName>Beach_TR_B</internalName>
 		<name>Plage</name>
-		<filename>beach_tr_b.png</filename>
+		<filename>beach_tr_b.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -158,7 +158,7 @@
 	<tile id='10' menu='-1'>
 		<internalName>Beach_TR_L</internalName>
 		<name>Plage</name>
-		<filename>beach_tr_l.png</filename>
+		<filename>beach_tr_l.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -174,7 +174,7 @@
 	<tile id='11' menu='-1'>
 		<internalName>Beach_TR_2</internalName>
 		<name>Plage</name>
-		<filename>beach_tr_2.png</filename>
+		<filename>beach_tr_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -190,7 +190,7 @@
 	<tile id='12' menu='-1'>
 		<internalName>Beach_BL</internalName>
 		<name>Plage</name>
-		<filename>beach_bl.png</filename>
+		<filename>beach_bl.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -206,7 +206,7 @@
 	<tile id='13' menu='-1'>
 		<internalName>Beach_BL_T</internalName>
 		<name>Plage</name>
-		<filename>beach_bl_t.png</filename>
+		<filename>beach_bl_t.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -222,7 +222,7 @@
 	<tile id='14' menu='-1'>
 		<internalName>Beach_BL_R</internalName>
 		<name>Plage</name>
-		<filename>beach_bl_r.png</filename>
+		<filename>beach_bl_r.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -238,7 +238,7 @@
 	<tile id='15' menu='-1'>
 		<internalName>Beach_BL_2</internalName>
 		<name>Plage</name>
-		<filename>beach_bl_2.png</filename>
+		<filename>beach_bl_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -254,7 +254,7 @@
 	<tile id='16' menu='-1'>
 		<internalName>Beach_BR</internalName>
 		<name>Plage</name>
-		<filename>beach_br.png</filename>
+		<filename>beach_br.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -270,7 +270,7 @@
 	<tile id='17' menu='-1'>
 		<internalName>Beach_BR_L</internalName>
 		<name>Plage</name>
-		<filename>beach_br_l.png</filename>
+		<filename>beach_br_l.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -286,7 +286,7 @@
 	<tile id='18' menu='-1'>
 		<internalName>Beach_BR_T</internalName>
 		<name>Plage</name>
-		<filename>beach_br_t.png</filename>
+		<filename>beach_br_t.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -302,7 +302,7 @@
 	<tile id='19' menu='-1'>
 		<internalName>Beach_BR_2</internalName>
 		<name>Plage</name>
-		<filename>beach_br_2.png</filename>
+		<filename>beach_br_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -318,7 +318,7 @@
 	<tile id='20' menu='-1'>
 		<internalName>Beach_EL</internalName>
 		<name>Plage</name>
-		<filename>beach_el.png</filename>
+		<filename>beach_el.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -334,7 +334,7 @@
 	<tile id='21' menu='-1'>
 		<internalName>Beach_ER</internalName>
 		<name>Plage</name>
-		<filename>beach_er.png</filename>
+		<filename>beach_er.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -350,7 +350,7 @@
 	<tile id='22' menu='-1'>
 		<internalName>Beach_ET</internalName>
 		<name>Plage</name>
-		<filename>beach_et.png</filename>
+		<filename>beach_et.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -366,7 +366,7 @@
 	<tile id='23' menu='-1'>
 		<internalName>Beach_EB</internalName>
 		<name>Plage</name>
-		<filename>beach_eb.png</filename>
+		<filename>beach_eb.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -382,7 +382,7 @@
 	<tile id='24' menu='-1'>
 		<internalName>Beach_L</internalName>
 		<name>Plage</name>
-		<filename>beach_l.png</filename>
+		<filename>beach_l.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -398,7 +398,7 @@
 	<tile id='25' menu='-1'>
 		<internalName>Beach_L_T</internalName>
 		<name>Plage</name>
-		<filename>beach_l_t.png</filename>
+		<filename>beach_l_t.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -414,7 +414,7 @@
 	<tile id='26' menu='-1'>
 		<internalName>Beach_L_B</internalName>
 		<name>Plage</name>
-		<filename>beach_l_b.png</filename>
+		<filename>beach_l_b.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -430,7 +430,7 @@
 	<tile id='27' menu='-1'>
 		<internalName>Beach_L_2</internalName>
 		<name>Plage</name>
-		<filename>beach_l_2.png</filename>
+		<filename>beach_l_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -446,7 +446,7 @@
 	<tile id='28' menu='-1'>
 		<internalName>Beach_R</internalName>
 		<name>Plage</name>
-		<filename>beach_r.png</filename>
+		<filename>beach_r.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -462,7 +462,7 @@
 	<tile id='29' menu='-1'>
 		<internalName>Beach_R_T</internalName>
 		<name>Plage</name>
-		<filename>beach_r_t.png</filename>
+		<filename>beach_r_t.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -478,7 +478,7 @@
 	<tile id='30' menu='-1'>
 		<internalName>Beach_R_B</internalName>
 		<name>Plage</name>
-		<filename>beach_r_b.png</filename>
+		<filename>beach_r_b.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -494,7 +494,7 @@
 	<tile id='31' menu='-1'>
 		<internalName>Beach_R_2</internalName>
 		<name>Plage</name>
-		<filename>beach_r_2.png</filename>
+		<filename>beach_r_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -510,7 +510,7 @@
 	<tile id='32' menu='5'>
 		<internalName>Beach_T</internalName>
 		<name>Plage</name>
-		<filename>beach_t.png</filename>
+		<filename>beach_t.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -526,7 +526,7 @@
 	<tile id='33' menu='-1'>
 		<internalName>Beach_T_L</internalName>
 		<name>Plage</name>
-		<filename>beach_t_l.png</filename>
+		<filename>beach_t_l.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -542,7 +542,7 @@
 	<tile id='34' menu='-1'>
 		<internalName>Beach_T_R</internalName>
 		<name>Plage</name>
-		<filename>beach_t_r.png</filename>
+		<filename>beach_t_r.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -558,7 +558,7 @@
 	<tile id='35' menu='-1'>
 		<internalName>Beach_T_2</internalName>
 		<name>Plage</name>
-		<filename>beach_t_2.png</filename>
+		<filename>beach_t_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -574,7 +574,7 @@
 	<tile id='36' menu='-1'>
 		<internalName>Beach_B</internalName>
 		<name>Plage</name>
-		<filename>beach_b.png</filename>
+		<filename>beach_b.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -590,7 +590,7 @@
 	<tile id='37' menu='-1'>
 		<internalName>Beach_B_R</internalName>
 		<name>Plage</name>
-		<filename>beach_b_r.png</filename>
+		<filename>beach_b_r.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -606,7 +606,7 @@
 	<tile id='38' menu='-1'>
 		<internalName>Beach_B_L</internalName>
 		<name>Plage</name>
-		<filename>beach_b_l.png</filename>
+		<filename>beach_b_l.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -622,7 +622,7 @@
 	<tile id='39' menu='-1'>
 		<internalName>Beach_B_2</internalName>
 		<name>Plage</name>
-		<filename>beach_b_2.png</filename>
+		<filename>beach_b_2.bmp</filename>
 		<coherency>BeachChecker</coherency>
 		<size>
 			<x>32</x>
@@ -638,7 +638,7 @@
 	<tile id='40' menu='8'>
 		<internalName>Bridge_H</internalName>
 		<name>Pont</name>
-		<filename>bridge_h.png</filename>
+		<filename>bridge_h.bmp</filename>
 		<coherency>BridgeChecker</coherency>
 		<size>
 			<x>32</x>
@@ -653,7 +653,7 @@
 	<tile id='41' menu='-1'>
 	<internalName>Bridge_V</internalName>
 		<name>Pont</name>
-		<filename>bridge_v.png</filename>
+		<filename>bridge_v.bmp</filename>
 		<coherency>BridgeChecker</coherency>
 		<size>
 			<x>32</x>
@@ -668,7 +668,7 @@
 	<tile id='42' menu='4'>
 		<internalName>River_H</internalName>
 		<name>Riv.</name>
-		<filename>river_h.png</filename>
+		<filename>river_h.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -683,7 +683,7 @@
 	<tile id='43' menu='-1'>
 		<internalName>River_V</internalName>
 		<name>Riv.</name>
-		<filename>river_v.png</filename>
+		<filename>river_v.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -698,7 +698,7 @@
 	<tile id='44' menu='-1'>
 		<internalName>River_T_L</internalName>
 		<name>Riv.</name>
-		<filename>river_t_l.png</filename>
+		<filename>river_t_l.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -713,7 +713,7 @@
 	<tile id='45' menu='-1'>
 		<internalName>River_T_R</internalName>
 		<name>Riv.</name>
-		<filename>river_t_r.png</filename>
+		<filename>river_t_r.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -728,7 +728,7 @@
 	<tile id='46' menu='-1'>
 		<internalName>River_T_T</internalName>
 		<name>Riv.</name>
-		<filename>river_t_t.png</filename>
+		<filename>river_t_t.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -743,7 +743,7 @@
 	<tile id='47' menu='-1'>
 		<internalName>River_T_B</internalName>
 		<name>Riv.</name>
-		<filename>river_t_b.png</filename>
+		<filename>river_t_b.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -758,7 +758,7 @@
 	<tile id='48' menu='-1'>
 		<internalName>River_TL</internalName>
 		<name>Riv.</name>
-		<filename>river_tl.png</filename>
+		<filename>river_tl.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -773,7 +773,7 @@
 	<tile id='49' menu='-1'>
 		<internalName>River_TR</internalName>
 		<name>Riv.</name>
-		<filename>river_tr.png</filename>
+		<filename>river_tr.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -788,7 +788,7 @@
 	<tile id='50' menu='-1'>
 		<internalName>River_BL</internalName>
 		<name>Riv.</name>
-		<filename>river_bl.png</filename>
+		<filename>river_bl.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -803,7 +803,7 @@
 	<tile id='51' menu='-1'>
 		<internalName>River_BR</internalName>
 		<name>Riv.</name>
-		<filename>river_br.png</filename>
+		<filename>river_br.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -818,7 +818,7 @@
 	<tile id='52' menu='-1'>
 		<internalName>River_See_T</internalName>
 		<name>Riv.</name>
-		<filename>river2see_t.png</filename>
+		<filename>river2see_t.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -834,7 +834,7 @@
 	<tile id='53' menu='-1'>
 		<internalName>River_See_B</internalName>
 		<name>Riv.</name>
-		<filename>river2see_b.png</filename>
+		<filename>river2see_b.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -850,7 +850,7 @@
 	<tile id='54' menu='-1'>
 		<internalName>River_See_L</internalName>
 		<name>Riv.</name>
-		<filename>river2see_l.png</filename>
+		<filename>river2see_l.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -866,7 +866,7 @@
 	<tile id='55' menu='-1'>
 		<internalName>River_See_R</internalName>
 		<name>Riv.</name>
-		<filename>river2see_r.png</filename>
+		<filename>river2see_r.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -882,7 +882,7 @@
 	<tile id='56' menu='-1'>
 		<internalName>River_X</internalName>
 		<name>Riv.</name>
-		<filename>river_x.png</filename>
+		<filename>river_x.bmp</filename>
 		<coherency>RiverChecker</coherency>
 		<size>
 			<x>32</x>
@@ -897,7 +897,7 @@
 	<tile id='57' menu='7'>
 		<internalName>Road_H</internalName>
 		<name>Route</name>
-		<filename>road_h.png</filename>
+		<filename>road_h.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -912,7 +912,7 @@
 	<tile id='58' menu='-1'>
 		<internalName>Road_V</internalName>
 		<name>Route</name>
-		<filename>road_v.png</filename>
+		<filename>road_v.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -927,7 +927,7 @@
 	<tile id='59' menu='-1'>
 		<internalName>Road_TL</internalName>
 		<name>Route</name>
-		<filename>road_tl.png</filename>
+		<filename>road_tl.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -942,7 +942,7 @@
 	<tile id='60' menu='-1'>
 		<internalName>Road_TR</internalName>
 		<name>Route</name>
-		<filename>road_tr.png</filename>
+		<filename>road_tr.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -957,7 +957,7 @@
 	<tile id='61' menu='-1'>
 		<internalName>Road_BL</internalName>
 		<name>Route</name>
-		<filename>road_bl.png</filename>
+		<filename>road_bl.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -972,7 +972,7 @@
 	<tile id='62' menu='-1'>
 		<internalName>Road_BR</internalName>
 		<name>Route</name>
-		<filename>road_br.png</filename>
+		<filename>road_br.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -987,7 +987,7 @@
 	<tile id='63' menu='-1'>
 		<internalName>Road_T_L</internalName>
 		<name>Route</name>
-		<filename>road_t_l.png</filename>
+		<filename>road_t_l.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1002,7 +1002,7 @@
 	<tile id='64' menu='-1'>
 		<internalName>Road_T_B</internalName>
 		<name>Route</name>
-		<filename>road_t_b.png</filename>
+		<filename>road_t_b.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1017,7 +1017,7 @@
 	<tile id='65' menu='-1'>
 		<internalName>Road_T_R</internalName>
 		<name>Route</name>
-		<filename>road_t_r.png</filename>
+		<filename>road_t_r.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1032,7 +1032,7 @@
 	<tile id='66' menu='-1'>
 		<internalName>Road_T_T</internalName>
 		<name>Route</name>
-		<filename>road_t_t.png</filename>
+		<filename>road_t_t.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1047,7 +1047,7 @@
 	<tile id='67' menu='-1'>
 		<internalName>Road_X</internalName>
 		<name>Route</name>
-		<filename>road_x.png</filename>
+		<filename>road_x.bmp</filename>
 		<coherency>RoadChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1062,7 +1062,7 @@
 	<tile id='68' menu='9'>
 		<internalName>Red_HQ</internalName>
 		<name>Q.G.</name>
-		<filename>r_hq.png</filename>
+		<filename>r_hq.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1080,7 +1080,7 @@
 	<tile id='69' menu='10'>
 		<internalName>Red_Factory</internalName>
 		<name>Base</name>
-		<filename>r_factory.png</filename>
+		<filename>r_factory.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1098,7 +1098,7 @@
 	<tile id='70' menu='11'>
 		<internalName>Red_Port</internalName>
 		<name>Port</name>
-		<filename>r_port.png</filename>
+		<filename>r_port.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1116,7 +1116,7 @@
 	<tile id='71' menu='12'>
 		<internalName>Red_Airport</internalName>
 		<name>Aero.</name>
-		<filename>r_airport.png</filename>
+		<filename>r_airport.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1134,7 +1134,7 @@
 	<tile id='72' menu='13'>
 		<internalName>Red_City</internalName>
 		<name>Ville</name>
-		<filename>r_city.png</filename>
+		<filename>r_city.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1151,7 +1151,7 @@
 	<tile id='73' menu='9'>
 		<internalName>Blue_HQ</internalName>
 		<name>Q.G.</name>
-		<filename>b_hq.png</filename>
+		<filename>b_hq.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1169,7 +1169,7 @@
 	<tile id='74' menu='10'>
 		<internalName>Blue_Factory</internalName>
 		<name>Base</name>
-		<filename>b_factory.png</filename>
+		<filename>b_factory.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1187,7 +1187,7 @@
 	<tile id='75' menu='11'>
 		<internalName>Blue_Port</internalName>
 		<name>Port</name>
-		<filename>b_port.png</filename>
+		<filename>b_port.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1205,7 +1205,7 @@
 	<tile id='76' menu='12'>
 		<internalName>Blue_Airport</internalName>
 		<name>Aero.</name>
-		<filename>b_airport.png</filename>
+		<filename>b_airport.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1223,7 +1223,7 @@
 	<tile id='77' menu='13'>
 		<internalName>Blue_City</internalName>
 		<name>Ville</name>
-		<filename>b_city.png</filename>
+		<filename>b_city.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1240,7 +1240,7 @@
 	<tile id='78' menu='9'>
 		<internalName>Green_HQ</internalName>
 		<name>Q.G.</name>
-		<filename>g_hq.png</filename>
+		<filename>g_hq.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1258,7 +1258,7 @@
 	<tile id='79' menu='10'>
 		<internalName>Green_Factory</internalName>
 		<name>Base</name>
-		<filename>g_factory.png</filename>
+		<filename>g_factory.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1276,7 +1276,7 @@
 	<tile id='80' menu='11'>
 		<internalName>Green_Port</internalName>
 		<name>Port</name>
-		<filename>g_port.png</filename>
+		<filename>g_port.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1294,7 +1294,7 @@
 	<tile id='81' menu='12'>
 		<internalName>Green_Airport</internalName>
 		<name>Aero.</name>
-		<filename>g_airport.png</filename>
+		<filename>g_airport.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1312,7 +1312,7 @@
 	<tile id='82' menu='13'>
 		<internalName>Green_City</internalName>
 		<name>Ville</name>
-		<filename>g_city.png</filename>
+		<filename>g_city.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1329,7 +1329,7 @@
 	<tile id='83' menu='9'>
 		<internalName>Yellow_HQ</internalName>
 		<name>Q.G.</name>
-		<filename>y_hq.png</filename>
+		<filename>y_hq.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>62</y>
@@ -1347,7 +1347,7 @@
 	<tile id='84' menu='10'>
 		<internalName>Yellow_Factory</internalName>
 		<name>Base</name>
-		<filename>y_factory.png</filename>
+		<filename>y_factory.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1365,7 +1365,7 @@
 	<tile id='85' menu='11'>
 		<internalName>Yellow_Port</internalName>
 		<name>Port</name>
-		<filename>y_port.png</filename>
+		<filename>y_port.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1383,7 +1383,7 @@
 	<tile id='86' menu='12'>
 		<internalName>Yellow_Airport</internalName>
 		<name>Aero.</name>
-		<filename>y_airport.png</filename>
+		<filename>y_airport.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1401,7 +1401,7 @@
 	<tile id='87' menu='13'>
 		<internalName>Yellow_City</internalName>
 		<name>Ville</name>
-		<filename>y_city.png</filename>
+		<filename>y_city.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1419,7 +1419,7 @@
 	<tile id='88' menu='9'>
 		<internalName>Neutral_HQ</internalName>
 		<name>Ville</name>
-		<filename>n_city.png</filename>
+		<filename>n_city.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1436,7 +1436,7 @@
 	<tile id='89' menu='10'>
 		<internalName>Neutral_Factory</internalName>
 		<name>Base</name>
-		<filename>n_factory.png</filename>
+		<filename>n_factory.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1453,7 +1453,7 @@
 	<tile id='90' menu='11'>
 		<internalName>Neutral_Port</internalName>
 		<name>Port</name>
-		<filename>n_port.png</filename>
+		<filename>n_port.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>44</y>
@@ -1470,7 +1470,7 @@
 	<tile id='91' menu='12'>
 		<internalName>Neutral_Airport</internalName>
 		<name>Aero.</name>
-		<filename>n_airport.png</filename>
+		<filename>n_airport.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>36</y>
@@ -1487,7 +1487,7 @@
 	<tile id='92' menu='13'>
 		<internalName>Neutral_City</internalName>
 		<name>Ville</name>
-		<filename>n_city.png</filename>
+		<filename>n_city.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>40</y>
@@ -1504,7 +1504,7 @@
 	<tile id='93' menu='3'>
 		<internalName>Sea</internalName>
 		<name>Mer</name>
-		<filename>sea.png</filename>
+		<filename>sea.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1519,7 +1519,7 @@
 	<tile id='94' menu='-1'>
 		<internalName>Sea_TL</internalName>
 		<name>Mer</name>
-		<filename>sea_tl.png</filename>
+		<filename>sea_tl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1534,7 +1534,7 @@
 	<tile id='95' menu='-1'>
 		<internalName>Sea_TR</internalName>
 		<name>Mer</name>
-		<filename>sea_tr.png</filename>
+		<filename>sea_tr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1549,7 +1549,7 @@
 	<tile id='96' menu='-1'>
 		<internalName>Sea_BL</internalName>
 		<name>Mer</name>
-		<filename>sea_bl.png</filename>
+		<filename>sea_bl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1564,7 +1564,7 @@
 	<tile id='97' menu='-1'>
 		<internalName>Sea_BR</internalName>
 		<name>Mer</name>
-		<filename>sea_br.png</filename>
+		<filename>sea_br.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1579,7 +1579,7 @@
 	<tile id='98' menu='6'>
 		<internalName>Reef</internalName>
 		<name>Récif</name>
-		<filename>reef.png</filename>
+		<filename>reef.bmp</filename>
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -1594,7 +1594,7 @@
 	<tile id='99' menu='-1'>
 		<internalName>Coast</internalName>
 		<name>Mer</name>
-		<filename>coast.png</filename>
+		<filename>coast.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1610,7 +1610,7 @@
 	<tile id='100' menu='-1'>
 		<internalName>Coast_ET</internalName>
 		<name>Mer</name>
-		<filename>coast_et.png</filename>
+		<filename>coast_et.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1625,7 +1625,7 @@
 	<tile id='101' menu='-1'>
 		<internalName>Coast_EB</internalName>
 		<name>Mer</name>
-		<filename>coast_eb.png</filename>
+		<filename>coast_eb.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1640,7 +1640,7 @@
 	<tile id='102' menu='-1'>
 		<internalName>Coast_EL</internalName>
 		<name>Mer</name>
-		<filename>coast_el.png</filename>
+		<filename>coast_el.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1655,7 +1655,7 @@
 	<tile id='103' menu='-1'>
 		<internalName>Coast_ER</internalName>
 		<name>Mer</name>
-		<filename>coast_er.png</filename>
+		<filename>coast_er.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1670,7 +1670,7 @@
 	<tile id='104' menu='-1'>
 		<internalName>Coast_TL</internalName>
 		<name>Mer</name>
-		<filename>coast_tl.png</filename>
+		<filename>coast_tl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1685,7 +1685,7 @@
 	<tile id='105' menu='-1'>
 		<internalName>Coast_TR</internalName>
 		<name>Mer</name>
-		<filename>coast_tr.png</filename>
+		<filename>coast_tr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1700,7 +1700,7 @@
 	<tile id='106' menu='-1'>
 		<internalName>Coast_BL</internalName>
 		<name>Mer</name>
-		<filename>coast_bl.png</filename>
+		<filename>coast_bl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1715,7 +1715,7 @@
 	<tile id='107' menu='-1'>
 		<internalName>Coast_BR</internalName>
 		<name>Mer</name>
-		<filename>coast_br.png</filename>
+		<filename>coast_br.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1730,7 +1730,7 @@
 	<tile id='108' menu='-1'>
 		<internalName>Coast_RBL</internalName>
 		<name>Mer</name>
-		<filename>coast_rbl.png</filename>
+		<filename>coast_rbl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1745,7 +1745,7 @@
 	<tile id='109' menu='-1'>
 		<internalName>Coast_RBR</internalName>
 		<name>Mer</name>
-		<filename>coast_rbr.png</filename>
+		<filename>coast_rbr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1760,7 +1760,7 @@
 	<tile id='110' menu='-1'>
 		<internalName>Coast_RTR</internalName>
 		<name>Mer</name>
-		<filename>coast_rtr.png</filename>
+		<filename>coast_rtr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1775,7 +1775,7 @@
 	<tile id='111' menu='-1'>
 		<internalName>Coast_RTL</internalName>
 		<name>Mer</name>
-		<filename>coast_rtl.png</filename>
+		<filename>coast_rtl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1790,7 +1790,7 @@
 	<tile id='112' menu='-1'>
 		<internalName>Coast_L</internalName>
 		<name>Mer</name>
-		<filename>coast_l.png</filename>
+		<filename>coast_l.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1805,7 +1805,7 @@
 	<tile id='113' menu='-1'>
 		<internalName>Coast_R</internalName>
 		<name>Mer</name>
-		<filename>coast_r.png</filename>
+		<filename>coast_r.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1820,7 +1820,7 @@
 	<tile id='114' menu='-1'>
 		<internalName>Coast_B</internalName>
 		<name>Mer</name>
-		<filename>coast_b.png</filename>
+		<filename>coast_b.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1835,7 +1835,7 @@
 	<tile id='115' menu='-1'>
 		<internalName>Coast_T</internalName>
 		<name>Mer</name>
-		<filename>coast_t.png</filename>
+		<filename>coast_t.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1850,7 +1850,7 @@
 	<tile id='116' menu='-1'>
 		<internalName>Coast_H</internalName>
 		<name>Mer</name>
-		<filename>coast_h.png</filename>
+		<filename>coast_h.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1865,7 +1865,7 @@
 	<tile id='117' menu='-1'>
 		<internalName>Coast_V</internalName>
 		<name>Mer</name>
-		<filename>coast_v.png</filename>
+		<filename>coast_v.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1880,7 +1880,7 @@
 	<tile id='118' menu='-1'>
 		<internalName>Coast_T_L</internalName>
 		<name>Mer</name>
-		<filename>coast_t_l.png</filename>
+		<filename>coast_t_l.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1895,7 +1895,7 @@
 	<tile id='119' menu='-1'>
 		<internalName>Coast_T_B</internalName>
 		<name>Mer</name>
-		<filename>coast_t_b.png</filename>
+		<filename>coast_t_b.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1910,7 +1910,7 @@
 	<tile id='120' menu='-1'>
 		<internalName>Coast_T_R</internalName>
 		<name>Mer</name>
-		<filename>coast_t_r.png</filename>
+		<filename>coast_t_r.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1925,7 +1925,7 @@
 	<tile id='121' menu='-1'>
 		<internalName>Coast_T_T</internalName>
 		<name>Mer</name>
-		<filename>coast_t_t.png</filename>
+		<filename>coast_t_t.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1940,7 +1940,7 @@
 	<tile id='122' menu='-1'>
 		<internalName>Coast_T_TL</internalName>
 		<name>Mer</name>
-		<filename>coast_t_tl.png</filename>
+		<filename>coast_t_tl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1955,7 +1955,7 @@
 	<tile id='123' menu='-1'>
 		<internalName>Coast_T_TR</internalName>
 		<name>Mer</name>
-		<filename>coast_t_tr.png</filename>
+		<filename>coast_t_tr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1970,7 +1970,7 @@
 	<tile id='124' menu='-1'>
 		<internalName>Coast_T_BL</internalName>
 		<name>Mer</name>
-		<filename>coast_t_bl.png</filename>
+		<filename>coast_t_bl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -1985,7 +1985,7 @@
 	<tile id='125' menu='-1'>
 		<internalName>Coast_T_BR</internalName>
 		<name>Mer</name>
-		<filename>coast_t_br.png</filename>
+		<filename>coast_t_br.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2000,7 +2000,7 @@
 	<tile id='126' menu='-1'>
 		<internalName>Coast_T_LT</internalName>
 		<name>Mer</name>
-		<filename>coast_t_lt.png</filename>
+		<filename>coast_t_lt.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2015,7 +2015,7 @@
 	<tile id='127' menu='-1'>
 		<internalName>Coast_T_RT</internalName>
 		<name>Mer</name>
-		<filename>coast_t_rt.png</filename>
+		<filename>coast_t_rt.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2030,7 +2030,7 @@
 	<tile id='128' menu='-1'>
 		<internalName>Coast_T_LB</internalName>
 		<name>Mer</name>
-		<filename>coast_t_lb.png</filename>
+		<filename>coast_t_lb.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2045,7 +2045,7 @@
 	<tile id='129' menu='-1'>
 		<internalName>Coast_T_RB</internalName>
 		<name>Mer</name>
-		<filename>coast_t_rb.png</filename>
+		<filename>coast_t_rb.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2060,7 +2060,7 @@
 	<tile id='130' menu='-1'>
 		<internalName>Coast_X</internalName>
 		<name>Mer</name>
-		<filename>coast_x.png</filename>
+		<filename>coast_x.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2075,7 +2075,7 @@
 	<tile id='131' menu='-1'>
 		<internalName>Coast_XL</internalName>
 		<name>Mer</name>
-		<filename>coast_xl.png</filename>
+		<filename>coast_xl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2090,7 +2090,7 @@
 	<tile id='132' menu='-1'>
 		<internalName>Coast_XR</internalName>
 		<name>Mer</name>
-		<filename>coast_xr.png</filename>
+		<filename>coast_xr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2105,7 +2105,7 @@
 	<tile id='133' menu='-1'>
 		<internalName>Coast_XB</internalName>
 		<name>Mer</name>
-		<filename>coast_xb.png</filename>
+		<filename>coast_xb.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2120,7 +2120,7 @@
 	<tile id='134' menu='-1'>
 		<internalName>Coast_XT</internalName>
 		<name>Mer</name>
-		<filename>coast_xt.png</filename>
+		<filename>coast_xt.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2135,7 +2135,7 @@
 	<tile id='135' menu='-1'>
 		<internalName>Coast_XTL</internalName>
 		<name>Mer</name>
-		<filename>coast_xtl.png</filename>
+		<filename>coast_xtl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2150,7 +2150,7 @@
 	<tile id='136' menu='-1'>
 		<internalName>Coast_XTR</internalName>
 		<name>Mer</name>
-		<filename>coast_xtr.png</filename>
+		<filename>coast_xtr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2165,7 +2165,7 @@
 	<tile id='137' menu='-1'>
 		<internalName>Coast_XBL</internalName>
 		<name>Mer</name>
-		<filename>coast_xbl.png</filename>
+		<filename>coast_xbl.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2180,7 +2180,7 @@
 	<tile id='138' menu='-1'>
 		<internalName>Coast_XBR</internalName>
 		<name>Mer</name>
-		<filename>coast_xbr.png</filename>
+		<filename>coast_xbr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2195,7 +2195,7 @@
 	<tile id='139' menu='-1'>
 		<internalName>Coast_XTLBR</internalName>
 		<name>Mer</name>
-		<filename>coast_xtlbr.png</filename>
+		<filename>coast_xtlbr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>
@@ -2210,7 +2210,7 @@
 	<tile id='140' menu='-1'>
 		<internalName>Coast_XBLTR</internalName>
 		<name>Mer</name>
-		<filename>coast_xbltr.png</filename>
+		<filename>coast_xbltr.bmp</filename>
 		<coherency>SeaChecker</coherency>
 		<size>
 			<x>32</x>

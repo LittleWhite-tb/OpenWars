@@ -63,6 +63,7 @@ public:
     const std::string& getName()const { return pUnitTemplate->getName(); }
     unsigned int getID()const { return pUnitTemplate->getID(); }
     AnimatedSprite* getSprite()const { return pUnitTemplate->getSprite(); }
+    AnimatedSprite* getSpriteGreyed()const { return pUnitTemplate->getSpriteGreyed(); }
     const UnitTemplate* getTemplate()const { return pUnitTemplate; }
 	unsigned int getPossibleMovementLength()const;
 };

@@ -3,7 +3,11 @@
 	<unit id='0' classId='0' faction='0'>	<!-- classId of -100 is a restricted value and should not be used -->
 		<internalName>INFANTRY</internalName>
 		<name>Inftry</name>
-		<filename>r_infantry.png</filename>
+		<sprite>
+			<filename>r_infantry.bmp</filename>
+			<greyed>r_infantry_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -37,7 +41,11 @@
 	<unit id='1' classId='0' faction='0'>	
 		<internalName>BAZOOKA</internalName>
 		<name>Mech</name>
-		<filename>r_bazooka.png</filename>
+		<sprite>
+			<filename>r_bazooka.bmp</filename>
+			<greyed>r_bazooka_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -66,7 +74,11 @@
 	<unit id='2' classId='1' faction='0'>	
 		<internalName>RECON</internalName>
 		<name>Recon</name>
-		<filename>r_recon.png</filename>
+		<sprite>
+			<filename>r_recon.bmp</filename>
+			<greyed>r_recon_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -95,7 +107,11 @@
 	<unit id='3' classId='1' faction='0'>	
 		<internalName>TANK</internalName>
 		<name>Tank</name>
-		<filename>r_tank.png</filename>
+		<sprite>
+			<filename>r_tank.bmp</filename>
+			<greyed>r_tank_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -125,7 +141,11 @@
 	<unit id='4' classId='1' faction='0'>	
 		<internalName>TANKM</internalName>
 		<name>Md Tank</name>
-		<filename>r_tankm.png</filename>
+		<sprite>
+			<filename>r_tankm.bmp</filename>
+			<greyed>r_tankm_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -155,7 +175,11 @@
 	<unit id='5' classId='1' faction='0'>	
 		<internalName>NEOTANK</internalName>
 		<name>Neo</name>
-		<filename>r_neo.png</filename>
+		<sprite>
+			<filename>r_neo.bmp</filename>
+			<greyed>r_neo_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -185,7 +209,11 @@
 	<unit id='6' classId='1' faction='0'>	
 		<internalName>APC</internalName>
 		<name>APC</name>
-		<filename>r_apc.png</filename>
+		<sprite>
+			<filename>r_apc.bmp</filename>
+			<greyed>r_apc_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -206,7 +234,11 @@
 	<unit id='7' classId='1' faction='0'>	
 		<internalName>ARTILLERY</internalName>
 		<name>Artly</name>
-		<filename>r_artillery.png</filename>
+		<sprite>
+			<filename>r_artillery.bmp</filename>
+			<greyed>r_artillery_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -237,7 +269,11 @@
 	<unit id='8' classId='1' faction='0'>	
 		<internalName>ROCKETS</internalName>
 		<name>Rckts</name>
-		<filename>r_rockets.png</filename>
+		<sprite>
+			<filename>r_rockets.bmp</filename>
+			<greyed>r_rockets_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -268,7 +304,11 @@
 	<unit id='9' classId='1' faction='0'>	
 		<internalName>ANTIAIR</internalName>
 		<name>A-air</name>
-		<filename>r_aair.png</filename>
+		<sprite>
+			<filename>r_aair.bmp</filename>
+			<greyed>r_aair_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -298,7 +338,11 @@
 	<unit id='10' classId='1' faction='0'>	
 		<internalName>MISSILES</internalName>
 		<name>Mssls</name>
-		<filename>r_missiles.png</filename>
+		<sprite>
+			<filename>r_missiles.bmp</filename>
+			<greyed>r_missiles_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -328,7 +372,11 @@
 	<unit id='11' classId='2' faction='0'>	
 		<internalName>LANDER</internalName>
 		<name>Lndr</name>
-		<filename>r_lander.png</filename>
+		<sprite>
+			<filename>r_lander.bmp</filename>
+			<greyed>r_lander_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -351,7 +399,11 @@
 	<unit id='12' classId='3' faction='0'>	
 		<internalName>SUB</internalName>
 		<name>Sub</name>
-		<filename>r_sub.png</filename>
+		<sprite>
+			<filename>r_sub.bmp</filename>
+			<greyed>r_sub_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -375,7 +427,11 @@
 	<unit id='13' classId='4' faction='0'>	
 		<internalName>BOMBERSHIP</internalName>
 		<name>BShp</name>
-		<filename>r_bship.png</filename>
+		<sprite>
+			<filename>r_bship.bmp</filename>
+			<greyed>r_bship_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -400,7 +456,11 @@
 	<unit id='14' classId='5' faction='0'>	
 		<internalName>CRUISER</internalName>
 		<name>Crsr</name>
-		<filename>r_cruiser.png</filename>
+		<sprite>
+			<filename>r_cruiser.bmp</filename>
+			<greyed>r_cruiser_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -425,7 +485,11 @@
 	<unit id='15' classId='6' faction='0'>	
 		<internalName>TCOPTER</internalName>
 		<name>T Cptr</name>
-		<filename>r_tcopter.png</filename>
+		<sprite>
+			<filename>r_tcopter.bmp</filename>
+			<greyed>r_tcopter_greyed.bmp</greyed>
+		</sprite>
+
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -448,7 +512,11 @@
 	<unit id='16' classId='6' faction='0'>	
 		<internalName>COPTER</internalName>
 		<name>B Cptr</name>
-		<filename>r_copter.png</filename>
+		<sprite>
+			<filename>r_copter.bmp</filename>
+			<greyed>r_copter_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -473,7 +541,11 @@
 	<unit id='17' classId='7' faction='0'>	
 		<internalName>FIGHTER</internalName>
 		<name>Fghtr</name>
-		<filename>r_fighter.png</filename>
+		<sprite>
+			<filename>r_fighter.bmp</filename>
+			<greyed>r_fighter_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
@@ -497,7 +569,11 @@
 	<unit id='18' classId='7' faction='0'>	
 		<internalName>BOMBER</internalName>
 		<name>Bmbr</name>
-		<filename>r_bomber.png</filename>
+		<sprite>
+			<filename>r_bomber.bmp</filename>
+			<greyed>r_bomber_greyed.bmp</greyed>
+		</sprite>
+		
 		<size>
 			<x>32</x>
 			<y>32</y>
