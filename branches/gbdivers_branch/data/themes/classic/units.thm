@@ -1,0 +1,462 @@
+# Classic theme
+
+# ID of the Unit
+# file to load
+# size_x size_w                 (of one sprite in the animation)
+# time                          (time between two sprites)
+
+# UT_R_INFANTRY
+0
+r_infantry.png
+32 32
+200
+
+# UT_R_BAZOOKA
+1
+r_bazooka.png
+32 32
+200
+
+# UT_R_RECON
+2
+r_recon.png
+32 32
+200
+
+# UT_R_TANK
+3
+r_tank.png
+32 32
+200
+
+# UT_R_TANKM
+4
+r_tankm.png
+32 32
+200
+
+# UT_R_NEOTANK
+5
+r_neo.png
+32 32
+200
+
+# UT_R_APC
+6
+r_apc.png
+32 32
+200
+
+# UT_R_ARTILLERY
+7
+r_artillery.png
+32 32
+200
+
+# UT_R_ROCKETS
+8
+r_rockets.png
+32 32
+200
+
+# UT_R_ANTIAIR
+9
+r_aair.png
+32 32
+200
+
+# UT_R_MISSILES
+10
+r_missiles.png
+32 32
+200
+
+# UT_R_LANDER
+11
+r_lander.png
+32 32
+200
+
+# UT_R_SUB
+12
+r_sub.png
+32 32
+200
+
+# UT_R_BOMBERSHIP
+13
+r_bship.png
+32 32
+200
+
+# UT_R_CRUISER
+14
+r_cruiser.png
+32 32
+200
+
+# UT_R_TCOPTER
+15
+r_tcopter.png
+32 32
+200
+
+# UT_R_COPTER
+16
+r_copter.png
+32 32
+200
+
+# UT_R_FIGHTER
+17
+r_fighter.png
+32 32
+200
+
+# UT_R_BOMBER
+18
+r_bomber.png
+32 32
+200
+
+# UT_B_INFANTRY
+19
+b_infantry.png
+32 32
+200
+
+# UT_B_BAZOOKA
+20
+b_bazooka.png
+32 32
+200
+
+# UT_B_RECON
+21
+b_recon.png
+32 32
+200
+
+# UT_B_TANK
+22
+b_tank.png
+32 32
+200
+
+# UT_B_TANKM
+23
+b_tankm.png
+32 32
+200
+
+# UT_B_NEOTANK
+24
+b_neo.png
+32 32
+200
+
+# UT_B_APC
+25
+b_apc.png
+32 32
+200
+
+# UT_B_ARTILLERY
+26
+b_artillery.png
+32 32
+200
+
+# UT_B_ROCKETS
+27
+b_rockets.png
+32 32
+200
+
+# UT_B_ANTIAIR
+28
+b_aair.png
+32 32
+200
+
+# UT_B_MISSILES
+29
+b_missiles.png
+32 32
+200
+
+# UT_B_LANDER
+30
+b_lander.png
+32 32
+200
+
+# UT_B_SUB
+31
+b_sub.png
+32 32
+200
+
+# UT_B_BOMBERSHIP
+32
+b_bship.png
+32 32
+200
+
+# UT_B_CRUISER
+33
+b_cruiser.png
+32 32
+200
+
+# UT_B_TCOPTER
+34
+b_tcopter.png
+32 32
+200
+
+# UT_B_COPTER
+35
+b_copter.png
+32 32
+200
+
+# UT_B_FIGHTER
+36
+b_fighter.png
+32 32
+200
+
+# UT_B_BOMBER
+37
+b_bomber.png
+32 32
+200
+
+# UT_G_INFANTRY
+38
+g_infantry.png
+32 32
+200
+
+# UT_G_BAZOOKA
+39
+g_bazooka.png
+32 32
+200
+
+# UT_G_RECON
+40
+g_recon.png
+32 32
+200
+
+# UT_G_TANK
+41
+g_tank.png
+32 32
+200
+
+# UT_G_TANKM
+42
+g_tankm.png
+32 32
+200
+
+# UT_G_NEOTANK
+43
+g_neo.png
+32 32
+200
+
+# UT_G_APC
+44
+g_apc.png
+32 32
+200
+
+# UT_G_ARTILLERY
+45
+g_artillery.png
+32 32
+200
+
+# UT_G_ROCKETS
+46
+g_rockets.png
+32 32
+200
+
+# UT_G_ANTIAIR
+47
+g_aair.png
+32 32
+200
+
+# UT_G_MISSILES
+48
+g_missiles.png
+32 32
+200
+
+# UT_G_LANDER
+49
+g_lander.png
+32 32
+200
+
+# UT_G_SUB
+50
+g_sub.png
+32 32
+200
+
+# UT_G_BOMBERSHIP
+51
+g_bship.png
+32 32
+200
+
+# UT_G_CRUISER
+52
+g_cruiser.png
+32 32
+200
+
+# UT_G_TCOPTER
+53
+g_tcopter.png
+32 32
+200
+
+# UT_G_COPTER
+54
+g_copter.png
+32 32
+200
+
+# UT_G_FIGHTER
+55
+g_fighter.png
+32 32
+200
+
+# UT_G_BOMBER
+56
+g_bomber.png
+32 32
+200
+
+# UT_Y_INFANTRY
+57
+y_infantry.png
+32 32
+200
+
+# UT_Y_BAZOOKA
+58
+y_bazooka.png
+32 32
+200
+
+# UT_Y_RECON
+59
+y_recon.png
+32 32
+200
+
+# UT_Y_TANK
+60
+y_tank.png
+32 32
+200
+
+# UT_Y_TANKM
+61
+y_tankm.png
+32 32
+200
+
+# UT_Y_NEOTANK
+62
+y_neo.png
+32 32
+200
+
+# UT_Y_APC
+63
+y_apc.png
+32 32
+200
+
+# UT_Y_ARTILLERY
+64
+y_artillery.png
+32 32
+200
+
+# UT_Y_ROCKETS
+65
+y_rockets.png
+32 32
+200
+
+# UT_Y_ANTIAIR
+66
+y_aair.png
+32 32
+200
+
+# UT_Y_MISSILES
+67
+y_missiles.png
+32 32
+200
+
+# UT_Y_LANDER
+68
+y_lander.png
+32 32
+200
+
+# UT_Y_SUB
+69
+y_sub.png
+32 32
+200
+
+# UT_Y_BOMBERSHIP
+70
+y_bship.png
+32 32
+200
+
+# UT_Y_CRUISER
+71
+y_cruiser.png
+32 32
+200
+
+# UT_Y_TCOPTER
+72
+y_tcopter.png
+32 32
+200
+
+# UT_Y_COPTER
+73
+y_copter.png
+32 32
+200
+
+# UT_Y_FIGHTER
+74
+y_fighter.png
+32 32
+200
+
+# UT_Y_BOMBER
+75
+y_bomber.png
+32 32
+200
