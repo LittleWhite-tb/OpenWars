@@ -26,6 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
+#include <cassert>
+
 #include "../../../Types/Vec2.h"
 #include "../../../Types/Colour.h"
 #include "../../../Types/Rect.h"
@@ -65,20 +67,26 @@ bool NE :: SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
     return true;
 }
 
-bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSprite)const
 {
-    return this->drawSurface(position,sprite,Rect(IVec2(),sprite.getSize()));
+    assert(pSprite);
+
+    return this->drawSurface(position,pSprite,Rect(IVec2(),pSprite->getSize()));
 }
 
-bool NE :: SDL_Renderer :: drawSurface(const IVec2& position, const Sprite& sprite, const Colour& mask)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position, const Sprite* pSprite, const Colour& mask)const
 {
-    return this->drawSurface(position,sprite,Rect(IVec2(),sprite.getSize()),mask);
+    assert(pSprite);
+
+    return this->drawSurface(position,pSprite,Rect(IVec2(),pSprite->getSize()),mask);
 }
 
-bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSprite, const Rect& srcRect)const
 {
+    assert(pSprite);
+
     SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
-    SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(sprite));
+    SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(pSprite));
     SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
                         static_cast<short int>(position.y),
                         static_cast<unsigned short int>(srcRect.size.width),
@@ -98,10 +106,12 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprit
     return true;
 }
 
-bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite& sprite, const Rect& srcRect, const Colour& mask)const
+bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSprite, const Rect& srcRect, const Colour& mask)const
 {
+    assert(pSprite);
+
     SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
-    SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(sprite));
+    SDL_Surface* pSDLSurface = static_cast<SDL_Surface*>(this->getNativeSurface(pSprite));
     SDL_Rect sdlDestRect = { static_cast<short int>(position.x),
                         static_cast<short int>(position.y),
                         static_cast<unsigned short int>(srcRect.size.width),
@@ -153,7 +163,7 @@ bool NE :: SDL_Renderer :: updateWindow(void)
 {
     SDL_Surface* pSDLWindow = static_cast<SDL_Surface*>(this->getNativeWindow());
 
-	// We are using SDL_Flip since SDL_UpdateRect does not do the job on GP2X
+    // We are using SDL_Flip since SDL_UpdateRect does not do the job on GP2X
     // SDL_UpdateRect(pSDLWindow,0,0,0,0);
     if ( SDL_Flip(pSDLWindow) != 0 )
     {

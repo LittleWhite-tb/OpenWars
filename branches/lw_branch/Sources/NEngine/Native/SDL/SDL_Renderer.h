@@ -37,24 +37,24 @@ class Sprite;
 
 namespace NE
 {
-	class SDL_Renderer : public Renderer
-	{
-	private:
+    class SDL_Renderer : public Renderer
+    {
+    private:
 
-	public:
-		SDL_Renderer(Window* pWin):Renderer(pWin) {}
-		~SDL_Renderer(void) {}
+    public:
+        SDL_Renderer(Window* pWin):Renderer(pWin) {}
+        ~SDL_Renderer(void) {}
 
-		bool clearScreen(const Colour& colour);
+        bool clearScreen(const Colour& colour);
 
-		bool drawRect(const Rect& tile, const Colour& colour)const;
-		bool drawSurface(const IVec2& position,const Sprite& pSprite)const;
-		bool drawSurface(const IVec2& position, const Sprite& pSprite, const Colour& mask)const;
-		bool drawSurface(const IVec2& position, const Sprite& pSprite, const Rect& srcRect)const;
-		bool drawSurface(const IVec2& position, const Sprite& pSprite, const Rect& srcRect, const Colour& mask)const;
+        bool drawRect(const Rect& tile, const Colour& colour)const;
+        bool drawSurface(const IVec2& position,const Sprite* pSprite)const;
+        bool drawSurface(const IVec2& position, const Sprite* pSprite, const Colour& mask)const;
+        bool drawSurface(const IVec2& position, const Sprite* pSprite, const Rect& srcRect)const;
+        bool drawSurface(const IVec2& position, const Sprite* pSprite, const Rect& srcRect, const Colour& mask)const;
 
-		bool updateWindow(void);
-	};
+        bool updateWindow(void);
+    };
 }
 
 /*! \class NE::SDL_Renderer SDL_Renderer.h "NEngine/Native/SDL/SDL_Renderer.h"

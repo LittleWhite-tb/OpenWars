@@ -31,10 +31,10 @@ e-mail: lw.demoscene@gmail.com
 
 void* NE::Renderer :: getNativeWindow()const
 {
-	return pWin->getNativeWindow();
+    return pWin->getNativeWindow();
 }
 
-void* NE::Renderer :: getNativeSurface(const Sprite& sprite)const
+void* NE::Renderer :: getNativeSurface(const Sprite* pSprite)const
 {
-	return sprite.getNativeSprite();
+    return pSprite->getNativeSprite();
 }

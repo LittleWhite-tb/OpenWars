@@ -32,33 +32,33 @@ struct Rect;
 
 namespace NE
 {
-	class Sprite;
-	class Window;
+    class Sprite;
+    class Window;
 
-	class Renderer
-	{
-	protected:
+    class Renderer
+    {
+    protected:
 
-		Window* pWin;		/*!< Window where the Renderer will draw */
+        Window* pWin;       /*!< Window where the Renderer will draw */
 
-		void* getNativeWindow(void)const;
-		void* getNativeSurface(const Sprite& sprite)const;
+        void* getNativeWindow(void)const;
+        void* getNativeSurface(const Sprite* pSprite)const;
 
-	public:
-		Renderer(Window* pWin):pWin(pWin) {}
-		virtual ~Renderer(void) {}
+    public:
+        Renderer(Window* pWin):pWin(pWin) {}
+        virtual ~Renderer(void) {}
 
-		virtual bool clearScreen(const Colour& colour)=0;
+        virtual bool clearScreen(const Colour& colour)=0;
 
-		virtual bool drawRect(const Rect& tile, const Colour& colour)const=0;
-        
-		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface)const=0;
-		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Colour& mask)const=0;
-		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect)const=0;
-		virtual bool drawSurface(const IVec2& position,const Sprite& pSurface, const Rect& srcRect, const Colour& mask)const=0;
+        virtual bool drawRect(const Rect& tile, const Colour& colour)const=0;
 
-		virtual bool updateWindow(void)=0;
-	};
+        virtual bool drawSurface(const IVec2& position,const Sprite* pSurface)const=0;
+        virtual bool drawSurface(const IVec2& position,const Sprite* pSurface, const Colour& mask)const=0;
+        virtual bool drawSurface(const IVec2& position,const Sprite* pSurface, const Rect& srcRect)const=0;
+        virtual bool drawSurface(const IVec2& position,const Sprite* pSurface, const Rect& srcRect, const Colour& mask)const=0;
+
+        virtual bool updateWindow(void)=0;
+    };
 }
 
 /*! \class NE::Renderer Renderer.h "NEngine/Renderer.h"

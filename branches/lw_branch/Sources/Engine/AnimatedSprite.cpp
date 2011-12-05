@@ -41,74 +41,74 @@ AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, 
     USize2 surfaceSize = pSprite->getSize();
     this->spriteSize = spriteSize;
 
-	numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
-	
-	LDebug << "AnimatedSprite (" << spriteSize << ") Nb Animation: " << numberAnimation;
+    numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
+
+    LDebug << "AnimatedSprite (" << spriteSize << ") Nb Animation: " << numberAnimation;
 }
 
 AnimatedSprite :: AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval)
-	:animationCounter(0),lastUpdate(0),msInterval(msInterval)
+    :animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
-	assert(pSL);
+    assert(pSL);
 
-	this->pSprite = pSL->loadSpriteFromFile(fileName);
-	this->spriteSize = spriteSize;
+    this->pSprite = pSL->loadSpriteFromFile(fileName);
+    this->spriteSize = spriteSize;
 
-	USize2 surfaceSize = pSprite->getSize();
+    USize2 surfaceSize = pSprite->getSize();
 
-	numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
-	
-	LDebug << "AnimatedSprite (" << fileName << ") Nb Animation: " << numberAnimation;
+    numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
+
+    LDebug << "AnimatedSprite (" << fileName << ") Nb Animation: " << numberAnimation;
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)
 {
-	LDebug << "AnimatedSprite deleted";
+    LDebug << "AnimatedSprite deleted";
 }
 
 void AnimatedSprite :: update(const unsigned int time)
 {
-	// LDebug << "AnimatedSprite :: update (" << time << ")";
+    // LDebug << "AnimatedSprite :: update (" << time << ")";
 
-	if ( time - lastUpdate > msInterval )
-	{
-		animationCounter++;
+    if ( time - lastUpdate > msInterval )
+    {
+        animationCounter++;
 
-		if ( animationCounter >= numberAnimation )
-		{
-			animationCounter=0;
-		}
+        if ( animationCounter >= numberAnimation )
+        {
+            animationCounter=0;
+        }
 
-		lastUpdate = time;
-	}
+        lastUpdate = time;
+    }
 }
 
 Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 {
-	unsigned int nbAnimOnWidth = this->pSprite->getSize().width / spriteSize.width;
-	
-	IVec2 position(	spriteSize.width * (animationCounter % nbAnimOnWidth),
-					spriteSize.height * (animationCounter / nbAnimOnWidth));
+    unsigned int nbAnimOnWidth = this->pSprite->getSize().width / spriteSize.width;
 
-	Rect srcRect(position,spriteSize);
+    IVec2 position( spriteSize.width * (animationCounter % nbAnimOnWidth),
+                    spriteSize.height * (animationCounter / nbAnimOnWidth));
 
-	//LDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
+    Rect srcRect(position,spriteSize);
 
-	this->update(time);
+    //LDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
 
-	return srcRect;
+    this->update(time);
+
+    return srcRect;
 }
 
 bool AnimatedSprite :: draw(const NE::Renderer& r, const IVec2& position, const unsigned int time)
 {
-	Rect srcRect = this->getSrcRect(time);
+    Rect srcRect = this->getSrcRect(time);
 
-	return r.drawSurface(position,*pSprite,srcRect);
+    return r.drawSurface(position,pSprite,srcRect);
 }
 
 bool AnimatedSprite :: draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time)
 {
-	Rect srcRect = this->getSrcRect(time);
+    Rect srcRect = this->getSrcRect(time);
 
-	return r.drawSurface(position,*pSprite,srcRect,mask);
+    return r.drawSurface(position,pSprite,srcRect,mask);
 }

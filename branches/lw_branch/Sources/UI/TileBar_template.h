@@ -135,12 +135,12 @@ void TileBar<T> :: add(const T& item, unsigned int positionX)
 template <typename T>
 void TileBar<T> :: open(void)
 {
-	if ( !this->isOpened() )
-	{
-		LDebug << "TileBar :: open()";
+    if ( !this->isOpened() )
+    {
+        LDebug << "TileBar :: open()";
 
         state = TBS_Opening;
-	}
+    }
 }
 
 template <typename T>
@@ -148,7 +148,7 @@ void TileBar<T> :: close(void)
 {
     LDebug << "TileBar :: close()";
 
-	movementOffsetX = 0;
+    movementOffsetX = 0;
     state = TBS_Closing;
 }
 
@@ -184,7 +184,7 @@ bool TileBar<T> :: draw(const NE::Renderer& r, const unsigned int time)
 
     if ( state != TBS_Closed )
     {
-        isOk &= r.drawSurface(barPosition,*pBarSprite);
+        isOk &= r.drawSurface(barPosition,pBarSprite);
     }
 
     if ( state == TBS_Opened || state == TBS_MoveLeft || state == TBS_MoveRight )
@@ -246,7 +246,7 @@ bool TileBar<T> :: draw(const NE::Renderer& r, const unsigned int time)
 template <typename T>
 void TileBar<T> :: update(const unsigned int time)
 {
-	(void) time;
+    (void) time;
     switch (state)
     {
         case TBS_Closing:

@@ -37,7 +37,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../NEngine/Exceptions/ConstructionFailedException.h"
 
 Font :: Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
-	:pSprite(pSprite),letterSize(letterSize),startingLetter(startingLetter)
+    :pSprite(pSprite),letterSize(letterSize),startingLetter(startingLetter)
 {
     assert(pSprite);
 }
@@ -48,17 +48,17 @@ Font :: ~Font(void)
 
 USize2 Font::getStringSize(const std::string& string)
 {
-	USize2 size;
-    
+    USize2 size;
+
     size.height = letterSize.height;
     size.width = string.size()*letterSize.width/2;
 
-	return size;
+    return size;
 }
 
 bool Font :: draw(const NE::Renderer& r, const std::string& text, const IVec2& position)
 {
-	bool noError = true;
+    bool noError = true;
     Rect rectLetter(IVec2(0,0),letterSize);
     unsigned int numberLetterWidth = pSprite->getSize().width / letterSize.width;
     IVec2 drawPosition(position);
@@ -68,13 +68,13 @@ bool Font :: draw(const NE::Renderer& r, const std::string& text, const IVec2& p
         unsigned char actualLetter = text.at(i) - startingLetter;
         unsigned line = actualLetter / numberLetterWidth;
         unsigned col = actualLetter % numberLetterWidth;
-        
+
         rectLetter.position = IVec2(col * letterSize.width , line * letterSize.height);
-        
-        noError &= r.drawSurface(drawPosition,*pSprite,rectLetter);
-        
+
+        noError &= r.drawSurface(drawPosition,pSprite,rectLetter);
+
         drawPosition.x += letterSize.width/2;
     }
 
-	return noError;
+    return noError;
 }
