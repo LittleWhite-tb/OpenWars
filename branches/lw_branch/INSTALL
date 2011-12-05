@@ -1,0 +1,19 @@
+Dependencies:
+
+You need the SDL, SDL_image, SDL_ttf in development version to compile the OpenAWars_Editor
+
+To generate the Makefiles needed to compile the project, you have to type:
+aclocal
+autoconf
+automake --add-missing
+
+To compile, you have to follow the normal procedure:
+./configure
+make
+
+Actually you have to move the executables in the main folder (since I didn't fix my makefiles):
+cp Sources/OpenAWars .
+cp Sources/OpenAWars_Editor .
+
+And you can run :)
+
