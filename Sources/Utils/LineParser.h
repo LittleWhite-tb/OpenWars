@@ -27,50 +27,50 @@ e-mail: lw.demoscene@gmail.com
 /**
 The idea of this class is coming from another open project called "Back to roots"
 http://sourceforge.net/projects/backtoroots/
-and is under GPL copyright: Copyright (C) 2010 BEYLER Jean Christophe 
+and is under GPL copyright: Copyright (C) 2010 BEYLER Jean Christophe
 */
 
 #include <fstream>
 #include <string>
 
-#include "../Types/Vec2.h"
-#include "../Types/Size2.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
 
 class LineParser
 {
 private:
-	std::ifstream file;		/*!< The file to parse */
-	std::string line;		/*!< The actual line to parse */
-	unsigned int lineNumber;	/*!< Actual line number */
+    std::ifstream file;     /*!< The file to parse */
+    std::string line;       /*!< The actual line to parse */
+    unsigned int lineNumber;    /*!< Actual line number */
 
-	bool isEmptyLine();
+    bool isEmptyLine();
 
 public:
 
-	LineParser(const std::string& fileName);
-	~LineParser();
+    LineParser(const std::string& fileName);
+    ~LineParser();
 
-	bool readNextLine();
+    bool readNextLine();
 
-	const std::string& getLine()const { return line; }
+    const std::string& getLine()const { return line; }
 
-	unsigned int getLineNumber()const { return lineNumber; }
+    unsigned int getLineNumber()const { return lineNumber; }
 
-	bool getBool(void)const;
-	int getInt(void)const;
-	float getFloat(void)const;
-	IVec2 getIVec2(void)const;
-	USize2 getUSize2(void)const;
+    bool getBool(void)const;
+    int getInt(void)const;
+    float getFloat(void)const;
+    IVec2 getIVec2(void)const;
+    USize2 getUSize2(void)const;
 };
 
 /*! \class LineParser LineParser.h "Utils/LineParser.h"
  *  \brief Class for parsing file line by line
  *
  * With this class you can parse:
- *		- bool
- *		- int
- *		- float
- *		- IVec2
+ *      - bool
+ *      - int
+ *      - float
+ *      - IVec2
  */
 
 /*! \fn bool LineParser::isEmptyLine()
@@ -93,7 +93,7 @@ public:
  */
 
 /*! \fn const std::string& LineParser::getLine()const
- * \brief Get the actual line 
+ * \brief Get the actual line
  * \return the actual line
  */
 

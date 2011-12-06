@@ -32,10 +32,10 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Sprite.h"
 #include "NEngine/SpriteFactory.h"
 #include "NEngine/Renderer.h"
-#include "../NEngine/InputManager.h"
+#include "NEngine/InputManager.h"
 
-#include "../Types/Vec2.h"
-#include "../Types/Size2.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
@@ -108,7 +108,7 @@ public:
     void update(const unsigned int time);
 
     bool isOpened(void)const { if ( state != TBS_Closed && state != TBS_Closing ) return true; else return false; }
-	bool isOpening(void)const { if ( state == TBS_Opening ) return true; else return false; }
+    bool isOpening(void)const { if ( state == TBS_Opening ) return true; else return false; }
     bool isClosed(void)const { if ( state == TBS_Closed  ) return true; else return false; }
 
     T getSelected(void)const;
@@ -214,9 +214,9 @@ public:
  * \return true if the bar is closed
  */
 
-/*!	\fn T TileBar::getSelected(void)const
- *	\brief Get the currently selected element
- *	\return the currently selected element
+/*! \fn T TileBar::getSelected(void)const
+ *  \brief Get the currently selected element
+ *  \return the currently selected element
  */
 
 #endif

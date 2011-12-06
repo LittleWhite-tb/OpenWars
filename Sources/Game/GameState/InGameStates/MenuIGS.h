@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 namespace NE { class Renderer; }
 namespace NE { class SpriteFactory; }
@@ -42,14 +42,14 @@ class MenuIGS : public InGameState
 {
 private:
 
-	MenuBox* pUIMenu;
+    MenuBox* pUIMenu;
 
 public:
-	MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, NE::SpriteFactory* const pSF, const USize2& winSize);
-	~MenuIGS();
+    MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, NE::SpriteFactory* const pSF, const USize2& winSize);
+    ~MenuIGS();
 
-	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+    bool draw(NE::Renderer* pRenderer, unsigned int time);
+    IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 
 };
 

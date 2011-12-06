@@ -25,19 +25,19 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../Time.h"
+#include "NEngine/Time.h"
 
 namespace NE
 {
-	class SDL_Time : public Time
-	{
-	public:
-		SDL_Time(void):Time() {}
-		~SDL_Time(void) {}
+    class SDL_Time : public Time
+    {
+    public:
+        SDL_Time(void):Time() {}
+        ~SDL_Time(void) {}
 
-		unsigned int getTime(void);
-		void delay(unsigned int msSec);
-	};
+        unsigned int getTime(void);
+        void delay(unsigned int msSec);
+    };
 }
 
 /*! \class NE::SDL_Time SDL_Time.h "NEngine/Native/SDL/SDL_Time.h"

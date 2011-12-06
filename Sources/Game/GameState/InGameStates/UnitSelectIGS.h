@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
-#include "Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 namespace NE { class Renderer; }
 
@@ -40,16 +40,16 @@ class Cursor;
 class UnitSelectIGS : public InGameState
 {
 private:
-	MovementMapMarker* pMovementMarker;
-	UVec2 originalUnitPosition;
+    MovementMapMarker* pMovementMarker;
+    UVec2 originalUnitPosition;
 
 public:
-	UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
-	~UnitSelectIGS();
+    UnitSelectIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo);
+    ~UnitSelectIGS();
 
-	void init();
-	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+    void init();
+    bool draw(NE::Renderer* pRenderer, unsigned int time);
+    IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 
 };
 

@@ -27,14 +27,14 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <cassert>
 
-#include "../NEngine/Sprite.h"
-#include "../NEngine/Renderer.h"
+#include "NEngine/Sprite.h"
+#include "NEngine/Renderer.h"
 
-#include "../Types/Size2.h"
-#include "../Types/Rect.h"
+#include "NEngine/Types/Size2.h"
+#include "NEngine/Types/Rect.h"
 
 #include "../Utils/Logger.h"
-#include "../NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
 
 Font :: Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
     :pSprite(pSprite),letterSize(letterSize),startingLetter(startingLetter)

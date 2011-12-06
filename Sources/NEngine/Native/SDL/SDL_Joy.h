@@ -3,30 +3,30 @@
 
 #include <SDL/SDL.h>
 
-#include "../../InputManager.h"
-#include "../../Input.h"
+#include "NEngine/InputManager.h"
+#include "NEngine/Input.h"
 
 namespace NE
 {
-	class SDL_Joy : public Input
-	{
-	private:
-		SDL_Joystick* m_pJoy;
-		InputManager::ArrowsDirection m_directions;
-		InputManager::Buttons m_buttons;
+    class SDL_Joy : public Input
+    {
+    private:
+        SDL_Joystick* m_pJoy;
+        InputManager::ArrowsDirection m_directions;
+        InputManager::Buttons m_buttons;
 
-		void updateDirections();
-		void updateButtons();
+        void updateDirections();
+        void updateButtons();
 
-	public:
-		SDL_Joy();
-		~SDL_Joy();
+    public:
+        SDL_Joy();
+        ~SDL_Joy();
 
-		NE::InputManager::ArrowsDirection getDirectionsPressed(void)const { return m_directions; }
-		NE::InputManager::Buttons getButtonsState(void) { return m_buttons; };
-		bool needEscape(void);
-		void update(void);
-	};
+        NE::InputManager::ArrowsDirection getDirectionsPressed(void)const { return m_directions; }
+        NE::InputManager::Buttons getButtonsState(void) { return m_buttons; };
+        bool needEscape(void);
+        void update(void);
+    };
 }
 
 /*! \class NE::SDL_Joy SDL_Joy.h "NEngine/Native/SDL/SDL_Joy.h"

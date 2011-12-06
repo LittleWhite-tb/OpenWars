@@ -32,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameState/GameObjects/Unit.h"
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 namespace NE { class Renderer; }
 
@@ -45,29 +45,29 @@ class ConstructBox
 {
 private:
 
-	AnimatedSprite* pBackgroundUI;							/*!< sprite for the background */
-	AnimatedSprite* pCursor;								/*!< sprite for the cursor */
-	AnimatedSprite* pUpArrow;								/*!< sprite for the up arrow */
-	AnimatedSprite* pDownArrow;								/*!< sprite for the down arrow */
+    AnimatedSprite* pBackgroundUI;                          /*!< sprite for the background */
+    AnimatedSprite* pCursor;                                /*!< sprite for the cursor */
+    AnimatedSprite* pUpArrow;                               /*!< sprite for the up arrow */
+    AnimatedSprite* pDownArrow;                             /*!< sprite for the down arrow */
 
-	Font* pFont;									/*!< Font used for the texts */
-	Font* pFontGrey;								/*!< Font used for the texts when no enough money (in grey)*/
+    Font* pFont;                                    /*!< Font used for the texts */
+    Font* pFontGrey;                                /*!< Font used for the texts when no enough money (in grey)*/
 
-	std::vector<const UnitTemplateFactionList*> unitsList;		/*!< list of units */
-	unsigned int actualPosition;					/*!< actual position of the cursor */
-	unsigned int offsetCursorPosition;				/*!< offset for the list of units */
+    std::vector<const UnitTemplateFactionList*> unitsList;      /*!< list of units */
+    unsigned int actualPosition;                    /*!< actual position of the cursor */
+    unsigned int offsetCursorPosition;              /*!< offset for the list of units */
 
 public:
-	ConstructBox(const Theme* pTheme);
-	~ConstructBox(void);
+    ConstructBox(const Theme* pTheme);
+    ~ConstructBox(void);
 
-	void add(const UnitTemplateFactionList* pListUnitTemplate);
+    void add(const UnitTemplateFactionList* pListUnitTemplate);
 
-	bool draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time);
+    bool draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time);
 
-	void update(const NE::InputManager::ArrowsDirection kd);
+    void update(const NE::InputManager::ArrowsDirection kd);
 
-	const UnitTemplate* getUnitSelected(const unsigned int faction)const;
+    const UnitTemplate* getUnitSelected(const unsigned int faction)const;
 };
 
 /*! \class ConstructBox ConstructBox.h "UI/ConstructBox.h"
@@ -83,14 +83,14 @@ public:
  */
 
 /*! \fn void ConstructBox::add(const UnitTemplateFactionList* pListUnitTemplate)
- *	\brief add a new unit in the list of unit that we can construct
- *	\param pListUnitTemplate the pointer to the new unit to add
+ *  \brief add a new unit in the list of unit that we can construct
+ *  \param pListUnitTemplate the pointer to the new unit to add
  */
 
 /*! \fn bool ConstructBox::draw(const NE::Renderer& r, const unsigned int faction, const unsigned int moneyAvailable, unsigned int time)
  * \brief Draw the construct box
  * \param r the NE::Renderer used to draw
- *	\param faction the faction to display
+ *  \param faction the faction to display
  * \param moneyAvailable the money that the user have
  * \param time the actual time in the game
  * \return true if all goes right
@@ -104,7 +104,7 @@ public:
 
 /*! \fn UnitTemplate ConstructBox::getUnitSelected(const unsigned int faction)const
  * \brief Get the unit type currently selected
- *	\param faction the faction of the unit to return
+ *  \param faction the faction of the unit to return
  * \return a pointer to the unit actually selected
  */
 

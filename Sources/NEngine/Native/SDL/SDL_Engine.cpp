@@ -36,8 +36,8 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_SpriteLoaderSDLI.h"
 #include "SDL_SpriteFactory.h"
 
-#include "../../Exceptions/InputNotFoundException.h"
-#include "../../Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/InputNotFoundException.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
 #include "../../../Utils/Logger.h"
 
 bool NE :: SDL_Engine :: initAPI(void)

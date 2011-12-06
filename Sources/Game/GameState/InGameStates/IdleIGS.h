@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 namespace NE { class Renderer; }
 
@@ -41,14 +41,14 @@ class IdleIGS : public InGameState
 {
 private:
 
-	OfficerBox* pOfficerBox;
+    OfficerBox* pOfficerBox;
 
 public:
-	IdleIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, const USize2& winSize);
-	~IdleIGS();
+    IdleIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* pGameInfo, const USize2& winSize);
+    ~IdleIGS();
 
-	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+    bool draw(NE::Renderer* pRenderer, unsigned int time);
+    IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 };
 
 #endif

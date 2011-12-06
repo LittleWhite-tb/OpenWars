@@ -33,8 +33,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UI/TileBar.h"
 
-#include "Types/Size2.h"
-#include "Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
+#include "NEngine/Types/Vec2.h"
 
 namespace NE { class NEngine; }
 namespace NE { class Renderer; }
@@ -48,30 +48,30 @@ class EditingCursor;
 class Editor : public GameState
 {
 private:
-	
-	Map* pMap;
-	Camera* pCamera;
-	EditingCursor* pEC;			/*!< The cursor */	
 
-	TileBar<const Tile*>* pBuildingTB;			/*!< The tile bar for buildings */
-	TileBar<const UnitTemplate*>* pUnitTB;		/*!< The tile bar for units*/
-	TileViewer* pTileViewer;	/*!< The tile viewer */
-	bool isUnitSelected;
+    Map* pMap;
+    Camera* pCamera;
+    EditingCursor* pEC;         /*!< The cursor */
+
+    TileBar<const Tile*>* pBuildingTB;          /*!< The tile bar for buildings */
+    TileBar<const UnitTemplate*>* pUnitTB;      /*!< The tile bar for units*/
+    TileViewer* pTileViewer;    /*!< The tile viewer */
+    bool isUnitSelected;
 
 public:
-	Editor();
-	~Editor();
+    Editor();
+    ~Editor();
 
-	bool load(NE::NEngine* pNE);
-	bool loadMap(const Library<Theme>* const pThemes, const std::string& mapName);
-	bool loadMap(const Theme* const pTheme, const USize2& mapSize);
+    bool load(NE::NEngine* pNE);
+    bool loadMap(const Library<Theme>* const pThemes, const std::string& mapName);
+    bool loadMap(const Theme* const pTheme, const USize2& mapSize);
 
-	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+    bool draw(NE::Renderer* pRenderer, unsigned int time);
+    bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
 
-	void saveMap(const std::string& fileName)const;
+    void saveMap(const std::string& fileName)const;
 
-	// bool setTile(const UVec2& position, const UnitType unitType);
+    // bool setTile(const UVec2& position, const UnitType unitType);
 };
 
 /*! \class Editor Editor.h "Engine/GameState/Editor.h"

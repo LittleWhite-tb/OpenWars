@@ -25,23 +25,23 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../NEngine.h"
+#include "NEngine/NEngine.h"
 
 #include "../../../Utils/Logger.h"
 
 namespace NE
 {
-	class Sprite;
+    class Sprite;
 
-	class SDL_Engine : public NE::NEngine
-	{
-	public:
-		SDL_Engine(void):NE::NEngine() {}
-		~SDL_Engine(void) {}
+    class SDL_Engine : public NE::NEngine
+    {
+    public:
+        SDL_Engine(void):NE::NEngine() {}
+        ~SDL_Engine(void) {}
 
-		bool initAPI(void);
-		bool stopAPI(void);
-	};
+        bool initAPI(void);
+        bool stopAPI(void);
+    };
 }
 
 /*! \class NE::SDL_Engine SDL_Engine.h "NEngine/Native/SDL/SDL_Engine.h"

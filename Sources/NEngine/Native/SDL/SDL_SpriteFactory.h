@@ -27,17 +27,17 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../SpriteFactory.h"
 
-#include "../../../Types/Colour.h"
+#include "NEngine/Types/Colour.h"
 
 namespace NE
 {
-	class Sprite;
+    class Sprite;
 
-	class SDL_SpriteFactory : public SpriteFactory
-	{
+    class SDL_SpriteFactory : public SpriteFactory
+    {
     protected:
         Sprite* createSprite(const Colour& colour, const USize2& spriteSize);
-	};
+    };
 }
 
 /*! \class NE::SDL_SpriteFactory SDL_SpriteFactory.h "NEngine/Native/SDL/SDL_SpriteFactory.h"

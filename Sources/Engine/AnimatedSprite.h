@@ -29,9 +29,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../Types/Vec2.h"
-#include "../Types/Size2.h"
-#include "../Types/Rect.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
+#include "NEngine/Types/Rect.h"
 
 namespace NE { class Renderer; }
 namespace NE { class SpriteLoader; }
@@ -44,37 +44,37 @@ class AnimatedSprite
 private:
 
     NE::Sprite* pSprite;
-    
+
     USize2 spriteSize;
 
-	unsigned int numberAnimation;			/*!< number of animation in the sprite */
-	unsigned int animationCounter;			/*!< number of the current animation */
+    unsigned int numberAnimation;           /*!< number of animation in the sprite */
+    unsigned int animationCounter;          /*!< number of the current animation */
 
-	unsigned int lastUpdate;				/*!< last time that the animated sprite has been updated */
+    unsigned int lastUpdate;                /*!< last time that the animated sprite has been updated */
 
-	unsigned int msInterval;				/*!< interval between two sprites of the animation */
+    unsigned int msInterval;                /*!< interval between two sprites of the animation */
 
-	// Disallow the copy
-	AnimatedSprite(const AnimatedSprite& as);
-	void operator= (const AnimatedSprite& as);
+    // Disallow the copy
+    AnimatedSprite(const AnimatedSprite& as);
+    void operator= (const AnimatedSprite& as);
 
-	void update(const unsigned int time);
+    void update(const unsigned int time);
 
 public:
     AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
-	AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval);
+    AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval);
 
-	~AnimatedSprite(void);
+    ~AnimatedSprite(void);
 
-	Rect getSrcRect(const unsigned int time);
+    Rect getSrcRect(const unsigned int time);
 
-	USize2 getSize(void)const { return spriteSize; }
+    USize2 getSize(void)const { return spriteSize; }
 
-	unsigned int getInterval(void)const { return msInterval; }
-	void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
+    unsigned int getInterval(void)const { return msInterval; }
+    void setInterval(const unsigned int newInterval) { msInterval = newInterval; }
 
-	bool draw(const NE::Renderer& r, const IVec2& position, const unsigned int time=0);
-	bool draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time=0);
+    bool draw(const NE::Renderer& r, const IVec2& position, const unsigned int time=0);
+    bool draw(const NE::Renderer& r, const IVec2& position, const Colour& mask, const unsigned int time=0);
 };
 
 /*! \class AnimatedSprite AnimatedSprite.h "Engine/AnimatedSprite.h"
@@ -82,12 +82,12 @@ public:
  *
  * Inherits from the Sprite class to handle the case of set of sprites to do animation
  * Can do the following:
- *		- Load from file (directly in the constructor)
- *		- Get the width
- *		- Get the height
- *		- Get the rectangle to use to draw the correct animation
- *		- Get interval between two sprites of the animation, in milliseconds
- *		- Set interval between two sprites of the animation, in milliseconds
+ *      - Load from file (directly in the constructor)
+ *      - Get the width
+ *      - Get the height
+ *      - Get the rectangle to use to draw the correct animation
+ *      - Get interval between two sprites of the animation, in milliseconds
+ *      - Set interval between two sprites of the animation, in milliseconds
  */
 
 /*! \fn void AnimatedSprite::update(const unsigned int time)
@@ -103,11 +103,11 @@ public:
  */
 
 /*! \fn AnimatedSprite::AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval)
- *	\brief Create an animation from a file
- *	\param pSL pointer to the SpriteLoader to use
- *	\param fileName the file to load as an AnimatedSprite
- *	\param spriteSize the size of each sprite
- *	\param msInterval the time between two sprites
+ *  \brief Create an animation from a file
+ *  \param pSL pointer to the SpriteLoader to use
+ *  \param fileName the file to load as an AnimatedSprite
+ *  \param spriteSize the size of each sprite
+ *  \param msInterval the time between two sprites
  */
 
 /*! \fn AnimatedSprite::~AnimatedSprite(void)

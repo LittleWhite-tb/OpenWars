@@ -25,8 +25,8 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Types/Vec2.h"
-#include "Types/Size2.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
 
 namespace NE { class Renderer; }
 
@@ -40,21 +40,21 @@ class OfficerBox
 {
 private:
 
-	IVec2 boxPosition;
-	unsigned int leftPosition;
-	unsigned int rightPosition;
+    IVec2 boxPosition;
+    unsigned int leftPosition;
+    unsigned int rightPosition;
 
-	const Theme* pTheme;
+    const Theme* pTheme;
 
 public:
-	OfficerBox(const Theme* pTheme, const USize2& windowSize);
-	~OfficerBox();
+    OfficerBox(const Theme* pTheme, const USize2& windowSize);
+    ~OfficerBox();
 
-	void putOnLeft();
-	void putOnRight();
+    void putOnLeft();
+    void putOnRight();
 
-	bool draw(const NE::Renderer& r, const GameInfo& gameInfo, const unsigned int time);
-	void update(const UVec2& cursorPosition);
+    bool draw(const NE::Renderer& r, const GameInfo& gameInfo, const unsigned int time);
+    void update(const UVec2& cursorPosition);
 };
 
 #endif

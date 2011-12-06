@@ -26,61 +26,61 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ArgumentParser.h"
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 #include "Utils/Logger.h"
 
 #include "globals.h"
 
 GameOption :: GameOption(int argc, char** argv)
-	:winSize(480,320),needFullscreen(false),
-	 loadMapName(MAP_PATH + "maw.map"),
-	 editorMode(false),
-	 saveMapName("save.map"),mapSize(15,15),themeName("classic")
+    :winSize(480,320),needFullscreen(false),
+     loadMapName(MAP_PATH + "maw.map"),
+     editorMode(false),
+     saveMapName("save.map"),mapSize(15,15),themeName("classic")
 {
-	ArgumentParser argParser(argc,argv);
+    ArgumentParser argParser(argc,argv);
 
-	try
-	{
-		if ( argParser.isPresent("","--width") )
-		{	
-			winSize.width = argParser.getAs<unsigned int>("","--width");
-		}
-		if ( argParser.isPresent("","--height") )
-		{	
-			winSize.height = argParser.getAs<unsigned int>("","--height");
-		}
-		if ( argParser.isPresent("","--fullscreen") )
-		{	
-			needFullscreen = true;
-		}
-		if ( argParser.isPresent("","--load") )
-		{	
-			loadMapName = argParser.getArgument("","--load");
-		}
-		if ( argParser.isPresent("","--editor") )
-		{	
-			editorMode = true;
-		}
-		if ( argParser.isPresent("","--save") )
-		{	
-			saveMapName = argParser.getArgument("","--save");
-		}
-		if ( argParser.isPresent("","--mapWidth") )
-		{	
-			mapSize.width = argParser.getAs<unsigned int>("","--mapWidth");
-		}
-		if ( argParser.isPresent("","--mapHeight") )
-		{	
-			mapSize.height = argParser.getAs<unsigned int>("","--mapHeight");
-		}
-		if ( argParser.isPresent("","--theme") )
-		{	
-			themeName = argParser.getArgument("","--theme");
-		}
-	}
-	catch (MissingOptionException& moe)
-	{
-		LWarning << moe.what();
-	}
+    try
+    {
+        if ( argParser.isPresent("","--width") )
+        {
+            winSize.width = argParser.getAs<unsigned int>("","--width");
+        }
+        if ( argParser.isPresent("","--height") )
+        {
+            winSize.height = argParser.getAs<unsigned int>("","--height");
+        }
+        if ( argParser.isPresent("","--fullscreen") )
+        {
+            needFullscreen = true;
+        }
+        if ( argParser.isPresent("","--load") )
+        {
+            loadMapName = argParser.getArgument("","--load");
+        }
+        if ( argParser.isPresent("","--editor") )
+        {
+            editorMode = true;
+        }
+        if ( argParser.isPresent("","--save") )
+        {
+            saveMapName = argParser.getArgument("","--save");
+        }
+        if ( argParser.isPresent("","--mapWidth") )
+        {
+            mapSize.width = argParser.getAs<unsigned int>("","--mapWidth");
+        }
+        if ( argParser.isPresent("","--mapHeight") )
+        {
+            mapSize.height = argParser.getAs<unsigned int>("","--mapHeight");
+        }
+        if ( argParser.isPresent("","--theme") )
+        {
+            themeName = argParser.getArgument("","--theme");
+        }
+    }
+    catch (MissingOptionException& moe)
+    {
+        LWarning << moe.what();
+    }
 }

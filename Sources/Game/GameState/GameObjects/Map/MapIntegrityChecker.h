@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <string>
 
-#include "Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 class Map;
 class Tile;
@@ -41,9 +41,9 @@ class MapIntegrityChecker
 private:
 
 protected:
-    const Map* pMap;									/*!< Pointer to the map to check */
+    const Map* pMap;                                    /*!< Pointer to the map to check */
 
-    std::map<std::string, checker> coherencyCheckers;	/*!< Dictionnary of checkers */
+    std::map<std::string, checker> coherencyCheckers;   /*!< Dictionnary of checkers */
 
 public:
     MapIntegrityChecker(const Map* pMap);

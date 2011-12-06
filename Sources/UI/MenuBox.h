@@ -28,11 +28,11 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 #include <vector>
 
-#include "../NEngine/InputManager.h"
+#include "NEngine/InputManager.h"
 
-#include "../Engine/AnimatedSprite.h"
+#include "Engine/AnimatedSprite.h"
 
-#include "../Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 namespace NE { class SpriteFactory; }
 namespace NE { class Renderer; }
@@ -41,44 +41,44 @@ class Theme;
 
 class MenuBox
 {
-	struct MenuItem
-	{
-		std::string actionName;		/*!< id of the entry */
-		std::string displayName;	/*!< name to display */
-		AnimatedSprite* pASprite;	/*!< sprite to display */
-		bool enabled;				/*!< true if this entry is displayed */
+    struct MenuItem
+    {
+        std::string actionName;     /*!< id of the entry */
+        std::string displayName;    /*!< name to display */
+        AnimatedSprite* pASprite;   /*!< sprite to display */
+        bool enabled;               /*!< true if this entry is displayed */
 
-		MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)
-			:actionName(actionName),displayName(displayName),pASprite(pASprite),enabled(true) {}
-	};
+        MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)
+            :actionName(actionName),displayName(displayName),pASprite(pASprite),enabled(true) {}
+    };
 
 private:
 
-	NE::Sprite* pBackground;			/*!< background for the UI (generated on the fly by the constructor) */
-	AnimatedSprite* pCursor;			/*!< cursor */
-	Font* pFont;						/*!< font for the texts */
+    NE::Sprite* pBackground;            /*!< background for the UI (generated on the fly by the constructor) */
+    AnimatedSprite* pCursor;            /*!< cursor */
+    Font* pFont;                        /*!< font for the texts */
 
-	unsigned int windowXPosition;		/*!< Window width */
-	unsigned int actualPosition;		/*!< actual position of the cursor */
+    unsigned int windowXPosition;       /*!< Window width */
+    unsigned int actualPosition;        /*!< actual position of the cursor */
 
-	std::vector<MenuItem> entries;		/*!< entries in the UI */
+    std::vector<MenuItem> entries;      /*!< entries in the UI */
 
-	unsigned int countNumberValidEntries()const;
-	MenuItem* getEntry(const std::string& entryActionName);
+    unsigned int countNumberValidEntries()const;
+    MenuItem* getEntry(const std::string& entryActionName);
 
 public:
-	MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize);
+    MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize);
 
-	void add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName);
+    void add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName);
 
-	bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);
+    bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);
 
-	void update(const NE::InputManager::ArrowsDirection kd);
+    void update(const NE::InputManager::ArrowsDirection kd);
 
-	const std::string& getSelectedActionName(void)const;
+    const std::string& getSelectedActionName(void)const;
 
-	void enableEntry(const std::string& entryActionName);
-	void disableEntry(const std::string& entryActionName);
+    void enableEntry(const std::string& entryActionName);
+    void disableEntry(const std::string& entryActionName);
 };
 
 /*! \class MenuBox MenuBox.h "UI/MenuBox.h"
@@ -89,27 +89,27 @@ public:
  */
 
 /*! \fn unsigned int MenuBox::countNumberValidEntries()const
- *	\brief Counts the entries enabled
- *	\return the number of entries enabled
+ *  \brief Counts the entries enabled
+ *  \return the number of entries enabled
  */
 
-/*! \fn	MenuItem* MenuBox::getEntry(const std::string& entryActionName)
- *	\brief Get the entry identified by the action name entryActionName
- *	\param entryActionName the name of the entry to find
- *	\return a pointer to the entry found (NULL if not found)
+/*! \fn MenuItem* MenuBox::getEntry(const std::string& entryActionName)
+ *  \brief Get the entry identified by the action name entryActionName
+ *  \param entryActionName the name of the entry to find
+ *  \return a pointer to the entry found (NULL if not found)
  */
 
 /*! \fn MenuBox::MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize)
  * \param pSF The SpriteFactory to load the sprites
- *	\param pTheme a pointer to the Theme to use
+ *  \param pTheme a pointer to the Theme to use
  * \param winSize the size of the window (used as reference to place the MenuBox)
  */
 
-/*!	\fn void MenuBox::add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName)
- *	\brief add an entry in the menu
- *	\param actionName the name of the action
- *	\param pSprite a pointer to the sprite to display with this entry
- *	\param displayName the name to display
+/*! \fn void MenuBox::add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName)
+ *  \brief add an entry in the menu
+ *  \param actionName the name of the action
+ *  \param pSprite a pointer to the sprite to display with this entry
+ *  \param displayName the name to display
  */
 
 /*! \fn bool MenuBox::draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time)
@@ -131,14 +131,14 @@ public:
  * \return The action name actually selected
  */
 
-/*!	\fn void MenuBox::enableEntry(const std::string& entryActionName)
- *	\brief Enables the entry identified by entryActionName
- *	\param entryActionName the name of the entry to enable
+/*! \fn void MenuBox::enableEntry(const std::string& entryActionName)
+ *  \brief Enables the entry identified by entryActionName
+ *  \param entryActionName the name of the entry to enable
  */
 
-/*!	\fn void MenuBox::disableEntry(const std::string& entryActionName)
- *	\brief Disables the entry identified by entryActionName
- *	\param entryActionName the name of the entry to disable
+/*! \fn void MenuBox::disableEntry(const std::string& entryActionName)
+ *  \brief Disables the entry identified by entryActionName
+ *  \param entryActionName the name of the entry to disable
  */
 
 /*! \struct MenuBox::MenuItem MenuBox.h "UI/MenuBox.h"

@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 struct Colour;
 
@@ -65,9 +65,9 @@ namespace NE
  */
 
 /*! \fn virtual void* NE::Sprite::getNativeSprite(void)const = 0;
- *	\brief return a pointer to the native sprite handle
- *	\return a pointer to the native sprite handler
- *	The use of a void* is done to avoid specific code
+ *  \brief return a pointer to the native sprite handle
+ *  \return a pointer to the native sprite handler
+ *  The use of a void* is done to avoid specific code
  */
 
 /*! \fn virtual USize2 NE::Sprite::getSize(void)const=0
