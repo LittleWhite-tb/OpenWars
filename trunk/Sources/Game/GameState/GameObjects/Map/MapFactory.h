@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 class Map;
 class Theme;

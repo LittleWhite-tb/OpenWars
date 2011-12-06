@@ -28,7 +28,7 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <string>
 
-#include "Types/Colour.h"
+#include "NEngine/Types/Colour.h"
 
 namespace NE
 {

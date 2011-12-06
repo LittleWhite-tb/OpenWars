@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-#include "../../../Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 #include "../../../Utils/Logger.h"
 
@@ -35,106 +35,106 @@ bool NE::SDL_Window::isRedCrossPressed = false;
 // Callback called once SDL_Quit event appear
 int sdlQuitEventFilter(const SDL_Event* pEvent)
 {
-	if ( pEvent->type == SDL_QUIT )
-	{
-		NE::SDL_Window::isRedCrossPressed = true;
-	}
+    if ( pEvent->type == SDL_QUIT )
+    {
+        NE::SDL_Window::isRedCrossPressed = true;
+    }
 
-	return 0;	
+    return 0;
 }
 
 NE :: SDL_Window :: ~SDL_Window(void)
 {
-	if ( pNativeWindow != NULL )
-	{
-		LWarning << "The window is not properly cleared";
-	}
+    if ( pNativeWindow != NULL )
+    {
+        LWarning << "The window is not properly cleared";
+    }
 }
 
 unsigned int NE :: SDL_Window :: getFlags(const bool isFullscreen, const bool isOpenGL)const
 {
-	unsigned int sdlVideoFlags = SDL_DOUBLEBUF | SDL_ANYFORMAT;
-	const SDL_VideoInfo* pVideoInfo = SDL_GetVideoInfo();	// The documentation does not descrive a case of this function returning NULL pointer
+    unsigned int sdlVideoFlags = SDL_DOUBLEBUF | SDL_ANYFORMAT;
+    const SDL_VideoInfo* pVideoInfo = SDL_GetVideoInfo();   // The documentation does not descrive a case of this function returning NULL pointer
 
-	LDebug << "Window :: getFlags (" << isFullscreen << ";" << isOpenGL << ")";
+    LDebug << "Window :: getFlags (" << isFullscreen << ";" << isOpenGL << ")";
 
-	if ( pVideoInfo->hw_available ) // is Hardware surface possible?
-	{
-		sdlVideoFlags = sdlVideoFlags | SDL_HWSURFACE;
-	}
-	else
-	{
-		sdlVideoFlags = sdlVideoFlags | SDL_SWSURFACE;
-	}
+    if ( pVideoInfo->hw_available ) // is Hardware surface possible?
+    {
+        sdlVideoFlags = sdlVideoFlags | SDL_HWSURFACE;
+    }
+    else
+    {
+        sdlVideoFlags = sdlVideoFlags | SDL_SWSURFACE;
+    }
 
-	if ( isFullscreen )
-	{
-		// We add the flag for fullscreen
-		sdlVideoFlags = sdlVideoFlags | SDL_FULLSCREEN;
-	}
+    if ( isFullscreen )
+    {
+        // We add the flag for fullscreen
+        sdlVideoFlags = sdlVideoFlags | SDL_FULLSCREEN;
+    }
 
-	if ( !pVideoInfo->wm_available ) // In case of the platform doesn't have a Window Manager, we go in fullscreen
-	{
-		sdlVideoFlags = sdlVideoFlags | SDL_FULLSCREEN;
-	}
+    if ( !pVideoInfo->wm_available ) // In case of the platform doesn't have a Window Manager, we go in fullscreen
+    {
+        sdlVideoFlags = sdlVideoFlags | SDL_FULLSCREEN;
+    }
 
-	if ( isOpenGL )
-	{
-		// We just want to force double buffering when OpenGL is
-		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+    if ( isOpenGL )
+    {
+        // We just want to force double buffering when OpenGL is
+        SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
-		sdlVideoFlags = sdlVideoFlags | SDL_OPENGL;
-	}
+        sdlVideoFlags = sdlVideoFlags | SDL_OPENGL;
+    }
 
-	return sdlVideoFlags;
+    return sdlVideoFlags;
 }
 
 bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon, const bool showCursor)
 {
-	Uint32 sdlVideoFlags = this->getFlags(isFullscreen,false);
+    Uint32 sdlVideoFlags = this->getFlags(isFullscreen,false);
 
-	LDebug << "SDL_Window :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << ")";
+    LDebug << "SDL_Window :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << ")";
 
-	pNativeWindow = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
+    pNativeWindow = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
 
-	if ( pNativeWindow != NULL )
-	{
-		LDebug << "Obtained: " << pNativeWindow->w << "x" << pNativeWindow->h << "x" << pNativeWindow->format->BitsPerPixel;
+    if ( pNativeWindow != NULL )
+    {
+        LDebug << "Obtained: " << pNativeWindow->w << "x" << pNativeWindow->h << "x" << pNativeWindow->format->BitsPerPixel;
 
-		// Set additionnal settings
-		SDL_WM_SetCaption(windowName.c_str(), windowIcon.c_str());
-		if ( showCursor )
-		{
-			SDL_ShowCursor(SDL_ENABLE);
-		}
-		else
-		{
-			SDL_ShowCursor(SDL_DISABLE);
-		}
+        // Set additionnal settings
+        SDL_WM_SetCaption(windowName.c_str(), windowIcon.c_str());
+        if ( showCursor )
+        {
+            SDL_ShowCursor(SDL_ENABLE);
+        }
+        else
+        {
+            SDL_ShowCursor(SDL_DISABLE);
+        }
 
-		// Installing the event 
-		SDL_SetEventFilter(&sdlQuitEventFilter);
+        // Installing the event
+        SDL_SetEventFilter(&sdlQuitEventFilter);
 
-		return true;
-	}
-	
-	LError << "Error while opening the window";
-	return false;
+        return true;
+    }
+
+    LError << "Error while opening the window";
+    return false;
 }
 
 
 void NE :: SDL_Window :: destroyWindow(void)
 {
-	// Nothing here ... with SDL is done in SDL_Quit (SDL_Engine -> stop())
-	pNativeWindow = NULL;
+    // Nothing here ... with SDL is done in SDL_Quit (SDL_Engine -> stop())
+    pNativeWindow = NULL;
 }
 
 USize2 NE :: SDL_Window :: getWindowSize(void)const
 {
-	return USize2(pNativeWindow->w,pNativeWindow->h);
+    return USize2(pNativeWindow->w,pNativeWindow->h);
 }
 
 int NE :: SDL_Window :: getBitsPerPixel(void)const
 {
-	return pNativeWindow->format->BitsPerPixel;
+    return pNativeWindow->format->BitsPerPixel;
 }

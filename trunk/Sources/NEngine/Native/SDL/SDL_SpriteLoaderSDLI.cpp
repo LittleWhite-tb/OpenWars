@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "SDL_Sprite.h"
 
-#include "../../Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
 #include "../../../Utils/Logger.h"
 
 NE :: SDL_SpriteLoaderSDLI :: SDL_SpriteLoaderSDLI(const int flags)

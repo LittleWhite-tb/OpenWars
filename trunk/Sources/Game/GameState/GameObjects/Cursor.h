@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameState/GameObjects/Tile.h"
 
-#include "Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 namespace NE { class Renderer; }
 
@@ -42,30 +42,30 @@ class Camera;
 class Cursor
 {
 private:
-	const Map* const pMap;					/*!< Map to look at */
+    const Map* const pMap;                  /*!< Map to look at */
 
-	// We disallow the copy
-	Cursor(const Cursor& c);
-	Cursor& operator= (const Cursor& c);
+    // We disallow the copy
+    Cursor(const Cursor& c);
+    Cursor& operator= (const Cursor& c);
 
 protected:
-	AnimatedSprite* pCursorSprite;			/*!< Sprite for the cursor */
+    AnimatedSprite* pCursorSprite;          /*!< Sprite for the cursor */
 
-	UVec2 position;							/*!< Position of the cursor */
+    UVec2 position;                         /*!< Position of the cursor */
 
 public:
 
-	Cursor(const Map* const pMap, const UVec2& initialPosition);
-	virtual ~Cursor(void);
+    Cursor(const Map* const pMap, const UVec2& initialPosition);
+    virtual ~Cursor(void);
 
-	const Tile* getTileUnderCursor(void)const;
+    const Tile* getTileUnderCursor(void)const;
 
-	UVec2 getPosition()const { return position; }
+    UVec2 getPosition()const { return position; }
 
-	bool move(const NE::InputManager::ArrowsDirection ad);
-	bool move(const UVec2& newPosition);
+    bool move(const NE::InputManager::ArrowsDirection ad);
+    bool move(const UVec2& newPosition);
 
-	virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
+    virtual bool draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const;
 };
 
 /*! \class Cursor Cursor.h "Game/GameState/GameObjects/Cursor.h"

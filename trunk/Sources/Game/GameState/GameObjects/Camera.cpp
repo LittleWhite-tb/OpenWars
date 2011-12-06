@@ -26,76 +26,76 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Camera.h"
 #include "Game/GameState/GameObjects/Cursor.h"
 
-#include "Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 #include "Utils/Logger.h"
 #include "globals.h"
 
 Camera :: Camera(void)
-	:position(UVec2(0,0))
+    :position(UVec2(0,0))
 {
-	LDebug << "Camera created";
+    LDebug << "Camera created";
 }
 
 Camera :: ~Camera(void)
 {
-	LDebug << "Camera deleted";
+    LDebug << "Camera deleted";
 }
 
 void Camera :: moveLeft()
 {
-	if ( position.x > 0 )
-		position.x--;
+    if ( position.x > 0 )
+        position.x--;
 }
 
 void Camera :: moveUp()
 {
-	if ( position.y > 0 )
-		position.y--;
+    if ( position.y > 0 )
+        position.y--;
 }
 
 void Camera :: moveRight(const Map& map)
 {
-	if ( position.x < map.getWidth() - MAP_MIN_WIDTH )
-		position.x++;
+    if ( position.x < map.getWidth() - MAP_MIN_WIDTH )
+        position.x++;
 }
 
 void Camera :: moveDown(const Map& map)
 {
-	if ( position.y < map.getHeight() - MAP_MIN_HEIGHT)
-		position.y++;
+    if ( position.y < map.getHeight() - MAP_MIN_HEIGHT)
+        position.y++;
 }
 
 void Camera :: update(const Cursor& c, const Map& map)
 {
 #ifdef VERBOSE
-	LDebug << "Camera :: update (Was: " << position << ")";
+    LDebug << "Camera :: update (Was: " << position << ")";
 #endif
 
-	UVec2 cursorPosition = c.getPosition();
+    UVec2 cursorPosition = c.getPosition();
 
-	// We have to apply the camera to avoid infinite recursion of the displacement, when reaching the bound
-	if ( cursorPosition.x - this->position.x < BOUND_CAMERA_DISPLACEMENT )
-	{
-		moveLeft();
-	}
+    // We have to apply the camera to avoid infinite recursion of the displacement, when reaching the bound
+    if ( cursorPosition.x - this->position.x < BOUND_CAMERA_DISPLACEMENT )
+    {
+        moveLeft();
+    }
 
-	if ( cursorPosition.x - this->position.x > MAP_MIN_WIDTH - BOUND_CAMERA_DISPLACEMENT )
-	{
-		moveRight(map);
-	}
+    if ( cursorPosition.x - this->position.x > MAP_MIN_WIDTH - BOUND_CAMERA_DISPLACEMENT )
+    {
+        moveRight(map);
+    }
 
-	if ( cursorPosition.y - this->position.y < BOUND_CAMERA_DISPLACEMENT )
-	{
-		moveUp();
-	}
+    if ( cursorPosition.y - this->position.y < BOUND_CAMERA_DISPLACEMENT )
+    {
+        moveUp();
+    }
 
-	if ( cursorPosition.y - this->position.y > MAP_MIN_HEIGHT - BOUND_CAMERA_DISPLACEMENT )
-	{
-		moveDown(map);
-	}
+    if ( cursorPosition.y - this->position.y > MAP_MIN_HEIGHT - BOUND_CAMERA_DISPLACEMENT )
+    {
+        moveDown(map);
+    }
 
 #ifdef VERBOSE
-	LDebug << "Camera :: update (New position: " << position << ")";
+    LDebug << "Camera :: update (New position: " << position << ")";
 #endif
 }

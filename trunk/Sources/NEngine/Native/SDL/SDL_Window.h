@@ -25,38 +25,38 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../Window.h"
+#include "NEngine/Window.h"
 
 struct SDL_Surface;
 
 namespace NE
 {
-	class SDL_Window : public Window
-	{
-	private:
+    class SDL_Window : public Window
+    {
+    private:
         SDL_Surface* pNativeWindow;
-    
-		unsigned int getFlags(const bool isFullscreen, const bool isOpenGL)const;
-        
+
+        unsigned int getFlags(const bool isFullscreen, const bool isOpenGL)const;
+
     protected:
-    
+
         void* getNativeWindow(void)const { return pNativeWindow; }
 
-	public:
-		static bool isRedCrossPressed;				/*!< Tell if the red cross button has been pressed */
+    public:
+        static bool isRedCrossPressed;              /*!< Tell if the red cross button has been pressed */
 
 
-		SDL_Window(void):Window(),pNativeWindow(NULL) {}
-		~SDL_Window(void);
+        SDL_Window(void):Window(),pNativeWindow(NULL) {}
+        ~SDL_Window(void);
 
-		bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false);
-		void destroyWindow(void);
+        bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false);
+        void destroyWindow(void);
 
-		USize2 getWindowSize(void)const;
-		int getBitsPerPixel(void)const;
+        USize2 getWindowSize(void)const;
+        int getBitsPerPixel(void)const;
 
-		bool needWindowClosure(void)const { return isRedCrossPressed; }
-	};
+        bool needWindowClosure(void)const { return isRedCrossPressed; }
+    };
 }
 
 /*! \class NE::SDL_Window SDL_Window.h "NEngine/Native/SDL/SDL_Window.h"

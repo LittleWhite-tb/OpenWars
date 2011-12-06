@@ -35,75 +35,75 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/UnitTemplate.h"
 
 #include "Utils/Logger.h"
-#include "Types/Vec2.h"
-#include "Types/Colour.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Colour.h"
 
 TileViewer :: TileViewer(const Theme* pTheme, const USize2& windowSize)
 :windowSize(windowSize)
 {
-	Colour white(255,255,255,255);
+    Colour white(255,255,255,255);
 
-	pBackground = pTheme->getUIItem("UIBackground")->getSprite();
-	pFont = pTheme->getFontObject("classic")->getFont();
-    
+    pBackground = pTheme->getUIItem("UIBackground")->getSprite();
+    pFont = pTheme->getFontObject("classic")->getFont();
+
     USize2 backgroundSize = pBackground->getSize();
-	position = IVec2(windowSize.width - backgroundSize.width - 10, windowSize.height - backgroundSize.height - 10);
-	
-	title = "Element";
+    position = IVec2(windowSize.width - backgroundSize.width - 10, windowSize.height - backgroundSize.height - 10);
 
-	LDebug << "TileViewer created";
+    title = "Element";
+
+    LDebug << "TileViewer created";
 }
 
 TileViewer :: ~TileViewer()
 {
-	LDebug << "TileViewer deleted";
+    LDebug << "TileViewer deleted";
 }
 
 void TileViewer :: setTile(const Tile* pTile)
 {
-	assert(pTile);
+    assert(pTile);
 
-	this->pTileSprite = pTile->getSprite();
-	this->tileName = pTile->getName();
+    this->pTileSprite = pTile->getSprite();
+    this->tileName = pTile->getName();
 
-	this->title = "Element";
+    this->title = "Element";
 }
 
 void TileViewer :: setTile(const UnitTemplate* pUnitTemplate)
 {
-	assert(pUnitTemplate);
+    assert(pUnitTemplate);
 
-	this->pTileSprite = pUnitTemplate->getSprite();
-	this->tileName = pUnitTemplate->getName();
+    this->pTileSprite = pUnitTemplate->getSprite();
+    this->tileName = pUnitTemplate->getName();
 
-	this->title = "Unit";
+    this->title = "Unit";
 }
 
 void TileViewer :: putOnLeft(void)
 {
-		position.x = 10;	
+        position.x = 10;
 }
 
 void TileViewer :: putOnRight(void)
 {
-	position.x = windowSize.width - pBackground->getSize().width - 10;
+    position.x = windowSize.width - pBackground->getSize().width - 10;
 }
 
 bool TileViewer :: draw(const NE::Renderer& r, const unsigned int time)
 {
-	bool error = true;
+    bool error = true;
     USize2 backgroundSize = pBackground->getSize();
 
-	USize2 titleSize = pFont->getStringSize(title);
-	USize2 nameSize = pFont->getStringSize(tileName);
-	IVec2 titlePosition((position.x + static_cast<int>(backgroundSize.width - titleSize.width)/2), position.y);
-	IVec2 tilePosition(position.x + (backgroundSize.width - pTileSprite->getSize().width)/2 , position.y + (backgroundSize.height - pTileSprite->getSize().height)/2);
-	IVec2 namePosition(position.x + static_cast<int>(backgroundSize.width - nameSize.width)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
+    USize2 titleSize = pFont->getStringSize(title);
+    USize2 nameSize = pFont->getStringSize(tileName);
+    IVec2 titlePosition((position.x + static_cast<int>(backgroundSize.width - titleSize.width)/2), position.y);
+    IVec2 tilePosition(position.x + (backgroundSize.width - pTileSprite->getSize().width)/2 , position.y + (backgroundSize.height - pTileSprite->getSize().height)/2);
+    IVec2 namePosition(position.x + static_cast<int>(backgroundSize.width - nameSize.width)/2 , tilePosition.y + pTileSprite->getSize().height + 2);
 
-	error &= pBackground->draw(r,position,time);
-	error &= pFont->draw(r,title,titlePosition);
-	error &= pTileSprite->draw(r,tilePosition,0);
-	error &= pFont->draw(r,tileName,namePosition);
+    error &= pBackground->draw(r,position,time);
+    error &= pFont->draw(r,title,titlePosition);
+    error &= pTileSprite->draw(r,tilePosition,0);
+    error &= pFont->draw(r,tileName,namePosition);
 
-	return error;
+    return error;
 }

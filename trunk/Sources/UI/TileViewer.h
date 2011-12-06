@@ -27,8 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameState/GameObjects/Tile.h"
 
-#include "Types/Size2.h"
-#include "Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
+#include "NEngine/Types/Vec2.h"
 
 namespace NE { class Sprite; }
 namespace NE { class Renderer; }
@@ -44,29 +44,29 @@ class TileViewer
 {
 private:
 
-	Font* pFont;				/*!< the font to use */
-	AnimatedSprite* pBackground;		/*!< the sprite for the background */
-	AnimatedSprite* pTileSprite;	/*!< the tile to display in the UI */
+    Font* pFont;                /*!< the font to use */
+    AnimatedSprite* pBackground;        /*!< the sprite for the background */
+    AnimatedSprite* pTileSprite;    /*!< the tile to display in the UI */
 
-	std::string title;				/*!< the title to display */
-	std::string tileName;			/*!< the name for the tile to display */
+    std::string title;              /*!< the title to display */
+    std::string tileName;           /*!< the name for the tile to display */
 
-	USize2 windowSize;				/*!< The window size */
-	IVec2 position;					/*!< the UI position */
+    USize2 windowSize;              /*!< The window size */
+    IVec2 position;                 /*!< the UI position */
 
 public:
-	TileViewer(const Theme* pTheme, const USize2& windowSize);
-	~TileViewer();
+    TileViewer(const Theme* pTheme, const USize2& windowSize);
+    ~TileViewer();
 
-	void setTile(const Tile* pTile);
-	void setTile(const UnitTemplate* pUnitTemplate);
+    void setTile(const Tile* pTile);
+    void setTile(const UnitTemplate* pUnitTemplate);
 
-	void setTitle(const std::string& title) { this->title = title; }
+    void setTitle(const std::string& title) { this->title = title; }
 
-	void putOnLeft(void);
-	void putOnRight(void);
+    void putOnLeft(void);
+    void putOnRight(void);
 
-	bool draw(const NE::Renderer& r, const unsigned int time);
+    bool draw(const NE::Renderer& r, const unsigned int time);
 };
 
 /*! \class TileViewer TileViewer.h "UI/TileViewer.h"
@@ -91,9 +91,9 @@ public:
  * \param pUnitTemplate pointer to the Unit to show
  */
 
-/*!	\fn void TileViewer :: setTitle(const std::string& title)
- *	\brief set a new title
- *	\param title the new title to display
+/*! \fn void TileViewer :: setTitle(const std::string& title)
+ *  \brief set a new title
+ *  \param title the new title to display
  */
 
 /*! \fn void TileViewer::putOnLeft(void)
@@ -105,10 +105,10 @@ public:
  */
 
 /*! \fn bool TileViewer::draw(const NE::Renderer& r, const unsigned int time)
- *	\brief draw the UI
- *	\param r the NE::Renderer to use to draw the viewer
- *	\param time the actual time in the game
- *	\return true if all goes right
+ *  \brief draw the UI
+ *  \param r the NE::Renderer to use to draw the viewer
+ *  \param time the actual time in the game
+ *  \return true if all goes right
  */
 
 #endif

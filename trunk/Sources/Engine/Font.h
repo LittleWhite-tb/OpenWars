@@ -27,9 +27,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../Types/Vec2.h"
-#include "../Types/Size2.h"
-#include "../Types/Colour.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
+#include "NEngine/Types/Colour.h"
 
 namespace NE { class Renderer; }
 namespace NE { class Sprite; }
@@ -39,22 +39,22 @@ class Font
 private:
 
     NE::Sprite* pSprite;
-    
+
     USize2 letterSize;
     unsigned char startingLetter;
 
-	// Disallow the copy
-	Font(const Font& s);
-	void operator= (const Font& s);
+    // Disallow the copy
+    Font(const Font& s);
+    void operator= (const Font& s);
 
 public:
-	Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter);
-	~Font(void);
+    Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter);
+    ~Font(void);
 
-	USize2 getLetterSize(void) { return letterSize; }
-	USize2 getStringSize(const std::string& string);
+    USize2 getLetterSize(void) { return letterSize; }
+    USize2 getStringSize(const std::string& string);
 
-	bool draw(const NE::Renderer& r, const std::string& text, const IVec2& position);
+    bool draw(const NE::Renderer& r, const std::string& text, const IVec2& position);
 };
 
 /*! \class Font Font.h "Engine/Font.h"
@@ -70,7 +70,7 @@ public:
 
 /*! \fn Font::~Font(void)
  */
- 
+
  /*! \fn USize2 Font::getLetterSize(void)
   * \brief Get the size of one letter
   * \return the size of one letter

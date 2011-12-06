@@ -28,12 +28,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../../../Types/Vec2.h"
-#include "../../../Types/Colour.h"
-#include "../../../Types/Rect.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Colour.h"
+#include "NEngine/Types/Rect.h"
 
-#include "../../Window.h"
-#include "../../Sprite.h"
+#include "NEngine/Window.h"
+#include "NEngine/Sprite.h"
 
 #include "../../../Utils/Logger.h"
 

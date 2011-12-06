@@ -29,10 +29,9 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
 #include "NEngine/Native/SDL/SDL_Engine.h"
+#include "NEngine/Types/Vec2.h"
 
 #include "Game/GameEngine.h"
-
-#include "Types/Vec2.h"
 
 #include "Utils/Logger.h"
 
@@ -42,23 +41,23 @@ e-mail: lw.demoscene@gmail.com
 
 int main(int argc, char** argv)
 {
-	GameOption gameOptions(argc,argv);
+    GameOption gameOptions(argc,argv);
 
-	// Starting the native engine
-	NE::NEngine* pNE = new NE::SDL_Engine();
-	if ( pNE->init() == false )
-	{
-		return 1;
-	}
+    // Starting the native engine
+    NE::NEngine* pNE = new NE::SDL_Engine();
+    if ( pNE->init() == false )
+    {
+        return 1;
+    }
 
-	{
+    {
         if ( pNE->getWindow()->createWindow(gameOptions.winSize,32,gameOptions.needFullscreen,"OpenAWars") )
         {
             GameEngine* pGEngine = new GameEngine(pNE,&gameOptions);
-			if ( pGEngine == NULL )
-			{
-				LError << "Fail to allocate GameEngine";
-			}
+            if ( pGEngine == NULL )
+            {
+                LError << "Fail to allocate GameEngine";
+            }
             else if ( pGEngine->init() )
             {
                 if ( pGEngine->load() )
@@ -67,17 +66,17 @@ int main(int argc, char** argv)
                 }
             }
 
-			delete pGEngine;
+            delete pGEngine;
 
             pNE->getWindow()->destroyWindow();
         }
-	}
+    }
 
-	// Stopping the Native Engine
-	pNE->stop();
-	delete pNE;
+    // Stopping the Native Engine
+    pNE->stop();
+    delete pNE;
 
-	Logger::deleteLogger();
+    Logger::deleteLogger();
 
-	return 0;
+    return 0;
 }

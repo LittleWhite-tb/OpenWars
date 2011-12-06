@@ -35,8 +35,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/Unit.h"
 
-#include "Types/Size2.h"
-#include "Types/Vec2.h"
+#include "NEngine/Types/Size2.h"
+#include "NEngine/Types/Vec2.h"
 
 namespace NE { class Renderer; }
 namespace NE { class SpriteLoader; }
@@ -48,7 +48,7 @@ class MapIntegrityChecker;
 class Map
 {
 private:
-    MapIntegrityChecker* pIntegrityChecker;									/*!< pointer on the checker to use to keep integrity of the map */
+    MapIntegrityChecker* pIntegrityChecker;                                 /*!< pointer on the checker to use to keep integrity of the map */
 
     void checkCoherency(const UVec2& position, const Tile* pTileToPut);
 
@@ -59,7 +59,7 @@ private:
 
 protected:
 
-    const Theme* pTheme;		/*!< Pointer on the theme to use */
+    const Theme* pTheme;        /*!< Pointer on the theme to use */
 
     unsigned int width;         /*!< Width (in tile) of the map */
     unsigned int height;        /*!< Height (in tile) of the map */
@@ -104,49 +104,49 @@ public:
  */
 
 /*! \fn Map::Map(const Theme* const pTheme)
- *	\param pTheme a pointer to the Theme to use
+ *  \param pTheme a pointer to the Theme to use
  */
 
 /*! \fn virtual Map::~Map(void)
  */
 
-/*!	\fn const std::vector < std::vector < const Tile* > >& Map :: constTilesMap()const
- *	\brief Get the tiles arrays of the Map
- *	\return the tiles of the Map (as constant data)
+/*! \fn const std::vector < std::vector < const Tile* > >& Map :: constTilesMap()const
+ *  \brief Get the tiles arrays of the Map
+ *  \return the tiles of the Map (as constant data)
  */
 
-/*!	\fn const std::vector < std::vector < Unit > >& Map :: constUnitsMap()const
- *	\brief Get the units arrays of the Map
- *	\return the units of the Map (as constant data)
+/*! \fn const std::vector < std::vector < Unit > >& Map :: constUnitsMap()const
+ *  \brief Get the units arrays of the Map
+ *  \return the units of the Map (as constant data)
  */
 
 /*! \fn const Tile* Map :: getTile(const UVec2& position)const
- *	\brief Get the tile at this position
- *	\param position the position where to get the tile
- *	\return a pointer to the Tile at this position
+ *  \brief Get the tile at this position
+ *  \param position the position where to get the tile
+ *  \return a pointer to the Tile at this position
  */
 
 /*! \fn bool Map :: setTile(const UVec2& position, const std::string& tileName);
- *	\brief Set a tile in the map
- *	The unit is described by an internal name
- *	\param position the position where to put the unit
- *	\param tileName the name in the theme of the tile to put
- *	\return true if all goes right
+ *  \brief Set a tile in the map
+ *  The unit is described by an internal name
+ *  \param position the position where to put the unit
+ *  \param tileName the name in the theme of the tile to put
+ *  \return true if all goes right
  */
 
 /*! \fn Unit* Map :: getUnit(const UVec2& position);
- *	\brief Get the unit at this position
- *	\param position the position where to get the unit
- *	\return a pointer to the Unit at this position
+ *  \brief Get the unit at this position
+ *  \param position the position where to get the unit
+ *  \return a pointer to the Unit at this position
  */
 
 /*! \fn bool Map :: setUnit(const UVec2& position, const std::string& unitName, unsigned int faction);
- *	\brief Set a unit in the map
- *	The unit is described by an internal name and his faction
- *	\param position the position where to put the unit
- *	\param unitName the name in the theme of the unit to put
- *	\param faction the faction of the unit
- *	\return true if all goes right
+ *  \brief Set a unit in the map
+ *  The unit is described by an internal name and his faction
+ *  \param position the position where to put the unit
+ *  \param unitName the name in the theme of the unit to put
+ *  \param faction the faction of the unit
+ *  \return true if all goes right
  */
 
 /*! \fn bool Map::testTile(const UVec2& position, const Tile* pTile)const
@@ -164,14 +164,14 @@ public:
  */
 
 /*! \fn bool Map::move(const UVec2& origPosition, const UVec2& destPosition)
- *	\brief Move a unit on the map
- *	\param origPosition the position where the unit actually is
- *	\param destPosition the position where to put the unit
- *	\return true if the movement is correct
+ *  \brief Move a unit on the map
+ *  \param origPosition the position where the unit actually is
+ *  \param destPosition the position where to put the unit
+ *  \return true if the movement is correct
  */
 
 /*! \fn void Map::enableUnits(void)
- *	\brief enable all the units present on the map
+ *  \brief enable all the units present on the map
  */
 
 /*! \fn unsigned int Map::getWidth(void)const
@@ -185,14 +185,14 @@ public:
  */
 
 /*! \fn const Theme* Map::getTheme(void)const
- *	\brief Get the Theme used by the Map
- *	\return a pointer to the Theme
+ *  \brief Get the Theme used by the Map
+ *  \return a pointer to the Theme
  */
 
 /*! \fn bool Map::isValidPosition(const UVec2& position)const
- *	\brief Checks if the position is valid for this map
- *	\param position the position to check
- *	\return true if the position is valid (refering to a case)
+ *  \brief Checks if the position is valid for this map
+ *  \param position the position to check
+ *  \return true if the position is valid (refering to a case)
  */
 
 #endif

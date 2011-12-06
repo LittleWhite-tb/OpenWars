@@ -25,9 +25,9 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../Renderer.h"
+#include "NEngine/Renderer.h"
 
-#include "../../../Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 struct Colour;
 struct Rect;

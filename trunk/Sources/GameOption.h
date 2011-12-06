@@ -27,23 +27,23 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 struct GameOption
 {
-	USize2 winSize;				/*!< The size of the window to create */
-	bool needFullscreen;		/*!< True if the fullscreen needs to be enabled */
+    USize2 winSize;             /*!< The size of the window to create */
+    bool needFullscreen;        /*!< True if the fullscreen needs to be enabled */
 
-	std::string loadMapName;	/*!< The name of the map to load */
+    std::string loadMapName;    /*!< The name of the map to load */
 
-	bool editorMode;			/*!< True if the game should be started in editor mode */
-	std::string saveMapName;	/*!< The name of the map to save (editor mode only) */
-	USize2 mapSize;				/*!< The size of the map to create (editor mode only) */
+    bool editorMode;            /*!< True if the game should be started in editor mode */
+    std::string saveMapName;    /*!< The name of the map to save (editor mode only) */
+    USize2 mapSize;             /*!< The size of the map to create (editor mode only) */
 
-	std::string themeName;		/*!< The theme name to use (editor mode only) */
-	
+    std::string themeName;      /*!< The theme name to use (editor mode only) */
 
-	GameOption(int argc, char** argv);
+
+    GameOption(int argc, char** argv);
 };
 
 /*! \struct GameOption GameOption.h "GameOption.h"
@@ -51,10 +51,10 @@ struct GameOption
  */
 
 /*! \fn GameOption :: GameOption(int argc, char** argv)
- *	\brief Collect from the command line the game options (using an ArgumentParser)
- *	\param argc the number of argument in the command line
- *	\param argv the arguments in the command line
- *	\sa ArgumentParser
+ *  \brief Collect from the command line the game options (using an ArgumentParser)
+ *  \param argc the number of argument in the command line
+ *  \param argv the arguments in the command line
+ *  \sa ArgumentParser
  */
 
 

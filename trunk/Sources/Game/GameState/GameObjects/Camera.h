@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 class Map;
 class Cursor;
@@ -33,20 +33,20 @@ class Cursor;
 class Camera
 {
 private:
-	UVec2 position;						/*!< Position of the camera */
+    UVec2 position;                     /*!< Position of the camera */
 
-	void moveLeft();
-	void moveUp();
-	void moveRight(const Map& map);
-	void moveDown(const Map& map);
+    void moveLeft();
+    void moveUp();
+    void moveRight(const Map& map);
+    void moveDown(const Map& map);
 
 public:
-	Camera(void);
-	~Camera(void);
+    Camera(void);
+    ~Camera(void);
 
-	void update(const Cursor& c, const Map& map);
+    void update(const Cursor& c, const Map& map);
 
-	UVec2 getPosition(void)const { return position; }
+    UVec2 getPosition(void)const { return position; }
 };
 
 /*! \class Camera Camera.h "Game/GameState/GameObjects/Camera.h"

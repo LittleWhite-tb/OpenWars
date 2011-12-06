@@ -27,31 +27,31 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
-#include "../Types/Size2.h"
+#include "NEngine/Types/Size2.h"
 
 namespace NE
 {
-	class Window
-	{
-	protected:
+    class Window
+    {
+    protected:
 
-		// void* pWindow;	/*!< The pointer on the native window */
-        
+        // void* pWindow;   /*!< The pointer on the native window */
+
         virtual void* getNativeWindow(void)const = 0;
 
-	public:
-		Window(void) {};
-		virtual ~Window(void) {}
+    public:
+        Window(void) {};
+        virtual ~Window(void) {}
 
-		virtual bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0;
-		virtual USize2 getWindowSize(void)const=0;
-		virtual int getBitsPerPixel(void)const=0;
-		virtual void destroyWindow(void)=0;
+        virtual bool createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0;
+        virtual USize2 getWindowSize(void)const=0;
+        virtual int getBitsPerPixel(void)const=0;
+        virtual void destroyWindow(void)=0;
 
-		virtual bool needWindowClosure(void)const=0;
+        virtual bool needWindowClosure(void)const=0;
 
-		friend class Renderer;
-	};
+        friend class Renderer;
+    };
 }
 
 /*! \class NE::Window Window.h "NEngine/Window.h"
@@ -69,9 +69,9 @@ namespace NE
  */
 
 /*! \fn virtual void* NE::Window::getNativeWindow(void)const = 0
- *	\brief return a pointer to the native window handle
- *	\return a pointer to the native window handler
- *	The use of a void* is done to avoid specific code
+ *  \brief return a pointer to the native window handle
+ *  \return a pointer to the native window handler
+ *  The use of a void* is done to avoid specific code
  */
 
 /*! \fn virtual bool NE::Window::createWindow(const USize2& winSize, const unsigned short bpp, const bool isFullscreen, const std::string& windowName, const std::string& windowIcon ="", const bool showCursor = false)=0

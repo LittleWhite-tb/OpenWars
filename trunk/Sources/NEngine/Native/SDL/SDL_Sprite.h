@@ -25,30 +25,30 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../Sprite.h"
+#include "NEngine/Sprite.h"
 
-#include "../../../Types/Vec2.h"
+#include "NEngine/Types/Vec2.h"
 
 struct SDL_Surface;
 
 namespace NE
 {
-	class SDL_Sprite : public Sprite
-	{
+    class SDL_Sprite : public Sprite
+    {
     private:
-    
-        SDL_Surface* pSurface;
-        
-    protected: 
-         void* getNativeSprite(void)const { return pSurface; }
-    
-        ~SDL_Sprite(void);
-        
-	public:
-		SDL_Sprite(SDL_Surface* pSprite);
 
-		USize2 getSize(void)const;
-	};
+        SDL_Surface* pSurface;
+
+    protected:
+         void* getNativeSprite(void)const { return pSurface; }
+
+        ~SDL_Sprite(void);
+
+    public:
+        SDL_Sprite(SDL_Surface* pSprite);
+
+        USize2 getSize(void)const;
+    };
 }
 
 /*! \class NE::SDL_Sprite SDL_Sprite.h "NEngine/Native/SDL/SDL_Sprite.h"

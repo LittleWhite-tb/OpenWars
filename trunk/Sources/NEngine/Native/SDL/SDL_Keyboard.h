@@ -25,31 +25,31 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "../../InputManager.h"
-#include "../../Input.h"
+#include "NEngine/InputManager.h"
+#include "NEngine/Input.h"
 
 namespace NE
 {
-	class SDL_Keyboard : public Input
-	{
-	private:
-			int m_nbKeys;                     /*!< The number of keys repertoried in the array */
-			unsigned char* m_pKeys;            /*!< Array of keys state */
+    class SDL_Keyboard : public Input
+    {
+    private:
+            int m_nbKeys;                     /*!< The number of keys repertoried in the array */
+            unsigned char* m_pKeys;            /*!< Array of keys state */
 
-			unsigned char isKey(unsigned int key);
+            unsigned char isKey(unsigned int key);
 
-	public:
-			SDL_Keyboard(void);
-			~SDL_Keyboard(void);
+    public:
+            SDL_Keyboard(void);
+            ~SDL_Keyboard(void);
 
-			NE::InputManager::ArrowsDirection getDirectionsPressed(void)const;
+            NE::InputManager::ArrowsDirection getDirectionsPressed(void)const;
 
-			bool needEscape(void);
+            bool needEscape(void);
 
-			NE::InputManager::Buttons getButtonsState(void);
+            NE::InputManager::Buttons getButtonsState(void);
 
-			void update(void);
-	};
+            void update(void);
+    };
 }
 
 /*! \class NE::SDL_Keyboard SDL_Keyboard.h "NEngine/Native/SDL/SDL_Keyboard.h"

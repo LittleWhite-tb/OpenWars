@@ -33,8 +33,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
 
-#include "Types/Vec2.h"
-#include "Types/Colour.h"
+#include "NEngine/Types/Vec2.h"
+#include "NEngine/Types/Colour.h"
 
 #include "Utils/Logger.h"
 
