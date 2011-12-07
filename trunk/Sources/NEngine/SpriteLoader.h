@@ -1,5 +1,5 @@
-#ifndef __NE_SPRITELOADER_H__
-#define __NE_SPRITELOADER_H__
+#ifndef NE_SPRITELOADER_H
+#define NE_SPRITELOADER_H
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,56 +25,37 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <map>
-#include <string>
+#include <list>
 
 #include "NEngine/Types/Colour.h"
+#include "NEngine/Sprite.h"
+
+#include "Bank.h"
 
 namespace NE
 {
-    class Sprite;
+    class ISpriteLoader;
 
     class SpriteLoader
     {
     private:
-
-        std::map<std::string, Sprite*> spritesBank;  /*!< Bank saving the Sprite loaded */
-
-    protected:
-        Colour m_transparancyColour;
-
-        virtual Sprite* loadSprite(const std::string& fileName)=0;
+        Colour m_transparencyColour;
+        
+        Bank<Sprite> m_bank;
+        std::list<NE::ISpriteLoader*> m_loaders;
 
     public:
-        virtual ~SpriteLoader(void);
 
-        Sprite* loadSpriteFromFile(const std::string& fileName);
+        SpriteLoader() {}
+        ~SpriteLoader();
 
-        void setTransparancyColour(const Colour& transparancyColour) { m_transparancyColour = transparancyColour; }
-        const Colour& getTransparancyColour() { return m_transparancyColour; }
+        void registerLoader(NE::ISpriteLoader* pLoader);
+
+        const Sprite* loadSpriteFromFile(const std::string& fileName);
+
+        void setTransparencyColour(const Colour& transparencyColour) { m_transparencyColour = transparencyColour; }
+        const Colour& getTransparencyColour() { return m_transparencyColour; }
     };
 }
-
-/*! \class NE::SpriteLoader SpriteLoader.h "NEngine/SpriteLoader.h"
- *  \brief SpriteLoader interface
- *
- * The SpriteLoader class gives an interface to implement new platform specific Sprite loading functions.
- * To save loading time, the loader is using a bank to keep the Sprite already loaded. The second advantage of this, is that the memory deallocation has not to be done by the user.
- */
-
-/*! \fn virtual Sprite* NE::SpriteLoader::loadSprite(const std::string& fileName)=0
- * \brief load a Sprite from a file
- * \param fileName the name of the file to load
- * \return a pointer to the newly loaded Sprite
-*/
-
-/*! \fn virtual NE::SpriteLoader::~SpriteLoader(void)
- */
-
-/*! \fn virtual Sprite* NE::SpriteLoader::loadSpriteFromFile(const std::string& fileName)=0
- * \brief load a Sprite from a file, or return the corresponding Sprite if already loaded
- * \param fileName the name of the file to load
- * \return a pointer to the newly loaded Sprite
-*/
 
 #endif

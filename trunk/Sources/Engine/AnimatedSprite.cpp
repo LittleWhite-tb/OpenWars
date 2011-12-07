@@ -35,7 +35,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../Utils/Logger.h"
 
-AnimatedSprite :: AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval)
+AnimatedSprite :: AnimatedSprite(const NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval)
     :pSprite(pSprite),animationCounter(0),lastUpdate(0),msInterval(msInterval)
 {
     USize2 surfaceSize = pSprite->getSize();

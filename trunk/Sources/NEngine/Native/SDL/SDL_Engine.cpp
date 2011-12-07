@@ -38,6 +38,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Exceptions/InputNotFoundException.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/SpriteLoader.h"
 #include "../../../Utils/Logger.h"
 
 bool NE :: SDL_Engine :: initAPI(void)
@@ -54,8 +55,8 @@ bool NE :: SDL_Engine :: initAPI(void)
 
     try
     {
-        pSpriteLoader = new NE::SDL_SpriteLoader();
-        // pSpriteLoader = new NE::SDL_SpriteLoaderSDLI(SDL_SpriteLoaderSDLI::PNG);
+        pSpriteLoader->registerLoader(new NE::SDL_SpriteLoader());
+        pSpriteLoader->registerLoader(new NE::SDL_SpriteLoaderSDLI(SDL_SpriteLoaderSDLI::PNG));
     }
     catch ( ConstructionFailedException cfe )
     {

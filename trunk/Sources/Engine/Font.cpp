@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 #include "../Utils/Logger.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
-Font :: Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
+Font :: Font(const NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)
     :pSprite(pSprite),letterSize(letterSize),startingLetter(startingLetter)
 {
     assert(pSprite);

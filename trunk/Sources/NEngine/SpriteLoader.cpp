@@ -24,39 +24,57 @@ e-mail: lw.demoscene@gmail.com
 
 #include "SpriteLoader.h"
 
-#include "Sprite.h"
-
+#include "NEngine/ISpriteLoader.h"
 #include "NEngine/Exceptions/FileNotFoundException.h"
 
 #include "../Utils/Logger.h"
 
-NE::SpriteLoader :: ~SpriteLoader(void)
+#include <cassert>
+
+NE::SpriteLoader::~SpriteLoader()
 {
-    for( std::map<std::string, NE::Sprite*>::const_iterator itSprite = spritesBank.begin() ; itSprite != spritesBank.end() ; ++itSprite )
-	{
-		delete (itSprite->second);
-	}
-	spritesBank.clear();
+    for ( std::list<NE::ISpriteLoader*>::const_iterator itLoader = m_loaders.begin() ; 
+          itLoader != m_loaders.end() ;
+          ++itLoader )
+    {
+        delete (*itLoader);
+    }
+
+    m_loaders.clear();
 }
 
-NE::Sprite* NE::SpriteLoader :: loadSpriteFromFile(const std::string& fileName)
+void NE::SpriteLoader::registerLoader(NE::ISpriteLoader* pLoader)
 {
-    if ( spritesBank.find(fileName) == spritesBank.end() ) // Not found
+    assert(pLoader);
+
+    m_loaders.push_back(pLoader);
+}
+
+const NE::Sprite* NE::SpriteLoader::loadSpriteFromFile(const std::string& fileName)
+{
+    const NE::Sprite* pSprite = m_bank.get(fileName);
+    
+    if ( pSprite == NULL ) // It was not in the bank
     {
-        Sprite* pSprite = loadSprite(fileName);
+        for ( std::list<NE::ISpriteLoader*>::const_iterator itLoader = m_loaders.begin() ; 
+            itLoader != m_loaders.end() ;
+            ++itLoader )
+        {
+            pSprite = (*itLoader)->loadSpriteFromFile(fileName,m_transparencyColour);
+            if ( pSprite != NULL )  // It is loaded, we can stop
+            {
+                m_bank.add(fileName,pSprite);
+                break;
+            }
+        }
+
+        // We gone through all loaders, and the sprite is not loaded ... so, error
         if ( pSprite == NULL )
         {
-            LError << "NE::SpriteLoader (Fail to load the Sprite ('" << fileName << "'))";
-			throw FileNotFoundException(fileName);
-            // return NULL;
+            LError << "Fail to load sprite '" << fileName << "'";
+            throw FileNotFoundException(fileName);
         }
-        
-        spritesBank[fileName] = pSprite;
-        
-        return pSprite;
     }
-    else
-    {
-        return spritesBank[fileName];
-    }
+    
+    return pSprite;
 }

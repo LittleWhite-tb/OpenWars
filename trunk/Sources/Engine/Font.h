@@ -38,7 +38,7 @@ class Font
 {
 private:
 
-    NE::Sprite* pSprite;
+    const NE::Sprite* pSprite;
 
     USize2 letterSize;
     unsigned char startingLetter;
@@ -48,7 +48,7 @@ private:
     void operator= (const Font& s);
 
 public:
-    Font(NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter);
+    Font(const NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter);
     ~Font(void);
 
     USize2 getLetterSize(void) { return letterSize; }

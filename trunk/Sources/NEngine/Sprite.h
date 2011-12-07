@@ -27,6 +27,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Types/Size2.h"
 
+#include "NEngine/Bank.h"
+
 struct Colour;
 
 namespace NE
@@ -47,7 +49,7 @@ namespace NE
         friend class Renderer;
 
         // To have only the sprite loader able to delete a Sprite
-        friend class SpriteLoader;
+        friend class Bank<Sprite>;
         friend class SpriteFactory;
     };
 }

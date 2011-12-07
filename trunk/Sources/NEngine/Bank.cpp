@@ -1,6 +1,3 @@
-#ifndef __NE_SDL_SPRITELOADER_H__
-#define __NE_SDL_SPRITELOADER_H__
-
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -25,23 +22,4 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "NEngine/ISpriteLoader.h"
-
-#include <string>
-
-namespace NE
-{
-    class Sprite;
-
-    class SDL_SpriteLoader : public ISpriteLoader
-    {
-    public:
-        Sprite* loadSpriteFromFile(const std::string& fileName, const Colour& transparencyColour);
-    };
-}
-
-/*! \class NE::SDL_SpriteLoader SDL_SpriteLoader.h "NEngine/Native/SDL/SDL_SpriteLoader.h"
- *  \brief SDL implementation for SpriteLoader
- */
-
-#endif
+#include "Bank.h"

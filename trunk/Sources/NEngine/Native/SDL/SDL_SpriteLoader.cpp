@@ -25,7 +25,6 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_SpriteLoader.h"
 
 #include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
 
 #include <string>
 
@@ -33,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "../../../Utils/Logger.h"
 
-NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
+NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileName, const Colour& transparencyColour)
 {
     SDL_Surface* pSurface = SDL_LoadBMP(fileName.c_str());
     if ( pSurface != NULL )
@@ -46,10 +45,10 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
             SDL_FreeSurface(pSurface);
 
             // We set the color
-            Uint32 colorkey = SDL_MapRGB(pOptimisedSurface->format, m_transparancyColour.r, m_transparancyColour.g, m_transparancyColour.b);
+            Uint32 colorkey = SDL_MapRGB(pOptimisedSurface->format, transparencyColour.r, transparencyColour.g, transparencyColour.b);
             if ( SDL_SetColorKey(pOptimisedSurface, SDL_RLEACCEL | SDL_SRCCOLORKEY, colorkey ) == -1 )
             {
-                LWarning << "Fail to set transparancy to '" << fileName << "'";
+                LWarning << "Fail to set transparency to '" << fileName << "'";
             }
 
             // We replace the pointer to the new optimised surface
@@ -69,6 +68,6 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSprite(const std::string& fileName)
         return pSprite;
     }
 
-    LError << "Fail to load a sprite from file: " << SDL_GetError();
+    // LError << "Fail to load a sprite from file: " << SDL_GetError();
     return NULL;
 }

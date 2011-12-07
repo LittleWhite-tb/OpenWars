@@ -469,32 +469,16 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Types"
-			>
-			<File
-				RelativePath=".\Sources\Types\Colour.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Types\Colour.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Types\Rect.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Types\Size2.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Types\Vec2.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="NEngine"
 			>
+			<File
+				RelativePath=".\Sources\NEngine\Bank.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\Bank.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Sources\NEngine\Exception.h"
 				>
@@ -509,6 +493,14 @@
 			</File>
 			<File
 				RelativePath=".\Sources\NEngine\InputManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\ISpriteLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sources\NEngine\ISpriteLoader.h"
 				>
 			</File>
 			<File
@@ -668,6 +660,30 @@
 				</File>
 				<File
 					RelativePath=".\Sources\NEngine\Exceptions\InputNotFoundException.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Types"
+				>
+				<File
+					RelativePath=".\Sources\NEngine\Types\Colour.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Types\Colour.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Types\Rect.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Types\Size2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Types\Vec2.h"
 					>
 				</File>
 			</Filter>

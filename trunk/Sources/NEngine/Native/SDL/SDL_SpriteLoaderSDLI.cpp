@@ -51,8 +51,10 @@ NE :: SDL_SpriteLoaderSDLI :: ~SDL_SpriteLoaderSDLI(void)
     IMG_Quit();
 }
 
-NE :: Sprite* NE :: SDL_SpriteLoaderSDLI :: loadSprite(const std::string& fileName)
+NE :: Sprite* NE :: SDL_SpriteLoaderSDLI :: loadSpriteFromFile(const std::string& fileName, const Colour& transparencyColour)
 {
+    (void)transparencyColour;
+
     SDL_Surface* pSurface = IMG_Load(fileName.c_str());
 
     // No optimisation is possible for these kind of surface
@@ -68,6 +70,6 @@ NE :: Sprite* NE :: SDL_SpriteLoaderSDLI :: loadSprite(const std::string& fileNa
         return pSprite;
     }
 
-    LError << "Fail to load a sprite from file: " << IMG_GetError();
+    // LError << "Fail to load a sprite from file: " << IMG_GetError();
     return NULL;
 }
