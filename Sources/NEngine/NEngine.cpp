@@ -24,6 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine.h"
 
+#include "SpriteLoader.h"
 #include "InputManager.h"
 
 #include "../Utils/Logger.h"
@@ -31,6 +32,13 @@ e-mail: lw.demoscene@gmail.com
 bool NE :: NEngine :: init(void)
 {
 	bool bError = true;
+
+    pSpriteLoader = new SpriteLoader();
+    if ( pSpriteLoader == NULL )
+    {
+        LError << "Fail to allocate the SpriteLoader";
+        bError = false;
+    }
 
 	pInputManager = new InputManager();
     if ( pInputManager == NULL )

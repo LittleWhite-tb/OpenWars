@@ -48,7 +48,7 @@ UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string
     try
     {
         this->internalName = pParams->get("internalName");
-        NE::Sprite* pSprite = pSL->loadSpriteFromFile(folderPath + pParams->get("filename"));   // Will throw an exception if a problem occured
+        const NE::Sprite* pSprite = pSL->loadSpriteFromFile(folderPath + pParams->get("filename"));   // Will throw an exception if a problem occured
 
         UVec2 spriteSize(pParams->getAs<unsigned int>("size_x",pSprite->getSize().width),
                          pParams->getAs<unsigned int>("size_y",pSprite->getSize().height));

@@ -43,7 +43,7 @@ class AnimatedSprite
 {
 private:
 
-    NE::Sprite* pSprite;
+    const NE::Sprite* pSprite;
 
     USize2 spriteSize;
 
@@ -61,7 +61,7 @@ private:
     void update(const unsigned int time);
 
 public:
-    AnimatedSprite(NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
+    AnimatedSprite(const NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval);
     AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval);
 
     ~AnimatedSprite(void);
