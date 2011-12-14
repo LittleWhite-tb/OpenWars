@@ -34,7 +34,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/UnitTemplate.h"
 
-#include "Utils/Logger.h"
+#include "NEngine/NEngine.h"
 #include "NEngine/Types/Vec2.h"
 #include "NEngine/Types/Colour.h"
 
@@ -51,12 +51,12 @@ TileViewer :: TileViewer(const Theme* pTheme, const USize2& windowSize)
 
     title = "Element";
 
-    LDebug << "TileViewer created";
+    NE::NEngine::logger().log(NE::LL_Debug,"TileViewer created");
 }
 
 TileViewer :: ~TileViewer()
 {
-    LDebug << "TileViewer deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"TileViewer deleted");
 }
 
 void TileViewer :: setTile(const Tile* pTile)

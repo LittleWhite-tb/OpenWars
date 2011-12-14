@@ -24,9 +24,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MapFactory.h"
 
-#include "Game/GameState/GameObjects/Map/Map.h"
+#include "NEngine/NEngine.h"
 
-#include "Utils/Logger.h"
+#include "Game/GameState/GameObjects/Map/Map.h"
 
 Map* MapFactory :: createEmptyMap(const Theme* pTheme, const USize2& size)
 {
@@ -34,7 +34,7 @@ Map* MapFactory :: createEmptyMap(const Theme* pTheme, const USize2& size)
 
     if ( pMap == NULL )
     {
-        LError << "Failed to allocate Map memory";
+        NE::NEngine::logger().log(NE::LL_Error,"Failed to allocate Map memory");
         throw std::bad_alloc();
     }
 
@@ -44,7 +44,7 @@ Map* MapFactory :: createEmptyMap(const Theme* pTheme, const USize2& size)
     pTilesMap = pMap->getTilesMap();
     if ( pTilesMap == NULL )
     {
-        LError << "Error while getting the tile board";
+        NE::NEngine::logger().log(NE::LL_Error,"Error while getting the tile board");
         delete pMap;
         return NULL;
     }

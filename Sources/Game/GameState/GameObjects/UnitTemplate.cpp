@@ -26,11 +26,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "NEngine/NEngine.h"
+
 #include "Engine/Params.h"
 
 #include "Engine/AnimatedSprite.h"
-
-#include "Utils/Logger.h"
 
 const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
                                                         "internalName", "name", "sprite_filename", "sprite_greyed", "size_x", "size_y",
@@ -65,14 +65,14 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
         this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
-            LError << "Fail to allocate memory for AnimatedSprite for UnitTemplate";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for AnimatedSprite for UnitTemplate");
             throw std::bad_alloc();
         }
 
         this->pSpriteGreyed = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_greyed"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSpriteGreyed == NULL )
         {
-            LError << "Fail to allocate memory for greyed AnimatedSprite for UnitTemplate";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for greyed AnimatedSprite for UnitTemplate");
             throw std::bad_alloc();
         }
 
@@ -88,8 +88,8 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
     }
     catch ( ParameterNotFoundParamsException& pnfpe)
     {
-        LError << "The force list is not matching the requested parameters";
-        LError << "Parameter '" << pnfpe.what() << "' not found";
+        NE::NEngine::logger().log(NE::LL_Error,"The force list is not matching the requested parameters");
+        NE::NEngine::logger().log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
         throw MissingParameterException("unknown");
     }
 }

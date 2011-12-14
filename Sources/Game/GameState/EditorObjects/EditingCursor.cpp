@@ -24,6 +24,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "EditingCursor.h"
 
+#include "NEngine/NEngine.h"
+
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
 
@@ -31,8 +33,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Camera.h"
 
 #include "UI/UIItem.h"
-
-#include "Utils/Logger.h"
 
 #include "globals.h"
 
@@ -42,12 +42,12 @@ EditingCursor :: EditingCursor(const Map* const pMap, const UVec2& initialPositi
 	// The size of the tiles and the cursor are the same to have better effect
 	pWrongCursorSprite = pMap->getTheme()->getUIItem("cursorWrong")->getSprite();
 
-	LDebug << "EditingCursor created " << initialPosition;
+    NE::NEngine::logger().log(NE::LL_Debug,"EditingCursor created %d;%d ",initialPosition.x,initialPosition.y);
 }
 
 EditingCursor :: ~EditingCursor(void)
 {
-	LDebug << "EditingCursor deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"EditingCursor deleted");
 }
 
 bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const

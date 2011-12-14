@@ -24,14 +24,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Cursor.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/InputManager.h"
 
 #include "Engine/AnimatedSprite.h"
 
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Camera.h"
-
-#include "Utils/Logger.h"
 
 #include "globals.h"
 
@@ -54,12 +53,12 @@ Cursor :: Cursor(const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0
 		position.y = 0;
 	}
 
-	LDebug << "Cursor created " << initialPosition;
+    NE::NEngine::logger().log(NE::LL_Debug,"Cursor created %d;%d",initialPosition.x,initialPosition.y);
 }
 
 Cursor :: ~Cursor(void)
 {
-	LDebug << "Cursor deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"Cursor deleted");
 }
 
 const Tile* Cursor :: getTileUnderCursor(void)const

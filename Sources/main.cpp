@@ -33,8 +33,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameEngine.h"
 
-#include "Utils/Logger.h"
-
 #include "GameOption.h"
 
 #include "globals.h"
@@ -56,7 +54,7 @@ int main(int argc, char** argv)
             GameEngine* pGEngine = new GameEngine(pNE,&gameOptions);
             if ( pGEngine == NULL )
             {
-                LError << "Fail to allocate GameEngine";
+                NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate GameEngine");
             }
             else if ( pGEngine->init() )
             {
@@ -75,8 +73,6 @@ int main(int argc, char** argv)
     // Stopping the Native Engine
     pNE->stop();
     delete pNE;
-
-    Logger::deleteLogger();
 
     return 0;
 }

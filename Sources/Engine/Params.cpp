@@ -26,5 +26,3 @@ e-mail: lw.demoscene@gmail.com
 
 #include <map>
 #include <string>
-
-#include "Utils/Logger.h"

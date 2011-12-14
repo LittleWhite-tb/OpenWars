@@ -28,20 +28,20 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "../../../Utils/Logger.h"
+#include "NEngine/NEngine.h"
 
 NE::SDL_Keyboard :: SDL_Keyboard(void):Input(),m_pKeys(NULL)
 {
-        LDebug << "Keyboard created";
+    NE::NEngine::logger().log(NE::LL_Debug,"Keyboard created");
 
-        this->update(); // We directly update the keys array to have a valid array in any cases
+    this->update(); // We directly update the keys array to have a valid array in any cases
 }
 
 NE::SDL_Keyboard :: ~SDL_Keyboard(void)
 {
-        // The pointer doesn't have to be freed because it's SDL internal array
+    // The pointer doesn't have to be freed because it's SDL internal array
 
-        LDebug << "Keyboard deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"Keyboard deleted");
 }
 
 NE::InputManager::ArrowsDirection NE::SDL_Keyboard :: getDirectionsPressed(void)const
@@ -145,7 +145,7 @@ void NE::SDL_Keyboard :: update(void)
         int nbKeys = 0;
 
 #ifdef VERBOSE
-        LDebug << "Keyboard :: update";
+        NE::NEngine::logger().log(NE::LL_Debug,"Keyboard :: update");
 #endif
 
         SDL_PumpEvents();

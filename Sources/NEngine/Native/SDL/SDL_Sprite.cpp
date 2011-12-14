@@ -26,8 +26,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
-#include "Utils/Logger.h"
-
 NE :: SDL_Sprite :: SDL_Sprite(SDL_Surface* pSprite)
 	:Sprite(),pSurface(pSprite)
 {

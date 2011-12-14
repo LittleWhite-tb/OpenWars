@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include "SpriteLoader.h"
 #include "InputManager.h"
 
-#include "../Utils/Logger.h"
+NE::Logger<NE::NoFilter,NE::ColourFormater,NE::ConsoleWriter> NE::NEngine::m_logger;
 
 bool NE :: NEngine :: init(void)
 {
@@ -36,14 +36,14 @@ bool NE :: NEngine :: init(void)
     pSpriteLoader = new SpriteLoader();
     if ( pSpriteLoader == NULL )
     {
-        LError << "Fail to allocate the SpriteLoader";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate the SpriteLoader");
         bError = false;
     }
 
 	pInputManager = new InputManager();
     if ( pInputManager == NULL )
     {
-        LError << "Fail to allocate the InputManager";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate the InputManager");
         bError = false;
     }
     else

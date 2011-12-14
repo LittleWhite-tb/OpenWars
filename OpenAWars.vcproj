@@ -395,26 +395,6 @@
 				RelativePath=".\Sources\Utils\LineParser.h"
 				>
 			</File>
-			<File
-				RelativePath=".\Sources\Utils\Logger.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Utils\Logger.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sources\Utils\Logger_template.hpp"
-				>
-			</File>
-			<Filter
-				Name="Exceptions"
-				>
-				<File
-					RelativePath=".\Sources\Utils\Exceptions\FileNotOpenedException.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="UI"
@@ -686,6 +666,78 @@
 					RelativePath=".\Sources\NEngine\Types\Vec2.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Logging"
+				>
+				<File
+					RelativePath=".\Sources\NEngine\Logging\Logger.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\NEngine\Logging\LoggerMessage.hpp"
+					>
+				</File>
+				<Filter
+					Name="Filter"
+					>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Filter\LoggerFilter.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Filter\NoFilter.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Writer"
+					>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Writer\ConsoleWriter.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Writer\ConsoleWriter.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Writer\FileWriter.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Writer\FileWriter.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Writer\LoggerWriter.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Formatter"
+					>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Formater\ColourFormater.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Formater\ColourFormater.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Formater\LoggerFormater.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Formater\SimpleFormater.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sources\NEngine\Logging\Formater\SimpleFormater.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

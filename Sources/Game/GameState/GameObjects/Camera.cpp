@@ -26,20 +26,20 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Camera.h"
 #include "Game/GameState/GameObjects/Cursor.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Types/Vec2.h"
 
-#include "Utils/Logger.h"
 #include "globals.h"
 
 Camera :: Camera(void)
     :position(UVec2(0,0))
 {
-    LDebug << "Camera created";
+    NE::NEngine::logger().log(NE::LL_Debug,"Camera created");
 }
 
 Camera :: ~Camera(void)
 {
-    LDebug << "Camera deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"Camera deleted");
 }
 
 void Camera :: moveLeft()

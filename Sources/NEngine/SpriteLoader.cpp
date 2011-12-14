@@ -24,10 +24,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "SpriteLoader.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/ISpriteLoader.h"
 #include "NEngine/Exceptions/FileNotFoundException.h"
-
-#include "../Utils/Logger.h"
 
 #include <cassert>
 
@@ -71,7 +70,7 @@ const NE::Sprite* NE::SpriteLoader::loadSpriteFromFile(const std::string& fileNa
         // We gone through all loaders, and the sprite is not loaded ... so, error
         if ( pSprite == NULL )
         {
-            LError << "Fail to load sprite '" << fileName << "'";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to load sprite '%s'",fileName);
             throw FileNotFoundException(fileName);
         }
     }

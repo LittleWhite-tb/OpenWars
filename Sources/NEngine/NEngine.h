@@ -27,6 +27,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "Logging/Logger.hpp"
+#include "NEngine/Logging/Filter/NoFilter.hpp"
+#include "NEngine/Logging/Formater/ColourFormater.hpp"
+#include "NEngine/Logging/Writer/ConsoleWriter.hpp"
+
 namespace NE
 {
 	class Window;
@@ -40,6 +45,10 @@ namespace NE
     
 	class NEngine
 	{
+    private:
+
+        static NE::Logger<NE::NoFilter,NE::ColourFormater,NE::ConsoleWriter> m_logger;
+
 	protected:
 		Window* pWin;					/*!< Window used by the Engine */
 		Renderer* pRenderer;			/*!< Renderer used by the Engine */
@@ -73,6 +82,8 @@ namespace NE
 
 		Time* getTime(void) { return pTime; }
 		// void setTime(Time* const pTime) { this->pTime = pTime; }
+
+        static NE::Logger<NE::NoFilter,NE::ColourFormater,NE::ConsoleWriter>& logger() { return m_logger; }
 	};
 }
 

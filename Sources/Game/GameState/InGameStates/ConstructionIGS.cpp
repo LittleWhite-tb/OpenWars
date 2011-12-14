@@ -24,6 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ConstructionIGS.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
 #include "Engine/Params.h"
@@ -71,7 +72,7 @@ ConstructionIGS :: ConstructionIGS(Map* pMap, const Camera* pCamera, Cursor* pCu
             }
             else
             {
-                LError << "A unit is producable in a tile (producer) not existing -> '" << (*itPUnit)->get(0)->getParams()->get("producedIn") << "'";
+                NE::NEngine::logger().log(NE::LL_Error,"A unit is producable in a tile (producer) not existing -> '%s'",(*itPUnit)->get(0)->getParams()->get("producedIn"));
 				throw ConstructionFailedException("ConstructionIGS");
             }
         }
@@ -99,13 +100,13 @@ IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, N
 	// Some protections
     if ( !pCursor->getTileUnderCursor()->getParams()->exists("producerName") )
     {
-        LWarning << "Tile '" << pCursor->getTileUnderCursor()->getInternalName() << "' selected for construction but not having a producer name";
+        NE::NEngine::logger().log(NE::LL_Warning,"Tile '%s' selected for construction but not having a producer name",pCursor->getTileUnderCursor()->getInternalName());
         return IGS_Idle;
     }
 
     if ( constructionBoxes.find(pCursor->getTileUnderCursor()->getParams()->get("producerName")) == constructionBoxes.end() )
     {
-        LWarning << "Tile '" << pCursor->getTileUnderCursor()->getInternalName() <<  "' does not have a producerName known";
+        NE::NEngine::logger().log(NE::LL_Warning,"Tile '%s' does not have a producerName known",pCursor->getTileUnderCursor()->getInternalName());
         return IGS_Idle;
     }
 

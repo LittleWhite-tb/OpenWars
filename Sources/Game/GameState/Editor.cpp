@@ -46,9 +46,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/EditorObjects/EditingCursor.h"
 #include "Game/GameState/GameObjects/Camera.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Types/Colour.h"
-
-#include "Utils/Logger.h"
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 #include "NEngine/Exceptions/FileNotFoundException.h"
@@ -56,7 +55,7 @@ e-mail: lw.demoscene@gmail.com
 Editor :: Editor()
 :GameState(),pMap(NULL),pCamera(NULL),pEC(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),isUnitSelected(false)
 {
-    LDebug << "EditorEngine constructed";
+    NE::NEngine::logger().log(NE::LL_Debug,"EditorEngine constructed");
 }
 
 Editor :: ~Editor()
@@ -69,7 +68,7 @@ Editor :: ~Editor()
     delete pUnitTB;
     delete pBuildingTB;
 
-    LDebug << "EditorEngine destructed";
+    NE::NEngine::logger().log(NE::LL_Debug,"EditorEngine destructed");
 }
 
 bool Editor :: load(NE::NEngine* pNE)
@@ -90,7 +89,7 @@ bool Editor :: load(NE::NEngine* pNE)
     }
     catch (ConstructionFailedException& cfe)
     {
-        LError << cfe.what();
+        NE::NEngine::logger().log(NE::LL_Error,"%s",cfe.what());
         return false;
     }
 

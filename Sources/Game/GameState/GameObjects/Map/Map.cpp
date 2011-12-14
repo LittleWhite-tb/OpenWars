@@ -31,6 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include <fstream>
 #include <cassert>
 
+#include "NEngine/NEngine.h"
 #include "NEngine/SpriteLoader.h"
 
 #include "Engine/AnimatedSprite.h"
@@ -47,10 +48,8 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Colour.h"
 
 #include "Utils/LineParser.h"
-#include "Utils/Logger.h"
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
-#include "Utils/Exceptions/FileNotOpenedException.h"
 
 #include "globals.h"
 
@@ -64,7 +63,7 @@ Map :: ~Map(void)
 {
     delete pIntegrityChecker;
 
-    LDebug << "Map deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"Map deleted");
 }
 
 bool Map :: allocateMemory(const USize2& size)

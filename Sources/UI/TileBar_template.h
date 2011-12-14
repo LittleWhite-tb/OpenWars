@@ -27,12 +27,12 @@ e-mail: lw.demoscene@gmail.com
 
 #include "TileBar.h"
 
+#include "NEngine/NEngine.h"
+
 #include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
 
 #include "Game/GameState/GameObjects/Tile.h"
-
-#include "Utils/Logger.h"
 
 template <typename T>
 TileBar<T> :: TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& windowSize)
@@ -63,7 +63,7 @@ TileBar<T> :: TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, const U
     stepX = windowSize.width / 80;
     stepY = windowSize.height / 60;
 
-    LDebug << "TileBar created";
+    NE::NEngine::logger().log(NE::LL_Debug,"TileBar created");
 }
 
 template <typename T>
@@ -71,7 +71,7 @@ void TileBar<T> :: moveLeft(void)
 {
     if ( state == TBS_Opened )
     {
-        LDebug << "TileBar :: moveLeft()";
+        NE::NEngine::logger().log(NE::LL_Debug,"TileBar :: moveLeft()");
         movementOffsetX = -(TILE_DEFAULT_WIDTH + borderSize * 2);
 
         state = TBS_MoveLeft;
@@ -85,7 +85,7 @@ void TileBar<T> :: moveRight(void)
 {
     if ( state == TBS_Opened )
     {
-        LDebug << "TileBar :: moveRight()";
+        NE::NEngine::logger().log(NE::LL_Debug,"TileBar :: moveRight()");
 
         movementOffsetX = TILE_DEFAULT_WIDTH + borderSize * 2;
 
@@ -100,7 +100,7 @@ void TileBar<T> :: moveUp(void)
 {
     if ( state == TBS_Opened )
     {
-        LDebug << "TileBar :: moveUp()";
+        NE::NEngine::logger().log(NE::LL_Debug,"TileBar :: moveUp()");
 
         currentY++;
     }
@@ -111,7 +111,7 @@ void TileBar<T> :: moveDown(void)
 {
     if ( state == TBS_Opened )
     {
-        LDebug << "TileBar :: moveDown()";
+        NE::NEngine::logger().log(NE::LL_Debug,"TileBar :: moveDown()");
 
         currentY--;
     }
@@ -137,7 +137,7 @@ void TileBar<T> :: open(void)
 {
     if ( !this->isOpened() )
     {
-        LDebug << "TileBar :: open()";
+        NE::NEngine::logger().log(NE::LL_Debug,"TileBar :: open()");
 
         state = TBS_Opening;
     }
@@ -146,7 +146,7 @@ void TileBar<T> :: open(void)
 template <typename T>
 void TileBar<T> :: close(void)
 {
-    LDebug << "TileBar :: close()";
+    NE::NEngine::logger().log(NE::LL_Debug,"TileBar :: close()");
 
     movementOffsetX = 0;
     state = TBS_Closing;

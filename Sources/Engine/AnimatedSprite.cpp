@@ -26,14 +26,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Renderer.h"
 #include "NEngine/SpriteLoader.h"
 #include "NEngine/Sprite.h"
 
 #include "NEngine/Types/Colour.h"
 #include "NEngine/Types/Rect.h"
-
-#include "../Utils/Logger.h"
 
 AnimatedSprite :: AnimatedSprite(const NE::Sprite* pSprite, const USize2& spriteSize, const unsigned int msInterval)
     :pSprite(pSprite),animationCounter(0),lastUpdate(0),msInterval(msInterval)
@@ -43,7 +42,7 @@ AnimatedSprite :: AnimatedSprite(const NE::Sprite* pSprite, const USize2& sprite
 
     numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 
-    LDebug << "AnimatedSprite (" << spriteSize << ") Nb Animation: " << numberAnimation;
+    NE::NEngine::logger().log(NE::LL_Debug,"AnimatedSprite ( %d;%d ) Nb Animation: %d",spriteSize.width,spriteSize.height,numberAnimation);
 }
 
 AnimatedSprite :: AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval)
@@ -58,12 +57,12 @@ AnimatedSprite :: AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileN
 
     numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 
-    LDebug << "AnimatedSprite (" << fileName << ") Nb Animation: " << numberAnimation;
+    NE::NEngine::logger().log(NE::LL_Debug,"AnimatedSprite ( %s ) Nb Animation: %d",fileName.c_str(),numberAnimation);
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)
 {
-    LDebug << "AnimatedSprite deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"AnimatedSprite deleted");
 }
 
 void AnimatedSprite :: update(const unsigned int time)

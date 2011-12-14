@@ -4,8 +4,8 @@
 
 #include "NEngine/Input.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Exceptions/InputNotFoundException.h"
-#include "../../../Utils/Logger.h"
 
 NE::SDL_Joy :: SDL_Joy():Input(),m_pJoy(SDL_JoystickOpen(0))
 {
@@ -17,14 +17,14 @@ NE::SDL_Joy :: SDL_Joy():Input(),m_pJoy(SDL_JoystickOpen(0))
     // Desabling the event on the joystick
     SDL_JoystickEventState(SDL_DISABLE);
 
-    LDebug << "Joystick created";
+    NE::NEngine::logger().log(NE::LL_Debug,"Joystick created");
 }
 
 NE::SDL_Joy :: ~SDL_Joy()
 {
     SDL_JoystickClose(m_pJoy);
 
-    LDebug << "Joystick deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"Joystick deleted");
 }
 
 void NE::SDL_Joy :: updateButtons(void)

@@ -27,8 +27,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/NEngine.h"
 
-#include "../../../Utils/Logger.h"
-
 namespace NE
 {
     class Sprite;

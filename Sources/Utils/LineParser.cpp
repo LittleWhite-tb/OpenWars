@@ -35,29 +35,28 @@ and is under GPL copyright: Copyright (C) 2010 BEYLER Jean Christophe
 
 #include <cassert>
 
-#include "Exceptions/FileNotOpenedException.h"
-
-#include "Logger.h"
+#include "NEngine/NEngine.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
 
 LineParser :: LineParser(const std::string& fileName)
 :file(fileName.c_str(),std::ios::in),line(),lineNumber(0)
 {
 	if (!file)
 	{
-		LDebug << "LineParser fail to open: " << fileName.c_str();
-		throw FileNotOpenedException(fileName);
+        NE::NEngine::logger().log(NE::LL_Debug,"LineParser fail to open: '%s'",fileName.c_str());
+		throw FileNotFoundException(fileName);
 	}
 
 	readNextLine();
 
-	LDebug << "LineParser constructed: " << fileName.c_str();
+    NE::NEngine::logger().log(NE::LL_Debug,"LineParser constructed: '%s'",fileName.c_str());
 }
 
 LineParser :: ~LineParser()
 {
 	file.close();
 
-	LDebug << "LineParser deleted";
+    NE::NEngine::logger().log(NE::LL_Debug,"LineParser deleted");
 }
 
 bool LineParser :: isEmptyLine()

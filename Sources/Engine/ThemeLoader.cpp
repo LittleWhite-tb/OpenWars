@@ -26,6 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <list>
 
+#include "NEngine/NEngine.h"
 #include "NEngine/SpriteLoader.h"
 #include "Game/GameEngine.h"
 #include "XML/XMLListReader.h"
@@ -35,7 +36,7 @@ void ThemeLoader :: loadTheme(NE::SpriteLoader* pSpriteLoader, const std::string
 	Theme* pTheme = new Theme(themeName);
     if ( pTheme == NULL )
     {
-        LError << "Fail to allocate Theme";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate Theme");
         throw std::bad_alloc();
     }
 

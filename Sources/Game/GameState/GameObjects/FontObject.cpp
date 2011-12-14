@@ -24,12 +24,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include "FontObject.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/SpriteLoader.h"
 
 #include "Engine/Params.h"
 #include "Engine/Font.h"
-
-#include "Utils/Logger.h"
 
 #include <cassert>
 
@@ -63,14 +62,14 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
                                 pParams->getAs<char>("font-startingLetter"));
         if ( this->pFont == NULL )
         {
-            LError << "Fail to allocate memory for Font for FontObject";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for Font for FontObject");
             throw std::bad_alloc();
         }
     }
     catch ( ParameterNotFoundParamsException& pnfpe)
     {
-        LError << "The force list is not matching the requested parameters";
-        LError << "Parameter '" << pnfpe.what() << "' not found";
+        NE::NEngine::logger().log(NE::LL_Error,"The force list is not matching the requested parameters");
+        NE::NEngine::logger().log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
         throw MissingParameterException("unknown");
     }
 }

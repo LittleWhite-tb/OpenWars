@@ -24,6 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MenuIGS.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
 #include "Engine/Params.h"
@@ -41,7 +42,7 @@ MenuIGS :: MenuIGS(Map* pMap, const Camera* pCamera, Cursor* pCursor, GameInfo* 
     pUIMenu = new MenuBox(pSF,pMap->getTheme(),winSize);
     if ( pUIMenu == NULL )
     {
-        LError << "Fail to allocate MenuBox";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate MenuBox");
         throw std::bad_alloc();
     }
 
@@ -83,7 +84,7 @@ IGState MenuIGS :: update(NE::InputManager::ArrowsDirection direction, NE::Input
         }
         else
         {
-            LWarning << "Not implemented action '" << menuSelection << "' in GS_MENU state";
+            NE::NEngine::logger().log(NE::LL_Warning,"Not implemented action '%s' in GS_MENU state",menuSelection);
         }
     }
     else if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )

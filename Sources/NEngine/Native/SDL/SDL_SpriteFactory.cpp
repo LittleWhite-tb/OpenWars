@@ -26,9 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
+#include "NEngine/NEngine.h"
 #include "SDL_Sprite.h"
-
-#include "../../../Utils/Logger.h"
 
 NE::Sprite* NE::SDL_SpriteFactory :: createSprite(const Colour& colour, const USize2& spriteSize)
 {
@@ -42,7 +41,7 @@ NE::Sprite* NE::SDL_SpriteFactory :: createSprite(const Colour& colour, const US
 												);
 	if ( pSurface == NULL )
 	{
-		LError << "SDL_CreateRGBSurfaceFrom() failed (" << SDL_GetError() << ")";
+        NE::NEngine::logger().log(NE::LL_Error,"SDL_CreateRGBSurfaceFrom() failed (%s)",SDL_GetError());
 		return NULL;
 	}
 /*

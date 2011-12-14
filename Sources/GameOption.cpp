@@ -26,9 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "ArgumentParser.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Types/Size2.h"
-
-#include "Utils/Logger.h"
 
 #include "globals.h"
 
@@ -81,6 +80,6 @@ GameOption :: GameOption(int argc, char** argv)
     }
     catch (MissingOptionException& moe)
     {
-        LWarning << moe.what();
+        NE::NEngine::logger().log(NE::LL_Warning,"%s",moe.what());
     }
 }
