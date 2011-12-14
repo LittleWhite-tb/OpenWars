@@ -33,10 +33,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Types/Vec2.h"
 #include "NEngine/Types/Colour.h"
-
-#include "Utils/Logger.h"
 
 #include <vector>
 #include <string>
@@ -55,12 +54,12 @@ ConstructBox :: ConstructBox(const Theme* pTheme)
     pFont = pTheme->getFontObject("classic")->getFont();
     pFontGrey = pTheme->getFontObject("classic")->getFont();
 
-    LDebug << "Construc Box created";
+    NE::NEngine::logger().log(NE::LL_Debug,"Construct Box created");
 }
 
 ConstructBox :: ~ConstructBox(void)
 {
-    LDebug << "Construc Box delete";
+    NE::NEngine::logger().log(NE::LL_Debug,"Construct Box deleted");
 }
 
 void ConstructBox :: add(const UnitTemplateFactionList* pListUnitTemplate)
@@ -75,7 +74,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, con
 
     if ( unitsList.size() > 0 && faction >= unitsList[0]->getNumberFaction() )
     {
-        LWarning << "Try to draw a faction not available";
+        NE::NEngine::logger().log(NE::LL_Warning,"Try to draw a faction not available");
         return true;
     }
 

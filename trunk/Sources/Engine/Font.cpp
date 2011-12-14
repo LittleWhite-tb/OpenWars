@@ -33,7 +33,6 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Size2.h"
 #include "NEngine/Types/Rect.h"
 
-#include "../Utils/Logger.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
 Font :: Font(const NE::Sprite* pSprite, const USize2& letterSize, const unsigned char startingLetter)

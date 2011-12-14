@@ -30,7 +30,7 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <string>
 
-#include "Utils/Logger.h"
+#include "NEngine/NEngine.h"
 
 template <typename T>
 Library<T> :: ~Library()
@@ -40,7 +40,7 @@ Library<T> :: ~Library()
         delete (itPair->second);
     }
 
-    LDebug << "Library of " << typeid(T).name() << " free";
+    NE::NEngine::logger().log(NE::LL_Debug,"Library of %s free",typeid(T).name());
 }
 
 template <typename T>
@@ -48,7 +48,7 @@ void Library<T> :: add(const std::string& name, T* const value)
 {
     if ( this->exists(name) )
     {
-        LWarning << "Library will overwrite the key '" << name << "'";
+        NE::NEngine::logger().log(NE::LL_Warning,"Library will overwrite the key '%s'",name);
     }
     entries[name] = value;
 }

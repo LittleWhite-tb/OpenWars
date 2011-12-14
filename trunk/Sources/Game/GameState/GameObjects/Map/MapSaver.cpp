@@ -24,11 +24,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <fstream>
 
+#include "NEngine/NEngine.h"
+
 #include "MapSaver.h"
 
 #include "Map.h"
-
-#include "Utils/Logger.h"
 
 bool MapSaver :: saveMapToFile(const std::string& fileName, const Map& map)
 {
@@ -36,12 +36,12 @@ bool MapSaver :: saveMapToFile(const std::string& fileName, const Map& map)
 	const std::vector < std::vector < const Tile* > >& tilesMap = map.constTilesMap();
 	const std::vector < std::vector < Unit > >& unitsMap = map.constUnitsMap();
 
-	LDebug << "Map :: save -> '" << fileName.c_str() << "'";
+    NE::NEngine::logger().log(NE::LL_Debug,"Map :: save -> '%s'",fileName.c_str());
 
 	file.open(fileName.c_str(),std::ios::out);
     if ( file.is_open() == false )
     {
-		LWarning << "Failed to open: '" << fileName.c_str() << "'";
+        NE::NEngine::logger().log(NE::LL_Warning,"Failed to open: '%s'",fileName.c_str());
 		return false;
 	}
 

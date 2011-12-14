@@ -38,9 +38,7 @@ e-mail: lw.demoscene@gmail.com
 #include "XML/XMLObjectReader.h"
 
 #include "NEngine/Exceptions/FileNotFoundException.h"
-#include "Utils/Exceptions/FileNotOpenedException.h"
 #include "Utils/LineParser.h"
-#include "Utils/Logger.h"
 
 #include "globals.h"
 
@@ -80,12 +78,12 @@ bool Theme :: load(NE::SpriteLoader* const pSL)
     }
 	catch ( XMLParsingFailedException xmlpfe )
     {
-        LError << xmlpfe.what();
+        NE::NEngine::logger().log(NE::LL_Error,"%s",xmlpfe.what());
         return false;
     }
     catch ( FileNotFoundException fnfe )
     {
-        LError << fnfe.what();
+        NE::NEngine::logger().log(NE::LL_Error,"%s",fnfe.what());
         return false;
     }
 

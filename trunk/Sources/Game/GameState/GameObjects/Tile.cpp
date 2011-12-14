@@ -26,11 +26,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "NEngine/NEngine.h"
+
 #include "Engine/Params.h"
 
 #include "Engine/AnimatedSprite.h"
-
-#include "Utils/Logger.h"
 
 const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
 
@@ -62,7 +62,7 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
         this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
-            LError << "Fail to allocate memory for AnimatedSprite for Tile";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for AnimatedSprite for Tile");
             throw std::bad_alloc();
         }
 
@@ -70,7 +70,7 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
     }
     catch ( ParameterNotFoundParamsException )
     {
-        LError << "The force list is not matching the requested parameters";
+        NE::NEngine::logger().log(NE::LL_Error,"The force list is not matching the requested parameters");
         throw MissingParameterException("unknown");
     }
 }

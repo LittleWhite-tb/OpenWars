@@ -24,9 +24,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UnitTemplateFactionList.h"
 
-#include "Game/GameState/GameObjects/UnitTemplate.h"
+#include "NEngine/NEngine.h"
 
-#include "Utils/Logger.h"
+#include "Game/GameState/GameObjects/UnitTemplate.h"
 
 UnitTemplateFactionList :: ~UnitTemplateFactionList()
 {
@@ -53,7 +53,7 @@ UnitTemplate* UnitTemplateFactionList ::  get(unsigned int faction)const
 {
 	if ( faction >= unitTemplates.size() )
 	{
-		LWarning << "UnitTemplate :: trying to get a faction not in the database";
+        NE::NEngine::logger().log(NE::LL_Warning,"UnitTemplate :: trying to get a faction not in the database");
 		return NULL;
 	}
 

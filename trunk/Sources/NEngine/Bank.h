@@ -30,7 +30,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-#include "Utils/Logger.h"
+#include "NEngine/NEngine.h"
 
 namespace NE
 {
@@ -60,7 +60,7 @@ namespace NE
             // Problem detection
             if ( exist(name) )
             {
-                LWarning << "NE::Bank : '" << name << " is already in the Bank (not overwrittin)";
+                NE::NEngine::logger().log(NE::LL_Warning,"NE::Bank : ' '%s' is already in the Bank (not overwrittin)",name);
                 return;
             }
 

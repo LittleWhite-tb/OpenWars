@@ -24,9 +24,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "VTime.h"
 
-#include "../NEngine/Time.h"
-
-#include "../Utils/Logger.h"
+#include "NEngine/NEngine.h"
+#include "NEngine/Time.h"
 
 VTime :: VTime(NE::Time* const pNativeTime, const unsigned int nbFPS, const unsigned int updateNbFPS)
 :pNativeTime(pNativeTime),time(0),lastDrawTime(0),lastUpdateTime(0),msSecondsBetweenTwoFrame(1000/nbFPS),msSecondsBetweenTwoUpdate(1000/updateNbFPS)
@@ -50,7 +49,7 @@ void VTime :: waitNextFrame()
 	{
 		if ( !isFirst )
 		{
-			LWarning << "The game is too slow";
+            NE::NEngine::logger().log(NE::LL_Warning,"The game is too slow");
 		}
 		else
 		{

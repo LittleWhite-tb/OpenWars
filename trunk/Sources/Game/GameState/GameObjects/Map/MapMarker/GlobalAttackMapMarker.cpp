@@ -29,8 +29,6 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Unit.h"
 #include "Game/GameState/GameObjects/Map/Map.h"
 
-#include "Utils/Logger.h"
-
 GlobalAttackMapMarker :: GlobalAttackMapMarker(const Map* pMap)
 	:MapMarker(pMap,pMap->getTheme()->getUIItem("AttackMark")->getSprite())
 {

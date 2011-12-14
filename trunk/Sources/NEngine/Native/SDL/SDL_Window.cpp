@@ -26,9 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <SDL/SDL.h>
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Types/Size2.h"
-
-#include "../../../Utils/Logger.h"
 
 bool NE::SDL_Window::isRedCrossPressed = false;
 
@@ -47,7 +46,7 @@ NE :: SDL_Window :: ~SDL_Window(void)
 {
     if ( pNativeWindow != NULL )
     {
-        LWarning << "The window is not properly cleared";
+        NE::NEngine::logger().log(NE::LL_Warning,"The window is not properly cleared");
     }
 }
 
@@ -56,7 +55,7 @@ unsigned int NE :: SDL_Window :: getFlags(const bool isFullscreen, const bool is
     unsigned int sdlVideoFlags = SDL_DOUBLEBUF | SDL_ANYFORMAT;
     const SDL_VideoInfo* pVideoInfo = SDL_GetVideoInfo();   // The documentation does not descrive a case of this function returning NULL pointer
 
-    LDebug << "Window :: getFlags (" << isFullscreen << ";" << isOpenGL << ")";
+    NE::NEngine::logger().log(NE::LL_Debug,"Window :: getFlags (%d;%d)",isFullscreen,isOpenGL);
 
     if ( pVideoInfo->hw_available ) // is Hardware surface possible?
     {
@@ -93,13 +92,13 @@ bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned shor
 {
     Uint32 sdlVideoFlags = this->getFlags(isFullscreen,false);
 
-    LDebug << "SDL_Window :: createWindow (" << winSize << " ; " << bpp << "|" << isFullscreen << ")";
+    NE::NEngine::logger().log(NE::LL_Debug,"SDL_Window :: createWindow (%dx%d x %d ; %d)",winSize.width,winSize.height,bpp,isFullscreen);
 
     pNativeWindow = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
 
     if ( pNativeWindow != NULL )
     {
-        LDebug << "Obtained: " << pNativeWindow->w << "x" << pNativeWindow->h << "x" << pNativeWindow->format->BitsPerPixel;
+        NE::NEngine::logger().log(NE::LL_Debug,"Obtained: %dx%d x %d",pNativeWindow->w,pNativeWindow->h,pNativeWindow->format->BitsPerPixel);
 
         // Set additionnal settings
         SDL_WM_SetCaption(windowName.c_str(), windowIcon.c_str());
@@ -118,7 +117,7 @@ bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned shor
         return true;
     }
 
-    LError << "Error while opening the window";
+    NE::NEngine::logger().log(NE::LL_Error,"Error while opening the window");
     return false;
 }
 

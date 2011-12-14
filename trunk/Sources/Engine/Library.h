@@ -32,12 +32,11 @@ e-mail: lw.demoscene@gmail.com
 
 #include <typeinfo>
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Exception.h"
 
 #include "Game/GameState/GameObjects/UnitTemplate.h"
 #include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
-
-#include "Utils/Logger.h"
 
 class LibraryException : public Exception
 {
@@ -82,7 +81,7 @@ public:
             delete (itPair->second);
         }
 
-        LDebug << "Library of " << typeid(UnitTemplateFactionList).name() << " free";
+        NE::NEngine::logger().log(NE::LL_Debug,"Library of %s free",typeid(UnitTemplateFactionList).name());
     }
 
     void add(const std::string& name, UnitTemplate* const value)
@@ -92,7 +91,7 @@ public:
             entries[name] = new UnitTemplateFactionList();
             if ( entries[name] == NULL )
             {
-                LError << "Fail to allocate memory for UnitTemplateFactionList";
+                NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for UnitTemplateFactionList");
                 throw std::bad_alloc();
             }
         }

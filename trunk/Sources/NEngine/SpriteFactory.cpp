@@ -26,7 +26,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "Sprite.h"
 
-#include "../Utils/Logger.h"
+#include "NEngine/NEngine.h"
 
 NE::SpriteFactory :: ~SpriteFactory(void)
 {
@@ -45,7 +45,7 @@ NE::Sprite* NE::SpriteFactory::createSpriteFromColour(const Colour& colour, cons
         Sprite* pSprite = createSprite(colour,spriteSize);
         if ( pSprite == NULL )
         {
-            LError << "NE::SpriteFactory (Fail to create the Sprite ('" << colour << "')";
+            NE::NEngine::logger().log(NE::LL_Error,"NE::SpriteFactory (Fail to create the Sprite (%d;%d;%d.%d)",colour.r,colour.g,colour.b,colour.a);
             return NULL;
         }
         

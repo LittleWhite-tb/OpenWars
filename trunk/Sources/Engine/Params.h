@@ -29,9 +29,8 @@ e-mail: lw.demoscene@gmail.com
 #include <map>
 #include <sstream>
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Exception.h"
-
-#include "Utils/Logger.h"
 
 class ParameterNotFoundParamsException : public Exception
 {
@@ -63,7 +62,7 @@ public:
     {
         if ( this->exists(name) )
         {
-            LWarning << "Params will overwrite key '" << name << "'";
+            NE::NEngine::logger().log(NE::LL_Warning,"Params will overwrite key '%s'",name);
         }
 
         params[name] = value;

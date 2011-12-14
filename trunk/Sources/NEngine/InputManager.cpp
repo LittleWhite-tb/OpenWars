@@ -4,25 +4,25 @@
 
 #include <typeinfo>
 
-#include "../Utils/Logger.h"
+#include "NEngine/NEngine.h"
 
 NE::InputManager :: InputManager()
 {
-	LDebug << "Input Manager inited";
+    NE::NEngine::logger().log(NE::LL_Debug,"Input Manager inited");
 }
 
 NE::InputManager :: ~InputManager(void)
 {
 	this->deleteControllers();
 
-	LDebug << "Input Manager destructed";
+    NE::NEngine::logger().log(NE::LL_Debug,"Input Manager destructed");
 }
 
 void NE::InputManager :: registerController(Input* newController)
 {
 	m_controllers.push_back(newController);
 
-	LDebug << "Registered -> " << typeid(newController).name();
+    NE::NEngine::logger().log(NE::LL_Debug,"Registered -> %s",typeid(newController).name());
 }
 
 void NE::InputManager :: deleteControllers(void)

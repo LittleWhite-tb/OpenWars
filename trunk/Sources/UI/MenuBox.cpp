@@ -24,6 +24,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MenuBox.h"
 
+#include "../NEngine/NEngine.h"
 #include "../NEngine/SpriteFactory.h"
 #include "../NEngine/Sprite.h"
 #include "../NEngine/Renderer.h"
@@ -32,8 +33,6 @@ e-mail: lw.demoscene@gmail.com
 #include "../Engine/AnimatedSprite.h"
 #include "../Engine/Font.h"
 #include "../Engine/Theme.h"
-
-#include "../Utils/Logger.h"
 
 #include "../NEngine/Exceptions/ConstructionFailedException.h"
 
@@ -78,7 +77,7 @@ MenuBox::MenuItem* MenuBox :: getEntry(const std::string& entryActionName)
         }
     }
 
-    LWarning << "MenuBox::getEntry('" << entryActionName << "') not found";
+    NE::NEngine::logger().log(NE::LL_Warning,"MenuBox::getEntry('%s') not found",entryActionName);
     return NULL;
 }
 
@@ -187,7 +186,7 @@ const std::string& MenuBox :: getSelectedActionName(void)const
         }
     }
 
-    LWarning << "MenuBox::getSelectedActionName -> No valid entry found";
+    NE::NEngine::logger().log(NE::LL_Warning,"MenuBox::getSelectedActionName -> No valid entry found");
     return returnError;
 }
 

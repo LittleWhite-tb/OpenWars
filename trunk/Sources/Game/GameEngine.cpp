@@ -40,8 +40,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include "XML/XMLListReader.h"
 
-#include "Utils/Logger.h"
-
 #include "GameOption.h"
 
 #include "globals.h"
@@ -52,14 +50,14 @@ GameEngine :: GameEngine(NE::NEngine* pNE, const GameOption* pGameOptions)
     assert(pNE);
     assert(pGameOptions);
 
-    LDebug << "GameEngine started";
+    NE::NEngine::logger().log(NE::LL_Debug,"GameEngine started");
 }
 
 GameEngine :: ~GameEngine()
 {
     delete pGame;
 
-    LDebug << "GameEngine stopped";
+    NE::NEngine::logger().log(NE::LL_Debug,"GameEngine stopped");
 }
 
 bool GameEngine :: init(void)
@@ -77,7 +75,7 @@ bool GameEngine :: init(void)
 
     if ( pGame == NULL )
     {
-        LError << "Fail to allocate memory for game state";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for game state");
         return false;
     }
 
@@ -105,12 +103,12 @@ bool GameEngine :: load(void)
     }
     catch (LibraryException& le)
     {
-        LError << le.what();
+        NE::NEngine::logger().log(NE::LL_Error,"%s",le.what());
         return false;
     }
     catch (EngineException& ee)
     {
-        LError << ee.what();
+        NE::NEngine::logger().log(NE::LL_Error,"%s",ee.what());
         return false;
     }
 
@@ -123,7 +121,7 @@ bool GameEngine :: render()
 
     if ( pNE->getRenderer()->updateWindow() == false )
     {
-        LError << "Fail to draw on the screen";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to draw on the screen");
     }
 
     return true;
@@ -162,7 +160,7 @@ void GameEngine :: run(void)
             fpsCounter = 0;
             fpsLastUpdateTime = pNE->getTime()->getTime();
 
-            LDebug << "FPS: " << fpsNumber;
+            NE::NEngine::logger().log(NE::LL_Info,"FPS: %d",fpsNumber);
         }
     }
 

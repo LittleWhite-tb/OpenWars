@@ -32,10 +32,9 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Colour.h"
 #include "NEngine/Types/Rect.h"
 
+#include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
 #include "NEngine/Sprite.h"
-
-#include "../../../Utils/Logger.h"
 
 bool NE :: SDL_Renderer :: clearScreen(const Colour& colour)
 {
@@ -43,7 +42,7 @@ bool NE :: SDL_Renderer :: clearScreen(const Colour& colour)
 
     if ( SDL_FillRect(pSDLWindow,NULL,SDL_MapRGB(pSDLWindow->format,colour.r,colour.g,colour.b)) != 0 )
     {
-        LWarning << "Fail to clear the screen";
+        NE::NEngine::logger().log(NE::LL_Warning,"Fail to clear the screen");
         return false;
     }
 
@@ -60,7 +59,7 @@ bool NE :: SDL_Renderer :: drawRect(const Rect& tile, const Colour& colour)const
 
     if ( SDL_FillRect(pSDLWindow, &sdlTile, SDL_MapRGBA(pSDLWindow->format, colour.r, colour.g, colour.b, colour.a)) == -1 )
     {
-        LWarning << "Failed to draw";
+        NE::NEngine::logger().log(NE::LL_Warning,"Failed to draw");
         return false;
     }
 
@@ -99,7 +98,7 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSpri
 
     if ( SDL_BlitSurface(pSDLSurface, &sdlSrcRect, pSDLWindow, &sdlDestRect) != 0 )
     {
-        LWarning << "Fail to blit the surface";
+        NE::NEngine::logger().log(NE::LL_Warning,"Fail to blit the surface");
         return false;
     }
 
@@ -125,7 +124,7 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSpri
     SDL_Surface* pSrc = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA, srcRect.size.width, srcRect.size.height, pSDLSurface->format->BitsPerPixel, mask.r,mask.g,mask.b, mask.a);
     if ( pSrc == NULL )
     {
-        LWarning << "Fail to produce the copy of the sprite for RSDL :: drawTile";
+        NE::NEngine::logger().log(NE::LL_Warning,"Fail to produce the copy of the sprite for RSDL :: drawTile");
         return false;
 
     }
@@ -133,7 +132,7 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSpri
     // The masking is done in CreateRGBSurface
     if ( SDL_BlitSurface(pSDLSurface, &sdlSrcRect, pSrc, NULL)  != 0 )
     {
-        LWarning << "Fail to copy the sprite in a temporary surface";
+        NE::NEngine::logger().log(NE::LL_Warning,"Fail to copy the sprite in a temporary surface");
         SDL_FreeSurface(pSrc);
         return false;
     }
@@ -141,7 +140,7 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSpri
     // Making a pre blit with the original image
     if ( SDL_BlitSurface(pSDLSurface, &sdlSrcRect, pSDLWindow, &sdlDestRect)  != 0 )
     {
-        LWarning << "Fail to copy the sprite in a temporary surface";
+        NE::NEngine::logger().log(NE::LL_Warning,"Fail to copy the sprite in a temporary surface");
         SDL_FreeSurface(pSrc);
         return false;
     }
@@ -149,7 +148,7 @@ bool NE :: SDL_Renderer :: drawSurface(const IVec2& position,const Sprite* pSpri
     // Apply the filter
     if ( SDL_BlitSurface(pSrc, NULL, pSDLWindow, &sdlDestRect) != 0 )
     {
-        LWarning << "Fail to blit the surface";
+        NE::NEngine::logger().log(NE::LL_Warning,"Fail to blit the surface");
         SDL_FreeSurface(pSrc);
         return false;
     }
@@ -167,7 +166,7 @@ bool NE :: SDL_Renderer :: updateWindow(void)
     // SDL_UpdateRect(pSDLWindow,0,0,0,0);
     if ( SDL_Flip(pSDLWindow) != 0 )
     {
-        LError << "Fail to draw on the screen";
+        NE::NEngine::logger().log(NE::LL_Error,"Fail to draw on the screen");
         return false;
     }
 

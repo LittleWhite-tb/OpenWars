@@ -26,13 +26,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
+#include "NEngine/NEngine.h"
+
 #include "Engine/Params.h"
 
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/UnitTemplate.h"
-
-#include "Utils/Logger.h"
 
 const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 {
@@ -1172,14 +1172,14 @@ bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTem
 
 	if ( !pUnitTemplate->getParams()->exists("unit-classId") )
 	{
-		LWarning << "An unit template does not have a classId";
+        NE::NEngine::logger().log(NE::LL_Warning,"An unit template does not have a classId");
 		return false;
 	}
 
 	int unitClassId = pUnitTemplate->getParams()->getAs<int>("unit-classId",-100);
 	if ( unitClassId == -100 )
 	{
-		LWarning << "An unit template does not have a valide classId (value of -100)";
+        NE::NEngine::logger().log(NE::LL_Warning,"An unit template does not have a valide classId (value of -100)");
 		return false;
 	}
 
@@ -1243,7 +1243,7 @@ bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTem
 			return true;
 			break;
 		default:
-			LWarning << "Unknown unity class '" << unitClassId << "'";
+            NE::NEngine::logger().log(NE::LL_Warning,"Unknown unity class '%d'",unitClassId);
 			return false;
 			break;
 	}

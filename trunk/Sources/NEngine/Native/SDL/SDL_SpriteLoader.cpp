@@ -28,9 +28,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 
+#include "NEngine/NEngine.h"
 #include "SDL_Sprite.h"
-
-#include "../../../Utils/Logger.h"
 
 NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileName, const Colour& transparencyColour)
 {
@@ -48,7 +47,7 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileNa
             Uint32 colorkey = SDL_MapRGB(pOptimisedSurface->format, transparencyColour.r, transparencyColour.g, transparencyColour.b);
             if ( SDL_SetColorKey(pOptimisedSurface, SDL_RLEACCEL | SDL_SRCCOLORKEY, colorkey ) == -1 )
             {
-                LWarning << "Fail to set transparency to '" << fileName << "'";
+                NE::NEngine::logger().log(NE::LL_Warning,"Fail to set transparency to '%s'",fileName);
             }
 
             // We replace the pointer to the new optimised surface
@@ -56,13 +55,13 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileNa
         }
         else
         {
-            LError << "Fail to optimise sprite '" << fileName << "'";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to optimise sprite '%s'",fileName);
         }
 
         NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
         if ( pSprite == NULL )
         {
-            LError << "Fail to allocate memory for a SDL_Sprite";
+            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for a SDL_Sprite");
         }
 
         return pSprite;
