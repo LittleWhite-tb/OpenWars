@@ -55,14 +55,14 @@ UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string
         this->pSprite = new AnimatedSprite(pSprite,spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
-            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for AnimatedSprite for UnitTemplate");
+            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for AnimatedSprite for UnitTemplate");
             throw std::bad_alloc();
         }
     }
     catch ( ParameterNotFoundParamsException& pnfpe)
     {
-        NE::NEngine::logger().log(NE::LL_Error,"The force list is not matching the requested parameters");
-        NE::NEngine::logger().log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
+        NE::NEngine::logger()->log(NE::LL_Error,"The force list is not matching the requested parameters");
+        NE::NEngine::logger()->log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
         throw MissingParameterException("unknown");
     }
 }

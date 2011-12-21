@@ -51,12 +51,12 @@ TileViewer :: TileViewer(const Theme* pTheme, const USize2& windowSize)
 
     title = "Element";
 
-    NE::NEngine::logger().log(NE::LL_Debug,"TileViewer created");
+    NE::NEngine::logger()->log(NE::LL_Debug,"TileViewer created");
 }
 
 TileViewer :: ~TileViewer()
 {
-    NE::NEngine::logger().log(NE::LL_Debug,"TileViewer deleted");
+    NE::NEngine::logger()->log(NE::LL_Debug,"TileViewer deleted");
 }
 
 void TileViewer :: setTile(const Tile* pTile)

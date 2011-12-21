@@ -43,7 +43,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
     xmlNodePtr xmlRoot = xmlDocGetRootElement(xmlFile);
     if ( xmlRoot == NULL )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"XML file does not have a root node");
+        NE::NEngine::logger()->log(NE::LL_Error,"XML file does not have a root node");
         return false;
     }
 
@@ -62,7 +62,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                     Params* pParams = new Params();
                     if ( pParams == NULL )
                     {
-                        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for Params");
+                        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for Params");
                         throw std::bad_alloc();
                     }
 
@@ -77,7 +77,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                         T* pInstance = new T(pParams,pSL,folderPath);
                         if ( pInstance == NULL )
                         {
-                            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for %s",typeid(T).name());
+                            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for %s",typeid(T).name());
                             throw std::bad_alloc();
                         }
 
@@ -87,12 +87,12 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                 }
                 else
                 {
-                    NE::NEngine::logger().log(NE::LL_Error,"%s node is empty -> ignored",typeid(T).name());
+                    NE::NEngine::logger()->log(NE::LL_Error,"%s node is empty -> ignored",typeid(T).name());
                 }
             }
             else
             {
-                NE::NEngine::logger().log(NE::LL_Error,"File contain an invalid node '%s' -> Ignored",node->name);
+                NE::NEngine::logger()->log(NE::LL_Error,"File contain an invalid node '%s' -> Ignored",node->name);
             }
         }
     }

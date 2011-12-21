@@ -53,7 +53,7 @@ UnitTemplate* UnitTemplateFactionList ::  get(unsigned int faction)const
 {
 	if ( faction >= unitTemplates.size() )
 	{
-        NE::NEngine::logger().log(NE::LL_Warning,"UnitTemplate :: trying to get a faction not in the database");
+        NE::NEngine::logger()->log(NE::LL_Warning,"UnitTemplate :: trying to get a faction not in the database");
 		return NULL;
 	}
 

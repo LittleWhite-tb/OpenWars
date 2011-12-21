@@ -81,7 +81,7 @@ public:
             delete (itPair->second);
         }
 
-        NE::NEngine::logger().log(NE::LL_Debug,"Library of %s free",typeid(UnitTemplateFactionList).name());
+        NE::NEngine::logger()->log(NE::LL_Debug,"Library of %s free",typeid(UnitTemplateFactionList).name());
     }
 
     void add(const std::string& name, UnitTemplate* const value)
@@ -91,7 +91,7 @@ public:
             entries[name] = new UnitTemplateFactionList();
             if ( entries[name] == NULL )
             {
-                NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for UnitTemplateFactionList");
+                NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for UnitTemplateFactionList");
                 throw std::bad_alloc();
             }
         }

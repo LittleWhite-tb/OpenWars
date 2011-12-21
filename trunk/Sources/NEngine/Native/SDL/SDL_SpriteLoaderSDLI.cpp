@@ -41,7 +41,7 @@ NE :: SDL_SpriteLoaderSDLI :: SDL_SpriteLoaderSDLI(const int flags)
     // Starting SDL_image
     if ( (initIMG & flags) != flags )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"Fail to init the SDL_image with PNG support (%s)",IMG_GetError());
+        NE::NEngine::logger()->log(NE::LL_Error,"Fail to init the SDL_image with PNG support (%s)",IMG_GetError());
         throw ConstructionFailedException("SDL_SpriteLoaderSDLI");
     }
 }
@@ -64,7 +64,7 @@ NE :: Sprite* NE :: SDL_SpriteLoaderSDLI :: loadSpriteFromFile(const std::string
         NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
         if ( pSprite == NULL )
         {
-            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for a SDL_Sprite");
+            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for a SDL_Sprite");
         }
 
         return pSprite;

@@ -62,14 +62,14 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
                                 pParams->getAs<char>("font-startingLetter"));
         if ( this->pFont == NULL )
         {
-            NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for Font for FontObject");
+            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for Font for FontObject");
             throw std::bad_alloc();
         }
     }
     catch ( ParameterNotFoundParamsException& pnfpe)
     {
-        NE::NEngine::logger().log(NE::LL_Error,"The force list is not matching the requested parameters");
-        NE::NEngine::logger().log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
+        NE::NEngine::logger()->log(NE::LL_Error,"The force list is not matching the requested parameters");
+        NE::NEngine::logger()->log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
         throw MissingParameterException("unknown");
     }
 }
