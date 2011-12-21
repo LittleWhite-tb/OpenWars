@@ -1172,14 +1172,14 @@ bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTem
 
 	if ( !pUnitTemplate->getParams()->exists("unit-classId") )
 	{
-        NE::NEngine::logger().log(NE::LL_Warning,"An unit template does not have a classId");
+        NE::NEngine::logger()->log(NE::LL_Warning,"An unit template does not have a classId");
 		return false;
 	}
 
 	int unitClassId = pUnitTemplate->getParams()->getAs<int>("unit-classId",-100);
 	if ( unitClassId == -100 )
 	{
-        NE::NEngine::logger().log(NE::LL_Warning,"An unit template does not have a valide classId (value of -100)");
+        NE::NEngine::logger()->log(NE::LL_Warning,"An unit template does not have a valide classId (value of -100)");
 		return false;
 	}
 
@@ -1243,7 +1243,7 @@ bool ClassicMapIntegrityChecker :: testUnit(const UVec2& position, const UnitTem
 			return true;
 			break;
 		default:
-            NE::NEngine::logger().log(NE::LL_Warning,"Unknown unity class '%d'",unitClassId);
+            NE::NEngine::logger()->log(NE::LL_Warning,"Unknown unity class '%d'",unitClassId);
 			return false;
 			break;
 	}

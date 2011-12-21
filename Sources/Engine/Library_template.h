@@ -40,7 +40,7 @@ Library<T> :: ~Library()
         delete (itPair->second);
     }
 
-    NE::NEngine::logger().log(NE::LL_Debug,"Library of %s free",typeid(T).name());
+    NE::NEngine::logger()->log(NE::LL_Debug,"Library of %s free",typeid(T).name());
 }
 
 template <typename T>
@@ -48,7 +48,7 @@ void Library<T> :: add(const std::string& name, T* const value)
 {
     if ( this->exists(name) )
     {
-        NE::NEngine::logger().log(NE::LL_Warning,"Library will overwrite the key '%s'",name);
+        NE::NEngine::logger()->log(NE::LL_Warning,"Library will overwrite the key '%s'",name);
     }
     entries[name] = value;
 }

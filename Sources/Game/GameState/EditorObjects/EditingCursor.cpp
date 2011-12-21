@@ -42,12 +42,12 @@ EditingCursor :: EditingCursor(const Map* const pMap, const UVec2& initialPositi
 	// The size of the tiles and the cursor are the same to have better effect
 	pWrongCursorSprite = pMap->getTheme()->getUIItem("cursorWrong")->getSprite();
 
-    NE::NEngine::logger().log(NE::LL_Debug,"EditingCursor created %d;%d ",initialPosition.x,initialPosition.y);
+    NE::NEngine::logger()->log(NE::LL_Debug,"EditingCursor created %d;%d ",initialPosition.x,initialPosition.y);
 }
 
 EditingCursor :: ~EditingCursor(void)
 {
-    NE::NEngine::logger().log(NE::LL_Debug,"EditingCursor deleted");
+    NE::NEngine::logger()->log(NE::LL_Debug,"EditingCursor deleted");
 }
 
 bool EditingCursor :: draw(const NE::Renderer& r, const Camera& c, const unsigned int time)const

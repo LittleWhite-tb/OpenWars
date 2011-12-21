@@ -8,21 +8,21 @@
 
 NE::InputManager :: InputManager()
 {
-    NE::NEngine::logger().log(NE::LL_Debug,"Input Manager inited");
+    NE::NEngine::logger()->log(NE::LL_Debug,"Input Manager inited");
 }
 
 NE::InputManager :: ~InputManager(void)
 {
 	this->deleteControllers();
 
-    NE::NEngine::logger().log(NE::LL_Debug,"Input Manager destructed");
+    NE::NEngine::logger()->log(NE::LL_Debug,"Input Manager destructed");
 }
 
 void NE::InputManager :: registerController(Input* newController)
 {
 	m_controllers.push_back(newController);
 
-    NE::NEngine::logger().log(NE::LL_Debug,"Registered -> %s",typeid(newController).name());
+    NE::NEngine::logger()->log(NE::LL_Debug,"Registered -> %s",typeid(newController).name());
 }
 
 void NE::InputManager :: deleteControllers(void)

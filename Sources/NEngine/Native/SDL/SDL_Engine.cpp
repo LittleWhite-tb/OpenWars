@@ -45,7 +45,7 @@ bool NE :: SDL_Engine :: initAPI(void)
 {
     if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"Error while initializing SDL -> SDL_INIT_VIDEO");
+        NE::NEngine::logger()->log(NE::LL_Error,"Error while initializing SDL -> SDL_INIT_VIDEO");
         return false;
     }
 
@@ -60,7 +60,7 @@ bool NE :: SDL_Engine :: initAPI(void)
     }
     catch ( ConstructionFailedException cfe )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"%s",cfe.what());
+        NE::NEngine::logger()->log(NE::LL_Error,"%s",cfe.what());
         pSpriteLoader = NULL;
     }
 
@@ -68,7 +68,7 @@ bool NE :: SDL_Engine :: initAPI(void)
 
     if ( pWin == NULL || pRenderer == NULL || pTime == NULL || pSpriteLoader == NULL || pSpriteFactory == NULL )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate memory for SDL_Engine components");
+        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for SDL_Engine components");
         return false;
     }
 
@@ -81,7 +81,7 @@ bool NE :: SDL_Engine :: initAPI(void)
     }
     catch  (InputNotFoundException& infe)
     {
-        NE::NEngine::logger().log(NE::LL_Warning,"No joystick found %s",infe.what());
+        NE::NEngine::logger()->log(NE::LL_Warning,"No joystick found %s",infe.what());
         pJoystick = NULL;
     }
 
@@ -90,7 +90,7 @@ bool NE :: SDL_Engine :: initAPI(void)
         pInputManager->registerController(pJoystick);
     }
 
-    NE::NEngine::logger().log(NE::LL_Debug,"Native Engine SDL started");
+    NE::NEngine::logger()->log(NE::LL_Debug,"Native Engine SDL started");
     return true;
 }
 
@@ -103,7 +103,7 @@ bool NE :: SDL_Engine :: stopAPI(void)
 
     SDL_Quit();
 
-    NE::NEngine::logger().log(NE::LL_Debug,"Native Engine SDL stopped");
+    NE::NEngine::logger()->log(NE::LL_Debug,"Native Engine SDL stopped");
 
     return true;
 }

@@ -47,7 +47,7 @@ Map* MapLoader :: loadMapFromFile(const Library<Theme>* const pThemes, const std
 
     LineParser lp(fileName);
 
-    NE::NEngine::logger().log(NE::LL_Debug,"MapLoader::loadMapFromFile '%s'",fileName.c_str());
+    NE::NEngine::logger()->log(NE::LL_Debug,"MapLoader::loadMapFromFile '%s'",fileName.c_str());
 
     do
     {
@@ -57,18 +57,18 @@ Map* MapLoader :: loadMapFromFile(const Library<Theme>* const pThemes, const std
 
             if ( !pThemes->exists(themeName) )
             {
-                NE::NEngine::logger().log(NE::LL_Error,"Map is asking for a theme not found");
+                NE::NEngine::logger()->log(NE::LL_Error,"Map is asking for a theme not found");
                 error = true;
             }
 
             pMap = new Map(pThemes->get(themeName));
             if ( pMap == NULL )
             {
-                NE::NEngine::logger().log(NE::LL_Error,"Failed to allocate Map memory");
+                NE::NEngine::logger()->log(NE::LL_Error,"Failed to allocate Map memory");
                 throw std::bad_alloc();
             }
 
-            NE::NEngine::logger().log(NE::LL_Debug,"Theme: %s",themeName.c_str());
+            NE::NEngine::logger()->log(NE::LL_Debug,"Theme: %s",themeName.c_str());
 
         }
         else if ( lp.getLineNumber() == 2 )
@@ -82,13 +82,13 @@ Map* MapLoader :: loadMapFromFile(const Library<Theme>* const pThemes, const std
                 pUnitsMap = pMap->getUnitsMap();
                 if ( pTilesMap == NULL || pUnitsMap == NULL )
                 {
-                    NE::NEngine::logger().log(NE::LL_Error,"Error while getting the Map boards");
+                    NE::NEngine::logger()->log(NE::LL_Error,"Error while getting the Map boards");
                     error = true;
                 }
             }
             else
             {
-                NE::NEngine::logger().log(NE::LL_Error,"Size of the map not valid (%d;%d)",size.width,size.height);
+                NE::NEngine::logger()->log(NE::LL_Error,"Size of the map not valid (%d;%d)",size.width,size.height);
                 error = true;
             }
         }
@@ -111,13 +111,13 @@ Map* MapLoader :: loadMapFromFile(const Library<Theme>* const pThemes, const std
                     }
                     else
                     {
-                        NE::NEngine::logger().log(NE::LL_Warning,"Tile data in the map invalid (%d) at position %d;%d",tileID,x,lp.getLineNumber()-3);
+                        NE::NEngine::logger()->log(NE::LL_Warning,"Tile data in the map invalid (%d) at position %d;%d",tileID,x,lp.getLineNumber()-3);
                         error = true;
                     }
                 }
                 else
                 {
-                    NE::NEngine::logger().log(NE::LL_Error,"Fail to read the tile type @%d;%d",x,lp.getLineNumber()-3);
+                    NE::NEngine::logger()->log(NE::LL_Error,"Fail to read the tile type @%d;%d",x,lp.getLineNumber()-3);
                     error = true;
                 }
             }
@@ -145,13 +145,13 @@ Map* MapLoader :: loadMapFromFile(const Library<Theme>* const pThemes, const std
                     }
                     else
                     {
-                        NE::NEngine::logger().log(NE::LL_Warning,"Data in the map invalid (%d)",unitID);
+                        NE::NEngine::logger()->log(NE::LL_Warning,"Data in the map invalid (%d)",unitID);
                         error = true;
                     }
                 }
                 else
                 {
-                    NE::NEngine::logger().log(NE::LL_Error,"Fail to read the tile type @%d;%d",x,lp.getLineNumber()-(3+size.height));
+                    NE::NEngine::logger()->log(NE::LL_Error,"Fail to read the tile type @%d;%d",x,lp.getLineNumber()-(3+size.height));
                     error = true;
                 }
             }

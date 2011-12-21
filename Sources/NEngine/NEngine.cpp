@@ -24,26 +24,37 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine.h"
 
+#include "NEngine/Logging/Filter/NoFilter.hpp"
+#include "NEngine/Logging/Formater/ColourFormater.hpp"
+#include "NEngine/Logging/Writer/ConsoleWriter.hpp"
+
 #include "SpriteLoader.h"
 #include "InputManager.h"
 
-NE::Logger<NE::NoFilter,NE::ColourFormater,NE::ConsoleWriter> NE::NEngine::m_logger;
+NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>* NE::NEngine::m_pLogger = NULL;
 
 bool NE :: NEngine :: init(void)
 {
 	bool bError = true;
 
+	// Start the logger
+	if ( m_pLogger == NULL ) // We check if the user set his own logger
+	{
+		// if no logger, let's add our own
+		m_pLogger = reinterpret_cast<NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>*>(new NE::Logger<NE::NoFilter,NE::ColourFormater,NE::ConsoleWriter>());
+	}
+
     pSpriteLoader = new SpriteLoader();
     if ( pSpriteLoader == NULL )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate the SpriteLoader");
+        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate the SpriteLoader");
         bError = false;
     }
 
 	pInputManager = new InputManager();
     if ( pInputManager == NULL )
     {
-        NE::NEngine::logger().log(NE::LL_Error,"Fail to allocate the InputManager");
+        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate the InputManager");
         bError = false;
     }
     else
@@ -63,4 +74,13 @@ bool NE :: NEngine :: stop(void)
 	delete pInputManager;
 
 	return bError;
+}
+
+void NE::NEngine::setLogger(NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>* pNewLogger)
+{
+	if ( m_pLogger != NULL )
+	{
+		delete m_pLogger;
+	}
+	m_pLogger = pNewLogger;
 }

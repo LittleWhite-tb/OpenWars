@@ -60,7 +60,7 @@ namespace NE
             // Problem detection
             if ( exist(name) )
             {
-                NE::NEngine::logger().log(NE::LL_Warning,"NE::Bank : ' '%s' is already in the Bank (not overwrittin)",name);
+                NE::NEngine::logger()->log(NE::LL_Warning,"NE::Bank : ' '%s' is already in the Bank (not overwrittin)",name);
                 return;
             }
 

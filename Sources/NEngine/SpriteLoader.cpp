@@ -70,7 +70,7 @@ const NE::Sprite* NE::SpriteLoader::loadSpriteFromFile(const std::string& fileNa
         // We gone through all loaders, and the sprite is not loaded ... so, error
         if ( pSprite == NULL )
         {
-            NE::NEngine::logger().log(NE::LL_Error,"Fail to load sprite '%s'",fileName);
+            NE::NEngine::logger()->log(NE::LL_Error,"Fail to load sprite '%s'",fileName);
             throw FileNotFoundException(fileName);
         }
     }

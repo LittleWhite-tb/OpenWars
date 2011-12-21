@@ -54,12 +54,12 @@ ConstructBox :: ConstructBox(const Theme* pTheme)
     pFont = pTheme->getFontObject("classic")->getFont();
     pFontGrey = pTheme->getFontObject("classic")->getFont();
 
-    NE::NEngine::logger().log(NE::LL_Debug,"Construct Box created");
+    NE::NEngine::logger()->log(NE::LL_Debug,"Construct Box created");
 }
 
 ConstructBox :: ~ConstructBox(void)
 {
-    NE::NEngine::logger().log(NE::LL_Debug,"Construct Box deleted");
+    NE::NEngine::logger()->log(NE::LL_Debug,"Construct Box deleted");
 }
 
 void ConstructBox :: add(const UnitTemplateFactionList* pListUnitTemplate)
@@ -74,7 +74,7 @@ bool ConstructBox :: draw(const NE::Renderer& r, const unsigned int faction, con
 
     if ( unitsList.size() > 0 && faction >= unitsList[0]->getNumberFaction() )
     {
-        NE::NEngine::logger().log(NE::LL_Warning,"Try to draw a faction not available");
+        NE::NEngine::logger()->log(NE::LL_Warning,"Try to draw a faction not available");
         return true;
     }
 

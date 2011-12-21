@@ -62,7 +62,7 @@ public:
     {
         if ( this->exists(name) )
         {
-            NE::NEngine::logger().log(NE::LL_Warning,"Params will overwrite key '%s'",name);
+            NE::NEngine::logger()->log(NE::LL_Warning,"Params will overwrite key '%s'",name);
         }
 
         params[name] = value;
