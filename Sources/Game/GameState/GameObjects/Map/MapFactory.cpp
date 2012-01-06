@@ -34,7 +34,7 @@ Map* MapFactory :: createEmptyMap(const Theme* pTheme, const USize2& size)
 
     if ( pMap == NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"Failed to allocate Map memory");
+        NEError << "Failed to allocate Map memory\n";
         throw std::bad_alloc();
     }
 
@@ -44,7 +44,7 @@ Map* MapFactory :: createEmptyMap(const Theme* pTheme, const USize2& size)
     pTilesMap = pMap->getTilesMap();
     if ( pTilesMap == NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"Error while getting the tile board");
+        NEError << "Error while getting the tile board\n";
         delete pMap;
         return NULL;
     }

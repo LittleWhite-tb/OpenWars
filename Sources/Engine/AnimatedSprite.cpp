@@ -42,7 +42,7 @@ AnimatedSprite :: AnimatedSprite(const NE::Sprite* pSprite, const USize2& sprite
 
     numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"AnimatedSprite ( %d;%d ) Nb Animation: %d",spriteSize.width,spriteSize.height,numberAnimation);
+    NEDebug << "AnimatedSprite " << spriteSize << " Nb Animation: " << numberAnimation << "\n";
 }
 
 AnimatedSprite :: AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileName, const USize2& spriteSize, const unsigned int msInterval)
@@ -57,12 +57,12 @@ AnimatedSprite :: AnimatedSprite(NE::SpriteLoader* pSL, const std::string& fileN
 
     numberAnimation = (surfaceSize.width / spriteSize.width) * (surfaceSize.height / spriteSize.height );
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"AnimatedSprite ( %s ) Nb Animation: %d",fileName.c_str(),numberAnimation);
+    NEDebug << "AnimatedSprite '" << fileName << "' Nb Animation: " << numberAnimation << "\n";
 }
 
 AnimatedSprite :: ~AnimatedSprite(void)
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"AnimatedSprite deleted");
+    NEDebug << "AnimatedSprite deleted\n";
 }
 
 void AnimatedSprite :: update(const unsigned int time)
@@ -91,7 +91,7 @@ Rect AnimatedSprite :: getSrcRect(const unsigned int time)
 
     Rect srcRect(position,spriteSize);
 
-    //LDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
+    //NEDebug << "AnimatedSprite :: getSrcRect (" << srcRect.x << ";" << srcRect.y << ";" << srcRect.w << ";" << srcRect.h << ")";
 
     this->update(time);
 

@@ -46,7 +46,7 @@ NE :: SDL_Window :: ~SDL_Window(void)
 {
     if ( pNativeWindow != NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Warning,"The window is not properly cleared");
+        NEWarning << "The window is not properly cleared\n";
     }
 }
 
@@ -55,7 +55,7 @@ unsigned int NE :: SDL_Window :: getFlags(const bool isFullscreen, const bool is
     unsigned int sdlVideoFlags = SDL_DOUBLEBUF | SDL_ANYFORMAT;
     const SDL_VideoInfo* pVideoInfo = SDL_GetVideoInfo();   // The documentation does not descrive a case of this function returning NULL pointer
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"Window :: getFlags (%d;%d)",isFullscreen,isOpenGL);
+    NEDebug << "Window :: getFlags (" << isFullscreen << " ; " << isOpenGL << ")\n";
 
     if ( pVideoInfo->hw_available ) // is Hardware surface possible?
     {
@@ -92,13 +92,13 @@ bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned shor
 {
     Uint32 sdlVideoFlags = this->getFlags(isFullscreen,false);
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"SDL_Window :: createWindow (%dx%d x %d ; %d)",winSize.width,winSize.height,bpp,isFullscreen);
+    NEDebug << "SDL_Window :: createWindow (" << winSize << "x" << bpp << " ; " << isFullscreen << ")\n";
 
     pNativeWindow = SDL_SetVideoMode(winSize.width,winSize.height,bpp,sdlVideoFlags);
 
     if ( pNativeWindow != NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Debug,"Obtained: %dx%d x %d",pNativeWindow->w,pNativeWindow->h,pNativeWindow->format->BitsPerPixel);
+        NEDebug << "Obtained: " << pNativeWindow->w << "x" << pNativeWindow->h << " x " << static_cast<int>(pNativeWindow->format->BitsPerPixel) << "\n";
 
         // Set additionnal settings
         SDL_WM_SetCaption(windowName.c_str(), windowIcon.c_str());
@@ -117,7 +117,7 @@ bool NE :: SDL_Window :: createWindow(const USize2& winSize, const unsigned shor
         return true;
     }
 
-    NE::NEngine::logger()->log(NE::LL_Error,"Error while opening the window");
+    NEError << "Error while opening the window\n";
     return false;
 }
 

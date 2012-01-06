@@ -65,14 +65,14 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
         this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
-            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for AnimatedSprite for UnitTemplate");
+            NEError << "Fail to allocate memory for AnimatedSprite for UnitTemplate\n";
             throw std::bad_alloc();
         }
 
         this->pSpriteGreyed = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_greyed"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSpriteGreyed == NULL )
         {
-            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for greyed AnimatedSprite for UnitTemplate");
+            NEError << "Fail to allocate memory for greyed AnimatedSprite for UnitTemplate\n";
             throw std::bad_alloc();
         }
 
@@ -88,8 +88,8 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
     }
     catch ( ParameterNotFoundParamsException& pnfpe)
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"The force list is not matching the requested parameters");
-        NE::NEngine::logger()->log(NE::LL_Error,"Parameter '%s' not found",pnfpe.what());
+        NEError << "The force list is not matching the requested parameters\n";
+        NEError << "Parameter '" << pnfpe.what() << "' not found\n";
         throw MissingParameterException("unknown");
     }
 }

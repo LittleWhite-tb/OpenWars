@@ -63,7 +63,7 @@ Map :: ~Map(void)
 {
     delete pIntegrityChecker;
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"Map deleted");
+    NEDebug << "Map deleted\n";
 }
 
 bool Map :: allocateMemory(const USize2& size)

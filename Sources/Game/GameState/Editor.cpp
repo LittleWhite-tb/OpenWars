@@ -55,7 +55,7 @@ e-mail: lw.demoscene@gmail.com
 Editor :: Editor()
 :GameState(),pMap(NULL),pCamera(NULL),pEC(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),isUnitSelected(false)
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"EditorEngine constructed");
+    NEDebug << "EditorEngine constructed\n";
 }
 
 Editor :: ~Editor()
@@ -68,7 +68,7 @@ Editor :: ~Editor()
     delete pUnitTB;
     delete pBuildingTB;
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"EditorEngine destructed");
+    NEDebug << "EditorEngine destructed\n";
 }
 
 bool Editor :: load(NE::NEngine* pNE)
@@ -89,7 +89,7 @@ bool Editor :: load(NE::NEngine* pNE)
     }
     catch (ConstructionFailedException& cfe)
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"%s",cfe.what());
+        NEError << cfe.what() << "\n";
         return false;
     }
 

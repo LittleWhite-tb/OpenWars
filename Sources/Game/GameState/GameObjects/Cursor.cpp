@@ -53,12 +53,12 @@ Cursor :: Cursor(const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0
 		position.y = 0;
 	}
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"Cursor created %d;%d",initialPosition.x,initialPosition.y);
+    NEDebug << "Cursor created " << initialPosition << "\n";
 }
 
 Cursor :: ~Cursor(void)
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"Cursor deleted");
+    NEDebug << "Cursor deleted\n";
 }
 
 const Tile* Cursor :: getTileUnderCursor(void)const

@@ -83,10 +83,16 @@ namespace NE
 		Time* getTime(void) { return pTime; }
 		// void setTime(Time* const pTime) { this->pTime = pTime; }
 
-        static NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>* logger() { return m_pLogger; }
+        static NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>& logger() { return *m_pLogger; }
 		static void setLogger(NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>* pNewLogger);
 	};
 }
+
+
+#define NEDebug LDebug(NE::NEngine::logger())                            /*!< shortcut to send debug messages to the NEngine logger */
+#define NEWarning LWarning(NE::NEngine::logger())                        /*!< shortcut to send warning messages to the NEngine logger */
+#define NEError LError(NE::NEngine::logger())                            /*!< shortcut to send error messages to the NEngine logger */
+#define NELog(level) Log(NE::NEngine::logger(),level)                    /*!< shortcut to send log message with specified importancy level to the NEngine logger */
 
 /*! \class NE::NEngine NEngine.h "NEngine/Engine.h"
  *  \brief NEngine interface

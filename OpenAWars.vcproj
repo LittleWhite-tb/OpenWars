@@ -675,7 +675,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Sources\NEngine\Logging\LoggerMessage.hpp"
+					RelativePath=".\Sources\NEngine\Logging\Logger_globals.hpp"
 					>
 				</File>
 				<Filter
@@ -693,10 +693,6 @@
 				<Filter
 					Name="Writer"
 					>
-					<File
-						RelativePath=".\Sources\NEngine\Logging\Writer\ConsoleWriter.cpp"
-						>
-					</File>
 					<File
 						RelativePath=".\Sources\NEngine\Logging\Writer\ConsoleWriter.hpp"
 						>
@@ -718,19 +714,11 @@
 					Name="Formatter"
 					>
 					<File
-						RelativePath=".\Sources\NEngine\Logging\Formater\ColourFormater.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\Sources\NEngine\Logging\Formater\ColourFormater.hpp"
 						>
 					</File>
 					<File
 						RelativePath=".\Sources\NEngine\Logging\Formater\LoggerFormater.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Sources\NEngine\Logging\Formater\SimpleFormater.cpp"
 						>
 					</File>
 					<File

@@ -36,12 +36,12 @@ bool MapSaver :: saveMapToFile(const std::string& fileName, const Map& map)
 	const std::vector < std::vector < const Tile* > >& tilesMap = map.constTilesMap();
 	const std::vector < std::vector < Unit > >& unitsMap = map.constUnitsMap();
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"Map :: save -> '%s'",fileName.c_str());
+    NEDebug << "Map :: save -> '" << fileName << "'\n";
 
 	file.open(fileName.c_str(),std::ios::out);
     if ( file.is_open() == false )
     {
-        NE::NEngine::logger()->log(NE::LL_Warning,"Failed to open: '%s'",fileName.c_str());
+        NEWarning << "Failed to open: '" << fileName << "'\n";
 		return false;
 	}
 

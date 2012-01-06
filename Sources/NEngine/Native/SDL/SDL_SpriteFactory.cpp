@@ -41,7 +41,7 @@ NE::Sprite* NE::SDL_SpriteFactory :: createSprite(const Colour& colour, const US
 												);
 	if ( pSurface == NULL )
 	{
-        NE::NEngine::logger()->log(NE::LL_Error,"SDL_CreateRGBSurfaceFrom() failed (%s)",SDL_GetError());
+        NEError << "SDL_CreateRGBSurfaceFrom() failed (" << SDL_GetError() << ")\n";
 		return NULL;
 	}
 /*

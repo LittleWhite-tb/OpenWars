@@ -63,7 +63,7 @@ TileBar<T> :: TileBar(NE::SpriteFactory* const pSF, const Theme* pTheme, const U
     stepX = windowSize.width / 80;
     stepY = windowSize.height / 60;
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"TileBar created");
+    NEDebug << "TileBar created\n";
 }
 
 template <typename T>
@@ -71,7 +71,7 @@ void TileBar<T> :: moveLeft(void)
 {
     if ( state == TBS_Opened )
     {
-        NE::NEngine::logger()->log(NE::LL_Debug,"TileBar :: moveLeft()");
+        NEDebug << "TileBar :: moveLeft()\n";
         movementOffsetX = -(TILE_DEFAULT_WIDTH + borderSize * 2);
 
         state = TBS_MoveLeft;
@@ -85,7 +85,7 @@ void TileBar<T> :: moveRight(void)
 {
     if ( state == TBS_Opened )
     {
-        NE::NEngine::logger()->log(NE::LL_Debug,"TileBar :: moveRight()");
+        NEDebug << "TileBar :: moveRight()\n";
 
         movementOffsetX = TILE_DEFAULT_WIDTH + borderSize * 2;
 
@@ -100,7 +100,7 @@ void TileBar<T> :: moveUp(void)
 {
     if ( state == TBS_Opened )
     {
-        NE::NEngine::logger()->log(NE::LL_Debug,"TileBar :: moveUp()");
+        NEDebug << "TileBar :: moveUp()\n";
 
         currentY++;
     }
@@ -111,7 +111,7 @@ void TileBar<T> :: moveDown(void)
 {
     if ( state == TBS_Opened )
     {
-        NE::NEngine::logger()->log(NE::LL_Debug,"TileBar :: moveDown()");
+        NEDebug << "TileBar :: moveDown()\n";
 
         currentY--;
     }
@@ -137,7 +137,7 @@ void TileBar<T> :: open(void)
 {
     if ( !this->isOpened() )
     {
-        NE::NEngine::logger()->log(NE::LL_Debug,"TileBar :: open()");
+        NEDebug << "TileBar :: open()\n";
 
         state = TBS_Opening;
     }
@@ -146,7 +146,7 @@ void TileBar<T> :: open(void)
 template <typename T>
 void TileBar<T> :: close(void)
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"TileBar :: close()");
+    NEDebug << "TileBar :: close()\n";
 
     movementOffsetX = 0;
     state = TBS_Closing;

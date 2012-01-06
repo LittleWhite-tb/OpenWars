@@ -45,7 +45,7 @@ NE::Sprite* NE::SpriteFactory::createSpriteFromColour(const Colour& colour, cons
         Sprite* pSprite = createSprite(colour,spriteSize);
         if ( pSprite == NULL )
         {
-            NE::NEngine::logger()->log(NE::LL_Error,"NE::SpriteFactory (Fail to create the Sprite (%d;%d;%d.%d)",colour.r,colour.g,colour.b,colour.a);
+            NEError << "NE::SpriteFactory (Fail to create the Sprite " << colour << "\n";
             return NULL;
         }
         

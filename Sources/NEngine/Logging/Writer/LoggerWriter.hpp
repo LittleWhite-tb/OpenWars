@@ -3,16 +3,20 @@
 
 #include <string>
 
-#include "../LoggerMessage.hpp"
-
 namespace NE
 {
     class LoggerWriter
     {
         protected:
 
-            virtual void write(const NE::LoggerMessage& message)=0;
+            virtual ~LoggerWriter() {};
+            virtual void write(int level, const std::string& message)=0;
     };
 }
+
+/*! \class NE::LoggerWriter LoggerWriter.hpp Logging/Writer/LoggerWriter.hpp
+ *  \brief Base class for output information in a log media
+ *  \sa Logger
+ */
 
 #endif

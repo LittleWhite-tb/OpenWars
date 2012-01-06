@@ -17,14 +17,14 @@ NE::SDL_Joy :: SDL_Joy():Input(),m_pJoy(SDL_JoystickOpen(0))
     // Desabling the event on the joystick
     SDL_JoystickEventState(SDL_DISABLE);
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"Joystick created");
+    NEDebug << "Joystick created\n";
 }
 
 NE::SDL_Joy :: ~SDL_Joy()
 {
     SDL_JoystickClose(m_pJoy);
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"Joystick deleted");
+    NEDebug << "Joystick deleted\n";
 }
 
 void NE::SDL_Joy :: updateButtons(void)

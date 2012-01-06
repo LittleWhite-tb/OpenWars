@@ -78,12 +78,12 @@ bool Theme :: load(NE::SpriteLoader* const pSL)
     }
 	catch ( XMLParsingFailedException xmlpfe )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"%s",xmlpfe.what());
+        NEError << xmlpfe.what() << "\n";
         return false;
     }
     catch ( FileNotFoundException fnfe )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"%s",fnfe.what());
+        NEError << fnfe.what() << "\n";
         return false;
     }
 

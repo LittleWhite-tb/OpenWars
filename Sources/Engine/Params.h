@@ -41,7 +41,7 @@ public:
 class InvalidConvertionParamsException : public Exception
 {
 public:
-    InvalidConvertionParamsException(const std::string& paramName):Exception(std::string("Invalid convertion for parameter '") + paramName + std::string("'")) {}
+    InvalidConvertionParamsException(const std::string& paramName):Exception(std::string("Invalid conversion for parameter '") + paramName + std::string("'")) {}
 };
 
 class MissingParameterException : public Exception
@@ -62,7 +62,7 @@ public:
     {
         if ( this->exists(name) )
         {
-            NE::NEngine::logger()->log(NE::LL_Warning,"Params will overwrite key '%s'",name);
+            NEWarning << "Params will overwrite key '" << name << "'\n";
         }
 
         params[name] = value;

@@ -54,7 +54,7 @@ int main(int argc, char** argv)
             GameEngine* pGEngine = new GameEngine(pNE,&gameOptions);
             if ( pGEngine == NULL )
             {
-                NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate GameEngine");
+                NEError << "Fail to allocate GameEngine\n";
             }
             else if ( pGEngine->init() )
             {
