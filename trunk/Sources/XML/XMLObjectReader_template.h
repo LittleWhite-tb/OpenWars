@@ -43,7 +43,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
     xmlNodePtr xmlRoot = xmlDocGetRootElement(xmlFile);
     if ( xmlRoot == NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"XML file does not have a root node");
+        NEError << "XML file does not have a root node\n";
         return false;
     }
 
@@ -62,7 +62,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                     Params* pParams = new Params();
                     if ( pParams == NULL )
                     {
-                        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for Params");
+                        NEError << "Fail to allocate memory for Params\n";
                         throw std::bad_alloc();
                     }
 
@@ -77,7 +77,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                         T* pInstance = new T(pParams,pSL,folderPath);
                         if ( pInstance == NULL )
                         {
-                            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for %s",typeid(T).name());
+                            NEError << "Fail to allocate memory for '" << typeid(T).name() << "'\n";
                             throw std::bad_alloc();
                         }
 
@@ -87,12 +87,12 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                 }
                 else
                 {
-                    NE::NEngine::logger()->log(NE::LL_Error,"%s node is empty -> ignored",typeid(T).name());
+                    NEError << "'" << typeid(T).name() << "' node is empty -> ignored\n";
                 }
             }
             else
             {
-                NE::NEngine::logger()->log(NE::LL_Error,"File contain an invalid node '%s' -> Ignored",node->name);
+                NEError << "File contain an invalid node '" << node->name << "' -> Ignored\n";
             }
         }
     }

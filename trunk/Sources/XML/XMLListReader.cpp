@@ -44,7 +44,7 @@ bool XMLListReader :: parseNodes(xmlNodePtr xmlNode, std::list<std::string>* pNo
 			{
 				if ( node->children && node->children->type == XML_TEXT_NODE && node->children->content && !node->children->next )
 				{
-                    NE::NEngine::logger()->log(NE::LL_Debug,"Captured: '%s'",(char*)node->children->content);
+                    NEDebug << "Captured: '" << (char*)node->children->content << "'\n";
 					pNodeValueList->push_back(std::string((char*)node->children->content));
 				}
 			}
@@ -67,7 +67,7 @@ bool XMLListReader :: parse(const std::string& nodeName, std::list<std::string>*
 	xmlNodePtr xmlRoot = xmlDocGetRootElement(xmlFile);
 	if ( xmlRoot == NULL )
 	{
-        NE::NEngine::logger()->log(NE::LL_Error,"XML file does not have a root node");
+        NEError << "XML file does not have a root node\n";
 		return false;
 	}
 

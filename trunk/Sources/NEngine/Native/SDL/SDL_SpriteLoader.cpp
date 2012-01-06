@@ -47,7 +47,7 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileNa
             Uint32 colorkey = SDL_MapRGB(pOptimisedSurface->format, transparencyColour.r, transparencyColour.g, transparencyColour.b);
             if ( SDL_SetColorKey(pOptimisedSurface, SDL_RLEACCEL | SDL_SRCCOLORKEY, colorkey ) == -1 )
             {
-                NE::NEngine::logger()->log(NE::LL_Warning,"Fail to set transparency to '%s'",fileName);
+                NEWarning << "Fail to set transparency to '" << fileName << "'\n";
             }
 
             // We replace the pointer to the new optimised surface
@@ -55,18 +55,18 @@ NE::Sprite* NE::SDL_SpriteLoader :: loadSpriteFromFile(const std::string& fileNa
         }
         else
         {
-            NE::NEngine::logger()->log(NE::LL_Error,"Fail to optimise sprite '%s'",fileName);
+            NEError << "Fail to optimise sprite '" << fileName << "'\n";
         }
 
         NE::SDL_Sprite* pSprite = new NE::SDL_Sprite(pSurface);
         if ( pSprite == NULL )
         {
-            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for a SDL_Sprite");
+            NEError << "Fail to allocate memory for a SDL_Sprite\n";
         }
 
         return pSprite;
     }
 
-    // LError << "Fail to load a sprite from file: " << SDL_GetError();
+    // NEError << "Fail to load a sprite from file: " << SDL_GetError() << "\n";
     return NULL;
 }

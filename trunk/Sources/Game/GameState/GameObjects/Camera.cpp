@@ -34,12 +34,12 @@ e-mail: lw.demoscene@gmail.com
 Camera :: Camera(void)
     :position(UVec2(0,0))
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"Camera created");
+    NEDebug << "Camera created\n";
 }
 
 Camera :: ~Camera(void)
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"Camera deleted");
+    NEDebug << "Camera deleted\n";
 }
 
 void Camera :: moveLeft()

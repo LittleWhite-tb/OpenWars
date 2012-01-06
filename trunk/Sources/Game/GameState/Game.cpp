@@ -45,7 +45,7 @@ e-mail: lw.demoscene@gmail.com
 Game :: Game()
 :pMap(NULL),pCamera(NULL),pCursor(NULL),gameInfo(GameInfo(2,10000)),igState(IGS_Idle)
 {
-    NE::NEngine::logger()->log(NE::LL_Debug,"GameEngine constructed");
+    NEDebug << "GameEngine constructed\n";
 }
 
 Game :: ~Game(void)
@@ -60,7 +60,7 @@ Game :: ~Game(void)
 	delete pCamera;
 	delete pMap;
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"GameEngine deleted");
+    NEDebug << "GameEngine deleted\n";
 }
 
 bool Game :: load(NE::NEngine* pNE)
@@ -83,7 +83,7 @@ bool Game :: load(NE::NEngine* pNE)
     }
     catch (ConstructionFailedException& cfe)
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"%s",cfe.what());
+        NEError << cfe.what() << "\n";
         return false;
     }
 
@@ -97,7 +97,7 @@ bool Game :: loadMap(const Library<Theme>* const pThemes,const std::string& name
 	pMap = MapLoader::loadMapFromFile(pThemes,name);
 	if ( pMap == NULL )
 	{
-        NE::NEngine::logger()->log(NE::LL_Error,"Fail to load map '%s'",name);
+        NEError << "Fail to load map '" << name << "'\n";
 		return false;
 	}
 

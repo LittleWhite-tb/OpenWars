@@ -3,17 +3,18 @@
 
 #include <string>
 
-#include <cstdarg>
-
-#include "../LoggerMessage.hpp"
-
 namespace NE
 {
     class LoggerFormater
     {
         protected:
-            virtual void format(LoggerMessage& message)=0;
+            virtual std::string format(int level, const std::string& message)=0;
     };
 }
+
+/*! \class LoggerFormater LoggerFormater.hpp Logging/Formater/LoggerFormater.hpp
+ *  \brief Base class for formatting information
+ *  \sa Logger
+ */
 
 #endif

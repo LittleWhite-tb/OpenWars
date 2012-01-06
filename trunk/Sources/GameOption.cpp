@@ -80,6 +80,6 @@ GameOption :: GameOption(int argc, char** argv)
     }
     catch (MissingOptionException& moe)
     {
-        NE::NEngine::logger()->log(NE::LL_Warning,"%s",moe.what());
+        NEWarning << moe.what() << "\n";
     }
 }

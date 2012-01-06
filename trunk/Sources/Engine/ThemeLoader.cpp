@@ -36,7 +36,7 @@ void ThemeLoader :: loadTheme(NE::SpriteLoader* pSpriteLoader, const std::string
 	Theme* pTheme = new Theme(themeName);
     if ( pTheme == NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate Theme");
+        NEError << "Fail to allocate Theme\n";
         throw std::bad_alloc();
     }
 

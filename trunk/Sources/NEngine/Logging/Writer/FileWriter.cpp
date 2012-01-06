@@ -17,8 +17,3 @@ NE::FileWriter::~FileWriter()
 {
     logFile.close();
 }
-
-void NE::FileWriter::write(const NE::LoggerMessage& message)
-{
-    logFile << message.formatedMessage << std::endl;
-}

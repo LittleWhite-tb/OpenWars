@@ -43,20 +43,20 @@ LineParser :: LineParser(const std::string& fileName)
 {
 	if (!file)
 	{
-        NE::NEngine::logger()->log(NE::LL_Debug,"LineParser fail to open: '%s'",fileName.c_str());
+        NEDebug << "LineParser fail to open: '" << fileName.c_str() << "'\n";
 		throw FileNotFoundException(fileName);
 	}
 
 	readNextLine();
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"LineParser constructed: '%s'",fileName.c_str());
+    NEDebug << "LineParser constructed: '" << fileName.c_str() << "'\n";
 }
 
 LineParser :: ~LineParser()
 {
 	file.close();
 
-    NE::NEngine::logger()->log(NE::LL_Debug,"LineParser deleted");
+    NEDebug << "LineParser deleted\n";
 }
 
 bool LineParser :: isEmptyLine()

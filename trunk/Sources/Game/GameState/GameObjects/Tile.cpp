@@ -62,7 +62,7 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
         this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
-            NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate memory for AnimatedSprite for Tile");
+            NEError << "Fail to allocate memory for AnimatedSprite for Tile\n";
             throw std::bad_alloc();
         }
 
@@ -70,7 +70,7 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
     }
     catch ( ParameterNotFoundParamsException )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"The force list is not matching the requested parameters");
+        NEError << "The force list is not matching the requested parameters\n";
         throw MissingParameterException("unknown");
     }
 }

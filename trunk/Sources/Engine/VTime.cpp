@@ -49,7 +49,7 @@ void VTime :: waitNextFrame()
 	{
 		if ( !isFirst )
 		{
-            NE::NEngine::logger()->log(NE::LL_Warning,"The game is too slow");
+            NEWarning << "The game is too slow\n";
 		}
 		else
 		{

@@ -47,14 +47,14 @@ bool NE :: NEngine :: init(void)
     pSpriteLoader = new SpriteLoader();
     if ( pSpriteLoader == NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate the SpriteLoader");
+        NEError << "Fail to allocate the SpriteLoader\n";
         bError = false;
     }
 
 	pInputManager = new InputManager();
     if ( pInputManager == NULL )
     {
-        NE::NEngine::logger()->log(NE::LL_Error,"Fail to allocate the InputManager");
+        NEError << "Fail to allocate the InputManager\n";
         bError = false;
     }
     else

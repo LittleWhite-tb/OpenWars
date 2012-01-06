@@ -92,7 +92,7 @@ void MapMarker :: setMarksForUnitAt(const UVec2& position)
 
 	if ( pMap->isValidPosition(position) == false )
 	{
-        NE::NEngine::logger()->log(NE::LL_Warning,"Passing invalid position to GlobalAttackMapMarker :: setMarks");
+        NEWarning << "Passing invalid position to GlobalAttackMapMarker :: setMarks\n";
 		return;
 	}
 
@@ -100,7 +100,7 @@ void MapMarker :: setMarksForUnitAt(const UVec2& position)
 
 	if ( pUnit == NULL )
 	{
-        NE::NEngine::logger()->log(NE::LL_Warning,"No unit at: %d;%d for GlobalAttackMapMarker :: setMarks",position.x,position.y);
+        NEWarning << "No unit at: " << position << " for GlobalAttackMapMarker :: setMarks\n";
 		return;
 	}
 

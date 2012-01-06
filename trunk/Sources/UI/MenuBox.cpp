@@ -77,7 +77,7 @@ MenuBox::MenuItem* MenuBox :: getEntry(const std::string& entryActionName)
         }
     }
 
-    NE::NEngine::logger()->log(NE::LL_Warning,"MenuBox::getEntry('%s') not found",entryActionName);
+    NEWarning << "MenuBox::getEntry('" << entryActionName << "') not found\n";
     return NULL;
 }
 
@@ -186,7 +186,7 @@ const std::string& MenuBox :: getSelectedActionName(void)const
         }
     }
 
-    NE::NEngine::logger()->log(NE::LL_Warning,"MenuBox::getSelectedActionName -> No valid entry found");
+    NEWarning << "MenuBox::getSelectedActionName -> No valid entry found\n";
     return returnError;
 }
 
