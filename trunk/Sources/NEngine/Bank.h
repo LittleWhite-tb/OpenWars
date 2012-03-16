@@ -34,19 +34,20 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE
 {
-    
+
     template <typename T>
     class Bank
     {
     private:
 
-        std::map<std::string, const T*> m_bank;  /*!< Bank saving the Sprite loaded */
+        typedef std::map<std::string, const T*> StringBank;
+        StringBank m_bank;  /*!< Bank saving the Sprite loaded */
 
     public:
 
         ~Bank()
         {
-            for( std::map<std::string, const T*>::const_iterator itSprite = m_bank.begin() ; itSprite != m_bank.end() ; ++itSprite )
+            for( typename StringBank::const_iterator itSprite = m_bank.begin() ; itSprite != m_bank.end() ; ++itSprite )
             {
                 delete (itSprite->second);
             }
@@ -80,7 +81,7 @@ namespace NE
 
         const T* get(const std::string& name)const
         {
-            std::map<std::string, const T*>::const_iterator itT = m_bank.find(name);
+            typename StringBank::const_iterator itT = m_bank.find(name);
 
             if (itT == m_bank.end())
             {
