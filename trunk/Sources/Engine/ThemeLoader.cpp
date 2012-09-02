@@ -42,6 +42,7 @@ void ThemeLoader :: loadTheme(NE::SpriteLoader* pSpriteLoader, const std::string
 
     if ( pTheme->load(pSpriteLoader) == false )
     {
+		delete pTheme;
         throw EngineException("Failed to load the theme (" + themeName+ ")");
     }
     else

@@ -76,12 +76,12 @@ bool Theme :: load(NE::SpriteLoader* const pSL)
             bResult &= xmlReader.parse<FontObject>("font",&fontsObject,pSL,GFX_FONTS_PATH + name + "/");
         }
     }
-	catch ( XMLParsingFailedException xmlpfe )
+	catch ( XMLParsingFailedException& xmlpfe )
     {
         NEError << xmlpfe.what() << "\n";
         return false;
     }
-    catch ( FileNotFoundException fnfe )
+    catch ( FileNotFoundException& fnfe )
     {
         NEError << fnfe.what() << "\n";
         return false;
