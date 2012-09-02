@@ -96,6 +96,7 @@ bool NE :: SDL_Engine :: initAPI(void)
 
 bool NE :: SDL_Engine :: stopAPI(void)
 {
+    delete pSpriteFactory; pSpriteFactory = NULL;
     delete pSpriteLoader; pSpriteLoader = NULL;
     delete pTime; pTime = NULL;
     delete pRenderer; pRenderer = NULL;

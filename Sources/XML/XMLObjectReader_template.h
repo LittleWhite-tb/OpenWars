@@ -74,7 +74,9 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                     bResult &= parseNodes(node->children,pParams,"");
                     if ( bResult == true )
                     {
-                        T* pInstance = new T(pParams,pSL,folderPath);
+						// ToDO use shared ptr on params
+						T* pInstance = new T(pParams,pSL,folderPath);
+						
                         if ( pInstance == NULL )
                         {
                             NEError << "Fail to allocate memory for '" << typeid(T).name() << "'\n";

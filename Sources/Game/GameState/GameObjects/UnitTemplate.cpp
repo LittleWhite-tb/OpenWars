@@ -96,6 +96,7 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
 
 UnitTemplate :: ~UnitTemplate()
 {
+	delete pSpriteGreyed;
     delete pSprite;
     delete pParams;
 }

@@ -25,21 +25,14 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <string>
+#include "NEngine/Exception.h"
 
-class FileNotFoundException : public std::exception
+class FileNotFoundException : public Exception
 {
-private:
-	std::string message;	/*!< Message to display */
 
 public:
-	FileNotFoundException(const std::string& fileName):message(std::string("File not found: '") + fileName + std::string("'")) {}
+	FileNotFoundException(const std::string& fileName):Exception(std::string("File not found: '") + fileName + std::string("'")) {}
     virtual ~FileNotFoundException(void)throw() {}
-
-	virtual const char* what() const throw()
-	{
-		return message.c_str();
-	}
 };
 
 /*! \class FileNotFoundException FileNotFoundException.h "Utils/Exceptions/FileNotFoundException.h"

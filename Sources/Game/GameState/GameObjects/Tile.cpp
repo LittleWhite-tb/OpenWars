@@ -27,6 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include <cassert>
 
 #include "NEngine/NEngine.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
 
 #include "Engine/Params.h"
 
@@ -59,7 +60,16 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
         UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
                          pParams->getAs<unsigned int>("size_y"));
 
-        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+		try
+		{
+			this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+		}
+		catch ( FileNotFoundException& fnfe) // Should be handle as smart ptr
+		{
+			delete pParams;
+			throw fnfe;
+		}
+		
         if ( this->pSprite == NULL )
         {
             NEError << "Fail to allocate memory for AnimatedSprite for Tile\n";
@@ -68,7 +78,7 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
 
         this->defence = pParams->getAs<unsigned int>("defence");
     }
-    catch ( ParameterNotFoundParamsException )
+    catch ( ParameterNotFoundParamsException& )
     {
         NEError << "The force list is not matching the requested parameters\n";
         throw MissingParameterException("unknown");
