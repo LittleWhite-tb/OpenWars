@@ -1,5 +1,5 @@
-#ifndef __NE_SOUND_H__
-#define __NE_SOUND_H__
+#ifndef __NE_THREAD_H__
+#define __NE_THREAD_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,43 +27,49 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE
 {
-	class Sound
+	class Thread
 	{
 	protected:
+		int (*fct)(void*);			/*!< Pointer on the function to run in the Thread */
+		void* data;					/*!< data to pass to the Thread */
 
-		Sound(void) {}
-		virtual ~Sound(void) {}
+		Thread(int (*fct)(void*),void* data):fct(fct),data(data) {}
+		virtual ~Thread(void) {}
 
 	public:
 
-		virtual void play(const int volume, const bool loop=false)=0;
+		virtual void start(void)=0;
 		virtual void stop(void)=0;
+		virtual void wait(void)=0;
 
-		friend class SoundLoader;
+		friend class NEngine;
 	};
 }
 
-/*! \class NE::Sound Sound.h "NEngine/Sound.h"
- *  \brief Sound interface
+/*! \class NE::Thread Thread.h "NEngine/Thread.h"
+ *  \brief Thread interface
  *
- * The Sound class gives an interface to implement new platform specific Sound functions.
+ * The Thread allows to run a specific function in a separate thread.
  */
 
-/*! \fn NE::Sound::Sound(void)
+/*! \fn NE::Thread::Thread(int (*fct)(void*),void* data);
+ * \param fct the function pointer to run in the thread
+ * \param data the data to pass to the thread
  */
 
-/* \fn virtual NE::Sound::~Sound(void)
+/*! \fn virtual NE::Thread::~Thread(void);
  */
 
-/*! \fn virtual void NE::Sound::play(const int volume, const bool loop=false)=0;
- * \brief play the Sound
- * \param volume volume to play the sound
- * \param loop true if the Sound must be looped
+/*! \fn virtual void  NE::Thread::start(void)=0;
+ * \brief Starts the thread
  */
 
-/*! \fn virtual void NE::Sound::stop(void)=0;
- * \brief stop the Sound
- * Do nothing if the Sound is not played
+/*! \fn virtual void  NE::Thread::stop(void)=0;
+ * \brief Stops the thread
+ */
+
+/*! \fn virtual void NE::Thread::wait(void)=0;
+ * \brief Make the caller waiting for the thread
  */
 
 #endif
