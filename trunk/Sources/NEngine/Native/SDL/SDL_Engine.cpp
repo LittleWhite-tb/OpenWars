@@ -35,6 +35,8 @@ e-mail: lw.demoscene@gmail.com
 #include "SDL_SpriteLoader.h"
 #include "SDL_SpriteLoaderSDLI.h"
 #include "SDL_SpriteFactory.h"
+#include "SDL_SoundLoader.h"
+#include "SDL_SoundEngine.h"
 
 #include "NEngine/Exceptions/InputNotFoundException.h"
 #include "NEngine/Exceptions/ConstructionFailedException.h"
@@ -52,16 +54,21 @@ bool NE :: SDL_Engine :: initAPI(void)
     pWin = new NE::SDL_Window();
     pRenderer = new NE::SDL_Renderer(pWin);
     pTime = new NE::SDL_Time();
+    
+    pSoundLoader = new NE::SDL_SoundLoader();
 
     try
     {
         pSpriteLoader->registerLoader(new NE::SDL_SpriteLoader());
         pSpriteLoader->registerLoader(new NE::SDL_SpriteLoaderSDLI(SDL_SpriteLoaderSDLI::PNG));
+        
+		pSoundEngine = new NE::SDL_SoundEngine(pSoundLoader);
     }
     catch ( ConstructionFailedException cfe )
     {
         NEError << cfe.what() << "\n";
         pSpriteLoader = NULL;
+        pSoundEngine = NULL;
     }
 
     pSpriteFactory = new NE::SDL_SpriteFactory();
@@ -71,6 +78,11 @@ bool NE :: SDL_Engine :: initAPI(void)
         NEError << "Fail to allocate memory for SDL_Engine components\n";
         return false;
     }
+    
+    if ( pSoundLoader == NULL || pSoundEngine == NULL )
+    {
+		NEWarning << "Fail to start sound endine\n";
+	}
 
     pInputManager->registerController(new SDL_Keyboard());
 
@@ -96,6 +108,8 @@ bool NE :: SDL_Engine :: initAPI(void)
 
 bool NE :: SDL_Engine :: stopAPI(void)
 {
+	delete pSoundEngine; pSoundEngine = NULL;
+    delete pSoundLoader; pSoundLoader = NULL;
     delete pSpriteFactory; pSpriteFactory = NULL;
     delete pSpriteLoader; pSpriteLoader = NULL;
     delete pTime; pTime = NULL;

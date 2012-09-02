@@ -4,7 +4,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010-2011  Alexandre LAURENT
+Copyright (C) 2010  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,13 +26,27 @@ e-mail: lw.demoscene@gmail.com
 #endif
 
 #include <string>
+#include <map>
 
 namespace NE
 {
+	class Sound;
+
 	class SoundLoader
 	{
+	protected:
+
+		std::map<std::string, Sound*> soundsBank;  /*!< Bank saving the Sprite loaded */
+
+	protected:
+
+		virtual Sound* loadSound(const std::string& fileName)=0;
+
 	public:
-		virtual Sound* loadSoundFromFile(const std::string& fileName)=0;
+		SoundLoader() {}
+		virtual ~SoundLoader();
+
+		Sound* loadSoundFromFile(const std::string& fileName);
 	};
 }
 
@@ -40,6 +54,19 @@ namespace NE
  *  \brief SoundLoader interface
  *
  * The SoundLoader class gives an interface to implement new platform specific Sound loading functions.
+ */
+
+/*! \fn virtual Sound* NE::SoundLoader::loadSound(const std::string& fileName)=0;
+ * \brief load the sound (internal function)
+ * \param fileName the name of the file to load
+ * \return pointer on the new Sound or NULL if loading failed (possible causes: missing files / invalid file format)
+ */
+
+/*! \fn NE::SoundLoader::SoundLoader(MemoryManager* const pMemoryManager)
+ * \param pMemoryManager pointer on the memory manager to use
+ */
+
+/*! \fn NE::SoundLoader::~SoundLoader(void)
  */
 
 /*! \fn virtual Sound* NE::SoundLoader::loadSoundFromFile(const std::string& fileName)=0

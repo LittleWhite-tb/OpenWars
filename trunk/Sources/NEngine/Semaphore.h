@@ -1,5 +1,5 @@
-#ifndef __NE_SOUND_H__
-#define __NE_SOUND_H__
+#ifndef __NE_SEMAPHORE_H__
+#define __NE_SEMAPHORE_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -27,43 +27,41 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE
 {
-	class Sound
+	class Semaphore
 	{
 	protected:
 
-		Sound(void) {}
-		virtual ~Sound(void) {}
+		Semaphore(void) {}
+		virtual ~Semaphore(void) {}
 
 	public:
 
-		virtual void play(const int volume, const bool loop=false)=0;
-		virtual void stop(void)=0;
+		virtual void wait(void)=0;
+		virtual void post(void)=0;
 
-		friend class SoundLoader;
+		friend class NEngine;
 	};
 }
 
-/*! \class NE::Sound Sound.h "NEngine/Sound.h"
- *  \brief Sound interface
+
+/*! \class NE::Semaphore Semaphore.h "NEngine/Semaphore.h"
+ *  \brief Semaphore interface
  *
- * The Sound class gives an interface to implement new platform specific Sound functions.
+ * The Semaphore allows to block other thread on a condition.
  */
 
-/*! \fn NE::Sound::Sound(void)
+/*! \fn NE::Semaphore::Semaphore(void);
  */
 
-/* \fn virtual NE::Sound::~Sound(void)
+/*! \fn virtual NE::Semaphore::~Semaphore(void);
  */
 
-/*! \fn virtual void NE::Sound::play(const int volume, const bool loop=false)=0;
- * \brief play the Sound
- * \param volume volume to play the sound
- * \param loop true if the Sound must be looped
+/*! \fn virtual void  NE::Semaphore::wait(void)=0;
+ * \brief Waits to have the semaphore free
  */
 
-/*! \fn virtual void NE::Sound::stop(void)=0;
- * \brief stop the Sound
- * Do nothing if the Sound is not played
+/*! \fn virtual void  NE::Semaphore::post(void)=0;
+ * \brief Free the Semaphore
  */
 
 #endif

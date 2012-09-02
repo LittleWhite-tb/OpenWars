@@ -42,6 +42,9 @@ namespace NE
 	class Sprite;
 	class SpriteLoader;
 	class SpriteFactory;
+	
+	class SoundLoader;
+	class SoundEngine;
     
 	class NEngine
 	{
@@ -57,6 +60,9 @@ namespace NE
 
 		SpriteLoader* pSpriteLoader;	/*!< SpriteLoader used by the Engine */
 		SpriteFactory* pSpriteFactory;	/*!< SpriteFactory used by the Engine */
+		
+		SoundLoader* pSoundLoader;
+		SoundEngine* pSoundEngine;
 
         virtual bool initAPI(void)=0;
 		virtual bool stopAPI(void)=0;
@@ -73,6 +79,9 @@ namespace NE
 
         SpriteLoader* getSpriteLoader(void) { return pSpriteLoader; }
         SpriteFactory* getSpriteFactory(void) { return pSpriteFactory; }
+        
+        SoundLoader* getSoundLoader(void) { return pSoundLoader; }
+        SoundEngine* getSoundEngine(void) { return pSoundEngine; }
 
 		Renderer* getRenderer(void) { return pRenderer; }
 		// void setRenderer(Renderer* const pRenderer) { this->pRenderer = pRenderer; }
