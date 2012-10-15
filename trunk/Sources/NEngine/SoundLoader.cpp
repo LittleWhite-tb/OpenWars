@@ -4,35 +4,35 @@
 #include <iostream>
 
 #include "NEngine/NEngine.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
 
 #include "Sound.h"
 
-NE::SoundLoader :: ~SoundLoader(void)
-{
-    for( std::map<std::string, NE::Sound*>::const_iterator itSprite = soundsBank.begin() ; itSprite != soundsBank.end() ; ++itSprite )
-	{
-		delete (itSprite->second);
-	}
-	soundsBank.clear();
-}
-
 NE::Sound* NE :: SoundLoader :: loadSoundFromFile(const std::string& fileName)
 {
-	if ( soundsBank.find(fileName) == soundsBank.end() ) // Not found
+    NE::Sound* pSound = m_bank.get(fileName);
+    
+    if ( pSound == NULL ) // It was not in the bank
     {
-        Sound* pSound = this->loadSound(fileName);
+        for ( std::list<NE::ISoundLoader*>::const_iterator itLoader = m_loaders.begin() ; 
+            itLoader != m_loaders.end() ;
+            ++itLoader )
+        {
+            pSound = (*itLoader)->loadSoundFromFile(fileName);
+            if ( pSound != NULL )  // It is loaded, we can stop
+            {
+                m_bank.add(fileName,pSound);
+                break;
+            }
+        }
+
+        // We gone through all loaders, and the sprite is not loaded ... so, error
         if ( pSound == NULL )
         {
-            NEError << "NE::SpriteLoader (Fail to load the Sprite ('" << fileName << "')\n";
-            return NULL;
+            NEError << "Fail to load sound '" << fileName << "'\n";
+            throw FileNotFoundException(fileName);
         }
-        
-        soundsBank[fileName] = pSound;
-        
-        return pSound;
     }
-    else
-    {
-        return soundsBank[fileName];
-    }
+    
+    return pSound;
 }

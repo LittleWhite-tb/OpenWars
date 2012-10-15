@@ -10,16 +10,8 @@
 
 #include "SDL_Sound.h"
 
-NE::SDL_SoundLoader::~SDL_SoundLoader(void)
-{
-	for( std::map<std::string, NE::Sound*>::const_iterator itSprite = soundsBank.begin() ; itSprite != soundsBank.end() ; ++itSprite )
-	{
-		delete static_cast<NE::SDL_Sound*>((itSprite->second))->getSample()->pBuffer;
-		static_cast<NE::SDL_Sound*>((itSprite->second))->getSample()->pBuffer = NULL;
-	}
-}
 
-NE::Sound* NE :: SDL_SoundLoader :: loadSound(const std::string& fileName)
+NE::Sound* NE :: SDL_SoundLoader :: loadSoundFromFile(const std::string& fileName)
 {
 	SDL_AudioSpec loadedSpec;
 	Uint8* pBuffer=NULL;

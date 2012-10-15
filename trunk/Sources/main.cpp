@@ -28,6 +28,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
+#include "NEngine/SoundEngine.h"
 #include "NEngine/Native/SDL/SDL_Engine.h"
 #include "NEngine/Types/Vec2.h"
 

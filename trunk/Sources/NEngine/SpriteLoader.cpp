@@ -30,25 +30,6 @@ e-mail: lw.demoscene@gmail.com
 
 #include <cassert>
 
-NE::SpriteLoader::~SpriteLoader()
-{
-    for ( std::list<NE::ISpriteLoader*>::const_iterator itLoader = m_loaders.begin() ; 
-          itLoader != m_loaders.end() ;
-          ++itLoader )
-    {
-        delete (*itLoader);
-    }
-
-    m_loaders.clear();
-}
-
-void NE::SpriteLoader::registerLoader(NE::ISpriteLoader* pLoader)
-{
-    assert(pLoader);
-
-    m_loaders.push_back(pLoader);
-}
-
 const NE::Sprite* NE::SpriteLoader::loadSpriteFromFile(const std::string& fileName)
 {
     const NE::Sprite* pSprite = m_bank.get(fileName);

@@ -27,24 +27,24 @@ e-mail: lw.demoscene@gmail.com
 
 #include <string>
 #include <map>
+#include <list>
+
+#include "NEngine/Loader.h"
+#include "NEngine/ISoundLoader.h"
+#include "NEngine/Sound.h"
+
+#include "Bank.h"
 
 namespace NE
 {
-	class Sound;
-
-	class SoundLoader
+	class SoundLoader : public Loader<NE::ISoundLoader>
 	{
 	protected:
 
-		std::map<std::string, Sound*> soundsBank;  /*!< Bank saving the Sprite loaded */
-
-	protected:
-
-		virtual Sound* loadSound(const std::string& fileName)=0;
+		Bank<Sound> m_bank;
 
 	public:
 		SoundLoader() {}
-		virtual ~SoundLoader();
 
 		Sound* loadSoundFromFile(const std::string& fileName);
 	};

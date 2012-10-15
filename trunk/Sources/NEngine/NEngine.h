@@ -80,7 +80,6 @@ namespace NE
         SpriteLoader* getSpriteLoader(void) { return pSpriteLoader; }
         SpriteFactory* getSpriteFactory(void) { return pSpriteFactory; }
         
-        SoundLoader* getSoundLoader(void) { return pSoundLoader; }
         SoundEngine* getSoundEngine(void) { return pSoundEngine; }
 
 		Renderer* getRenderer(void) { return pRenderer; }

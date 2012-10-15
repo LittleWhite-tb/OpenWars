@@ -29,6 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Logging/Writer/ConsoleWriter.hpp"
 
 #include "SpriteLoader.h"
+#include "SoundLoader.h"
 #include "InputManager.h"
 
 NE::Logger<NE::LoggerFilter,NE::LoggerFormater,NE::LoggerWriter>* NE::NEngine::m_pLogger = NULL;
@@ -48,6 +49,13 @@ bool NE :: NEngine :: init(void)
     if ( pSpriteLoader == NULL )
     {
         NEError << "Fail to allocate the SpriteLoader\n";
+        bError = false;
+    }
+    
+    pSoundLoader = new SoundLoader();
+    if ( pSoundLoader == NULL )
+    {
+        NEError << "Fail to allocate the SoundLoader\n";
         bError = false;
     }
 

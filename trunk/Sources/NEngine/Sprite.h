@@ -49,7 +49,7 @@ namespace NE
         friend class Renderer;
 
         // To have only the sprite loader able to delete a Sprite
-        friend class Bank<Sprite>;
+        friend class Bank<const Sprite>;
         friend class SpriteFactory;
     };
 }
