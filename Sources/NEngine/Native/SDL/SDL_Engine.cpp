@@ -42,6 +42,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 #include "NEngine/NEngine.h"
 #include "NEngine/SpriteLoader.h"
+#include "NEngine/SoundLoader.h"
 
 bool NE :: SDL_Engine :: initAPI(void)
 {
@@ -55,14 +56,14 @@ bool NE :: SDL_Engine :: initAPI(void)
     pRenderer = new NE::SDL_Renderer(pWin);
     pTime = new NE::SDL_Time();
     
-    pSoundLoader = new NE::SDL_SoundLoader();
+    pSoundEngine = new NE::SDL_SoundEngine(pSoundLoader);
 
     try
     {
         pSpriteLoader->registerLoader(new NE::SDL_SpriteLoader());
         pSpriteLoader->registerLoader(new NE::SDL_SpriteLoaderSDLI(SDL_SpriteLoaderSDLI::PNG));
         
-		pSoundEngine = new NE::SDL_SoundEngine(pSoundLoader);
+        pSoundLoader->registerLoader(new NE::SDL_SoundLoader());
     }
     catch ( ConstructionFailedException cfe )
     {

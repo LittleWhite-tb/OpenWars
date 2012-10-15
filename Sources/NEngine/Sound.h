@@ -25,10 +25,16 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include "NEngine/Bank.h"
+
 namespace NE
 {
 	class Sound
 	{
+	private:
+		virtual void play(const int volume, const bool loop=false)=0;
+		virtual void stop(void)=0;
+
 	protected:
 
 		Sound(void) {}
@@ -36,10 +42,11 @@ namespace NE
 
 	public:
 
-		virtual void play(const int volume, const bool loop=false)=0;
-		virtual void stop(void)=0;
-
 		friend class SoundLoader;
+
+		// To have only the sprite loader able to delete a Sprite
+        friend class Bank<Sound>;
+        friend class SoundEngine;
 	};
 }
 

@@ -25,7 +25,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "NEngine/SoundLoader.h"
+#include "NEngine/ISoundLoader.h"
 
 #include <string>
 
@@ -33,14 +33,10 @@ namespace NE
 {
     class Sound;
 
-    class SDL_SoundLoader : public SoundLoader
+    class SDL_SoundLoader : public ISoundLoader
     {
-    protected:
-        Sound* loadSound(const std::string& fileName);
-
     public:
-        SDL_SoundLoader():SoundLoader() {}
-        ~SDL_SoundLoader(void);
+        Sound* loadSoundFromFile(const std::string& fileName);
     };
 }
 

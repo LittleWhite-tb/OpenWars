@@ -1,3 +1,6 @@
+#ifndef NE_LOADER_H
+#define NE_LOADER_H
+
 #ifndef DOXYGEN_IGNORE_TAG
 /**
 OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
@@ -22,4 +25,36 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include <list>
 
+namespace NE
+{
+	template <typename T>
+	class Loader
+	{
+		protected:
+			std::list<T*> m_loaders;
+		
+		public:
+			virtual ~Loader()
+			{
+				for ( typename std::list<T*>::const_iterator itLoader = m_loaders.begin() ; 
+					itLoader != m_loaders.end() ;
+					++itLoader )
+				{
+					delete (*itLoader);
+				}
+
+				m_loaders.clear();
+			}
+			
+			void registerLoader(T* pLoader)
+			{
+				assert(pLoader);
+
+				m_loaders.push_back(pLoader);
+			}
+	};
+}
+
+#endif

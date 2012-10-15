@@ -22,4 +22,5 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
+#include "SpriteLoader.h"
 

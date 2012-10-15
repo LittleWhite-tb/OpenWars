@@ -31,6 +31,7 @@ namespace NE
     public:
 
         SDL_Sound(Sample sample):m_sample(sample),m_position(0),m_loop(false) {}
+        ~SDL_Sound() { SDL_FreeWAV(m_sample.pBuffer); }
 
         void play(const int volume, const bool loop=false);
         void stop(void);

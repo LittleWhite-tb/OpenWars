@@ -1,5 +1,5 @@
-#ifndef NE_SPRITELOADER_H
-#define NE_SPRITELOADER_H
+#ifndef __NE_ISOUNDLOADER_H__
+#define __NE_ISOUNDLOADER_H__
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
@@ -25,35 +25,34 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include <list>
-
-#include "NEngine/Types/Colour.h"
-#include "NEngine/Loader.h"
-#include "NEngine/ISpriteLoader.h"
-#include "NEngine/Sprite.h"
-
-#include "Bank.h"
+#include <string>
 
 namespace NE
 {
-    class ISpriteLoader;
+    class Sound;
 
-    class SpriteLoader : public Loader<NE::ISpriteLoader>
+    class ISoundLoader
     {
-    private:
-        Colour m_transparencyColour;
-        
-        Bank<const Sprite> m_bank;
-
     public:
+        virtual ~ISoundLoader(void) {}
 
-        SpriteLoader() {}
-
-        const Sprite* loadSpriteFromFile(const std::string& fileName);
-
-        void setTransparencyColour(const Colour& transparencyColour) { m_transparencyColour = transparencyColour; }
-        const Colour& getTransparencyColour() { return m_transparencyColour; }
+        virtual Sound* loadSoundFromFile(const std::string& fileName)=0;
     };
 }
+
+/*! \class NE::ISoundLoader SoundLoader.h "NEngine/SoundLoader.h"
+ *  \brief SoundLoader interface
+ *
+ * The SoundLoader class gives an interface to implement new platform specific Sound loading functions.
+ */
+
+/*! \fn virtual NE::ISoundLoader::~ISoundLoader(void)
+ */
+
+/*! \fn virtual Sound* NE::ISoundLoader::loadSoundFromFile(const std::string& fileName)=0
+ * \brief load a Sound from a file
+ * \param fileName the name of the file to load
+ * \return a pointer to the newly loaded Sound
+*/
 
 #endif

@@ -40,8 +40,8 @@ namespace NE
     {
     private:
 
-        typedef std::map<std::string, const T*> StringBank;
-        StringBank m_bank;  /*!< Bank saving the Sprite loaded */
+        typedef std::map<std::string, T*> StringBank;
+        StringBank m_bank;  /*!< Bank saving the Resources loaded */
 
     public:
 
@@ -54,7 +54,7 @@ namespace NE
             m_bank.clear();
         }
 
-        void add(const std::string& name, const T* pResource)
+        void add(const std::string& name, T* pResource)
         {
             assert(pResource);
 
@@ -79,7 +79,7 @@ namespace NE
             return false;
         }
 
-        const T* get(const std::string& name)const
+        T* get(const std::string& name)const
         {
             typename StringBank::const_iterator itT = m_bank.find(name);
 
