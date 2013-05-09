@@ -47,7 +47,7 @@ if (SDLIMAGE_FOUND)
 endif (SDLIMAGE_FOUND)
 
 install(DIRECTORY ./include/NEngine/
-        DESTINATION include/ )
+        DESTINATION include/NEngine )
 
 install(TARGETS NEngine
         LIBRARY DESTINATION lib/ )
