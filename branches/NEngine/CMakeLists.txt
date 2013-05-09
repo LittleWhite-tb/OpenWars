@@ -28,6 +28,9 @@ add_library(
 	${NEngine_sources}
 )
 
+include_directories(./include)
+link_directories(./lib)
+
 # Finding libraries
 find_package (SDL)
 if (SDL_FOUND)
@@ -43,5 +46,8 @@ if (SDLIMAGE_FOUND)
   # MESSAGE("  SDLIMAGE_INCLUDE_DIR='${SDLIMAGE_INCLUDE_DIR}'")
 endif (SDLIMAGE_FOUND)
 
-include_directories(./include)
-link_directories(./lib)
+install(DIRECTORY ./include/NEngine/
+        DESTINATION include/ )
+
+install(TARGETS NEngine
+        LIBRARY DESTINATION lib/ )
