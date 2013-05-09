@@ -22,7 +22,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "NEngine/NEngineFactory.hpp"
+#include "NEngine/NEngineFactory.h"
 
 #include "Native/SDL/SDL_Engine.h"
 

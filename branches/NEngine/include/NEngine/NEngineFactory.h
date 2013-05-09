@@ -22,8 +22,8 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#ifndef NENGINEFACOTRY_HPP
-#define NENGINEFACOTRY_HPP
+#ifndef NENGINEFACOTRY_H
+#define NENGINEFACOTRY_H
 
 #include "NEngine/NEngine.h"
 
