@@ -1,15 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(OpenAWars)
+project(NEngine)
 
 cmake_policy(SET CMP0015 NEW)
-
-file(
-	GLOB_RECURSE
-	sources
-	Sources/*.cpp
-	Sources/*.hpp
-)
 
 SET(CMAKE_CXX_WARNING_LEVEL 4)
 if (DEFINED MSYS)
@@ -20,36 +13,35 @@ if (DEFINED CMAKE_COMPILER_IS_GNUCC OR DEFINED CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 endif ()
 
-# Executable
-add_executable(
-	OpenAWars
-	${sources}
+include_directories(include/)
+include_directories(src/)
+
+file(
+	GLOB_RECURSE
+    NEngine_sources
+	src/*
+)
+
+add_library(
+    NEngine
+	SHARED
+	${NEngine_sources}
 )
 
 # Finding libraries
 find_package (SDL)
 if (SDL_FOUND)
   include_directories(${SDL_INCLUDE_DIR})
-  target_link_libraries (OpenAWars ${SDL_LIBRARY})
+  target_link_libraries (NEngine ${SDL_LIBRARY})
   # MESSAGE("  SDL_INCLUDE_DIR='${SDL_INCLUDE_DIR}'")
 endif (SDL_FOUND)
 
 find_package (SDL_image)
 if (SDLIMAGE_FOUND)
   include_directories(${SDLIMAGE_INCLUDE_DIR})
-  target_link_libraries (OpenAWars ${SDLIMAGE_LIBRARY})
+  target_link_libraries (NEngine ${SDLIMAGE_LIBRARY})
   # MESSAGE("  SDLIMAGE_INCLUDE_DIR='${SDLIMAGE_INCLUDE_DIR}'")
 endif (SDLIMAGE_FOUND)
 
-
-#Checks for libxml2
-find_package (LibXml2)
-if (LIBXML2_FOUND)
-  include_directories(${LIBXML2_INCLUDE_DIR})
-  target_link_libraries (OpenAWars ${LIBXML2_LIBRARIES})
-  # MESSAGE("  LIBXML2_INCLUDE_DIR='${LIBXML2_INCLUDE_DIR}'")
-endif (LIBXML2_FOUND)
-
-include_directories(./Sources)
-#include_directories(./include)
+include_directories(./include)
 link_directories(./lib)
