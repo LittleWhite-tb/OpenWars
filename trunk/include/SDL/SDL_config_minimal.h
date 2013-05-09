@@ -27,16 +27,23 @@
 
 /* This is the minimal configuration that can be used to build SDL */
 
+#include <stddef.h>
 #include <stdarg.h>
 
-typedef signed char int8_t;
-typedef unsigned char uint8_t;
-typedef signed short int16_t;
-typedef unsigned short uint16_t;
-typedef signed int int32_t;
-typedef unsigned int uint32_t;
-typedef unsigned int size_t;
-typedef unsigned long uintptr_t;
+#if !defined(_STDINT_H_) && !defined(_STDINT_H) && (!defined(HAVE_STDINT_H) || !_HAVE_STDINT_H)
+    typedef signed char int8_t;
+    typedef unsigned char uint8_t;
+    typedef signed short int16_t;
+    typedef unsigned short uint16_t;
+    typedef signed int int32_t;
+    typedef unsigned int uint32_t;
+    #if __x86_64__
+        typedef long unsigned int size_t;
+    #else
+        typedef unsigned int size_t;
+    #endif
+    typedef unsigned long uintptr_t;
+#endif
 
 /* Enable the dummy audio driver (src/audio/dummy/\*.c) */
 #define SDL_AUDIO_DRIVER_DUMMY	1

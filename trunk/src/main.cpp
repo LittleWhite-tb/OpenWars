@@ -26,10 +26,10 @@ e-mail: lw.demoscene@gmail.com
 #include <sstream>
 #include <cstring>
 
+#include "NEngine/NEngineFactory.h"
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
 #include "NEngine/SoundEngine.h"
-#include "NEngine/Native/SDL/SDL_Engine.h"
 #include "NEngine/Types/Vec2.h"
 
 #include "Game/GameEngine.h"
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
     GameOption gameOptions(argc,argv);
 
     // Starting the native engine
-    NE::NEngine* pNE = new NE::SDL_Engine();
+    NE::NEngine* pNE = NE::NEngineFactory::createNEngine(NE::SDL_ENGINE);
     if ( pNE->init() == false )
     {
         return 1;
