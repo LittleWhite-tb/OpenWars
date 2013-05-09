@@ -22,7 +22,7 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-#include "Colour.h"
+#include "NEngine/Types/Colour.h"
 
 std::ostream& operator<< (std::ostream& o, const Colour& c)
 {
