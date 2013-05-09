@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 2.8)
 
+include(ExternalProject)
+ExternalProject_Add(
+    NEngine_lib
+    SVN_REPOSITORY https://openawars.googlecode.com/svn/branches/NEngine
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/
+    INSTALL_DIR ./
+)
+
 project(OpenAWars)
 
 cmake_policy(SET CMP0015 NEW)
-
-file(
-	GLOB_RECURSE
-	sources
-	Sources/*.cpp
-	Sources/*.hpp
-)
 
 SET(CMAKE_CXX_WARNING_LEVEL 4)
 if (DEFINED MSYS)
@@ -19,6 +20,15 @@ endif ()
 if (DEFINED CMAKE_COMPILER_IS_GNUCC OR DEFINED CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 endif ()
+
+link_directories(./lib)
+
+file(
+	GLOB_RECURSE
+	sources
+	src/*.cpp
+	src/*.hpp
+)
 
 # Executable
 add_executable(
@@ -50,6 +60,7 @@ if (LIBXML2_FOUND)
   # MESSAGE("  LIBXML2_INCLUDE_DIR='${LIBXML2_INCLUDE_DIR}'")
 endif (LIBXML2_FOUND)
 
-include_directories(./Sources)
-#include_directories(./include)
-link_directories(./lib)
+include_directories(./src)
+include_directories(./include)
+
+target_link_libraries (OpenAWars NEngine)

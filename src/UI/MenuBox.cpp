@@ -24,19 +24,19 @@ e-mail: lw.demoscene@gmail.com
 
 #include "MenuBox.h"
 
-#include "../NEngine/NEngine.h"
-#include "../NEngine/SpriteFactory.h"
-#include "../NEngine/Sprite.h"
-#include "../NEngine/Renderer.h"
-#include "../NEngine/InputManager.h"
+#include "NEngine/NEngine.h"
+#include "NEngine/SpriteFactory.h"
+#include "NEngine/Sprite.h"
+#include "NEngine/Renderer.h"
+#include "NEngine/InputManager.h"
 
-#include "../Engine/AnimatedSprite.h"
-#include "../Engine/Font.h"
-#include "../Engine/Theme.h"
+#include "Engine/AnimatedSprite.h"
+#include "Engine/Font.h"
+#include "Engine/Theme.h"
 
-#include "../NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/ConstructionFailedException.h"
 
-#include "../globals.h"
+#include "globals.h"
 
 MenuBox :: MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& windowSize)
     :pCursor(pTheme->getUIItem("cursor")->getSprite()),actualPosition(0)
