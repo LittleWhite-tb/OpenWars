@@ -50,4 +50,5 @@ install(DIRECTORY ./include/NEngine/
         DESTINATION include/NEngine )
 
 install(TARGETS NEngine
+		ARCHIVE DESTINATION lib/
         LIBRARY DESTINATION lib/ )
