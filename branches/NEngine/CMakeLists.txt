@@ -28,6 +28,19 @@ add_library(
 	${NEngine_sources}
 )
 
+add_library(
+    NEngine-static
+	STATIC
+	${NEngine_sources}
+)
+# Since the static compilation will have same root name, with have to do some "hacky" thing
+# This is coming from CMake FAQ
+SET_TARGET_PROPERTIES(NEngine-static PROPERTIES OUTPUT_NAME "NEngine")
+# Now the library target "foo-static" will be named "foo.lib" with MS tools.
+# This conflicts with the "foo.lib" import library corresponding to "foo.dll",
+# so we add a "lib" prefix (which is default on other platforms anyway):
+SET_TARGET_PROPERTIES(NEngine-static PROPERTIES PREFIX "lib")
+
 include_directories(./include)
 link_directories(./lib)
 
@@ -68,6 +81,6 @@ endif (SDLIMAGE_FOUND)
 install(DIRECTORY ./include/NEngine/
         DESTINATION include/NEngine )
 
-install(TARGETS NEngine
+install(TARGETS NEngine NEngine-static
 		ARCHIVE DESTINATION lib/
         LIBRARY DESTINATION lib/ )
