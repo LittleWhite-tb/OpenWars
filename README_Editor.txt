@@ -1,7 +1,6 @@
 === OpenAWars Editor ===
 by LittleWhite
-Project page: http://code.google.com/p/openawars/
-Email: lw.demoscene@gmail.com
+Project page: https://github.com/LittleWhite-tb/openawars/tree/master
 
 First public version. This is a BETA! (I am not too sure about it :D), and this may produce some bugs. You can always report it on the bug tracker of the project: http://code.google.com/p/openawars/issues/list 
 Be clear in your bug report, and try to define a path to reproduce it.
