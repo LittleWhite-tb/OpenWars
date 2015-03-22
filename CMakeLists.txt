@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 include(ExternalProject)
 ExternalProject_Add(
     NEngine_lib
-    SVN_REPOSITORY https://openawars.googlecode.com/svn/branches/NEngine
+    GIT_REPOSITORY https://github.com/LittleWhite-tb/NEngine.git
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/
     INSTALL_DIR ./
 )
