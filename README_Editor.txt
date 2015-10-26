@@ -1,9 +1,6 @@
-=== OpenAWars Editor ===
+=== OpenWars Editor ===
 by LittleWhite
-Project page: https://github.com/LittleWhite-tb/openawars/tree/master
-
-First public version. This is a BETA! (I am not too sure about it :D), and this may produce some bugs. You can always report it on the bug tracker of the project: http://code.google.com/p/openawars/issues/list 
-Be clear in your bug report, and try to define a path to reproduce it.
+Project page: https://github.com/LittleWhite-tb/openwars/
 
 With this version you can:
 
@@ -47,4 +44,4 @@ This is because the scaling algorithm can do zooming / shrinking at the same tim
 
 That's all
 
-Have fun, and send me you map, you will have a chance to see them in the final game :) !
+Have fun, and send me your maps, you will have a chance to see them in the final game :) !

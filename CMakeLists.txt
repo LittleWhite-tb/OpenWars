@@ -8,7 +8,7 @@ ExternalProject_Add(
     INSTALL_DIR ./
 )
 
-project(OpenAWars)
+project(OpenWars)
 
 cmake_policy(SET CMP0015 NEW)
 
@@ -32,7 +32,7 @@ file(
 
 # Executable
 add_executable(
-	OpenAWars
+	OpenWars
 	${sources}
 )
 
@@ -40,14 +40,14 @@ add_executable(
 find_package (SDL)
 if (SDL_FOUND)
   include_directories(${SDL_INCLUDE_DIR})
-  target_link_libraries (OpenAWars ${SDL_LIBRARY})
+  target_link_libraries (OpenWars ${SDL_LIBRARY})
   # MESSAGE("  SDL_INCLUDE_DIR='${SDL_INCLUDE_DIR}'")
 endif (SDL_FOUND)
 
 find_package (SDL_image)
 if (SDLIMAGE_FOUND)
   include_directories(${SDLIMAGE_INCLUDE_DIR})
-  target_link_libraries (OpenAWars ${SDLIMAGE_LIBRARY})
+  target_link_libraries (OpenWars ${SDLIMAGE_LIBRARY})
   # MESSAGE("  SDLIMAGE_INCLUDE_DIR='${SDLIMAGE_INCLUDE_DIR}'")
 endif (SDLIMAGE_FOUND)
 
@@ -56,11 +56,11 @@ endif (SDLIMAGE_FOUND)
 find_package (LibXml2)
 if (LIBXML2_FOUND)
   include_directories(${LIBXML2_INCLUDE_DIR})
-  target_link_libraries (OpenAWars ${LIBXML2_LIBRARIES})
+  target_link_libraries (OpenWars ${LIBXML2_LIBRARIES})
   # MESSAGE("  LIBXML2_INCLUDE_DIR='${LIBXML2_INCLUDE_DIR}'")
 endif (LIBXML2_FOUND)
 
 include_directories(./src)
 include_directories(./include)
 
-target_link_libraries (OpenAWars NEngine)
+target_link_libraries (OpenWars NEngine)

@@ -3,8 +3,8 @@
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
-OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010-2011  Alexandre LAURENT
+OpenAWars is an open turn by turn strategic game similar to Advance Wars (c)
+Copyright (C) 2010-2015  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-website: http://code.google.com/p/openawars/
+website: https://github.com/LittleWhite-tb/OpenWars
 e-mail: lw.demoscene@gmail.com
 **/
 #endif
@@ -76,7 +76,7 @@ bool XMLObjectReader :: parse(const std::string& nodeName, Library<T>* pLibrary,
                     {
 						// ToDO use shared ptr on params
 						T* pInstance = new T(pParams,pSL,folderPath);
-						
+
                         if ( pInstance == NULL )
                         {
                             NEError << "Fail to allocate memory for '" << typeid(T).name() << "'\n";

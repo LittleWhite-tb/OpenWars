@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
-OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010-2011  Alexandre LAURENT
+OpenAWars is an open turn by turn strategic game similar to Advance Wars (c)
+Copyright (C) 2010-2015  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-website: http://code.google.com/p/openawars/
+website: https://github.com/LittleWhite-tb/OpenWars
 e-mail: lw.demoscene@gmail.com
 **/
 #endif
@@ -64,11 +64,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 		const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
 		const Tile* pTileLB = pMap->getTile(UVec2(position.x-1,position.y+1)); // Bottom Left
 		const Tile* pTileRB = pMap->getTile(UVec2(position.x+1,position.y+1)); // Bottom Right
-			
+
 		// Check the 8 tiles around and set the flags
 		if (pTileL )
 		{
-			if ( pTileL->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileL->getParams()->getAs<bool>("isSea",false) ||
 				 pTileL->getParams()->getAs<bool>("isBridge",false) )	// Left
 			{
 				nbSeeAround++;
@@ -81,10 +81,10 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 				}
 			}
 		}
-		
+
 		if ( pTileR )
 		{
-			if ( pTileR->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileR->getParams()->getAs<bool>("isSea",false) ||
 				 pTileR->getParams()->getAs<bool>("isBridge",false) ) // Right
 			{
 				nbSeeAround++;
@@ -100,7 +100,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 		if ( pTileT )
 		{
-			if ( pTileT->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileT->getParams()->getAs<bool>("isSea",false) ||
 				 pTileT->getParams()->getAs<bool>("isBridge",false) ) // Up
 			{
 				nbSeeAround++;
@@ -116,7 +116,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 		if ( pTileB )
 		{
-			if ( pTileB->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileB->getParams()->getAs<bool>("isSea",false) ||
 				 pTileB->getParams()->getAs<bool>("isBridge",false) ) // Down
 			{
 				nbSeeAround++;
@@ -132,7 +132,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 		if ( pTileLT )
 		{
-			if ( pTileLT->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileLT->getParams()->getAs<bool>("isSea",false) ||
 				 pTileLT->getParams()->getAs<bool>("isBridge",false) ) // Up Left
 			{
 				// nbSeeAround++;
@@ -143,7 +143,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 		if ( pTileRT )
 		{
-			if ( pTileRT->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileRT->getParams()->getAs<bool>("isSea",false) ||
 				 pTileRT->getParams()->getAs<bool>("isBridge",false) ) // Up Right
 			{
 				// nbSeeAround++;
@@ -154,7 +154,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 		if ( pTileLB )
 		{
-			if ( pTileLB->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileLB->getParams()->getAs<bool>("isSea",false) ||
 				 pTileLB->getParams()->getAs<bool>("isBridge",false) ) // Down Left
 			{
 				// nbSeeAround++;
@@ -165,7 +165,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 		if ( pTileRB )
 		{
-			if ( pTileRB->getParams()->getAs<bool>("isSea",false) || 
+			if ( pTileRB->getParams()->getAs<bool>("isSea",false) ||
 				 pTileRB->getParams()->getAs<bool>("isBridge",false) ) // Down Right
 			{
 				// nbSeeAround++;
@@ -259,7 +259,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 							{
 								return pMap->getTheme()->getTile("Beach_BR_L");
 							}
-							
+
 							return pMap->getTheme()->getTile("Beach_BR");
 						}
 						else
@@ -291,13 +291,13 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 							{
 								return pMap->getTheme()->getTile("Beach_BL_R");
 							}
-							
+
 							return pMap->getTheme()->getTile("Beach_BL");
 						}
 						else
 						{
 							return pMap->getTheme()->getTile("Coast_BL");
-						}					
+						}
 					}
 					else
 					{
@@ -323,7 +323,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 							{
 								return pMap->getTheme()->getTile("Beach_TR_L");
 							}
-							
+
 							return pMap->getTheme()->getTile("Beach_TR");
 						}
 						else
@@ -355,7 +355,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 							{
 								return pMap->getTheme()->getTile("Beach_TL_R");
 							}
-							
+
 							return pMap->getTheme()->getTile("Beach_TL");
 						}
 						else
@@ -371,7 +371,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 
 				break;
 
-			case 3: // Can be a T, or a corner 
+			case 3: // Can be a T, or a corner
 				if ( onLeft && onRight && onUp )
 				{
 					if ( nbSeeDiagonal >= 1 )
@@ -392,7 +392,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 								{
 									return pMap->getTheme()->getTile("Beach_B_R");
 								}
-								
+
 								return pMap->getTheme()->getTile("Beach_B");
 							}
 
@@ -411,7 +411,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 						{
 							return pMap->getTheme()->getTile("Coast_T_BR");
 						}
-						
+
 						if ( onUpRight )
 						{
 							return pMap->getTheme()->getTile("Coast_T_BL");
@@ -440,7 +440,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 								{
 									return pMap->getTheme()->getTile("Beach_T_R");
 								}
-								
+
 								return pMap->getTheme()->getTile("Beach_T");
 							}
 
@@ -456,11 +456,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 						{
 							return pMap->getTheme()->getTile("Coast_T_TR");
 						}
-						
+
 						if ( onDownRight )
 						{
 							return pMap->getTheme()->getTile("Coast_T_TL");
-						}	
+						}
 					}
 
 					return pMap->getTheme()->getTile("Coast_T_T");
@@ -486,7 +486,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 								{
 									return pMap->getTheme()->getTile("Beach_R_B");
 								}
-								
+
 								return pMap->getTheme()->getTile("Beach_R");
 							}
 
@@ -501,11 +501,11 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 						{
 							return pMap->getTheme()->getTile("Coast_T_RB");
 						}
-						
+
 						if ( onDownLeft )
 						{
 							return pMap->getTheme()->getTile("Coast_T_RT");
-						}	
+						}
 					}
 					return pMap->getTheme()->getTile("Coast_T_R");
 				}
@@ -530,7 +530,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 								{
 									return pMap->getTheme()->getTile("Beach_L_B");
 								}
-								
+
 								return pMap->getTheme()->getTile("Beach_L");
 							}
 
@@ -545,7 +545,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 						{
 							return pMap->getTheme()->getTile("Coast_T_LB");
 						}
-						
+
 						if ( onDownRight )
 						{
 							return pMap->getTheme()->getTile("Coast_T_LT");
@@ -554,7 +554,7 @@ const Tile* seaChecker(const Map* pMap, const UVec2& position, bool isBeach)
 					return pMap->getTheme()->getTile("Coast_T_L");
 				}
 				break;
-				
+
 
 			case 4:
 				switch(nbSeeDiagonal)
@@ -682,12 +682,12 @@ const Tile* bridgeChecker(const Map* pMap, const UVec2& position)
 			const Tile* pTileR = pMap->getTile(UVec2(position.x+1,position.y)); // Right
 			const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
 
-				if ( (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) || 
+				if ( (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) ||
 					 (pTileR && pTileR->getParams()->getAs<bool>("isBridge",false)) )
 				{
 					return pMap->getTheme()->getTile("Bridge_H");
 				}
-				else if ( (pTileB && pTileB->getParams()->getAs<bool>("isBridge",false)) || 
+				else if ( (pTileB && pTileB->getParams()->getAs<bool>("isBridge",false)) ||
 					      (pTileT && pTileT->getParams()->getAs<bool>("isBridge",false)) )
 				{
 					return pMap->getTheme()->getTile("Bridge_V");
@@ -727,16 +727,16 @@ const Tile* riverChecker(const Map* pMap, const UVec2& position)
 		const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
 		const Tile* pTileLB = pMap->getTile(UVec2(position.x-1,position.y+1)); // Bottom Left
 		const Tile* pTileRB = pMap->getTile(UVec2(position.x+1,position.y+1)); // Bottom Right
-			
-		if ( (pTileL && pTileL->getParams()->getAs<bool>("isRiver",false)) || 
+
+		if ( (pTileL && pTileL->getParams()->getAs<bool>("isRiver",false)) ||
 			 (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) )	// Left
 		{
 			nbRiverAround++;
 			isHorizontalRiver = true;
 			onLeft = true;
 		}
-		
-		if ( (pTileR && pTileR->getParams()->getAs<bool>("isRiver",false)) || 
+
+		if ( (pTileR && pTileR->getParams()->getAs<bool>("isRiver",false)) ||
 			 (pTileR && pTileR->getParams()->getAs<bool>("isBridge",false)) ) // Right
 		{
 			nbRiverAround++;
@@ -744,7 +744,7 @@ const Tile* riverChecker(const Map* pMap, const UVec2& position)
 			onRight = true;
 		}
 
-		if ( (pTileT && pTileT->getParams()->getAs<bool>("isRiver",false)) || 
+		if ( (pTileT && pTileT->getParams()->getAs<bool>("isRiver",false)) ||
 			 (pTileT && pTileT->getParams()->getAs<bool>("isBridge",false)) ) // Up
 		{
 			nbRiverAround++;
@@ -752,7 +752,7 @@ const Tile* riverChecker(const Map* pMap, const UVec2& position)
 			onUp = true;
 		}
 
-		if ( (pTileB && pTileB->getParams()->getAs<bool>("isRiver",false)) || 
+		if ( (pTileB && pTileB->getParams()->getAs<bool>("isRiver",false)) ||
 			 (pTileB && pTileB->getParams()->getAs<bool>("isBridge",false)) ) // Down
 		{
 			nbRiverAround++;
@@ -767,41 +767,41 @@ const Tile* riverChecker(const Map* pMap, const UVec2& position)
 				break;
 			case 1:
 				// Test for the river to see tiles
-				if ( onLeft && 
-					 pTileT && pTileT->getParams()->getAs<bool>("isSea",false) && 
-					 pTileB && pTileB->getParams()->getAs<bool>("isSea",false) && 
-					 pTileR && pTileR->getParams()->getAs<bool>("isSea",false) && 
-					 pTileRB && pTileRB->getParams()->getAs<bool>("isSea",false) && 
+				if ( onLeft &&
+					 pTileT && pTileT->getParams()->getAs<bool>("isSea",false) &&
+					 pTileB && pTileB->getParams()->getAs<bool>("isSea",false) &&
+					 pTileR && pTileR->getParams()->getAs<bool>("isSea",false) &&
+					 pTileRB && pTileRB->getParams()->getAs<bool>("isSea",false) &&
 					 pTileRT && pTileRT->getParams()->getAs<bool>("isSea",false) )
 				{
 					return pMap->getTheme()->getTile("River_See_L");
 				}
 
-				if ( onRight && 
-					pTileT && pTileT->getParams()->getAs<bool>("isSea",false) && 
+				if ( onRight &&
+					pTileT && pTileT->getParams()->getAs<bool>("isSea",false) &&
 					pTileB && pTileB->getParams()->getAs<bool>("isSea",false) &&
-					pTileL && pTileL->getParams()->getAs<bool>("isSea",false) && 
-					pTileLB && pTileLB->getParams()->getAs<bool>("isSea",false) && 
+					pTileL && pTileL->getParams()->getAs<bool>("isSea",false) &&
+					pTileLB && pTileLB->getParams()->getAs<bool>("isSea",false) &&
 					pTileLT && pTileLT->getParams()->getAs<bool>("isSea",false) )
 				{
 					return pMap->getTheme()->getTile("River_See_R");
 				}
 
-				if ( onDown && 
-					 pTileL && pTileL->getParams()->getAs<bool>("isSea",false) && 
-					 pTileR && pTileR->getParams()->getAs<bool>("isSea",false) && 
-					 pTileT && pTileT->getParams()->getAs<bool>("isSea",false) && 
-					 pTileRT && pTileRT->getParams()->getAs<bool>("isSea",false) && 
+				if ( onDown &&
+					 pTileL && pTileL->getParams()->getAs<bool>("isSea",false) &&
+					 pTileR && pTileR->getParams()->getAs<bool>("isSea",false) &&
+					 pTileT && pTileT->getParams()->getAs<bool>("isSea",false) &&
+					 pTileRT && pTileRT->getParams()->getAs<bool>("isSea",false) &&
 					 pTileLT && pTileLT->getParams()->getAs<bool>("isSea",false) )
 				{
 					return pMap->getTheme()->getTile("River_See_B");
 				}
 
-				if ( onUp && 
-					 pTileL && pTileL->getParams()->getAs<bool>("isSea",false) && 
-					 pTileR && pTileR->getParams()->getAs<bool>("isSea",false) && 
-					 pTileB && pTileB->getParams()->getAs<bool>("isSea",false) && 
-					 pTileRB && pTileRB->getParams()->getAs<bool>("isSea",false) && 
+				if ( onUp &&
+					 pTileL && pTileL->getParams()->getAs<bool>("isSea",false) &&
+					 pTileR && pTileR->getParams()->getAs<bool>("isSea",false) &&
+					 pTileB && pTileB->getParams()->getAs<bool>("isSea",false) &&
+					 pTileRB && pTileRB->getParams()->getAs<bool>("isSea",false) &&
 					 pTileLB && pTileLB->getParams()->getAs<bool>("isSea",false) )
 				{
 					return pMap->getTheme()->getTile("River_See_T");
@@ -897,11 +897,11 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 		const Tile* pTileT = pMap->getTile(UVec2(position.x,position.y-1)); // Top
 		const Tile* pTileR = pMap->getTile(UVec2(position.x+1,position.y)); // Right
 		const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
-		
+
 		if ( pTileL )
 		{
-			if ( pTileL->getParams()->getAs<bool>("isRoad",false) || 
-				 pTileL->getParams()->getAs<bool>("isBridge",false) || 
+			if ( pTileL->getParams()->getAs<bool>("isRoad",false) ||
+				 pTileL->getParams()->getAs<bool>("isBridge",false) ||
 				 pTileL->getParams()->getAs<bool>("isHQ",false) )	// Left
 			{
 				nbRoadAround++;
@@ -909,11 +909,11 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 				onLeft = true;
 			}
 		}
-		
+
 		if ( pTileR )
 		{
-			if ( pTileR->getParams()->getAs<bool>("isRoad",false) || 
-				 pTileR->getParams()->getAs<bool>("isBridge",false) || 
+			if ( pTileR->getParams()->getAs<bool>("isRoad",false) ||
+				 pTileR->getParams()->getAs<bool>("isBridge",false) ||
 				 pTileR->getParams()->getAs<bool>("isHQ",false) ) // Right
 			{
 				nbRoadAround++;
@@ -924,8 +924,8 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 
 		if ( pTileT )
 		{
-			if ( pTileT->getParams()->getAs<bool>("isRoad",false) || 
-				 pTileT->getParams()->getAs<bool>("isBridge",false) || 
+			if ( pTileT->getParams()->getAs<bool>("isRoad",false) ||
+				 pTileT->getParams()->getAs<bool>("isBridge",false) ||
 				 pTileT->getParams()->getAs<bool>("isHQ",false) ) // Up
 			{
 				nbRoadAround++;
@@ -936,8 +936,8 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 
 		if ( pTileB )
 		{
-			if ( pTileB->getParams()->getAs<bool>("isRoad",false) || 
-				 pTileB->getParams()->getAs<bool>("isBridge",false) || 
+			if ( pTileB->getParams()->getAs<bool>("isRoad",false) ||
+				 pTileB->getParams()->getAs<bool>("isBridge",false) ||
 				 pTileB->getParams()->getAs<bool>("isHQ",false) ) // Down
 			{
 				nbRoadAround++;
@@ -1023,7 +1023,7 @@ const Tile* roadChecker(const Map* pMap, const UVec2& position)
 	return NULL;
 }
 
-ClassicMapIntegrityChecker :: ClassicMapIntegrityChecker(const Map* pMap):MapIntegrityChecker(pMap) 
+ClassicMapIntegrityChecker :: ClassicMapIntegrityChecker(const Map* pMap):MapIntegrityChecker(pMap)
 {
 	coherencyCheckers["SeaChecker"] = &seaChecker;
 	coherencyCheckers["BeachChecker"] = &beachChecker;
@@ -1056,15 +1056,15 @@ bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* p
 		{
 			std::string internalTileName = pMap->getTile(position)->getInternalName();
 			if ( internalTileName == "Coast_B" ||
-				 internalTileName == "Coast_T" || 
-				 internalTileName == "Coast_R" || 
-				 internalTileName == "Coast_L" || 
-				 internalTileName == "Coast_ER" || 
-				 internalTileName == "Coast_EL" || 
-				 internalTileName == "Coast_EB" || 
-				 internalTileName == "Coast_ET" || 
-				 internalTileName == "Coast_BL" || 
-				 internalTileName == "Coast_BR" || 
+				 internalTileName == "Coast_T" ||
+				 internalTileName == "Coast_R" ||
+				 internalTileName == "Coast_L" ||
+				 internalTileName == "Coast_ER" ||
+				 internalTileName == "Coast_EL" ||
+				 internalTileName == "Coast_EB" ||
+				 internalTileName == "Coast_ET" ||
+				 internalTileName == "Coast_BL" ||
+				 internalTileName == "Coast_BR" ||
 				 internalTileName == "Coast_TR" ||
 				 internalTileName == "Coast_TL" )
 			{
@@ -1136,9 +1136,9 @@ bool ClassicMapIntegrityChecker :: testTile(const UVec2& position, const Tile* p
 				const Tile* pTileR = pMap->getTile(UVec2(position.x+1,position.y)); // Right
 				const Tile* pTileB = pMap->getTile(UVec2(position.x,position.y+1)); // Bottom
 
-				if ( (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) || 
-					 (pTileR && pTileR->getParams()->getAs<bool>("isBridge",false)) || 
-					 (pTileT && pTileT->getParams()->getAs<bool>("isBridge",false)) || 
+				if ( (pTileL && pTileL->getParams()->getAs<bool>("isBridge",false)) ||
+					 (pTileR && pTileR->getParams()->getAs<bool>("isBridge",false)) ||
+					 (pTileT && pTileT->getParams()->getAs<bool>("isBridge",false)) ||
 					 (pTileB && pTileB->getParams()->getAs<bool>("isBridge",false)) )
 				{
 					return true;

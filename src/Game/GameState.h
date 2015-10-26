@@ -3,8 +3,8 @@
 
 #ifndef DOXYGEN_IGNORE_TAG
 /**
-OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010-2011  Alexandre LAURENT
+OpenAWars is an open turn by turn strategic game similar to Advance Wars (c)
+Copyright (C) 2010-2015  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-website: http://code.google.com/p/openawars/
+website: https://github.com/LittleWhite-tb/OpenWars
 e-mail: lw.demoscene@gmail.com
 **/
 #endif
@@ -44,7 +44,7 @@ public:
 
 /*! \class GameState GameState.h "Game/GameState.h"
  *  \brief Game state
- *	The game is following various states as the game, menus, editor ... 
+ *	The game is following various states as the game, menus, editor ...
  *	This class is the base of all the states
  */
 
@@ -52,7 +52,7 @@ public:
  */
 
 /*! \fn virtual bool GameState::load(NE::NEngine* pNE)=0
- *	\brief load the state in memory	
+ *	\brief load the state in memory
  *	\param pNE a pointer to the NEngine
  *	\return true if all goes right
  */

@@ -1,7 +1,7 @@
 #ifndef DOXYGEN_IGNORE_TAG
 /**
-OpenAWars is an open turn by turn strategic game aiming to recreate the feeling of advance (famicon) wars (c)
-Copyright (C) 2010-2011  Alexandre LAURENT
+OpenAWars is an open turn by turn strategic game similar to Advance Wars (c)
+Copyright (C) 2010-2015  Alexandre LAURENT
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-website: http://code.google.com/p/openawars/
+website: https://github.com/LittleWhite-tb/OpenWars
 e-mail: lw.demoscene@gmail.com
 **/
 #endif
@@ -120,7 +120,7 @@ IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, N
 			pMap->setUnit(pCursor->getPosition(),unitInternalName,pGameInfo->getCurrentFaction());
 			pMap->getUnit(pCursor->getPosition())->state=US_DONE;
 		}
-		
+
         return IGS_Idle;
     }
 	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
