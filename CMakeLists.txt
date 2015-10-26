@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-include(ExternalProject)
-ExternalProject_Add(
-    NEngine_lib
-    GIT_REPOSITORY https://github.com/LittleWhite-tb/NEngine.git
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/
-    INSTALL_DIR ./
-)
+add_subdirectory("./deps/NEngine")
 
 project(OpenWars)
 
@@ -62,5 +56,6 @@ endif (LIBXML2_FOUND)
 
 include_directories(./src)
 include_directories(./include)
+include_directories(./deps/NEngine/include) # TODO : should not be done here ?
 
 target_link_libraries (OpenWars NEngine)
