@@ -51,7 +51,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 Map :: Map(const Theme* pTheme)
     :pTheme(pTheme),width(0),height(0)

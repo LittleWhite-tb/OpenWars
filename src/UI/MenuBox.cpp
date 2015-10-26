@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 MenuBox :: MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& windowSize)
     :pCursor(pTheme->getUIItem("cursor")->getSprite()),actualPosition(0)

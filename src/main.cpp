@@ -36,7 +36,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameOption.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 int main(int argc, char** argv)
 {

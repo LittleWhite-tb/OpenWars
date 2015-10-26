@@ -32,7 +32,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Camera.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 Cursor :: Cursor(const Map* const pMap, const UVec2& initialPosition/*=IVec2(0,0)*/)
 	:pMap(pMap),position(initialPosition)

@@ -34,7 +34,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "UI/UIItem.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 EditingCursor :: EditingCursor(const Map* const pMap, const UVec2& initialPosition)
 	:Cursor(pMap,initialPosition),isWrong(false)

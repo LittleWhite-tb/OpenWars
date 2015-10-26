@@ -31,7 +31,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Camera.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 MapMarker :: MapMarker(const Map* pMap, AnimatedSprite* pMarkerSprite)
 	:pMap(pMap),pMarkerSprite(pMarkerSprite)

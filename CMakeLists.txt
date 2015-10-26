@@ -22,6 +22,7 @@ file(
 	sources
 	src/*.cpp
 	src/*.hpp
+	src/*.h
 )
 
 # Executable
@@ -47,12 +48,18 @@ endif (SDLIMAGE_FOUND)
 
 
 #Checks for libxml2
-find_package (LibXml2)
-if (LIBXML2_FOUND)
-  include_directories(${LIBXML2_INCLUDE_DIR})
-  target_link_libraries (OpenWars ${LIBXML2_LIBRARIES})
-  # MESSAGE("  LIBXML2_INCLUDE_DIR='${LIBXML2_INCLUDE_DIR}'")
-endif (LIBXML2_FOUND)
+find_package (LibXml2 QUIET)
+if (NOT LIBXML2_FOUND)
+  message(STATUS "Manually set libxml2 configuration")
+  if (WIN32)
+	set(LIBXML2_INCLUDE_DIR "./include/libxml")
+	set(LIBXML2_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/lib/libxml2.lib")
+  else ()
+    message(FATAL_ERROR "libxml2 not found")
+  endif()
+endif()
+include_directories(${LIBXML2_INCLUDE_DIR})
+target_link_libraries (OpenWars ${LIBXML2_LIBRARIES})
 
 include_directories(./src)
 include_directories(./include)

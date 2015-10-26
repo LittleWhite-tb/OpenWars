@@ -40,7 +40,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Exceptions/FileNotFoundException.h"
 #include "Utils/LineParser.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 Theme :: ~Theme(void)
 {

@@ -42,7 +42,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "GameOption.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 GameEngine :: GameEngine(NE::NEngine* pNE, const GameOption* pGameOptions)
     :pNE(pNE),pGameOptions(pGameOptions),fpsNumber(0),fpsCounter(0),fpsLastUpdateTime(0),lastUpdateTime(0),bIsRunning(true)

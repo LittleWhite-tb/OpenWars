@@ -39,7 +39,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 class Theme;
 

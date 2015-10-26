@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/Types/Vec2.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 Camera :: Camera(void)
     :position(UVec2(0,0))

@@ -40,7 +40,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/InGameStates/AttackMapIGS.h"
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
-#include "globals.h"
+#include "ow_globals.h"
 
 Game :: Game()
 :pMap(NULL),pCamera(NULL),pCursor(NULL),gameInfo(GameInfo(2,10000)),igState(IGS_Idle)

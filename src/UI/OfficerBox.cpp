@@ -33,7 +33,7 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/GameInfo.h"
 #include "UI/UIItem.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 OfficerBox :: OfficerBox(const Theme* pTheme, const USize2& windowSize)
 	:pTheme(pTheme)

@@ -35,7 +35,7 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Types/Colour.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 bool MapDrawer :: drawTerrain(const NE::Renderer& r, const Map* pMap, const Camera& c, const unsigned int time)
 {

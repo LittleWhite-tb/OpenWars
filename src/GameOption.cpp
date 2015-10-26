@@ -29,7 +29,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/Types/Size2.h"
 
-#include "globals.h"
+#include "ow_globals.h"
 
 GameOption :: GameOption(int argc, char** argv)
     :winSize(480,320),needFullscreen(false),
