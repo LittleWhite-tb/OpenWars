@@ -50,10 +50,10 @@ endif (SDLIMAGE_FOUND)
 #Checks for libxml2
 find_package (LibXml2 QUIET)
 if (NOT LIBXML2_FOUND)
-  message(STATUS "Manually set libxml2 configuration")
   if (WIN32)
-	set(LIBXML2_INCLUDE_DIR "./include/libxml")
-	set(LIBXML2_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/lib/libxml2.lib")
+	message(STATUS "Manually set libxml2 configuration")
+	set(LIBXML2_INCLUDE_DIR "./deps/libxml2.bin/include/libxml")
+	set(LIBXML2_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/deps/libxml2.bin/lib/libxml2.lib")
   else ()
     message(FATAL_ERROR "libxml2 not found")
   endif()
@@ -63,6 +63,6 @@ target_link_libraries (OpenWars ${LIBXML2_LIBRARIES})
 
 include_directories(./src)
 include_directories(./include)
-include_directories(./deps/NEngine/include) # TODO : should not be done here ?
+include_directories(./deps/NEngine/include) # TODO : should it be done here ?
 
 target_link_libraries (OpenWars NEngine)
