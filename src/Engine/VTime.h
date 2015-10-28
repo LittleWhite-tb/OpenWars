@@ -42,7 +42,7 @@ private:
 
 	void update(void);
 
-	VTime& operator=(const VTime&) {}
+	void operator=(const VTime&) {}
 
 public:
 	VTime(NE::Time* const pNativeTime, const unsigned int nbFPS, const unsigned int updateNbFPS);

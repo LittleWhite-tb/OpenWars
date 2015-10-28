@@ -67,6 +67,8 @@ bool MenuIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 
 IGState MenuIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
+    (void)time;
+
     pUIMenu->update(direction);
     if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
     {

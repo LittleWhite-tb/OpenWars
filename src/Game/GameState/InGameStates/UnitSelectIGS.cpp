@@ -59,6 +59,8 @@ bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 
 IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
 {
+    (void)time;
+
 	pCursor->move(direction);
 
 	// Moving unit
