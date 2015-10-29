@@ -1,3 +1,6 @@
 [submodule "deps/NEngine"]
 	path = deps/NEngine
 	url = https://github.com/LittleWhite-tb/NEngine.git
+[submodule "deps/CEngine"]
+	path = deps/CEngine
+	url = https://github.com/LittleWhite-tb/CEngine.git
