@@ -27,9 +27,10 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "NEngine/InputManager.h"
 
+#include "CEngine/Font.h"
+#include "CEngine/AnimatedSprite.h"
+
 #include "Engine/Theme.h"
-#include "Engine/Font.h"
-#include "Engine/AnimatedSprite.h"
 
 #include "Game/GameState/GameObjects/UnitTemplateFactionList.h"
 

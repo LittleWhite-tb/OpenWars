@@ -25,15 +25,13 @@ e-mail: lw.demoscene@gmail.com
 **/
 #endif
 
-struct SDL_Surface;
-
 #include <string>
 
 #include "NEngine/Types/Vec2.h"
 
 namespace NE { class SpriteLoader; }
+namespace CE { class AnimatedSprite; }
 
-class AnimatedSprite;
 class Params;
 
 class Tile
@@ -45,7 +43,7 @@ private:
     unsigned int id;
     short int menuEntry;
 
-    AnimatedSprite* pSprite;
+    CE::AnimatedSprite* pSprite;
     UVec2 size;
 
     unsigned int defence;
@@ -72,7 +70,7 @@ public:
     const std::string& getName()const { return name; }
     unsigned int getID()const { return id; }
     short int getMenuEntry()const { return menuEntry; }
-    AnimatedSprite* getSprite()const { return pSprite; }
+    CE::AnimatedSprite* getSprite()const { return pSprite; }
     const UVec2& getSize()const { return size; }
     unsigned int getDefence()const { return defence; }
 

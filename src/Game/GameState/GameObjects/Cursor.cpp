@@ -27,7 +27,7 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/InputManager.h"
 
-#include "Engine/AnimatedSprite.h"
+#include "CEngine/AnimatedSprite.h"
 
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Camera.h"

@@ -35,23 +35,23 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Size2.h"
 
 namespace NE { class Renderer; }
+namespace CE { class AnimatedSprite; }
+namespace CE { class Font; }
 
 class Theme;
-class AnimatedSprite;
-class Font;
 class UnitTemplateFactionList;
 
 class ConstructBox
 {
 private:
 
-    AnimatedSprite* pBackgroundUI;                          /*!< sprite for the background */
-    AnimatedSprite* pCursor;                                /*!< sprite for the cursor */
-    AnimatedSprite* pUpArrow;                               /*!< sprite for the up arrow */
-    AnimatedSprite* pDownArrow;                             /*!< sprite for the down arrow */
+    CE::AnimatedSprite* pBackgroundUI;                          /*!< sprite for the background */
+    CE::AnimatedSprite* pCursor;                                /*!< sprite for the cursor */
+    CE::AnimatedSprite* pUpArrow;                               /*!< sprite for the up arrow */
+    CE::AnimatedSprite* pDownArrow;                             /*!< sprite for the down arrow */
 
-    Font* pFont;                                    /*!< Font used for the texts */
-    Font* pFontGrey;                                /*!< Font used for the texts when no enough money (in grey)*/
+    CE::Font* pFont;                                    /*!< Font used for the texts */
+    CE::Font* pFontGrey;                                /*!< Font used for the texts when no enough money (in grey)*/
 
     std::vector<const UnitTemplateFactionList*> unitsList;      /*!< list of units */
     unsigned int actualPosition;                    /*!< actual position of the cursor */

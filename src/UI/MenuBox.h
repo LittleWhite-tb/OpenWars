@@ -30,13 +30,14 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
-#include "Engine/AnimatedSprite.h"
+#include "CEngine/AnimatedSprite.h"
 
 #include "NEngine/Types/Vec2.h"
 
 namespace NE { class SpriteFactory; }
 namespace NE { class Renderer; }
-class Font;
+namespace CE { class Font; }
+
 class Theme;
 
 class MenuBox
@@ -45,18 +46,18 @@ class MenuBox
     {
         std::string actionName;     /*!< id of the entry */
         std::string displayName;    /*!< name to display */
-        AnimatedSprite* pASprite;   /*!< sprite to display */
+        CE::AnimatedSprite* pASprite;   /*!< sprite to display */
         bool enabled;               /*!< true if this entry is displayed */
 
-        MenuItem(const std::string& actionName, AnimatedSprite* const pASprite, const std::string& displayName)
+        MenuItem(const std::string& actionName, CE::AnimatedSprite* const pASprite, const std::string& displayName)
             :actionName(actionName),displayName(displayName),pASprite(pASprite),enabled(true) {}
     };
 
 private:
 
     NE::Sprite* pBackground;            /*!< background for the UI (generated on the fly by the constructor) */
-    AnimatedSprite* pCursor;            /*!< cursor */
-    Font* pFont;                        /*!< font for the texts */
+    CE::AnimatedSprite* pCursor;            /*!< cursor */
+    CE::Font* pFont;                        /*!< font for the texts */
 
     unsigned int windowXPosition;       /*!< Window width */
     unsigned int actualPosition;        /*!< actual position of the cursor */
@@ -69,7 +70,7 @@ private:
 public:
     MenuBox(NE::SpriteFactory* const pSF, const Theme* pTheme, const USize2& winSize);
 
-    void add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName);
+    void add(const std::string& actionName, CE::AnimatedSprite* const pSprite, const std::string& displayName);
 
     bool draw(const NE::Renderer& r, const UVec2& cursorPosition, const unsigned int time);
 

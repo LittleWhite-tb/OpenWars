@@ -30,8 +30,8 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Vec2.h"
 
 namespace NE { class Renderer; }
+namespace CE { class AnimatedSprite; }
 
-class AnimatedSprite;
 class Map;
 class Camera;
 class Unit;
@@ -42,7 +42,7 @@ protected:
 
     const Map* pMap;
 
-    AnimatedSprite* pMarkerSprite;
+    CE::AnimatedSprite* pMarkerSprite;
 
     std::vector<std::vector<int> > marks;
 
@@ -50,7 +50,7 @@ protected:
     void setMarksInRange(const UVec2& position, unsigned int minRange, unsigned int maxRange);
 
 public:
-    MapMarker(const Map* pMap, AnimatedSprite* pMarkerSprite);
+    MapMarker(const Map* pMap, CE::AnimatedSprite* pMarkerSprite);
     virtual ~MapMarker() {}
 
     virtual void clear();

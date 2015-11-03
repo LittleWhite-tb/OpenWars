@@ -34,8 +34,8 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Vec2.h"
 
 namespace NE { class Renderer; }
+namespace CE { class AnimatedSprite; }
 
-class AnimatedSprite;
 class Map;
 class Camera;
 
@@ -49,7 +49,7 @@ private:
     Cursor& operator= (const Cursor& c);
 
 protected:
-    AnimatedSprite* pCursorSprite;          /*!< Sprite for the cursor */
+    CE::AnimatedSprite* pCursorSprite;          /*!< Sprite for the cursor */
 
     UVec2 position;                         /*!< Position of the cursor */
 

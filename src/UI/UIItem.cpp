@@ -27,8 +27,10 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/SpriteLoader.h"
 #include "NEngine/Sprite.h"
+
+#include "CEngine/AnimatedSprite.h"
+
 #include "Engine/Params.h"
-#include "Engine/AnimatedSprite.h"
 
 const std::string UIItem::neededParameters[] = { "internalName", "filename" };
 
@@ -52,7 +54,7 @@ UIItem :: UIItem(Params* const pParams, NE::SpriteLoader* pSL, const std::string
         UVec2 spriteSize(pParams->getAs<unsigned int>("size_x",pSprite->getSize().width),
                          pParams->getAs<unsigned int>("size_y",pSprite->getSize().height));
 
-        this->pSprite = new AnimatedSprite(pSprite,spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        this->pSprite = new CE::AnimatedSprite(pSprite,spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
             NEError << "Fail to allocate memory for AnimatedSprite for UnitTemplate\n";

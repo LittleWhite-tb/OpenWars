@@ -32,10 +32,10 @@ e-mail: lw.demoscene@gmail.com
 
 namespace NE { class Sprite; }
 namespace NE { class Renderer; }
+namespace CE { class AnimatedSprite; }
+namespace CE { class Font; }
 
 class Theme;
-class AnimatedSprite;
-class Font;
 
 class Tile;
 class UnitTemplate;
@@ -44,9 +44,9 @@ class TileViewer
 {
 private:
 
-    Font* pFont;                /*!< the font to use */
-    AnimatedSprite* pBackground;        /*!< the sprite for the background */
-    AnimatedSprite* pTileSprite;    /*!< the tile to display in the UI */
+    CE::Font* pFont;                        /*!< the font to use */
+    CE::AnimatedSprite* pBackground;        /*!< the sprite for the background */
+    CE::AnimatedSprite* pTileSprite;        /*!< the tile to display in the UI */
 
     std::string title;              /*!< the title to display */
     std::string tileName;           /*!< the name for the tile to display */

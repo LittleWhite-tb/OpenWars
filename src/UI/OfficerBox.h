@@ -31,8 +31,6 @@ e-mail: lw.demoscene@gmail.com
 namespace NE { class Renderer; }
 
 class Theme;
-class AnimatedSprite;
-class Font;
 
 class GameInfo;
 

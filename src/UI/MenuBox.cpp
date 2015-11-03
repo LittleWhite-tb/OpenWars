@@ -30,8 +30,9 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "NEngine/InputManager.h"
 
-#include "Engine/AnimatedSprite.h"
-#include "Engine/Font.h"
+#include "CEngine/AnimatedSprite.h"
+#include "CEngine/Font.h"
+
 #include "Engine/Theme.h"
 
 #include "NEngine/Exceptions/ConstructionFailedException.h"
@@ -81,7 +82,7 @@ MenuBox::MenuItem* MenuBox :: getEntry(const std::string& entryActionName)
     return NULL;
 }
 
-void MenuBox :: add(const std::string& actionName, AnimatedSprite* const pSprite, const std::string& displayName)
+void MenuBox :: add(const std::string& actionName, CE::AnimatedSprite* const pSprite, const std::string& displayName)
 {
     entries.push_back(MenuBox::MenuItem(actionName, pSprite, displayName));
 }

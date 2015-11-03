@@ -28,8 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 namespace NE { class SpriteLoader; }
+namespace CE { class AnimatedSprite; }
 
-class AnimatedSprite;
 class Params;
 
 class UIItem
@@ -37,7 +37,7 @@ class UIItem
 private:
 
     std::string internalName;               /*!< Name to display */
-    AnimatedSprite* pSprite;                /*!< */
+    CE::AnimatedSprite* pSprite;                /*!< */
 
     Params* pParams;                /*!< Rest of the information for this unit */
 
@@ -51,7 +51,7 @@ public:
 
     const std::string& getInternalName()const { return internalName; }
 
-    AnimatedSprite* getSprite()const { return pSprite; }
+    CE::AnimatedSprite* getSprite()const { return pSprite; }
 
     const Params* getParams()const { return pParams; }
 };

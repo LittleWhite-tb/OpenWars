@@ -30,8 +30,8 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Types/Vec2.h"
 
 namespace NE { class SpriteLoader; }
+namespace CE { class AnimatedSprite; }
 
-class AnimatedSprite;
 class Params;
 
 class UnitTemplate
@@ -42,8 +42,8 @@ private:
     std::string name;               /*!< Name to display */
     unsigned int id;                /*!< */
 
-    AnimatedSprite* pSprite;        /*!< */
-    AnimatedSprite* pSpriteGreyed;        /*!< */
+    CE::AnimatedSprite* pSprite;        /*!< */
+    CE::AnimatedSprite* pSpriteGreyed;        /*!< */
     UVec2 size;
 
     unsigned short int faction;     /*!< */
@@ -70,8 +70,8 @@ public:
         const std::string& getInternalName()const { return internalName; }
     const std::string& getName()const { return name; }
 
-    AnimatedSprite* getSprite()const { return pSprite; }
-    AnimatedSprite* getSpriteGreyed()const { return pSpriteGreyed; }
+    CE::AnimatedSprite* getSprite()const { return pSprite; }
+    CE::AnimatedSprite* getSpriteGreyed()const { return pSpriteGreyed; }
 
     unsigned short int getFaction()const { return faction; }
 
@@ -113,7 +113,7 @@ public:
  *  \return
  */
 
-/*! \fn AnimatedSprite* UnitTemplate :: getSprite()const
+/*! \fn CE::AnimatedSprite* UnitTemplate :: getSprite()const
  *  \return
  */
 

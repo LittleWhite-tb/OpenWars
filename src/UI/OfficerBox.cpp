@@ -26,9 +26,10 @@ e-mail: lw.demoscene@gmail.com
 
 #include <sstream>
 
+#include "CEngine/AnimatedSprite.h"
+#include "CEngine/Font.h"
+
 #include "Engine/Theme.h"
-#include "Engine/AnimatedSprite.h"
-#include "Engine/Font.h"
 #include "Game/GameState/GameObjects/FontObject.h"
 #include "Game/GameState/GameObjects/GameInfo.h"
 #include "UI/UIItem.h"

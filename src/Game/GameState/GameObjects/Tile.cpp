@@ -29,9 +29,9 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/Exceptions/FileNotFoundException.h"
 
-#include "Engine/Params.h"
+#include "CEngine/AnimatedSprite.h"
 
-#include "Engine/AnimatedSprite.h"
+#include "Engine/Params.h"
 
 const std::string Tile::neededParameters[] = { "tile-id", "tile-menu", "internalName", "name", "filename", "size_x", "size_y", "defence" };
 
@@ -62,7 +62,7 @@ Tile :: Tile(Params* const pParams, NE::SpriteLoader* pSL, const std::string& fo
 
 		try
 		{
-			this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+			this->pSprite = new CE::AnimatedSprite(pSL, folderPath + pParams->get("filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
 		}
 		catch ( FileNotFoundException& fnfe) // Should be handle as smart ptr
 		{

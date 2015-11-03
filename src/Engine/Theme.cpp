@@ -32,7 +32,6 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Sprite.h"
 
 #include "Engine/Library.h"
-#include "AnimatedSprite.h"
 #include "Game/GameState/GameObjects/Tile.h"
 
 #include "XML/XMLObjectReader.h"

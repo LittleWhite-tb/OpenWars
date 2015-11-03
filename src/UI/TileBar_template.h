@@ -28,8 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include "TileBar.h"
 
 #include "NEngine/NEngine.h"
+#include "CEngine/AnimatedSprite.h"
 
-#include "Engine/AnimatedSprite.h"
 #include "Engine/Theme.h"
 
 #include "Game/GameState/GameObjects/Tile.h"
@@ -199,7 +199,7 @@ bool TileBar<T> :: draw(const NE::Renderer& r, const unsigned int time)
             int indexX = (currentX-nbShownAroundSelected + i);
             if ( indexX < 0 )
             {
-                indexX = viewList.size() - abs(indexX);
+                indexX = viewList.size() - std::abs(indexX);
             }
             indexX = indexX % viewList.size();
 
@@ -215,7 +215,7 @@ bool TileBar<T> :: draw(const NE::Renderer& r, const unsigned int time)
             int indexX = (currentX-nbShownAroundSelected - 1);
             if ( indexX < 0 )
             {
-                indexX = viewList.size() - abs(indexX);
+                indexX = viewList.size() - std::abs(indexX);
             }
             indexX = indexX % viewList.size();
             int yOffset = viewList[indexX][currentY%viewList[indexX].size()].item->getSprite()->getSize().height - TILE_DEFAULT_HEIGHT;
@@ -227,7 +227,7 @@ bool TileBar<T> :: draw(const NE::Renderer& r, const unsigned int time)
         int indexX = currentX-1;
         if ( indexX < 0 )
         {
-            indexX = viewList.size() - abs(indexX);
+            indexX = viewList.size() - std::abs(indexX);
         }
         indexX = indexX % viewList.size();
 
@@ -306,7 +306,7 @@ T TileBar<T> :: getSelected(void)const
     int indexX = currentX-1;
     if ( indexX < 0 )
     {
-        indexX = viewList.size() - abs(indexX);
+        indexX = viewList.size() - std::abs(indexX);
     }
     indexX = indexX % viewList.size();
 

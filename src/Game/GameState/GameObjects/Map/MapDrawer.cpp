@@ -26,7 +26,8 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/Renderer.h"
 
-#include "Engine/AnimatedSprite.h"
+#include "CEngine/AnimatedSprite.h"
+
 #include "Engine/Params.h"
 #include "Engine/Theme.h"
 

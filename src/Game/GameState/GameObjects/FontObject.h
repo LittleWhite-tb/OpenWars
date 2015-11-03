@@ -28,8 +28,8 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 namespace NE { class SpriteLoader; }
+namespace CE { class Font; }
 
-class Font;
 class Params;
 
 class FontObject
@@ -37,7 +37,7 @@ class FontObject
 private:
 
     std::string internalName;
-    Font* pFont;
+    CE::Font* pFont;
 
     Params* pParams;
 
@@ -49,7 +49,7 @@ public:
     ~FontObject();
 
     const std::string& getInternalName()const { return internalName; }
-    Font* getFont()const { return pFont; }
+    CE::Font* getFont()const { return pFont; }
 
     const Params* getParams()const { return pParams; }
 };
@@ -75,7 +75,7 @@ public:
  *  \return
  */
 
-/*! \fn Font* FontObject :: getFont()const
+/*! \fn CE::Font* FontObject :: getFont()const
  *  \return
  */
 

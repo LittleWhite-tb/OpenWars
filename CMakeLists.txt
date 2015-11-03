@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
-add_subdirectory("./deps/NEngine")
+#add_subdirectory("./deps/NEngine")
+add_subdirectory("./deps/CEngine")
 
 project(OpenWars)
 
@@ -64,5 +65,6 @@ target_link_libraries (OpenWars ${LIBXML2_LIBRARIES})
 include_directories(./src)
 include_directories(./include)
 include_directories(./deps/NEngine/include) # TODO : should it be done here ?
+include_directories(./deps/CEngine/include) # TODO : should it be done here ?
 
-target_link_libraries (OpenWars NEngine)
+target_link_libraries (OpenWars CEngine)

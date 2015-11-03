@@ -84,7 +84,7 @@ public:
 
 /*! \fn bool Game::loadMap(const Library<Theme>* const pThemes, const std::string& name)
  * \brief load a map in the game
- *	\param pThemes the library of themes available (one will be used by the Map)
+ * \param pThemes the library of themes available (one will be used by the Map)
  * \param name the name of the map to load
  * \return true if all goes right
  */

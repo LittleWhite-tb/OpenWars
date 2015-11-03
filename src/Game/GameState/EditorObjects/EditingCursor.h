@@ -30,7 +30,8 @@ e-mail: lw.demoscene@gmail.com
 #include <string>
 
 namespace NE { class Renderer; }
-class AnimatedSprite;
+namespace CE { class AnimatedSprite; }
+
 class Map;
 class Camera;
 
@@ -38,7 +39,7 @@ class EditingCursor : public Cursor
 {
 private:
 
-	AnimatedSprite* pWrongCursorSprite;			/*!< The sprites for the wrong state */
+	CE::AnimatedSprite* pWrongCursorSprite;			/*!< The sprites for the wrong state */
 
 	bool isWrong;								/*!< The state of the cursor */
 

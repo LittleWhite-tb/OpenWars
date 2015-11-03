@@ -26,9 +26,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/NEngine.h"
 #include "NEngine/SpriteLoader.h"
+#include "CEngine/Font.h"
 
 #include "Engine/Params.h"
-#include "Engine/Font.h"
 
 #include <cassert>
 
@@ -56,7 +56,7 @@ FontObject :: FontObject(Params* const pParams, NE::SpriteLoader* pSL, const std
         UVec2 letterSize(pParams->getAs<unsigned int>("charSize_x"),
                          pParams->getAs<unsigned int>("charSize_y"));
 
-        this->pFont = new Font(
+        this->pFont = new CE::Font(
                                 pSL->loadSpriteFromFile(folderPath + pParams->get("filename")),
                                 letterSize,
                                 pParams->getAs<char>("font-startingLetter"));

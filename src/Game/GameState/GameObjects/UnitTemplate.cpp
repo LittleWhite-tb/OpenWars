@@ -28,9 +28,9 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/NEngine.h"
 
-#include "Engine/Params.h"
+#include "CEngine/AnimatedSprite.h"
 
-#include "Engine/AnimatedSprite.h"
+#include "Engine/Params.h"
 
 const std::string UnitTemplate::neededParameters[] = { "unit-id", "unit-classId", "unit-faction",
                                                         "internalName", "name", "sprite_filename", "sprite_greyed", "size_x", "size_y",
@@ -62,14 +62,14 @@ UnitTemplate :: UnitTemplate(Params* const pParams, NE::SpriteLoader* pSL, const
         UVec2 spriteSize(pParams->getAs<unsigned int>("size_x"),
                          pParams->getAs<unsigned int>("size_y"));
 
-        this->pSprite = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        this->pSprite = new CE::AnimatedSprite(pSL, folderPath + pParams->get("sprite_filename"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSprite == NULL )
         {
             NEError << "Fail to allocate memory for AnimatedSprite for UnitTemplate\n";
             throw std::bad_alloc();
         }
 
-        this->pSpriteGreyed = new AnimatedSprite(pSL, folderPath + pParams->get("sprite_greyed"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
+        this->pSpriteGreyed = new CE::AnimatedSprite(pSL, folderPath + pParams->get("sprite_greyed"),spriteSize,pParams->getAs<unsigned int>("animationTime",200));
         if ( this->pSpriteGreyed == NULL )
         {
             NEError << "Fail to allocate memory for greyed AnimatedSprite for UnitTemplate\n";

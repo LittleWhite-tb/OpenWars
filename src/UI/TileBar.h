@@ -69,8 +69,8 @@ private:
     static const int totalTileShown = (nbShownAroundSelected * 2 + 1);
 
     NE::Sprite* pBarSprite;                     /*!< The surface for the bar */
-    AnimatedSprite* pBarCursor;                     /*!< The surface for the cursor */
-    AnimatedSprite* pBarArrows;             /*!< Up / Down arrows */
+    CE::AnimatedSprite* pBarCursor;                     /*!< The surface for the cursor */
+    CE::AnimatedSprite* pBarArrows;             /*!< Up / Down arrows */
 
     int movementOffsetX;                    /*!< movement animation offset on x axis */
     int borderSize;

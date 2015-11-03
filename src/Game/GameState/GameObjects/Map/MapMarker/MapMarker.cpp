@@ -27,13 +27,15 @@ e-mail: lw.demoscene@gmail.com
 #include <cassert>
 
 #include "NEngine/NEngine.h"
-#include "Engine/AnimatedSprite.h"
+
+#include "CEngine/AnimatedSprite.h"
+
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Camera.h"
 
 #include "ow_globals.h"
 
-MapMarker :: MapMarker(const Map* pMap, AnimatedSprite* pMarkerSprite)
+MapMarker :: MapMarker(const Map* pMap, CE::AnimatedSprite* pMarkerSprite)
 	:pMap(pMap),pMarkerSprite(pMarkerSprite)
 {
 	assert(pMap);
