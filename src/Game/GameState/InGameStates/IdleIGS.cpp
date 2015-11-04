@@ -57,13 +57,13 @@ bool IdleIGS::draw(NE::Renderer* pRenderer, unsigned int time)
     return bResult;
 }
 
-IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+IGState IdleIGS::update(NE::InputManager* pInputManager, unsigned int time)
 {
     (void) time;
 
-    pCursor->move(direction);
+    pCursor->move(pInputManager->getDirectionsPressed(0));
 
-    if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED )
     {
         // Get the information under the cursor
         const Tile* pTile = pMap->getTile(pCursor->getPosition());
@@ -94,7 +94,7 @@ IGState IdleIGS::update(NE::InputManager::ArrowsDirection direction, NE::InputMa
             return IGS_Menu;
         }
     }
-    if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_B) == NE::InputManager::BS_JUSTPRESSED )
     {
         if ( pMap->getUnit(pCursor->getPosition())->state != US_NO_UNIT )
         {

@@ -55,12 +55,11 @@ bool AttackMapIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 	return bResult;
 }
 
-IGState AttackMapIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+IGState AttackMapIGS :: update(NE::InputManager* pInputManager, unsigned int time)
 {
-	(void) direction;
 	(void) time;
 
-	if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+	if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_B) == NE::InputManager::BS_JUSTPRESSED )
 	{
 		return IGS_AttackMap;
 	}

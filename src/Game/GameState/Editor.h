@@ -67,7 +67,7 @@ public:
     bool loadMap(const Theme* const pTheme, const USize2& mapSize);
 
     bool draw(NE::Renderer* pRenderer, unsigned int time);
-    bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+    bool update(NE::InputManager* pInputManager, unsigned int time);
 
     void saveMap(const std::string& fileName)const;
 

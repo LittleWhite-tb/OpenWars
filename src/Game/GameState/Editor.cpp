@@ -176,11 +176,11 @@ bool Editor :: draw(NE::Renderer* pRenderer, unsigned int time)
     return bResult;
 }
 
-bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+bool Editor :: update(NE::InputManager* pInputManager, unsigned int time)
 {
     pCamera->update(*pEC,*pMap);
 
-    if ( (buttons & NE::InputManager::INPUT_A) == NE::InputManager::INPUT_A )
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_A) == NE::InputManager::BS_JUSTPRESSED)
     {
         pBuildingTB->open();
         if ( pUnitTB->isOpened() )
@@ -189,7 +189,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
         }
     }
 
-    if ( (buttons & NE::InputManager::INPUT_B) == NE::InputManager::INPUT_B )
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_B) == NE::InputManager::BS_JUSTPRESSED)
     {
         pUnitTB->open();
         if ( pBuildingTB->isOpened() )
@@ -198,20 +198,22 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
         }
     }
 
-    if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pBuildingTB->isOpened()  )
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED && pBuildingTB->isOpened()  )
     {
         pBuildingTB->close();
         isUnitSelected = false;
         pTileViewer->setTile(pBuildingTB->getSelected());
     }
 
-    if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X && pUnitTB->isOpened()  )
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED &&
+         pUnitTB->isOpened())
     {
         pUnitTB->close();
         isUnitSelected = true;
         pTileViewer->setTile(pUnitTB->getSelected());
     }
 
+    NE::InputManager::ArrowsDirection direction = pInputManager->getDirectionsPressed(0);
     if ( pBuildingTB->isOpened() )
     {
         pBuildingTB->move(direction);
@@ -226,7 +228,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
 
         if ( isUnitSelected )
         {
-            if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+            if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED )
             {
                 pMap->setUnit(pEC->getPosition(),pUnitTB->getSelected()->getInternalName(),0);
             }
@@ -235,7 +237,7 @@ bool Editor :: update(NE::InputManager::ArrowsDirection direction, NE::InputMana
         }
         else
         {
-            if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+            if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED )
             {
                 pMap->setTile(pEC->getPosition(),pBuildingTB->getSelected()->getInternalName());
             }

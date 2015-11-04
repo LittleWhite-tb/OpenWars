@@ -57,14 +57,14 @@ bool UnitSelectIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 	return bResult;
 }
 
-IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+IGState UnitSelectIGS :: update(NE::InputManager* pInputManager, unsigned int time)
 {
     (void)time;
 
-	pCursor->move(direction);
+	pCursor->move(pInputManager->getDirectionsPressed(0));
 
 	// Moving unit
-	if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X &&
+	if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED &&
 		 pMovementMarker->isMarked(pCursor->getPosition()) == true ) // We move only if we are going on a valid tile
 	{
 		if ( pMap->move(originalUnitPosition,pCursor->getPosition()) == false )
@@ -75,7 +75,7 @@ IGState UnitSelectIGS :: update(NE::InputManager::ArrowsDirection direction, NE:
 	}
 
 	// Cancelling
-	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
+	if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_Y) == NE::InputManager::BS_JUSTPRESSED )
 	{
 		pCursor->move(originalUnitPosition);
 		return IGS_Idle;

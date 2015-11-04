@@ -39,7 +39,7 @@ public:
 
 	virtual bool load(NE::NEngine* pNE)=0;
 	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
-	virtual bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+	virtual bool update(NE::InputManager* pInputManager, unsigned int time)=0;
 };
 
 /*! \class GameState GameState.h "Game/GameState.h"
@@ -64,10 +64,9 @@ public:
  *	\return true if all goes right
  */
 
-/*! \fn virtual bool GameState::update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0
+/*! \fn virtual bool GameState::update(const NE::InputManager* pInputManager, unsigned int time)=0
  *	\brief update the contents of the state
- *	\param direction the direction pressed
- *	\param buttons the buttons pressed
+ *	\param pInputManager Inputs from the player
  *	\param time the actual time of game
  *	\return true if all goes right
  */

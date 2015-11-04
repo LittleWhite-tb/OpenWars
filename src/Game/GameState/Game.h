@@ -65,7 +65,7 @@ public:
 	bool loadMap(const Library<Theme>* const pThemes, const std::string& name);
 
 	bool draw(NE::Renderer* pRenderer, unsigned int time);
-	bool update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+	bool update(NE::InputManager* pInputManager, unsigned int time);
 };
 
 /*! \class Game Game.h "Game/GameState/Game.h"

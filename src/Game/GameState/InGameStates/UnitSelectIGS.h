@@ -49,7 +49,7 @@ public:
 
     void init();
     bool draw(NE::Renderer* pRenderer, unsigned int time);
-    IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time);
+    IGState update(NE::InputManager* pInputManager, unsigned int time);
 
 };
 

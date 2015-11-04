@@ -59,7 +59,7 @@ public:
 
 	virtual void init() {};
 	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
-	virtual IGState update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)=0;
+	virtual IGState update(NE::InputManager* pInputManager, unsigned int time)=0;
 };
 
 #endif

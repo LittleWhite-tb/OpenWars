@@ -65,12 +65,12 @@ bool MenuIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
     return bResult;
 }
 
-IGState MenuIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+IGState MenuIGS :: update(NE::InputManager* pInputManager, unsigned int time)
 {
     (void)time;
 
-    pUIMenu->update(direction);
-    if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+    pUIMenu->update(pInputManager->getDirectionsPressed(0));
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED )
     {
         // Check what is in
         std::string menuSelection = pUIMenu->getSelectedActionName();
@@ -89,7 +89,7 @@ IGState MenuIGS :: update(NE::InputManager::ArrowsDirection direction, NE::Input
             NEWarning << "Not implemented action '" << menuSelection << "' in GS_MENU state\n";
         }
     }
-    else if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
+    else if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_Y) == NE::InputManager::BS_JUSTPRESSED )
     {
         return IGS_Idle;
     }

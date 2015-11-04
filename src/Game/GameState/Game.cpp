@@ -115,14 +115,14 @@ bool Game :: draw(NE::Renderer* pRenderer, unsigned int time)
 	return bResult;
 }
 
-bool Game :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+bool Game :: update(NE::InputManager* pInputManager, unsigned int time)
 {
 	(void) time;
 
     pCamera->update(*pCursor,*pMap);
 
 	IGState oldIGState = igState;
-	igState = states[igState]->update(direction,buttons,time);
+	igState = states[igState]->update(pInputManager,time);
 	if ( igState == IGS_Quit )
 	{
 		return false;

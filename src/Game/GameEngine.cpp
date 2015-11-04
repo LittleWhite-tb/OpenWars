@@ -130,11 +130,7 @@ bool GameEngine :: render()
 bool GameEngine :: update()
 {
     pNE->getInputManager()->update();
-
-    NE::InputManager::ArrowsDirection directions =pNE->getInputManager()->getDirectionsPressed();
-    NE::InputManager::Buttons buttons = pNE->getInputManager()->getButtonsPressed();
-
-    return pGame->update(directions,buttons,pNE->getTime()->getTime());
+    return pGame->update(pNE->getInputManager(),pNE->getTime()->getTime());
 }
 
 void GameEngine :: run(void)

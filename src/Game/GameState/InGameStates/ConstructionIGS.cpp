@@ -93,7 +93,7 @@ bool ConstructionIGS :: draw(NE::Renderer* pRenderer, unsigned int time)
 	return constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->draw(*pRenderer,pGameInfo->getCurrentFaction(),pGameInfo->getFactionMoney()->getMoney(),time);
 }
 
-IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, NE::InputManager::Buttons buttons, unsigned int time)
+IGState ConstructionIGS :: update(NE::InputManager* pInputManager, unsigned int time)
 {
 	(void) time;
 
@@ -111,8 +111,8 @@ IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, N
     }
 
     // We can update it
-    constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->update(direction);
-    if ( (buttons & NE::InputManager::INPUT_X) == NE::InputManager::INPUT_X )
+    constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->update(pInputManager->getDirectionsPressed(0));
+    if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_X) == NE::InputManager::BS_JUSTPRESSED )
     {
 		const std::string& unitInternalName = constructionBoxes[pCursor->getTileUnderCursor()->getParams()->get("producerName")]->getUnitSelected(pGameInfo->getCurrentFaction())->getInternalName();
 		if ( pGameInfo->getFactionMoney()->buy(pMap->getTheme()->getUnit(unitInternalName,pGameInfo->getCurrentFaction())))
@@ -123,7 +123,7 @@ IGState ConstructionIGS :: update(NE::InputManager::ArrowsDirection direction, N
 
         return IGS_Idle;
     }
-	if ( (buttons & NE::InputManager::INPUT_Y) == NE::InputManager::INPUT_Y )
+	if ( pInputManager->getButtonState(0,NE::InputManager::INPUT_Y) == NE::InputManager::BS_JUSTPRESSED )
 	{
 		return IGS_Idle;
 	}
