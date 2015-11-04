@@ -1085,7 +1085,7 @@
 			<x>32</x>
 			<y>32</y>
 		</size>
-		<!-- <animationTime>200</animationTime> -->
+		<animationTime>800</animationTime>
 		<defence>3</defence>
 		<isBuilding>1</isBuilding>
 		<producerName>Factory</producerName>

@@ -29,14 +29,10 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngineFactory.h"
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
-#include "NEngine/SoundEngine.h"
-#include "NEngine/Types/Vec2.h"
 
 #include "Game/GameEngine.h"
 
 #include "GameOption.h"
-
-#include "ow_globals.h"
 
 int main(int argc, char** argv)
 {
@@ -50,7 +46,7 @@ int main(int argc, char** argv)
     }
 
     {
-        if ( pNE->getWindow()->createWindow(gameOptions.winSize,32,gameOptions.needFullscreen,"OpenAWars") )
+        if ( pNE->getWindow()->createWindow(gameOptions.winSize,32,gameOptions.needFullscreen,"OpenWars") )
         {
             GameEngine* pGEngine = new GameEngine(pNE,&gameOptions);
             if ( pGEngine == NULL )
