@@ -82,6 +82,11 @@ bool Editor :: load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const
     assert(pGameOptions);
     this->pGameOptions = pGameOptions;
 
+    if (loadMap(pThemes->get(pGameOptions->themeName),pGameOptions->mapSize) == false )
+    {
+        return false;
+    }
+
     pCamera = new Camera();
     pEC = new EditingCursor(pMap,UVec2(5,5));
 
@@ -137,7 +142,7 @@ bool Editor :: load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const
 
     pTileViewer->setTile(pBuildingTB->getSelected());
 
-    return loadMap(pThemes->get(pGameOptions->themeName),pGameOptions->mapSize);
+    return true;
 }
 
 bool Editor :: loadMap(const Library<Theme>* const pThemes, const std::string& mapName)

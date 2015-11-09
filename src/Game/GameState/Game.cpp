@@ -71,6 +71,11 @@ bool Game :: load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const G
     assert(pThemes);
     assert(pGameOptions);
 
+    if (this->loadMap(pThemes,pGameOptions->loadMapName) == false )
+    {
+        return false;
+    }
+
 	pCamera = new Camera();
     pCursor = new Cursor(pMap,UVec2(5,5));
 
@@ -93,7 +98,7 @@ bool Game :: load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const G
         return false;
     }
 
-    return this->loadMap(pThemes,pGameOptions->loadMapName);
+    return true;
 }
 
 bool Game :: loadMap(const Library<Theme>* const pThemes,const std::string& name)
