@@ -29,6 +29,13 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/Renderer.h"
 #include "NEngine/InputManager.h"
 
+#include "NEngine/NEngine.h"
+#include "NEngine/Types/Colour.h"
+
+#include "NEngine/Exceptions/ConstructionFailedException.h"
+#include "NEngine/Exceptions/FileNotFoundException.h"
+
+#include "Game/GameState/GameObjects/Camera.h"
 #include "Game/GameState/GameObjects/Tile.h"
 #include "Game/GameState/GameObjects/UnitTemplate.h"
 #include "Game/GameState/GameObjects/Map/Map.h"
@@ -37,20 +44,16 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/GameObjects/Map/MapSaver.h"
 #include "Game/GameState/GameObjects/Map/MapDrawer.h"
 
+#include "Game/GameState/EditorObjects/EditingCursor.h"
+
 #include "Engine/Theme.h"
 #include "Engine/VTime.h"
 
 #include "UI/TileBar.h"
 #include "UI/TileViewer.h"
 
-#include "Game/GameState/EditorObjects/EditingCursor.h"
-#include "Game/GameState/GameObjects/Camera.h"
+#include "GameOption.h"
 
-#include "NEngine/NEngine.h"
-#include "NEngine/Types/Colour.h"
-
-#include "NEngine/Exceptions/ConstructionFailedException.h"
-#include "NEngine/Exceptions/FileNotFoundException.h"
 
 Editor :: Editor()
 :GameState(),pMap(NULL),pCamera(NULL),pEC(NULL),pBuildingTB(NULL),pUnitTB(NULL),pTileViewer(NULL),isUnitSelected(false)
@@ -60,6 +63,8 @@ Editor :: Editor()
 
 Editor :: ~Editor()
 {
+    this->saveMap(pGameOptions->saveMapName);
+
     delete pEC;
     delete pCamera;
     delete pMap;
@@ -71,8 +76,12 @@ Editor :: ~Editor()
     NEDebug << "EditorEngine destructed\n";
 }
 
-bool Editor :: load(NE::NEngine* pNE)
+bool Editor :: load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const GameOption* pGameOptions)
 {
+    assert(pThemes);
+    assert(pGameOptions);
+    this->pGameOptions = pGameOptions;
+
     pCamera = new Camera();
     pEC = new EditingCursor(pMap,UVec2(5,5));
 
@@ -128,7 +137,7 @@ bool Editor :: load(NE::NEngine* pNE)
 
     pTileViewer->setTile(pBuildingTB->getSelected());
 
-    return true;
+    return loadMap(pThemes->get(pGameOptions->themeName),pGameOptions->mapSize);
 }
 
 bool Editor :: loadMap(const Library<Theme>* const pThemes, const std::string& mapName)

@@ -49,6 +49,8 @@ class Editor : public GameState
 {
 private:
 
+    const GameOption* pGameOptions;
+
     Map* pMap;
     Camera* pCamera;
     EditingCursor* pEC;         /*!< The cursor */
@@ -58,13 +60,14 @@ private:
     TileViewer* pTileViewer;    /*!< The tile viewer */
     bool isUnitSelected;
 
+    bool loadMap(const Library<Theme>* const pThemes, const std::string& mapName);
+    bool loadMap(const Theme* const pTheme, const USize2& mapSize);
+
 public:
     Editor();
     ~Editor();
 
-    bool load(NE::NEngine* pNE);
-    bool loadMap(const Library<Theme>* const pThemes, const std::string& mapName);
-    bool loadMap(const Theme* const pTheme, const USize2& mapSize);
+    bool load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const GameOption* pGameOptions);
 
     bool draw(NE::Renderer* pRenderer, unsigned int time);
     bool update(NE::InputManager* pInputManager, unsigned int time);

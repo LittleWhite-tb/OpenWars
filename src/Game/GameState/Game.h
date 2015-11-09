@@ -57,12 +57,13 @@ private:
 	IGState igState;
 	std::map<IGState, InGameState*> states;
 
+	bool loadMap(const Library<Theme>* const pThemes, const std::string& name);
+
 public:
 	Game();
 	~Game();
 
-	bool load(NE::NEngine* pNE);
-	bool loadMap(const Library<Theme>* const pThemes, const std::string& name);
+	bool load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const GameOption* pGameOptions);
 
 	bool draw(NE::Renderer* pRenderer, unsigned int time);
 	bool update(NE::InputManager* pInputManager, unsigned int time);

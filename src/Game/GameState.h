@@ -27,8 +27,13 @@ e-mail: lw.demoscene@gmail.com
 
 #include "NEngine/InputManager.h"
 
+#include "Engine/Library.h"
+
 namespace NE { class NEngine; }
 namespace NE { class Renderer; }
+
+class Theme;
+class GameOption;
 
 class GameState
 {
@@ -37,7 +42,7 @@ private:
 public:
 	virtual ~GameState() {};
 
-	virtual bool load(NE::NEngine* pNE)=0;
+	virtual bool load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const GameOption* pGameOptions)=0;
 	virtual bool draw(NE::Renderer* pRenderer, unsigned int time)=0;
 	virtual bool update(NE::InputManager* pInputManager, unsigned int time)=0;
 };

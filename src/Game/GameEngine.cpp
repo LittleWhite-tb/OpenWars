@@ -90,16 +90,7 @@ bool GameEngine :: load(void)
     {
         ThemeLoader::loadThemeList(pNE->getSpriteLoader(),THEME_PATH + "themeList.xml",&themeLibrary);
 
-        if ( pGameOptions->editorMode )
-        {
-            bResult &= dynamic_cast<Editor*>(pGame)->loadMap(themeLibrary.get(pGameOptions->themeName),pGameOptions->mapSize);
-        }
-        else
-        {
-            bResult &= dynamic_cast<Game*>(pGame)->loadMap(&themeLibrary,pGameOptions->loadMapName);
-        }
-
-        bResult &= pGame->load(pNE);
+        bResult &= pGame->load(pNE,&themeLibrary,pGameOptions);
     }
     catch (LibraryException& le)
     {
@@ -158,11 +149,5 @@ void GameEngine :: run(void)
 
             NELog(0) << "FPS: " << fpsNumber << "\n";
         }
-    }
-
-    // If we are in editor, we save the map
-    if ( pGameOptions->editorMode )
-    {
-        dynamic_cast<Editor*>(pGame)->saveMap(pGameOptions->saveMapName);
     }
 }

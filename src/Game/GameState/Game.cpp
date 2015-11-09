@@ -27,6 +27,8 @@ e-mail: lw.demoscene@gmail.com
 #include "NEngine/NEngine.h"
 #include "NEngine/Window.h"
 
+#include "NEngine/Exceptions/ConstructionFailedException.h"
+
 #include "Game/GameState/GameObjects/Map/Map.h"
 #include "Game/GameState/GameObjects/Map/MapLoader.h"
 #include "Game/GameState/GameObjects/Map/MapDrawer.h"
@@ -39,7 +41,8 @@ e-mail: lw.demoscene@gmail.com
 #include "Game/GameState/InGameStates/UnitSelectIGS.h"
 #include "Game/GameState/InGameStates/AttackMapIGS.h"
 
-#include "NEngine/Exceptions/ConstructionFailedException.h"
+#include "GameOption.h"
+
 #include "ow_globals.h"
 
 Game :: Game()
@@ -63,8 +66,11 @@ Game :: ~Game(void)
     NEDebug << "GameEngine deleted\n";
 }
 
-bool Game :: load(NE::NEngine* pNE)
+bool Game :: load(NE::NEngine* pNE, const Library<Theme>* const pThemes, const GameOption* pGameOptions)
 {
+    assert(pThemes);
+    assert(pGameOptions);
+
 	pCamera = new Camera();
     pCursor = new Cursor(pMap,UVec2(5,5));
 
@@ -87,7 +93,7 @@ bool Game :: load(NE::NEngine* pNE)
         return false;
     }
 
-    return true;
+    return this->loadMap(pThemes,pGameOptions->loadMapName);
 }
 
 bool Game :: loadMap(const Library<Theme>* const pThemes,const std::string& name)
