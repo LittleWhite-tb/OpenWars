@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
-#add_subdirectory("./deps/NEngine")
+if (NOT EXISTS "./deps/CEngine/CMakeLists.txt")
+    message(FATAL_ERROR "CEngine CMakeLists.txt is missing !\n"
+                        "Did you run 'git submodule update --init --recursive' ?")
+endif()
 add_subdirectory("./deps/CEngine")
 
 project(OpenWars)
