@@ -1,14 +1,6 @@
-cmake_minimum_required(VERSION 2.8)
-
-if (NOT EXISTS "./deps/CEngine/CMakeLists.txt")
-    message(FATAL_ERROR "CEngine CMakeLists.txt is missing !\n"
-                        "Did you run 'git submodule update --init --recursive' ?")
-endif()
-add_subdirectory("./deps/CEngine")
+cmake_minimum_required(VERSION 3.12)
 
 project(OpenWars)
-
-cmake_policy(SET CMP0015 NEW)
 
 SET(CMAKE_CXX_WARNING_LEVEL 4)
 if (DEFINED MSYS)
@@ -65,9 +57,7 @@ endif()
 include_directories(${LIBXML2_INCLUDE_DIR})
 target_link_libraries (OpenWars ${LIBXML2_LIBRARIES})
 
+include_directories(./deps/pugixml-1.7/include)
+
 include_directories(./src)
 include_directories(./include)
-include_directories(./deps/NEngine/include) # TODO : should it be done here ?
-include_directories(./deps/CEngine/include) # TODO : should it be done here ?
-
-target_link_libraries (OpenWars CEngine)
